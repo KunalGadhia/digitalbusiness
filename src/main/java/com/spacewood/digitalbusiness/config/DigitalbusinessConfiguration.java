@@ -5,13 +5,8 @@
  */
 package com.spacewood.digitalbusiness.config;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.spacewood.digitalbusiness.user.Role;
-import java.beans.PropertyVetoException;
 import java.io.IOException;
-import java.util.Properties;
-import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,25 +23,6 @@ import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 @Configuration
 @ComponentScan(basePackages = "com.spacewood.digitalbusiness")
 public class DigitalbusinessConfiguration {
-    @Value("${digitalbusiness.db.driver_class}")
-    private String driverClassname;
-
-    @Value("${digitalbusiness.db.connection_string}")
-    private String connectionString;
-
-    @Bean
-    public DataSource dataSource() throws PropertyVetoException {
-        Properties mysqlProperties = new Properties();
-        mysqlProperties.setProperty("characterEncoding", "UTF-8");
-        mysqlProperties.setProperty("useUnicode", "true");
-
-        ComboPooledDataSource cpds = new ComboPooledDataSource();
-        cpds.setProperties(mysqlProperties);
-        cpds.setDriverClass(driverClassname);
-        cpds.setJdbcUrl(connectionString);
-        cpds.setAcquireIncrement(2);
-        return cpds;
-    }
 
     @Bean
     public static PropertyPlaceholderConfigurer getPropertyPlaceholderConfigurer() throws IOException {
@@ -68,4 +44,5 @@ public class DigitalbusinessConfiguration {
         roleHierarchy.setHierarchy(roleHierarchyStringRepresentation);
         return roleHierarchy;
     }
+
 }

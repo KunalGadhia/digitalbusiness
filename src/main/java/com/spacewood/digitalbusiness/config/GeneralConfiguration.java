@@ -21,4 +21,5 @@ public class GeneralConfiguration {
     public DateFormat ProjectDetailDateFormat() {
         return new SimpleDateFormat("dd-MM-yyyy");
     }
+
 }

@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-public class TransactionConfiguration {
+public class SchedulerConfig {
 
     @Autowired
     private DataSource dataSource;
@@ -28,5 +28,4 @@ public class TransactionConfiguration {
     public PlatformTransactionManager txManager() {
         return new DataSourceTransactionManager(dataSource);
     }
-
 }

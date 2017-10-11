@@ -41,8 +41,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
+private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -69,7 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationSuccess(
                             HttpServletRequest request,
                             HttpServletResponse response,
-                            Authentication a) throws IOException, ServletException {
+                            Authentication a) throws IOException, ServletException {                                
                                 //To change body of generated methods,
                                 response.setStatus(HttpServletResponse.SC_OK);
                             }
@@ -110,4 +109,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public RoleVoter roleVoter() {
         return new RoleHierarchyVoter(roleHierarchy);
     }
+    
 }

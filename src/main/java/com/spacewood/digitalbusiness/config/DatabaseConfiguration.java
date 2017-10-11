@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @Profile("container")
 public class DatabaseConfiguration {
+
     @Value("${digitalbusiness.db.driver_class}")
     private String driverClassname;
 
