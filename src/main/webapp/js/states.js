@@ -35,16 +35,16 @@ angular.module("digitalbusiness.states", ['ngAnimate', 'ui.bootstrap'])
         })
         .controller('MainController', function ($scope, $state, $window, $location, $anchorScroll) {
 //            $scope.introVideo = VideoService.findIntroVideo();
-            var parrentDiv = $('#parrentDiv');
-            parrentDiv.removeClass();
-            parrentDiv.addClass('bg-city-spcl');
+//            var parrentDiv = $('#parrentDiv');
+//            parrentDiv.removeClass();
+//            parrentDiv.addClass('bg-city-spcl');
 
             $scope.gotoTop = function () {
                 $location.hash('top');
                 $anchorScroll();
             };
         })
-        .controller('LoginController', function ($scope, $state, $stateParams, $timeout, UserService, AuthFactory, CityService) {
+        .controller('LoginController', function ($scope, $state, $stateParams, $timeout, UserService, AuthFactory) {
             console.log("Inside Login COntroller");
             $scope.username = $stateParams.username;
             $scope.message = $stateParams.message;

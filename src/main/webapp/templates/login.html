@@ -1,181 +1,217 @@
-<script>
-    $(function () {
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!--<head>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+     Internal CSS 
+    <style type="text/css">
+        img.wp-smiley,
+        img.emoji {
+            display: inline !important;
+            border: none !important;
+            box-shadow: none !important;
+            height: 1em !important;
+            width: 1em !important;
+            margin: 0 .07em !important;
+            vertical-align: -0.1em !important;
+            background: none !important;
+            padding: 0 !important;
+        }
+    </style>
 
-        $('#login-form-link').click(function (e) {
-            $("#login-form").delay(100).fadeIn(100);
-            $("#register-form").fadeOut(100);
-            $('#register-form-link').removeClass('active');
-            $(this).addClass('active');
-            e.preventDefault();
-        });
-        $('#register-form-link').click(function (e) {
-            $("#register-form").delay(100).fadeIn(100);
-            $("#login-form").fadeOut(100);
-            $('#login-form-link').removeClass('active');
-            $(this).addClass('active');
-            e.preventDefault();
-        });
+    <style type="text/css">
+        .apply { color: black !important;
+        }
 
-    });
-</script>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        footer a {
+            text-decoration: none;
+            color: #fff;
+        }
+        .screen-reader-response
+        {
+            display:none;
+        }
+        a:hover {
+            text-decoration: none;
+            color: #FBBB00;
+        }
+        img {
+            border: none;
+        }
+        h2 {
+            font: bold 14px/110% Arial, Helvetica, sans-serif;
+            margin: 0 0 30px;
+            padding: 0 0 20px;
+            color: #999;
+            border-bottom: solid 1px #ccc;
+            clear: both;
+        }
+        h3 {
+            font: bold 16px/120% Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+        #pagewrap {
+            width: 948px;
+            margin: 0 auto;
+        }
+        .middle>.item {
+            width: 100%;
+            margin: 0 0 0px 0px;
+            float: left;
+        }
+        .middle>.item.first {
+            clear: left;
+            margin-left: 0;
+        }
+        .middle>.item img {
+            opacity:0;
+        }
+        .middle>.item img {
+            filter: gray;
+            /* IE6-9 */
+            filter: grayscale(100%);
+            /* Microsoft Edge and Firefox 35+ */
+            -webkit-filter: grayscale(1);
+        }
+        .middle>.carousel-control.left {
+            left: 0px;
+            background-image: url(../images/left-arrow.png);
+            background-repeat: no-repeat;
+            top: 50%;
+        }
+        .middle>.carousel-control.right {
+            right: 0px;
+            background-image: url(../images/right-arrow.png);
+            background-repeat: no-repeat;
+            top: 50%;
+        }
+        .middle>.item img:hover {
+            filter:0;
+            /* IE6-9 */
+            filter: grayscale(0%);
+            /* Microsoft Edge and Firefox 35+ */
+            -webkit-filter: grayscale(0);
+        }
+    </style>
+</head>-->
 
-<div class="loginpage ">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-5 col-md-offset-7">
-                <!--                <div class="alert alert-info" style="border-color: #64A0BE;" ng-if="message">
-                                    {{ message}}
-                                </div>
-                                <div class="alert alert-danger" ng-if="error">
-                                    {{ error}}
-                                </div>-->
-                <div class="signup">
-                    <div class="panel panel-login">
-                        <div class="heading">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <a href="#" class="active" id="login-form-link">Login</a>
-                                </div>
-                                <div class="col-xs-6">
-                                    <a href="#" id="register-form-link">Register</a>
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
-                        <div class="panel-body signup_panel">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div id="google_translate_element"></div>
-                                    <div class="alert alert-info" ng-if="message">
-                                        {{ message}}
-                                    </div>
-                                    <div class="alert alert-danger" ng-if="error">
-                                        {{ error}}
-                                    </div>
-
-                                    <!-- sign in -->
-                                    <form id="login-form" method="post" role="form" style="display: block;" ng-submit="login(username, password)">
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="" required="" ng-model="username">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required="" ng-model="password">
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-sm-offset-3">
-                                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-success" value="Sign In">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--                                        <div class="form-group text-center">
-                                                                                    <div class="col-md-6 forgot-pass-content">
-                                                                                        <button type="button" class="forgot-pass btn btn-link btn-sm">Forgot Password?</button>
-                                                                                    </div>
-                                                                                    <div class="col-md-6 forgot-pass-content">
-                                                                                        <button type="button" class="btn btn-link btn-sm" ng-click="guestLogin()">Sign in as a guest!!</button>
-                                                                                    </div>
-                                                                                </div>-->
-                                    </form>
-
-                                    <!-- sign up -->
-                                    <form id="register-form" method="post" role="form" style="display: none;" ng-submit="saveNewUser(newUser)">
-                                        <div class="row">
-                                            <div class="col-md-8 col-xs-8 form-group">
-                                                <label class="radio-inline">
-                                                    <input ng-model="newUser.userType" value="UT_BUILDER" type="radio" name="radio">
-                                                    As Builder And Developers
-                                                </label>
-                                            </div>
-                                            <div class="col-md-4 col-xs-4 form-group padding">
-                                                <label class="radio-inline">
-                                                    <input ng-model="newUser.userType" value="UT_BANK" type="radio" name="radio">
-                                                    As Bank
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8 col-xs-8 form-group">
-                                                <label class="radio-inline">
-                                                    <input ng-model="newUser.userType" value="UT_BUSINESS_ASSOCIATE" type="radio" name="radio">
-                                                    As Business Associate
-                                                </label>
-                                            </div>
-                                            <div class="col-md-4 col-xs-4 form-group padding">
-                                                <label class="radio-inline">
-                                                    <input ng-model="newUser.userType" value="UT_FRANCHISE" type="radio" name="radio">
-                                                    As Franchise
-                                                </label>
-                                            </div>                                            
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">Full Name</label>
-                                            <input ng-model="newUser.name" type="text" name="Name" id="name" class="form-control" placeholder="Full Name" value="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="company">Name of Company</label>
-                                            <input ng-model="newUser.nameOfCompany" type="text" name="company" id="company" class="form-control" placeholder="Name Of Company" value="">
-                                        </div>
-                                        <div class="">
-                                            <div class="col-md-6 form-group padding">
-                                                <label for="address">Address</label>
-                                                <input ng-model="newUser.address" type="text" name="address" id="address" class="form-control" placeholder="Address">
-                                            </div>
-                                            <div class="col-md-6 form-group padding">
-                                                <label for="city">City</label>
-                                                <!--<input type="text" name="city" id="city" class="form-control" placeholder="City">-->
-                                                <input class="form-control"
-                                                       placeholder="Select City"
-                                                       uib-typeahead="city.id as city.name for city in searchCities($viewValue)"
-                                                       typeahead-on-select="setCity($item)"
-                                                       typeahead-editable="false"
-                                                       typeahead-loading="loadingCities" 
-                                                       typeahead-no-results="noCitiesFound"                                       
-                                                       ng-model="newUser.city.name" required />
-                                                <p ng-show="noCitiesFound" class="help-block text-muted">No Cities found</p>
-                                                <p ng-show="loadingCities" class="help-block text-muted">loading...</p>
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="form-group">
-                                                <label for="mobile">Mobile No.</label>
-                                                <input type="number" ng-model="newUser.mobileNo" name="mobile" id="mobile" class="form-control" placeholder="Mobile No.">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" ng-model="newUser.username" name="email" id="email" class="form-control" placeholder="Email">
-                                            </div>
-                                            <div ng-show="repeatEmail">
-                                                <span>
-                                                    This Email Id Already exist!
+    <div class="container-fluid top">
+        <div class="container no-padding">
+            <div class="col-lg-12 col-md-12 no-padding">
+                <div class="col-md-4 email">
+                    <img src="./images/mail.jpg" alt="Mail" title="Mail">
+                    <a href="mailto:marketing@spacewood.in">marketing@spacewood.in</a>
+                </div>
+                <div class="col-md-8 top-link no-padding">
+                    <a target="_blank" href="https://spacewood.in/about-us/" title="ABOUT US">ABOUT US</a>
+                    | 
+                    <a target="_blank" href="https://spacewood.in/news-and-events/" title="NEWS AND EVENTS">NEWS AND EVENTS</a>
+                    | 
+                    <a target="_blank" href="https://spacewood.in/store-locator/" title="STORE LOCATOR">STORE LOCATOR</a>
+                    | 
+                    <a target="_blank" href="https://spacewood.in/dealer-enquiry/" title="DEALER ENQUIRY">DEALER ENQUIRY</a>
+                    | 
+                    <a target="_blank" href="https://spacewood.in/careers/" title="CAREERS">CAREERS</a>
+                    | 
+                    <a target="_blank" href="https://spacewood.in/contact-us/" title="CONTACT US">CONTACT US</a>
+                </div>
+            </div>		
+        </div>	
+        <hr>
+    </div>
+    <div class="container-fluid top">
+        <div class="container no-padding">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 no-padding">
+                    <a class="navbar-brand" href="https://spacewood.in">
+                        <img src="./images/logo.png" alt="Spacewood" title="Spacewood">
+                    </a>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12 no-padding cust-nav">
+                    <a target="_blank" href="https://spacewood.in/kitchen/" title="KITCHENS">KITCHENS</a>
+                    |
+                    <a target="_blank" href="https://spacewood.in/wadrobes/" title="WARDROBES">WARDROBES</a>
+                    |
+                    <a target="_blank" href="https://spacewood.in/home-furniture/" title="HOME FURNITURE">HOME FURNITURE</a>
+                    |
+                    <a target="_blank" href="https://spacewood.in/office-solution/" title="OFFICE SOLUTIONS">OFFICE SOLUTIONS</a>
+                    |
+                    <a target="_blank" href="https://spacewood.in/doors/" title="DOORS">DOORS</a>
+                    |
+                    <a target="_blank" class="border-right" href="https://spacewood.in/customize-full-home/" title="CUSTOMISE FULL HOME">CUSTOMISE FULL HOME</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid no-padding">
+        <div class="col-md-12 no-padding">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="4" class=""></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="5" class=""></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="6" class=""></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="7" class=""></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active"> 
+                        <img src="./images/KITCHEN-Banner-1.jpg" class="img-responsive" alt="breathing kitchen" style="opacity: 1;">
+                    </div>
+                    <div class="item"> 
+                        <img src="./images/OFFICE-SOLUTION-1.jpg" class="img-responsive" alt="Spacewood Office Furniture" style="opacity: 1;">
+                    </div>
+                    <div class="item"> 
+                        <img src="./images/Wardrobes-2.jpg" class="img-responsive" alt="smart wardrobe solutions" style="opacity: 1;">
+                    </div>
+                    <div class="item"> 
+                        <img src="./images/CUSTOMISED-FULL-HOUSE-1.jpg" class="img-responsive" alt="full home solutions" style="opacity: 1;">
+                    </div>
+                    <div class="item"> 
+                        <img src="./images/DOOR-2.jpg" class="img-responsive" alt="complete door solutions" style="opacity: 1;">
+                    </div>
+                    <div class="item"> 
+                        <img src="./images/Home-Furniture-2.jpg" class="img-responsive" alt="bedroom style solutions" style="opacity: 1;">
+                    </div>
+                    <div class="item"> 
+                        <img src="./images/INDUSTRAY.jpg" class="img-responsive" alt="manufacturing facility" style="opacity: 1;">
+                    </div>
+                </div>
+                <div class="main-text">
+                    <div class="col-md-12 text-center">
+                        <div class="col-md-3 col-sm-4 col-xs-12 no-padding float-right">
+                            <div class="white-bg col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <p class="form-heading">Welcome to Dealer's Portal</p>
+                                <p class="form-text">Login Page</p>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-padding">
+                                    <div role="form" class="wpcf7" id="wpcf7-f4-o1" lang="en-US" dir="ltr">
+                                        <div class="screen-reader-response"></div>
+                                        <form class="wpcf7-form">
+                                            <p>
+                                                <span class="wpcf7-form-control-wrap">
+                                                    <input type="text" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required form-control-top" placeholder="Username">
                                                 </span>
-                                            </div>
-                                            <div class="">
-                                                <div class="col-md-6 form-group padding">
-                                                    <label for="password">Password</label>
-                                                    <input type="password" ng-model="newUser.password" name="password" id="password1" class="form-control" placeholder="Password" value="">
-                                                </div>
-                                                <div class="col-md-6 form-group padding">
-                                                    <label for="confirm-password">Confirm password</label>
-                                                    <input type="password" ng-model="confirmPassword" name="confirm-password" id="confirm-password" class="form-control" placeholder="Confirm Password" required/>
-                                                </div>
-                                            </div>
-                                            <div ng-show="errorMsg">
-                                                <span>
-                                                    Entered password does not match, kindly re-enter.
+                                                <br>
+                                                <span class="wpcf7-form-control-wrap">
+                                                    <input type="password" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required form-control-top" placeholder="Password">
                                                 </span>
+                                            </p>
+                                            <div class="col-md-12 col-sm-12 col-xs12 text-center">
+                                                <button type="submit" class="next btn-next">
+                                                    LOGIN
+                                                </button>
                                             </div>
-
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-sm-6 col-sm-offset-3">
-                                                        <input type="submit" name="register-submit" ng-disabled="errorMsg" id="register-submit" class="form-control btn btn-success" value="Register">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    </form>
+                                            <div class="wpcf7-response-output wpcf7-display-none"></div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -184,40 +220,198 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="container-fluid no-padding">
+        <div class="container no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 pt80 no-padding">
+                <h3 class="one">
+                    <span>
+                        <b class="font20">What Our Customers Speak</b>
+                    </span>
+                </h3>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 pt80">
+                <div class="nbs-flexisel-container">
+                    <div class="nbs-flexisel-inner">
+                        <ul id="flexiselDemo2" class="nbs-flexisel-ul" >
+                            <li class="nbs-flexisel-item" style="width: 393.333px;">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12"> 
+                                            <img width="94" height="99" src="./images/test-bg3.jpg" class="img-circle wp-post-image" alt="Client-2">
+                                        </div>
+                                        <div class="clearfix">
+                                        </div>
+                                        <p class="test-text">I would like to thank the entire team of Spacewood for doing a great job on the designing and installation of my kitchen. The quality of product is excellent and their service, both pre and post sale, is extremely efficient and professional.</p>
+                                        <p class="authar">Alok Bhandari  , Director – Bestech Properties</p>
+                                        <p class="city">Gurgaon</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nbs-flexisel-item" style="width: 393.333px;">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12"> 
+                                            <img width="94" height="99" src="./images/test-bg2.jpg" class="img-circle wp-post-image" alt="Client-3">
+                                        </div>
+                                        <div class="clearfix">
+                                        </div>
+                                        <p class="test-text">Who says Spacewood makes kitchens? They are actually dream builders. I am extremely happy that my dream of owning a private island has come true. For me, my kitchen is not just a cooking area but it's everyday party and family area.</p>
+                                        <p class="authar">Bharat Parekh, India’s no. 1 LIC Financial Advisor</p>
+                                        <p class="city">Nagpur</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nbs-flexisel-item" style="width: 393.333px;">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12"> 
+                                            <img width="94" height="99" src="./images/person-bg1.jpg" class="img-circle wp-post-image" alt="Client-1">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <p class="test-text">My association with Spacewood goes back 13 years from now, and spans 3 kitchen installations in this phase. It is notable to mention that across the installations, the product quality is excellent, kitchens have withstood the tirades of temperature.</p>
+                                        <p class="authar">Manish Jaiswal , Director – Crisil S</p>
+                                        <p class="city">Mumbai</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nbs-flexisel-item" style="width: 393.333px;">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12"> 
+                                            <img width="94" height="99" src="https://spacewood.in/wp-content/uploads/2017/08/test-bg3.jpg" class="img-circle wp-post-image" alt="Client-2">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <p class="test-text">I would like to thank the entire team of Spacewood for doing a great job on the designing and installation of my kitchen. The quality of product is excellent and their service, both pre and post sale, is extremely efficient and professional.</p><p class="authar">Alok Bhandari  , Director – Bestech Properties</p><p class="city">Gurgaon</p></div></div></li><li class="nbs-flexisel-item" style="width: 307px;"><div class="col-md-12 col-sm-12"><div class="col-md-12 testi"><div class="col-md-12"> <img width="94" height="99" src="https://spacewood.in/wp-content/uploads/2017/08/test-bg2.jpg" class="img-circle wp-post-image" alt="Client-3"></div><div class="clearfix"></div><p class="test-text">Who says Spacewood makes kitchens? They are actually dream builders. I am extremely happy that my dream of owning a private island has come true. For me, my kitchen is not just a cooking area but it's everyday party and family area. Spacewood perfect ...</p><p class="authar">Bharat Parekh, India’s no. 1 LIC Financial Advisor</p><p class="city">Nagpur</p></div></div></li><li class="nbs-flexisel-item" style="width: 307px;"><div class="col-md-12 col-sm-12"><div class="col-md-12 testi"><div class="col-md-12"> <img width="94" height="99" src="https://spacewood.in/wp-content/uploads/2017/08/person-bg1.jpg" class="img-circle wp-post-image" alt="Client-1"></div><div class="clearfix"></div><p class="test-text">My association with Spacewood goes back 13 years from now, and spans 3 kitchen installations in this phase. It is notable to mention that across the installations, the product quality is excellent, kitchens have withstood the tirades of temperature,  ...</p><p class="authar">Manish Jaiswal ,        Director – Crisil S</p><p class="city">mumbai</p></div></div></li><li class="nbs-flexisel-item" style="width: 307px;"><div class="col-md-12 col-sm-12"><div class="col-md-12 testi"><div class="col-md-12"> <img width="94" height="99" src="https://spacewood.in/wp-content/uploads/2017/08/test-bg3.jpg" class="img-circle wp-post-image" alt="Client-2"></div><div class="clearfix"></div><p class="test-text">I would like to thank the entire team of Spacewood for doing a great job on the designing and installation of my kitchen. The quality of product is excellent and their service, both pre and post sale, is extremely efficient and professional. My kitch ...</p><p class="authar">Alok Bhandari  , Director – Bestech Properties</p><p class="city">Gurgaon</p></div></div></li><li class="nbs-flexisel-item" style="width: 307px;"><div class="col-md-12 col-sm-12"><div class="col-md-12 testi"><div class="col-md-12"> <img width="94" height="99" src="https://spacewood.in/wp-content/uploads/2017/08/test-bg2.jpg" class="img-circle wp-post-image" alt="Client-3"></div><div class="clearfix"></div><p class="test-text">Who says Spacewood makes kitchens? They are actually dream builders. I am extremely happy that my dream of owning a private island has come true. For me, my kitchen is not just a cooking area but it's everyday party and family area. Spacewood perfect ...</p><p class="authar">Bharat Parekh, India’s no. 1 LIC Financial Advisor</p><p class="city">Nagpur</p></div></div></li><li class="nbs-flexisel-item" style="width: 307px;"><div class="col-md-12 col-sm-12"><div class="col-md-12 testi"><div class="col-md-12"> <img width="94" height="99" src="https://spacewood.in/wp-content/uploads/2017/08/person-bg1.jpg" class="img-circle wp-post-image" alt="Client-1"></div><div class="clearfix"></div><p class="test-text">My association with Spacewood goes back 13 years from now, and spans 3 kitchen installations in this phase. It is notable to mention that across the installations, the product quality is excellent, kitchens have withstood the tirades of temperature,  ...</p>
+                                        <p class="authar">Manish Jaiswal , Director – Crisil S</p>
+                                        <p class="city">mumbai</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!--old code-->
-<!--                <div class="wrap">
-                                   <div id="google_translate_element"></div>
-                                   <div class="alert alert-info" ng-if="message">
-                                       {{ message}}
-                                   </div>
-                                   <div class="alert alert-danger" ng-if="error">
-                                       {{ error}}
-                                   </div>
-                                   <p class="form-title">
-                                       Sign In</p>
-                                   <form class="login" ng-submit="login(username, password)">
-                                       <input type="text" required="" ng-model="username" placeholder="Username" />
-                                       <div ng-show="form.$submitted || form.username.$touched">
-                                           <div ng-show="form.username.$error.required">Please enter username.</div>
-                                       </div>
-                                       <input type="password" required="" ng-model="password" placeholder="Password" />
-                                       <div ng-show="form.$submitted || form.password.$touched">
-                                           <span ng-show="form.password.$error.required">Please enter Password.</span>
-                                       </div>
-                                       <input type="submit" value="Sign In" class="btn btn-success btn-sm"/>
-                                       <div class="remember-forgot">
-                                           <div class="row">
-                                               <div class="col-md-6 forgot-pass-content">
-                                                                                       <a href="javascription:void(0)" class="forgot-pass">Forgot Password</a>
-                                                   <button type="button" class="forgot-pass btn btn-link btn-sm">Forgot Password?</button>
-                                               </div>
-                                               <div class="col-md-6 forgot-pass-content">
-                                                   <button type="button" class="btn btn-link btn-sm" ng-click="guestLogin()">Sign in as a guest!!</button>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </form>
-                               </div>-->
+    <footer>
+        <div class="container-fluid footer-bg">
+            <div class="container">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-2 col-sm-2 ">
+                    </div>				
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="col-md-12 mt264 footer-margin">
+                    <center>
+                        <a href="https://spacewood.in"> 
+                            <img src="./images/logo-footer.png" class="img-responsive" alt="Spacewood" title="Spacewood">
+                        </a>
+                    </center>
+                </div>
+                <div class="clearfix">
+                </div>
+                <hr class="footer-hr-position">
+                <div class="clearfix">
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 footer-po no-padding">
+                    <div class="col-md-2 col-sm-2 col-xs-12 b-right">
+                        <p>Information
+                        </p>
+                        <ul class="footer-ul list-none">
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/about-us/">about us</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/news-and-events/">news and events</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/store-locator">store locator</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/dealer-enquiry">dealer enquiry</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/careers">careers</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/testimonials">testimonials</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/contact-us">contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-12 b-right">
+                        <p>Products
+                        </p>
+                        <ul class="footer-ul list-none">
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/kitchen">Kitchen</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/wadrobes">wardrobe</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/home-furniture">home furniture</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/office-solution">office solutions</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/doors">doors</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://spacewood.in/customize-full-home">full home solutions</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-12 b-right">
+                        <p>Group Companies</p>
+                        <ul class="footer-ul list-none">
+                            <li>
+                                <a href="http://www.sosoffice.in" target="_blank" rel="noopener">SOS</a>
+                            </li>
+                            <li>
+                                <a href="http://www.kosmofurniture.com" target="_blank" rel="noopener">kosmo</a>
+                            </li>
+                            <li>
+                                <a href="http://sumaidoors.com" target="_blank" rel="noopener">sumai doors</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 no-padding">
+                        <div class="col-md-4 col-sm-4 col-xs-12 b-right">
+                            <p>Follow Us
+                            </p>
+                            <ul class="footer-ul list-none">
+                                <li>
+                                    <a href="https://business.facebook.com/SpacewoodIndia" target="_blank" rel="noopener">
+                                        <img class="alignnone size-full wp-image-211" src="./images/icons/f-icon.png" alt="Facebook" title="Facebook" width="24" height="24">&nbsp;&nbsp;Facebook
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <ul class="footer-ul list-none">
+                                <li>spacewood furnishers pvt. ltd.</li>
+                                <li>t - 48, midc, hingna road, nagpur - 440016</li>
+                                <br>
+                                <li>+91 7104 - 235968, +91 7104 - 236737</li>
+                                <li class="email-text">
+                                    <a href="mailto:marketing@spacewood.in">marketing@spacewood.in</a>
+                                </li>
+                                <br>
+                                <li>for feedback</li>
+                                <li class="email-text">
+                                    <a href="mailto:service@spacewood.in">service@spacewood.in</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 

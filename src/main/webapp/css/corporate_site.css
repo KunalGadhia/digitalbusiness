@@ -2,17 +2,17 @@
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
-*/
-/* 
+
+ 
     Created on : 11 Oct, 2017, 12:34:36 PM
     Author     : hp-pc
-*/
 
-/*Change icons size here*/
+
+Change icons size here
 .social-icons .fa {
     font-size: 1.8em;
 }
-/*Change icons circle size and color here*/
+Change icons circle size and color here
 .social-icons .fa {
     width: 50px;
     height: 50px;
@@ -51,7 +51,7 @@ and open the template in the editor.
 .social-icons .fa-youtube-play,.social-icons .fa-youtube-square:hover{background-color:#C52F30;}
 .social-icons .fa-rss:hover{background-color:#F7931A;}
 
-/*IMAGE TRANSITION*/
+IMAGE TRANSITION
 .img_opacity
 {
     opacity:0.5;
@@ -61,8 +61,8 @@ and open the template in the editor.
     opacity:1;
 }
 #mainNav {
-    /*    background-color: #4d79ff;
-        border-color: #3366ff;*/
+        background-color: #4d79ff;
+        border-color: #3366ff;
     min-height: 80px;
     background-color: white;
 }
@@ -72,10 +72,10 @@ and open the template in the editor.
     font-size: 18px;
     color: grey;
     border-radius: 10px;
-    /*border: 1px solid #a1a1a1;*/    
+    border: 1px solid #a1a1a1;    
 }
 
-/*Anchor Tag*/
+Anchor Tag
 a {
     color: #70330c;
     text-decoration: none;
@@ -85,32 +85,32 @@ a:focus, a:hover{
     color: #CCA650;
 }
 
-/*padding*/
+padding
 .padding{
     padding: 0px;
 }
 
-/*Margin*/
+Margin
 .margin{
     margin: 0px;
 }
 
-/*image width*/
+image width
 .img_width{
     width: 100%
 }
 
-/*image opacity*/
-/*.img_opacity{
+image opacity
+.img_opacity{
     opacity: 0.6;
-}*/
+}
 
-/*Submit Button css*/
-/*.submit_btn{
+Submit Button css
+.submit_btn{
     margin-bottom: 5px;
-}*/
+}
 
-/*****navbar-default css****/
+****navbar-default css***
 
 .navbar-default .navbar-toggle:hover {
     background-color: #fff;
@@ -147,7 +147,7 @@ a:focus, a:hover{
     font-size: 14px;
     line-height: 15px;
     height: 50px;
-    /*background-color: #f0f;*/
+    background-color: #f0f;
 }
 
 .navbar-default.nav-upper {
@@ -231,9 +231,9 @@ a:focus, a:hover{
     }
 }
 .navbar-logo { 
-    /*    background-image: url('../images/safedeals.png');
+        background-image: url('../images/safedeals.png');
         width: 90px;
-        height: 90px;*/
+        height: 90px;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -243,9 +243,9 @@ a:focus, a:hover{
     z-index: 1051;
 }
 
-/*************navbar-default css************/
+************navbar-default css***********
 
-/*************#content css************/
+************#content css***********
 .content_background{
     background-color: #F4ECD9;
 }
@@ -263,9 +263,9 @@ a:focus, a:hover{
     font-size: 14px;
     padding: 5px;
 }
-/*************#content css************/
+************#content css***********
 
-/*************carousel-overlay css************/
+************carousel-overlay css***********
 .carousel-overlay{
     position: absolute;
     z-index: 10;
@@ -278,9 +278,9 @@ a:focus, a:hover{
     padding: 15px;
 }
 
-/*************carousel-overlay css************/
+************carousel-overlay css***********
 
-/*************img-overlay css************/
+************img-overlay css***********
 .img-overlay{
     position: absolute;
     z-index: 10;
@@ -301,16 +301,16 @@ a:focus, a:hover{
     color: #70330C;
 }
 @media only screen and (min-width: 320px) and (max-width: 768px) {
-    /*@media (min-width: 768px) {*/
+    @media (min-width: 768px) {
     .overlay{
         bottom: 1px;
         padding-left: 12px;
         width: 46%;
     }
 }
-/*************img-overlay css************/
+************img-overlay css***********
 
-/*************aboutus-img-overlay css************/
+************aboutus-img-overlay css***********
 .img {
     position: relative;
 }
@@ -326,9 +326,9 @@ a:focus, a:hover{
     color: #000;
 
 }
-/*************aboutus-img-overlay css************/
+************aboutus-img-overlay css***********
 
-/*************#our team css************/
+************#our team css***********
 .team_1 {
     width: 100%;
     background-color: #245DA0;
@@ -360,7 +360,7 @@ a:focus, a:hover{
     }
 
 }
-/*@media only screen and (max-width: 700px){
+@media only screen and (max-width: 700px){
     .team_1 {
         width: 49.99999%;
     }
@@ -375,16 +375,16 @@ a:focus, a:hover{
     }
 }
 
-*/
-/*************#our team css************/
 
-/*************#testimonial css************/
-/*#testimonial {       /incase you want to shrink carousel
+************#our team css***********
+
+************#testimonial css***********
+#testimonial {       /incase you want to shrink carousel
     width: 60%;       
-}*/
-/*.image{
+}
+.image{
     border-radius: 50%;
-}*/
+}
 .quote {
     color: #70330C;
     text-align: center;
@@ -393,27 +393,27 @@ a:focus, a:hover{
 
 .carousel-control.left, .carousel-control.right {
     background-image: none;
-    /*width: 5%;*/
+    width: 5%;
 }
 
-/*************#testimonial css************/
+************#testimonial css***********
 
-/*************#event image css************/
+************#event image css***********
 .event_img{
     margin: 5px;
     margin-bottom: 9px;
 }
-/*************#event image css************/
+************#event image css***********
 
-/*************#contactUs form css************/
+************#contactUs form css***********
 .btn-info {
     color: #fff;
     background-color: #70330c;
     border-color: #70330c;
 }
-/*************#contactUs form css************/
+************#contactUs form css***********
 
-/*************#footer css************/
+************#footer css***********
 .footer{
     background-color: #70330C;
     color:#fff
@@ -423,9 +423,9 @@ a:focus, a:hover{
     text-decoration: none; 
 }
 
-/*social-icon css*/
+social-icon css
 footer a, footer {
     color:#fff;
 }
 
-/*************#footer css************/
+************#footer css************/

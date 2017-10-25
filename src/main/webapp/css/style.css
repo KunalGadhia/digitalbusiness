@@ -2,17 +2,17 @@
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
-*/
-/* 
+
+ 
     Created on : 11 Oct, 2017, 12:33:50 PM
     Author     : hp-pc
-*/
+
 
 *{
     padding: 0;
 }
 
-/*----content-----*/
+----content-----
 .h1, .h2, .h3, h1, h2, h3 {
     margin-top: 0;
 }
@@ -33,7 +33,7 @@ and open the template in the editor.
     padding-top: 2px;
 }
 
-/*----icon height-----*/
+----icon height-----
 .icon_ht{
     height: 60px;
 }
@@ -46,7 +46,7 @@ and open the template in the editor.
     border: none;
 }
 
-/*----brown color-----*/
+----brown color-----
 .panel-primary {
     border-color: #70330C;
 }
@@ -79,7 +79,7 @@ and open the template in the editor.
     color: #CCA650;
 }
 
-/* admin panel */
+ admin panel 
 .navbar-default {
     background-color: #fff;
     border-color: #e7e7e7;
@@ -90,9 +90,9 @@ and open the template in the editor.
     background-color: #fff;
     border-color: #ddd;
 }
-/* admin panel */
+ admin panel 
 
-/*----brown color-----*/
+----brown color-----
 
 .vertical-line{
     border-right: 1px solid #e0e0e0;
@@ -113,7 +113,7 @@ and open the template in the editor.
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-/*************************** Login & Signup Page ********************************/
+************************** Login & Signup Page *******************************
 .loginpage{
     background: url("../images/2.jpg") fixed;
     background-size: cover;
@@ -230,7 +230,7 @@ p.form-title{
 }
 
 
-/*.loginpage form{
+.loginpage form{
     width: 300px;
 }
 .loginpage form.login input[type="text"], form.login input[type="password"]
@@ -290,9 +290,9 @@ form.login .forgot-pass-content
 .loginpage form.login a:hover
 {
     color: #2ecc71;
-}*/
+}
 
-/*************************** Login & Signup Page ********************************/   
+************************** Login & Signup Page *******************************   
 
 #pac-input {
     background-color: #fff;
@@ -347,15 +347,15 @@ form.tab-form-demo .tab-pane {
 }
 
 .tagline{
-    /*    background: url("../images/image.jpg") center center;
-        height:450px;*/
+        background: url("../images/image.jpg") center center;
+        height:450px;
     z-index: 1000;
     position: relative
 }
 .tagline .tag{
     position: absolute;
     color:#f5dabc;
-    /*    left: 663px;*/
+        left: 663px;
     top: 80%;
 }
 .tagline .tag button{
@@ -466,8 +466,8 @@ form.tab-form-demo .tab-pane {
     padding: 5px;
     background-color: white;
     border : 1px solid #D3D3D3;
-    /*box-shadow: 1px 1px 1px 1px;*/
-    /*padding-right:  5px;*/
+    box-shadow: 1px 1px 1px 1px;
+    padding-right:  5px;
 
 }
 .background-pan {
@@ -506,7 +506,7 @@ form.tab-form-demo .tab-pane {
     background-color: #fff;
 }
 
-/*read more read less*/
+read more read less
 .content {
     overflow: hidden;
     word-wrap: break-word;
@@ -557,7 +557,7 @@ form.tab-form-demo .tab-pane {
     transform: translate3d(0,0,0);
 }
 
-/*************************** City Special ********************************/
+************************** City Special *******************************
 
 #city_logo{
     padding: 10px;
@@ -578,13 +578,13 @@ form.tab-form-demo .tab-pane {
 }
 
 .bg-city-spcl{
-    /*    background: url("../images/noise-texture-background.png") fixed;*/
+        background: url("../images/noise-texture-background.png") fixed;
     background-color: #F4ECD9;
     overflow: hidden;
-    /*    min-height: 680px;*/
+        min-height: 680px;
 }
 
-/*----city special navbar-----*/
+----city special navbar-----
 #cityNavbar ul {
     margin-top: 30px;
 }
@@ -612,7 +612,7 @@ form.tab-form-demo .tab-pane {
     }
 }
 
-/*----city special navbar-----*/
+----city special navbar-----
 .horizontal-slide {
     white-space: nowrap;
     overflow-x: auto;
@@ -680,7 +680,7 @@ form.tab-form-demo .tab-pane {
     list-style-position: inside;
 }
 
-/*--Locations--*/
+--Locations--
 
 .list{
     list-style-type: none;
@@ -704,7 +704,7 @@ form.tab-form-demo .tab-pane {
     z-index: 9;
     width: 220px;
     max-height: 300px;
-    /* opacity: 0.5; */
+     opacity: 0.5; 
     background: #fff;
     border: 1px solid #e4e4e4;
     overflow: auto;
@@ -718,15 +718,15 @@ form.tab-form-demo .tab-pane {
     z-index: 9;
     width: 220px;
     max-height: 300px;
-    /* opacity: 0.5; */
+     opacity: 0.5; 
     background: #fff;
     border: 1px solid #e4e4e4;
     overflow: auto;
 }
 
-/*************************** City Special ********************************/
+************************** City Special *******************************
 
-/*************************** Date Picker ********************************/
+************************** Date Picker *******************************
 .form-inline .date_picker{
     height: 34px;
     padding: 5px 4px;
@@ -746,9 +746,9 @@ form.tab-form-demo .tab-pane {
         vertical-align: middle;
     }
 }
-/*************************** Date Picker ********************************/
+************************** Date Picker *******************************
 
-/*************************** Portal ********************************/
+************************** Portal *******************************
 .portal_carousel{
     left: -12px;
     height: 40px;
@@ -761,14 +761,14 @@ form.tab-form-demo .tab-pane {
 .portal_carousel.right {
     right: -12px;
 }
-/*************************** Portal ********************************/
+************************** Portal *******************************
 
 
-/*body{
+body{
     font-size: 14px;
-}*/
+}
 
-/*header{
+header{
     background-image: url("../images/noise-texture-background.png");
     width: 100%; 
     padding:5px 0;
@@ -776,8 +776,8 @@ form.tab-form-demo .tab-pane {
     background-color: #fff;
     box-shadow: 1px 1px 1px 0;
     height:82px
-}*/
-/*.top-bar{
+}
+.top-bar{
     height:82px
 }
 .top-bar ul li{
@@ -785,15 +785,15 @@ form.tab-form-demo .tab-pane {
     padding: 5px 10px;
     margin-top:10px
 
-}*/
+}
 
-/*.custom-background {
+.custom-background {
     background-color: white;
     border : 1px solid #D3D3D3;
-}*/
+}
 
-/*navbar transition*/
-/*#nav li a{
+navbar transition
+#nav li a{
     font-size:14px;
     color:#FFF;
     line-height:14px;
@@ -874,9 +874,9 @@ form.tab-form-demo .tab-pane {
 .btm-margin{
     margin-top:15px;
     margin-bottom:15px;
-}*/
+}
 
-/*.site{
+.site{
     background-color: #fff;
     background: #f8f8f8;
     border-bottom: 2px solid #006699;
@@ -885,10 +885,10 @@ form.tab-form-demo .tab-pane {
     box-shadow: 0 5px 15px 0 rgba(0,0,0,.05), 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
     -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s; -ms-transition: all .5s; transition: all .5s;
 
-}*/
+}
 
-/*thumbnail slider*/
-/*#thumbnail-preview-indicators {
+thumbnail slider
+#thumbnail-preview-indicators {
     position: relative;
     overflow: hidden;
 }
@@ -956,10 +956,10 @@ form.tab-form-demo .tab-pane {
         margin-top: -50px;
         margin-left: -25px;
     }
-}*/
+}
 
-/*fix nav bar*/
-/*#first {
+fix nav bar
+#first {
     height:96px
 }
 .f-nav{ 
@@ -971,11 +971,11 @@ form.tab-form-demo .tab-pane {
 }
 .nav { 
     height: 10px;
-}*/
+}
 
-/*tcb-testimonial-carousel*/
-/*@brand-color: #b20000;*/
-/*#tcb-testimonial-carousel  a{       
+tcb-testimonial-carousel
+@brand-color: #b20000;
+#tcb-testimonial-carousel  a{       
     color: #b20000;
 }
 #tcb-testimonial-carousel    .text-brand{
@@ -1015,11 +1015,11 @@ form.tab-form-demo .tab-pane {
 #tcb-testimonial-carousel    .media-object {
     margin: auto;
 }
-tcb-testimonial-carousel*/
+tcb-testimonial-carousel
 
-/*--------------- */
+--------------- 
 
-/*#carousel-custom {
+#carousel-custom {
     margin: 5px auto;
         width: 400px;
 }
@@ -1055,10 +1055,10 @@ tcb-testimonial-carousel*/
 }
 .carousel-ht{
     height:450px;
-}*/
+}
 
 
-/*************************** project nav tabs ********************************/
+************************** project nav tabs *******************************
 .nav-tabs { border-bottom: 2px solid #DDD; }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
 .nav-tabs > li > a { border: none; color: #666; }
@@ -1078,10 +1078,10 @@ tcb-testimonial-carousel*/
 .middleWrapper ul li { list-style: none; background: url(images/arrow.png) no-repeat 0 15px; padding: 10px 0px 0px 12px;}
 .sep{border-right: 1px solid #ececec}
 
-/*************************** end of project nav tabs ********************************/
+************************** end of project nav tabs *******************************
 
 
-/*-------------Start of CSS added by amit sharma for location detail page. 14/09/2017 to 16/09/2017-------------*/
+-------------Start of CSS added by amit sharma for location detail page. 14/09/2017 to 16/09/2017-------------
 
 .LocationDetail{
     padding-top: 30px;
@@ -1489,7 +1489,7 @@ tcb-testimonial-carousel*/
     margin-bottom: 0;
 }
 .LocationTabs>li.active>a, .LocationTabs>li.active>a:focus, .LocationTabs>li.active>a:hover{
-    /*background: #d08a04;*/
+    background: #d08a04;
     color: #ffffff;
     border:1px solid #d08a04;
 }
@@ -1550,9 +1550,9 @@ tcb-testimonial-carousel*/
 .TopFixedNavBarForLocation{
     top: 100px;
 }
-/*-------------End of CSS added by amit sharma for location detail page. 14/09/2017 to 16/09/2017-------------*/
+-------------End of CSS added by amit sharma for location detail page. 14/09/2017 to 16/09/2017-------------
 
-/*-------------Start of CSS added by amit sharma for project detail page. 23/09/2017 to 25/09/2017-------------*/
+-------------Start of CSS added by amit sharma for project detail page. 23/09/2017 to 25/09/2017-------------
 @media (max-width: 1200px) {
     .TopFixedNavBarForLocation{
         top: 91px!important;
@@ -1601,4 +1601,4 @@ tcb-testimonial-carousel*/
 .DemandIndicatorTable tbody tr td{
     text-align: center;
 }
-
+*/

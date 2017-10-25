@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : 10 Oct, 2017, 9:27:00 PM
-    Author     : hp-pc
+    Author     : Kunal Gadhia
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,34 +11,6 @@
         <base href="/digitalbusiness/" target="_blank">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-        <!--favicon icon-->
-        <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="images/favicons/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="images/favicons/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="images/favicons/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="images/favicons/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="images/favicons/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192"  href="images/favicons/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
-        <link rel="manifest" href="images/favicons/manifest.json">
-        <meta name="msapplication-TileColor" content="#000">
-        <meta name="msapplication-TileImage" content="images/favicons/ms-icon-144x144.png">
-        <meta name="theme-color" content="#000">
-        <title>Spacewood Dealers Portal</title>
-
-        <!--Stylesheet-->
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap/3.3.5/css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/modal-override.css"/>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/corporate_site.css"/>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/angular-bootstrap-lightbox.css"/>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/w3.css"/>
 
         <!--Libraries-->
         <script src="${pageContext.request.contextPath}/webjars/jquery/1.12.0/jquery.min.js"></script>
@@ -72,146 +44,207 @@
 
         <!--Constants-->
         <script>
-            angular.module("digitalbusiness.constants", [])
-                    .constant('contextPath', '${pageContext.request.contextPath}')
-                    .constant('restRoot', '${pageContext.request.contextPath}/rest')
-                    .constant('templateRoot', '${pageContext.request.contextPath}/templates')
-                    .constant('imageRoot', '${pageContext.request.contextPath}/images')
-                    .constant('paginationLimit', 5);
+                    angular.module("digitalbusiness.constants", [])
+                            .constant('contextPath', '${pageContext.request.contextPath}')
+                            .constant('restRoot', '${pageContext.request.contextPath}/rest')
+                            .constant('templateRoot', '${pageContext.request.contextPath}/templates')
+                            .constant('imageRoot', '${pageContext.request.contextPath}/images')
+                            .constant('paginationLimit', 5);
         </script>
+
+        <!-- According to Spacewood UI -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Spacewood is India's leading premium brand and manufacturer of Modular Furniture. We are a one stop solution for home and office needs.">
+        <meta name="description" content="Spacewood is India’s leading premium brand and manufacturer of Modular Furniture. We are a one stop solution for home and office needs.">
+        <meta name="author" content>
+        <link rel="canonical" href="https://spacewood.in">
+        <meta property="og:locale" content="en_US">
+        <meta property="og:locale" content="website">
+        <meta property="og:title" content="Modular Kitchens, Wardrobes, Living Room, Bedroom, Interior Designers - Spacewood.in">
+        <meta property="og:description" content="Spacewood is India’s leading premium brand and manufacturer of Modular Furniture. We are a one stop solution for home and office needs.">
+        <meta property="og:url" content="https://spacewood.in/">
+        <meta property="og:site_name" content="Modular Kitchens, Wardrobes, Living Room, Bedroom Interior Designers - Spacewood.in - Spacewood">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:description" content="Spacewood is India’s leading premium brand and manufacturer of Modular Furniture. We are a one stop solution for home and office needs.">
+        <meta name="twitter:title" content="Modular Kitchens, Wardrobes, Living Room, Bedroom Interior Designers - Spacewood.in">
+        <meta name="generator" content="WordPress 4.8.2">
+
+        <!-- CSS Files -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/style1.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/style2.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet">
+        <!--<link href="file:///C:/Users/webdesign/Desktop/DigitalizationSP/Style/font-awesome.min.css" rel="stylesheet">-->
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+        <link rel="dns-prefetch" href="//s.w.org">
+        <link rel="stylesheet" id="contact-form-7-group-css" href="https://spacewood.in/wp-content/plugins/bwp-minify/min/?f=wp-content/plugins/contact-form-7/includes/css/styles.css,wp-content/plugins/wp-store-locator/css/styles.css" type="text/css" media="all">
+        <link rel="https://api.w.org/" href="https://spacewood.in/wp-json/">
+        <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://spacewood.in/xmlrpc.php?rsd">
+        <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://spacewood.in/wp-includes/wlwmanifest.xml">
+        <link rel="shortlink" href="https://spacewood.in/">
+        <link rel="alternate" type="application/json+oembed" href="https://spacewood.in/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fspacewood.in%2F">
+        <link rel="alternate" type="text/xml+oembed" href="https://spacewood.in/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fspacewood.in%2F&amp;format=xml">
+
+        <!-- Internal CSS -->
+        <style type="text/css">
+            img.wp-smiley,
+            img.emoji {
+                display: inline !important;
+                border: none !important;
+                box-shadow: none !important;
+                height: 1em !important;
+                width: 1em !important;
+                margin: 0 .07em !important;
+                vertical-align: -0.1em !important;
+                background: none !important;
+                padding: 0 !important;
+            }</style>
+
+        <style type="text/css">
+            .apply { color: black !important;
+            }
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            footer a {
+                text-decoration: none;
+                color: #fff;
+            }
+            .screen-reader-response
+            {
+                display:none;
+            }
+            a:hover {
+                text-decoration: none;
+                color: #FBBB00;
+            }
+            img {
+                border: none;
+            }
+            h2 {
+                font: bold 14px/110% Arial, Helvetica, sans-serif;
+                margin: 0 0 30px;
+                padding: 0 0 20px;
+                color: #999;
+                border-bottom: solid 1px #ccc;
+                clear: both;
+            }
+            h3 {
+                font: bold 16px/120% Arial, Helvetica, sans-serif;
+                margin: 0;
+            }
+            #pagewrap {
+                width: 948px;
+                margin: 0 auto;
+            }
+            .middle>.item {
+                width: 100%;
+                margin: 0 0 0px 0px;
+                float: left;
+            }
+            .middle>.item.first {
+                clear: left;
+                margin-left: 0;
+            }
+            .middle>.item img {
+                opacity:0;
+            }
+            .middle>.item img {
+                filter: gray;
+                /* IE6-9 */
+                filter: grayscale(100%);
+                /* Microsoft Edge and Firefox 35+ */
+                -webkit-filter: grayscale(1);
+            }
+            .middle>.carousel-control.left {
+                left: 0px;
+                background-image: url(../images/left-arrow.png);
+                background-repeat: no-repeat;
+                top: 50%;
+            }
+            .middle>.carousel-control.right {
+                right: 0px;
+                background-image: url(../images/right-arrow.png);
+                background-repeat: no-repeat;
+                top: 50%;
+            }
+            .middle>.item img:hover {
+                filter:0;
+                /* IE6-9 */
+                filter: grayscale(0%);
+                /* Microsoft Edge and Firefox 35+ */
+                -webkit-filter: grayscale(0);
+            }
+        </style>
+
+        <!-- Internal JS Files -->
+        <script>
+                    (function (i, s, o, g, r, a, m) {
+                        i['GoogleAnalyticsObject'] = r;
+                        i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                        a = s.createElement(o),
+                                m = s.getElementsByTagName(o)[0];
+                        a.async = 1;
+                        a.src = g;
+                        m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+                    ga('create', 'UA-41214428-1', 'auto');
+                    ga('send', 'pageview');
+        </script>
+
+        <script type="application/ld+json">
+            {"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/spacewood.in\/","name":"Modular Kitchens, Wardrobes, Living Room, Bedroom Interior Designers - Spacewood.in - Spacewood","potentialAction":{"@type":"SearchAction","target":"https:\/\/spacewood.in\/?s={search_term_string}","query-input":"required name=search_term_string"}}
+        </script>
+
+        <!-- External JS Libraries -->
+        <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+        <script href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script href="${pageContext.request.contextPath}/js/scrollbar.min.js"></script>
+        <script href="${pageContext.request.contextPath}/js/emojisetting.js"></script>
+        <script src="https://spacewood.in/wp-includes/js/twemoji.js?ver=4.8.2" type="text/javascript" defer=""></script>
+        <script src="https://spacewood.in/wp-includes/js/wp-emoji.js?ver=4.8.2" type="text/javascript" defer=""></script>
+        <script type="text/javascript" src="https://spacewood.in/wp-includes/js/jquery/jquery.js?ver=1.12.4"></script>
+        <script type="text/javascript" src="https://spacewood.in/wp-includes/js/jquery/jquery-migrate.js?ver=1.4.1"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- Icons & Images -->
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/icons/spacew.ico">
+
+        <title>Modular Kitchens, Wardrobes, Living Room, Bedroom Interior Designers - Spacewood.in</title>
+        <!-- Spacewood UI Ends-->       
+
+        <!--Stylesheet-->
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap/3.3.5/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>        
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/modal-override.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/corporate_site.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/angular-bootstrap-lightbox.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/w3.css"/>
 
         <!--JavaScript-->
         <script src="${pageContext.request.contextPath}/js/app.js"></script>
         <script src="${pageContext.request.contextPath}/js/auth.js"></script>
         <script src="${pageContext.request.contextPath}/js/filters.js"></script>
 <!--        <script src="${pageContext.request.contextPath}/js/directives/datetime_picker.js"></script>
-        <script src="${pageContext.request.contextPath}/js/directives/scroll.js"></script>
-         Directive 
-        <script src="${pageContext.request.contextPath}/js/directives/bank_add.js"></script>
-        <script src="${pageContext.request.contextPath}/js/directives/location_category_multiselect.js"></script>-->
+        
         <!--states-->
         <script src="${pageContext.request.contextPath}/js/states.js"></script>
-<!--        <script src="${pageContext.request.contextPath}/js/states/admin.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/alerts.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/corporate_site.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/portal.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/guidelines.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/intro.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/location.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/location_master.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/property_master.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/property.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/project_master.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/faqs.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/thanku.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/help.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/final_deal.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/project.js"></script>
-        -masters script-
-        <script src="${pageContext.request.contextPath}/js/states/branch.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/country.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/state.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/city.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/bank.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/amenity.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/amenity_detail.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/hospital.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/ready_reckoner.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/raw_ready_reckoner.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/raw_market_price.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/salary_range.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/safedeal_zone.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/workplace_area.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/workplace_category.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/workplace_category_detail.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/user.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/price_range.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/location_type.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/location_category.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/market_price.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/business_associate.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/franchise.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/property_type.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/video.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/agency.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/agent.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/builder.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/testimonial.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/event.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/team.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/amenity_code.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/private_amenities.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/transportation.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/road.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/image.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/bank_portal.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/franchise_portal.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/builder_portal.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/business_portal.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/unit.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/inventory.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/property_category.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/landmark.js"></script>
-        <script src="${pageContext.request.contextPath}/js/states/society_maintenance.js"></script>-->
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
-                <!--<script src="${pageContext.request.contextPath}/js/services/branch_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/country_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/state_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/city_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/bank_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/location_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/amenity_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/amenity_detail_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/income_slab_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/property_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/co_ordinate_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/school_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/hospital_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/price_range_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/guidelines_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/project_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/mall_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/transportation_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/ready_reckoner_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/raw_ready_reckoner_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/raw_market_price_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/salary_range_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/safedeal_zone_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/workplace_area_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/workplace_category_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/workplace_category_detail_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/location_type_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/location_category_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/market_price_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/business_associate_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/franchise_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/property_type_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/video_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/agency_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/agent_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/builder_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/testimonial_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/event_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/team_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/enquiry_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/amenity_code_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/private_amenities_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/road_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/mail_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/image_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/unit_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/inventory.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/inventory_detail_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/inventory_head_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/property_category_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/landmark_service.js"></script>
-                <script src="${pageContext.request.contextPath}/js/services/society_maintenance_service.js"></script>-->
+        
     </head>
-    <body>
-        <div id="parrentDiv" class="bg-city-spcl" data-ui-view></div>
+    <body style="font-family: 'Roboto', sans-serif;">
+        <div data-ui-view></div>
         <!--<h1>Hello World!</h1>-->
     </body>
 </html>
