@@ -41,7 +41,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -56,6 +56,7 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        logger.info("Inside Security COnfiguration");
         http
                 .authorizeRequests()
                 .antMatchers("/rest/**").authenticated()
@@ -68,10 +69,11 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
                     public void onAuthenticationSuccess(
                             HttpServletRequest request,
                             HttpServletResponse response,
-                            Authentication a) throws IOException, ServletException {                                
-                                //To change body of generated methods,
-                                response.setStatus(HttpServletResponse.SC_OK);
-                            }
+                            Authentication a) throws IOException, ServletException {
+                        //To change body of generated methods,
+                        logger.info("Login Successful");
+                        response.setStatus(HttpServletResponse.SC_OK);
+                    }
                 })
                 .failureHandler(new AuthenticationFailureHandler() {
 
@@ -80,8 +82,12 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
                             HttpServletRequest request,
                             HttpServletResponse response,
                             AuthenticationException ae) throws IOException, ServletException {
-                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                            }
+                        System.out.println("Is there any problem with the credentials");
+                        logger.debug("Exceptions :{}", ae);
+                        logger.debug("Request :{}", request);
+                        logger.debug("Response :{}", response);
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    }
                 })
                 .loginProcessingUrl("/access/login")
                 .and()
@@ -93,8 +99,8 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
                             HttpServletRequest request,
                             HttpServletResponse response,
                             Authentication a) throws IOException, ServletException {
-                                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-                            }
+                        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                    }
                 })
                 .invalidateHttpSession(true)
                 .and()
@@ -109,5 +115,5 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
     public RoleVoter roleVoter() {
         return new RoleHierarchyVoter(roleHierarchy);
     }
-    
+
 }

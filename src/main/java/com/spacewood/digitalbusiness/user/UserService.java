@@ -7,6 +7,8 @@ package com.spacewood.digitalbusiness.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -22,6 +24,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService implements UserDetailsService {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserDAL userDAL;
@@ -44,9 +48,13 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
+        System.out.println("Any Role in Login??");
+        System.out.println("What is String :" + string);
         try {
+            System.out.println("Inside Try??");
             User user = userDAL.findByUsername(string);
-
+            logger.debug("Get this object :{}", user);
+            System.out.println("What is the role of an user :"+user.getRole().name());
             SimpleGrantedAuthority sga = new SimpleGrantedAuthority(user.getRole().name());
 
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -58,6 +66,7 @@ public class UserService implements UserDetailsService {
                     roleHierarchy.getReachableGrantedAuthorities(authorities));
             return ud;
         } catch (EmptyResultDataAccessException se) {
+            System.out.println("Getting ANy Exception??");
             se.printStackTrace();
             throw new UsernameNotFoundException("SQL Error", se);
         }

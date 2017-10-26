@@ -18,7 +18,6 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @author hp-pc
  */
 public class ApplicationInitializer implements WebApplicationInitializer{
-    
     @Override
     public void onStartup(ServletContext sc) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();

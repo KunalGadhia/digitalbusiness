@@ -53,6 +53,8 @@ angular.module("digitalbusiness.states", ['ngAnimate', 'ui.bootstrap'])
                 $scope.message = false;
             }, 3000);
             $scope.login = function (username, password) {
+                console.log("Username :%O",username);
+                console.log("Password :%O",password);
                 UserService.login({
                     'username': username,
                     'password': password
@@ -62,6 +64,7 @@ angular.module("digitalbusiness.states", ['ngAnimate', 'ui.bootstrap'])
                     UserService.findByUsername({
                         'username': data.username
                     }, function (data) {
+                        console.log("Login Validated Now Fetching Authority!!")
                         if (data.userType === "ROLE_ADMIN") {
                             $state.go("main.masters");
                         } else if (data.userType === "ROLE_DEALER") {
