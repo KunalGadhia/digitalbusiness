@@ -492,8 +492,8 @@
                     <username>${digitalbusiness.db.username}</username>
                     <password>${digitalbusiness.db.password}</password>
                 </configuration>
-                <executions>
-                    <!-- Unit Test SQL executions -->
+<!--                <executions>
+                     Unit Test SQL executions 
                     <execution>
                         <id>drop-db-before-unit-test-if-any</id>
                         <phase>process-test-resources</phase>
@@ -501,11 +501,11 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <!-- need another database to drop the targeted one Select the default 'mysql' database-->
+                             need another database to drop the targeted one Select the default 'mysql' database
                             <url>jdbc:mysql://${digitalbusiness.db.hostname}:${digitalbusiness.db.port}/mysql</url>
                             <autocommit>true</autocommit>
                             <sqlCommand>DROP DATABASE IF EXISTS ${digitalbusiness.db.name}</sqlCommand>
-                            <!-- ignore error when database is not avaiable -->
+                             ignore error when database is not avaiable 
                             <onError>continue</onError>
                         </configuration>
                     </execution>
@@ -517,12 +517,12 @@
                         </goals>
                         <configuration>
                             <url>jdbc:mysql://${digitalbusiness.db.hostname}:${digitalbusiness.db.port}/mysql</url>
-                            <!-- no transaction -->
+                             no transaction 
                             <autocommit>true</autocommit>
                             <sqlCommand>CREATE DATABASE ${digitalbusiness.db.name} DEFAULT CHARACTER SET utf8</sqlCommand>
                         </configuration>
                     </execution>
-                    <!--                    <execution>
+                                        <execution>
                         <id>create-schema</id>
                         <phase>process-test-resources</phase>
                         <goals>
@@ -534,8 +534,8 @@
                                 <srcFile>src/main/sql/masters.sql</srcFile>
                             </srcFiles>
                         </configuration>
-                    </execution>-->
-                </executions>                
+                    </execution>
+                </executions>                -->
             </plugin>
             
             <!--            <plugin>

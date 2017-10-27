@@ -2,17 +2,17 @@
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
-
- 
+*/
+/* 
     Created on : 11 Oct, 2017, 12:34:27 PM
     Author     : hp-pc
-
+*/
 .lightbox-nav {
   position: relative;
-  margin-bottom: 12px;  the font-size of .btn-xs 
+  margin-bottom: 12px; /* the font-size of .btn-xs */
   height: 22px;
   text-align: center;
-  font-size: 0;  prevent the otherwise inherited font-size and line-height from adding extra space to the bottom of this div 
+  font-size: 0; /* prevent the otherwise inherited font-size and line-height from adding extra space to the bottom of this div */
 }
 
 .lightbox-nav .btn-group {
@@ -20,7 +20,7 @@ and open the template in the editor.
 }
 
 .lightbox-nav .close {
-   absolutely position this in order to center the nav buttons 
+  /* absolutely position this in order to center the nav buttons */
   position: absolute;
   top: 0;
   right: 0;
@@ -28,15 +28,15 @@ and open the template in the editor.
 
 .lightbox-image-container {
   position: relative;
-  text-align: center;  center the image 
+  text-align: center; /* center the image */
 }
 
- the caption overlays the top left corner of the image 
+/* the caption overlays the top left corner of the image */
 .lightbox-image-caption {
   position: absolute;
   top: 0;
   left: 0;
-  margin: 0.5em 0.9em;  the left and right margins are offset by 0.4em for the span box-shadow 
+  margin: 0.5em 0.9em; /* the left and right margins are offset by 0.4em for the span box-shadow */
   color: #000;
   font-size: 1.5em;
   font-weight: bold;
@@ -48,8 +48,8 @@ and open the template in the editor.
   padding-top: 0.1em;
   padding-bottom: 0.1em;
   background-color: rgba(255, 255, 255, 0.75);
-   pad the left and right of each line of text 
+  /* pad the left and right of each line of text */
   box-shadow: 0.4em 0 0 rgba(255, 255, 255, 0.75),
     -0.4em 0 0 rgba(255, 255, 255, 0.75);
-}*/
+}
 

@@ -22,7 +22,7 @@ angular.module("digitalbusiness", [
 //    'safedeals.services.bank_addition',
     // include controllers and states
     'digitalbusiness.states',
-//    'safedeals.states.admin',
+    'digitalbusiness.states.admin',
 
     'digitalbusiness.states.auth'
 
