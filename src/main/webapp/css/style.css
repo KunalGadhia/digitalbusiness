@@ -34,10 +34,11 @@ and open the template in the editor.
 }
 
 ----icon height-----
+*/
 .icon_ht{
     height: 60px;
 }
-
+/*
 .logo{ 
     padding: 10px;
 }
@@ -96,12 +97,12 @@ and open the template in the editor.
 
 .vertical-line{
     border-right: 1px solid #e0e0e0;
-}
+}*/
 
 .wrapper{
     margin: 95px 15px 0;
 }
-
+/*
 .map-controls {
     margin-top: 10px;
     border: 1px solid transparent;

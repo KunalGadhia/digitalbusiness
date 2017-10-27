@@ -53,8 +53,8 @@ angular.module("digitalbusiness.states", ['ngAnimate', 'ui.bootstrap'])
                 $scope.message = false;
             }, 3000);
             $scope.login = function (username, password) {
-                console.log("Username :%O",username);
-                console.log("Password :%O",password);
+                console.log("Username :%O", username);
+                console.log("Password :%O", password);
                 UserService.login({
                     'username': username,
                     'password': password
@@ -64,10 +64,10 @@ angular.module("digitalbusiness.states", ['ngAnimate', 'ui.bootstrap'])
                     UserService.findByUsername({
                         'username': data.username
                     }, function (data) {
-                        console.log("Login Validated Now Fetching Authority!!")
-                        if (data.userType === "ROLE_ADMIN") {
-                            $state.go("main.masters");
-                        } else if (data.userType === "ROLE_DEALER") {
+                        console.log("Login Validated Now Fetching Authority!!");
+                        if (data.role === "ROLE_ADMIN") {
+                            $state.go("admin.masters");
+                        } else if (data.role === "ROLE_DEALER") {
                             $state.go("main.dealer");
                         }
                     });
@@ -106,77 +106,75 @@ angular.module("digitalbusiness.states", ['ngAnimate', 'ui.bootstrap'])
 //                        }
 //
 //                    });
-//                    if (data.username === "guest") {
-//                        $state.go("main.intro.intro_tagline", {reload: 'true'});
-//                    } else {
-//                        $state.go("admin.masters", {reload: 'true'});
-//                    }
                 }, function () {
-                    $scope.error = "Login Failed. Invalid Credentials.";
+                    console.log("Invalid Person");
+                    $scope.error = true;                    
+                    $scope.username="";
+                    $scope.password="";
                 });
             };
 //            $scope.guestLogin = function () {
 //                $scope.login("guest", "guest");
 //            };
 
-            $scope.newUser = {};
-            $scope.confirmPassword;
-            $scope.$watch('confirmPassword', function (confirmPassword) {
-                console.log("confirmPassword ", confirmPassword);
-                if ($scope.newUser.password === confirmPassword) {
-                    $scope.errorMsg = false;
-                } else
-                {
-                    $scope.errorMsg = true;
-                }
-
-            });
-
-            $scope.$watch('newUser.username', function (username) {
-                console.log("User Name :%O", username);
-                UserService.findByUsername({'username': username}).$promise.catch(function (response) {
-                    if (response.status === 500) {
-                        $scope.repeatEmail = false;
-                    } else if (response.status === 404) {
-                        $scope.repeatEmail = false;
-                    } else if (response.status === 400) {
-                        $scope.repeatEmail = false;
-                    }
-                }).then(function (user) {
-                    if (user.username !== null) {
-                        $scope.repeatEmail = true;
-                    }
-                    ;
-                });
-            });
-
-            $scope.searchCities = function (searchTerm) {
-                return CityService.findByNameLike({
-                    'name': searchTerm
-                }).$promise;
-            };
-
-            $scope.setCity = function (city) {
-                $scope.newUser.cityId = city.id;
-                $scope.newUser.city = city;
-            };
-
-            $scope.saveNewUser = function (newUserInfo) {
-                UserService.save(newUserInfo, function () {
-                    $state.go('login', null, {'reload': true});
-                });
-                console.log("new user info :%O", newUserInfo);
-            };
-
-//            $scope.$watch('$scope.userType', function (userType) {
-//                console.log("Detecting Change with value :%O", userType);
+//            $scope.newUser = {};
+//            $scope.confirmPassword;
+//            $scope.$watch('confirmPassword', function (confirmPassword) {
+//                console.log("confirmPassword ", confirmPassword);
+//                if ($scope.newUser.password === confirmPassword) {
+//                    $scope.errorMsg = false;
+//                } else
+//                {
+//                    $scope.errorMsg = true;
+//                }
+//
 //            });
-
-//            function googleTranslateElementInit() {
-//                console.log("Into Translator");
-//                new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-//            }
-//            ;
+//
+//            $scope.$watch('newUser.username', function (username) {
+//                console.log("User Name :%O", username);
+//                UserService.findByUsername({'username': username}).$promise.catch(function (response) {
+//                    if (response.status === 500) {
+//                        $scope.repeatEmail = false;
+//                    } else if (response.status === 404) {
+//                        $scope.repeatEmail = false;
+//                    } else if (response.status === 400) {
+//                        $scope.repeatEmail = false;
+//                    }
+//                }).then(function (user) {
+//                    if (user.username !== null) {
+//                        $scope.repeatEmail = true;
+//                    }
+//                    ;
+//                });
+//            });
+//
+//            $scope.searchCities = function (searchTerm) {
+//                return CityService.findByNameLike({
+//                    'name': searchTerm
+//                }).$promise;
+//            };
+//
+//            $scope.setCity = function (city) {
+//                $scope.newUser.cityId = city.id;
+//                $scope.newUser.city = city;
+//            };
+//
+//            $scope.saveNewUser = function (newUserInfo) {
+//                UserService.save(newUserInfo, function () {
+//                    $state.go('login', null, {'reload': true});
+//                });
+//                console.log("new user info :%O", newUserInfo);
+//            };
+//
+////            $scope.$watch('$scope.userType', function (userType) {
+////                console.log("Detecting Change with value :%O", userType);
+////            });
+//
+////            function googleTranslateElementInit() {
+////                console.log("Into Translator");
+////                new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+////            }
+////            ;
         })
         .controller('LogoutController', function (UserService, $scope, $state) {
             $scope.logout = function () {

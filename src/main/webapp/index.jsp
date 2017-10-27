@@ -76,6 +76,7 @@
         <link href="${pageContext.request.contextPath}/css/style1.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/style2.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet">
         <!--<link href="file:///C:/Users/webdesign/Desktop/DigitalizationSP/Style/font-awesome.min.css" rel="stylesheet">-->
         <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -238,6 +239,7 @@
         
         <!--states-->
         <script src="${pageContext.request.contextPath}/js/states.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/admin.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>

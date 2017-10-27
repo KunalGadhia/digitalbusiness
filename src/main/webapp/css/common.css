@@ -328,6 +328,21 @@ and open the template in the editor.
         margin-top:28px;
         text-align:right;
     }
+    
+    .cust-nav1{
+        margin-top:35px;
+        margin-bottom:25px;
+        text-align:right;
+    }
+    
+    .user-info{
+        font-size: large
+    }
+    
+    .hr-int{
+        margin-bottom: 22px;
+    }
+    
     .form-padding{
         padding: 30px 30px 30px 30px;
     }

@@ -25,7 +25,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `user_type` varchar(100) NOT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.user.Role',
+  `role` varchar(100) NOT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.user.Role',
   `name` varchar(100) DEFAULT NULL,
   `name_of_company` varchar(100) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
@@ -46,6 +46,53 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES (1,'admin','admin','ROLE_ADMIN',NULL,NULL,NULL,NULL,1,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `party_master`
+--
+
+DROP TABLE IF EXISTS `party_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `party_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `dealer_code` varchar(100) DEFAULT NULL,
+  `dealer_name` varchar(100) DEFAULT NULL,
+  `gl_code` varchar(32) DEFAULT NULL,
+  `billing_add1` varchar(100) NOT NULL,
+  `billing_add2` varchar(100) DEFAULT NULL,
+  `billing_add3` varchar(100) DEFAULT NULL,
+  `billing_add4` varchar(100) DEFAULT NULL,
+  `billing_email` varchar(100) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `billing_fax` varchar(100) DEFAULT NULL,
+  `bill_board_tel` varchar(100) DEFAULT NULL,
+  `direct_tel_no` varchar(100) DEFAULT NULL,
+  `pan_number` varchar(30) DEFAULT NULL,
+  `cst_number` varchar(100) DEFAULT NULL,
+  `vat_number` varchar(100) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `employee_master`
+--
+
+DROP TABLE IF EXISTS `employee_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `employee_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `emp_code` varchar(100) DEFAULT NULL,
+  `emp_name` varchar(100) DEFAULT NULL,
+  `emp_mailid` varchar(100) DEFAULT NULL,
+  `emp_mobile_number` varchar(100) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
