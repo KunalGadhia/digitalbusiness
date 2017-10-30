@@ -1,0 +1,65 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveEmployee(editableEmployee)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Employee Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Employee Code</label>
+                                <input class="form-control" placeholder="Organization Employee Code" ng-model="editableEmployee.empCode" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Employee Name</label>
+                                <input class="form-control" placeholder="Full Name" ng-model="editableEmployee.empName" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="editableEmployee.repeatName">
+                        <div class="col-sm-6">
+                            
+                        </div>
+                        <div class="col-sm-6 text-danger">
+                            Found Records For Above Entered Name
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Employee Mail Id</label>
+                                <input type="email" class="form-control" placeholder="Email Id (xyz@abc.com)" ng-model="editableEmployee.empMailid" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Mobile Number</label>
+                                <input type="number"  class="form-control" placeholder="Mobile Number" ng-model="editableEmployee.empMobileNumber" required=""/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

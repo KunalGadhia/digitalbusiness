@@ -17,12 +17,16 @@ angular.module("digitalbusiness", [
     // include services
 //    'safedeals.services.branch',
     'digitalbusiness.services.user',
+    'digitalbusiness.services.employee',
+    'digitalbusiness.services.party',
 
 //    // directive services
 //    'safedeals.services.bank_addition',
     // include controllers and states
     'digitalbusiness.states',
     'digitalbusiness.states.admin',
+    'digitalbusiness.states.employee',
+    'digitalbusiness.states.party',
 
     'digitalbusiness.states.auth'
 

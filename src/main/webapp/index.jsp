@@ -49,7 +49,7 @@
                             .constant('restRoot', '${pageContext.request.contextPath}/rest')
                             .constant('templateRoot', '${pageContext.request.contextPath}/templates')
                             .constant('imageRoot', '${pageContext.request.contextPath}/images')
-                            .constant('paginationLimit', 5);
+                            .constant('paginationLimit', 10);
         </script>
 
         <!-- According to Spacewood UI -->
@@ -240,9 +240,13 @@
         <!--states-->
         <script src="${pageContext.request.contextPath}/js/states.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/admin.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/employee.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/party.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/employee_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/party_service.js"></script>
         
     </head>
     <body style="font-family: 'Roboto', sans-serif;">

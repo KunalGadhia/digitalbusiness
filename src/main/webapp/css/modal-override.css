@@ -8,23 +8,23 @@ and open the template in the editor.
     Author     : hp-pc*/
 
 
-.modal-safedeals
+.modal-digitalbusiness
 {
     display:block;
 }
 
-.modal-safedeals > .modal-backdrop
+.modal-digitalbusiness > .modal-backdrop
 {
     height:100%;
     z-index:1060;
 }
 
-.modal-safedeals > .modal-dialog
+.modal-digitalbusiness > .modal-dialog
 {
     z-index:1070;
 }
 
-body .modal-safedeals
+body .modal-digitalbusiness
 {
     overflow: auto;
 }
