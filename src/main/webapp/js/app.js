@@ -19,6 +19,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.user',
     'digitalbusiness.services.employee',
     'digitalbusiness.services.party',
+    'digitalbusiness.services.segment',
 
 //    // directive services
 //    'safedeals.services.bank_addition',
@@ -27,6 +28,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.admin',
     'digitalbusiness.states.employee',
     'digitalbusiness.states.party',
+    'digitalbusiness.states.segment',
 
     'digitalbusiness.states.auth'
 
