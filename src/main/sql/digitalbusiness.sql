@@ -112,7 +112,7 @@ CREATE TABLE `segment_master` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `segment_master`
+-- Table structure for table `sale_type_master`
 --
 
 DROP TABLE IF EXISTS `sale_type_master`;
@@ -127,6 +127,48 @@ CREATE TABLE `sale_type_master` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `order_head`
+--
+
+DROP TABLE IF EXISTS `order_head`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order_head` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `order_num` varchar(100) DEFAULT NULL,
+  `segment` varchar(100) DEFAULT NULL,
+  `sale_type` varchar(100) DEFAULT NULL,
+  `entry_type` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.orderhead.EntryType',
+  `order_type` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.orderhead.OrderType',
+  `billing_party_id` int(11) DEFAULT NULL COMMENT 'REF party_master.id',
+  `delivery_party_id` int(11) DEFAULT NULL COMMENT 'REF party_master.id',
+  `postal_code` varchar(10) DEFAULT NULL,
+  `bill_type` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.orderhead.BillType',
+  `order_sub_type` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.orderhead.OrderSubType',
+  `project_name` varchar(100) DEFAULT NULL,
+  `po_num` varchar(100) DEFAULT NULL,
+  `order_id` varchar(100) DEFAULT NULL,
+  `po_date` datetime NOT NULL,
+  `po_value` varchar(100) DEFAULT NULL,
+  `marketing_head` varchar(100) DEFAULT NULL,
+  `order_initiated_by` int(11) DEFAULT NULL COMMENT 'REF user_master.id',
+  `rate_applicability` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.orderhead.RateApplicability',
+  `rate_contract` varchar(300) DEFAULT NULL,
+  `orc_per` varchar(100) DEFAULT NULL,  
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `order_head_billing_party_id_fk` (`billing_party_id`),
+  KEY `order_head_delivery_party_id_fk` (`delivery_party_id`),
+  KEY `order_head_order_initiated_by_fk` (`order_initiated_by`),
+  CONSTRAINT `order_head_billing_party_id_fk` FOREIGN KEY (`billing_party_id`) REFERENCES `party_master` (`id`),
+  CONSTRAINT `order_head_delivery_party_id_fk` FOREIGN KEY (`delivery_party_id`) REFERENCES `party_master` (`id`),
+  CONSTRAINT `order_head_order_initiated_by_fk` FOREIGN KEY (`order_initiated_by`) REFERENCES `user_master` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
 
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
