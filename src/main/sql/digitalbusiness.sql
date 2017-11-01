@@ -16,6 +16,38 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `department_master`
+--
+
+DROP TABLE IF EXISTS `department_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `department_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `name` varchar(100) DEFAULT NULL,  
+  `description` varchar(300) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `reason_master`
+--
+
+DROP TABLE IF EXISTS `reason_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reason_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `reason` varchar(100) DEFAULT NULL,  
+  `description` varchar(300) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `employee_master`
 --
 
@@ -65,7 +97,7 @@ CREATE TABLE `order_head` (
   `project_name` varchar(100) DEFAULT NULL,
   `po_num` varchar(100) DEFAULT NULL,
   `order_id` varchar(100) DEFAULT NULL,
-  `po_date` varchar(100) DEFAULT NULL,
+  `po_date` datetime DEFAULT NULL,
   `po_value` varchar(100) DEFAULT NULL,
   `marketing_head` varchar(100) DEFAULT NULL,
   `order_initiated_by` int(11) DEFAULT NULL COMMENT 'REF user.id',
@@ -80,7 +112,7 @@ CREATE TABLE `order_head` (
   CONSTRAINT `order_head_billing_party_id_fk` FOREIGN KEY (`billing_party_id`) REFERENCES `party_master` (`id`),
   CONSTRAINT `order_head_delivery_party_id_fk` FOREIGN KEY (`delivery_party_id`) REFERENCES `party_master` (`id`),
   CONSTRAINT `order_head_order_initiated_by_fk` FOREIGN KEY (`order_initiated_by`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,6 +121,7 @@ CREATE TABLE `order_head` (
 
 LOCK TABLES `order_head` WRITE;
 /*!40000 ALTER TABLE `order_head` DISABLE KEYS */;
+INSERT INTO `order_head` VALUES (1,'OC1','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Pantaloons India','4654654','564654','2017-11-01 00:00:00','85000','E001',1,'C',NULL,'25',0),(2,'OC2','H','EH','NON_PROJECTS','COMPONENTS',2,2,NULL,'D','T','Edge Turnkey Kitchens','5897','8798','2017-11-01 00:00:00','175000','E002',1,'C',NULL,'12',0),(3,'OC3','SP','EH','NON_PROJECTS','COMPONENTS',2,2,NULL,'R','T','Edge Turnkey','397548','4654567','2017-11-01 00:00:00','95246','E001',1,'C',NULL,'12',0);
 /*!40000 ALTER TABLE `order_head` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,4 +263,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-01 11:27:04
+-- Dump completed on 2017-11-01 13:21:03
