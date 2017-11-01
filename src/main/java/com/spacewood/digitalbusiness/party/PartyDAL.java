@@ -28,6 +28,7 @@ public class PartyDAL {
         public static final String DEALER_CODE = "dealer_code";
         public static final String DEALER_NAME = "dealer_name";
         public static final String GL_CODE = "gl_code";
+        public static final String CONTACT_PERSON = "contact_person";
         public static final String BILLING_ADD1 = "billing_add1";
         public static final String BILLING_ADD2 = "billing_add2";
         public static final String BILLING_ADD3 = "billing_add3";
@@ -57,6 +58,7 @@ public class PartyDAL {
                         Columns.DEALER_CODE,
                         Columns.DEALER_NAME,
                         Columns.GL_CODE,
+                        Columns.CONTACT_PERSON,
                         Columns.BILLING_ADD1,
                         Columns.BILLING_ADD2,
                         Columns.BILLING_ADD3,
@@ -74,7 +76,7 @@ public class PartyDAL {
     }
 
     public List<Party> findAll(Integer offset) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 5 OFFSET ?";
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(Party.class));
     }
 
@@ -99,6 +101,7 @@ public class PartyDAL {
         parameters.put(Columns.DEALER_CODE, party.getDealerCode());
         parameters.put(Columns.DEALER_NAME, party.getDealerName());
         parameters.put(Columns.GL_CODE, party.getGlCode());
+        parameters.put(Columns.CONTACT_PERSON, party.getContactPerson());
         parameters.put(Columns.BILLING_ADD1, party.getBillingAdd1());
         parameters.put(Columns.BILLING_ADD2, party.getBillingAdd2());
         parameters.put(Columns.BILLING_ADD3, party.getBillingAdd3());
@@ -127,6 +130,7 @@ public class PartyDAL {
                 + Columns.DEALER_CODE + " = ?,"
                 + Columns.DEALER_NAME + " = ?, "
                 + Columns.GL_CODE + " = ?,"
+                + Columns.CONTACT_PERSON + " = ?,"
                 + Columns.BILLING_ADD1 + " = ?,"
                 + Columns.BILLING_ADD2 + " = ?,"
                 + Columns.BILLING_ADD3 + " = ?,"
@@ -144,6 +148,7 @@ public class PartyDAL {
                     party.getDealerCode(),
                     party.getDealerName(),
                     party.getGlCode(),
+                    party.getContactPerson(),
                     party.getBillingAdd1(),
                     party.getBillingAdd2(),
                     party.getBillingAdd3(),

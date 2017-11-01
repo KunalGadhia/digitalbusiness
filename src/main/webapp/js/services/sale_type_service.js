@@ -16,6 +16,11 @@ angular.module("digitalbusiness.services.sale_type")
                     },
                     'isArray': true
                 },
+                'findAllList': {
+                    'method': 'GET',
+                    'url': restRoot + '/sale_type/find_sale_type',                    
+                    'isArray': true
+                },
                 'findBySaleType': {
                     'method': 'GET',
                     'url': restRoot + '/sale_type/find/sale_type',

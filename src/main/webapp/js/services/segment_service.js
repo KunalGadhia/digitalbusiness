@@ -16,6 +16,11 @@ angular.module("digitalbusiness.services.segment")
                     },
                     'isArray': true
                 },
+                'findAllList': {
+                    'method': 'GET',
+                    'url': restRoot + '/segment/find_all_list',                    
+                    'isArray': true
+                },
                 'findBySegment': {
                     'method': 'GET',
                     'url': restRoot + '/segment/find/segment',

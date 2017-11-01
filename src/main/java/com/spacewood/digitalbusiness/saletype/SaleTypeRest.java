@@ -60,4 +60,10 @@ public class SaleTypeRest {
     public List<SaleType> findBySaleTypeLike(@RequestParam("saleType") String saleType) {
         return saleTypeDAL.findBySaleTypeLike(saleType);
     }
+    
+    @RequestMapping(value = "/find_sale_type", method = RequestMethod.GET)
+    public List<SaleType> findAllList() {
+        return saleTypeDAL.findAllList();
+    }
+        
 }

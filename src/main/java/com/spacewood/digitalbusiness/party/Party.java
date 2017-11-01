@@ -17,6 +17,7 @@ public class Party {
     private String dealerCode;
     private String dealerName;
     private String glCode;
+    private String contactPerson;
     private String billingAdd1;
     private String billingAdd2;
     private String billingAdd3;
@@ -60,6 +61,14 @@ public class Party {
 
     public void setGlCode(String glCode) {
         this.glCode = glCode;
+    }
+
+    public String getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
     }
 
     public String getBillingAdd1() {
@@ -160,23 +169,24 @@ public class Party {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.id);
-        hash = 29 * hash + Objects.hashCode(this.dealerCode);
-        hash = 29 * hash + Objects.hashCode(this.dealerName);
-        hash = 29 * hash + Objects.hashCode(this.glCode);
-        hash = 29 * hash + Objects.hashCode(this.billingAdd1);
-        hash = 29 * hash + Objects.hashCode(this.billingAdd2);
-        hash = 29 * hash + Objects.hashCode(this.billingAdd3);
-        hash = 29 * hash + Objects.hashCode(this.billingAdd4);
-        hash = 29 * hash + Objects.hashCode(this.billingEmail);
-        hash = 29 * hash + Objects.hashCode(this.city);
-        hash = 29 * hash + Objects.hashCode(this.billingFax);
-        hash = 29 * hash + Objects.hashCode(this.billBoardTel);
-        hash = 29 * hash + Objects.hashCode(this.directTelNo);
-        hash = 29 * hash + Objects.hashCode(this.panNumber);
-        hash = 29 * hash + Objects.hashCode(this.cstNumber);
-        hash = 29 * hash + Objects.hashCode(this.vatNumber);
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.dealerCode);
+        hash = 53 * hash + Objects.hashCode(this.dealerName);
+        hash = 53 * hash + Objects.hashCode(this.glCode);
+        hash = 53 * hash + Objects.hashCode(this.contactPerson);
+        hash = 53 * hash + Objects.hashCode(this.billingAdd1);
+        hash = 53 * hash + Objects.hashCode(this.billingAdd2);
+        hash = 53 * hash + Objects.hashCode(this.billingAdd3);
+        hash = 53 * hash + Objects.hashCode(this.billingAdd4);
+        hash = 53 * hash + Objects.hashCode(this.billingEmail);
+        hash = 53 * hash + Objects.hashCode(this.city);
+        hash = 53 * hash + Objects.hashCode(this.billingFax);
+        hash = 53 * hash + Objects.hashCode(this.billBoardTel);
+        hash = 53 * hash + Objects.hashCode(this.directTelNo);
+        hash = 53 * hash + Objects.hashCode(this.panNumber);
+        hash = 53 * hash + Objects.hashCode(this.cstNumber);
+        hash = 53 * hash + Objects.hashCode(this.vatNumber);
         return hash;
     }
 
@@ -199,6 +209,9 @@ public class Party {
             return false;
         }
         if (!Objects.equals(this.glCode, other.glCode)) {
+            return false;
+        }
+        if (!Objects.equals(this.contactPerson, other.contactPerson)) {
             return false;
         }
         if (!Objects.equals(this.billingAdd1, other.billingAdd1)) {
@@ -245,7 +258,7 @@ public class Party {
 
     @Override
     public String toString() {
-        return "Party{" + "id=" + id + ", dealerCode=" + dealerCode + ", dealerName=" + dealerName + ", glCode=" + glCode + ", billingAdd1=" + billingAdd1 + ", billingAdd2=" + billingAdd2 + ", billingAdd3=" + billingAdd3 + ", billingAdd4=" + billingAdd4 + ", billingEmail=" + billingEmail + ", city=" + city + ", billingFax=" + billingFax + ", billBoardTel=" + billBoardTel + ", directTelNo=" + directTelNo + ", panNumber=" + panNumber + ", cstNumber=" + cstNumber + ", vatNumber=" + vatNumber + '}';
+        return "Party{" + "id=" + id + ", dealerCode=" + dealerCode + ", dealerName=" + dealerName + ", glCode=" + glCode + ", contactPerson=" + contactPerson + ", billingAdd1=" + billingAdd1 + ", billingAdd2=" + billingAdd2 + ", billingAdd3=" + billingAdd3 + ", billingAdd4=" + billingAdd4 + ", billingEmail=" + billingEmail + ", city=" + city + ", billingFax=" + billingFax + ", billBoardTel=" + billBoardTel + ", directTelNo=" + directTelNo + ", panNumber=" + panNumber + ", cstNumber=" + cstNumber + ", vatNumber=" + vatNumber + '}';
     }
     
 }

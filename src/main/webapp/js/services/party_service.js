@@ -10,7 +10,7 @@ angular.module("digitalbusiness.services.party")
                 
                 'findByNameLike': {
                     'method': 'GET',
-                    'url': restRoot + '/party/find/user_like',
+                    'url': restRoot + '/party/find/name_like',
                     'params': {
                         'name': '@name'
                     },

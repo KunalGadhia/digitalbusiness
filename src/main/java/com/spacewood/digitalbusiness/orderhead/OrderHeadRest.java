@@ -40,6 +40,11 @@ public class OrderHeadRest {
     public OrderHead insert(@RequestBody OrderHead orderHead) {
         return orderHeadDAL.insert(orderHead);
     }
+    
+    @RequestMapping(value = "/find/orderNum", method = RequestMethod.GET)
+    public List findByOrderNumber(@RequestParam("orderNum") String orderNum) throws Exception {
+        return orderHeadDAL.findByOrderNumber(orderNum);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public OrderHead update(@RequestBody OrderHead orderHead) {

@@ -60,4 +60,9 @@ public class SegmentRest {
     public List<Segment> findBySegmentLike(@RequestParam("segment") String segment) {
         return segmentDAL.findBySegmentLike(segment);
     }
+    
+    @RequestMapping(value = "/find_all_list", method = RequestMethod.GET)
+    public List<Segment> findAllList() {
+        return segmentDAL.findAllList();
+    }
 }

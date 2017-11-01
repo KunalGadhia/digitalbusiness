@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class OrderHeadDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
@@ -44,11 +45,11 @@ public class OrderHeadDAL {
         public static final String RATE_APPLICABILITY = "rate_applicability";
         public static final String RATE_CONTRACT = "rate_contract";
         public static final String ORC_PER = "orc_per";
-        
+
     }
 
     public static final String TABLE_NAME = "order_head";
-
+    private static Integer srNumber = 0;
     private final SimpleJdbcInsert insertOrderHead;
     private final JdbcTemplate jdbcTemplate;
 
@@ -83,38 +84,53 @@ public class OrderHeadDAL {
     }
 
     public List<OrderHead> findAll(Integer offset) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 5 OFFSET ?";
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(OrderHead.class));
     }
 
     public OrderHead findById(Integer id) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ID + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{id}, new BeanPropertyRowMapper<>(OrderHead.class));
-    }   
-    
+    }
+
+    public List findByOrderNumber(String orderNum) {
+        String sqlQuery = "SELECT " + Columns.ORDER_NUM + " FROM " + TABLE_NAME + " WHERE " + Columns.ORDER_NUM + " LIKE ?";
+        String stringEntry = orderNum + "%";
+        return jdbcTemplate.query(sqlQuery, new Object[]{stringEntry}, new BeanPropertyRowMapper<>(OrderHead.class));
+    }
+
 //    public Employee findByName(String name) {       
 //        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.EMP_NAME + " = ?";        
 //        return jdbcTemplate.queryForObject(sqlQuery, new Object[]{name}, new BeanPropertyRowMapper<>(Employee.class));
 //    }
-
 //    public List<Employee> findByNameLike(String name) {
 //        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND lower(emp_name) LIKE?";
 //        String nameLike = "%" + name.toLowerCase() + "%";
 //        return jdbcTemplate.query(sqlQuery, new Object[]{nameLike}, new BeanPropertyRowMapper<>(Employee.class));
 //    }
-
     public OrderHead insert(OrderHead orderHead) {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put(Columns.ORDER_NUM, orderHead.getOrderNum());
+        String OrderNumber;
+
+        List likeOrders = findByOrderNumber("OC");
+
+        if (!likeOrders.isEmpty()) {
+            srNumber = likeOrders.size() + 1;
+        } else {
+            srNumber = 1;
+        }
+
+        OrderNumber = "OC" + srNumber;
+        parameters.put(Columns.ORDER_NUM, OrderNumber);
         parameters.put(Columns.SEGMENT, orderHead.getSegment());
         parameters.put(Columns.SALE_TYPE, orderHead.getSaleType());
-        parameters.put(Columns.ENTRY_TYPE, orderHead.getEntryType());
-        parameters.put(Columns.ORDER_TYPE, orderHead.getOrderType());
+        parameters.put(Columns.ENTRY_TYPE, orderHead.getEntryType().name());
+        parameters.put(Columns.ORDER_TYPE, orderHead.getOrderType().name());
         parameters.put(Columns.BILLING_PARTY_ID, orderHead.getBillingPartyId());
         parameters.put(Columns.DELIVERY_PARTY_ID, orderHead.getDeliveryPartyId());
         parameters.put(Columns.POSTAL_CODE, orderHead.getPostalCode());
-        parameters.put(Columns.BILL_TYPE, orderHead.getBillType());
-        parameters.put(Columns.ORDER_SUB_TYPE, orderHead.getOrderSubType());
+        parameters.put(Columns.BILL_TYPE, orderHead.getBillType().name());
+        parameters.put(Columns.ORDER_SUB_TYPE, orderHead.getOrderSubType().name());
         parameters.put(Columns.PROJECT_NAME, orderHead.getProjectName());
         parameters.put(Columns.PO_NUM, orderHead.getPoNum());
         parameters.put(Columns.ORDER_ID, orderHead.getOrderId());
@@ -122,11 +138,10 @@ public class OrderHeadDAL {
         parameters.put(Columns.PO_VALUE, orderHead.getPoValue());
         parameters.put(Columns.MARKETING_HEAD, orderHead.getMarketingHead());
         parameters.put(Columns.ORDER_INITIATED_BY, orderHead.getOrderInitiatedBy());
-        parameters.put(Columns.RATE_APPLICABILITY, orderHead.getRateApplicability());
+        parameters.put(Columns.RATE_APPLICABILITY, orderHead.getRateApplicability().name());
         parameters.put(Columns.RATE_CONTRACT, orderHead.getRateContract());
         parameters.put(Columns.ORC_PER, orderHead.getOrcPer());
-        
-        
+
         Number newId = insertOrderHead.executeAndReturnKey(parameters);
         orderHead = findById(newId.intValue());
         return orderHead;
@@ -157,20 +172,20 @@ public class OrderHeadDAL {
                 + Columns.MARKETING_HEAD + " = ?,"
                 + Columns.ORDER_INITIATED_BY + " = ?,"
                 + Columns.RATE_APPLICABILITY + " = ?,"
-                + Columns.RATE_CONTRACT + " = ?,"                
+                + Columns.RATE_CONTRACT + " = ?,"
                 + Columns.ORC_PER + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     orderHead.getOrderNum(),
                     orderHead.getSegment(),
                     orderHead.getSaleType(),
-                    orderHead.getEntryType(),
-                    orderHead.getOrderType(),
+                    orderHead.getEntryType().name(),
+                    orderHead.getOrderType().name(),
                     orderHead.getBillingPartyId(),
                     orderHead.getDeliveryPartyId(),
                     orderHead.getPostalCode(),
-                    orderHead.getBillType(),
-                    orderHead.getOrderSubType(),
+                    orderHead.getBillType().name(),
+                    orderHead.getOrderSubType().name(),
                     orderHead.getProjectName(),
                     orderHead.getPoNum(),
                     orderHead.getOrderId(),
@@ -178,7 +193,7 @@ public class OrderHeadDAL {
                     orderHead.getPoValue(),
                     orderHead.getMarketingHead(),
                     orderHead.getOrderInitiatedBy(),
-                    orderHead.getRateApplicability(),
+                    orderHead.getRateApplicability().name(),
                     orderHead.getRateContract(),
                     orderHead.getOrcPer(),
                     orderHead.getId()

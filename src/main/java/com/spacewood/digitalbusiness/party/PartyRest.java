@@ -60,7 +60,7 @@ public class PartyRest {
         return partyDAL.findByName(name);
     }
     
-    @RequestMapping(value = "/find/user_like", method = RequestMethod.GET)
+    @RequestMapping(value = "/find/name_like", method = RequestMethod.GET)
     public List<Party> findByNameLike(@RequestParam("name") String name) {
         return partyDAL.findByNameLike(name);
     }

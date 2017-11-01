@@ -6,15 +6,15 @@
 angular.module("digitalbusiness.states.order", [])
         .config(function ($stateProvider, templateRoot) {
             $stateProvider.state('admin.masters_order', {
-                'url': '/order_master?offset',
+                'url': '/order_master',
                 'templateUrl': templateRoot + '/masters/order/order_head.html',
                 'controller': 'OrderHeadController'
             });
-//            $stateProvider.state('admin.masters_sale_type.add', {
-//                'url': '/add',
-//                'templateUrl': templateRoot + '/masters/sale_type/form.html',
-//                'controller': 'SaleTypeAddController'
-//            });
+            $stateProvider.state('admin.masters_order_details', {
+                'url': '/order_details/:orderHeadId',
+                'templateUrl': templateRoot + '/masters/order/order_details.html',
+                'controller': 'OrderDetailsController'
+            });
 //            $stateProvider.state('admin.masters_sale_type.edit', {
 //                'url': '/:saleTypeId/edit',
 //                'templateUrl': templateRoot + '/masters/sale_type/form.html',
@@ -27,71 +27,61 @@ angular.module("digitalbusiness.states.order", [])
 //            });
         })
 
-        .controller('OrderHeadController', function (SaleTypeService, $scope, $stateParams, $state, paginationLimit) {
-//            if (
-//                    $stateParams.offset === undefined ||
-//                    isNaN($stateParams.offset) ||
-//                    new Number($stateParams.offset) < 0)
-//            {
-//                $scope.currentOffset = 0;
-//            } else {
-//                $scope.currentOffset = new Number($stateParams.offset);
-//            }
-//
-//            $scope.nextOffset = $scope.currentOffset + 10;
-//
-//            $scope.nextSaleTypes = SaleTypeService.query({
-//                'offset': $scope.nextOffset
-//            });
-//
-//            $scope.saleTypes = SaleTypeService.query({
-//                'offset': $scope.currentOffset
-//            }, function (s) {
-//            });
-//
-//            $scope.nextPage = function () {
-//                $scope.currentOffset += paginationLimit;
-//                $state.go(".", {'offset': $scope.currentOffset}, {'reload': true});
-//            };
-//            $scope.previousPage = function () {
-//                if ($scope.currentOffset <= 0) {
-//                    return;
-//                }
-//                $scope.currentOffset -= paginationLimit;
-//                $state.go(".", {'offset': $scope.currentOffset}, {'reload': true});
-//            };
+        .controller('OrderHeadController', function (OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
+            $scope.editableOrderHead = {};
+            $scope.user = $rootScope.currentUser;
+            UserService.findByUsername({
+                'username': $scope.user.username
+            }, function (userObject) {
+                $scope.editableOrderHead.orderInitiatedBy = userObject.id;
+                $scope.editableOrderHead.user = userObject;
+            });
+
+            SegmentService.findAllList(function (segmentList) {
+                $scope.segmentList = segmentList;
+            });
+            SaleTypeService.findAllList(function (saleTypeList) {
+                $scope.saleTypeList = saleTypeList;
+            });
+
+            $scope.setParty = function (party) {
+                $scope.editableOrderHead.party = party;
+                $scope.editableOrderHead.billingPartyId = party.id;
+                $scope.editableOrderHead.party1 = party;
+                $scope.editableOrderHead.deliveryPartyId = party.id;
+            };
+            $scope.setParty1 = function (party) {
+                $scope.editableOrderHead.party1 = party;
+                $scope.editableOrderHead.deliveryPartyId = party.id;
+            };
+            $scope.searchParty = function (searchTerm) {
+                return PartyService.findByNameLike({
+                    'name': searchTerm
+                }).$promise;
+            };
+            $scope.setEmployee = function (employee) {
+                $scope.editableOrderHead.marketingHead = employee.empCode;
+            };
+            $scope.searchEmployee = function (searchTerm) {
+                return EmployeeService.findByNameLike({
+                    'name': searchTerm
+                }).$promise;
+            };
+
+            $scope.saveOrderHead = function (orderHead) {
+                console.log("Order Head :%O", orderHead);
+                OrderHeadService.save(orderHead, function (orderH) {
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': orderH.id
+                    }, {'reload': true});
+                });
+            };
+
+
+        })
+        .controller('OrderDetailsController', function () {
+            console.log("Inside Order Details Controller");
         });
-//        .controller('SaleTypeAddController', function (SaleTypeService, $scope, $stateParams, $state, paginationLimit) {
-//
-//            $scope.editableSaleType = {};
-//
-//
-//
-//            $scope.saveSaleType = function (saleType) {
-//                console.log("user", saleType);
-//                SaleTypeService.save(saleType, function () {
-//                    $state.go('admin.masters_sale_type', null, {'reload': true});
-//                });
-//            };
-//
-//            $scope.$watch('editableSaleType.saleType', function (saleType) {
-//                console.log("Name :" + saleType);
-//                SaleTypeService.findBySaleType({'saleType': saleType}).$promise.catch(function (response) {
-//                    if (response.status === 500) {
-//                        $scope.editableSaleType.repeatName = false;
-//                    } else if (response.status === 404) {
-//                        $scope.editableSaleType.repeatName = false;
-//                    } else if (response.status === 400) {
-//                        $scope.editableSaleType.repeatName = false;
-//                    }
-//                }).then(function (segment) {
-//                    if (segment.username !== null) {
-//                        $scope.editableSaleType.repeatName = true;
-//                    }
-//                    ;
-//                });
-//            });
-//        })
 //        .controller('SaleTypeEditController', function (SaleTypeService, $scope, $stateParams, $state, paginationLimit) {
 //            SaleTypeService.get({'id': $stateParams.saleTypeId});
 //            SaleTypeService.get({
