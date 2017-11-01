@@ -29,6 +29,7 @@ angular.module("digitalbusiness.states.order", [])
 
         .controller('OrderHeadController', function (OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
             $scope.editableOrderHead = {};
+    
             $scope.user = $rootScope.currentUser;
             UserService.findByUsername({
                 'username': $scope.user.username
