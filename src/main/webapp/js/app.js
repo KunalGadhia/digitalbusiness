@@ -24,6 +24,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.order_head',
     'digitalbusiness.services.department',
     'digitalbusiness.services.reason',
+    'digitalbusiness.services.kitchen_component',
 
 //    // directive services
 //    'safedeals.services.bank_addition',
@@ -37,6 +38,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.order',
     'digitalbusiness.states.department',
     'digitalbusiness.states.reason',
+    'digitalbusiness.states.kitchen_component',
 
     'digitalbusiness.states.auth'
 

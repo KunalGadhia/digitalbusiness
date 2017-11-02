@@ -16,6 +16,23 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `kitchen_component_master`
+--
+
+DROP TABLE IF EXISTS `kitchen_component_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `kitchen_component_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `component` varchar(100) DEFAULT NULL,  
+  `component_code` varchar(100) DEFAULT NULL,
+  `category` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.kitchencomponent.KitchenComponentCategory',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `department_master`
 --
 
@@ -24,28 +41,22 @@ DROP TABLE IF EXISTS `department_master`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `department_master` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
-  `name` varchar(100) DEFAULT NULL,  
+  `name` varchar(100) DEFAULT NULL,
   `description` varchar(300) DEFAULT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `reason_master`
+-- Dumping data for table `department_master`
 --
 
-DROP TABLE IF EXISTS `reason_master`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `reason_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
-  `reason` varchar(100) DEFAULT NULL,  
-  `description` varchar(300) DEFAULT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `department_master` WRITE;
+/*!40000 ALTER TABLE `department_master` DISABLE KEYS */;
+INSERT INTO `department_master` VALUES (3,'Accounting','Accounting',0),(4,'Designing','Designing',0),(5,'ffdgdf','ggdfgdfg',1);
+/*!40000 ALTER TABLE `department_master` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `employee_master`
@@ -166,6 +177,32 @@ INSERT INTO `party_master` VALUES (1,'PANT-HYD1','PANTALOON RETAIL INDIA LTD','1
 UNLOCK TABLES;
 
 --
+-- Table structure for table `reason_master`
+--
+
+DROP TABLE IF EXISTS `reason_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reason_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `reason` varchar(100) DEFAULT NULL,
+  `description` varchar(300) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reason_master`
+--
+
+LOCK TABLES `reason_master` WRITE;
+/*!40000 ALTER TABLE `reason_master` DISABLE KEYS */;
+INSERT INTO `reason_master` VALUES (3,'aaaaaaaaaaaa1','aaaaaaaaaaaaaaaaaa1',1),(4,'dsssdg','fsdfdsfsdf',1);
+/*!40000 ALTER TABLE `reason_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `sale_type_master`
 --
 
@@ -263,4 +300,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-01 13:21:03
+-- Dump completed on 2017-11-02 10:32:54

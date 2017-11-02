@@ -13,7 +13,7 @@ angular.module("digitalbusiness.services.reason")
                     'url': restRoot + '/reason/find_all_list',                    
                     'isArray': true
                 },
-                'findByName': {
+                'findByReason': {
                     'method': 'GET',
                     'url': restRoot + '/reason/find/reason',
                     'params': {
@@ -21,7 +21,7 @@ angular.module("digitalbusiness.services.reason")
                     },
                     'isArray': false
                 },
-                'findByNameLike': {
+                'findByReasonLike': {
                     'method': 'GET',
                     'url': restRoot + '/reason/find/reason_like',                    
                     'params': {

@@ -1,0 +1,71 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveKitchenComponent(editableKitchenComponent)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Kitchen Component Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Component Name</label>
+                                <input class="form-control" placeholder="Component Name" ng-model="editableKitchenComponent.component" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Component Code</label>
+                                <input class="form-control" placeholder="Component Code" ng-model="editableKitchenComponent.componentCode" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 text-danger" ng-show="editableKitchenComponent.repeatName">
+                            Found Records For Above Entered Name
+                        </div>
+                        <div class="col-sm-6 text-danger" ng-show="editableKitchenComponent.repeatCode">
+                            Repeat Component Code is not allowed.Enter unique code.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select class="form-control" ng-model="editableKitchenComponent.category">
+                                    <option value="">Select Component Category</option>
+                                    <option value="CARCASE">CARCASE</option>
+                                    <option value="PANEL">PANEL</option>
+                                    <option value="SHUTTER">SHUTTER</option>
+                                    <option value="DRAWER">DRAWER</option>
+                                    <option value="FILLER">FILLER</option>
+                                    <option value="PELMET">PELMET</option>
+                                    <option value="CORNICE">CORNICE</option>
+                                    <option value="HANDLE">HANDLE</option>                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+                    </div>                    
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableKitchenComponent.repeatCode">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

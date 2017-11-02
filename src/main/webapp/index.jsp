@@ -247,6 +247,7 @@
         <script src="${pageContext.request.contextPath}/js/states/order.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/department.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/reason.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/kitchen_component.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
@@ -257,6 +258,7 @@
         <script src="${pageContext.request.contextPath}/js/services/order_head_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/department_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/reason_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/kitchen_component_service.js"></script>
         
     </head>
     <body style="font-family: 'Roboto', sans-serif;">
