@@ -67,9 +67,9 @@ angular.module("digitalbusiness.states.kitchen_component", [])
 
             $scope.saveKitchenComponent = function (kitchenComponent) {
                 console.log("KC :", kitchenComponent);
-                KitchenComponentService.save(kitchenComponent, function () {
-                    $state.go('admin.masters_kitchen_component', null, {'reload': true});
-                });
+//                KitchenComponentService.save(kitchenComponent, function () {
+//                    $state.go('admin.masters_kitchen_component', null, {'reload': true});
+//                });
             };
 
             $scope.$watch('editableKitchenComponent.component', function (component) {

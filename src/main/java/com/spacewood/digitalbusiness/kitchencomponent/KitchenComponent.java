@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.kitchencomponent;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,6 +17,7 @@ public class KitchenComponent {
     private String component;
     private String componentCode;
     private KitchenComponentCategory category;
+    private List<String> image;
 
     public Integer getId() {
         return id;
@@ -49,13 +51,22 @@ public class KitchenComponent {
         this.category = category;
     }
 
+    public List<String> getImage() {
+        return image;
+    }
+
+    public void setImage(List<String> image) {
+        this.image = image;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.component);
-        hash = 53 * hash + Objects.hashCode(this.componentCode);
-        hash = 53 * hash + Objects.hashCode(this.category);
+        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 23 * hash + Objects.hashCode(this.component);
+        hash = 23 * hash + Objects.hashCode(this.componentCode);
+        hash = 23 * hash + Objects.hashCode(this.category);
+        hash = 23 * hash + Objects.hashCode(this.image);
         return hash;
     }
 
@@ -83,12 +94,15 @@ public class KitchenComponent {
         if (this.category != other.category) {
             return false;
         }
+        if (!Objects.equals(this.image, other.image)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "KitchenComponent{" + "id=" + id + ", component=" + component + ", componentCode=" + componentCode + ", category=" + category + '}';
+        return "KitchenComponent{" + "id=" + id + ", component=" + component + ", componentCode=" + componentCode + ", category=" + category + ", image=" + image + '}';
     }
-        
+                
 }

@@ -28,6 +28,7 @@ public class KitchenComponentDAL {
         public static final String COMPONENT = "component";
         public static final String COMPONENT_CODE = "component_code";
         public static final String CATEGORY = "category";
+        public static final String IMAGE = "image";
     }
 
     public static final String TABLE_NAME = "kitchen_component_master";
@@ -43,7 +44,8 @@ public class KitchenComponentDAL {
                 .usingColumns(
                         Columns.COMPONENT,
                         Columns.COMPONENT_CODE,
-                        Columns.CATEGORY
+                        Columns.CATEGORY,
+                        Columns.IMAGE
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -84,14 +86,14 @@ public class KitchenComponentDAL {
         return jdbcTemplate.query(sqlQuery, new Object[]{category}, new BeanPropertyRowMapper<>(KitchenComponent.class));
     }
 
-    public KitchenComponent insert(KitchenComponent kitchenCmponent) {
+    public KitchenComponent insert(KitchenComponent kitchenComponent) {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put(Columns.COMPONENT, kitchenCmponent.getComponent());
-        parameters.put(Columns.COMPONENT_CODE, kitchenCmponent.getComponentCode());
-        parameters.put(Columns.CATEGORY, kitchenCmponent.getCategory().name());
+        parameters.put(Columns.COMPONENT, kitchenComponent.getComponent());
+        parameters.put(Columns.COMPONENT_CODE, kitchenComponent.getComponentCode());
+        parameters.put(Columns.CATEGORY, kitchenComponent.getCategory().name());
         Number newId = insertKitchenComponent.executeAndReturnKey(parameters);
-        kitchenCmponent = findById(newId.intValue());
-        return kitchenCmponent;
+        kitchenComponent = findById(newId.intValue());
+        return kitchenComponent;
     }
 
     public void delete(Integer id) {
