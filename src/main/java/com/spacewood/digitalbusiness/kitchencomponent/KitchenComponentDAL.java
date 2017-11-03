@@ -44,8 +44,7 @@ public class KitchenComponentDAL {
                 .usingColumns(
                         Columns.COMPONENT,
                         Columns.COMPONENT_CODE,
-                        Columns.CATEGORY,
-                        Columns.IMAGE
+                        Columns.CATEGORY
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -102,10 +101,12 @@ public class KitchenComponentDAL {
     }
 
     public KitchenComponent update(KitchenComponent kitchenComponent) {
+        String path = kitchenComponent.getImage().get(0).toString().replace("\\","\\\\");
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.COMPONENT + " = ?, "
                 + Columns.COMPONENT_CODE + " = ?, "
-                + Columns.CATEGORY + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.CATEGORY +" = ?,"
+                + Columns.IMAGE + " = '" + path + "' WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     kitchenComponent.getComponent(),

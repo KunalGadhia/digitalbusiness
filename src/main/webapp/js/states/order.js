@@ -11,7 +11,7 @@ angular.module("digitalbusiness.states.order", [])
                 'controller': 'OrderHeadController'
             });
             $stateProvider.state('admin.masters_order_details', {
-                'url': '/order_details/:orderHeadId',
+                'url': '/:orderHeadId/order_details',
                 'templateUrl': templateRoot + '/masters/order/order_details.html',
                 'controller': 'OrderDetailsController'
             });

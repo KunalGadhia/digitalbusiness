@@ -25,8 +25,78 @@ angular.module("digitalbusiness.states.kitchen_component", [])
                 'templateUrl': templateRoot + '/masters/kitchen_component/delete.html',
                 'controller': 'KitchenComponentDeleteController'
             });
+            $stateProvider.state('admin.masters_kitchen_component.photo', {
+                'url': '/:kitchenComponentId/photo',
+                'templateUrl': templateRoot + '/masters/kitchen_component/photo.html',
+                'controller': 'KitchenComponentPhotoController'
+            });
+            $stateProvider.state('admin.masters_kitchen_component.view', {
+                'url': '/:kitchenComponentId/view',
+                'templateUrl': templateRoot + '/masters/kitchen_component/view.html',
+                'controller': 'KitchenComponentViewController'
+            });
         })
+        .controller('KitchenComponentViewController', function ($scope, $stateParams, $state) {
+            $scope.kitchenComponent = {};
+            $scope.kitchenComponent.id = $stateParams.kitchenComponentId;
+            $scope.goBack = function () {
+                $state.go('admin.masters_kitchen_component', {}, {'reload': true});
+            };
+        })
+        .controller('KitchenComponentPhotoController', function (KitchenComponentService, restRoot, FileUploader, $scope, $stateParams, $state) {
+            $scope.enableSaveButton = true;
+            KitchenComponentService.get({
+                'id': $stateParams.kitchenComponentId
+            }, function (kitchenComponent) {
+                $scope.kitchenComponentObject = kitchenComponent;
+            });
+            $scope.goBack = function () {
+                $state.go('admin.masters_kitchen_component.edit', {
+                    'kitchenComponentId': $stateParams.kitchenComponentId
+                }, {'reload': true});
+            };
+            var uploader = $scope.fileUploader = new FileUploader({
+                url: restRoot + '/kitchen_component/' + $stateParams.kitchenComponentId + '/attachment',
+                autoUpload: true,
+                alias: 'attachment'
+            });
+            uploader.onBeforeUploadItem = function (item) {
+                $scope.uploadInProgress = true;
+                $scope.uploadSuccess = false;
+                console.log("before upload item:", item);
+                console.log("uploader", uploader);
+            };
+            uploader.onErrorItem = function (fileItem, response, status, headers) {
+                $scope.uploadFailed = true;
+                $scope.uploadInProgress = false;
+                $scope.uploadSuccess = false;
+//                    $state.go('.', {}, {'reload': true});
+                console.log("upload error");
+//                $scope.refreshRawMarketPrice();
+            };
+            uploader.onCompleteItem = function (fileItem, response, status, headers) {
+                if (status === 200) {
+                    $state.go('admin.masters_kitchen_component.photo', {
+                        'kitchenComponentId': $stateParams.kitchenComponentId
+                    }, {'reload': true});
+                    $scope.uploadInProgress = false;
+                    $scope.uploadFailed = false;
+                    $scope.uploadSuccess = true;
+                    $scope.enableSaveButton = false;
+                } else if (status === 500)
+                {
+                    $scope.uploadInProgress = false;
+                    $scope.uploadFailed = false;
+//                    $scope.uploadWarning = true;
+                } else {
+                    $scope.uploadInProgress = false;
+                    $scope.uploadFailed = true;
+                }
 
+                console.log("upload completion", response);
+            };
+
+        })
         .controller('KitchenComponentListController', function (KitchenComponentService, $scope, $stateParams, $state, paginationLimit) {
             if (
                     $stateParams.offset === undefined ||
@@ -67,9 +137,12 @@ angular.module("digitalbusiness.states.kitchen_component", [])
 
             $scope.saveKitchenComponent = function (kitchenComponent) {
                 console.log("KC :", kitchenComponent);
-//                KitchenComponentService.save(kitchenComponent, function () {
-//                    $state.go('admin.masters_kitchen_component', null, {'reload': true});
-//                });
+                KitchenComponentService.save(kitchenComponent, function (savedData) {
+                    console.log("Saved Data :%O", savedData);
+                    $state.go('admin.masters_kitchen_component.photo', {
+                        'kitchenComponentId': savedData.id
+                    }, {'reload': true});
+                });
             };
 
             $scope.$watch('editableKitchenComponent.component', function (component) {
@@ -109,7 +182,7 @@ angular.module("digitalbusiness.states.kitchen_component", [])
             });
         })
         .controller('KitchenComponentEditController', function (KitchenComponentService, $scope, $stateParams, $state, paginationLimit) {
-            console.log("Inside Kitchen COmponent :%O",$stateParams.kitchenComponentId);
+            console.log("Inside Kitchen COmponent :%O", $stateParams.kitchenComponentId);
             KitchenComponentService.get({'id': $stateParams.kitchenComponentId});
             KitchenComponentService.get({
                 'id': $stateParams.kitchenComponentId
@@ -120,8 +193,11 @@ angular.module("digitalbusiness.states.kitchen_component", [])
 
             $scope.saveKitchenComponent = function (component) {
                 component.$save(function () {
-                    $state.go('admin.masters_kitchen_component', null, {'reload': true});
+                    $state.go('admin.masters_kitchen_component.photo', {
+                        'kitchenComponentId': component.id
+                    }, {'reload': true});
                 });
+//               
             };
         })
         .controller('KitchenComponentDeleteController', function (KitchenComponentService, $scope, $stateParams, $state, paginationLimit) {
