@@ -1,0 +1,51 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveRawMaterial(editableRawMaterial)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Raw Material Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Material Name</label>
+                                <input class="form-control" placeholder="Material Name" ng-model="editableRawMaterial.material" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Component Code</label>
+                                <input class="form-control" placeholder="Material Code" ng-model="editableRawMaterial.materialCode" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 text-danger" ng-show="editableRawMaterial.repeatName">
+                            Found Records For Above Entered Name
+                        </div>
+                        <div class="col-sm-6 text-danger" ng-show="editableRawMaterial.repeatCode">
+                            Repeat Material Code is not allowed.Enter unique code.
+                        </div>
+                    </div>                                    
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableRawMaterial.repeatCode">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
