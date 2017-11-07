@@ -6,6 +6,7 @@ angular.module("digitalbusiness", [
     'googlechart',
 //    'safedeals.map',
     'ngAnimate',
+    'angular.filter',
     //'ngFileSaver',
     //  include filter
     'digitalbusiness.filters',

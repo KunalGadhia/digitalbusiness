@@ -37,6 +37,8 @@
         <script src="${pageContext.request.contextPath}/js/lib/scripts.js"></script>
         <script src="${pageContext.request.contextPath}/js/lib/wow.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/lib/lodash.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/lib/moment.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/lib/angular.filter.min.js"></script>
         <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>-->
         <script src="${pageContext.request.contextPath}/js/lib/angular-bootstrap-lightbox.js"></script>
         <script src="${pageContext.request.contextPath}/js/lib/ngComboDatePicker.min.js"></script>

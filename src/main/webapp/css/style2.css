@@ -199,14 +199,14 @@ hr {
     width: 100%;
     color:black;
 }*/
-button, html input[type="button"], input[type="reset"], input[type="submit"] {
+/*button, html input[type="button"], input[type="reset"], input[type="submit"] {
     background: #373536;
     border: medium none;
     color: #fff;
     cursor: pointer;
     padding: 3px 15px;
     margin-top: 5px;
-}
+}*/
 button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover {
     background: #fdba2d;
 }

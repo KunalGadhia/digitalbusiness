@@ -64,7 +64,7 @@ public class SegmentDAL {
     }   
     
     public Segment findBySegment(String segment) {       
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.SEGMENT + " = ?";        
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.SEGMENT_CODE + " = ?";        
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{segment}, new BeanPropertyRowMapper<>(Segment.class));
     }
 

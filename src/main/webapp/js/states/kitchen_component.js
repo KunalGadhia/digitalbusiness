@@ -113,11 +113,18 @@ angular.module("digitalbusiness.states.kitchen_component", [])
             $scope.nextKitchenComponents = KitchenComponentService.query({
                 'offset': $scope.nextOffset
             });
-
+            $scope.mainArray = [];
             $scope.kitchenComponents = KitchenComponentService.query({
                 'offset': $scope.currentOffset
             }, function (s) {
+//                angular.forEach(s, function (singleObject) {
+//                    var restCall = "./rest/kitchen_component/" + singleObject.id + "/attachment";
+//                    singleObject.imagePath = restCall;
+//                    $scope.mainArray.push(singleObject);
+//                });
+
             });
+            console.log("THis is Main Array :%O", $scope.mainArray);
 
             $scope.nextPage = function () {
                 $scope.currentOffset += paginationLimit;

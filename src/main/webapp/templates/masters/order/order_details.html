@@ -1,16 +1,176 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<div class="panel panel-default">
+    <div class="panel-heading text-center">
+        <div class="pull-left">
+            <a data-ui-sref="admin.masters"
+               class="btn btn-default">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </a>
+        </div>
+        <div class="pull-right">
+
+        </div>
+        <div>
+            <h3>Order Head</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Party Name :</label>
+                    <span class="col-sm-7 text-left">{{party.dealerName}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Project Name :</label>
+                    <span class="col-sm-7 text-left">{{orderHead.projectName}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Segment :</label>
+                    <span class="col-sm-7 text-left">{{segment.segment}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Billing Type :</label>
+                    <span class="col-sm-7 text-left" ng-if="orderHead.billType === 'D'">Direct Sales</span>
+                    <span class="col-sm-7 text-left" ng-if="orderHead.billType === 'T'">Transfer</span>
+                    <span class="col-sm-7 text-left" ng-if="orderHead.billType === 'R'">Re-Processing</span>
+                    <span class="col-sm-7 text-left" ng-if="orderHead.billType === 'S'">Self Consumption</span>
+                    <span class="col-sm-7 text-left" ng-if="orderHead.billType === 'E'">Export Including Nepal</span>
+                    <span class="col-sm-7 text-left" ng-if="orderHead.billType === 'X'">SEZ -1/2 (No Tax)</span>
+                    <span class="col-sm-7 text-left" ng-if="orderHead.billType === 'C'">CT3</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Customer Order No :</label>
+                    <span class="col-sm-7 text-left">{{orderHead.orderId}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Dealer City :</label>
+                    <span class="col-sm-7 text-left">{{party.city}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Order Date :</label>
+                    <span class="col-sm-7 text-left">{{orderHead.poDate| date:"mediumDate"}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Factory Desp DT :</label>
+                    <span class="col-sm-7 text-left">{{factDespDate| date:"mediumDate"}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Customer Desp DT:</label>
+                    <span class="col-sm-7 text-left">{{factDespDate| date:"mediumDate"}}</span>
+                </div>
+            </div>
+        </div>        
+    </div>   
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading text-center">
+        <div>
+            <h3>Select Component</h3>
+        </div>
+        <div class="modal-body">
+            <div class="btn-group btn-group-lg btn-group-justified">
+                <a ng-click="selectView('CARCASS')" class="btn btn-primary text-center">CARCASS</a>
+                <a ng-click="selectView('PANEL')" class="btn btn-primary text-center">PANEL</a>
+                <a ng-click="selectView('SHUTTER')" class="btn btn-primary text-center">SHUTTER</a>
+                <a ng-click="selectView('DRAWER')" class="btn btn-primary text-center">DRAWER</a>
+            </div>
+            <div class="btn-group btn-group-lg btn-group-justified">
+                <a ng-click="selectView('FILLER')" class="btn btn-primary text-center">FILLER</a>
+                <a ng-click="selectView('PELMET')" class="btn btn-primary text-center">PELMET</a>
+                <a ng-click="selectView('CORNICE')" class="btn btn-primary text-center">CORNICE</a>
+                <a ng-click="selectView('HANDLE')" class="btn btn-primary text-center">HANDLE</a>
+            </div>
+        </div>        
+    </div>
+    <div class="panel-heading text-center" ng-if="showCarcass">
+        <div>
+            <h3>Enter Carcass Order Details</h3>
+        </div>
+        <form role="role" ng-submit="saveOrderDetail(editableCarcassDetail)">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Select Carcass</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Carcass" ng-model="editableCarcassDetail.kitchenComponent.component" required="" readonly=""/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openCarcass()">Select Carcass</button>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel-heading text-center" ng-if="showPanel">
+        <div>
+            <h3>Enter Panel Order Details</h3>
+        </div>
+    </div>
+    <div class="panel-heading text-center" ng-if="showShutter">
+        <div>
+            <h3>Enter Shutter Order Details</h3>
+        </div>
+    </div>
+    <div class="panel-heading text-center" ng-if="showDrawer">
+        <div>
+            <h3>Enter Drawer Order Details</h3>
+        </div>
+    </div>
+    <div class="panel-heading text-center" ng-if="showFiller">
+        <div>
+            <h3>Enter Filler Order Details</h3>
+        </div>
+    </div>
+    <div class="panel-heading text-center" ng-if="showPelmet">
+        <div>
+            <h3>Enter Pelmet Order Details</h3>
+        </div>
+    </div>
+    <div class="panel-heading text-center" ng-if="showCornice">
+        <div>
+            <h3>Enter Cornice Order Details</h3>
+        </div>
+    </div>
+    <div class="panel-heading text-center" ng-if="showHandle">
+        <div>
+            <h3>Enter Handle Order Details</h3>
+        </div>
+    </div>
+</div>
+<!--/////////////Carcass Selection Panel//////////////////////-->
+<div class="modal modal-digitalbusiness" ng-if="showCarcassSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Carcass
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="carcaseList in carcaseList1| groupBy:3">
+                    <div class="col-xs-4 letter-box" ng-repeat="carcase in carcaseList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/kitchen_component/{{carcase.id}}/attachment" width="150px" height="220px"/>
+                            <br>
+                            <b class="text-center"> {{carcase.component}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectCarcase(carcase.id)">Select Carcass ({{carcase.componentCode}})</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+
+<!--/////////////Carcass Selection Panel Ends/////////////////-->
+<div data-ui-view=""></div>

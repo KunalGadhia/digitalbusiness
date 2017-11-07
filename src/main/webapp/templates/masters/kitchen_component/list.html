@@ -24,16 +24,19 @@
                 <th class="text-right">#</th>
                 <th>Component</th>
                 <th>Component Code</th>
-                <th>Category</th>                
+                <th>Category</th>
+                <th>Image</th>                
                 <th class="text-right">Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="kitchenComponent in kitchenComponents">
+            <tr ng-repeat="kitchenComponent in kitchenComponents track by $index">
                 <td class="text-right">{{ currentOffset + $index + 1}}</td>
                 <td>{{ kitchenComponent.component}}</td>   
                 <td>{{ kitchenComponent.componentCode}}</td>  
-                <td>{{ kitchenComponent.category}}</td>                
+                <td>{{ kitchenComponent.category}}</td>
+                <td><image ng-src="./rest/kitchen_component/{{kitchenComponent.id}}/attachment" width="150px" height="220px"/></td>                
+                <!--<td><image ng-src="{{kitchenComponent.imagePath}}" width="150px" height="220px"/></td>-->                
                 <td class="text-right">
                     <a data-ui-sref="admin.masters_kitchen_component.edit({ kitchenComponentId: kitchenComponent.id })"
                        class="btn btn-primary">					

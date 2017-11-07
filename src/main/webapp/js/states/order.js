@@ -29,7 +29,7 @@ angular.module("digitalbusiness.states.order", [])
 
         .controller('OrderHeadController', function (OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
             $scope.editableOrderHead = {};
-    
+
             $scope.user = $rootScope.currentUser;
             UserService.findByUsername({
                 'username': $scope.user.username
@@ -80,8 +80,241 @@ angular.module("digitalbusiness.states.order", [])
 
 
         })
-        .controller('OrderDetailsController', function () {
+        .controller('OrderDetailsController', function (OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             console.log("Inside Order Details Controller");
+            console.log("State Params :%O", $stateParams);
+            $scope.editableCarcassDetail = {};
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                console.log("Order Head :%O", orderHeadObject);
+                $scope.orderHead = orderHeadObject;
+                PartyService.get({
+                    'id': orderHeadObject.billingPartyId
+                }, function (party) {
+                    console.log("Party :%O", party);
+                    $scope.party = party;
+                });
+                SegmentService.findBySegment({
+                    'segment': orderHeadObject.segment
+                }, function (segment) {
+                    $scope.segment = segment;
+                });
+                var a = new Date(orderHeadObject.poDate);
+                console.log("Date :%O", a);
+                var factDespDate = moment(a).add(12, 'days');
+                console.log("Facto Disp Date :%O", factDespDate);
+                var date = new Date(factDespDate);
+                $scope.factDespDate = date;
+            });
+
+            /////////Select View//////////
+            $scope.showCarcass = false;
+            $scope.showPanel = false;
+            $scope.showShutter = false;
+            $scope.showDrawer = false;
+            $scope.showFiller = false;
+            $scope.showPelmet = false;
+            $scope.showCornice = false;
+            $scope.showHandle = false;
+
+            $scope.selectView = function (view) {
+                console.log("View :" + view);
+                if (view === "CARCASS") {
+                    $scope.showCarcass = true;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                } else if (view === "PANEL") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = true;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                } else if (view === "SHUTTER") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = true;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                } else if (view === "DRAWER") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = true;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                } else if (view === "FILLER") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = true;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                } else if (view === "PELMET") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = true;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                } else if (view === "CORNICE") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = true;
+                    $scope.showHandle = false;
+                } else if (view === "HANDLE") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = true;
+                }
+            };
+
+            //////////Select Component Selection View///////////////
+            $scope.showCarcassSelectionWidget = false;
+            $scope.showPanelSelectionWidget = false;
+            $scope.showShutterSelectionWidget = false;
+            $scope.showDrawerSelectionWidget = false;
+            $scope.showFillerSelectionWidget = false;
+            $scope.showPelmetSelectionWidget = false;
+            $scope.showCorniceSelectionWidget = false;
+            $scope.showHandleSelectionWidget = false;
+            $scope.closeWidget = function () {
+                $scope.showCarcassSelectionWidget = false;
+                $scope.showPanelSelectionWidget = false;
+                $scope.showShutterSelectionWidget = false;
+                $scope.showDrawerSelectionWidget = false;
+                $scope.showFillerSelectionWidget = false;
+                $scope.showPelmetSelectionWidget = false;
+                $scope.showCorniceSelectionWidget = false;
+                $scope.showHandleSelectionWidget = false;
+            };
+            $scope.openCarcass = function () {
+                KitchenComponentService.findByCategory({
+                    'category': 'CARCASE '
+                }, function (carcaseList) {
+                    console.log("Carcase List :%O", carcaseList);
+                    $scope.carcaseList1 = carcaseList;
+                });
+                $scope.showCarcassSelectionWidget = true;
+                $scope.showPanelSelectionWidget = false;
+                $scope.showShutterSelectionWidget = false;
+                $scope.showDrawerSelectionWidget = false;
+                $scope.showFillerSelectionWidget = false;
+                $scope.showPelmetSelectionWidget = false;
+                $scope.showCorniceSelectionWidget = false;
+                $scope.showHandleSelectionWidget = false;
+
+            };
+            $scope.openPanel = function () {
+                $scope.showCarcassSelectionWidget = false;
+                $scope.showPanelSelectionWidget = true;
+                $scope.showShutterSelectionWidget = false;
+                $scope.showDrawerSelectionWidget = false;
+                $scope.showFillerSelectionWidget = false;
+                $scope.showPelmetSelectionWidget = false;
+                $scope.showCorniceSelectionWidget = false;
+                $scope.showHandleSelectionWidget = false;
+            };
+            $scope.openShutter = function () {
+                $scope.showCarcassSelectionWidget = false;
+                $scope.showPanelSelectionWidget = false;
+                $scope.showShutterSelectionWidget = true;
+                $scope.showDrawerSelectionWidget = false;
+                $scope.showFillerSelectionWidget = false;
+                $scope.showPelmetSelectionWidget = false;
+                $scope.showCorniceSelectionWidget = false;
+                $scope.showHandleSelectionWidget = false;
+            };
+            $scope.openDrawer = function () {
+                $scope.showCarcassSelectionWidget = false;
+                $scope.showPanelSelectionWidget = false;
+                $scope.showShutterSelectionWidget = false;
+                $scope.showDrawerSelectionWidget = true;
+                $scope.showFillerSelectionWidget = false;
+                $scope.showPelmetSelectionWidget = false;
+                $scope.showCorniceSelectionWidget = false;
+                $scope.showHandleSelectionWidget = false;
+            };
+            $scope.openFiller = function () {
+                $scope.showCarcassSelectionWidget = false;
+                $scope.showPanelSelectionWidget = false;
+                $scope.showShutterSelectionWidget = false;
+                $scope.showDrawerSelectionWidget = false;
+                $scope.showFillerSelectionWidget = true;
+                $scope.showPelmetSelectionWidget = false;
+                $scope.showCorniceSelectionWidget = false;
+                $scope.showHandleSelectionWidget = false;
+            };
+            $scope.openPelmet = function () {
+                $scope.showCarcassSelectionWidget = false;
+                $scope.showPanelSelectionWidget = false;
+                $scope.showShutterSelectionWidget = false;
+                $scope.showDrawerSelectionWidget = false;
+                $scope.showFillerSelectionWidget = false;
+                $scope.showPelmetSelectionWidget = true;
+                $scope.showCorniceSelectionWidget = false;
+                $scope.showHandleSelectionWidget = false;
+            };
+            $scope.openCornice = function () {
+                $scope.showCarcassSelectionWidget = false;
+                $scope.showPanelSelectionWidget = false;
+                $scope.showShutterSelectionWidget = false;
+                $scope.showDrawerSelectionWidget = false;
+                $scope.showFillerSelectionWidget = false;
+                $scope.showPelmetSelectionWidget = false;
+                $scope.showCorniceSelectionWidget = true;
+                $scope.showHandleSelectionWidget = false;
+            };
+            $scope.showHandle = function () {
+                $scope.showCarcassSelectionWidget = false;
+                $scope.showPanelSelectionWidget = false;
+                $scope.showShutterSelectionWidget = false;
+                $scope.showDrawerSelectionWidget = false;
+                $scope.showFillerSelectionWidget = false;
+                $scope.showPelmetSelectionWidget = false;
+                $scope.showCorniceSelectionWidget = false;
+                $scope.showHandleSelectionWidget = true;
+            };
+
+            //////////////////////////////////////
+            $scope.editableCarcassDetail = {};
+            $scope.selectCarcase = function (componentId) {
+                console.log("This is component Id :%O", componentId);
+                $scope.closeWidget();
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (kcObject) {
+                    $scope.editableCarcassDetail.component = kcObject.component;
+                    $scope.editableCarcassDetail.kitchenComponent = kcObject;
+                });
+            };
+
         });
 //        .controller('SaleTypeEditController', function (SaleTypeService, $scope, $stateParams, $state, paginationLimit) {
 //            SaleTypeService.get({'id': $stateParams.saleTypeId});
