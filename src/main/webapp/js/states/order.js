@@ -80,7 +80,7 @@ angular.module("digitalbusiness.states.order", [])
 
 
         })
-        .controller('OrderDetailsController', function (OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (RawMaterialService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             console.log("Inside Order Details Controller");
             console.log("State Params :%O", $stateParams);
             $scope.editableCarcassDetail = {};
@@ -204,6 +204,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showPelmetSelectionWidget = false;
             $scope.showCorniceSelectionWidget = false;
             $scope.showHandleSelectionWidget = false;
+            
             $scope.closeWidget = function () {
                 $scope.showCarcassSelectionWidget = false;
                 $scope.showPanelSelectionWidget = false;
@@ -214,6 +215,7 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showCorniceSelectionWidget = false;
                 $scope.showHandleSelectionWidget = false;
             };
+            
             $scope.openCarcass = function () {
                 KitchenComponentService.findByCategory({
                     'category': 'CARCASE '
@@ -291,7 +293,7 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showCorniceSelectionWidget = true;
                 $scope.showHandleSelectionWidget = false;
             };
-            $scope.showHandle = function () {
+            $scope.openHandle = function () {
                 $scope.showCarcassSelectionWidget = false;
                 $scope.showPanelSelectionWidget = false;
                 $scope.showShutterSelectionWidget = false;
@@ -302,8 +304,12 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showHandleSelectionWidget = true;
             };
 
-            //////////////////////////////////////
+            //////////////Carcass//////////////
             $scope.editableCarcassDetail = {};
+            RawMaterialService.findAllList(function (rmList) {
+                console.log("RM list :%O", rmList);
+                $scope.rawMaterialsList = rmList;
+            });
             $scope.selectCarcase = function (componentId) {
                 console.log("This is component Id :%O", componentId);
                 $scope.closeWidget();

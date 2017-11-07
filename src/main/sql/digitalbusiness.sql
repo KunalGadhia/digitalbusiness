@@ -98,6 +98,39 @@ INSERT INTO `kitchen_component_master` VALUES (1,'Wall Carcase','WC','CARCASE','
 UNLOCK TABLES;
 
 --
+-- Table structure for table `order_details`
+--
+
+DROP TABLE IF EXISTS `order_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `order_head_id` int(11) DEFAULT NULL COMMENT 'REF order_head.id',
+  `product_code` varchar(100) DEFAULT NULL,
+  `component` varchar(100) NOT NULL,
+  `material` varchar(100) NOT NULL,
+  `length` double NOT NULL,
+  `width` double NOT NULL,
+  `depth` double NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `product_code_UNIQUE` (`product_code`),
+  KEY `order_details_order_head_id_fk` (`order_head_id`),
+  CONSTRAINT `order_details_order_head_id_fk` FOREIGN KEY (`order_head_id`) REFERENCES `order_head` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_details`
+--
+
+LOCK TABLES `order_details` WRITE;
+/*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `order_head`
 --
 
@@ -185,6 +218,32 @@ LOCK TABLES `party_master` WRITE;
 /*!40000 ALTER TABLE `party_master` DISABLE KEYS */;
 INSERT INTO `party_master` VALUES (1,'PANT-HYD1','PANTALOON RETAIL INDIA LTD','14021872',NULL,'CDC-HYDERABAD-PUNJAGUTTA A DIVISION','OF P  6-3-676/A/1/A, PUNJAGUTTA','HYDERABAD-500029,Andhra Pradesh',NULL,'Sandeep.More@futuregroup.in','HYDERABAD','465565645','654353453','4534534534','45435345DFE5','28890126394','28890126394',0),(2,'Edge Turnkey','Edge Turnkey solutions pvt ltd','14022472','MR RAYMOND PATEL :-9820090630','C 1 ,  3 & 4 , Contractor Baug,','Mori Road ,','opp Andhra Bank , Mahim west, Mumbai - 400016',NULL,'mailcarbonspace@gmail.com','MUMBAI','4564435','435345345','3453453453','4534534535','45345534','543534534534',0);
 /*!40000 ALTER TABLE `party_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `raw_material_master`
+--
+
+DROP TABLE IF EXISTS `raw_material_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `raw_material_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `material` varchar(100) DEFAULT NULL,
+  `material_code` varchar(100) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `raw_material_master`
+--
+
+LOCK TABLES `raw_material_master` WRITE;
+/*!40000 ALTER TABLE `raw_material_master` DISABLE KEYS */;
+INSERT INTO `raw_material_master` VALUES (1,'Particle Board','PB',0),(2,'Medium Density Fiber Board','MDF',0),(3,'High Density Fiber Board','HDF',0),(4,'Supertuff High Density Fiber Board','SHDF',0),(5,'Boiled Water Ply','BW',0);
+/*!40000 ALTER TABLE `raw_material_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -339,4 +398,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-07 14:17:01
+-- Dump completed on 2017-11-07 17:51:24

@@ -100,6 +100,25 @@
                         </span>
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    <label>Material</label>
+                    <select class="form-control" ng-model="editableCarcassDetail.material" required="">
+                        <option value="">Select Material</option>
+                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                    </select>                    
+                </div>
+                <div class="col-sm-2">
+                    <label>Length</label>
+                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableCarcassDetail.length" required="">
+                </div>
+                <div class="col-sm-2">
+                    <label>Width</label>
+                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableCarcassDetail.width" required="">
+                </div>
+                <div class="col-sm-2">
+                    <label>Depth</label>
+                    <input type="number" class="form-control" placeholder="Enter Depth" ng-model="editableCarcassDetail.depth" required="">
+                </div>
             </div>
         </form>
     </div>
@@ -151,7 +170,6 @@
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
                     <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
                 </span>
-
             </div>
             <div class="modal-body">
                 <div class=row ng-repeat="carcaseList in carcaseList1| groupBy:3">

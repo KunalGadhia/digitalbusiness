@@ -263,6 +263,7 @@
         <script src="${pageContext.request.contextPath}/js/services/reason_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/kitchen_component_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/raw_material_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/order_details_service.js"></script>
         
     </head>
     <body style="font-family: 'Roboto', sans-serif;">
