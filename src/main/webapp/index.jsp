@@ -208,7 +208,7 @@
         </script>
 
         <!-- External JS Libraries -->
-        <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+        <!--<script async="" src="https://www.google-analytics.com/analytics.js"></script>-->
         <script href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script href="${pageContext.request.contextPath}/js/scrollbar.min.js"></script>
         <script href="${pageContext.request.contextPath}/js/emojisetting.js"></script>

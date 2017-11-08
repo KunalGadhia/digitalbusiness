@@ -94,7 +94,7 @@
                 <div class="col-sm-3">
                     <label>Select Carcass</label>
                     <div class="input-group">
-                        <input class="form-control" placeholder="Select Carcass" ng-model="editableCarcassDetail.kitchenComponent.component" required="" readonly=""/>
+                        <input class="form-control" placeholder="Select Carcass" ng-model="carcaseName" required="" readonly=""/>
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="button" ng-click="openCarcass()">Select Carcass</button>
                         </span>
@@ -120,27 +120,169 @@
                     <input type="number" class="form-control" placeholder="Enter Depth" ng-model="editableCarcassDetail.depth" required="">
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fa fa-save"></i>
+                    Add
+                </button>                       				
+            </div>
         </form>
     </div>
     <div class="panel-heading text-center" ng-if="showPanel">
         <div>
             <h3>Enter Panel Order Details</h3>
         </div>
+        <form role="role" ng-submit="savePanelDetails(editablePanelDetail)">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Select Panel</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Panel" ng-model="panelName" required="" readonly=""/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openPanel()">Select Panel</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Material</label>
+                    <select class="form-control" ng-model="editablePanelDetail.material" required="">
+                        <option value="">Select Material</option>
+                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                    </select>                    
+                </div>
+                <div class="col-sm-2">
+                    <label>Length</label>
+                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editablePanelDetail.length" required="">
+                </div>
+                <div class="col-sm-2">
+                    <label>Width</label>
+                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editablePanelDetail.width" required="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fa fa-save"></i>
+                    Add
+                </button>                       				
+            </div>
+        </form>
     </div>
     <div class="panel-heading text-center" ng-if="showShutter">
         <div>
             <h3>Enter Shutter Order Details</h3>
         </div>
+        <form role="role" ng-submit="saveShutterDetails(editableShutterDetail)">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Select Shutter</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" readonly=""/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openShutter()">Select Shutter</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Material</label>
+                    <select class="form-control" ng-model="editableShutterDetail.material" required="">
+                        <option value="">Select Material</option>
+                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                    </select>                    
+                </div>
+                <div class="col-sm-2">
+                    <label>Length</label>
+                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableShutterDetail.length" required="">
+                </div>
+                <div class="col-sm-2">
+                    <label>Width</label>
+                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableShutterDetail.width" required="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fa fa-save"></i>
+                    Add
+                </button>                       				
+            </div>
+        </form>
     </div>
     <div class="panel-heading text-center" ng-if="showDrawer">
         <div>
             <h3>Enter Drawer Order Details</h3>
         </div>
+        <form role="role" ng-submit="saveDrawerDetails(editableDrawerDetail)">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Select Drawer</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Drawer" ng-model="drawerName" required="" readonly=""/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openDrawer()">Select Drawer</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Material</label>
+                    <select class="form-control" ng-model="editableDrawerDetail.material" required="">
+                        <option value="">Select Material</option>
+                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                    </select>                    
+                </div>
+                <div class="col-sm-2">
+                    <label>Length</label>
+                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableDrawerDetail.length" required="">
+                </div>
+                <div class="col-sm-2">
+                    <label>Width</label>
+                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableDrawerDetail.width" required="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fa fa-save"></i>
+                    Add
+                </button>                       				
+            </div>
+        </form>
     </div>
     <div class="panel-heading text-center" ng-if="showFiller">
         <div>
             <h3>Enter Filler Order Details</h3>
         </div>
+        <form role="role" ng-submit="saveFillerDetails(editableFillerDetail)">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Select Filler</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Filler" ng-model="fillerName" required="" readonly=""/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openFiller()">Select Filler</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Material</label>
+                    <select class="form-control" ng-model="editableFillerDetail.material" required="">
+                        <option value="">Select Material</option>
+                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                    </select>                    
+                </div>
+                <div class="col-sm-2">
+                    <label>Length</label>
+                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableFillerDetail.length" required="">
+                </div>
+                <div class="col-sm-2">
+                    <label>Width</label>
+                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableFillerDetail.width" required="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fa fa-save"></i>
+                    Add
+                </button>                       				
+            </div>
+        </form>
     </div>
     <div class="panel-heading text-center" ng-if="showPelmet">
         <div>
@@ -158,6 +300,52 @@
         </div>
     </div>
 </div>
+
+<!--//////////////Order List View//////////////////////////-->
+<div class="panel panel-default">
+    <div class="panel-heading text-center">
+        <div>
+            <h3>Order Details List</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th>Product Code</th>
+                        <!--<th>Component</th>-->
+                        <th>Thickness</th>
+                        <th>Width</th>
+                        <th>Length</th>
+                        <th>Depth</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetails in orderDetailsList">
+                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <td class="text-left">{{ orderDetails.productCode}}</td>   
+                        <td class="text-left">18 mm</td>  
+                        <td class="text-left">{{ orderDetails.width}} mm</td>
+                        <td class="text-left">{{ orderDetails.length}} mm</td>
+                        <td class="text-left">{{ orderDetails.depth}} mm</td>                        
+                        <td class="text-right">
+                            <!--                            <a data-ui-sref="admin.masters_kitchen_component.edit({ kitchenComponentId: kitchenComponent.id })"
+                                                           class="btn btn-primary">					
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>-->
+                            <a data-ui-sref="admin.masters_kitchen_component.delete({ kitchenComponentId: kitchenComponent.id })"
+                               class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>        
+    </div>
+</div>
+
 <!--/////////////Carcass Selection Panel//////////////////////-->
 <div class="modal modal-digitalbusiness" ng-if="showCarcassSelectionWidget">
     <div class="modal-backdrop fade in"></div>
@@ -188,6 +376,129 @@
         </div>        
     </div>
 </div>
-
 <!--/////////////Carcass Selection Panel Ends/////////////////-->
+<!--/////////////Panel Selection Panel//////////////////////-->
+<div class="modal modal-digitalbusiness" ng-if="showPanelSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Panel
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="panelList in panelList1| groupBy:3">
+                    <div class="col-xs-4 letter-box" ng-repeat="panel in panelList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/kitchen_component/{{panel.id}}/attachment" width="150px" height="220px"/>
+                            <br>
+                            <b class="text-center"> {{panel.component}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectPanel(panel.id)">Select Panel ({{panel.componentCode}})</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<!--/////////////Panel Selection Panel Ends/////////////////-->
+<!--/////////////Shutter Selection Panel//////////////////////-->
+<div class="modal modal-digitalbusiness" ng-if="showShutterSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Shutter
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="shutterList in shutterList1| groupBy:3">
+                    <div class="col-xs-4 letter-box" ng-repeat="shutter in shutterList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/kitchen_component/{{shutter.id}}/attachment" width="150px" height="220px"/>
+                            <br>
+                            <b class="text-center"> {{shutter.component}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectShutter(shutter.id)">Select Shutter({{shutter.componentCode}})</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<!--/////////////Shutter Selection Panel Ends/////////////////-->
+<!--/////////////Drawer Selection Panel//////////////////////-->
+<div class="modal modal-digitalbusiness" ng-if="showDrawerSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Drawer
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="drawerList in drawerList1| groupBy:3">
+                    <div class="col-xs-4 letter-box" ng-repeat="drawer in drawerList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/kitchen_component/{{drawer.id}}/attachment" width="150px" height="220px"/>
+                            <br>
+                            <b class="text-center"> {{drawer.component}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectDrawer(drawer.id)">Select Drawer({{drawer.componentCode}})</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<!--/////////////Drawer Selection Panel Ends/////////////////-->
+<!--/////////////Filler Selection Panel//////////////////////-->
+<div class="modal modal-digitalbusiness" ng-if="showFillerSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Filler
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="fillerList in fillerList1| groupBy:3">
+                    <div class="col-xs-4 letter-box" ng-repeat="filler in fillerList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/kitchen_component/{{filler.id}}/attachment" width="150px" height="220px"/>
+                            <br>
+                            <b class="text-center"> {{filler.component}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectFiller(filler.id)">Select Drawer({{filler.componentCode}})</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<!--/////////////Filler Selection Panel Ends/////////////////-->
 <div data-ui-view=""></div>

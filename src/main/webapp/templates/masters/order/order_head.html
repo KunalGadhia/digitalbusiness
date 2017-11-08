@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading text-center">
+    <div class="panel-heading text-center">       
         <div class="pull-left">
             <a data-ui-sref="admin.masters"
                class="btn btn-default">
@@ -357,22 +357,22 @@
                             <div class="form-group">
                                 <label>PO Date</label>
                                 <input class="form-control" type="date" placeholder="DD-MM-YYYY" ng-model="editableOrderHead.poDate"/>
-<!--                                <input class="form-control" placeholder="DD-MM-YYYY" ng-model="editableOrderHead.poDate"/>
-                                <p class="input-group">
-                                    <input type="text" class="form-control" placeholder="DD MMM YYYY" uib-datepicker-popup="dd MMM yyyy" ng-model="editableOrderHead.poDate"
-                                           popup-placement="bottom"   is-open="datePicker.opened" datepicker-options="dateOptions" close-text="Close" required>
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="datePicker.toggle()">
-                                            <i class="fa fa-calendar"></i>
-                                        </button>
-                                    </span>
-                                </p>-->
+                                <!--                                <input class="form-control" placeholder="DD-MM-YYYY" ng-model="editableOrderHead.poDate"/>
+                                                                <p class="input-group">
+                                                                    <input type="text" class="form-control" placeholder="DD MMM YYYY" uib-datepicker-popup="dd MMM yyyy" ng-model="editableOrderHead.poDate"
+                                                                           popup-placement="bottom"   is-open="datePicker.opened" datepicker-options="dateOptions" close-text="Close" required>
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="datePicker.toggle()">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                </p>-->
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>PO Value</label>
-                                <input class="form-control" type="number" placeholder="Purchase Order Value" ng-model="editableOrderHead.poValue"/>
+                                <input class="form-control" type="number" placeholder="To be Filled after PI is Approved" ng-model="editableOrderHead.poValue" readonly=""/>
                             </div>
                         </div>
                         <div class="col-sm-3">
