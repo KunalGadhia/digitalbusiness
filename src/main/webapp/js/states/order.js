@@ -295,6 +295,11 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showHandleSelectionWidget = false;
             };
             $scope.openPelmet = function () {
+                KitchenComponentService.findByCategory({
+                    'category': 'PELMET'
+                }, function (pelmetList) {
+                    $scope.pelmetList1 = pelmetList;
+                });
                 $scope.showCarcassSelectionWidget = false;
                 $scope.showPanelSelectionWidget = false;
                 $scope.showShutterSelectionWidget = false;
@@ -305,6 +310,11 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showHandleSelectionWidget = false;
             };
             $scope.openCornice = function () {
+                KitchenComponentService.findByCategory({
+                    'category': 'CORNICE'
+                }, function (corniceList) {
+                    $scope.corniceList1 = corniceList;
+                });
                 $scope.showCarcassSelectionWidget = false;
                 $scope.showPanelSelectionWidget = false;
                 $scope.showShutterSelectionWidget = false;
@@ -315,6 +325,11 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showHandleSelectionWidget = false;
             };
             $scope.openHandle = function () {
+                KitchenComponentService.findByCategory({
+                    'category': 'HANDLE'
+                }, function (handleList) {
+                    $scope.handleList1 = handleList;
+                });
                 $scope.showCarcassSelectionWidget = false;
                 $scope.showPanelSelectionWidget = false;
                 $scope.showShutterSelectionWidget = false;
@@ -389,6 +404,42 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
             ////////////Filler Ends///////////////
+            //////////////Pelmet//////////////
+            $scope.editablePelmetDetail = {};
+            $scope.selectPelmet = function (componentId) {
+                $scope.closeWidget();
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (kcObject) {
+                    $scope.pelmetName = kcObject.component;
+                    $scope.pelmetComponent = kcObject.componentCode;
+                });
+            };
+            ////////////Pelmet Ends///////////////
+            //////////////Cornice//////////////
+            $scope.editableCorniceDetail = {};
+            $scope.selectCornice = function (componentId) {
+                $scope.closeWidget();
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (kcObject) {
+                    $scope.corniceName = kcObject.component;
+                    $scope.corniceComponent = kcObject.componentCode;
+                });
+            };
+            ////////////Cornice Ends///////////////
+            //////////////Handle//////////////
+            $scope.editableHandleDetail = {};
+            $scope.selectHandle = function (componentId) {
+                $scope.closeWidget();
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (kcObject) {
+                    $scope.handleName = kcObject.component;
+                    $scope.handleComponent = kcObject.componentCode;
+                });
+            };
+            ////////////Handle Ends///////////////
 
 
             //////////////Save Functions for All Components/////////////
@@ -502,9 +553,9 @@ angular.module("digitalbusiness.states.order", [])
                     }
                 } else {
                     w1 = shutterOrderDetail.width.toString();
-                }                
+                }
                 var productCode = shutterOrderDetail.component + "-18" + shutterOrderDetail.material + "-" + l1 + "" + w1 + "18000";
-                shutterOrderDetail.productCode = productCode;                
+                shutterOrderDetail.productCode = productCode;
                 OrderDetailsService.save(shutterOrderDetail, function () {
                     $scope.editableShutterDetail = "";
                     $scope.shutterName = "";
@@ -542,9 +593,9 @@ angular.module("digitalbusiness.states.order", [])
                     }
                 } else {
                     w1 = drawerOrderDetail.width.toString();
-                }                
+                }
                 var productCode = drawerOrderDetail.component + "-18" + drawerOrderDetail.material + "-" + l1 + "" + w1 + "18000";
-                drawerOrderDetail.productCode = productCode;                
+                drawerOrderDetail.productCode = productCode;
                 OrderDetailsService.save(drawerOrderDetail, function () {
                     $scope.editableDrawerDetail = "";
                     $scope.drawerName = "";
@@ -582,12 +633,120 @@ angular.module("digitalbusiness.states.order", [])
                     }
                 } else {
                     w1 = fillerOrderDetail.width.toString();
-                }                
+                }
                 var productCode = fillerOrderDetail.component + "-18" + fillerOrderDetail.material + "-" + l1 + "" + w1 + "18000";
-                fillerOrderDetail.productCode = productCode;                
+                fillerOrderDetail.productCode = productCode;
                 OrderDetailsService.save(fillerOrderDetail, function () {
                     $scope.editableFillerDetail = "";
                     $scope.fillerName = "";
+                    $scope.refreshList();
+                });
+            };
+            $scope.savePelmetDetails = function (pelmetOrderDetail) {
+                pelmetOrderDetail.orderHeadId = $stateParams.orderHeadId;
+                pelmetOrderDetail.component = $scope.pelmetComponent;
+                pelmetOrderDetail.depth = '0';
+                var l1;
+                var w1;
+                var lengthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    l1 = genNum;
+                };
+                var widthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    w1 = genNum;
+                };
+                if (pelmetOrderDetail.length < 1000) {
+                    if (pelmetOrderDetail.length < 100) {
+                        lengthLessThan100(pelmetOrderDetail.length);
+                    } else {
+                        l1 = 0 + pelmetOrderDetail.length.toString();
+                    }
+                } else {
+                    l1 = pelmetOrderDetail.length.toString();
+                }
+                if (pelmetOrderDetail.width < 1000) {
+                    if (pelmetOrderDetail.width < 100) {
+                        widthLessThan100(pelmetOrderDetail.width);
+                    } else {
+                        w1 = 0 + pelmetOrderDetail.width.toString();
+                    }
+                } else {
+                    w1 = pelmetOrderDetail.width.toString();
+                }
+                var productCode = pelmetOrderDetail.component + "-18" + pelmetOrderDetail.material + "-" + l1 + "" + w1 + "18000";
+                pelmetOrderDetail.productCode = productCode;
+                OrderDetailsService.save(pelmetOrderDetail, function () {
+                    $scope.editablePelmetDetail = "";
+                    $scope.pelmetName = "";
+                    $scope.refreshList();
+                });
+            };
+            $scope.saveCorniceDetails = function (corniceOrderDetail) {
+                corniceOrderDetail.orderHeadId = $stateParams.orderHeadId;
+                corniceOrderDetail.component = $scope.corniceComponent;
+                corniceOrderDetail.depth = '0';
+                var l1;
+                var w1;
+                var lengthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    l1 = genNum;
+                };
+                var widthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    w1 = genNum;
+                };
+                if (corniceOrderDetail.length < 1000) {
+                    if (corniceOrderDetail.length < 100) {
+                        lengthLessThan100(corniceOrderDetail.length);
+                    } else {
+                        l1 = 0 + corniceOrderDetail.length.toString();
+                    }
+                } else {
+                    l1 = corniceOrderDetail.length.toString();
+                }
+                if (corniceOrderDetail.width < 1000) {
+                    if (corniceOrderDetail.width < 100) {
+                        widthLessThan100(corniceOrderDetail.width);
+                    } else {
+                        w1 = 0 + corniceOrderDetail.width.toString();
+                    }
+                } else {
+                    w1 = corniceOrderDetail.width.toString();
+                }
+                var productCode = corniceOrderDetail.component + "-18" + corniceOrderDetail.material + "-" + l1 + "" + w1 + "18000";
+                corniceOrderDetail.productCode = productCode;
+                OrderDetailsService.save(corniceOrderDetail, function () {
+                    $scope.editableCorniceDetail = "";
+                    $scope.corniceName = "";
+                    $scope.refreshList();
+                });
+            };
+            $scope.saveHandleDetails = function (handleOrderDetail) {
+                handleOrderDetail.orderHeadId = $stateParams.orderHeadId;
+                handleOrderDetail.component = $scope.handleComponent;
+                handleOrderDetail.depth = '0';
+                handleOrderDetail.width = '0';
+                handleOrderDetail.material = '';
+                var l1;
+                var lengthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    l1 = genNum;
+                };
+                if (handleOrderDetail.length < 1000) {
+                    if (handleOrderDetail.length < 100) {
+                        lengthLessThan100(handleOrderDetail.length);
+                    } else {
+                        l1 = 0 + handleOrderDetail.length.toString();
+                    }
+                } else {
+                    l1 = handleOrderDetail.length.toString();
+                }
+                var productCode = handleOrderDetail.component + "" + handleOrderDetail.material + "" + l1 + "MM";
+                handleOrderDetail.productCode = productCode;
+                OrderDetailsService.save(handleOrderDetail, function () {
+                    $scope.editableHandleDetail = "";
+                    $scope.handleName = "";
                     $scope.refreshList();
                 });
             };
