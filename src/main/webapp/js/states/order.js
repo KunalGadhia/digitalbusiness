@@ -80,7 +80,7 @@ angular.module("digitalbusiness.states.order", [])
 
 
         })
-        .controller('OrderDetailsController', function (RawMaterialService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (RawMaterialService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             console.log("Inside Order Details Controller");
             console.log("State Params :%O", $stateParams);
             $scope.editableCarcassDetail = {};
@@ -440,7 +440,105 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
             ////////////Handle Ends///////////////
+//            $scope.stdLengthList = [];
+//            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+//                'dimensionAttribute': 'HEIGHT',
+//                'carcassCategory': 'WC'
+//            }, function (stdLength) {
+//                angular.forEach(stdLength, function (std) {
+//                    $scope.stdLengthList.push(std.stdValue);
+//                });
+//            });
+//          //////////////////////////////
+            $scope.wcLengthList = [];
+            $scope.wcWidthList = [];
+            $scope.wcDepthList = [];
+            $scope.bcLengthList = [];
+            $scope.bcWidthList = [];
+            $scope.bcDepthList = [];
+            $scope.tuLengthList = [];
+            $scope.tuWidthList = [];
+            $scope.tuDepthList = [];
+            $scope.bbLengthList = [];
+            $scope.bbWidthList = [];
+            $scope.bbDepthList = [];
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'HEIGHT',
+                'carcassCategory': "WC"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.wcLengthList.push(std.stdValue);
+                });
+            });
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'WIDTH',
+                'carcassCategory': "WC"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.wcWidthList.push(std.stdValue);
+                });
+            });
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'DEPTH',
+                'carcassCategory': "WC"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.wcDepthList.push(std.stdValue);
+                });
+            });
+            function closestValue(num, arr) {
+                //////////////Trial 1////////
+                console.log("This is array :%O", arr);
+                console.log("This is Value :%O", num);
+//                var result,lastDelta;
+//
+//                array.some(function (item) {
+//                    var delta = Math.abs(value - item);
+//                    if (delta > lastDelta) {
+//                        return true;
+//                    }
+//                    result = item;
+////                    console.log("Result :%O", result);
+//                    lastDelta = delta;
+////                    console.log("Last Delta :%O", lastDelta);
+//                });
+//                return result;
+///////////////////Trial 2
+//                function closest(num, arr) {
+                var curr = arr[0];
+                console.log("Curr 1 :%O", curr);
+                var diff = Math.abs(num - curr);
+                for (var val = 0; val < arr.length; val++) {
+                    console.log("Quick Check NUM:%O", num);
+                    console.log("Diff :%O", arr[val]);
+                    var newdiff = Math.abs(num - arr[val]);
+                    
+                    if (newdiff < diff) {
+                        diff = newdiff;
+                        console.log("HAHAHAHA :%O", arr[val]);
+                        curr = arr[val];
+                    }
+                }
+                console.log("Final Curr :%O", curr);
+                return curr;
+//                }
+            }
 
+            ////////////Standard Carcass Validation////////////////
+            $scope.validateCarcass = function (orderDetail) {
+                orderDetail.component = $scope.carcassComponent;
+                var present = $scope.wcLengthList.indexOf(orderDetail.length);
+                console.log("What is Present :%O", present);
+                var len;
+//                if (present < 0) {
+//                len = closestValue($scope.wcLengthList, orderDetail.length);
+                len = closestValue(orderDetail.length, $scope.wcLengthList);
+//                } else {
+//                    len = orderDetail.length;
+//                }
+
+                console.log("ANy Progress :%O", len);
+            };
 
             //////////////Save Functions for All Components/////////////
             $scope.saveOrderDetail = function (orderDetail) {
@@ -452,12 +550,40 @@ angular.module("digitalbusiness.states.order", [])
                 var d;
                 var d1;
                 orderDetail.orderHeadId = $stateParams.orderHeadId;
-                var len = orderDetail.length.toString();
-                l = len.slice(0, 2);
-                var wid = orderDetail.width.toString();
-                w = wid.slice(0, 2);
-                var dep = orderDetail.depth.toString();
-                d = dep.slice(0, 2);
+//                ////////Process Length////////////
+//                if (orderDetail.length !== 0) {
+//                    console.log("Length is Present");
+//                    StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+//                        'dimensionAttribute': 'HEIGHT',
+//                        'carcassCategory': orderDetail.component
+//                    }, function (stdDimensionList) {
+//                        console.log("STd DImension List :%O", stdDimensionList);
+//                        angular.forEach(stdDimensionList, function (indStd) {
+//                            console.log("In STd :%O", indStd.stdValue);
+//                            console.log("This is Value :" + orderDetail.length);
+//                            if (orderDetail.length === indStd.stdValue) {
+//                                console.log("This is Standard DImension");
+//                                var len = orderDetail.length.toString();
+//                                l = len.slice(0, 2);
+//                                console.log("This is main L :" + l);
+//                            } else {
+//                                console.log("This is Not STandard DImnsion");
+//                            }
+//                        });
+//                    });
+//                }
+//                ;
+//                $scope.updateL = function (l) {
+//
+//                };
+//                console.log("This is L :%O", l);
+
+//                var len = orderDetail.length.toString();
+//                l = len.slice(0, 2);
+//                var wid = orderDetail.width.toString();
+//                w = wid.slice(0, 2);
+//                var dep = orderDetail.depth.toString();
+//                d = dep.slice(0, 2);
                 if (orderDetail.length < 1000) {
                     l1 = 0 + orderDetail.length.toString();
                 } else {
@@ -473,13 +599,15 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     d1 = orderDetail.depth.toString();
                 }
+//                $scope.generateProductCode = 
                 var productCode = orderDetail.component + "" + w + "" + l + "" + d + "18" + orderDetail.material + "-" + l1 + "" + w1 + "18" + d1;
                 orderDetail.productCode = productCode;
-                OrderDetailsService.save(orderDetail, function () {
-                    $scope.editableCarcassDetail = "";
-                    $scope.carcaseName = "";
-                    $scope.refreshList();
-                });
+                console.log("Product Code :%O", productCode);
+//                OrderDetailsService.save(orderDetail, function () {
+//                    $scope.editableCarcassDetail = "";
+//                    $scope.carcaseName = "";
+//                    $scope.refreshList();
+//                });
             };
             $scope.savePanelDetails = function (panelOrderDetail) {
                 panelOrderDetail.component = $scope.panelComponent;
