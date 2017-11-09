@@ -1,0 +1,69 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveStdDimension(editableStdCarcassDimension)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Kitchen Component Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Dimension Attribute</label>
+                                <!--<input class="form-control" placeholder="Component Name" ng-model="editableKitchenComponent.component" required=""/>-->
+                                <select class="form-control" ng-model="editableStdCarcassDimension.dimensionAttribute" required="">
+                                    <option value="">Select Dimension Attribute</option>
+                                    <option value="WIDTH">Width</option>
+                                    <option value="HEIGHT">Height</option>
+                                    <option value="DEPTH">Depth</option>                                                                        
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Carcass Category</label>
+                                <select class="form-control" ng-model="editableStdCarcassDimension.carcassCategory" required="">
+                                    <option value="">Select Carcass Category</option>
+                                    <option value="WC">Wall Carcass</option>
+                                    <option value="BC">Base Carcass</option>
+                                    <option value="TU">Tall Unit Carcass</option>
+                                    <option value="BB">Base Blind Carcass</option> 
+                                </select>                                
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Std Value</label>
+                                <input type="number" class="form-control" ng-model="editableStdCarcassDimension.stdValue" required="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <!--                            <div class="form-group">
+                                                            <label>Image</label>
+                                                            <input type="file" ng-model="editableKitchenComponent.image">
+                                                        </div>-->
+                        </div>
+                    </div>                    
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableKitchenComponent.repeatCode">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
