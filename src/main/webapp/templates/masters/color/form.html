@@ -1,0 +1,71 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveColor(editableColor)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Color Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Color Name</label>
+                                <input class="form-control" placeholder="Color Name" ng-model="editableColor.colorName" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Color Code</label>
+                                <input class="form-control" placeholder="Color Code" ng-model="editableColor.colorCode" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 text-danger" ng-show="editableColor.repeatName">
+                            Found Records For Above Entered Name
+                        </div>
+                        <div class="col-sm-6 text-danger" ng-show="editableColor.repeatCode">
+                            Repeat Component Code is not allowed.Enter unique code.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Color Category</label>
+                                <select class="form-control" ng-model="editableColor.colorCategory">
+                                    <option value="">Select Color Category</option>
+                                    <option value="PRELAM">PRELAM</option>
+                                    <option value="STANDARD_MEMBRANE">STANDARD MEMBRANE</option>
+                                    <option value="DESIGNER_MEMBRANE">DESIGNER MEMBRANE</option>
+                                    <option value="HIGHGLOSS_MEMBRANE">HIGHGLOSS MEMBRANE</option>
+                                    <option value="HPL">HPL</option>
+                                    <option value="BACK_PAINTED">BACK PAINTED</option>
+                                    <option value="READYMADE_ACRYLIC">ACRYLIC</option>
+                                    <option value="READYMADE_POLYMER">POLYMER</option>                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+                    </div>                    
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableColor.repeatCode">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

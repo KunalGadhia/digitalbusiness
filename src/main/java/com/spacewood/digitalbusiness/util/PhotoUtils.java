@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.util;
 
+import com.spacewood.digitalbusiness.color.Color;
 import com.spacewood.digitalbusiness.kitchencomponent.KitchenComponent;
 import com.spacewood.digitalbusiness.util.AttachmentUtils.AttachmentType;
 import java.io.File;
@@ -51,6 +52,30 @@ public class PhotoUtils {
 
     public File getKitchenComponentPhotoFile(KitchenComponent kitchenComponent) throws IOException {
         File kitchenComponentDir = attachmentUtils.getDirectoryByAttachmentTypeAndEntityId(AttachmentType.KITCHEN_COMPONENT, kitchenComponent.getId(), true);
+        return new File(kitchenComponentDir, PHOTO_FILE_NAME);
+    }
+
+    ////////////////////////////////////////////////////////
+    public File getColorPhoto(Color color) throws FileNotFoundException, IOException {
+        if (color.getImage() != null) {
+            PHOTO_FILE_NAME = color.getImage().get(0).toString();
+        }
+        File photoFile = getColorPhotoFile(color);
+        return photoFile;
+    }
+
+    public File setColorPhoto(
+            InputStream inputStream,
+            Color color)
+            throws IOException {
+
+        File photoFile = getColorPhoto(color);
+        FileCopyUtils.copy(inputStream, new FileOutputStream(photoFile));
+        return photoFile;
+    }
+
+    public File getColorPhotoFile(Color color) throws IOException {
+        File kitchenComponentDir = attachmentUtils.getDirectoryByAttachmentTypeAndEntityId(AttachmentType.COLOR, color.getId(), true);
         return new File(kitchenComponentDir, PHOTO_FILE_NAME);
     }
 }

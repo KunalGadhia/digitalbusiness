@@ -46,12 +46,12 @@
 
         <!--Constants-->
         <script>
-                    angular.module("digitalbusiness.constants", [])
-                            .constant('contextPath', '${pageContext.request.contextPath}')
-                            .constant('restRoot', '${pageContext.request.contextPath}/rest')
-                            .constant('templateRoot', '${pageContext.request.contextPath}/templates')
-                            .constant('imageRoot', '${pageContext.request.contextPath}/images')
-                            .constant('paginationLimit', 10);
+            angular.module("digitalbusiness.constants", [])
+                    .constant('contextPath', '${pageContext.request.contextPath}')
+                    .constant('restRoot', '${pageContext.request.contextPath}/rest')
+                    .constant('templateRoot', '${pageContext.request.contextPath}/templates')
+                    .constant('imageRoot', '${pageContext.request.contextPath}/images')
+                    .constant('paginationLimit', 10);
         </script>
 
         <!-- According to Spacewood UI -->
@@ -187,20 +187,20 @@
 
         <!-- Internal JS Files -->
         <script>
-                    (function (i, s, o, g, r, a, m) {
-                        i['GoogleAnalyticsObject'] = r;
-                        i[r] = i[r] || function () {
-                            (i[r].q = i[r].q || []).push(arguments)
-                        }, i[r].l = 1 * new Date();
-                        a = s.createElement(o),
-                                m = s.getElementsByTagName(o)[0];
-                        a.async = 1;
-                        a.src = g;
-                        m.parentNode.insertBefore(a, m)
-                    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-                    ga('create', 'UA-41214428-1', 'auto');
-                    ga('send', 'pageview');
+            ga('create', 'UA-41214428-1', 'auto');
+            ga('send', 'pageview');
         </script>
 
         <script type="application/ld+json">
@@ -252,6 +252,7 @@
         <script src="${pageContext.request.contextPath}/js/states/kitchen_component.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/raw_material.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/standard_carcass_dimension.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/color.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
@@ -266,7 +267,8 @@
         <script src="${pageContext.request.contextPath}/js/services/raw_material_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/standard_carcass_dimension_service.js"></script>
-        
+        <script src="${pageContext.request.contextPath}/js/services/color_service.js"></script>
+
     </head>
     <body style="font-family: 'Roboto', sans-serif;">
         <div data-ui-view></div>

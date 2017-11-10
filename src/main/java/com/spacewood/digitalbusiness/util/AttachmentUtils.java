@@ -37,9 +37,11 @@ public class AttachmentUtils {
     private SettingDAL settingDAL;
 
     private static final String KITCHEN_COMPONENT_ATTACHMENT_DIR_NAME = "kitchern_component";
+    private static final String COLOR_ATTACHMENT_DIR_NAME = "color_component";
 
     public static enum AttachmentType {
-        KITCHEN_COMPONENT
+        KITCHEN_COMPONENT,
+        COLOR
     }
 
     public File getAttachmentRootDirectory() {
@@ -63,6 +65,11 @@ public class AttachmentUtils {
 
             case KITCHEN_COMPONENT:
                 attachmentDir = new File(getAttachmentRootDirectory(), KITCHEN_COMPONENT_ATTACHMENT_DIR_NAME);
+                logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
+                break;
+
+            case COLOR:
+                attachmentDir = new File(getAttachmentRootDirectory(), COLOR_ATTACHMENT_DIR_NAME);
                 logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
                 break;
 
@@ -116,7 +123,7 @@ public class AttachmentUtils {
             return entityDir;
         }
     }
-    
+
     public File storeAttachmentByAttachmentTypeAndEntityId(
             String outputFilename,
             InputStream inputStream,
@@ -139,7 +146,7 @@ public class AttachmentUtils {
         }
         return outputFile;
     }
-    
+
     ///////////////////////////////////////////////////////////
     public boolean deleteAttachmentByAttachmentTypeAndEntityId(
             String filename,
