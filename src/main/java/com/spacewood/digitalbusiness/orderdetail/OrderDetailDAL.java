@@ -32,6 +32,8 @@ public class OrderDetailDAL {
         public static final String LENGTH = "length";
         public static final String WIDTH = "width";
         public static final String DEPTH = "depth";
+        public static final String NON_STANDARD_DIMENSION = "non_standard_dimension";
+        public static final String SHELF = "shelf";
 
     }
 
@@ -52,7 +54,9 @@ public class OrderDetailDAL {
                         Columns.MATERIAL,
                         Columns.LENGTH,
                         Columns.WIDTH,
-                        Columns.DEPTH
+                        Columns.DEPTH,
+                        Columns.NON_STANDARD_DIMENSION,
+                        Columns.SHELF
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -78,6 +82,7 @@ public class OrderDetailDAL {
     }
 
     public OrderDetail insert(OrderDetail orderDetail) {
+        System.out.println("Insert Order Detail :" + orderDetail);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(Columns.ORDER_HEAD_ID, orderDetail.getOrderHeadId());
         parameters.put(Columns.PRODUCT_CODE, orderDetail.getProductCode());
@@ -86,6 +91,13 @@ public class OrderDetailDAL {
         parameters.put(Columns.LENGTH, orderDetail.getLength());
         parameters.put(Columns.WIDTH, orderDetail.getWidth());
         parameters.put(Columns.DEPTH, orderDetail.getDepth());
+        parameters.put(Columns.NON_STANDARD_DIMENSION, orderDetail.getNonStandardDimension());
+//        parameters.put(Columns.SHELF, orderDetail.getShelf());
+        if (orderDetail.getShelf() == null) {
+            parameters.put(Columns.SHELF, 0);
+        } else {
+            parameters.put(Columns.SHELF, orderDetail.getShelf());
+        }
 
         Number newId = insertOrderDetail.executeAndReturnKey(parameters);
         orderDetail = findById(newId.intValue());
@@ -105,7 +117,9 @@ public class OrderDetailDAL {
                 + Columns.MATERIAL + " = ?,"
                 + Columns.LENGTH + " = ?,"
                 + Columns.WIDTH + " = ?,"
-                + Columns.DEPTH + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.DEPTH + " = ?,"
+                + Columns.NON_STANDARD_DIMENSION + " = ?,"
+                + Columns.SHELF + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     orderDetail.getOrderHeadId(),
@@ -115,6 +129,8 @@ public class OrderDetailDAL {
                     orderDetail.getLength(),
                     orderDetail.getWidth(),
                     orderDetail.getDepth(),
+                    orderDetail.getNonStandardDimension(),
+                    orderDetail.getShelf(),
                     orderDetail.getId()
                 });
         orderDetail = findById(orderDetail.getId());

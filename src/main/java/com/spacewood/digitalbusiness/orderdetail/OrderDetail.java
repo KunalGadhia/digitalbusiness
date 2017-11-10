@@ -20,6 +20,8 @@ public class OrderDetail {
     private Double length;
     private Double width;
     private Double depth;
+    private Boolean nonStandardDimension;
+    private Boolean shelf;
 
     public Integer getId() {
         return id;
@@ -85,17 +87,35 @@ public class OrderDetail {
         this.depth = depth;
     }
 
+    public Boolean getNonStandardDimension() {
+        return nonStandardDimension;
+    }
+
+    public void setNonStandardDimension(Boolean nonStandardDimension) {
+        this.nonStandardDimension = nonStandardDimension;
+    }
+
+    public Boolean getShelf() {
+        return shelf;
+    }
+
+    public void setShelf(Boolean shelf) {
+        this.shelf = shelf;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 37 * hash + Objects.hashCode(this.productCode);
-        hash = 37 * hash + Objects.hashCode(this.component);
-        hash = 37 * hash + Objects.hashCode(this.material);
-        hash = 37 * hash + Objects.hashCode(this.length);
-        hash = 37 * hash + Objects.hashCode(this.width);
-        hash = 37 * hash + Objects.hashCode(this.depth);
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 79 * hash + Objects.hashCode(this.productCode);
+        hash = 79 * hash + Objects.hashCode(this.component);
+        hash = 79 * hash + Objects.hashCode(this.material);
+        hash = 79 * hash + Objects.hashCode(this.length);
+        hash = 79 * hash + Objects.hashCode(this.width);
+        hash = 79 * hash + Objects.hashCode(this.depth);
+        hash = 79 * hash + Objects.hashCode(this.nonStandardDimension);
+        hash = 79 * hash + Objects.hashCode(this.shelf);
         return hash;
     }
 
@@ -135,12 +155,18 @@ public class OrderDetail {
         if (!Objects.equals(this.depth, other.depth)) {
             return false;
         }
+        if (!Objects.equals(this.nonStandardDimension, other.nonStandardDimension)) {
+            return false;
+        }
+        if (!Objects.equals(this.shelf, other.shelf)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "OrderDetail{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", productCode=" + productCode + ", component=" + component + ", material=" + material + ", length=" + length + ", width=" + width + ", depth=" + depth + '}';
+        return "OrderDetail{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", productCode=" + productCode + ", component=" + component + ", material=" + material + ", length=" + length + ", width=" + width + ", depth=" + depth + ", nonStandardDimension=" + nonStandardDimension + ", shelf=" + shelf + '}';
     }
     
 }

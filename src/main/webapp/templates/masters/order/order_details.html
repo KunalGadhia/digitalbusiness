@@ -100,7 +100,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <label>Material</label>
                     <select class="form-control" ng-model="editableCarcassDetail.material" required="">
                         <option value="">Select Material</option>
@@ -118,6 +118,10 @@
                 <div class="col-sm-2">
                     <label>Depth</label>
                     <input type="number" class="form-control" placeholder="Enter Depth" ng-model="editableCarcassDetail.depth" required="">
+                </div>
+                <div class="col-sm-1">
+                    <label>Shelf</label>
+                    <input type="checkbox" class="form-control" style="height:25px" placeholder="Enter Shelf" ng-model="editableCarcassDetail.shelf">
                 </div>
             </div>
             <div class="modal-footer">
@@ -377,21 +381,21 @@
                         </span>
                     </div>
                 </div>
-<!--                <div class="col-sm-3">
-                    <label>Material</label>
-                    <select class="form-control" ng-model="editableHandleDetail.material" required="">
-                        <option value="">Select Material</option>
-                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
-                    </select>                    
-                </div>-->
+                <!--                <div class="col-sm-3">
+                                    <label>Material</label>
+                                    <select class="form-control" ng-model="editableHandleDetail.material" required="">
+                                        <option value="">Select Material</option>
+                                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                                    </select>                    
+                                </div>-->
                 <div class="col-sm-2">
                     <label>Length</label>
                     <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableHandleDetail.length" required="">
                 </div>
-<!--                <div class="col-sm-2">
-                    <label>Width</label>
-                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableHandleDetail.width" required="">
-                </div>-->
+                <!--                <div class="col-sm-2">
+                                    <label>Width</label>
+                                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableHandleDetail.width" required="">
+                                </div>-->
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-lg btn-primary">

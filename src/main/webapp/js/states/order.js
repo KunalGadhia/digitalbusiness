@@ -462,6 +462,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.bbLengthList = [];
             $scope.bbWidthList = [];
             $scope.bbDepthList = [];
+            ////////Wall Carcass////////
             StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
                 'dimensionAttribute': 'HEIGHT',
                 'carcassCategory': "WC"
@@ -486,68 +487,244 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.wcDepthList.push(std.stdValue);
                 });
             });
+            ////////BASE Carcass////////
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'HEIGHT',
+                'carcassCategory': "BC"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.bcLengthList.push(std.stdValue);
+                });
+            });
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'WIDTH',
+                'carcassCategory': "BC"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.bcWidthList.push(std.stdValue);
+                });
+            });
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'DEPTH',
+                'carcassCategory': "BC"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.bcDepthList.push(std.stdValue);
+                });
+            });
+            ////////Tall Unit Carcass////////
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'HEIGHT',
+                'carcassCategory': "TU"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.tuLengthList.push(std.stdValue);
+                });
+            });
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'WIDTH',
+                'carcassCategory': "TU"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.tuWidthList.push(std.stdValue);
+                });
+            });
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'DEPTH',
+                'carcassCategory': "TU"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.tuDepthList.push(std.stdValue);
+                });
+            });
+            ////////Base Blind Carcass////////
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'HEIGHT',
+                'carcassCategory': "BB"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.bbLengthList.push(std.stdValue);
+                });
+            });
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'WIDTH',
+                'carcassCategory': "BB"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.bbWidthList.push(std.stdValue);
+                });
+            });
+            StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
+                'dimensionAttribute': 'DEPTH',
+                'carcassCategory': "BB"
+            }, function (stdLength) {
+                angular.forEach(stdLength, function (std) {
+                    $scope.bbDepthList.push(std.stdValue);
+                });
+            });
             function closestValue(num, arr) {
-                //////////////Trial 1////////
-                console.log("This is array :%O", arr);
-                console.log("This is Value :%O", num);
-//                var result,lastDelta;
-//
-//                array.some(function (item) {
-//                    var delta = Math.abs(value - item);
-//                    if (delta > lastDelta) {
-//                        return true;
-//                    }
-//                    result = item;
-////                    console.log("Result :%O", result);
-//                    lastDelta = delta;
-////                    console.log("Last Delta :%O", lastDelta);
-//                });
-//                return result;
-///////////////////Trial 2
-//                function closest(num, arr) {
                 var curr = arr[0];
-                console.log("Curr 1 :%O", curr);
                 var diff = Math.abs(num - curr);
                 for (var val = 0; val < arr.length; val++) {
-                    console.log("Quick Check NUM:%O", num);
-                    console.log("Diff :%O", arr[val]);
                     var newdiff = Math.abs(num - arr[val]);
-                    
+
                     if (newdiff < diff) {
                         diff = newdiff;
-                        console.log("HAHAHAHA :%O", arr[val]);
                         curr = arr[val];
                     }
                 }
-                console.log("Final Curr :%O", curr);
                 return curr;
 //                }
             }
 
             ////////////Standard Carcass Validation////////////////
             $scope.validateCarcass = function (orderDetail) {
+                console.log("Order Detail :%O", orderDetail);
                 orderDetail.component = $scope.carcassComponent;
-                var present = $scope.wcLengthList.indexOf(orderDetail.length);
-                console.log("What is Present :%O", present);
                 var len;
-//                if (present < 0) {
-//                len = closestValue($scope.wcLengthList, orderDetail.length);
-                len = closestValue(orderDetail.length, $scope.wcLengthList);
-//                } else {
-//                    len = orderDetail.length;
-//                }
+                var wid;
+                var dep;
+                var l;
+                var w;
+                var d;
+                var nonStandard;
+                var lengthGreaterThan100 = function (inputNo) {
+                    console.log("Length Greater Than 1000");
+                    l = inputNo.toString().slice(0, 3);
+                    console.log(" L :%O", l);
+                };
+                var widthGreaterThan100 = function (inputNo) {
+                    w = inputNo.toString().slice(0, 3);
+                };
+                var depthGreaterThan100 = function (inputNo) {
+                    d = inputNo.toString().slice(0, 3);
+                };
+                if (orderDetail.component === "WC") {
+                    console.log("Wall Carcass ");
+                    len = closestValue(orderDetail.length, $scope.wcLengthList);
+                    wid = closestValue(orderDetail.width, $scope.wcWidthList);
+                    dep = closestValue(orderDetail.depth, $scope.wcDepthList);
+                    console.log("WC L:%O", len);
+                    console.log("WC W:%O", wid);
+                    console.log("WC D:%O", dep);
+                    if (len < 1000) {
+                        l = len.toString().slice(0, 2);
+                    } else {
+                        lengthGreaterThan100(len);
+                    }
+                    if (wid < 1000) {
+                        w = wid.toString().slice(0, 2);
+                    } else {
+                        widthGreaterThan100(wid);
+                    }
+                    if (dep < 1000) {
+                        d = dep.toString().slice(0, 2);
+                    } else {
+                        depthGreaterThan100(dep);
+                    }
 
-                console.log("ANy Progress :%O", len);
+                } else if (orderDetail.component === "BC") {
+                    console.log("Base Carcass");
+                    len = closestValue(orderDetail.length, $scope.bcLengthList);
+                    wid = closestValue(orderDetail.width, $scope.bcWidthList);
+                    dep = closestValue(orderDetail.depth, $scope.bcDepthList);
+                    console.log("WC L:%O", len);
+                    console.log("WC W:%O", wid);
+                    console.log("WC D:%O", dep);
+                    if (len < 1000) {
+                        l = len.toString().slice(0, 2);
+                    } else {
+                        lengthGreaterThan100(len);
+                    }
+                    if (wid < 1000) {
+                        w = wid.toString().slice(0, 2);
+                    } else {
+                        widthGreaterThan100(wid);
+                    }
+                    if (dep < 1000) {
+                        d = dep.toString().slice(0, 2);
+                    } else {
+                        depthGreaterThan100(dep);
+                    }
+
+                } else if (orderDetail.component === "TU") {
+                    console.log("Tall Unit");
+                    len = closestValue(orderDetail.length, $scope.tuLengthList);
+                    wid = closestValue(orderDetail.width, $scope.tuWidthList);
+                    dep = closestValue(orderDetail.depth, $scope.tuDepthList);
+                    console.log("WC L:%O", len);
+                    console.log("WC W:%O", wid);
+                    console.log("WC D:%O", dep);
+                    if (len < 1000) {
+                        l = len.toString().slice(0, 2);
+                    } else {
+                        lengthGreaterThan100(len);
+                    }
+                    if (wid < 1000) {
+                        w = wid.toString().slice(0, 2);
+                    } else {
+                        widthGreaterThan100(wid);
+                    }
+                    if (dep < 1000) {
+                        d = dep.toString().slice(0, 2);
+                    } else {
+                        depthGreaterThan100(dep);
+                    }
+                } else if (orderDetail.component === "BB") {
+                    console.log("Base Blind :%O", orderDetail);
+                    len = closestValue(orderDetail.length, $scope.bbLengthList);
+                    wid = closestValue(orderDetail.width, $scope.bbWidthList);
+                    dep = closestValue(orderDetail.depth, $scope.bbDepthList);
+                    console.log("WC L:%O", len);
+                    console.log("WC W:%O", wid);
+                    console.log("WC D:%O", dep);
+                    if (len < 1000) {
+                        l = len.toString().slice(0, 2);
+                    } else {
+                        lengthGreaterThan100(len);
+                    }
+                    if (wid < 1000) {
+                        w = wid.toString().slice(0, 2);
+                    } else {
+                        widthGreaterThan100(wid);
+                    }
+                    if (dep < 1000) {
+                        d = dep.toString().slice(0, 2);
+                    } else {
+                        depthGreaterThan100(dep);
+                    }
+                }
+                ;
+
+                if (orderDetail.length !== len) {
+                    nonStandard = true;
+                } else if (orderDetail.width !== wid) {
+                    nonStandard = true;
+                } else if (orderDetail.depth !== dep) {
+                    nonStandard = true;
+                } else {
+                    nonStandard = false;
+                }
+
+                console.log("What is LLLLL :%O", l);
+                console.log("What is WWWWW :%O", w);
+                console.log("What is DDDDD :%O", d);
+                console.log("Non STandard :%O", nonStandard);
+                orderDetail.l = l;
+                orderDetail.w = w;
+                orderDetail.d = d;
+                orderDetail.nonStandardDimension = nonStandard;                
+                $scope.saveOrderDetail(orderDetail);
             };
 
             //////////////Save Functions for All Components/////////////
             $scope.saveOrderDetail = function (orderDetail) {
                 orderDetail.component = $scope.carcassComponent;
                 var l1;
-                var l;
-                var w;
+//                var l;
+//                var w;
                 var w1;
-                var d;
+//                var d;
                 var d1;
                 orderDetail.orderHeadId = $stateParams.orderHeadId;
 //                ////////Process Length////////////
@@ -600,14 +777,15 @@ angular.module("digitalbusiness.states.order", [])
                     d1 = orderDetail.depth.toString();
                 }
 //                $scope.generateProductCode = 
-                var productCode = orderDetail.component + "" + w + "" + l + "" + d + "18" + orderDetail.material + "-" + l1 + "" + w1 + "18" + d1;
+                var productCode = orderDetail.component + "" + orderDetail.w + "" + orderDetail.l + "" + orderDetail.d + "18" + orderDetail.material + "-" + l1 + "" + w1 + "18" + d1;
                 orderDetail.productCode = productCode;
                 console.log("Product Code :%O", productCode);
-//                OrderDetailsService.save(orderDetail, function () {
-//                    $scope.editableCarcassDetail = "";
-//                    $scope.carcaseName = "";
-//                    $scope.refreshList();
-//                });
+                console.log("Main Order Detail :%O",orderDetail);
+                OrderDetailsService.save(orderDetail, function () {
+                    $scope.editableCarcassDetail = "";
+                    $scope.carcaseName = "";
+                    $scope.refreshList();
+                });
             };
             $scope.savePanelDetails = function (panelOrderDetail) {
                 panelOrderDetail.component = $scope.panelComponent;
