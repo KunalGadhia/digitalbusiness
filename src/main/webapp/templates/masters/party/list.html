@@ -33,8 +33,8 @@
                 <th>Bill Board Tel</th>
                 <th>Direct Tel No</th>
                 <th>PAN Number</th>
-                <th>CST Number</th>
-                <th>VAT Number</th>                
+                <!--<th>CST Number</th>-->
+                <th>GST Number</th>                
                 <th class="text-right">Actions</th>
             </tr>
         </thead>
@@ -52,8 +52,8 @@
                 <td>{{ party.billBoardTel}}</td>
                 <td>{{ party.directTelNo}}</td>
                 <td>{{ party.panNumber}}</td>
-                <td>{{ party.cstNumber}}</td>
-                <td>{{ party.vatNumber}}</td>
+                <!--<td>{{ party.cstNumber}}</td>-->
+                <td>{{ party.gstNumber}}</td>
                 <td class="text-right">
                     <a data-ui-sref="admin.masters_party.edit({ partyId: party.id })"
                        class="btn btn-primary">					

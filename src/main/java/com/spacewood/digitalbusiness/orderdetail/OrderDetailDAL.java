@@ -91,12 +91,17 @@ public class OrderDetailDAL {
         parameters.put(Columns.LENGTH, orderDetail.getLength());
         parameters.put(Columns.WIDTH, orderDetail.getWidth());
         parameters.put(Columns.DEPTH, orderDetail.getDepth());
-        parameters.put(Columns.NON_STANDARD_DIMENSION, orderDetail.getNonStandardDimension());
+//        parameters.put(Columns.NON_STANDARD_DIMENSION, orderDetail.getNonStandardDimension());
 //        parameters.put(Columns.SHELF, orderDetail.getShelf());
         if (orderDetail.getShelf() == null) {
             parameters.put(Columns.SHELF, 0);
         } else {
             parameters.put(Columns.SHELF, orderDetail.getShelf());
+        }
+        if (orderDetail.getNonStandardDimension() == null) {
+            parameters.put(Columns.NON_STANDARD_DIMENSION, 0);
+        } else {
+            parameters.put(Columns.NON_STANDARD_DIMENSION, orderDetail.getNonStandardDimension());
         }
 
         Number newId = insertOrderDetail.executeAndReturnKey(parameters);

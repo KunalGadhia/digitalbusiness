@@ -268,6 +268,7 @@
         <script src="${pageContext.request.contextPath}/js/services/order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/standard_carcass_dimension_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/color_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/standard_carcass_price.js"></script>
 
     </head>
     <body style="font-family: 'Roboto', sans-serif;">

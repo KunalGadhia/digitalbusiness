@@ -39,8 +39,8 @@ public class PartyDAL {
         public static final String BILL_BOARD_TEL = "bill_board_tel";
         public static final String DIRECT_TEL_NO = "direct_tel_no";
         public static final String PAN_NUMBER = "pan_number";
-        public static final String CST_NUMBER = "cst_number";
-        public static final String VAT_NUMBER = "vat_number";
+//        public static final String CST_NUMBER = "cst_number";
+        public static final String GST_NUMBER = "gst_number";
         
     }
 
@@ -68,9 +68,8 @@ public class PartyDAL {
                         Columns.BILLING_FAX,
                         Columns.BILL_BOARD_TEL,
                         Columns.DIRECT_TEL_NO,
-                        Columns.PAN_NUMBER,
-                        Columns.CST_NUMBER,
-                        Columns.VAT_NUMBER
+                        Columns.PAN_NUMBER,                        
+                        Columns.GST_NUMBER
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -112,8 +111,8 @@ public class PartyDAL {
         parameters.put(Columns.BILL_BOARD_TEL, party.getBillBoardTel());
         parameters.put(Columns.DIRECT_TEL_NO, party.getDirectTelNo());
         parameters.put(Columns.PAN_NUMBER, party.getPanNumber());
-        parameters.put(Columns.CST_NUMBER, party.getCstNumber());
-        parameters.put(Columns.VAT_NUMBER, party.getVatNumber());
+//        parameters.put(Columns.CST_NUMBER, party.getCstNumber());
+        parameters.put(Columns.GST_NUMBER, party.getGstNumber());
         
         Number newId = insertParty.executeAndReturnKey(parameters);
         party = findById(newId.intValue());
@@ -141,8 +140,8 @@ public class PartyDAL {
                 + Columns.BILL_BOARD_TEL + " = ?,"
                 + Columns.DIRECT_TEL_NO + " = ?,"
                 + Columns.PAN_NUMBER + " = ?,"
-                + Columns.CST_NUMBER + " = ?,"
-                + Columns.VAT_NUMBER + " = ? WHERE " + Columns.ID + " = ?";
+//                + Columns.CST_NUMBER + " = ?,"
+                + Columns.GST_NUMBER + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     party.getDealerCode(),
@@ -159,8 +158,8 @@ public class PartyDAL {
                     party.getBillBoardTel(),
                     party.getDirectTelNo(),
                     party.getPanNumber(),
-                    party.getCstNumber(),
-                    party.getVatNumber(),
+//                    party.getCstNumber(),
+                    party.getGstNumber(),
                     party.getId()
                 });
         party = findById(party.getId());

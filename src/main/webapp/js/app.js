@@ -30,6 +30,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.order_details_service',
     'digitalbusiness.services.standard_carcass_dimension',
     'digitalbusiness.services.color',
+    'digitalbusiness.services.standard_carcass_price',
 
 //    // directive services
 //    'safedeals.services.bank_addition',

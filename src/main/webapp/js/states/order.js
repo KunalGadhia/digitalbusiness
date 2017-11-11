@@ -15,11 +15,11 @@ angular.module("digitalbusiness.states.order", [])
                 'templateUrl': templateRoot + '/masters/order/order_details.html',
                 'controller': 'OrderDetailsController'
             });
-//            $stateProvider.state('admin.masters_sale_type.edit', {
-//                'url': '/:saleTypeId/edit',
-//                'templateUrl': templateRoot + '/masters/sale_type/form.html',
-//                'controller': 'SaleTypeEditController'
-//            });
+            $stateProvider.state('proforma_invoice_display', {
+                'url': '/:orderHeadId/proforma_invoice',
+                'templateUrl': templateRoot + '/masters/order/proforma_invoice.html',
+                'controller': 'ProformaInvoiceDisplayController'
+            });
 //            $stateProvider.state('admin.masters_sale_type.delete', {
 //                'url': '/:saleTypeId/delete',
 //                'templateUrl': templateRoot + '/masters/sale_type/delete.html',
@@ -713,7 +713,7 @@ angular.module("digitalbusiness.states.order", [])
                 orderDetail.l = l;
                 orderDetail.w = w;
                 orderDetail.d = d;
-                orderDetail.nonStandardDimension = nonStandard;                
+                orderDetail.nonStandardDimension = nonStandard;
                 $scope.saveOrderDetail(orderDetail);
             };
 
@@ -728,39 +728,7 @@ angular.module("digitalbusiness.states.order", [])
                 var d1;
                 orderDetail.orderHeadId = $stateParams.orderHeadId;
 //                ////////Process Length////////////
-//                if (orderDetail.length !== 0) {
-//                    console.log("Length is Present");
-//                    StandardCarcassDimensionService.findByCarcassCategoryDimensionAttribute({
-//                        'dimensionAttribute': 'HEIGHT',
-//                        'carcassCategory': orderDetail.component
-//                    }, function (stdDimensionList) {
-//                        console.log("STd DImension List :%O", stdDimensionList);
-//                        angular.forEach(stdDimensionList, function (indStd) {
-//                            console.log("In STd :%O", indStd.stdValue);
-//                            console.log("This is Value :" + orderDetail.length);
-//                            if (orderDetail.length === indStd.stdValue) {
-//                                console.log("This is Standard DImension");
-//                                var len = orderDetail.length.toString();
-//                                l = len.slice(0, 2);
-//                                console.log("This is main L :" + l);
-//                            } else {
-//                                console.log("This is Not STandard DImnsion");
-//                            }
-//                        });
-//                    });
-//                }
-//                ;
-//                $scope.updateL = function (l) {
-//
-//                };
-//                console.log("This is L :%O", l);
 
-//                var len = orderDetail.length.toString();
-//                l = len.slice(0, 2);
-//                var wid = orderDetail.width.toString();
-//                w = wid.slice(0, 2);
-//                var dep = orderDetail.depth.toString();
-//                d = dep.slice(0, 2);
                 if (orderDetail.length < 1000) {
                     l1 = 0 + orderDetail.length.toString();
                 } else {
@@ -780,7 +748,7 @@ angular.module("digitalbusiness.states.order", [])
                 var productCode = orderDetail.component + "" + orderDetail.w + "" + orderDetail.l + "" + orderDetail.d + "18" + orderDetail.material + "-" + l1 + "" + w1 + "18" + d1;
                 orderDetail.productCode = productCode;
                 console.log("Product Code :%O", productCode);
-                console.log("Main Order Detail :%O",orderDetail);
+                console.log("Main Order Detail :%O", orderDetail);
                 OrderDetailsService.save(orderDetail, function () {
                     $scope.editableCarcassDetail = "";
                     $scope.carcaseName = "";
@@ -1071,21 +1039,21 @@ angular.module("digitalbusiness.states.order", [])
             };
             ///////////////////End//////////////////////////////////////
 
+        })
+        .controller('ProformaInvoiceDisplayController', function (PartyService, OrderHeadService, OrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            $scope.currentDate = new Date();
+            OrderHeadService.get({
+               'id': $stateParams.orderHeadId 
+            }, function(orderHeadObject){
+                $scope.orderHead = orderHeadObject;
+                PartyService.get({
+                    'id':orderHeadObject.billingPartyId
+                }, function(billingPartyObject){
+                    $scope.billingParty = billingPartyObject;
+                });
+            });
+
         });
-//        .controller('SaleTypeEditController', function (SaleTypeService, $scope, $stateParams, $state, paginationLimit) {
-//            SaleTypeService.get({'id': $stateParams.saleTypeId});
-//            SaleTypeService.get({
-//                'id': $stateParams.saleTypeId
-//            }, function (saleTypeData) {
-//                $scope.editableSaleType = saleTypeData;
-//            });
-//
-//            $scope.saveSaleType = function (saleType) {
-//                saleType.$save(function () {
-//                    $state.go('admin.masters_sale_type', null, {'reload': true});
-//                });
-//            };
-//        })
 //        .controller('SaleTypeDeleteController', function (SaleTypeService, $scope, $stateParams, $state, paginationLimit) {
 //            $scope.editableSaleType = SaleTypeService.get({'id': $stateParams.saleTypeId});
 //            console.log("are we here?");

@@ -44,11 +44,13 @@ angular.module("digitalbusiness.states.masters_color", [])
             };
         })
         .controller('ColorPhotoController', function (ColorService, restRoot, FileUploader, $scope, $stateParams, $state) {
+            console.log("$stateparam :%O", $stateParams);
             $scope.enableSaveButton = true;
             ColorService.get({
                 'id': $stateParams.colorId
             }, function (color) {
                 $scope.colorObject = color;
+                console.log("COlor Object :%O", $scope.colorObject);
             });
             $scope.goBack = function () {
                 $state.go('admin.masters_color.edit', {
@@ -76,6 +78,7 @@ angular.module("digitalbusiness.states.masters_color", [])
             };
             uploader.onCompleteItem = function (fileItem, response, status, headers) {
                 if (status === 200) {
+                    console.log("Upload Successful");
                     $state.go('admin.masters_color.photo', {
                         'colorId': $stateParams.colorId
                     }, {'reload': true});
