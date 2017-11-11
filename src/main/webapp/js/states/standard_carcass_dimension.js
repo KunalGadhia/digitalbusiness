@@ -74,7 +74,7 @@ angular.module("digitalbusiness.states.standard_carcass_dimesnion", [])
            
         })
         .controller('StandardCarcassDimensionEditController', function (StandardCarcassDimensionService, $scope, $stateParams, $state, paginationLimit) {
-            StandardCarcassDimensionService.get({'id': $stateParams.stdCarcassDimensionId});
+//            StandardCarcassDimensionService.get({'id': $stateParams.stdCarcassDimensionId});
             StandardCarcassDimensionService.get({
                 'id': $stateParams.stdCarcassDimensionId
             }, function (stdDimensionData) {

@@ -1,0 +1,114 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveStdPrice(editableStdCarcassPrice)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Standard Carcass Price Entry Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Code</label>
+                                <input class="form-control" placeholder="Code" ng-model="editableStdCarcassPrice.code" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input class="form-control" placeholder="Description" ng-model="editableStdCarcassPrice.description">
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Shelf</label>
+                                <input type="number" class="form-control" ng-model="editableStdCarcassPrice.shelf">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Material</label>
+                                <select class="form-control"ng-model="editableStdCarcassPrice.material" required="">
+                                    <option value="">Select Material</option>
+                                    <option ng-repeat="material in materialList" value="{{material.materialCode}}">{{material.material}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Height</label>
+                                <input type="number" class="form-control" ng-model="editableStdCarcassPrice.length" required="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Width</label>
+                                <input type="number" class="form-control" ng-model="editableStdCarcassPrice.width" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Depth</label>
+                                <input type="number" class="form-control" ng-model="editableStdCarcassPrice.depth" required="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                          
+                        </div>
+                    </div>                    
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Particle Board Price</label>
+                                <input type="number" class="form-control" ng-model="editableStdCarcassPrice.pbPrice" required="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>MDF Board Price</label>
+                                <input type="number" class="form-control" ng-model="editableStdCarcassPrice.mdfPrice" required="">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>HDF Board Price</label>
+                                <input type="number" class="form-control" ng-model="editableStdCarcassPrice.hdfPrice" required="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Plywood Board Price</label>
+                                <input type="number" class="form-control" ng-model="editableStdCarcassPrice.plyPrice" required="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

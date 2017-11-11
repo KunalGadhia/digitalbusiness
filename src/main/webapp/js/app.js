@@ -48,6 +48,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.raw_material',
     'digitalbusiness.states.standard_carcass_dimesnion',
     'digitalbusiness.states.masters_color',
+    'digitalbusiness.states.standard_carcass_price',
 
     'digitalbusiness.states.auth'
 
