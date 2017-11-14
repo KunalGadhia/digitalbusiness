@@ -12,6 +12,14 @@ angular.module("digitalbusiness.services.color_constraint")
                     'method': 'GET',
                     'url': restRoot + '/color_constraint/all',
                     'isArray': true
-                }                
+                },
+                'findByMaterialCode': {
+                    'method': 'GET',
+                    'url': restRoot + '/color_constraint/find/material_code',
+                    'params':{
+                      'materialCode': '@materialCode' 
+                    },
+                    'isArray': false
+                }
             });
         });

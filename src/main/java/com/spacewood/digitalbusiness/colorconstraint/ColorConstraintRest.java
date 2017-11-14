@@ -65,12 +65,11 @@ public class ColorConstraintRest {
 
     }
 
-//    @RequestMapping(value = "/find/name", method = RequestMethod.GET)
-//    public List<Location> findByNameAndCityId(
-//            @RequestParam("name") String name,
-//            @RequestParam("cityId") Integer cityId) {
-//        return colorConstraintDAL.findByNameAndCityId(name, cityId);
-//    }
+    @RequestMapping(value = "/find/material_code", method = RequestMethod.GET)
+    public ColorConstraint findByMaterialCode(
+            @RequestParam("materialCode") String materialCode) {
+        return colorConstraintDAL.findByMaterialCode(materialCode);
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public ColorConstraint insert(@RequestBody ColorConstraint colorConstraint) throws JsonProcessingException, ParseException {

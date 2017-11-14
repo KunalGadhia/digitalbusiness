@@ -78,11 +78,34 @@ public class StandardCarcassPriceDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ID + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{id}, new BeanPropertyRowMapper<>(StandardCarcassPrice.class));
     }
+    
+    public List<StandardCarcassPrice> findCarcassByType(String carcassType) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND lower(description) LIKE ?";
+        String ctNameLike = "%" + carcassType.toLowerCase() +"%";
+        return jdbcTemplate.query(sqlQuery, new Object[]{ctNameLike}, new BeanPropertyRowMapper<>(StandardCarcassPrice.class));
+    }
 
-//    public List<StandardCarcassPrice> findByDimensionAttribute(String dimensionAttribute) {
-//        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.DIMENSION_ATTRIBUTE + " = ?";
-//        return jdbcTemplate.query(sqlQuery, new Object[]{dimensionAttribute}, new BeanPropertyRowMapper<>(StandardCarcassPrice.class));
-//    }
+    public List<StandardCarcassPrice> findCarcassWithoutShelf() {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.SHELF + " = 0";
+        return jdbcTemplate.query(sqlQuery, new Object[]{}, new BeanPropertyRowMapper<>(StandardCarcassPrice.class));
+    }
+    
+    public List<StandardCarcassPrice> findCarcassWithoutShelfByCT(String carcassType) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.SHELF + " = 0 AND lower(description) LIKE ?";
+        String ctNameLike = "%" + carcassType.toLowerCase() + "%";
+        return jdbcTemplate.query(sqlQuery, new Object[]{ctNameLike}, new BeanPropertyRowMapper<>(StandardCarcassPrice.class));
+    }
+    
+    public List<StandardCarcassPrice> findCarcassWithShelf() {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.SHELF + " > 0";
+        return jdbcTemplate.query(sqlQuery, new Object[]{}, new BeanPropertyRowMapper<>(StandardCarcassPrice.class));
+    }
+    
+    public List<StandardCarcassPrice> findCarcassWithShelfByCT(String carcassType) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.SHELF + " > 0 AND lower(description) LIKE ?";
+        String ctNameLike = "%" + carcassType.toLowerCase() + "%";
+        return jdbcTemplate.query(sqlQuery, new Object[]{ctNameLike}, new BeanPropertyRowMapper<>(StandardCarcassPrice.class));
+    }
 //
 //    public List<StandardCarcassPrice> findByCarcassCategory(String carcassCategory) {
 //        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CARCASS_CATEGORY + " = ?";

@@ -80,7 +80,7 @@ angular.module("digitalbusiness.states.order", [])
 
 
         })
-        .controller('OrderDetailsController', function (RawMaterialService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (RawMaterialService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             console.log("Inside Order Details Controller");
             console.log("State Params :%O", $stateParams);
             $scope.editableCarcassDetail = {};
@@ -562,6 +562,85 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.bbDepthList.push(std.stdValue);
                 });
             });
+            ////////////////Carcass Form Functionality//////////////////////////////
+            $scope.carcassStdList;
+            $scope.$watch('carcaseName', function (carcassName) {
+                $scope.typeLike;
+                if (carcassName === "Wall Carcase") {
+                    $scope.typeLike = "Wall";
+                    StandardCarcassPriceService.findCarcassWithoutShelfByCT({
+                        'carcassType': $scope.typeLike
+                    }, function (stdList) {
+                        $scope.carcassStdList = stdList;
+                    });
+
+                } else if (carcassName === "Base Carcase") {
+                    $scope.typeLike = "Base C";
+                    StandardCarcassPriceService.findCarcassWithoutShelfByCT({
+                        'carcassType': $scope.typeLike
+                    }, function (stdList) {
+                        $scope.carcassStdList = stdList;
+                    });
+                } else if (carcassName === "Tall Carcase") {
+                    $scope.typeLike = "Tall";
+                    StandardCarcassPriceService.findCarcassWithoutShelfByCT({
+                        'carcassType': $scope.typeLike
+                    }, function (stdList) {
+                        $scope.carcassStdList = stdList;
+                    });
+                } else if (carcassName === "Base-Blind Carcase") {
+                    $scope.typeLike = "Base B";
+                    StandardCarcassPriceService.findCarcassWithoutShelfByCT({
+                        'carcassType': $scope.typeLike
+                    }, function (stdList) {
+                        $scope.carcassStdList = stdList;
+                    });
+                }
+                $scope.$watch('editableCarcassDetail.shelf', function (shelfValue) {
+                    if (shelfValue === true) {
+                        StandardCarcassPriceService.findCarcassWithShelfByCT({
+                            'carcassType': $scope.typeLike
+                        }, function (stdListRefined) {
+                            $scope.carcassStdList = stdListRefined;
+                        });
+                    } else if (shelfValue === false) {
+                        StandardCarcassPriceService.findCarcassWithoutShelfByCT({
+                            'carcassType': $scope.typeLike
+                        }, function (stdListRefined) {
+                            $scope.carcassStdList = stdListRefined;
+                        });
+                    }
+                });
+            });
+            $scope.$watch('editableCarcassDetail.stdCarcassPriceId', function (stdCarcassId) {
+                console.log("Std Carcass Id :%O", stdCarcassId);
+                StandardCarcassPriceService.get({
+                    'id': stdCarcassId
+                }, function (stdCarcassObject) {
+                    $scope.editableCarcassDetail.shelfCount = stdCarcassObject.shelf;
+                    $scope.editableCarcassDetail.length = stdCarcassObject.length;
+                    $scope.editableCarcassDetail.width = stdCarcassObject.width;
+                    $scope.editableCarcassDetail.depth = stdCarcassObject.depth;
+
+                });
+            });
+            $scope.$watch('editableCarcassDetail.material', function (material) {
+                console.log("Material Object :%O", material);
+                ColorConstraintService.findByMaterialCode({
+                    'materialCode': material
+                }, function (sortedColor) {
+                    console.log("Sorted COlor :%O", sortedColor);
+                    $scope.sortedColorList = [];
+                    angular.forEach(sortedColor.colors, function (colorId) {
+                        ColorService.get({
+                            'id':colorId
+                        }, function(colorObject){
+                            $scope.sortedColorList.push(colorObject)
+                        });
+                    });
+                });
+            });
+            ///////////////////////////////////////////////////////////////////
             function closestValue(num, arr) {
                 var curr = arr[0];
                 var diff = Math.abs(num - curr);
@@ -749,11 +828,11 @@ angular.module("digitalbusiness.states.order", [])
                 orderDetail.productCode = productCode;
                 console.log("Product Code :%O", productCode);
                 console.log("Main Order Detail :%O", orderDetail);
-                OrderDetailsService.save(orderDetail, function () {
-                    $scope.editableCarcassDetail = "";
-                    $scope.carcaseName = "";
-                    $scope.refreshList();
-                });
+//                OrderDetailsService.save(orderDetail, function () {
+//                    $scope.editableCarcassDetail = "";
+//                    $scope.carcaseName = "";
+//                    $scope.refreshList();
+//                });
             };
             $scope.savePanelDetails = function (panelOrderDetail) {
                 panelOrderDetail.component = $scope.panelComponent;
@@ -1043,12 +1122,12 @@ angular.module("digitalbusiness.states.order", [])
         .controller('ProformaInvoiceDisplayController', function (PartyService, OrderHeadService, OrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
             OrderHeadService.get({
-               'id': $stateParams.orderHeadId 
-            }, function(orderHeadObject){
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
                 $scope.orderHead = orderHeadObject;
                 PartyService.get({
-                    'id':orderHeadObject.billingPartyId
-                }, function(billingPartyObject){
+                    'id': orderHeadObject.billingPartyId
+                }, function (billingPartyObject) {
                     $scope.billingParty = billingPartyObject;
                 });
             });

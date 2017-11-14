@@ -54,11 +54,31 @@ public class StandardCarcassPriceRest {
     public void delete(@PathVariable("id") Integer id) throws Exception {
         standardCarcassPriceDAL.delete(id);
     }
+    
+    @RequestMapping(value = "/find_by_ct", method = RequestMethod.GET)
+    public List<StandardCarcassPrice> findCarcassByType(String carcassType) {
+        return standardCarcassPriceDAL.findCarcassByType(carcassType);
+    }
 
-//    @RequestMapping(value = "/find/dimension_attribute", method = RequestMethod.GET)
-//    public List<StandardCarcassDimension> findByDimensionAttribute(@RequestParam("dimensionAttribute") String dimensionAttribute) {
-//        return standardCarcassPriceDAL.findByDimensionAttribute(dimensionAttribute);
-//    }
+    @RequestMapping(value = "/find/without_shelf", method = RequestMethod.GET)
+    public List<StandardCarcassPrice> findCarcassWithoutShelf() {
+        return standardCarcassPriceDAL.findCarcassWithoutShelf();
+    }
+    
+    @RequestMapping(value = "/find/without_shelf/ct", method = RequestMethod.GET)
+    public List<StandardCarcassPrice> findCarcassWithoutShelfByCT(String carcassType) {
+        return standardCarcassPriceDAL.findCarcassWithoutShelfByCT(carcassType);
+    }
+    
+    @RequestMapping(value = "/find/with_shelf", method = RequestMethod.GET)
+    public List<StandardCarcassPrice> findCarcassWithShelf() {
+        return standardCarcassPriceDAL.findCarcassWithShelf();
+    }
+    
+    @RequestMapping(value = "/find/with_shelf/ct", method = RequestMethod.GET)
+    public List<StandardCarcassPrice> findCarcassWithShelfByCT(String carcassType) {
+        return standardCarcassPriceDAL.findCarcassWithShelfByCT(carcassType);
+    }
 //
 //    @RequestMapping(value = "/find/carcass_category", method = RequestMethod.GET)
 //    public List<StandardCarcassDimension> findByCarcassCategory(@RequestParam("carcassCategory") String carcassCategory) {
