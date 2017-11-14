@@ -31,7 +31,7 @@ public class StandardCarcassPriceDAL {
         public static final String LENGTH = "length";
         public static final String DEPTH = "depth";
         public static final String SHELF = "shelf";
-        public static final String MATERIAL = "material";
+//        public static final String MATERIAL = "material";
         public static final String PB_PRICE = "pb_price";
         public static final String MDF_PRICE = "mdf_price";
         public static final String HDF_PRICE = "hdf_price";
@@ -55,7 +55,7 @@ public class StandardCarcassPriceDAL {
                         Columns.LENGTH,
                         Columns.DEPTH,
                         Columns.SHELF,
-                        Columns.MATERIAL,
+//                        Columns.MATERIAL,
                         Columns.PB_PRICE,
                         Columns.MDF_PRICE,
                         Columns.HDF_PRICE,
@@ -104,7 +104,7 @@ public class StandardCarcassPriceDAL {
         parameters.put(Columns.LENGTH, standardCarcassPrice.getLength());
         parameters.put(Columns.DEPTH, standardCarcassPrice.getDepth());
         parameters.put(Columns.SHELF, standardCarcassPrice.getShelf());
-        parameters.put(Columns.MATERIAL, standardCarcassPrice.getMaterial());
+//        parameters.put(Columns.MATERIAL, standardCarcassPrice.getMaterial());
         parameters.put(Columns.PB_PRICE, standardCarcassPrice.getPbPrice());
         parameters.put(Columns.MDF_PRICE, standardCarcassPrice.getMdfPrice());
         parameters.put(Columns.HDF_PRICE, standardCarcassPrice.getHdfPrice());
@@ -127,7 +127,7 @@ public class StandardCarcassPriceDAL {
                 + Columns.LENGTH + " = ?, "
                 + Columns.DEPTH + " = ?, "
                 + Columns.SHELF + " = ?, "
-                + Columns.MATERIAL + " = ?, "
+//                + Columns.MATERIAL + " = ?, "
                 + Columns.PB_PRICE + " = ?, "
                 + Columns.MDF_PRICE + " = ?, "
                 + Columns.HDF_PRICE + " = ?, "
@@ -140,7 +140,7 @@ public class StandardCarcassPriceDAL {
                     standardCarcassPrice.getLength(),
                     standardCarcassPrice.getDepth(),
                     standardCarcassPrice.getShelf(),
-                    standardCarcassPrice.getMaterial(),
+//                    standardCarcassPrice.getMaterial(),
                     standardCarcassPrice.getPbPrice(),
                     standardCarcassPrice.getMdfPrice(),
                     standardCarcassPrice.getHdfPrice(),

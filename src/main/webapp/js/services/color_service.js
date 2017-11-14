@@ -29,14 +29,14 @@ angular.module("digitalbusiness.services.color")
                     },
                     'isArray': false
                 },
-//                'findByComponentLike': {
-//                    'method': 'GET',
-//                    'url': restRoot + '/color/find/component_like',
-//                    'params': {
-//                        'component': '@component'
-//                    },
-//                    'isArray': true
-//                },
+                'findByColorLike': {
+                    'method': 'GET',
+                    'url': restRoot + '/color/find/color_like',
+                    'params': {
+                        'color': '@color'
+                    },
+                    'isArray': true
+                },
                 'findByColorCategory': {
                     'method': 'GET',
                     'url': restRoot + '/color/find/color_category',
@@ -45,5 +45,13 @@ angular.module("digitalbusiness.services.color")
                     },
                     'isArray': true
                 }
+//                'getColorImage': {
+//                    'method': 'GET',
+//                    'url': restRoot + '/color/:id/attachment',
+//                    'params': {
+//                        'id': '@id'
+//                    },
+//                    'isArray': false
+//                }
             });
         });

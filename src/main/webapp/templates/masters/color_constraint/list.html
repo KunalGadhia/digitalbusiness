@@ -1,0 +1,73 @@
+<div class="panel panel-default">
+    <div class="panel-heading text-center">
+        <div class="pull-left">
+            <a data-ui-sref="admin.masters"
+               class="btn btn-default">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </a>
+        </div>
+        <div class="pull-right">
+            <a data-ui-sref="admin.masters_color_constraint.add"
+               class="btn btn-default">
+                <i class="fa fa-plus"></i>
+                Add Color Constraint Component
+            </a>
+        </div>
+        <div>
+            <h4>Color Constraint Master</h4>
+        </div>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="text-right">#</th>
+                <th>Component</th>
+                <th>Material Code</th>
+                <th>Colors</th>                
+                <th class="text-right">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="colorConstraint in colorConstraints">
+                <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td>{{ colorConstraint.component}}</td>   
+                <td>{{ colorConstraint.materialCode}}</td>  
+                <td>
+                    <ul>
+                        <li ng-repeat="color in colorConstraint.colorObjects" >                            
+                                {{color.colorName}}
+                        </li>
+                    </ul>                    
+                </td>
+                <td class="text-right">
+                    <a data-ui-sref="admin.masters_color_constraint.edit({ colorConstraintId: colorConstraint.id })"
+                       class="btn btn-primary">					
+                        <i class="fa fa-pencil"></i>
+                    </a>                    
+                </td>                
+            </tr>
+        </tbody>
+    </table>
+    <nav class="panel-footer">
+        <ul class="pager">
+            <li>
+                <button ng-click="previousPage()" 
+                        ng-disabled="{{ currentOffset == 0}}" 
+                        class="btn btn-default" >
+                    <i class="fa fa-arrow-left"></i>
+                    Previous
+                </button>
+            </li>
+            <li>
+                <button ng-click="nextPage()"
+                        ng-disabled="colorConstraints.length < 10 || nextColorConstraints.length === 0"
+                        class="btn btn-default">
+                    Next 
+                    <i class="fa fa-arrow-right"></i>
+                </button>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div data-ui-view=""></div>

@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.color;
 
+import com.spacewood.digitalbusiness.kitchencomponent.KitchenComponentCategory;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +18,7 @@ public class Color {
     private String colorCode;
     private String colorName;
     private ColorCategory colorCategory;
+    private KitchenComponentCategory kitchenComponentCategory;
     private List<String> image;
 
     public Integer getId() {
@@ -51,6 +53,14 @@ public class Color {
         this.colorCategory = colorCategory;
     }
 
+    public KitchenComponentCategory getKitchenComponentCategory() {
+        return kitchenComponentCategory;
+    }
+
+    public void setKitchenComponentCategory(KitchenComponentCategory kitchenComponentCategory) {
+        this.kitchenComponentCategory = kitchenComponentCategory;
+    }
+
     public List<String> getImage() {
         return image;
     }
@@ -61,12 +71,13 @@ public class Color {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.id);
-        hash = 29 * hash + Objects.hashCode(this.colorCode);
-        hash = 29 * hash + Objects.hashCode(this.colorName);
-        hash = 29 * hash + Objects.hashCode(this.colorCategory);
-        hash = 29 * hash + Objects.hashCode(this.image);
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.colorCode);
+        hash = 59 * hash + Objects.hashCode(this.colorName);
+        hash = 59 * hash + Objects.hashCode(this.colorCategory);
+        hash = 59 * hash + Objects.hashCode(this.kitchenComponentCategory);
+        hash = 59 * hash + Objects.hashCode(this.image);
         return hash;
     }
 
@@ -94,6 +105,9 @@ public class Color {
         if (this.colorCategory != other.colorCategory) {
             return false;
         }
+        if (this.kitchenComponentCategory != other.kitchenComponentCategory) {
+            return false;
+        }
         if (!Objects.equals(this.image, other.image)) {
             return false;
         }
@@ -102,8 +116,7 @@ public class Color {
 
     @Override
     public String toString() {
-        return "Color{" + "id=" + id + ", colorCode=" + colorCode + ", colorName=" + colorName + ", colorCategory=" + colorCategory + ", image=" + image + '}';
+        return "Color{" + "id=" + id + ", colorCode=" + colorCode + ", colorName=" + colorName + ", colorCategory=" + colorCategory + ", kitchenComponentCategory=" + kitchenComponentCategory + ", image=" + image + '}';
     }
-
         
 }

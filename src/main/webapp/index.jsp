@@ -254,6 +254,7 @@
         <script src="${pageContext.request.contextPath}/js/states/standard_carcass_dimension.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/color.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/standard_carcass_price.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/color_constraint.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
@@ -270,6 +271,8 @@
         <script src="${pageContext.request.contextPath}/js/services/standard_carcass_dimension_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/color_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/standard_carcass_price_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/carcass_order_details_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/color_constraint_service.js"></script>
 
     </head>
     <body style="font-family: 'Roboto', sans-serif;">

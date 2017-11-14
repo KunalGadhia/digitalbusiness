@@ -20,7 +20,6 @@ public class StandardCarcassPrice {
     private Double length;
     private Double depth;
     private Integer shelf;
-    private String material;
     private Integer pbPrice;
     private Integer mdfPrice;
     private Integer hdfPrice;
@@ -82,14 +81,6 @@ public class StandardCarcassPrice {
         this.shelf = shelf;
     }
 
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
     public Integer getPbPrice() {
         return pbPrice;
     }
@@ -124,19 +115,18 @@ public class StandardCarcassPrice {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        hash = 59 * hash + Objects.hashCode(this.code);
-        hash = 59 * hash + Objects.hashCode(this.description);
-        hash = 59 * hash + Objects.hashCode(this.width);
-        hash = 59 * hash + Objects.hashCode(this.length);
-        hash = 59 * hash + Objects.hashCode(this.depth);
-        hash = 59 * hash + Objects.hashCode(this.shelf);
-        hash = 59 * hash + Objects.hashCode(this.material);
-        hash = 59 * hash + Objects.hashCode(this.pbPrice);
-        hash = 59 * hash + Objects.hashCode(this.mdfPrice);
-        hash = 59 * hash + Objects.hashCode(this.hdfPrice);
-        hash = 59 * hash + Objects.hashCode(this.plyPrice);
+        int hash = 3;
+        hash = 11 * hash + Objects.hashCode(this.id);
+        hash = 11 * hash + Objects.hashCode(this.code);
+        hash = 11 * hash + Objects.hashCode(this.description);
+        hash = 11 * hash + Objects.hashCode(this.width);
+        hash = 11 * hash + Objects.hashCode(this.length);
+        hash = 11 * hash + Objects.hashCode(this.depth);
+        hash = 11 * hash + Objects.hashCode(this.shelf);
+        hash = 11 * hash + Objects.hashCode(this.pbPrice);
+        hash = 11 * hash + Objects.hashCode(this.mdfPrice);
+        hash = 11 * hash + Objects.hashCode(this.hdfPrice);
+        hash = 11 * hash + Objects.hashCode(this.plyPrice);
         return hash;
     }
 
@@ -156,9 +146,6 @@ public class StandardCarcassPrice {
             return false;
         }
         if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (!Objects.equals(this.material, other.material)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
@@ -193,7 +180,7 @@ public class StandardCarcassPrice {
 
     @Override
     public String toString() {
-        return "StandardCarcassPrice{" + "id=" + id + ", code=" + code + ", description=" + description + ", width=" + width + ", length=" + length + ", depth=" + depth + ", shelf=" + shelf + ", material=" + material + ", pbPrice=" + pbPrice + ", mdfPrice=" + mdfPrice + ", hdfPrice=" + hdfPrice + ", plyPrice=" + plyPrice + '}';
+        return "StandardCarcassPrice{" + "id=" + id + ", code=" + code + ", description=" + description + ", width=" + width + ", length=" + length + ", depth=" + depth + ", shelf=" + shelf + ", pbPrice=" + pbPrice + ", mdfPrice=" + mdfPrice + ", hdfPrice=" + hdfPrice + ", plyPrice=" + plyPrice + '}';
     }
-
+    
 }

@@ -32,14 +32,14 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/color")
 public class ColorRest {
-  
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private ColorDAL colorDAL;
-    
+
     @Autowired
     private ColorService colorService;
-    
+
     @RequestMapping(method = RequestMethod.GET)
     public List<Color> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
         return colorDAL.findAll(offset);
@@ -49,7 +49,7 @@ public class ColorRest {
     public Color findById(@PathVariable("id") Integer id) throws SQLException {
         return colorDAL.findById(id);
     }
-    
+
     @RequestMapping(method = RequestMethod.POST)
     public Color insert(@RequestBody Color color) {
         return colorDAL.insert(color);
@@ -65,32 +65,31 @@ public class ColorRest {
     public void delete(@PathVariable("id") Integer id) throws Exception {
         colorDAL.delete(id);
     }
-    
+
     @RequestMapping(value = "/find/color", method = RequestMethod.GET)
     public Color findByColor(@RequestParam("color") String color) throws Exception {
         return colorDAL.findByColor(color);
     }
-    
+
     @RequestMapping(value = "/find/color_code", method = RequestMethod.GET)
     public Color findByColorCode(@RequestParam("colorCode") String colorCode) throws Exception {
         return colorDAL.findByColorCode(colorCode);
     }
-    
-//    @RequestMapping(value = "/find/component_like", method = RequestMethod.GET)
-//    public List<KitchenComponent> findByComponentLike(@RequestParam("component") String component) {
-//        return colorDAL.findByComponentLike(component);
-//    }
-    
+
+    @RequestMapping(value = "/find/color_like", method = RequestMethod.GET)
+    public List<Color> findByColorLike(@RequestParam("color") String color) {
+        return colorDAL.findByColorLike(color);
+    }
     @RequestMapping(value = "/find/color_category", method = RequestMethod.GET)
     public List<Color> findByColorCategory(@RequestParam("colorCategory") String colorCategory) {
         return colorDAL.findByColorCategory(colorCategory);
     }
-    
+
     @RequestMapping(value = "/find_all_list", method = RequestMethod.GET)
     public List<Color> findAllList() {
         return colorDAL.findAllList();
     }
-    
+
     @RequestMapping(value = "/{id}/attachment", method = RequestMethod.POST)
     public Color uploadAttachment(
             @PathVariable Integer id,
@@ -103,9 +102,10 @@ public class ColorRest {
     @RequestMapping(value = "/{id}/attachment", method = RequestMethod.GET)
     public void getAttachment(@PathVariable Integer id, HttpServletResponse response) throws IOException {
         File photoFile = colorService.getPhoto(id);
+        logger.info("Photo FIle :" + photoFile);
         response.setContentType(Files.probeContentType(Paths.get(photoFile.getAbsolutePath())));
         response.setContentLengthLong(photoFile.length());
         logger.debug("filename: {}, size: {}", photoFile.getAbsoluteFile(), photoFile.length());
         FileCopyUtils.copy(new FileInputStream(photoFile), response.getOutputStream());
-    }  
+    }
 }

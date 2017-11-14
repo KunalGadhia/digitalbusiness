@@ -74,11 +74,11 @@ public class ColorDAL {
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{colorCode}, new BeanPropertyRowMapper<>(Color.class));
     }
 
-//    public List<Color> findByComponentLike(String component) {
-//        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND lower(component) LIKE?";
-//        String userNameLike = "%" + component.toLowerCase() + "%";
-//        return jdbcTemplate.query(sqlQuery, new Object[]{userNameLike}, new BeanPropertyRowMapper<>(KitchenComponent.class));
-//    }
+    public List<Color> findByColorLike(String color) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND lower(color_name) LIKE?";
+        String colorNameLike = color.toLowerCase() + "%";
+        return jdbcTemplate.query(sqlQuery, new Object[]{colorNameLike}, new BeanPropertyRowMapper<>(Color.class));
+    }
     public List<Color> findByColorCategory(String colorCategory) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.COLOR_CATEGORY + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{colorCategory}, new BeanPropertyRowMapper<>(Color.class));

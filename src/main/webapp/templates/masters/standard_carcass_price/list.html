@@ -25,7 +25,7 @@
                 <th>Code</th>
                 <th>Description</th>
                 <th>Shelf</th>
-                <th>Material</th>
+                <!--<th>Material</th>-->
                 <th>Height</th>
                 <th>Width</th>
                 <th>Depth</th>
@@ -42,14 +42,14 @@
                 <td>{{ standardCarcassPrice.code}}</td>   
                 <td>{{ standardCarcassPrice.description}}</td>  
                 <td>{{ standardCarcassPrice.shelf}}</td>
-                <td>{{ standardCarcassPrice.material}}</td>
+                <!--<td>{{ standardCarcassPrice.material}}</td>-->
                 <td>{{ standardCarcassPrice.length}}</td>
                 <td>{{ standardCarcassPrice.width}}</td>
                 <td>{{ standardCarcassPrice.depth}}</td>
-                <td>{{ standardCarcassPrice.pbPrice}}</td>
-                <td>{{ standardCarcassPrice.mdfPrice}}</td>
-                <td>{{ standardCarcassPrice.hdfPrice}}</td>
-                <td>{{ standardCarcassPrice.plyPrice}}</td>
+                <td>&#8377; {{ standardCarcassPrice.pbPrice}}</td>
+                <td>&#8377; {{ standardCarcassPrice.mdfPrice}}</td>
+                <td>&#8377; {{ standardCarcassPrice.hdfPrice}}</td>
+                <td>&#8377; {{ standardCarcassPrice.plyPrice}}</td>
                 <td class="text-right">
                     <a data-ui-sref="admin.masters_standard_carcass_price.edit({ stdCarcassPriceId: standardCarcassPrice.id })"
                        class="btn btn-primary">					

@@ -1,0 +1,96 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveColorConstraint(editableColorConstraint)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Color Constraint Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Component</label>
+                                <!--<input class="form-control" placeholder="Color Name" ng-model="editableColor.colorName" required=""/>-->
+                                <select class="form-control" ng-model="editableColorConstraint.component">
+                                    <option value="">Select Component</option>
+                                    <option value="CARCASE">Carcass</option>
+                                    <option value="SHUTTER">Shutter</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Material Code</label>
+                                <!--<input class="form-control" placeholder="Material Code" ng-model="editableColorConstraint.materialCode" required=""/>-->
+                                <select class="form-control" ng-model="editableColorConstraint.materialCode" required="">
+                                    <option value="">Select Material Code</option>
+                                    <option ng-repeat="material in rawMaterialList" value="{{material.materialCode}}">{{material.material}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    <div class="row">
+                                            <div class="col-sm-6 text-danger" ng-show="editableColor.repeatName">
+                                                Found Records For Above Entered Name
+                                            </div>
+                                            <div class="col-sm-6 text-danger" ng-show="editableColor.repeatCode">
+                                                Repeat Component Code is not allowed.Enter unique code.
+                                            </div>
+                                        </div>-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Color Options Available</label>
+                                <input class="form-control"
+                                       placeholder="Select Colors Availble"
+                                       uib-typeahead="colors.id as colors.colorName for colors in searchColors($viewValue)"
+                                       typeahead-on-select="setColor($item)"
+                                       typeahead-editable="false"
+                                       typeahead-loading="loadingColor" 
+                                       typeahead-no-results="noColorFound"
+                                       ng-model="colorName" />
+                                <p ng-show="noColorFound" class="help-block text-muted">No Colors Found</p>
+                                <p ng-show="loadingColor" class="help-block text-muted">Loading...</p>                                
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul ng-repeat="color in colorDisplay" class="left_margin">
+                                <li class="col-md-8">
+                                    {{color.colorName}} 
+                                </li>
+                                <li class="col-md-4 list-unstyled">
+                                    <button type="button" ng-click="removeColors(color)" class="btn btn-link top_padding">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">                            
+                        </div>
+
+                    </div>                    
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

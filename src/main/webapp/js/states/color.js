@@ -100,7 +100,7 @@ angular.module("digitalbusiness.states.masters_color", [])
             };
 
         })
-        .controller('ColorListController', function (ColorService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('ColorListController', function (ColorService, $q, $scope, $stateParams, $state, paginationLimit) {
             if (
                     $stateParams.offset === undefined ||
                     isNaN($stateParams.offset) ||
@@ -121,13 +121,13 @@ angular.module("digitalbusiness.states.masters_color", [])
                 'offset': $scope.currentOffset
             }, function (s) {
 //                angular.forEach(s, function (singleObject) {
-//                    var restCall = "./rest/kitchen_component/" + singleObject.id + "/attachment";
+//                    var restCall = "./rest/color/" + singleObject.id + "/attachment";
 //                    singleObject.imagePath = restCall;
-//                    $scope.mainArray.push(singleObject);
+//                    console.log("What si this :%O", singleObject);
+////                    $scope.mainArray.push(singleObject);
 //                });
 
             });
-            console.log("THis is Main Array :%O", $scope.mainArray);
 
             $scope.nextPage = function () {
                 $scope.currentOffset += paginationLimit;
