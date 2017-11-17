@@ -63,7 +63,7 @@ CREATE TABLE `carcass_order_details` (
   CONSTRAINT `carcass_order_details_right_color_id_fk` FOREIGN KEY (`right_color_id`) REFERENCES `color_code_master` (`id`),
   CONSTRAINT `carcass_order_details_std_carcass_price_id_fk` FOREIGN KEY (`std_carcass_price_id`) REFERENCES `standard_carcass_price_master` (`id`),
   CONSTRAINT `carcass_order_details_top_color_id_fk` FOREIGN KEY (`top_color_id`) REFERENCES `color_code_master` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,6 @@ CREATE TABLE `carcass_order_details` (
 
 LOCK TABLES `carcass_order_details` WRITE;
 /*!40000 ALTER TABLE `carcass_order_details` DISABLE KEYS */;
-INSERT INTO `carcass_order_details` VALUES (1,6,14,117,10,5,NULL,12,1,'WC45703018PB-0700045018300','WC','PB',700,450,300,0,1,1,0),(2,6,141,118,9,76,NULL,NULL,NULL,'BC40705618MDF-0650037518560','BC','MDF',650,375,560,1,0,0,0),(3,3,51,117,8,8,NULL,NULL,NULL,'TU451905618MDF-1900045018560','TU','MDF',1900,450,560,1,1,5,0);
 /*!40000 ALTER TABLE `carcass_order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +126,7 @@ CREATE TABLE `color_constraint_master` (
 
 LOCK TABLES `color_constraint_master` WRITE;
 /*!40000 ALTER TABLE `color_constraint_master` DISABLE KEYS */;
-INSERT INTO `color_constraint_master` VALUES (27,'CARCASE','PB','[117,118,60]',0),(28,'CARCASE','MDF','[117,60,118]',0),(29,'CARCASE','HDF','[117,60,118,119]',0),(30,'CARCASE','BW','[117,60]',0);
+INSERT INTO `color_constraint_master` VALUES (27,'CARCASE','PB','[117,118,60]',0),(28,'CARCASE','MF','[117,60,118]',0),(29,'CARCASE','HF','[117,60,118,119]',0),(30,'CARCASE','BW','[117,60]',0);
 /*!40000 ALTER TABLE `color_constraint_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,6 +182,35 @@ LOCK TABLES `employee_master` WRITE;
 /*!40000 ALTER TABLE `employee_master` DISABLE KEYS */;
 INSERT INTO `employee_master` VALUES (1,'E001','Rahul Sharma','rs@xyz.com','8567891596',0),(2,'E002','Salman Niyazi','sn@xyz.com','7893541698',0);
 /*!40000 ALTER TABLE `employee_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `finish_price`
+--
+
+DROP TABLE IF EXISTS `finish_price`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `finish_price` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `material_id` int(11) DEFAULT NULL COMMENT 'REF raw_material_master.id',
+  `finish_name` varchar(100) NOT NULL,
+  `price` double NOT NULL DEFAULT '0',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `finish_price_material_id_fk` (`material_id`),
+  CONSTRAINT `finish_price_material_id_fk` FOREIGN KEY (`material_id`) REFERENCES `raw_material_master` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `finish_price`
+--
+
+LOCK TABLES `finish_price` WRITE;
+/*!40000 ALTER TABLE `finish_price` DISABLE KEYS */;
+INSERT INTO `finish_price` VALUES (1,2,'Membrane Glossy MDF',4344,0),(2,2,'Membrane Designer MDF',3181,0),(3,2,'Membrane Standard MDF',2290,0),(4,3,'Membrane Glossy HDF',4896,0),(5,3,'Membrane Designer HDF',3733,0),(6,3,'Membrane Standard HDF',2843,0),(7,5,'HPL MR + Gloss Ply',4461,0),(8,5,'HPL High Gloss Ply',3675,0),(9,5,'HPL Matt Ply',3338,0),(10,3,'Oriental Acrylic Solid HDF',6765,0),(11,3,'Oriental Acrylic Woodgrain HDF',7618,0),(12,5,'Milano Acrylic Standard Ply',9337,0),(13,5,'Milano Acrylic Premium Ply',12204,0),(14,2,'Polymer Glossy MDF',5600,0),(15,3,'PU Lacqured Solid HDF',5210,0),(16,3,'PU Lacqured Metallic HDF',6126,0),(17,5,'PU Lacqured Solid Ply',5668,0),(18,5,'PU Lacqured Metallic Ply',6583,0),(19,2,'PU Lacqured Solid MDF',4745,0),(20,2,'PU Lacqured Metallic MDF',5660,0);
+/*!40000 ALTER TABLE `finish_price` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -577,4 +605,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-16 13:59:03
+-- Dump completed on 2017-11-17 15:47:48
