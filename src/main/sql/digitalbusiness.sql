@@ -41,6 +41,10 @@ CREATE TABLE `carcass_order_details` (
   `non_standard_dimension` tinyint(1) NOT NULL DEFAULT '0',
   `shelf` tinyint(1) DEFAULT '1',
   `shelf_count` int(11) NOT NULL DEFAULT '0',
+  `side_matching` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.carcassorderdetails.SideMatching',
+  `side_selection` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.carcassorderdetails.SideSelection',
+  `side_material` varchar(100) DEFAULT NULL,
+  `side_finish` varchar(100) DEFAULT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `carcass_order_details_order_head_id_fk` (`order_head_id`),
@@ -59,7 +63,7 @@ CREATE TABLE `carcass_order_details` (
   CONSTRAINT `carcass_order_details_right_color_id_fk` FOREIGN KEY (`right_color_id`) REFERENCES `color_code_master` (`id`),
   CONSTRAINT `carcass_order_details_std_carcass_price_id_fk` FOREIGN KEY (`std_carcass_price_id`) REFERENCES `standard_carcass_price_master` (`id`),
   CONSTRAINT `carcass_order_details_top_color_id_fk` FOREIGN KEY (`top_color_id`) REFERENCES `color_code_master` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,6 +72,7 @@ CREATE TABLE `carcass_order_details` (
 
 LOCK TABLES `carcass_order_details` WRITE;
 /*!40000 ALTER TABLE `carcass_order_details` DISABLE KEYS */;
+INSERT INTO `carcass_order_details` VALUES (1,6,14,117,10,5,NULL,12,1,'WC45703018PB-0700045018300','WC','PB',700,450,300,0,1,1,0),(2,6,141,118,9,76,NULL,NULL,NULL,'BC40705618MDF-0650037518560','BC','MDF',650,375,560,1,0,0,0),(3,3,51,117,8,8,NULL,NULL,NULL,'TU451905618MDF-1900045018560','TU','MDF',1900,450,560,1,1,5,0);
 /*!40000 ALTER TABLE `carcass_order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -280,7 +285,7 @@ CREATE TABLE `order_head` (
   CONSTRAINT `order_head_billing_party_id_fk` FOREIGN KEY (`billing_party_id`) REFERENCES `party_master` (`id`),
   CONSTRAINT `order_head_delivery_party_id_fk` FOREIGN KEY (`delivery_party_id`) REFERENCES `party_master` (`id`),
   CONSTRAINT `order_head_order_initiated_by_fk` FOREIGN KEY (`order_initiated_by`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,7 +294,7 @@ CREATE TABLE `order_head` (
 
 LOCK TABLES `order_head` WRITE;
 /*!40000 ALTER TABLE `order_head` DISABLE KEYS */;
-INSERT INTO `order_head` VALUES (1,'OC1','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Pantaloons India','4654654','564654','2017-11-01 00:00:00','85000','E001',1,'C',NULL,'25',0),(2,'OC2','H','EH','NON_PROJECTS','COMPONENTS',2,2,NULL,'D','T','Edge Turnkey Kitchens','5897','8798','2017-11-01 00:00:00','175000','E002',1,'C',NULL,'12',0),(3,'OC3','SP','EH','NON_PROJECTS','COMPONENTS',2,2,NULL,'R','T','Edge Turnkey','397548','4654567','2017-11-01 00:00:00','95246','E001',1,'C',NULL,'12',0),(4,'OC4','H','EH','NON_PROJECTS','COMPONENTS',1,1,NULL,'T','T','Pantaloon India Interiors','78956','8795','2017-11-08 00:00:00','150000','E001',1,'C',NULL,'10',0),(5,'OC5','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Pantaloon Foundation','498198',NULL,'2017-11-11 00:00:00',NULL,'E001',1,'C',NULL,'10',0);
+INSERT INTO `order_head` VALUES (1,'OC1','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Pantaloons India','4654654','564654','2017-11-01 00:00:00','85000','E001',1,'C',NULL,'25',0),(2,'OC2','H','EH','NON_PROJECTS','COMPONENTS',2,2,NULL,'D','T','Edge Turnkey Kitchens','5897','8798','2017-11-01 00:00:00','175000','E002',1,'C',NULL,'12',0),(3,'OC3','SP','EH','NON_PROJECTS','COMPONENTS',2,2,NULL,'R','T','Edge Turnkey','397548','4654567','2017-11-01 00:00:00','95246','E001',1,'C',NULL,'12',0),(4,'OC4','H','EH','NON_PROJECTS','COMPONENTS',1,1,NULL,'T','T','Pantaloon India Interiors','78956','8795','2017-11-08 00:00:00','150000','E001',1,'C',NULL,'10',0),(5,'OC5','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Pantaloon Foundation','498198',NULL,'2017-11-11 00:00:00',NULL,'E001',1,'C',NULL,'10',0),(6,'OC6','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Trial Project','64654','65465465','2017-11-15 00:00:00',NULL,'E001',1,'C',NULL,'5',0);
 /*!40000 ALTER TABLE `order_head` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +359,7 @@ CREATE TABLE `raw_material_master` (
 
 LOCK TABLES `raw_material_master` WRITE;
 /*!40000 ALTER TABLE `raw_material_master` DISABLE KEYS */;
-INSERT INTO `raw_material_master` VALUES (1,'Particle Board','PB',0),(2,'Medium Density Fiber Board','MDF',0),(3,'High Density Fiber Board','HDF',0),(4,'Supertuff High Density Fiber Board','SHDF',0),(5,'Boiled Water Ply','BW',0),(6,'Supertuff High Density Fiber Board Glossy','SHDFGLOS',0);
+INSERT INTO `raw_material_master` VALUES (1,'Particle Board','PB',0),(2,'Medium Density Fiber Board','MF',0),(3,'High Density Fiber Board','HF',0),(4,'Supertuff High Density Fiber Board','SHDF',0),(5,'Boiled Water Ply','BW',0),(6,'Supertuff High Density Fiber Board Glossy','SHDFGLOS',0);
 /*!40000 ALTER TABLE `raw_material_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -572,4 +577,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-14 15:26:19
+-- Dump completed on 2017-11-16 13:59:03

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CarcassOrderDetailsDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
@@ -41,10 +42,14 @@ public class CarcassOrderDetailsDAL {
         public static final String NON_STANDARD_DIMENSION = "non_standard_dimension";
         public static final String SHELF = "shelf";
         public static final String SHELF_COUNT = "shelf_count";
+        public static final String SIDE_MATCHING = "side_matching";
+        public static final String SIDE_SELECTION = "side_selection";
+        public static final String SIDE_MATERIAL = "side_material";
+        public static final String SIDE_FINISH = "side_finish";
 
     }
 
-    public static final String TABLE_NAME = "order_details";
+    public static final String TABLE_NAME = "carcass_order_details";
 
     private final SimpleJdbcInsert insertCarcassOrderDetail;
     private final JdbcTemplate jdbcTemplate;
@@ -71,7 +76,11 @@ public class CarcassOrderDetailsDAL {
                         Columns.DEPTH,
                         Columns.NON_STANDARD_DIMENSION,
                         Columns.SHELF,
-                        Columns.SHELF_COUNT
+                        Columns.SHELF_COUNT,
+                        Columns.SIDE_MATCHING,
+                        Columns.SIDE_SELECTION,
+                        Columns.SIDE_MATERIAL,
+                        Columns.SIDE_FINISH
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -123,7 +132,15 @@ public class CarcassOrderDetailsDAL {
         } else {
             parameters.put(Columns.SHELF, carcassOrderDetails.getShelf());
         }
-        parameters.put(Columns.SHELF_COUNT, carcassOrderDetails.getShelfCount());
+        if (carcassOrderDetails.getShelfCount() == null) {
+            parameters.put(Columns.SHELF_COUNT, 0);
+        } else {
+            parameters.put(Columns.SHELF_COUNT, carcassOrderDetails.getShelfCount());
+        }
+        parameters.put(Columns.SIDE_MATCHING, carcassOrderDetails.getSideMatching().name());
+        parameters.put(Columns.SIDE_SELECTION, carcassOrderDetails.getSideSelection().name());
+        parameters.put(Columns.SIDE_MATERIAL, carcassOrderDetails.getSideMaterial());
+        parameters.put(Columns.SIDE_FINISH, carcassOrderDetails.getSideFinish());
 
         Number newId = insertCarcassOrderDetail.executeAndReturnKey(parameters);
         carcassOrderDetails = findById(newId.intValue());
@@ -153,7 +170,11 @@ public class CarcassOrderDetailsDAL {
                 + Columns.DEPTH + " = ?,"
                 + Columns.NON_STANDARD_DIMENSION + " = ?,"
                 + Columns.SHELF + " = ?,"
-                + Columns.SHELF_COUNT + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.SHELF_COUNT + " = ?,"
+                + Columns.SIDE_MATCHING + " = ?,"
+                + Columns.SIDE_SELECTION + " = ?,"
+                + Columns.SIDE_MATERIAL + " = ?,"
+                + Columns.SIDE_FINISH + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     carcassOrderDetails.getOrderHeadId(),
@@ -173,6 +194,10 @@ public class CarcassOrderDetailsDAL {
                     carcassOrderDetails.getNonStandardDimension(),
                     carcassOrderDetails.getShelf(),
                     carcassOrderDetails.getShelfCount(),
+                    carcassOrderDetails.getSideMatching().name(),
+                    carcassOrderDetails.getSideSelection().name(),
+                    carcassOrderDetails.getSideMaterial(),
+                    carcassOrderDetails.getSideFinish(),
                     carcassOrderDetails.getId()
                 });
         carcassOrderDetails = findById(carcassOrderDetails.getId());
