@@ -45,6 +45,8 @@ CREATE TABLE `carcass_order_details` (
   `side_selection` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.carcassorderdetails.SideSelection',
   `side_material` varchar(100) DEFAULT NULL,
   `side_finish` varchar(100) DEFAULT NULL,
+  `quantity` int(11) NOT NULL DEFAULT '1',
+  `price` double NOT NULL DEFAULT '0',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `carcass_order_details_order_head_id_fk` (`order_head_id`),
@@ -195,12 +197,14 @@ CREATE TABLE `finish_price` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
   `material_id` int(11) DEFAULT NULL COMMENT 'REF raw_material_master.id',
   `finish_name` varchar(100) NOT NULL,
+  `finish_code` varchar(100) DEFAULT NULL,
   `price` double NOT NULL DEFAULT '0',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `finish_code_UNIQUE` (`finish_code`),
   KEY `finish_price_material_id_fk` (`material_id`),
   CONSTRAINT `finish_price_material_id_fk` FOREIGN KEY (`material_id`) REFERENCES `raw_material_master` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,7 +213,7 @@ CREATE TABLE `finish_price` (
 
 LOCK TABLES `finish_price` WRITE;
 /*!40000 ALTER TABLE `finish_price` DISABLE KEYS */;
-INSERT INTO `finish_price` VALUES (1,2,'Membrane Glossy MDF',4344,0),(2,2,'Membrane Designer MDF',3181,0),(3,2,'Membrane Standard MDF',2290,0),(4,3,'Membrane Glossy HDF',4896,0),(5,3,'Membrane Designer HDF',3733,0),(6,3,'Membrane Standard HDF',2843,0),(7,5,'HPL MR + Gloss Ply',4461,0),(8,5,'HPL High Gloss Ply',3675,0),(9,5,'HPL Matt Ply',3338,0),(10,3,'Oriental Acrylic Solid HDF',6765,0),(11,3,'Oriental Acrylic Woodgrain HDF',7618,0),(12,5,'Milano Acrylic Standard Ply',9337,0),(13,5,'Milano Acrylic Premium Ply',12204,0),(14,2,'Polymer Glossy MDF',5600,0),(15,3,'PU Lacqured Solid HDF',5210,0),(16,3,'PU Lacqured Metallic HDF',6126,0),(17,5,'PU Lacqured Solid Ply',5668,0),(18,5,'PU Lacqured Metallic Ply',6583,0),(19,2,'PU Lacqured Solid MDF',4745,0),(20,2,'PU Lacqured Metallic MDF',5660,0);
+INSERT INTO `finish_price` VALUES (1,2,'Membrane Glossy MDF','MG',4344,0),(2,2,'Membrane Designer MDF','MD',3181,0),(3,2,'Membrane Standard MDF','MS',2290,0),(4,3,'Membrane Glossy HDF','HG',4896,0),(5,3,'Membrane Designer HDF','HD',3733,0),(6,3,'Membrane Standard HDF','HS',2843,0),(7,5,'HPL MR + Gloss Ply','PMG',4461,0),(8,5,'HPL High Gloss Ply','PH',3675,0),(9,5,'HPL Matt Ply','PM',3338,0),(10,3,'Oriental Acrylic Solid HDF','HAS',6765,0),(11,3,'Oriental Acrylic Woodgrain HDF','HAW',7618,0),(12,5,'Milano Acrylic Standard Ply','PMS',9337,0),(13,5,'Milano Acrylic Premium Ply','PMP',12204,0),(14,2,'Polymer Glossy MDF','MP',5600,0),(15,3,'PU Lacqured Solid HDF','HPS',5210,0),(16,3,'PU Lacqured Metallic HDF','HPM',6126,0),(17,5,'PU Lacqured Solid Ply','PPS',5668,0),(18,5,'PU Lacqured Metallic Ply','PPM',6583,0),(19,2,'PU Lacqured Solid MDF','MPS',4745,0),(20,2,'PU Lacqured Metallic MDF','MPM',5660,0);
 /*!40000 ALTER TABLE `finish_price` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,6 +380,7 @@ CREATE TABLE `raw_material_master` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
   `material` varchar(100) DEFAULT NULL,
   `material_code` varchar(100) DEFAULT NULL,
+  `price` double NOT NULL DEFAULT '0',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
@@ -387,7 +392,7 @@ CREATE TABLE `raw_material_master` (
 
 LOCK TABLES `raw_material_master` WRITE;
 /*!40000 ALTER TABLE `raw_material_master` DISABLE KEYS */;
-INSERT INTO `raw_material_master` VALUES (1,'Particle Board','PB',0),(2,'Medium Density Fiber Board','MF',0),(3,'High Density Fiber Board','HF',0),(4,'Supertuff High Density Fiber Board','SHDF',0),(5,'Boiled Water Ply','BW',0),(6,'Supertuff High Density Fiber Board Glossy','SHDFGLOS',0);
+INSERT INTO `raw_material_master` VALUES (1,'Particle Board','PB',997,0),(2,'Medium Density Fiber Board','MF',1365,0),(3,'High Density Fiber Board','HF',1581,0),(4,'Supertuff High Density Fiber Board','SHDF',0,0),(5,'Boiled Water Ply','BW',2021,0),(6,'Supertuff High Density Fiber Board Glossy','SHDFGLOS',0,0);
 /*!40000 ALTER TABLE `raw_material_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -515,7 +520,7 @@ CREATE TABLE `standard_carcass_dimension_master` (
   `carcass_category` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.standardcarcassdimension.CarcassCategory',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -524,7 +529,7 @@ CREATE TABLE `standard_carcass_dimension_master` (
 
 LOCK TABLES `standard_carcass_dimension_master` WRITE;
 /*!40000 ALTER TABLE `standard_carcass_dimension_master` DISABLE KEYS */;
-INSERT INTO `standard_carcass_dimension_master` VALUES (1,300,'WIDTH','WC',0),(2,400,'WIDTH','WC',0),(3,450,'WIDTH','WC',0),(4,500,'WIDTH','WC',0),(5,600,'WIDTH','WC',0),(6,750,'WIDTH','WC',0),(7,800,'WIDTH','WC',0),(8,900,'WIDTH','WC',0),(9,1050,'WIDTH','WC',0),(10,150,'WIDTH','BC',0),(11,170,'WIDTH','BC',0),(12,200,'WIDTH','BC',0),(13,300,'WIDTH','BC',0),(14,400,'WIDTH','BC',0),(15,450,'WIDTH','BC',0),(16,500,'WIDTH','BC',0),(17,600,'WIDTH','BC',0),(18,750,'WIDTH','BC',0),(19,800,'WIDTH','BC',0),(20,900,'WIDTH','BC',0),(21,1050,'WIDTH','BC',0),(22,1000,'WIDTH','BC',0),(23,450,'WIDTH','TU',0),(24,600,'WIDTH','TU',0),(25,1050,'WIDTH','BB',0),(26,720,'HEIGHT','WC',0),(27,600,'HEIGHT','WC',0),(28,340,'HEIGHT','WC',0),(29,700,'HEIGHT','WC',0),(30,360,'HEIGHT','WC',0),(31,400,'HEIGHT','WC',0),(32,1300,'HEIGHT','WC',0),(33,350,'HEIGHT','WC',0),(34,1120,'HEIGHT','WC',0),(35,300,'HEIGHT','WC',0),(36,1200,'HEIGHT','WC',0),(37,1300,'HEIGHT','WC',0),(38,720,'HEIGHT','BC',0),(39,700,'HEIGHT','BC',0),(40,1260,'HEIGHT','TU',0),(41,1320,'HEIGHT','TU',0),(42,1900,'HEIGHT','TU',0),(43,1920,'HEIGHT','TU',0),(44,2080,'HEIGHT','TU',0),(45,2020,'HEIGHT','TU',0),(46,1960,'HEIGHT','TU',0),(47,320,'DEPTH','WC',0),(48,300,'DEPTH','WC',0),(49,560,'DEPTH','BC',0),(50,400,'DEPTH','BC',0),(51,580,'DEPTH','TU',0),(52,560,'DEPTH','TU',0),(53,560,'DEPTH','BB',0),(54,700,'HEIGHT','BB',0);
+INSERT INTO `standard_carcass_dimension_master` VALUES (1,300,'WIDTH','WC',0),(2,400,'WIDTH','WC',0),(3,450,'WIDTH','WC',0),(4,500,'WIDTH','WC',0),(5,600,'WIDTH','WC',0),(6,750,'WIDTH','WC',0),(7,800,'WIDTH','WC',0),(8,900,'WIDTH','WC',0),(9,1050,'WIDTH','WC',0),(10,150,'WIDTH','BC',0),(11,170,'WIDTH','BC',0),(12,200,'WIDTH','BC',0),(13,300,'WIDTH','BC',0),(14,400,'WIDTH','BC',0),(15,450,'WIDTH','BC',0),(16,500,'WIDTH','BC',0),(17,600,'WIDTH','BC',0),(18,750,'WIDTH','BC',0),(19,800,'WIDTH','BC',0),(20,900,'WIDTH','BC',0),(21,1050,'WIDTH','BC',0),(22,1000,'WIDTH','BC',0),(23,450,'WIDTH','TU',0),(24,600,'WIDTH','TU',0),(25,1050,'WIDTH','BB',0),(26,720,'HEIGHT','WC',0),(27,600,'HEIGHT','WC',0),(28,340,'HEIGHT','WC',0),(29,700,'HEIGHT','WC',0),(30,360,'HEIGHT','WC',0),(31,400,'HEIGHT','WC',0),(32,1300,'HEIGHT','WC',0),(33,350,'HEIGHT','WC',0),(34,1120,'HEIGHT','WC',0),(35,300,'HEIGHT','WC',0),(36,1200,'HEIGHT','WC',0),(37,1300,'HEIGHT','WC',0),(38,720,'HEIGHT','BC',0),(39,700,'HEIGHT','BC',0),(40,1260,'HEIGHT','TU',0),(41,1320,'HEIGHT','TU',0),(42,1900,'HEIGHT','TU',0),(43,1920,'HEIGHT','TU',0),(44,2080,'HEIGHT','TU',0),(45,2020,'HEIGHT','TU',0),(46,1960,'HEIGHT','TU',0),(47,320,'DEPTH','WC',0),(48,300,'DEPTH','WC',0),(49,560,'DEPTH','BC',0),(50,400,'DEPTH','BC',0),(51,580,'DEPTH','TU',0),(52,560,'DEPTH','TU',0),(53,560,'DEPTH','BB',0),(54,700,'HEIGHT','BB',0),(55,540,'HEIGHT','WC',0);
 /*!40000 ALTER TABLE `standard_carcass_dimension_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -605,4 +610,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-17 15:47:48
+-- Dump completed on 2017-11-18 18:39:53

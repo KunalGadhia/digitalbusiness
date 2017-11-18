@@ -60,5 +60,16 @@ public class FinishPriceRest {
     @RequestMapping(value = "/find/name_like", method = RequestMethod.GET)
     public List<FinishPrice> findByNameLike(@RequestParam("finishName") String finishName) {
         return finishPriceDAL.findByNameLike(finishName);
-    } 
+    }
+    
+    @RequestMapping(value = "/find/material_id", method = RequestMethod.GET)
+    public List<FinishPrice> findByMaterialId(@RequestParam("materialId") Integer materialId) {
+        return finishPriceDAL.findByMaterialId(materialId);
+    }
+    
+    @RequestMapping(value = "/find/finish_code", method = RequestMethod.GET)
+    public FinishPrice findByFinishCode(@RequestParam("finishCode") String finishCode) throws Exception {
+        return finishPriceDAL.findByFinishCode(finishCode);
+    }
+    
 }

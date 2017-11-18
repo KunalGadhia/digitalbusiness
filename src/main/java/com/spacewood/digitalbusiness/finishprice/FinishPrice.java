@@ -13,6 +13,7 @@ import java.util.Objects;
  */
 public class FinishPrice {
     private Integer id;
+    private String finishCode;
     private Integer materialId;
     private String finishName;
     private Double price;
@@ -23,6 +24,14 @@ public class FinishPrice {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getFinishCode() {
+        return finishCode;
+    }
+
+    public void setFinishCode(String finishCode) {
+        this.finishCode = finishCode;
     }
 
     public Integer getMaterialId() {
@@ -51,11 +60,12 @@ public class FinishPrice {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.materialId);
-        hash = 53 * hash + Objects.hashCode(this.finishName);
-        hash = 53 * hash + Objects.hashCode(this.price);
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.id);
+        hash = 11 * hash + Objects.hashCode(this.finishCode);
+        hash = 11 * hash + Objects.hashCode(this.materialId);
+        hash = 11 * hash + Objects.hashCode(this.finishName);
+        hash = 11 * hash + Objects.hashCode(this.price);
         return hash;
     }
 
@@ -71,6 +81,9 @@ public class FinishPrice {
             return false;
         }
         final FinishPrice other = (FinishPrice) obj;
+        if (!Objects.equals(this.finishCode, other.finishCode)) {
+            return false;
+        }
         if (!Objects.equals(this.finishName, other.finishName)) {
             return false;
         }
@@ -88,7 +101,7 @@ public class FinishPrice {
 
     @Override
     public String toString() {
-        return "FinishPrice{" + "id=" + id + ", materialId=" + materialId + ", finishName=" + finishName + ", price=" + price + '}';
+        return "FinishPrice{" + "id=" + id + ", finishCode=" + finishCode + ", materialId=" + materialId + ", finishName=" + finishName + ", price=" + price + '}';
     }
         
 }

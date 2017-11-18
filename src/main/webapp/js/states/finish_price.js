@@ -95,6 +95,24 @@ angular.module("digitalbusiness.states.finish_price", [])
                     ;
                 });
             });
+            $scope.$watch('editableFinishPrice.finishCode', function(finishCode){
+                FinishPriceService.findByFinishCode({
+                   'finishCode': finishCode 
+                }).$promise.catch(function(response){
+                    if (response.status === 500) {
+                        $scope.editableFinishPrice.repeatCode = false;
+                    } else if (response.status === 404) {
+                        $scope.editableFinishPrice.repeatCode = false;
+                    } else if (response.status === 400) {
+                        $scope.editableFinishPrice.repeatCode = false;
+                    }
+                }).then(function (finish) {
+                    if (finish.finishCode !== null) {
+                        $scope.editableFinishPrice.repeatCode = true;
+                    }
+                    ;
+                });
+            });
         })
         .controller('FinishPriceEditController', function (FinishPriceService, RawMaterialService, $scope, $stateParams, $state, paginationLimit) {
 //            FinishPriceService.get({'id': $stateParams.finishPriceId});

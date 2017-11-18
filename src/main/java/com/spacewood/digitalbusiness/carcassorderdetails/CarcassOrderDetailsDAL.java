@@ -46,6 +46,8 @@ public class CarcassOrderDetailsDAL {
         public static final String SIDE_SELECTION = "side_selection";
         public static final String SIDE_MATERIAL = "side_material";
         public static final String SIDE_FINISH = "side_finish";
+        public static final String QUANTITY = "quantity";
+        public static final String PRICE = "price";
 
     }
 
@@ -80,7 +82,9 @@ public class CarcassOrderDetailsDAL {
                         Columns.SIDE_MATCHING,
                         Columns.SIDE_SELECTION,
                         Columns.SIDE_MATERIAL,
-                        Columns.SIDE_FINISH
+                        Columns.SIDE_FINISH,
+                        Columns.QUANTITY,
+                        Columns.PRICE
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -141,6 +145,8 @@ public class CarcassOrderDetailsDAL {
         parameters.put(Columns.SIDE_SELECTION, carcassOrderDetails.getSideSelection().name());
         parameters.put(Columns.SIDE_MATERIAL, carcassOrderDetails.getSideMaterial());
         parameters.put(Columns.SIDE_FINISH, carcassOrderDetails.getSideFinish());
+        parameters.put(Columns.QUANTITY, carcassOrderDetails.getQuantity());
+        parameters.put(Columns.PRICE, carcassOrderDetails.getPrice());
 
         Number newId = insertCarcassOrderDetail.executeAndReturnKey(parameters);
         carcassOrderDetails = findById(newId.intValue());
@@ -174,7 +180,9 @@ public class CarcassOrderDetailsDAL {
                 + Columns.SIDE_MATCHING + " = ?,"
                 + Columns.SIDE_SELECTION + " = ?,"
                 + Columns.SIDE_MATERIAL + " = ?,"
-                + Columns.SIDE_FINISH + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.SIDE_FINISH + " = ?,"
+                + Columns.QUANTITY + " = ?,"
+                + Columns.PRICE + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     carcassOrderDetails.getOrderHeadId(),
@@ -198,6 +206,8 @@ public class CarcassOrderDetailsDAL {
                     carcassOrderDetails.getSideSelection().name(),
                     carcassOrderDetails.getSideMaterial(),
                     carcassOrderDetails.getSideFinish(),
+                    carcassOrderDetails.getQuantity(),
+                    carcassOrderDetails.getPrice(),
                     carcassOrderDetails.getId()
                 });
         carcassOrderDetails = findById(carcassOrderDetails.getId());

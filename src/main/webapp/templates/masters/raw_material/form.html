@@ -31,7 +31,14 @@
                         <div class="col-sm-6 text-danger" ng-show="editableRawMaterial.repeatCode">
                             Repeat Material Code is not allowed.Enter unique code.
                         </div>
-                    </div>                                    
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Price</label>
+                            <input type="number" class="form-control" ng-model='editableRawMaterial.price' required=''>
+                        </div>
+                        <div class="col-sm-6"></div>
+                    </div>
 
                     <div class="modal-footer">
                         <button class="btn btn-lg btn-primary" ng-disabled="editableRawMaterial.repeatCode">

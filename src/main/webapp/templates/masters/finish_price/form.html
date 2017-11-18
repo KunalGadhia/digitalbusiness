@@ -19,37 +19,43 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Material</label>
-                                <!--<input class="form-control" placeholder="Material" ng-model="editableFinishPrice.material" required=""/>-->
-                                <select id="materialList" class="form-control" ng-model="editableFinishPrice.materialId" required="">
-                                    <option value="">Select Material</option>
-                                    <option ng-repeat="material in materialList" value="{{material.id}}">{{material.material}}</option>
-                                </select>
+                                <label>Finish Code</label>
+                                <input class="form-control" placeholder="Finish Code" ng-model="editableFinishPrice.finishCode" required=""/>
                             </div>
                         </div>
+
                     </div>
                     <div class="row">
                         <div class="col-sm-6 text-danger" ng-show="editableFinishPrice.repeatName">
                             Found Records For Above Entered Name
-                        </div>                        
+                        </div> 
+                        <div class="col-sm-6 text-danger" ng-show="editableFinishPrice.repeatCode">
+                            Duplicate Finish Code Not Allowed.
+                        </div> 
                     </div>
                     <div class="row">
+                        <div class="col-sm-6">
+<!--                            <div class="col-sm-6">-->
+                                <div class="form-group">
+                                    <label>Material</label>
+                                    <!--<input class="form-control" placeholder="Material" ng-model="editableFinishPrice.material" required=""/>-->
+                                    <select class="form-control" ng-model="editableFinishPrice.materialId" required="">
+                                        <option value="">Select Material</option>
+                                        <option ng-repeat="material in materialList" value="{{material.id}}">{{material.material}}</option>
+                                    </select>
+                                </div>
+                            <!--</div>-->
+                        </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Price</label>
                                 <input type="number" class="form-control" placeholder="Price" ng-model="editableFinishPrice.price" required=""/>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
-<!--                            <div class="form-group">
-                                <label>Component Code</label>
-                                <input class="form-control" placeholder="Material Code" ng-model="editableFinishPrice.materialCode" required=""/>
-                            </div>-->
-                        </div>
+                        </div>                        
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-lg btn-primary">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableFinishPrice.repeatCode">
                             <i class="fa fa-save"></i>
                             Save
                         </button>

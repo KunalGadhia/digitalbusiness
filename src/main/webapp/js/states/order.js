@@ -80,7 +80,7 @@ angular.module("digitalbusiness.states.order", [])
 
 
         })
-        .controller('OrderDetailsController', function (RawMaterialService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (RawMaterialService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             console.log("Inside Order Details Controller");
             console.log("State Params :%O", $stateParams);
             $scope.editableCarcassDetail = {};
@@ -744,7 +744,7 @@ angular.module("digitalbusiness.states.order", [])
                             $scope.showOSM = false;
                             $scope.showBSM = false;
                             $scope.showTSM = false;
-//                        $scope.showASM = true;
+                            $scope.showASM = true;
                         } else {
                             $scope.showOSM = false;
                             $scope.showBSM = false;
@@ -801,6 +801,12 @@ angular.module("digitalbusiness.states.order", [])
                         $scope.carcassRightColor = true;
                         $scope.carcassBackColor = false;
                         $scope.carcassTopColor = false;
+                        $scope.carcassBottomColor = true;
+                    } else if (selectedSide === "ASM") {
+                        $scope.carcassLeftColor = true;
+                        $scope.carcassRightColor = true;
+                        $scope.carcassBackColor = false;
+                        $scope.carcassTopColor = true;
                         $scope.carcassBottomColor = true;
                     } else {
                         $scope.carcassLeftColor = false;
@@ -860,6 +866,18 @@ angular.module("digitalbusiness.states.order", [])
                     } else if (response.status === 400) {
                         $scope.sortedColorList1 = [];
                     }
+                });
+            });
+            $scope.$watch('editableCarcassDetail.sideMaterial', function (sideMaterial) {
+                console.log("Side Material :%O", sideMaterial);
+                RawMaterialService.findByMaterialCode({
+                    'materialCode': sideMaterial
+                }, function (materialObject) {
+                    FinishPriceService.findByMaterialId({
+                        'materialId': materialObject.id
+                    }, function (finishList) {
+                        $scope.finishesList = finishList;
+                    });
                 });
             });
             $scope.completeColors1 = ColorService.findAllList();
@@ -1094,93 +1112,222 @@ angular.module("digitalbusiness.states.order", [])
                 var productCode = orderDetail.component + "" + orderDetail.w + "" + orderDetail.l + "" + orderDetail.d + "18" + orderDetail.material + "-" + l1 + "" + w1 + "18" + d1;
                 orderDetail.productCode = productCode;
                 console.log("Product Code :%O", productCode);
-                console.log("Main Order Detail :%O", orderDetail);
+
                 var totalArea = 0;
                 var basicArea = 0;
                 var basicSqMt = 0;
                 var extraArea = 0;
                 var extraSqMt = 0;
-                if (orderDetail.sideMatching === "O") {
-                    console.log("OSM");
-                    if (orderDetail.sideSelection === "LSM") {
-                        console.log("Width :%O", orderDetail.width);
-                        console.log("Height :%O", orderDetail.length);
-                        console.log("Depth :%O", orderDetail.depth);
+//                var basicAreaPrice;
+//                var extraAreaPrice;
+                if (orderDetail.nonStandardDimension === false) {
+                    console.log("Standard Dimesion");
+                    if (orderDetail.sideMatching === "O") {
+                        console.log("OSM Carcass");
+                        if (orderDetail.sideSelection === "LSM" || orderDetail.sideSelection === "RSM") {
+                            var p1 = (orderDetail.depth * orderDetail.length);
+                            var p2 = (2 * (orderDetail.width * orderDetail.depth));
+                            var p3 = (orderDetail.width * orderDetail.length);
+                            basicArea = p1 + p2 + p3;
+                            extraArea = p1;
+                            basicSqMt = basicArea / 1000000;
+                            extraSqMt = extraArea / 1000000;
+                            totalArea = basicSqMt + extraSqMt;
+//                            $scope.basicAreaPrice = 0;
+//                            $scope.extraAreaPrice = 0;
+                            RawMaterialService.findByMaterialCode({
+                                'materialCode': orderDetail.material
+                            }, function (stdMaterialObject) {
+                                console.log("STd Material Price %O", stdMaterialObject);
+                                $scope.stdMaterialObject = stdMaterialObject;
+//                                basicAreaPrice = (basicSqMt * stdMaterialObject.price);                                
+                            });
+                            FinishPriceService.findByFinishCode({
+                                'finishCode': orderDetail.sideFinish
+                            }, function (finishObject) {
+                                console.log("Finish Object :%O", finishObject);
+                                $scope.finishObject = finishObject;
+//                                extraAreaPrice = (extraSqMt * finishObject.price);
 
-                        var p1 = orderDetail.width * orderDetail.length;
-                        var p2 = orderDetail.depth * orderDetail.length;
-                        var p3 = 2 * (orderDetail.width * orderDetail.depth);
-                        console.log("P1 :" + p1);
-                        console.log("P2 :" + p2);
-                        console.log("P3 :" + p3);
-                        basicArea = p1 + p2 + p3;
-                        basicSqMt = basicArea / 1000000;
-                        extraArea = orderDetail.depth * orderDetail.length;
-                        extraSqMt = extraArea / 1000000;
-                        totalArea = basicSqMt + extraSqMt;
-                        console.log("Basic Sq Mt :%O", basicSqMt);
-                        console.log("Extra Sq Mt :%O", extraSqMt);
-                        console.log("Total Area : :%O", totalArea);
+                            });
+                            var basicAreaPrice = (basicSqMt * $scope.stdMaterialObject.price);
+                            var extraAreaPrice = (extraSqMt * $scope.finishObject.price);
+                            console.log("B Price :%O", basicAreaPrice);
+                            console.log("E Price :%O", extraAreaPrice);
+                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice));
 
-                    } else if (orderDetail.sideSelection === "RSM") {
-                        var p1 = orderDetail.width * orderDetail.length;
-                        var p2 = orderDetail.depth * orderDetail.length;
-                        var p3 = 2 * (orderDetail.width * orderDetail.depth);
-                        console.log("P1 :" + p1);
-                        console.log("P2 :" + p2);
-                        console.log("P3 :" + p3);
-                        basicArea = p1 + p2 + p3;
+                            orderDetail.price = finalPrice;
+                            console.log("Total Area OSM Left/Right :%O", totalArea);
+                            console.log("Total Area OSM Left/Right Price:%O", orderDetail.price);
+                        } else if (orderDetail.sideSelection === "TSM" || orderDetail.sideSelection === "BSM") {
+                            var p1 = (2 * (orderDetail.depth * orderDetail.length));
+                            var p2 = (orderDetail.width * orderDetail.depth);
+                            var p3 = (orderDetail.width * orderDetail.length);
+                            basicArea = p1 + p2 + p3;
+                            extraArea = p2;
+                            basicSqMt = basicArea / 1000000;
+                            extraSqMt = extraArea / 1000000;
+                            totalArea = basicSqMt + extraSqMt;
+                            console.log("Total ARea OSM TOP/Bottom :%O", totalArea);
+                        }
+                    } else if (orderDetail.sideMatching === "B") {
+                        console.log("Both Matching Carcass");
+                        var p1 = (2 * (orderDetail.width * orderDetail.depth));
+                        var p2 = (orderDetail.width * orderDetail.length);
+                        var p3 = (2 * (orderDetail.depth * orderDetail.length));
+                        basicArea = p1 + p2;
+                        extraArea = p3;
                         basicSqMt = basicArea / 1000000;
-                        extraArea = orderDetail.depth * orderDetail.length;
                         extraSqMt = extraArea / 1000000;
                         totalArea = basicSqMt + extraSqMt;
-                        console.log("Basic Sq Mt :%O", basicSqMt);
-                        console.log("Extra Sq Mt :%O", extraSqMt);
-                        console.log("Total Area : :%O", totalArea);
-                    } else if (orderDetail.sideSelection === "TSM") {
-                        var p1 = orderDetail.width * orderDetail.length;
-                        var p2 = 2 * (orderDetail.depth * orderDetail.length);
-                        var p3 = orderDetail.width * orderDetail.depth;
-                        console.log("P1 :" + p1);
-                        console.log("P2 :" + p2);
-                        console.log("P3 :" + p3);
-                        basicArea = p1 + p2 + p3;
+                        console.log("Total Area BSM Left & Right", totalArea);
+                    } else if (orderDetail.sideMatching === "T") {
+                        console.log("Three Side Matching");
+                        var p1 = (orderDetail.width * orderDetail.depth);
+                        var p2 = (orderDetail.width * orderDetail.length);
+                        var p3 = (2 * (orderDetail.depth * orderDetail.length));
+                        var p4 = (orderDetail.width * orderDetail.depth);
+
+                        basicArea = p1 + p2;
+                        extraArea = p3 + p4;
                         basicSqMt = basicArea / 1000000;
-                        extraArea = orderDetail.width * orderDetail.depth;
                         extraSqMt = extraArea / 1000000;
                         totalArea = basicSqMt + extraSqMt;
-                        console.log("Basic Sq Mt :%O", basicSqMt);
-                        console.log("Extra Sq Mt :%O", extraSqMt);
-                        console.log("Total Area : :%O", totalArea);
-                    } else if (orderDetail.sideSelection === "BSM") {
-                        var p1 = orderDetail.width * orderDetail.length;
-                        var p2 = 2 * (orderDetail.depth * orderDetail.length);
-                        var p3 = orderDetail.width * orderDetail.depth;
-                        console.log("P1 :" + p1);
-                        console.log("P2 :" + p2);
-                        console.log("P3 :" + p3);
-                        basicArea = p1 + p2 + p3;
+                        console.log("Three Side Matching Area :%O", totalArea);
+                    } else if (orderDetail.sideMatching === "A") {
+                        console.log("All Side Matching");
+                        var p1 = (orderDetail.width * orderDetail.length);
+                        var p2 = (2 * (orderDetail.depth * orderDetail.length));
+                        var p3 = (2 * (orderDetail.width * orderDetail.depth));
+                        basicArea = p1;
+                        extraArea = p2 + p3;
                         basicSqMt = basicArea / 1000000;
-                        extraArea = orderDetail.width * orderDetail.depth;
                         extraSqMt = extraArea / 1000000;
                         totalArea = basicSqMt + extraSqMt;
-                        console.log("Basic Sq Mt :%O", basicSqMt);
-                        console.log("Extra Sq Mt :%O", extraSqMt);
-                        console.log("Total Area : :%O", totalArea);
+                        console.log("All Side Matching Area :%O", totalArea);
+                    } else {
+                        console.log("Regular");
+                        var p1 = (2 * (orderDetail.depth * orderDetail.length));
+                        var p2 = (2 * (orderDetail.width * orderDetail.depth));
+                        var p3 = (orderDetail.width * orderDetail.length);
+                        basicArea = p1 + p2 + p3;
+                        basicSqMt = basicArea / 1000000;
+                        totalArea = basicSqMt;
+                        console.log("Total Area Regular :%O", totalArea);
+                        StandardCarcassPriceService.get({
+                            'id': orderDetail.stdCarcassPriceId
+                        }, function (stdPriceObject) {
+                            console.log("Std Price Object :%O", stdPriceObject);
+                            if (orderDetail.material === "PB") {
+                                console.log("PB Price");
+                                var singleQuantityPrice = totalArea * stdPriceObject.pbPrice;
+                                orderDetail.price = orderDetail.quantity * singleQuantityPrice;
+
+                            } else if (orderDetail.material === "MF") {
+                                console.log("MDF Price");
+                                var singleQuantityPrice = totalArea * stdPriceObject.mdfPrice;
+                                orderDetail.price = orderDetail.quantity * singleQuantityPrice;
+
+                            } else if (orderDetail.material === "HF") {
+                                console.log("HDF Price");
+                                var singleQuantityPrice = totalArea * stdPriceObject.hdfPrice;
+                                orderDetail.price = orderDetail.quantity * singleQuantityPrice;
+
+                            } else if (orderDetail.material === "BW") {
+                                console.log("PLY Price");
+                                var singleQuantityPrice = totalArea * stdPriceObject.plyPrice;
+                                orderDetail.price = orderDetail.quantity * singleQuantityPrice;
+                            }
+                        });
                     }
-                } else if (orderDetail.sideMatching === "B") {
-                    console.log("BSM");
-                    var p1 = orderDetail.width * orderDetail.length;
-                    var p2 = 2 * (orderDetail.depth * orderDetail.width);
-                    basicArea = p1 + p2;
-                    extraArea = 2 * (orderDetail.depth * orderDetail.length);
-                    basicSqMt = basicArea / 1000000;
-                    extraSqMt = extraArea / 1000000;
-                    totalArea = basicSqMt + extraSqMt;
-                    console.log("Area :%O", totalArea);
-                } else if (orderDetail.sideMatching === "T") {
-                    console.log("TSM");
+
+                } else if (orderDetail.nonStandardDimension === true) {
+                    console.log("Non Standard Dimesion");
+                } else {
+                    alert("Some Exception Happening, Please try again.");
                 }
+                console.log("Main Order Detail :%O", orderDetail);
+//                if (orderDetail.sideMatching === "O") {
+//                    console.log("OSM");
+//                    if (orderDetail.sideSelection === "LSM") {
+//                        console.log("Width :%O", orderDetail.width);
+//                        console.log("Height :%O", orderDetail.length);
+//                        console.log("Depth :%O", orderDetail.depth);
+//
+//                        var p1 = orderDetail.width * orderDetail.length;
+//                        var p2 = orderDetail.depth * orderDetail.length;
+//                        var p3 = 2 * (orderDetail.width * orderDetail.depth);
+//                        console.log("P1 :" + p1);
+//                        console.log("P2 :" + p2);
+//                        console.log("P3 :" + p3);
+//                        basicArea = p1 + p2 + p3;
+//                        basicSqMt = basicArea / 1000000;
+//                        extraArea = orderDetail.depth * orderDetail.length;
+//                        extraSqMt = extraArea / 1000000;
+//                        totalArea = basicSqMt + extraSqMt;
+//                        console.log("Basic Sq Mt :%O", basicSqMt);
+//                        console.log("Extra Sq Mt :%O", extraSqMt);
+//                        console.log("Total Area : :%O", totalArea);
+//
+//                    } else if (orderDetail.sideSelection === "RSM") {
+//                        var p1 = orderDetail.width * orderDetail.length;
+//                        var p2 = orderDetail.depth * orderDetail.length;
+//                        var p3 = 2 * (orderDetail.width * orderDetail.depth);
+//                        console.log("P1 :" + p1);
+//                        console.log("P2 :" + p2);
+//                        console.log("P3 :" + p3);
+//                        basicArea = p1 + p2 + p3;
+//                        basicSqMt = basicArea / 1000000;
+//                        extraArea = orderDetail.depth * orderDetail.length;
+//                        extraSqMt = extraArea / 1000000;
+//                        totalArea = basicSqMt + extraSqMt;
+//                        console.log("Basic Sq Mt :%O", basicSqMt);
+//                        console.log("Extra Sq Mt :%O", extraSqMt);
+//                        console.log("Total Area : :%O", totalArea);
+//                    } else if (orderDetail.sideSelection === "TSM") {
+//                        var p1 = orderDetail.width * orderDetail.length;
+//                        var p2 = 2 * (orderDetail.depth * orderDetail.length);
+//                        var p3 = orderDetail.width * orderDetail.depth;
+//                        console.log("P1 :" + p1);
+//                        console.log("P2 :" + p2);
+//                        console.log("P3 :" + p3);
+//                        basicArea = p1 + p2 + p3;
+//                        basicSqMt = basicArea / 1000000;
+//                        extraArea = orderDetail.width * orderDetail.depth;
+//                        extraSqMt = extraArea / 1000000;
+//                        totalArea = basicSqMt + extraSqMt;
+//                        console.log("Basic Sq Mt :%O", basicSqMt);
+//                        console.log("Extra Sq Mt :%O", extraSqMt);
+//                        console.log("Total Area : :%O", totalArea);
+//                    } else if (orderDetail.sideSelection === "BSM") {
+//                        var p1 = orderDetail.width * orderDetail.length;
+//                        var p2 = 2 * (orderDetail.depth * orderDetail.length);
+//                        var p3 = orderDetail.width * orderDetail.depth;
+//                        console.log("P1 :" + p1);
+//                        console.log("P2 :" + p2);
+//                        console.log("P3 :" + p3);
+//                        basicArea = p1 + p2 + p3;
+//                        basicSqMt = basicArea / 1000000;
+//                        extraArea = orderDetail.width * orderDetail.depth;
+//                        extraSqMt = extraArea / 1000000;
+//                        totalArea = basicSqMt + extraSqMt;
+//                        console.log("Basic Sq Mt :%O", basicSqMt);
+//                        console.log("Extra Sq Mt :%O", extraSqMt);
+//                        console.log("Total Area : :%O", totalArea);
+//                    }
+//                } else if (orderDetail.sideMatching === "B") {
+//                    console.log("BSM");
+//                    var p1 = orderDetail.width * orderDetail.length;
+//                    var p2 = 2 * (orderDetail.depth * orderDetail.width);
+//                    basicArea = p1 + p2;
+//                    extraArea = 2 * (orderDetail.depth * orderDetail.length);
+//                    basicSqMt = basicArea / 1000000;
+//                    extraSqMt = extraArea / 1000000;
+//                    totalArea = basicSqMt + extraSqMt;
+//                    console.log("Area :%O", totalArea);
+//                } else if (orderDetail.sideMatching === "T") {
+//                    console.log("TSM");
+//                }
 //                if()
 //                OrderDetailsService.save(orderDetail, function () {
 //                    $scope.editableCarcassDetail = "";

@@ -35,6 +35,8 @@ public class CarcassOrderDetails {
     private SideSelection sideSelection;
     private String sideMaterial;
     private String sideFinish;
+    private Integer quantity;
+    private Double price;
 
     public Integer getId() {
         return id;
@@ -212,9 +214,25 @@ public class CarcassOrderDetails {
         this.sideFinish = sideFinish;
     }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 7;
         hash = 37 * hash + Objects.hashCode(this.id);
         hash = 37 * hash + Objects.hashCode(this.orderHeadId);
         hash = 37 * hash + Objects.hashCode(this.stdCarcassPriceId);
@@ -237,6 +255,8 @@ public class CarcassOrderDetails {
         hash = 37 * hash + Objects.hashCode(this.sideSelection);
         hash = 37 * hash + Objects.hashCode(this.sideMaterial);
         hash = 37 * hash + Objects.hashCode(this.sideFinish);
+        hash = 37 * hash + Objects.hashCode(this.quantity);
+        hash = 37 * hash + Objects.hashCode(this.price);
         return hash;
     }
 
@@ -318,12 +338,18 @@ public class CarcassOrderDetails {
         if (this.sideSelection != other.sideSelection) {
             return false;
         }
+        if (!Objects.equals(this.quantity, other.quantity)) {
+            return false;
+        }
+        if (!Objects.equals(this.price, other.price)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "CarcassOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", stdCarcassPriceId=" + stdCarcassPriceId + ", intColorId=" + intColorId + ", leftColorId=" + leftColorId + ", rightColorId=" + rightColorId + ", backColorId=" + backColorId + ", topColorId=" + topColorId + ", bottomColorId=" + bottomColorId + ", productCode=" + productCode + ", component=" + component + ", material=" + material + ", length=" + length + ", width=" + width + ", depth=" + depth + ", nonStandardDimension=" + nonStandardDimension + ", shelf=" + shelf + ", shelfCount=" + shelfCount + ", sideMatching=" + sideMatching + ", sideSelection=" + sideSelection + ", sideMaterial=" + sideMaterial + ", sideFinish=" + sideFinish + '}';
+        return "CarcassOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", stdCarcassPriceId=" + stdCarcassPriceId + ", intColorId=" + intColorId + ", leftColorId=" + leftColorId + ", rightColorId=" + rightColorId + ", backColorId=" + backColorId + ", topColorId=" + topColorId + ", bottomColorId=" + bottomColorId + ", productCode=" + productCode + ", component=" + component + ", material=" + material + ", length=" + length + ", width=" + width + ", depth=" + depth + ", nonStandardDimension=" + nonStandardDimension + ", shelf=" + shelf + ", shelfCount=" + shelfCount + ", sideMatching=" + sideMatching + ", sideSelection=" + sideSelection + ", sideMaterial=" + sideMaterial + ", sideFinish=" + sideFinish + ", quantity=" + quantity + ", price=" + price + '}';
     }
-
+    
 }

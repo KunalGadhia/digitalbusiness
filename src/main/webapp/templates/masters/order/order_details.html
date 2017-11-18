@@ -190,6 +190,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Quantity</label>                      
+                        <!--<div class="input-group">-->
+                        <input type="number" min="1" class="form-control" placeholder="Quantity" ng-model="editableCarcassDetail.quantity" required=""/>
+                        <!--</div>-->
+                    </div>
+                </div>
                 <div class="col-sm-3" ng-show="showSideMatching">
                     <div class="form-group">
                         <label>Side Matching (Optional)</label>
@@ -198,7 +206,7 @@
                             <option ng-if="OSM" value="O">One Side Matching</option>
                             <option ng-if="BSM" value="B">Both Side Matching</option>
                             <option ng-if="TSM" value="T">Three Side Matching</option>
-                            <!--<option ng-if="ASM" value="A">All Side Matching</option>-->
+                            <option ng-if="ASM" value="A">All Side Matching</option>
                         </select>
                     </div>
                 </div>
@@ -214,10 +222,13 @@
                             <option ng-if="showBSM" value="LRSM">Left, Right Side Matching</option>
                             <option ng-if="showTSM" value="LRTSM">Left, Right, Top Side Matching</option>
                             <option ng-if="showTSM" value="LRBSM">Left, Right, Bottom Side Matching</option>
-                            <!--<option ng-if="showASM" value="ASM">All Side Matching</option>-->
+                            <option ng-if="showASM" value="ASM">All Side Matching</option>
                         </select>
                     </div>
                 </div>
+
+            </div>
+            <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group" ng-if="showSideMatching">
                         <label>Side Material</label>
@@ -227,17 +238,18 @@
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="row">
+
                 <div class="col-sm-3">
                     <div class="form-group" ng-if="showSideMatching">
                         <label>Side Finish</label>
                         <select class="form-control" ng-model="editableCarcassDetail.sideFinish">
                             <option value="">Select Side Finish</option>
-<!--                            <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>-->
+                                                        <option ng-repeat="finish in finishesList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
                         </select>
                     </div>
                 </div>
+            </div>
+            <div class="row">                
                 <div class="col-sm-3" ng-if="carcassLeftColor">
                     <div class="form-group">
                         <label>Left Color</label>

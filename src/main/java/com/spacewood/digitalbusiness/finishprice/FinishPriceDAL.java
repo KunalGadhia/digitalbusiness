@@ -24,6 +24,7 @@ public class FinishPriceDAL {
   public static final class Columns {
 
         public static final String ID = "id";
+        public static final String FINISH_CODE = "finish_code";
         public static final String MATERIAL_ID = "material_id";       
         public static final String FINISH_NAME = "finish_name";
         public static final String PRICE = "price";
@@ -41,6 +42,7 @@ public class FinishPriceDAL {
         insertFinishPrice = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName(TABLE_NAME)
                 .usingColumns(
+                        Columns.FINISH_CODE,
                         Columns.MATERIAL_ID,
                         Columns.FINISH_NAME,
                         Columns.PRICE
@@ -62,15 +64,26 @@ public class FinishPriceDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.FINISH_NAME + " = ?";        
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{finishName}, new BeanPropertyRowMapper<>(FinishPrice.class));
     }
+    
+    public FinishPrice findByFinishCode(String finishCode) {       
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.FINISH_CODE + " = ?";
+        return jdbcTemplate.queryForObject(sqlQuery, new Object[]{finishCode}, new BeanPropertyRowMapper<>(FinishPrice.class));
+    }
 
     public List<FinishPrice> findByNameLike(String finishName) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND lower(finish_name) LIKE?";
         String nameLike = "%" + finishName.toLowerCase() + "%";
         return jdbcTemplate.query(sqlQuery, new Object[]{nameLike}, new BeanPropertyRowMapper<>(FinishPrice.class));
     }
+    
+    public List<FinishPrice> findByMaterialId(Integer materialId) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND "+Columns.MATERIAL_ID+" = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{materialId}, new BeanPropertyRowMapper<>(FinishPrice.class));
+    }
 
     public FinishPrice insert(FinishPrice finishPrice) {
         Map<String, Object> parameters = new HashMap<>();
+        parameters.put(Columns.FINISH_CODE, finishPrice.getFinishCode()); 
         parameters.put(Columns.FINISH_NAME, finishPrice.getFinishName());        
         parameters.put(Columns.MATERIAL_ID, finishPrice.getMaterialId());
         parameters.put(Columns.PRICE, finishPrice.getPrice());
@@ -86,13 +99,15 @@ public class FinishPriceDAL {
     }
 
     public FinishPrice update(FinishPrice finishPrice) {
-        String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
+        String sqlQuery = "UPDATE " + TABLE_NAME + " SET "                
                 + Columns.FINISH_NAME + " = ?,"
+                + Columns.FINISH_CODE + " = ?,"
                 + Columns.MATERIAL_ID + " = ?,"
                 + Columns.PRICE + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
-                    finishPrice.getFinishName(),                    
+                    finishPrice.getFinishName(),
+                    finishPrice.getFinishCode(),
                     finishPrice.getMaterialId(),
                     finishPrice.getPrice(),
                     finishPrice.getId()

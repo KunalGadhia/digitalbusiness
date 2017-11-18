@@ -16,11 +16,27 @@ angular.module("digitalbusiness.services.finish_price_service")
                     },
                     'isArray': true
                 },
+                'findByMaterialId': {
+                    'method': 'GET',
+                    'url': restRoot + '/finish_price/find/material_id',
+                    'params': {
+                        'materialId': '@materialId'
+                    },
+                    'isArray': true
+                },
                 'findByName': {
                     'method': 'GET',
                     'url': restRoot + '/finish_price/find/name',
                     'params': {
                         'finishName': '@finishName'
+                    },
+                    'isArray': false
+                },
+                'findByFinishCode': {
+                    'method': 'GET',
+                    'url': restRoot + '/finish_price/find/finish_code',
+                    'params': {
+                        'finishCode': '@finishCode'
                     },
                     'isArray': false
                 }

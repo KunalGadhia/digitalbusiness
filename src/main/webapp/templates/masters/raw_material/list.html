@@ -23,15 +23,17 @@
             <tr>
                 <th class="text-right">#</th>
                 <th>Material</th>
-                <th>Material Code</th>                               
+                <th>Material Code</th>
+                <th>Price</th>
                 <th class="text-right">Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="rawMaterial in rawMaterials track by $index">
                 <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ rawMaterial.material}}</td>   
-                <td>{{ rawMaterial.materialCode}}</td>                                  
+                <td>{{ rawMaterial.material}}</td>
+                <td>{{ rawMaterial.materialCode}}</td>
+                <td>{{ rawMaterial.price}}</td>
                 <td class="text-right">
                     <a data-ui-sref="admin.masters_raw_material.edit({ rawMaterialId: rawMaterial.id })"
                        class="btn btn-primary">					

@@ -26,6 +26,7 @@ public class RawMaterialDAL {
         public static final String ID = "id";
         public static final String MATERIAL = "material";
         public static final String MATERIAL_CODE = "material_code";
+        public static final String PRICE = "price";
         
     }
 
@@ -41,7 +42,8 @@ public class RawMaterialDAL {
                 .withTableName(TABLE_NAME)
                 .usingColumns(
                         Columns.MATERIAL,
-                        Columns.MATERIAL_CODE
+                        Columns.MATERIAL_CODE,
+                        Columns.PRICE
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -86,6 +88,7 @@ public class RawMaterialDAL {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(Columns.MATERIAL, rawMaterial.getMaterial());
         parameters.put(Columns.MATERIAL_CODE, rawMaterial.getMaterialCode());
+        parameters.put(Columns.PRICE, rawMaterial.getPrice());
         Number newId = insertRawMaterial.executeAndReturnKey(parameters);
         rawMaterial = findById(newId.intValue());
         return rawMaterial;
@@ -98,12 +101,14 @@ public class RawMaterialDAL {
 
     public RawMaterial update(RawMaterial rawMaterial) {        
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
-                + Columns.MATERIAL + " = ?, "                
-                + Columns.MATERIAL_CODE + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.MATERIAL + " = ?, "
+                + Columns.MATERIAL_CODE + " = ?, "
+                + Columns.PRICE + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     rawMaterial.getMaterial(),
                     rawMaterial.getMaterialCode(),                   
+                    rawMaterial.getPrice(),
                     rawMaterial.getId()
                 });
         rawMaterial = findById(rawMaterial.getId());

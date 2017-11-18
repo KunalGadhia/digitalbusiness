@@ -15,6 +15,7 @@ public class RawMaterial {
     private Integer id;
     private String material;
     private String materialCode;
+    private Double price;
 
     public Integer getId() {
         return id;
@@ -40,12 +41,21 @@ public class RawMaterial {
         this.materialCode = materialCode;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.material);
-        hash = 79 * hash + Objects.hashCode(this.materialCode);
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.material);
+        hash = 97 * hash + Objects.hashCode(this.materialCode);
+        hash = 97 * hash + Objects.hashCode(this.price);
         return hash;
     }
 
@@ -70,12 +80,15 @@ public class RawMaterial {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
+        if (!Objects.equals(this.price, other.price)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "RawMaterial{" + "id=" + id + ", material=" + material + ", materialCode=" + materialCode + '}';
-    }        
+        return "RawMaterial{" + "id=" + id + ", material=" + material + ", materialCode=" + materialCode + ", price=" + price + '}';
+    }
     
 }
