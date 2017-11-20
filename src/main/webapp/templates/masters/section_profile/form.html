@@ -1,0 +1,72 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveSectionProfile(editableSectionProfile)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Section Profile Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Section Name</label>
+                                <input class="form-control" placeholder="Profile Name" ng-model="editableSectionProfile.name" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Direction</label>
+                                <!--<input class="form-control" placeholder="Profile Code" ng-model="editableSectionProfile.colorCode" required=""/>-->
+                                <select class="form-control" ng-model="editableSectionProfile.direction" required="">
+                                    <option value="">Select Direction</option>
+                                    <option value="HORIZONTAL">Horizontal</option>
+                                    <option value="VERTICAL">Vertical</option>                                    
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 text-danger" ng-show="editableSectionProfile.repeatName">
+                            Found Records For Above Entered Name
+                        </div>                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Carcass Type</label>
+                                <select class="form-control" ng-model="editableSectionProfile.carcassType" required="">
+                                    <option value="">Select CARCASS TYPE</option>
+                                    <option value="WALL_CARCASS">Wall Carcass</option>
+                                    <option value="TALL_UNIT">Tall Unit</option>
+                                    <option value="BASE_CARCASS">Base Carcass</option>                                                                       
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input type="number" step="any" class="form-control" ng-model="editableSectionProfile.price" required="">
+                            </div>
+                        </div>
+                    </div>                    
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableColor.repeatCode">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

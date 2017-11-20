@@ -47,6 +47,8 @@ CREATE TABLE `carcass_order_details` (
   `side_finish` varchar(100) DEFAULT NULL,
   `quantity` int(11) NOT NULL DEFAULT '1',
   `price` double NOT NULL DEFAULT '0',
+  `std_material_price` double DEFAULT NULL,
+  `finish_price` double DEFAULT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `carcass_order_details_order_head_id_fk` (`order_head_id`),
@@ -451,6 +453,34 @@ INSERT INTO `sale_type_master` VALUES (1,'E-COMMMERCE HOME','ECH','For E-Commerc
 UNLOCK TABLES;
 
 --
+-- Table structure for table `section_profile_master`
+--
+
+DROP TABLE IF EXISTS `section_profile_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `section_profile_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `name` varchar(100) DEFAULT NULL,
+  `direction` varchar(300) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.sectionprofile.Direction',
+  `carcass_type` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.sectionprofile.CarcassType',
+  `price` double NOT NULL DEFAULT '0',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `section_profile_master`
+--
+
+LOCK TABLES `section_profile_master` WRITE;
+/*!40000 ALTER TABLE `section_profile_master` DISABLE KEYS */;
+INSERT INTO `section_profile_master` VALUES (120,'A','HORIZONTAL','WALL_CARCASS',561651,1),(121,'A1','HORIZONTAL','BASE_CARCASS',1111,1);
+/*!40000 ALTER TABLE `section_profile_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `segment_master`
 --
 
@@ -610,4 +640,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-18 18:39:53
+-- Dump completed on 2017-11-20 17:47:11

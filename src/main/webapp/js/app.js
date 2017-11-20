@@ -34,6 +34,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.carcass_order_details_service',
     'digitalbusiness.services.color_constraint',
     'digitalbusiness.services.finish_price_service',
+    'digitalbusiness.services.section_profile',
 
 //    // directive services
 //    'safedeals.services.bank_addition',
@@ -54,6 +55,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.standard_carcass_price',
     'digitalbusiness.states.color_constraint',
     'digitalbusiness.states.finish_price',
+    'digitalbusiness.states.masters_section_profile',
 
     'digitalbusiness.states.auth'
 
