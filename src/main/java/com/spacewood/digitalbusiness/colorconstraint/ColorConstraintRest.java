@@ -70,6 +70,18 @@ public class ColorConstraintRest {
             @RequestParam("materialCode") String materialCode) {
         return colorConstraintDAL.findByMaterialCode(materialCode);
     }
+    
+    @RequestMapping(value = "/find/finish_code", method = RequestMethod.GET)
+    public ColorConstraint findByFinishCode(
+            @RequestParam("finishCode") String finishCode) {
+        return colorConstraintDAL.findByFinishCode(finishCode);
+    }
+    
+    @RequestMapping(value = "/find/component", method = RequestMethod.GET)
+    public ColorConstraint findByComponent(
+            @RequestParam("component") String component) {
+        return colorConstraintDAL.findByComponent(component);
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public ColorConstraint insert(@RequestBody ColorConstraint colorConstraint) throws JsonProcessingException, ParseException {

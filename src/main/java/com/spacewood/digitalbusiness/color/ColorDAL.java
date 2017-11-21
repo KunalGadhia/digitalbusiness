@@ -76,7 +76,7 @@ public class ColorDAL {
 
     public List<Color> findByColorLike(String color) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND lower(color_name) LIKE?";
-        String colorNameLike = color.toLowerCase() + "%";
+        String colorNameLike = "%" + color.toLowerCase() + "%";
         return jdbcTemplate.query(sqlQuery, new Object[]{colorNameLike}, new BeanPropertyRowMapper<>(Color.class));
     }
     public List<Color> findByColorCategory(String colorCategory) {

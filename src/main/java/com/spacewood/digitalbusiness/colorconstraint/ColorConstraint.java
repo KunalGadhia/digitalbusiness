@@ -5,7 +5,6 @@
  */
 package com.spacewood.digitalbusiness.colorconstraint;
 
-import com.spacewood.digitalbusiness.kitchencomponent.KitchenComponentCategory;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,9 +14,10 @@ import java.util.Objects;
  */
 public class ColorConstraint {
     private Integer id;
-    private KitchenComponentCategory component;
+    private ConstraintItem component;
     private String materialCode;
     private List<Integer> colors;
+    private String finishCode;
 
     public Integer getId() {
         return id;
@@ -27,11 +27,11 @@ public class ColorConstraint {
         this.id = id;
     }
 
-    public KitchenComponentCategory getComponent() {
+    public ConstraintItem getComponent() {
         return component;
     }
 
-    public void setComponent(KitchenComponentCategory component) {
+    public void setComponent(ConstraintItem component) {
         this.component = component;
     }
 
@@ -51,13 +51,22 @@ public class ColorConstraint {
         this.colors = colors;
     }
 
+    public String getFinishCode() {
+        return finishCode;
+    }
+
+    public void setFinishCode(String finishCode) {
+        this.finishCode = finishCode;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.component);
-        hash = 37 * hash + Objects.hashCode(this.materialCode);
-        hash = 37 * hash + Objects.hashCode(this.colors);
+        hash = 61 * hash + Objects.hashCode(this.id);
+        hash = 61 * hash + Objects.hashCode(this.component);
+        hash = 61 * hash + Objects.hashCode(this.materialCode);
+        hash = 61 * hash + Objects.hashCode(this.colors);
+        hash = 61 * hash + Objects.hashCode(this.finishCode);
         return hash;
     }
 
@@ -76,6 +85,9 @@ public class ColorConstraint {
         if (!Objects.equals(this.materialCode, other.materialCode)) {
             return false;
         }
+        if (!Objects.equals(this.finishCode, other.finishCode)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -90,7 +102,8 @@ public class ColorConstraint {
 
     @Override
     public String toString() {
-        return "ColorConstraint{" + "id=" + id + ", component=" + component + ", materialCode=" + materialCode + ", colors=" + colors + '}';
+        return "ColorConstraint{" + "id=" + id + ", component=" + component + ", materialCode=" + materialCode + ", colors=" + colors + ", finishCode=" + finishCode + '}';
     }
+
         
 }

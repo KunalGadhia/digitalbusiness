@@ -19,6 +19,26 @@
                                     <option value="">Select Component</option>
                                     <option value="CARCASE">Carcass</option>
                                     <option value="SHUTTER">Shutter</option>
+                                    <option value="MEMBRANE_GLOSSY_MDF">Membrane Glossy MDF</option>
+                                    <option value="MEMBRANE_DESIGNER_MDF">Membrane Designer MDF</option>
+                                    <option value="MEMBRANE_STANDARD_MDF">Membrane Standard MDF</option>
+                                    <option value="MEMBRANE_GLOSSY_HDF">Membrane Glossy HDF</option>
+                                    <option value="MEMBRANE_DESIGNER_HDF">Membrane Designer HDF</option>
+                                    <option value="MEMBRANE_STANDARD_HDF">Membrane Standard HDF</option>
+                                    <option value="HPL_MR_GLOSS_PLY">HPL MR+GLOSS PLY</option>
+                                    <option value="HPL_HIGH_GLOSS_PLY">HPL HIGH GLOSS PLY</option>
+                                    <option value="HPL_MATT_PLY">HPL Matt PLY</option>
+                                    <option value="ORIENTAL_ACRYLIC_SOLID_HDF">Oriental Acrylic Solid HDF</option>
+                                    <option value="ORIENTAL_ACRYLIC_WOODGRAIN_HDF">Oriental Acrylic Woodgrain HDF</option>
+                                    <option value="MILANO_ACRYLIC_STD_PLY">Milano Acrylic Standard PLY</option>
+                                    <option value="MILANO_ACRYLIC_PREMIUM_PLY">Milano Acrylic Premium PLY</option>
+                                    <option value="POLYMER_GLOSSY_MDF">Polymer Glossy MDF</option>
+                                    <option value="PU_LACQURED_SOLID_HDF">PU Lacqured Solid HDF</option>
+                                    <option value="PU_LACQURED_METTALIC_HDF">PU Lacqured Metallic HDF</option>
+                                    <option value="PU_LACQURED_SOLID_PLY">PU Lacqured Solid PLY</option>
+                                    <option value="PU_LACQURED_METTALIC_PLY">PU Lacqured Metallic PLY</option>
+                                    <option value="PU_LACQURED_SOLID_MDF">PU Lacqured Solid MDF</option>
+                                    <option value="PU_LACQURED_METTALIC_MDF">PU Lacqured Metallic MDF</option>
                                 </select>
                             </div>
                         </div>
@@ -58,6 +78,13 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Finish (Optional)</label>
+                                <select class="form-control" ng-model="editableColorConstraint.finishCode" required="">
+                                    <option value="">Select Finish Code</option>
+                                    <option ng-repeat="finish in finishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

@@ -67,6 +67,15 @@ public class FinishPriceRest {
         return finishPriceDAL.findByMaterialId(materialId);
     }
     
+    @RequestMapping(value = "/find_all_list", method = RequestMethod.GET)
+    public List<FinishPrice> findAllList() {
+        return finishPriceDAL.findAllList();
+    }
+//    @RequestMapping(value = "/find_all_list", method = RequestMethod.GET)
+//    public List<KitchenComponent> findAllList() {
+//        return kitchenComponentDAL.findAllList();
+//    }
+    
     @RequestMapping(value = "/find/finish_code", method = RequestMethod.GET)
     public FinishPrice findByFinishCode(@RequestParam("finishCode") String finishCode) throws Exception {
         return finishPriceDAL.findByFinishCode(finishCode);

@@ -71,13 +71,14 @@ angular.module("digitalbusiness.states.color_constraint", [])
                 $state.go(".", {'offset': $scope.currentOffset}, {'reload': true});
             };
         })
-        .controller('ColorConstraintAddController', function (ColorConstraintService, ColorService, RawMaterialService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('ColorConstraintAddController', function (ColorConstraintService, FinishPriceService, ColorService, RawMaterialService, $scope, $stateParams, $state, paginationLimit) {
 
             $scope.editableColorConstraint = {};
             $scope.colorDisplay = [];
             $scope.editableColorConstraint.colors = [];
 
             $scope.rawMaterialList = RawMaterialService.findAllList();
+            $scope.finishList = FinishPriceService.findAllList();
 
             $scope.saveColorConstraint = function (colorConstraint) {
                 ColorConstraintService.save(colorConstraint, function (savedData) {
@@ -107,8 +108,9 @@ angular.module("digitalbusiness.states.color_constraint", [])
             };
 
         })
-        .controller('ColorConstraintEditController', function (ColorConstraintService, ColorService, RawMaterialService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('ColorConstraintEditController', function (ColorConstraintService, FinishPriceService, ColorService, RawMaterialService, $scope, $stateParams, $state, paginationLimit) {
             $scope.rawMaterialList = RawMaterialService.findAllList();
+            $scope.finishList = FinishPriceService.findAllList();
             $scope.colorDisplay = [];
             $scope.editableColorConstraint = {};
             $scope.saveColorConstraint = function (colorConstraint) {

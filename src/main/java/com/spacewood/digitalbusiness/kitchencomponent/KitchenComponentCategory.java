@@ -17,5 +17,5 @@ public enum KitchenComponentCategory {
     FILLER,
     PELMET,
     CORNICE,
-    HANDLE
+    HANDLE    
 }

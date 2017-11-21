@@ -24,6 +24,11 @@ angular.module("digitalbusiness.services.finish_price_service")
                     },
                     'isArray': true
                 },
+                'findAllList': {
+                    'method': 'GET',
+                    'url': restRoot + '/finish_price/find_all_list',                    
+                    'isArray': true
+                },
                 'findByName': {
                     'method': 'GET',
                     'url': restRoot + '/finish_price/find/name',

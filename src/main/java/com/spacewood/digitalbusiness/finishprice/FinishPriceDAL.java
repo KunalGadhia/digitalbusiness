@@ -54,6 +54,15 @@ public class FinishPriceDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(FinishPrice.class));
     }
+    
+    public List<FinishPrice> findAllList() {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE";
+        return jdbcTemplate.query(sqlQuery, new Object[]{}, new BeanPropertyRowMapper<>(FinishPrice.class));
+    }
+//    public List<KitchenComponent> findAllList() {
+//        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE";
+//        return jdbcTemplate.query(sqlQuery, new Object[]{}, new BeanPropertyRowMapper<>(KitchenComponent.class));
+//    }
 
     public FinishPrice findById(Integer id) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ID + " = ?";

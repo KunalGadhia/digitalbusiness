@@ -37,6 +37,10 @@ public class CarcassOrderDetails {
     private String sideFinish;
     private Integer quantity;
     private Double price;
+    private Double stdMaterialPrice;
+    private Double finishPrice;
+    private Integer sectionProfileId;
+    private Double sectionProfilePrice;
 
     public Integer getId() {
         return id;
@@ -230,33 +234,69 @@ public class CarcassOrderDetails {
         this.price = price;
     }
 
+    public Double getStdMaterialPrice() {
+        return stdMaterialPrice;
+    }
+
+    public void setStdMaterialPrice(Double stdMaterialPrice) {
+        this.stdMaterialPrice = stdMaterialPrice;
+    }
+
+    public Double getFinishPrice() {
+        return finishPrice;
+    }
+
+    public void setFinishPrice(Double finishPrice) {
+        this.finishPrice = finishPrice;
+    }
+
+    public Integer getSectionProfileId() {
+        return sectionProfileId;
+    }
+
+    public void setSectionProfileId(Integer sectionProfileId) {
+        this.sectionProfileId = sectionProfileId;
+    }
+
+    public Double getSectionProfilePrice() {
+        return sectionProfilePrice;
+    }
+
+    public void setSectionProfilePrice(Double sectionProfilePrice) {
+        this.sectionProfilePrice = sectionProfilePrice;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 37 * hash + Objects.hashCode(this.stdCarcassPriceId);
-        hash = 37 * hash + Objects.hashCode(this.intColorId);
-        hash = 37 * hash + Objects.hashCode(this.leftColorId);
-        hash = 37 * hash + Objects.hashCode(this.rightColorId);
-        hash = 37 * hash + Objects.hashCode(this.backColorId);
-        hash = 37 * hash + Objects.hashCode(this.topColorId);
-        hash = 37 * hash + Objects.hashCode(this.bottomColorId);
-        hash = 37 * hash + Objects.hashCode(this.productCode);
-        hash = 37 * hash + Objects.hashCode(this.component);
-        hash = 37 * hash + Objects.hashCode(this.material);
-        hash = 37 * hash + Objects.hashCode(this.length);
-        hash = 37 * hash + Objects.hashCode(this.width);
-        hash = 37 * hash + Objects.hashCode(this.depth);
-        hash = 37 * hash + Objects.hashCode(this.nonStandardDimension);
-        hash = 37 * hash + Objects.hashCode(this.shelf);
-        hash = 37 * hash + Objects.hashCode(this.shelfCount);
-        hash = 37 * hash + Objects.hashCode(this.sideMatching);
-        hash = 37 * hash + Objects.hashCode(this.sideSelection);
-        hash = 37 * hash + Objects.hashCode(this.sideMaterial);
-        hash = 37 * hash + Objects.hashCode(this.sideFinish);
-        hash = 37 * hash + Objects.hashCode(this.quantity);
-        hash = 37 * hash + Objects.hashCode(this.price);
+        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 23 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 23 * hash + Objects.hashCode(this.stdCarcassPriceId);
+        hash = 23 * hash + Objects.hashCode(this.intColorId);
+        hash = 23 * hash + Objects.hashCode(this.leftColorId);
+        hash = 23 * hash + Objects.hashCode(this.rightColorId);
+        hash = 23 * hash + Objects.hashCode(this.backColorId);
+        hash = 23 * hash + Objects.hashCode(this.topColorId);
+        hash = 23 * hash + Objects.hashCode(this.bottomColorId);
+        hash = 23 * hash + Objects.hashCode(this.productCode);
+        hash = 23 * hash + Objects.hashCode(this.component);
+        hash = 23 * hash + Objects.hashCode(this.material);
+        hash = 23 * hash + Objects.hashCode(this.length);
+        hash = 23 * hash + Objects.hashCode(this.width);
+        hash = 23 * hash + Objects.hashCode(this.depth);
+        hash = 23 * hash + Objects.hashCode(this.nonStandardDimension);
+        hash = 23 * hash + Objects.hashCode(this.shelf);
+        hash = 23 * hash + Objects.hashCode(this.shelfCount);
+        hash = 23 * hash + Objects.hashCode(this.sideMatching);
+        hash = 23 * hash + Objects.hashCode(this.sideSelection);
+        hash = 23 * hash + Objects.hashCode(this.sideMaterial);
+        hash = 23 * hash + Objects.hashCode(this.sideFinish);
+        hash = 23 * hash + Objects.hashCode(this.quantity);
+        hash = 23 * hash + Objects.hashCode(this.price);
+        hash = 23 * hash + Objects.hashCode(this.stdMaterialPrice);
+        hash = 23 * hash + Objects.hashCode(this.finishPrice);
+        hash = 23 * hash + Objects.hashCode(this.sectionProfileId);
+        hash = 23 * hash + Objects.hashCode(this.sectionProfilePrice);
         return hash;
     }
 
@@ -344,12 +384,24 @@ public class CarcassOrderDetails {
         if (!Objects.equals(this.price, other.price)) {
             return false;
         }
+        if (!Objects.equals(this.stdMaterialPrice, other.stdMaterialPrice)) {
+            return false;
+        }
+        if (!Objects.equals(this.finishPrice, other.finishPrice)) {
+            return false;
+        }
+        if (!Objects.equals(this.sectionProfileId, other.sectionProfileId)) {
+            return false;
+        }
+        if (!Objects.equals(this.sectionProfilePrice, other.sectionProfilePrice)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "CarcassOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", stdCarcassPriceId=" + stdCarcassPriceId + ", intColorId=" + intColorId + ", leftColorId=" + leftColorId + ", rightColorId=" + rightColorId + ", backColorId=" + backColorId + ", topColorId=" + topColorId + ", bottomColorId=" + bottomColorId + ", productCode=" + productCode + ", component=" + component + ", material=" + material + ", length=" + length + ", width=" + width + ", depth=" + depth + ", nonStandardDimension=" + nonStandardDimension + ", shelf=" + shelf + ", shelfCount=" + shelfCount + ", sideMatching=" + sideMatching + ", sideSelection=" + sideSelection + ", sideMaterial=" + sideMaterial + ", sideFinish=" + sideFinish + ", quantity=" + quantity + ", price=" + price + '}';
+        return "CarcassOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", stdCarcassPriceId=" + stdCarcassPriceId + ", intColorId=" + intColorId + ", leftColorId=" + leftColorId + ", rightColorId=" + rightColorId + ", backColorId=" + backColorId + ", topColorId=" + topColorId + ", bottomColorId=" + bottomColorId + ", productCode=" + productCode + ", component=" + component + ", material=" + material + ", length=" + length + ", width=" + width + ", depth=" + depth + ", nonStandardDimension=" + nonStandardDimension + ", shelf=" + shelf + ", shelfCount=" + shelfCount + ", sideMatching=" + sideMatching + ", sideSelection=" + sideSelection + ", sideMaterial=" + sideMaterial + ", sideFinish=" + sideFinish + ", quantity=" + quantity + ", price=" + price + ", stdMaterialPrice=" + stdMaterialPrice + ", finishPrice=" + finishPrice + ", sectionProfileId=" + sectionProfileId + ", sectionProfilePrice=" + sectionProfilePrice + '}';
     }
     
 }

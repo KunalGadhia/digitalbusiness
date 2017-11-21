@@ -13,5 +13,6 @@ public enum SideMatching {
     O,
     B,
     T,
-    A
+    A,
+    NSM
 }

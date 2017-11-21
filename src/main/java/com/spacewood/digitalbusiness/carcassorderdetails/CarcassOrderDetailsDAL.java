@@ -8,6 +8,7 @@ package com.spacewood.digitalbusiness.carcassorderdetails;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.Column;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -48,6 +49,10 @@ public class CarcassOrderDetailsDAL {
         public static final String SIDE_FINISH = "side_finish";
         public static final String QUANTITY = "quantity";
         public static final String PRICE = "price";
+        public static final String STD_MATERIAL_PRICE = "std_material_price";
+        public static final String FINISH_PRICE = "finish_price";
+        public static final String SECTION_PROFILE_ID = "section_profile_id";
+        public static final String SECTION_PROFILE_PRICE = "section_profile_price";
 
     }
 
@@ -84,7 +89,11 @@ public class CarcassOrderDetailsDAL {
                         Columns.SIDE_MATERIAL,
                         Columns.SIDE_FINISH,
                         Columns.QUANTITY,
-                        Columns.PRICE
+                        Columns.PRICE,
+                        Columns.STD_MATERIAL_PRICE,
+                        Columns.FINISH_PRICE,
+                        Columns.SECTION_PROFILE_ID,
+                        Columns.SECTION_PROFILE_PRICE
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -141,12 +150,36 @@ public class CarcassOrderDetailsDAL {
         } else {
             parameters.put(Columns.SHELF_COUNT, carcassOrderDetails.getShelfCount());
         }
-        parameters.put(Columns.SIDE_MATCHING, carcassOrderDetails.getSideMatching().name());
-        parameters.put(Columns.SIDE_SELECTION, carcassOrderDetails.getSideSelection().name());
-        parameters.put(Columns.SIDE_MATERIAL, carcassOrderDetails.getSideMaterial());
-        parameters.put(Columns.SIDE_FINISH, carcassOrderDetails.getSideFinish());
+        if (carcassOrderDetails.getSideMatching() == null) {
+            parameters.put(Columns.SIDE_MATCHING, SideMatching.NSM);
+        } else {
+            parameters.put(Columns.SIDE_MATCHING, carcassOrderDetails.getSideMatching().name());
+        }
+        if (carcassOrderDetails.getSideSelection() == null) {
+            parameters.put(Columns.SIDE_SELECTION, SideSelection.NSS);
+        } else {
+            parameters.put(Columns.SIDE_SELECTION, carcassOrderDetails.getSideSelection().name());
+        }
+        if (carcassOrderDetails.getSideMaterial() == null) {
+            parameters.put(Columns.SIDE_MATERIAL, 0);
+        } else {
+            parameters.put(Columns.SIDE_MATERIAL, carcassOrderDetails.getSideMaterial());
+        }
+        if (carcassOrderDetails.getSideFinish() == null) {
+            parameters.put(Columns.SIDE_FINISH, 0);
+        } else {
+            parameters.put(Columns.SIDE_FINISH, carcassOrderDetails.getSideFinish());
+        }
+//        parameters.put(Columns.SIDE_MATCHING, carcassOrderDetails.getSideMatching().name());
+//        parameters.put(Columns.SIDE_SELECTION, carcassOrderDetails.getSideSelection().name());
+//        parameters.put(Columns.SIDE_MATERIAL, carcassOrderDetails.getSideMaterial());
+//        parameters.put(Columns.SIDE_FINISH, carcassOrderDetails.getSideFinish());
         parameters.put(Columns.QUANTITY, carcassOrderDetails.getQuantity());
         parameters.put(Columns.PRICE, carcassOrderDetails.getPrice());
+        parameters.put(Columns.STD_MATERIAL_PRICE, carcassOrderDetails.getStdMaterialPrice());
+        parameters.put(Columns.FINISH_PRICE, carcassOrderDetails.getFinishPrice());
+        parameters.put(Columns.SECTION_PROFILE_ID, carcassOrderDetails.getSectionProfileId());
+        parameters.put(Columns.SECTION_PROFILE_PRICE, carcassOrderDetails.getSectionProfilePrice());
 
         Number newId = insertCarcassOrderDetail.executeAndReturnKey(parameters);
         carcassOrderDetails = findById(newId.intValue());
@@ -182,7 +215,11 @@ public class CarcassOrderDetailsDAL {
                 + Columns.SIDE_MATERIAL + " = ?,"
                 + Columns.SIDE_FINISH + " = ?,"
                 + Columns.QUANTITY + " = ?,"
-                + Columns.PRICE + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.PRICE + " = ?,"
+                + Columns.STD_MATERIAL_PRICE + " = ?,"
+                + Columns.FINISH_PRICE + " = ?,"
+                + Columns.SECTION_PROFILE_ID + " = ?,"
+                + Columns.SECTION_PROFILE_PRICE + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     carcassOrderDetails.getOrderHeadId(),
@@ -208,6 +245,10 @@ public class CarcassOrderDetailsDAL {
                     carcassOrderDetails.getSideFinish(),
                     carcassOrderDetails.getQuantity(),
                     carcassOrderDetails.getPrice(),
+                    carcassOrderDetails.getStdMaterialPrice(),
+                    carcassOrderDetails.getFinishPrice(),
+                    carcassOrderDetails.getSectionProfileId(),
+                    carcassOrderDetails.getSectionProfilePrice(),
                     carcassOrderDetails.getId()
                 });
         carcassOrderDetails = findById(carcassOrderDetails.getId());

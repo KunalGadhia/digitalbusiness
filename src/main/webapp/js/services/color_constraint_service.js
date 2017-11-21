@@ -20,6 +20,22 @@ angular.module("digitalbusiness.services.color_constraint")
                       'materialCode': '@materialCode' 
                     },
                     'isArray': false
+                },
+                'findByFinishCode': {
+                    'method': 'GET',
+                    'url': restRoot + '/color_constraint/find/finish_code',
+                    'params':{
+                      'finishCode': '@finishCode' 
+                    },
+                    'isArray': false
+                },
+                'findByComponent': {
+                    'method': 'GET',
+                    'url': restRoot + '/color_constraint/find/component',
+                    'params':{
+                      'component': '@component' 
+                    },
+                    'isArray': false
                 }
             });
         });

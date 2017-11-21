@@ -24,6 +24,7 @@
                 <th class="text-right">#</th>
                 <th>Component</th>
                 <th>Material Code</th>
+                <th>Finish Code</th>
                 <th>Colors</th>                
                 <th class="text-right">Actions</th>
             </tr>
@@ -33,6 +34,7 @@
                 <td class="text-right">{{ currentOffset + $index + 1}}</td>
                 <td>{{ colorConstraint.component}}</td>   
                 <td>{{ colorConstraint.materialCode}}</td>  
+                <td>{{ colorConstraint.finishCode}}</td>  
                 <td>
                     <ul>
                         <li ng-repeat="color in colorConstraint.colorObjects" >                            

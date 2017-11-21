@@ -39,6 +39,7 @@ public class ColorConstraintDAL {
         public static final String COMPONENT = "component";
         public static final String MATERIAL_CODE = "material_code";
         public static final String COLORS = "colors";
+        public static final String FINISH_CODE = "finish_code";
 
     }
 
@@ -53,16 +54,17 @@ public class ColorConstraintDAL {
         jdbcTemplate = new JdbcTemplate(dataSource);
         insertLocation = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName(TABLE_NAME)
-                .usingColumns(                        
+                .usingColumns(
                         Columns.COMPONENT,
                         Columns.MATERIAL_CODE,
-                        Columns.COLORS
+                        Columns.COLORS,
+                        Columns.FINISH_CODE
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
 
     public List<ColorConstraint> findAll(Integer offset) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 5 OFFSET ?";
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, colorRowMapper);
     }
 
@@ -76,23 +78,33 @@ public class ColorConstraintDAL {
 //        String nameLike = "" + name.toLowerCase() + "%";
 //        return jdbcTemplate.query(sqlQuery, new Object[]{nameLike}, colorRowMapper);
 //    }
-
     public ColorConstraint findById(Integer id) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ID + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{id}, colorRowMapper);
     }
-    
+
     public ColorConstraint findByMaterialCode(String materialCode) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.MATERIAL_CODE + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{materialCode}, colorRowMapper);
+    }
+    
+    public ColorConstraint findByFinishCode(String finishCode) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.FINISH_CODE + " = ?";
+        return jdbcTemplate.queryForObject(sqlQuery, new Object[]{finishCode}, colorRowMapper);
+    }
+
+    public ColorConstraint findByComponent(String component) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.COMPONENT + " = ?";
+        return jdbcTemplate.queryForObject(sqlQuery, new Object[]{component}, colorRowMapper);
     }
 
     public ColorConstraint insert(ColorConstraint colorConstraint) throws JsonProcessingException {
         logger.info("location object in DAL line95 {}", colorConstraint);
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put(Columns.COMPONENT, colorConstraint.getComponent().name());        
-        parameters.put(Columns.MATERIAL_CODE, colorConstraint.getMaterialCode());        
+        parameters.put(Columns.COMPONENT, colorConstraint.getComponent().name());
+        parameters.put(Columns.MATERIAL_CODE, colorConstraint.getMaterialCode());
         parameters.put(Columns.COLORS, colorConstraint.getColors() == null ? "[]" : mapper.writeValueAsString(colorConstraint.getColors()));
+        parameters.put(Columns.FINISH_CODE, colorConstraint.getFinishCode());
         System.out.println("param" + parameters);
         Number newId = insertLocation.executeAndReturnKey(parameters);
         colorConstraint = findById(newId.intValue());
@@ -107,13 +119,15 @@ public class ColorConstraintDAL {
     public ColorConstraint update(ColorConstraint colorConstraint) throws JsonProcessingException {
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.COMPONENT + "=?, "
-                + Columns.MATERIAL_CODE + "=?, "                
-                + Columns.COLORS + "=?  WHERE " + Columns.ID + " = ?";
+                + Columns.MATERIAL_CODE + "=?, "
+                + Columns.COLORS + "=?, "
+                + Columns.FINISH_CODE + "=?  WHERE " + Columns.ID + " = ?";
         jdbcTemplate.update(sqlQuery,
                 new Object[]{
-                    colorConstraint.getComponent().name(),                    
-                    colorConstraint.getMaterialCode(),                    
-                    colorConstraint.getColors() == null ? "[]" : mapper.writeValueAsString(colorConstraint.getColors()),                    
+                    colorConstraint.getComponent().name(),
+                    colorConstraint.getMaterialCode(),
+                    colorConstraint.getColors() == null ? "[]" : mapper.writeValueAsString(colorConstraint.getColors()),
+                    colorConstraint.getFinishCode(),
                     colorConstraint.getId()
                 }
         );
@@ -126,11 +140,11 @@ public class ColorConstraintDAL {
         @Override
         public ColorConstraint mapRow(ResultSet rs, int i) throws SQLException {
             ColorConstraint colorConstraint = new ColorConstraint();
-            colorConstraint.setId(rs.getInt(Columns.ID));            
+            colorConstraint.setId(rs.getInt(Columns.ID));
             if (rs.getString(Columns.COMPONENT) != null) {
-                colorConstraint.setComponent(KitchenComponentCategory.valueOf(rs.getString(Columns.COMPONENT)));
+                colorConstraint.setComponent(ConstraintItem.valueOf(rs.getString(Columns.COMPONENT)));
             }
-            colorConstraint.setMaterialCode(rs.getString(Columns.MATERIAL_CODE));            
+            colorConstraint.setMaterialCode(rs.getString(Columns.MATERIAL_CODE));
 
             String colorsList = rs.getString(Columns.COLORS);
             try {
@@ -140,7 +154,8 @@ public class ColorConstraintDAL {
                 colorConstraint.setColors(colors);
             } catch (IOException ex) {
                 throw new RuntimeException("Error parsing colorsList: '" + colorsList + "' ", ex);
-            }            
+            }
+            colorConstraint.setFinishCode(rs.getString(Columns.FINISH_CODE));
             return colorConstraint;
         }
 
