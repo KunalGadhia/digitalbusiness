@@ -20,6 +20,11 @@ angular.module("digitalbusiness.states.order", [])
                 'templateUrl': templateRoot + '/masters/order/proforma_invoice.html',
                 'controller': 'ProformaInvoiceDisplayController'
             });
+            $stateProvider.state('admin.masters_order_details.carcass_delete', {
+                'url': '/:carcassDetailId/delete',
+                'templateUrl': templateRoot + '/masters/order/carcass_detail_delete.html',
+                'controller': 'CarcassDetailDeleteController'
+            });
 //            $stateProvider.state('admin.masters_sale_type.delete', {
 //                'url': '/:saleTypeId/delete',
 //                'templateUrl': templateRoot + '/masters/sale_type/delete.html',
@@ -857,6 +862,7 @@ angular.module("digitalbusiness.states.order", [])
                     'id': sectionProfileId
                 }, function (sectionProfileObject) {
                     $scope.editableCarcassDetail.sectionProfilePrice = sectionProfileObject.price;
+                    $scope.editableCarcassDetail.sectionDirection = sectionProfileObject.direction;
                 });
             });
 
@@ -1301,6 +1307,7 @@ angular.module("digitalbusiness.states.order", [])
                 var basicSqMt = 0;
                 var extraArea = 0;
                 var extraSqMt = 0;
+                var profileArea = 0;
 //                var basicAreaPrice = 0;
 //                var extraAreaPrice = 0;
                 if (orderDetail.nonStandardDimension === false) {
@@ -1320,7 +1327,22 @@ angular.module("digitalbusiness.states.order", [])
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             console.log("B Price :%O", basicAreaPrice);
                             console.log("E Price :%O", extraAreaPrice);
-                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice));
+                            if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                                profileArea = orderDetail.width / 1000;
+                            } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                                profileArea = orderDetail.length / 1000;
+                            } else {
+
+                            }
+                            console.log("Profile Area :%O", profileArea);
+                            if (orderDetail.sectionProfilePrice !== null) {
+                                console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                                var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                            } else {
+                                var profilePrice = 0;
+                            }
+                            console.log("Profile Price :%O", profilePrice);
+                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
 
                             orderDetail.price = finalPrice;
                             console.log("Total Area OSM Left/Right :%O", totalArea);
@@ -1338,7 +1360,22 @@ angular.module("digitalbusiness.states.order", [])
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             console.log("B Price :%O", basicAreaPrice);
                             console.log("E Price :%O", extraAreaPrice);
-                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice));
+                            if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                                profileArea = orderDetail.width / 1000;
+                            } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                                profileArea = orderDetail.length / 1000;
+                            } else {
+
+                            }
+                            console.log("Profile Area :%O", profileArea);
+                            if (orderDetail.sectionProfilePrice !== null) {
+                                console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                                var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                            } else {
+                                var profilePrice = 0;
+                            }
+                            console.log("Profile Price :%O", profilePrice);
+                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
                             orderDetail.price = finalPrice;
                             console.log("Total ARea OSM TOP/Bottom :%O", totalArea);
                             console.log("Total Area OSM Top/Bottom Price:%O", orderDetail.price);
@@ -1357,7 +1394,22 @@ angular.module("digitalbusiness.states.order", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         console.log("B Price :%O", basicAreaPrice);
                         console.log("E Price :%O", extraAreaPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice));
+                        if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                            profileArea = orderDetail.width / 1000;
+                        } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                            profileArea = orderDetail.length / 1000;
+                        } else {
+
+                        }
+                        console.log("Profile Area :%O", profileArea);
+                        if (orderDetail.sectionProfilePrice !== null) {
+                            console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                            var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                        } else {
+                            var profilePrice = 0;
+                        }
+                        console.log("Profile Price :%O", profilePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
                         orderDetail.price = finalPrice;
                         console.log("Total Area BSM Left & Right", totalArea);
                         console.log("Total Price BSM :%O", orderDetail.price);
@@ -1377,7 +1429,22 @@ angular.module("digitalbusiness.states.order", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         console.log("B Price :%O", basicAreaPrice);
                         console.log("E Price :%O", extraAreaPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice));
+                        if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                            profileArea = orderDetail.width / 1000;
+                        } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                            profileArea = orderDetail.length / 1000;
+                        } else {
+
+                        }
+                        console.log("Profile Area :%O", profileArea);
+                        if (orderDetail.sectionProfilePrice !== null) {
+                            console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                            var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                        } else {
+                            var profilePrice = 0;
+                        }
+                        console.log("Profile Price :%O", profilePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
                         orderDetail.price = finalPrice;
                         console.log("Three Side Matching Area :%O", totalArea);
                         console.log("Total Price TSM :%O", orderDetail.price);
@@ -1395,7 +1462,22 @@ angular.module("digitalbusiness.states.order", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         console.log("B Price :%O", basicAreaPrice);
                         console.log("E Price :%O", extraAreaPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice));
+                        if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                            profileArea = orderDetail.width / 1000;
+                        } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                            profileArea = orderDetail.length / 1000;
+                        } else {
+
+                        }
+                        console.log("Profile Area :%O", profileArea);
+                        if (orderDetail.sectionProfilePrice !== null) {
+                            console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                            var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                        } else {
+                            var profilePrice = 0;
+                        }
+                        console.log("Profile Price :%O", profilePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
                         orderDetail.price = finalPrice;
                         console.log("All Side Matching Area :%O", totalArea);
                         console.log("Total Price ASM :%O", orderDetail.price);
@@ -1408,7 +1490,22 @@ angular.module("digitalbusiness.states.order", [])
                         basicSqMt = basicArea / 1000000;
                         totalArea = basicSqMt;
                         console.log("Total Area Regular :%O", totalArea);
-                        orderDetail.price = orderDetail.standardPrice * orderDetail.quantity;
+                        if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                            profileArea = orderDetail.width / 1000;
+                        } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                            profileArea = orderDetail.length / 1000;
+                        } else {
+
+                        }
+                        console.log("Profile Area :%O", profileArea);
+                        if (orderDetail.sectionProfilePrice !== null) {
+                            console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                            var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                        } else {
+                            var profilePrice = 0;
+                        }
+                        console.log("Profile Price :%O", profilePrice);
+                        orderDetail.price = ((orderDetail.standardPrice * orderDetail.quantity) + profilePrice);
 //                        StandardCarcassPriceService.get({
 //                            'id': orderDetail.stdCarcassPriceId
 //                        }, function (stdPriceObject) {
@@ -1457,7 +1554,22 @@ angular.module("digitalbusiness.states.order", [])
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             console.log("B Price :%O", basicAreaPrice);
                             console.log("E Price :%O", extraAreaPrice);
-                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice));
+                            if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                                profileArea = orderDetail.width / 1000;
+                            } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                                profileArea = orderDetail.length / 1000;
+                            } else {
+
+                            }
+                            console.log("Profile Area :%O", profileArea);
+                            if (orderDetail.sectionProfilePrice !== null) {
+                                console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                                var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                            } else {
+                                var profilePrice = 0;
+                            }
+                            console.log("Profile Price :%O", profilePrice);
+                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
 
                             orderDetail.price = finalPrice;
                             console.log("Total Area OSM Left/Right :%O", totalArea);
@@ -1475,7 +1587,22 @@ angular.module("digitalbusiness.states.order", [])
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             console.log("B Price :%O", basicAreaPrice);
                             console.log("E Price :%O", extraAreaPrice);
-                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice));
+                            if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                                profileArea = orderDetail.width / 1000;
+                            } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                                profileArea = orderDetail.length / 1000;
+                            } else {
+
+                            }
+                            console.log("Profile Area :%O", profileArea);
+                            if (orderDetail.sectionProfilePrice !== null) {
+                                console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                                var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                            } else {
+                                var profilePrice = 0;
+                            }
+                            console.log("Profile Price :%O", profilePrice);
+                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
                             orderDetail.price = finalPrice;
                             console.log("Total ARea OSM TOP/Bottom :%O", totalArea);
                             console.log("Total Area OSM Top/Bottom Price:%O", orderDetail.price);
@@ -1494,7 +1621,22 @@ angular.module("digitalbusiness.states.order", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         console.log("B Price :%O", basicAreaPrice);
                         console.log("E Price :%O", extraAreaPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice));
+                        if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                            profileArea = orderDetail.width / 1000;
+                        } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                            profileArea = orderDetail.length / 1000;
+                        } else {
+
+                        }
+                        console.log("Profile Area :%O", profileArea);
+                        if (orderDetail.sectionProfilePrice !== null) {
+                            console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                            var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                        } else {
+                            var profilePrice = 0;
+                        }
+                        console.log("Profile Price :%O", profilePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
                         orderDetail.price = finalPrice;
                         console.log("Total Area BSM Left & Right", totalArea);
                         console.log("Total Price BSM :%O", orderDetail.price);
@@ -1514,7 +1656,22 @@ angular.module("digitalbusiness.states.order", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         console.log("B Price :%O", basicAreaPrice);
                         console.log("E Price :%O", extraAreaPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice));
+                        if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                            profileArea = orderDetail.width / 1000;
+                        } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                            profileArea = orderDetail.length / 1000;
+                        } else {
+
+                        }
+                        console.log("Profile Area :%O", profileArea);
+                        if (orderDetail.sectionProfilePrice !== null) {
+                            console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                            var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                        } else {
+                            var profilePrice = 0;
+                        }
+                        console.log("Profile Price :%O", profilePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
                         orderDetail.price = finalPrice;
                         console.log("Three Side Matching Area :%O", totalArea);
                         console.log("Total Price TSM :%O", orderDetail.price);
@@ -1532,7 +1689,22 @@ angular.module("digitalbusiness.states.order", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         console.log("B Price :%O", basicAreaPrice);
                         console.log("E Price :%O", extraAreaPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice));
+                        if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                            profileArea = orderDetail.width / 1000;
+                        } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                            profileArea = orderDetail.length / 1000;
+                        } else {
+
+                        }
+                        console.log("Profile Area :%O", profileArea);
+                        if (orderDetail.sectionProfilePrice !== null) {
+                            console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                            var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                        } else {
+                            var profilePrice = 0;
+                        }
+                        console.log("Profile Price :%O", profilePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
                         orderDetail.price = finalPrice;
                         console.log("All Side Matching Area :%O", totalArea);
                         console.log("Total Price ASM :%O", orderDetail.price);
@@ -1548,7 +1720,22 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Std Material Price :%O", orderDetail.stdMaterialPrice);
                         var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                         console.log("Area Price :%O", basicAreaPrice);
-                        var finalPrice = (orderDetail.quantity * basicAreaPrice);
+                        if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                            profileArea = orderDetail.width / 1000;
+                        } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                            profileArea = orderDetail.length / 1000;
+                        } else {
+
+                        }
+                        console.log("Profile Area :%O", profileArea);
+                        if (orderDetail.sectionProfilePrice !== null) {
+                            console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                            var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                        } else {
+                            var profilePrice = 0;
+                        }
+                        console.log("Profile Price :%O", profilePrice);
+                        var finalPrice = ((orderDetail.quantity * basicAreaPrice) + profilePrice);
                         orderDetail.price = finalPrice;
                         console.log("Total Area Regular :%O", totalArea);
                         console.log("Total Price Regular :%O", orderDetail.price);
@@ -1961,7 +2148,6 @@ angular.module("digitalbusiness.states.order", [])
                     carcassDetailObject.bottomColorObject = ColorService.get({
                         'id': carcassDetailObject.bottomColorId
                     });
-                    console.log("CDO :%O", carcassDetailObject);
                 });
             });
             ///////////////////End//////////////////////////////////////
@@ -1981,6 +2167,19 @@ angular.module("digitalbusiness.states.order", [])
                 });
             });
 
+        })
+        .controller('CarcassDetailDeleteController', function (CarcassOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params :%O", $stateParams);
+            $scope.editableCarcassDetail = CarcassOrderDetailsService.get({'id': $stateParams.carcassDetailId});
+            $scope.deleteCarcassDetail = function (carcassOrderDetail) {
+                console.log("Carcass Order Detail :%O", carcassOrderDetail);
+                carcassOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $scope.editableCarcassDetail.orderHeadId
+                    }, {'reload': true});
+                });
+
+            };
         });
 //        .controller('SaleTypeDeleteController', function (SaleTypeService, $scope, $stateParams, $state, paginationLimit) {
 //            $scope.editableSaleType = SaleTypeService.get({'id': $stateParams.saleTypeId});

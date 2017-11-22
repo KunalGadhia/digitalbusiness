@@ -654,7 +654,7 @@
                                                            class="btn btn-primary">					
                                                             <i class="fa fa-pencil"></i>
                                                         </a>-->
-                            <a data-ui-sref="admin.masters_kitchen_component.delete({ kitchenComponentId: kitchenComponent.id })"
+                            <a data-ui-sref="admin.masters_order_details.carcass_delete({ carcassDetailId: orderDetails.id})"
                                class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
                             </a>
@@ -711,7 +711,7 @@
             </table>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-lg btn-primary" data-ui-sref="proforma_invoice_print({ orderHeadId : orderHead.id})">
+            <button class="btn btn-lg btn-primary" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
                 <i class="fa fa-print"></i>
                 Generate Proforma Invoice
             </button>
