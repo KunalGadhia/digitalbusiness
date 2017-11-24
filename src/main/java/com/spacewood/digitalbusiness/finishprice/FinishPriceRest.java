@@ -67,6 +67,16 @@ public class FinishPriceRest {
         return finishPriceDAL.findByMaterialId(materialId);
     }
     
+    @RequestMapping(value = "/find_carcass_finish/material_id", method = RequestMethod.GET)
+    public List<FinishPrice> findCarcassFinishByMaterialId(@RequestParam("materialId") Integer materialId) {
+        return finishPriceDAL.findCarcassFinishByMaterialId(materialId);
+    }
+    
+    @RequestMapping(value = "/find_shutter_finish/material_id", method = RequestMethod.GET)
+    public List<FinishPrice> findShutterFinishByMaterialId(@RequestParam("materialId") Integer materialId) {
+        return finishPriceDAL.findShutterFinishByMaterialId(materialId);
+    }
+    
     @RequestMapping(value = "/find_all_list", method = RequestMethod.GET)
     public List<FinishPrice> findAllList() {
         return finishPriceDAL.findAllList();

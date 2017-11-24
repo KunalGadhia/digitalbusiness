@@ -580,6 +580,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.BSM = false;
             $scope.TSM = false;
             $scope.ASM = false;
+            $scope.FSM = false;
             ////////////////Carcass Form Functionality//////////////////////////////
             $scope.carcassStdList;
             $scope.$watch('carcaseName', function (carcassName) {
@@ -591,6 +592,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.BSM = true;
                     $scope.TSM = true;
                     $scope.ASM = true;
+                    $scope.FSM = true;
 //                    $scope.carcassLeftColor = true;
 //                    $scope.carcassRightColor = true;
 //                    $scope.carcassBackColor = false;
@@ -615,6 +617,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.BSM = true;
                     $scope.TSM = false;
                     $scope.ASM = false;
+                    $scope.FSM = false;
 //                    $scope.carcassLeftColor = true;
 //                    $scope.carcassRightColor = true;
 //                    $scope.carcassBackColor = false;
@@ -638,7 +641,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.BSM = true;
                     $scope.TSM = true;
                     $scope.ASM = true;
-
+                    $scope.FSM = false;
 //                    $scope.carcassLeftColor = true;
 //                    $scope.carcassRightColor = true;
 //                    $scope.carcassBackColor = false;
@@ -674,6 +677,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.BSM = true;
                     $scope.TSM = false;
                     $scope.ASM = false;
+                    $scope.FSM = false;
 //                    $scope.carcassLeftColor = true;
 //                    $scope.carcassRightColor = true;
 //                    $scope.carcassBackColor = false;
@@ -685,6 +689,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.BSM = true;
                     $scope.TSM = false;
                     $scope.ASM = false;
+                    $scope.FSM = false;
 //                    $scope.carcassLeftColor = true;
 //                    $scope.carcassRightColor = true;
 //                    $scope.carcassBackColor = false;
@@ -698,7 +703,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showTSM = false;
                     $scope.showOSMTop = false;
                     $scope.showOSMBottom = false;
-//                    $scope.showASM = false;
+                    $scope.showASM = false;
+                    $scope.showFSM = false;
                     console.log("Carcass Name :%O", $scope.carcaseName);
                     if ($scope.carcaseName === "Base Carcase" || $scope.carcaseName === "Sink Carcass" || $scope.carcaseName === "Microwave Carcase") {
                         if (sideMatching === "O") {
@@ -707,7 +713,8 @@ angular.module("digitalbusiness.states.order", [])
                             $scope.showOSMBottom = false;
                             $scope.showBSM = false;
                             $scope.showTSM = false;
-//                        $scope.showASM = false;
+                            $scope.showASM = false;
+                            $scope.showFSM = false;
                         } else if (sideMatching === "B") {
                             $scope.showOSM = false;
                             $scope.showOSMTop = false;
@@ -715,6 +722,7 @@ angular.module("digitalbusiness.states.order", [])
                             $scope.showBSM = true;
                             $scope.showTSM = false;
                             $scope.showASM = false;
+                            $scope.showFSM = false;
 //                        $scope.editableCarcassDetail.topColorId = "NULL";
 //                        $scope.editableCarcassDetail.bottomColorId = "NULL";
                         } else if (sideMatching === "T") {
@@ -723,12 +731,20 @@ angular.module("digitalbusiness.states.order", [])
                             $scope.showOSMBottom = false;
                             $scope.showBSM = false;
                             $scope.showTSM = true;
-//                        $scope.showASM = false;
+                            $scope.showASM = false;
+                            $scope.showFSM = false;
                         } else if (sideMatching === "A") {
                             $scope.showOSM = false;
                             $scope.showBSM = false;
                             $scope.showTSM = false;
-//                        $scope.showASM = true;
+                            $scope.showASM = true;
+                            $scope.showFSM = false;
+                        } else if (sideMatching === "F") {
+                            $scope.showOSM = false;
+                            $scope.showBSM = false;
+                            $scope.showTSM = false;
+                            $scope.showASM = false;
+                            $scope.showFSM = true;
                         } else {
                             $scope.showOSM = false;
                             $scope.showBSM = false;
@@ -746,7 +762,8 @@ angular.module("digitalbusiness.states.order", [])
                             $scope.showOSMBottom = true;
                             $scope.showBSM = false;
                             $scope.showTSM = false;
-//                        $scope.showASM = false;
+                            $scope.showASM = false;
+                            $scope.showFSM = false;
                         } else if (sideMatching === "B") {
                             $scope.showOSM = false;
                             $scope.showOSMTop = false;
@@ -754,6 +771,7 @@ angular.module("digitalbusiness.states.order", [])
                             $scope.showBSM = true;
                             $scope.showTSM = false;
                             $scope.showASM = false;
+                            $scope.showFSM = false;
 //                        $scope.editableCarcassDetail.topColorId = "NULL";
 //                        $scope.editableCarcassDetail.bottomColorId = "NULL";
                         } else if (sideMatching === "T") {
@@ -762,17 +780,26 @@ angular.module("digitalbusiness.states.order", [])
                             $scope.showOSMBottom = false;
                             $scope.showBSM = false;
                             $scope.showTSM = true;
-//                        $scope.showASM = false;
+                            $scope.showASM = false;
+                            $scope.showFSM = false;
                         } else if (sideMatching === "A") {
                             $scope.showOSM = false;
                             $scope.showBSM = false;
                             $scope.showTSM = false;
                             $scope.showASM = true;
+                            $scope.showFSM = false;
+                        } else if (sideMatching === "F") {
+                            $scope.showOSM = false;
+                            $scope.showBSM = false;
+                            $scope.showTSM = false;
+                            $scope.showASM = false;
+                            $scope.showFSM = true;
                         } else {
                             $scope.showOSM = false;
                             $scope.showBSM = false;
                             $scope.showTSM = false;
-//                        $scope.showASM = false;
+                            $scope.showASM = false;
+                            $scope.showFSM = false;
 //                        $scope.editableCarcassDetail.leftColorId = "NULL";
 //                        $scope.editableCarcassDetail.rightColorId = "NULL";
 //                        $scope.editableCarcassDetail.topColorId = "NULL";
@@ -829,6 +856,12 @@ angular.module("digitalbusiness.states.order", [])
                         $scope.carcassLeftColor = true;
                         $scope.carcassRightColor = true;
                         $scope.carcassBackColor = false;
+                        $scope.carcassTopColor = true;
+                        $scope.carcassBottomColor = true;
+                    } else if (selectedSide === "FSM") {
+                        $scope.carcassLeftColor = true;
+                        $scope.carcassRightColor = true;
+                        $scope.carcassBackColor = true;
                         $scope.carcassTopColor = true;
                         $scope.carcassBottomColor = true;
                     } else {
@@ -909,10 +942,10 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Side Material :%O", sideMaterial);
                 RawMaterialService.findByMaterialCode({
                     'materialCode': sideMaterial
-                }, function (materialObject) {
-                    FinishPriceService.findByMaterialId({
+                }, function (materialObject) {                    
+                    FinishPriceService.findCarcassFinishByMaterialId({
                         'materialId': materialObject.id
-                    }, function (finishList) {
+                    }, function (finishList) {                        
                         $scope.finishesList = finishList;
                     });
                 });
@@ -1335,7 +1368,7 @@ angular.module("digitalbusiness.states.order", [])
 
                             }
                             console.log("Profile Area :%O", profileArea);
-                            if (orderDetail.sectionProfilePrice !== null) {
+                            if (orderDetail.sectionProfilePrice !== undefined) {
                                 console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                                 var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                             } else {
@@ -1368,7 +1401,7 @@ angular.module("digitalbusiness.states.order", [])
 
                             }
                             console.log("Profile Area :%O", profileArea);
-                            if (orderDetail.sectionProfilePrice !== null) {
+                            if (orderDetail.sectionProfilePrice !== undefined) {
                                 console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                                 var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                             } else {
@@ -1402,7 +1435,7 @@ angular.module("digitalbusiness.states.order", [])
 
                         }
                         console.log("Profile Area :%O", profileArea);
-                        if (orderDetail.sectionProfilePrice !== null) {
+                        if (orderDetail.sectionProfilePrice !== undefined) {
                             console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                             var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                         } else {
@@ -1437,7 +1470,7 @@ angular.module("digitalbusiness.states.order", [])
 
                         }
                         console.log("Profile Area :%O", profileArea);
-                        if (orderDetail.sectionProfilePrice !== null) {
+                        if (orderDetail.sectionProfilePrice !== undefined) {
                             console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                             var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                         } else {
@@ -1470,7 +1503,7 @@ angular.module("digitalbusiness.states.order", [])
 
                         }
                         console.log("Profile Area :%O", profileArea);
-                        if (orderDetail.sectionProfilePrice !== null) {
+                        if (orderDetail.sectionProfilePrice !== undefined) {
                             console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                             var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                         } else {
@@ -1498,7 +1531,7 @@ angular.module("digitalbusiness.states.order", [])
 
                         }
                         console.log("Profile Area :%O", profileArea);
-                        if (orderDetail.sectionProfilePrice !== null) {
+                        if (orderDetail.sectionProfilePrice !== undefined) {
                             console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                             var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                         } else {
@@ -1562,7 +1595,7 @@ angular.module("digitalbusiness.states.order", [])
 
                             }
                             console.log("Profile Area :%O", profileArea);
-                            if (orderDetail.sectionProfilePrice !== null) {
+                            if (orderDetail.sectionProfilePrice !== undefined) {
                                 console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                                 var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                             } else {
@@ -1595,7 +1628,7 @@ angular.module("digitalbusiness.states.order", [])
 
                             }
                             console.log("Profile Area :%O", profileArea);
-                            if (orderDetail.sectionProfilePrice !== null) {
+                            if (orderDetail.sectionProfilePrice !== undefined) {
                                 console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                                 var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                             } else {
@@ -1629,7 +1662,7 @@ angular.module("digitalbusiness.states.order", [])
 
                         }
                         console.log("Profile Area :%O", profileArea);
-                        if (orderDetail.sectionProfilePrice !== null) {
+                        if (orderDetail.sectionProfilePrice !== undefined) {
                             console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                             var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                         } else {
@@ -1664,7 +1697,7 @@ angular.module("digitalbusiness.states.order", [])
 
                         }
                         console.log("Profile Area :%O", profileArea);
-                        if (orderDetail.sectionProfilePrice !== null) {
+                        if (orderDetail.sectionProfilePrice !== undefined) {
                             console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                             var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                         } else {
@@ -1697,7 +1730,7 @@ angular.module("digitalbusiness.states.order", [])
 
                         }
                         console.log("Profile Area :%O", profileArea);
-                        if (orderDetail.sectionProfilePrice !== null) {
+                        if (orderDetail.sectionProfilePrice !== undefined) {
                             console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                             var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                         } else {
@@ -1728,7 +1761,7 @@ angular.module("digitalbusiness.states.order", [])
 
                         }
                         console.log("Profile Area :%O", profileArea);
-                        if (orderDetail.sectionProfilePrice !== null) {
+                        if (orderDetail.sectionProfilePrice !== undefined) {
                             console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                             var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                         } else {

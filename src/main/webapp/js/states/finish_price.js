@@ -95,10 +95,10 @@ angular.module("digitalbusiness.states.finish_price", [])
                     ;
                 });
             });
-            $scope.$watch('editableFinishPrice.finishCode', function(finishCode){
+            $scope.$watch('editableFinishPrice.finishCode', function (finishCode) {
                 FinishPriceService.findByFinishCode({
-                   'finishCode': finishCode 
-                }).$promise.catch(function(response){
+                    'finishCode': finishCode
+                }).$promise.catch(function (response) {
                     if (response.status === 500) {
                         $scope.editableFinishPrice.repeatCode = false;
                     } else if (response.status === 404) {
@@ -120,13 +120,14 @@ angular.module("digitalbusiness.states.finish_price", [])
             $scope.materialList = RawMaterialService.findAllList();
             FinishPriceService.get({
                 'id': $stateParams.finishPriceId
-            }, function(finishObject){
-                console.log("Finish :%O",finishObject.materialId);
+            }, function (finishObject) {
+                console.log("Finish :%O", finishObject.materialId);
                 $scope.editableFinishPrice = finishObject;
-                 $("#materialList").val(finishObject.materialId);
+                $("#materialList").val(finishObject.materialId);
             });
-            
+
             $scope.saveFinishPrice = function (finishPrice) {
+                console.log("Finish Price Edit Object :%O", finishPrice);
                 finishPrice.$save(function () {
                     $state.go('admin.masters_finish_price', null, {'reload': true});
                 });

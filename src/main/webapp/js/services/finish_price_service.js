@@ -24,6 +24,22 @@ angular.module("digitalbusiness.services.finish_price_service")
                     },
                     'isArray': true
                 },
+                'findCarcassFinishByMaterialId': {
+                    'method': 'GET',
+                    'url': restRoot + '/finish_price/find_carcass_finish/material_id',
+                    'params': {
+                        'materialId': '@materialId'
+                    },
+                    'isArray': true
+                },
+                'findShutterFinishByMaterialId': {
+                    'method': 'GET',
+                    'url': restRoot + '/finish_price/find_shutter_finish/material_id',
+                    'params': {
+                        'materialId': '@materialId'
+                    },
+                    'isArray': true
+                },
                 'findAllList': {
                     'method': 'GET',
                     'url': restRoot + '/finish_price/find_all_list',                    

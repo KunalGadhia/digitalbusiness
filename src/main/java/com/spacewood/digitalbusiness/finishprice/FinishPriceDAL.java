@@ -28,6 +28,8 @@ public class FinishPriceDAL {
         public static final String MATERIAL_ID = "material_id";       
         public static final String FINISH_NAME = "finish_name";
         public static final String PRICE = "price";
+        public static final String FOR_CARCASS = "for_carcass";
+        public static final String FOR_SHUTTER = "for_shutter";
         
     }
 
@@ -45,7 +47,9 @@ public class FinishPriceDAL {
                         Columns.FINISH_CODE,
                         Columns.MATERIAL_ID,
                         Columns.FINISH_NAME,
-                        Columns.PRICE
+                        Columns.PRICE,
+                        Columns.FOR_CARCASS,
+                        Columns.FOR_SHUTTER
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -89,6 +93,16 @@ public class FinishPriceDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND "+Columns.MATERIAL_ID+" = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{materialId}, new BeanPropertyRowMapper<>(FinishPrice.class));
     }
+    
+    public List<FinishPrice> findCarcassFinishByMaterialId(Integer materialId) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND for_carcass = TRUE AND "+Columns.MATERIAL_ID+" = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{materialId}, new BeanPropertyRowMapper<>(FinishPrice.class));
+    }
+    
+    public List<FinishPrice> findShutterFinishByMaterialId(Integer materialId) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND for_shutter = TRUE AND "+Columns.MATERIAL_ID+" = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{materialId}, new BeanPropertyRowMapper<>(FinishPrice.class));
+    }
 
     public FinishPrice insert(FinishPrice finishPrice) {
         Map<String, Object> parameters = new HashMap<>();
@@ -96,6 +110,8 @@ public class FinishPriceDAL {
         parameters.put(Columns.FINISH_NAME, finishPrice.getFinishName());        
         parameters.put(Columns.MATERIAL_ID, finishPrice.getMaterialId());
         parameters.put(Columns.PRICE, finishPrice.getPrice());
+        parameters.put(Columns.FOR_CARCASS, finishPrice.getForCarcass());
+        parameters.put(Columns.FOR_SHUTTER, finishPrice.getForShutter());
         
         Number newId = insertFinishPrice.executeAndReturnKey(parameters);
         finishPrice = findById(newId.intValue());
@@ -112,13 +128,17 @@ public class FinishPriceDAL {
                 + Columns.FINISH_NAME + " = ?,"
                 + Columns.FINISH_CODE + " = ?,"
                 + Columns.MATERIAL_ID + " = ?,"
-                + Columns.PRICE + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.PRICE + " = ?,"
+                + Columns.FOR_CARCASS + " = ?,"
+                + Columns.FOR_SHUTTER + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     finishPrice.getFinishName(),
                     finishPrice.getFinishCode(),
                     finishPrice.getMaterialId(),
                     finishPrice.getPrice(),
+                    finishPrice.getForCarcass(),
+                    finishPrice.getForShutter(),
                     finishPrice.getId()
                 });
         finishPrice = findById(finishPrice.getId());

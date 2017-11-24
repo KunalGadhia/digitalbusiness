@@ -18,5 +18,6 @@ public enum SideSelection {
     LRTSM,
     LRBSM,
     ASM,
+    FSM,
     NSS
 }

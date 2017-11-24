@@ -226,6 +226,7 @@
                             <option ng-if="BSM" value="B">Both Side Matching</option>
                             <option ng-if="TSM" value="T">Three Side Matching</option>
                             <option ng-if="ASM" value="A">All Side Matching</option>
+                            <option ng-if="FSM" value="F">Fully Colored</option>
                         </select>
                     </div>
                 </div>
@@ -242,6 +243,7 @@
                             <option ng-if="showTSM" value="LRTSM">Left, Right, Top Side Matching</option>
                             <option ng-if="showTSM" value="LRBSM">Left, Right, Bottom Side Matching</option>
                             <option ng-if="showASM" value="ASM">All Side Matching</option>
+                            <option ng-if="showFSM" value="FSM">Full Side Matching</option>
                         </select>
                     </div>
                 </div>
@@ -287,18 +289,7 @@
                             </span>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-3" ng-if="carcassBackColor">
-                    <div class="form-group">
-                        <label>Back Color</label>
-                        <div class="input-group">
-                            <input class="form-control" placeholder="Select Back Color" ng-model="backColorName" required="" readonly=""/>
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Back')">Select Back Color</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                </div>                
                 <div class="col-sm-3" ng-if="carcassTopColor">
                     <div class="input-group">
                         <label>Top Color</label>
@@ -317,6 +308,19 @@
                             <input class="form-control" placeholder="Select Bottom Color" ng-model="bottomColorName" required="" readonly=""/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Bottom')">Select Internal Color</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" ng-if="carcassBackColor">
+                    <div class="form-group">
+                        <label>Back Color</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Back Color" ng-model="backColorName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Back')">Select Back Color</button>
                             </span>
                         </div>
                     </div>
@@ -663,12 +667,12 @@
                 </tbody>
             </table>
         </div>
-<!--        <div class="modal-footer">
-            <button class="btn btn-lg btn-primary" data-ui-sref="proforma_invoice_print({ orderHeadId : orderHead.id})">
-                <i class="fa fa-print"></i>
-                Generate Proforma Invoice
-            </button>
-        </div>        -->
+        <!--        <div class="modal-footer">
+                    <button class="btn btn-lg btn-primary" data-ui-sref="proforma_invoice_print({ orderHeadId : orderHead.id})">
+                        <i class="fa fa-print"></i>
+                        Generate Proforma Invoice
+                    </button>
+                </div>        -->
     </div>
     <div class="panel-heading text-center">
         <div>
