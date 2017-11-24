@@ -1,50 +1,56 @@
 <div class="modal modal-digitalbusiness">
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog">
-        <form role="form" ng-submit="saveRawMaterial(editableRawMaterial)">
+        <form role="form" ng-submit="saveCarcassSubtype(editableCarcassSubtype)">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">
                         <i class="fa fa-user"></i>
-                        Raw Material Form
+                        Carcass Sub type Form
                     </h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Material Name</label>
-                                <input class="form-control" placeholder="Material Name" ng-model="editableRawMaterial.material" required=""/>
+                                <label>Sub Type</label>
+                                <input class="form-control" placeholder="Sub Type Name" ng-model="editableCarcassSubtype.subType" required=""/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Component Code</label>
-                                <input class="form-control" placeholder="Material Code" ng-model="editableRawMaterial.materialCode" required=""/>
+                                <label>Parent Type</label>
+                                <select class="form-control" ng-model="editableCarcassSubtype.parentType" required="">
+                                    <option value="">Select Parent Type</option>
+                                    <option value="WC">Wall Carcass</option>
+                                    <option value="TU">Tall Unit Carcass</option>
+                                    <option value="BC">Base Carcass</option>
+                                </select>
+                                <!--<input class="form-control" placeholder="Material Code" ng-model="editableCarcassSubtype.materialCode" required=""/>-->
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6 text-danger" ng-show="editableRawMaterial.repeatName">
+                        <div class="col-sm-6 text-danger" ng-show="editableCarcassSubtype.repeatName">
                             Found Records For Above Entered Name
                         </div>
-                        <div class="col-sm-6 text-danger" ng-show="editableRawMaterial.repeatCode">
+                        <div class="col-sm-6 text-danger" ng-show="editableCarcassSubtype.repeatCode">
                             Repeat Material Code is not allowed.Enter unique code.
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label>Price</label>
-                            <input type="number" class="form-control" ng-model='editableRawMaterial.price' required=''>
+                            <label>Description</label>
+                            <input type="text" class="form-control" ng-model='editableCarcassSubtype.description'>
                         </div>
                         <div class="col-sm-6">
-                            <label>Price</label>
-                            <input type="number" class="form-control" ng-model='editableRawMaterial.backPanelPrice'>
+                            <label>Sub Type Code</label>
+                            <input type="text" maxlength="6" ng-model="editableCarcassSubtype.subTypeCode" required="">
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-lg btn-primary" ng-disabled="editableRawMaterial.repeatCode">
+                        <button class="btn btn-lg btn-primary">
                             <i class="fa fa-save"></i>
                             Save
                         </button>

@@ -257,6 +257,7 @@
         <script src="${pageContext.request.contextPath}/js/states/color_constraint.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/finish_price.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/section_profile.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/carcass_subtype.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
@@ -277,6 +278,7 @@
         <script src="${pageContext.request.contextPath}/js/services/color_constraint_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/finish_price_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/section_profile_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/carcass_subtype_service.js"></script>
 
     </head>
     <body style="font-family: 'Roboto', sans-serif;">

@@ -16,6 +16,7 @@ public class RawMaterial {
     private String material;
     private String materialCode;
     private Double price;
+    private Double backPanelPrice;
 
     public Integer getId() {
         return id;
@@ -49,13 +50,22 @@ public class RawMaterial {
         this.price = price;
     }
 
+    public Double getBackPanelPrice() {
+        return backPanelPrice;
+    }
+
+    public void setBackPanelPrice(Double backPanelPrice) {
+        this.backPanelPrice = backPanelPrice;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.material);
-        hash = 97 * hash + Objects.hashCode(this.materialCode);
-        hash = 97 * hash + Objects.hashCode(this.price);
+        hash = 11 * hash + Objects.hashCode(this.id);
+        hash = 11 * hash + Objects.hashCode(this.material);
+        hash = 11 * hash + Objects.hashCode(this.materialCode);
+        hash = 11 * hash + Objects.hashCode(this.price);
+        hash = 11 * hash + Objects.hashCode(this.backPanelPrice);
         return hash;
     }
 
@@ -83,12 +93,15 @@ public class RawMaterial {
         if (!Objects.equals(this.price, other.price)) {
             return false;
         }
+        if (!Objects.equals(this.backPanelPrice, other.backPanelPrice)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "RawMaterial{" + "id=" + id + ", material=" + material + ", materialCode=" + materialCode + ", price=" + price + '}';
+        return "RawMaterial{" + "id=" + id + ", material=" + material + ", materialCode=" + materialCode + ", price=" + price + ", backPanelPrice=" + backPanelPrice + '}';
     }
     
 }
