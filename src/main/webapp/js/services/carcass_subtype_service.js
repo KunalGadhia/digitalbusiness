@@ -10,16 +10,16 @@ angular.module("digitalbusiness.services.carcass_subtype")
 
                 'findAllList': {
                     'method': 'GET',
-                    'url': restRoot + '/raw_material/find_all_list',
+                    'url': restRoot + '/carcass_subtype/find_all_list',
                     'isArray': true
                 },
                 'findByParentType': {
                     'method': 'GET',
-                    'url': restRoot + '/raw_material/find/parent_type',
+                    'url': restRoot + '/carcass_subtype/find/parent_type',
                     'params': {
                         'parentType': '@parentType'
                     },
-                    'isArray': false
+                    'isArray': true
                 },
 //                'findByMaterialCode': {
 //                    'method': 'GET',

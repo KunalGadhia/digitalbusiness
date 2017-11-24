@@ -104,9 +104,21 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="form-group">
+                    <div class="col-sm-6 form-group">
                         <label>Shelf</label>
                         <input type="checkbox" class="form-control" style="height:25px" placeholder="Enter Shelf" ng-model="editableCarcassDetail.shelf">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Sub Type</label>
+                        <select class="form-control" ng-model="editableCarcassDetail.carcassSubType">
+                            <option value="">Select Sub Type</option>
+                            <option ng-repeat="subType in carcassSubTypeList" value="{{subType.subTypeCode}}">{{subType.subType}}</option>
+                        </select>
+<!--                        <select class="form-control" ng-model="editableCarcassDetail.stdCarcassPriceId">
+                            <option value="">Standard Carcass List</option>
+                            <option ng-repeat="stdList in carcassStdList" value="{{stdList.id}}">{{stdList.description}}</option>
+                        </select>-->
+                        <!--<input type="checkbox" class="form-control" style="height:25px" placeholder="Enter Shelf" ng-model="editableCarcassDetail.shelf">-->
                     </div>
                 </div>
                 <div class="col-sm-3">

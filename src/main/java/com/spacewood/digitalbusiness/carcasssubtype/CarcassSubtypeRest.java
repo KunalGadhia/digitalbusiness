@@ -56,7 +56,7 @@ public class CarcassSubtypeRest {
     }
 
     @RequestMapping(value = "/find/parent_type", method = RequestMethod.GET)
-    public CarcassSubtype findByParentType(@RequestParam("parentType") String parentType) throws Exception {
+    public List<CarcassSubtype> findByParentType(@RequestParam("parentType") String parentType) throws Exception {
         return carcassSubtypeDAL.findByParentType(parentType);
     }
 

@@ -8,7 +8,6 @@ package com.spacewood.digitalbusiness.carcassorderdetails;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.Column;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -53,6 +52,7 @@ public class CarcassOrderDetailsDAL {
         public static final String FINISH_PRICE = "finish_price";
         public static final String SECTION_PROFILE_ID = "section_profile_id";
         public static final String SECTION_PROFILE_PRICE = "section_profile_price";
+        public static final String CARCASS_SUB_TYPE = "carcass_sub_type";
 
     }
 
@@ -93,7 +93,8 @@ public class CarcassOrderDetailsDAL {
                         Columns.STD_MATERIAL_PRICE,
                         Columns.FINISH_PRICE,
                         Columns.SECTION_PROFILE_ID,
-                        Columns.SECTION_PROFILE_PRICE
+                        Columns.SECTION_PROFILE_PRICE,
+                        Columns.CARCASS_SUB_TYPE
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -180,6 +181,7 @@ public class CarcassOrderDetailsDAL {
         parameters.put(Columns.FINISH_PRICE, carcassOrderDetails.getFinishPrice());
         parameters.put(Columns.SECTION_PROFILE_ID, carcassOrderDetails.getSectionProfileId());
         parameters.put(Columns.SECTION_PROFILE_PRICE, carcassOrderDetails.getSectionProfilePrice());
+        parameters.put(Columns.CARCASS_SUB_TYPE, carcassOrderDetails.getCarcassSubType());
 
         Number newId = insertCarcassOrderDetail.executeAndReturnKey(parameters);
         carcassOrderDetails = findById(newId.intValue());
@@ -219,7 +221,8 @@ public class CarcassOrderDetailsDAL {
                 + Columns.STD_MATERIAL_PRICE + " = ?,"
                 + Columns.FINISH_PRICE + " = ?,"
                 + Columns.SECTION_PROFILE_ID + " = ?,"
-                + Columns.SECTION_PROFILE_PRICE + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.SECTION_PROFILE_PRICE + " = ?,"
+                + Columns.CARCASS_SUB_TYPE + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     carcassOrderDetails.getOrderHeadId(),
@@ -249,6 +252,7 @@ public class CarcassOrderDetailsDAL {
                     carcassOrderDetails.getFinishPrice(),
                     carcassOrderDetails.getSectionProfileId(),
                     carcassOrderDetails.getSectionProfilePrice(),
+                    carcassOrderDetails.getCarcassSubType(),
                     carcassOrderDetails.getId()
                 });
         carcassOrderDetails = findById(carcassOrderDetails.getId());

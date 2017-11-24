@@ -65,9 +65,9 @@ public class CarcassSubtypeDAL {
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{id}, new BeanPropertyRowMapper<>(CarcassSubtype.class));
     }
     
-    public CarcassSubtype findByParentType(String parentType) {
+    public List<CarcassSubtype> findByParentType(String parentType) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.PARENT_TYPE + " = ?";
-        return jdbcTemplate.queryForObject(sqlQuery, new Object[]{parentType}, new BeanPropertyRowMapper<>(CarcassSubtype.class));
+        return jdbcTemplate.query(sqlQuery, new Object[]{parentType}, new BeanPropertyRowMapper<>(CarcassSubtype.class));
     }
 
     public List<CarcassSubtype> findBySubTypeLike(String subtype) {
