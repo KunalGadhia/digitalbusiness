@@ -1409,7 +1409,7 @@ angular.module("digitalbusiness.states.order", [])
                             } else {
                                 var profilePrice = 0;
                             }
-                            if (orderDetail.shelfCount !== 0) {
+                            if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                                 var finalShArea = (orderDetail.shelfCount * shelfSqMt);
                                 var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
                             } else {
@@ -1457,7 +1457,7 @@ angular.module("digitalbusiness.states.order", [])
                             } else {
                                 var profilePrice = 0;
                             }
-                            if (orderDetail.shelfCount !== 0) {
+                            if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                                 console.log("Shelf Count :%O", orderDetail.shelfCount);
                                 var finalShArea = (orderDetail.shelfCount * shelfSqMt);
                                 var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
@@ -1507,7 +1507,7 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
-                        if (orderDetail.shelfCount !== 0) {
+                        if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
                             var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
@@ -1558,7 +1558,7 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
-                        if (orderDetail.shelfCount !== 0) {
+                        if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
                             var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
@@ -1605,7 +1605,7 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
-                        if (orderDetail.shelfCount !== 0) {
+                        if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
                             var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
@@ -1646,7 +1646,7 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
-                        if (orderDetail.shelfCount !== 0) {
+                        if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
                             var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
@@ -1728,15 +1728,20 @@ angular.module("digitalbusiness.states.order", [])
                             var p1 = (orderDetail.depth * orderDetail.length);
                             var p2 = (2 * (orderDetail.width * orderDetail.depth));
                             var p3 = (orderDetail.width * orderDetail.length);
-                            basicArea = p1 + p2 + p3;
+                            basicArea = p1 + p2;
                             extraArea = p1;
+                            backArea = p3;
+                            shelfArea = (orderDetail.width * orderDetail.depth);
                             basicSqMt = basicArea / 1000000;
                             extraSqMt = extraArea / 1000000;
+                            backSqMt = backArea / 1000000;
+                            shelfSqMt = shelfArea / 1000000;
                             totalArea = basicSqMt + extraSqMt;
                             var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
-                            console.log("B Price :%O", basicAreaPrice);
-                            console.log("E Price :%O", extraAreaPrice);
+                            var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                            orderDetail.productCode = productCode;
                             if (orderDetail.sectionDirection === 'HORIZONTAL') {
                                 profileArea = orderDetail.width / 1000;
                             } else if (orderDetail.sectionDirection === 'VERTICAL') {
@@ -1744,15 +1749,23 @@ angular.module("digitalbusiness.states.order", [])
                             } else {
 
                             }
-                            console.log("Profile Area :%O", profileArea);
                             if (orderDetail.sectionProfilePrice !== undefined) {
-                                console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                                 var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                             } else {
                                 var profilePrice = 0;
                             }
+                            if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
+                                var finalShArea = (orderDetail.shelfCount * shelfSqMt);
+                                var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
+                            } else {
+                                var shelfPrice = 0;
+                            }
+                            console.log("B Price :%O", basicAreaPrice);
+                            console.log("E Price :%O", extraAreaPrice);
+                            console.log("Back Panel Price :%O", backAreaPrice);
                             console.log("Profile Price :%O", profilePrice);
-                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
+                            console.log("Shelf Price :%O", shelfPrice);
+                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
 
                             orderDetail.price = finalPrice;
                             console.log("Total Area OSM Left/Right :%O", totalArea);
@@ -1761,15 +1774,20 @@ angular.module("digitalbusiness.states.order", [])
                             var p1 = (2 * (orderDetail.depth * orderDetail.length));
                             var p2 = (orderDetail.width * orderDetail.depth);
                             var p3 = (orderDetail.width * orderDetail.length);
-                            basicArea = p1 + p2 + p3;
+                            basicArea = p1 + p2;
                             extraArea = p2;
+                            backArea = p3;
+                            shelfArea = (orderDetail.width * orderDetail.depth);
                             basicSqMt = basicArea / 1000000;
                             extraSqMt = extraArea / 1000000;
+                            backSqMt = backArea / 1000000;
+                            shelfSqMt = shelfArea / 1000000;
                             totalArea = basicSqMt + extraSqMt;
                             var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
-                            console.log("B Price :%O", basicAreaPrice);
-                            console.log("E Price :%O", extraAreaPrice);
+                            var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                            orderDetail.productCode = productCode;
                             if (orderDetail.sectionDirection === 'HORIZONTAL') {
                                 profileArea = orderDetail.width / 1000;
                             } else if (orderDetail.sectionDirection === 'VERTICAL') {
@@ -1777,15 +1795,23 @@ angular.module("digitalbusiness.states.order", [])
                             } else {
 
                             }
-                            console.log("Profile Area :%O", profileArea);
                             if (orderDetail.sectionProfilePrice !== undefined) {
-                                console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
                                 var profilePrice = profileArea * orderDetail.sectionProfilePrice;
                             } else {
                                 var profilePrice = 0;
                             }
+                            if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
+                                var finalShArea = (orderDetail.shelfCount * shelfSqMt);
+                                var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
+                            } else {
+                                var shelfPrice = 0;
+                            }
+                            console.log("B Price :%O", basicAreaPrice);
+                            console.log("E Price :%O", extraAreaPrice);
+                            console.log("Back Area Price :%O", backAreaPrice);
+                            console.log("Shelf Price :%O", shelfPrice);
                             console.log("Profile Price :%O", profilePrice);
-                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
+                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
                             orderDetail.price = finalPrice;
                             console.log("Total ARea OSM TOP/Bottom :%O", totalArea);
                             console.log("Total Area OSM Top/Bottom Price:%O", orderDetail.price);
@@ -1795,15 +1821,20 @@ angular.module("digitalbusiness.states.order", [])
                         var p1 = (2 * (orderDetail.width * orderDetail.depth));
                         var p2 = (orderDetail.width * orderDetail.length);
                         var p3 = (2 * (orderDetail.depth * orderDetail.length));
-                        basicArea = p1 + p2;
+                        basicArea = p1;
                         extraArea = p3;
+                        backArea = p2;
+                        shelfArea = (orderDetail.width * orderDetail.depth);
                         basicSqMt = basicArea / 1000000;
                         extraSqMt = extraArea / 1000000;
+                        backSqMt = backArea / 1000000;
+                        shelfSqMt = shelfArea / 1000000;
                         totalArea = basicSqMt + extraSqMt;
                         var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
-                        console.log("B Price :%O", basicAreaPrice);
-                        console.log("E Price :%O", extraAreaPrice);
+                        var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
+                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        orderDetail.productCode = productCode;
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
                             profileArea = orderDetail.width / 1000;
                         } else if (orderDetail.sectionDirection === 'VERTICAL') {
@@ -1818,8 +1849,19 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
+                            console.log("Shelf Count :%O", orderDetail.shelfCount);
+                            var finalShArea = (orderDetail.shelfCount * shelfSqMt);
+                            var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
+                        } else {
+                            var shelfPrice = 0;
+                        }
+                        console.log("B Price :%O", basicAreaPrice);
+                        console.log("E Price :%O", extraAreaPrice);
+                        console.log("Back Panel Price :%O", backAreaPrice);
                         console.log("Profile Price :%O", profilePrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
+                        console.log("Shelf Area Price :%O", shelfPrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
                         orderDetail.price = finalPrice;
                         console.log("Total Area BSM Left & Right", totalArea);
                         console.log("Total Price BSM :%O", orderDetail.price);
@@ -1830,15 +1872,19 @@ angular.module("digitalbusiness.states.order", [])
                         var p3 = (2 * (orderDetail.depth * orderDetail.length));
                         var p4 = (orderDetail.width * orderDetail.depth);
 
-                        basicArea = p1 + p2;
+                        basicArea = p1;
                         extraArea = p3 + p4;
+                        backArea = p2;
+                        shelfArea = (orderDetail.width * orderDetail.depth);
                         basicSqMt = basicArea / 1000000;
                         extraSqMt = extraArea / 1000000;
+                        backSqMt = backArea / 1000000;
                         totalArea = basicSqMt + extraSqMt;
                         var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
-                        console.log("B Price :%O", basicAreaPrice);
-                        console.log("E Price :%O", extraAreaPrice);
+                        var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
+                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        orderDetail.productCode = productCode;
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
                             profileArea = orderDetail.width / 1000;
                         } else if (orderDetail.sectionDirection === 'VERTICAL') {
@@ -1853,8 +1899,19 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
+                            console.log("Shelf Count :%O", orderDetail.shelfCount);
+                            var finalShArea = (orderDetail.shelfCount * shelfSqMt);
+                            var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
+                        } else {
+                            var shelfPrice = 0;
+                        }
+                        console.log("B Price :%O", basicAreaPrice);
+                        console.log("E Price :%O", extraAreaPrice);
+                        console.log("Back Area Price :%O", backAreaPrice);
                         console.log("Profile Price :%O", profilePrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
+                        console.log("Shelf Price :%O", shelfPrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
                         orderDetail.price = finalPrice;
                         console.log("Three Side Matching Area :%O", totalArea);
                         console.log("Total Price TSM :%O", orderDetail.price);
@@ -1865,13 +1922,15 @@ angular.module("digitalbusiness.states.order", [])
                         var p3 = (2 * (orderDetail.width * orderDetail.depth));
                         basicArea = p1;
                         extraArea = p2 + p3;
+                        shelfArea = (orderDetail.width * orderDetail.depth);
                         basicSqMt = basicArea / 1000000;
                         extraSqMt = extraArea / 1000000;
+                        shelfSqMt = shelfArea / 1000000;
                         totalArea = basicSqMt + extraSqMt;
-                        var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
+                        var basicAreaPrice = (basicSqMt * orderDetail.backPanelPrice);
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
-                        console.log("B Price :%O", basicAreaPrice);
-                        console.log("E Price :%O", extraAreaPrice);
+                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        orderDetail.productCode = productCode;
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
                             profileArea = orderDetail.width / 1000;
                         } else if (orderDetail.sectionDirection === 'VERTICAL') {
@@ -1886,22 +1945,79 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
+                            console.log("Shelf Count :%O", orderDetail.shelfCount);
+                            var finalShArea = (orderDetail.shelfCount * shelfSqMt);
+                            var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
+                        } else {
+                            var shelfPrice = 0;
+                        }
+                        console.log("B Price :%O", basicAreaPrice);
+                        console.log("E Price :%O", extraAreaPrice);
                         console.log("Profile Price :%O", profilePrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice));
+                        console.log("Shelf Price :%O", shelfPrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice));
                         orderDetail.price = finalPrice;
                         console.log("All Side Matching Area :%O", totalArea);
                         console.log("Total Price ASM :%O", orderDetail.price);
+                    } else if (orderDetail.sideMatching === "F") {
+                        console.log("Full Side Matching");
+                        var p1 = (orderDetail.width * orderDetail.length);
+                        var p2 = (2 * (orderDetail.depth * orderDetail.length));
+                        var p3 = (2 * (orderDetail.width * orderDetail.depth));
+                        basicArea = p1 + p2 + p3;
+                        basicSqMt = basicArea / 1000000;
+                        var basicAreaPrice = basicSqMt * orderDetail.finishPrice;
+
+                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        orderDetail.productCode = productCode;
+
+                        if (orderDetail.sectionDirection === 'HORIZONTAL') {
+                            profileArea = orderDetail.width / 1000;
+                        } else if (orderDetail.sectionDirection === 'VERTICAL') {
+                            profileArea = orderDetail.length / 1000;
+                        } else {
+
+                        }
+                        console.log("Profile Area :%O", profileArea);
+                        if (orderDetail.sectionProfilePrice !== undefined) {
+                            console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+                            var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+                        } else {
+                            var profilePrice = 0;
+                        }
+                        if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
+                            console.log("Shelf Count :%O", orderDetail.shelfCount);
+                            var finalShArea = (orderDetail.shelfCount * shelfSqMt);
+                            var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
+                        } else {
+                            var shelfPrice = 0;
+                        }
+                        console.log("Baisc Area Price :%O", basicAreaPrice);
+                        console.log("Profile Baisc Price :%O", profilePrice);
+                        console.log("SHelf Price :%O", shelfPrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + profilePrice + shelfPrice));
+                        orderDetail.price = finalPrice;
+                        console.log("FInal Price Full SIde Matching:%O", orderDetail.price);
+
                     } else {
                         console.log("Regular");
                         console.log("Order Details :%O", orderDetail);
                         var p1 = (2 * (orderDetail.depth * orderDetail.length));
                         var p2 = (2 * (orderDetail.width * orderDetail.depth));
                         var p3 = (orderDetail.width * orderDetail.length);
-                        basicArea = p1 + p2 + p3;
+                        basicArea = p1 + p2;
+                        backArea = p3;
+                        shelfArea = (orderDetail.width * orderDetail.depth);
                         basicSqMt = basicArea / 1000000;
+                        backSqMt = backArea / 1000000;
+                        shelfSqMt = shelfArea / 1000000;
                         totalArea = basicSqMt;
+                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXX-" + l1 + "" + w1 + "18" + d1;
+                        orderDetail.productCode = productCode;
                         console.log("Std Material Price :%O", orderDetail.stdMaterialPrice);
                         var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
+                        var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                         console.log("Area Price :%O", basicAreaPrice);
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
                             profileArea = orderDetail.width / 1000;
@@ -1917,8 +2033,18 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
+                            console.log("Shelf Count :%O", orderDetail.shelfCount);
+                            var finalShArea = (orderDetail.shelfCount * shelfSqMt);
+                            var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
+                        } else {
+                            var shelfPrice = 0;
+                        }
+                        console.log("B Price :%O", basicAreaPrice);
+                        console.log("Back Price :%O", backAreaPrice);
                         console.log("Profile Price :%O", profilePrice);
-                        var finalPrice = ((orderDetail.quantity * basicAreaPrice) + profilePrice);
+                        console.log("Shelf Price :%O", shelfPrice);
+                        var finalPrice = ((profilePrice + basicAreaPrice + backAreaPrice + shelfPrice) * orderDetail.quantity);
                         orderDetail.price = finalPrice;
                         console.log("Total Area Regular :%O", totalArea);
                         console.log("Total Price Regular :%O", orderDetail.price);
@@ -2016,20 +2142,20 @@ angular.module("digitalbusiness.states.order", [])
 //                    $scope.refreshList();
 //                });
                 console.log("FInal Save :%O", orderDetail);
-//                CarcassOrderDetailsService.save(orderDetail, function () {
-//                    console.log("Saved Successfully");
-//                    $scope.editableCarcassDetail = "";
-//                    $scope.carcaseName = "";
-//                    $scope.intColorName = "";
-//                    $scope.leftColorName = "";
-//                    $scope.rightColorName = "";
-//                    $scope.backColorName = "";
-//                    $scope.topColorName = "";
-//                    $scope.bottomColorName = "";
-//                    $state.go('admin.masters_order_details', {
-//                        'orderHeadId': $stateParams.orderHeadId
-//                    }, {'reload': true});
-//                });
+                CarcassOrderDetailsService.save(orderDetail, function () {
+                    console.log("Saved Successfully");
+                    $scope.editableCarcassDetail = "";
+                    $scope.carcaseName = "";
+                    $scope.intColorName = "";
+                    $scope.leftColorName = "";
+                    $scope.rightColorName = "";
+                    $scope.backColorName = "";
+                    $scope.topColorName = "";
+                    $scope.bottomColorName = "";
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
+                });
 
             };
             $scope.savePanelDetails = function (panelOrderDetail) {

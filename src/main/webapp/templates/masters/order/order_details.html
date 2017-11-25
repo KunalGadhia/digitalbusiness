@@ -110,7 +110,7 @@
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Sub Type</label>
-                        <select class="form-control" ng-model="editableCarcassDetail.carcassSubType">
+                        <select class="form-control" ng-model="editableCarcassDetail.carcassSubType" required="">
                             <option value="">Select Sub Type</option>
                             <option ng-repeat="subType in carcassSubTypeList" value="{{subType.subTypeCode}}">{{subType.subType}}</option>
                         </select>
