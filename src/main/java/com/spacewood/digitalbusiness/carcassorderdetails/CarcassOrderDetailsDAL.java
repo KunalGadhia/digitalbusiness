@@ -176,7 +176,7 @@ public class CarcassOrderDetailsDAL {
 //        parameters.put(Columns.SIDE_MATERIAL, carcassOrderDetails.getSideMaterial());
 //        parameters.put(Columns.SIDE_FINISH, carcassOrderDetails.getSideFinish());
         parameters.put(Columns.QUANTITY, carcassOrderDetails.getQuantity());
-        parameters.put(Columns.PRICE, carcassOrderDetails.getPrice());
+        parameters.put(Columns.PRICE, Math.round(carcassOrderDetails.getPrice()));
         parameters.put(Columns.STD_MATERIAL_PRICE, carcassOrderDetails.getStdMaterialPrice());
         parameters.put(Columns.FINISH_PRICE, carcassOrderDetails.getFinishPrice());
         parameters.put(Columns.SECTION_PROFILE_ID, carcassOrderDetails.getSectionProfileId());

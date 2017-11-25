@@ -75,7 +75,6 @@ angular.module("digitalbusiness.states.order", [])
             };
 
             $scope.saveOrderHead = function (orderHead) {
-                console.log("Order Head :%O", orderHead);
                 OrderHeadService.save(orderHead, function (orderH) {
                     $state.go('admin.masters_order_details', {
                         'orderHeadId': orderH.id
@@ -86,18 +85,14 @@ angular.module("digitalbusiness.states.order", [])
 
         })
         .controller('OrderDetailsController', function (RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
-            console.log("Inside Order Details Controller");
-            console.log("State Params :%O", $stateParams);
             $scope.editableCarcassDetail = {};
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderHeadObject) {
-                console.log("Order Head :%O", orderHeadObject);
                 $scope.orderHead = orderHeadObject;
                 PartyService.get({
                     'id': orderHeadObject.billingPartyId
                 }, function (party) {
-                    console.log("Party :%O", party);
                     $scope.party = party;
                 });
                 SegmentService.findBySegment({
@@ -106,9 +101,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.segment = segment;
                 });
                 var a = new Date(orderHeadObject.poDate);
-                console.log("Date :%O", a);
                 var factDespDate = moment(a).add(12, 'days');
-                console.log("Facto Disp Date :%O", factDespDate);
                 var date = new Date(factDespDate);
                 $scope.factDespDate = date;
             });
@@ -2463,7 +2456,7 @@ angular.module("digitalbusiness.states.order", [])
 
         }
         )
-        .controller('ProformaInvoiceDisplayController', function (PartyService, OrderHeadService, OrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('ProformaInvoiceDisplayController', function (ColorService, CarcassOrderDetailsService ,SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
@@ -2471,10 +2464,51 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.orderHead = orderHeadObject;
                 PartyService.get({
                     'id': orderHeadObject.billingPartyId
-                }, function (billingPartyObject) {
-                    $scope.billingParty = billingPartyObject;
+                }, function (party) {
+                    $scope.party = party;
+                });
+                SegmentService.findBySegment({
+                    'segment': orderHeadObject.segment
+                }, function (segment) {
+                    $scope.segment = segment;
+                });
+                var a = new Date(orderHeadObject.poDate);
+                var factDespDate = moment(a).add(12, 'days');
+                var date = new Date(factDespDate);
+                $scope.factDespDate = date;
+            });
+            $scope.carcassDetailsList = CarcassOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (carcassOrderList) {
+                console.log("Carcass Order List :%O", carcassOrderList);
+                angular.forEach($scope.carcassDetailsList, function (carcassDetailObject) {
+                    carcassDetailObject.rightColorObject = ColorService.get({
+                        'id': carcassDetailObject.rightColorId
+                    });
+                    carcassDetailObject.leftColorObject = ColorService.get({
+                        'id': carcassDetailObject.leftColorId
+                    });
+                    carcassDetailObject.topColorObject = ColorService.get({
+                        'id': carcassDetailObject.topColorId
+                    });
+                    carcassDetailObject.bottomColorObject = ColorService.get({
+                        'id': carcassDetailObject.bottomColorId
+                    });
+                    carcassDetailObject.backColorObject = ColorService.get({
+                        'id': carcassDetailObject.backColorId
+                    });
                 });
             });
+//            OrderHeadService.get({
+//                'id': $stateParams.orderHeadId
+//            }, function (orderHeadObject) {
+//                $scope.orderHead = orderHeadObject;
+//                PartyService.get({
+//                    'id': orderHeadObject.billingPartyId
+//                }, function (billingPartyObject) {
+//                    $scope.billingParty = billingPartyObject;
+//                });
+//            });
 
         })
         .controller('CarcassDetailDeleteController', function (CarcassOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {

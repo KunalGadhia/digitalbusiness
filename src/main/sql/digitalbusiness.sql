@@ -49,6 +49,9 @@ CREATE TABLE `carcass_order_details` (
   `price` double NOT NULL DEFAULT '0',
   `std_material_price` double DEFAULT NULL,
   `finish_price` double DEFAULT NULL,
+  `section_profile_id` int(11) DEFAULT NULL COMMENT 'REF section_profile_master.id',
+  `section_profile_price` double DEFAULT NULL,
+  `carcass_sub_type` varchar(100) DEFAULT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `carcass_order_details_order_head_id_fk` (`order_head_id`),
@@ -59,15 +62,17 @@ CREATE TABLE `carcass_order_details` (
   KEY `carcass_order_details_back_color_id_fk` (`back_color_id`),
   KEY `carcass_order_details_top_color_id_fk` (`top_color_id`),
   KEY `carcass_order_details_bottom_color_id_fk` (`bottom_color_id`),
+  KEY `carcass_order_details_section_profile_id_fk` (`section_profile_id`),
   CONSTRAINT `carcass_order_details_back_color_id_fk` FOREIGN KEY (`back_color_id`) REFERENCES `color_code_master` (`id`),
   CONSTRAINT `carcass_order_details_bottom_color_id_fk` FOREIGN KEY (`bottom_color_id`) REFERENCES `color_code_master` (`id`),
   CONSTRAINT `carcass_order_details_int_color_id_fk` FOREIGN KEY (`int_color_id`) REFERENCES `color_code_master` (`id`),
   CONSTRAINT `carcass_order_details_left_color_id_fk` FOREIGN KEY (`left_color_id`) REFERENCES `color_code_master` (`id`),
   CONSTRAINT `carcass_order_details_order_head_id_fk` FOREIGN KEY (`order_head_id`) REFERENCES `order_head` (`id`),
   CONSTRAINT `carcass_order_details_right_color_id_fk` FOREIGN KEY (`right_color_id`) REFERENCES `color_code_master` (`id`),
+  CONSTRAINT `carcass_order_details_section_profile_id_fk` FOREIGN KEY (`section_profile_id`) REFERENCES `section_profile_master` (`id`),
   CONSTRAINT `carcass_order_details_std_carcass_price_id_fk` FOREIGN KEY (`std_carcass_price_id`) REFERENCES `standard_carcass_price_master` (`id`),
   CONSTRAINT `carcass_order_details_top_color_id_fk` FOREIGN KEY (`top_color_id`) REFERENCES `color_code_master` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +81,36 @@ CREATE TABLE `carcass_order_details` (
 
 LOCK TABLES `carcass_order_details` WRITE;
 /*!40000 ALTER TABLE `carcass_order_details` DISABLE KEYS */;
+INSERT INTO `carcass_order_details` VALUES (1,3,105,60,NULL,NULL,NULL,NULL,NULL,'WCBLINDX18PBXXXX-0720045018320','WC','PB',720,450,320,0,0,0,'NSM','NSS','0','0',1,1003,997,NULL,NULL,NULL,'BLINDX',1),(2,3,108,118,NULL,NULL,NULL,NULL,NULL,'WCREGUXX18MFXXXX-0720080018320','WC','MF',720,800,320,0,0,0,'NSM','NSS','0','0',1,1747,1365,NULL,NULL,NULL,'REGUXX',0),(3,3,140,60,55,55,NULL,NULL,NULL,'BCBLINDX18PBBXXD-0720030018560','BC','PB',720,300,560,0,0,0,'B','LRSM','HF','XXD',1,4553.4624,997,4896,1,472,'BLINDX',0),(4,3,NULL,60,82,50,NULL,NULL,NULL,'TUREGUXX18PBBXXA-0126045618351','TU','PB',126,456,351,1,0,0,'B','LRSM','MF','XXA',1,846.620928,997,4344,2,865,'REGUXX',0);
 /*!40000 ALTER TABLE `carcass_order_details` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `carcass_subtype_master`
+--
+
+DROP TABLE IF EXISTS `carcass_subtype_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `carcass_subtype_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PRIMARY KEY',
+  `sub_type` varchar(100) DEFAULT NULL,
+  `parent_type` varchar(100) NOT NULL,
+  `description` varchar(300) DEFAULT NULL,
+  `sub_type_code` varchar(8) NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `carcass_subtype_master`
+--
+
+LOCK TABLES `carcass_subtype_master` WRITE;
+/*!40000 ALTER TABLE `carcass_subtype_master` DISABLE KEYS */;
+INSERT INTO `carcass_subtype_master` VALUES (1,'Regular','WC','Regular Wall Carcass','REGUXX',0),(2,'Blind','WC','Blind Wall Carcass','BLINDX',0),(3,'Luzy Corner Rectangular','WC','Luzy Corner Rectangular Wall Carcass','LCRECT',0),(4,'Luzy Corner Pentagonal','WC','Luzy Corner Pentagonal Wall Carcass','LCPENT',0),(5,'Aquaguard Carcass','WC','Aquaguard Wall Carcass','AQUAGD',0),(6,'Dish Rack / Glass Tray / Plate Tray','WC','Glass Tray / Plate Tray / Dish Rack Wall Carcass','GTPTXX',0),(7,'Microwave','WC','Microwave Wall Carcass','MWXXXX',0),(8,'Regular','BC','Base Carcass Regular','REGUXX',0),(9,'Blind','BC','Blind Base Carcass','BLINDX',0),(10,'Luzy Corner Rectangular','BC','Luzy Corner Rectangular Base Carcass','LCRECT',0),(11,'Luzy Corner Pentagonal','BC','Luzy Corner Pentagonal Base Carcass','LCPENT',0),(12,'Sink','BC','Sink Base Carcass','SINKXX',0),(13,'Regular','TU','Regular Tall Unit','REGUXX',0),(14,'Microwave','TU','Microwave Tall Unit','MWXXXX',0),(15,'Microwave & Oven','TU','Microwave & Oven Tall Unit','MWOVXX',0),(16,'Oven','TU','Oven Tall Unit','OVXXXX',0);
+/*!40000 ALTER TABLE `carcass_subtype_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -119,9 +153,10 @@ CREATE TABLE `color_constraint_master` (
   `component` varchar(100) NOT NULL,
   `material_code` varchar(100) NOT NULL,
   `colors` varchar(100) DEFAULT '[]' COMMENT 'JSON ARRAY String location_category.id',
+  `finish_code` varchar(100) DEFAULT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +165,7 @@ CREATE TABLE `color_constraint_master` (
 
 LOCK TABLES `color_constraint_master` WRITE;
 /*!40000 ALTER TABLE `color_constraint_master` DISABLE KEYS */;
-INSERT INTO `color_constraint_master` VALUES (27,'CARCASE','PB','[117,118,60]',0),(28,'CARCASE','MF','[117,60,118]',0),(29,'CARCASE','HF','[117,60,118,119]',0),(30,'CARCASE','BW','[117,60]',0);
+INSERT INTO `color_constraint_master` VALUES (27,'CARCASE','PB','[117,118,60]',NULL,0),(28,'CARCASE','MF','[117,60,118]',NULL,0),(29,'CARCASE','HF','[117,60,118,119]',NULL,0),(30,'CARCASE','BW','[117,60]',NULL,0),(31,'MEMBRANE_GLOSSY_MDF','','[45,55,46,47,48,49,82,50,56,51,57,52,53,54]','XXA',0),(32,'MEMBRANE_DESIGNER_MDF','','[23,24,25,26,27,44,29,30,31,32,35,37,39,40,36,41,42,43]','XXB',0),(33,'MEMBRANE_STANDARD_MDF','','[1,4,7,8,6,9,11,12,14,13,15,16,17,18,19]','XXC',0),(34,'MEMBRANE_GLOSSY_HDF','','[45,55,46,47,48,49,82,50,56,51,57,53,54]','XXD',0),(35,'MEMBRANE_DESIGNER_HDF','','[23,24,25,26,27,44,29,30,31,32,33,35,37,39,40,36,41,42,43]','XXE',0),(36,'MEMBRANE_STANDARD_HDF','','[1,4,7,8,6,9,11,12,14,13,15,16,17,18,19]','XXF',0),(37,'HPL_MR_GLOSS_PLY','','[63,65,70,71,72,75,76,82,87,88,89,90,12,94,97]','XXG',0),(38,'HPL_HIGH_GLOSS_PLY','','[60,67,66,96]','XXH',0),(39,'HPL_MATT_PLY','','[59,60,61,62,64,66,68,69,73,74,77,78,79,80,81,82,83,84,85,86,91,98,99,100,101]','XXI',0),(40,'MILANO_ACRYLIC_STD_PLY','','[104,107,108,109,110,113,114,116,115]','XXL',0),(41,'MILANO_ACRYLIC_PREMIUM_PLY','','[106,111]','XXM',0),(42,'POLYMER_GLOSSY_MDF','','[67,55,47,74,107]','XXN',0);
 /*!40000 ALTER TABLE `color_constraint_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,12 +236,14 @@ CREATE TABLE `finish_price` (
   `finish_name` varchar(100) NOT NULL,
   `finish_code` varchar(100) DEFAULT NULL,
   `price` double NOT NULL DEFAULT '0',
+  `for_carcass` tinyint(1) DEFAULT '0',
+  `for_shutter` tinyint(1) DEFAULT '0',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `finish_code_UNIQUE` (`finish_code`),
   KEY `finish_price_material_id_fk` (`material_id`),
   CONSTRAINT `finish_price_material_id_fk` FOREIGN KEY (`material_id`) REFERENCES `raw_material_master` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +252,7 @@ CREATE TABLE `finish_price` (
 
 LOCK TABLES `finish_price` WRITE;
 /*!40000 ALTER TABLE `finish_price` DISABLE KEYS */;
-INSERT INTO `finish_price` VALUES (1,2,'Membrane Glossy MDF','MG',4344,0),(2,2,'Membrane Designer MDF','MD',3181,0),(3,2,'Membrane Standard MDF','MS',2290,0),(4,3,'Membrane Glossy HDF','HG',4896,0),(5,3,'Membrane Designer HDF','HD',3733,0),(6,3,'Membrane Standard HDF','HS',2843,0),(7,5,'HPL MR + Gloss Ply','PMG',4461,0),(8,5,'HPL High Gloss Ply','PH',3675,0),(9,5,'HPL Matt Ply','PM',3338,0),(10,3,'Oriental Acrylic Solid HDF','HAS',6765,0),(11,3,'Oriental Acrylic Woodgrain HDF','HAW',7618,0),(12,5,'Milano Acrylic Standard Ply','PMS',9337,0),(13,5,'Milano Acrylic Premium Ply','PMP',12204,0),(14,2,'Polymer Glossy MDF','MP',5600,0),(15,3,'PU Lacqured Solid HDF','HPS',5210,0),(16,3,'PU Lacqured Metallic HDF','HPM',6126,0),(17,5,'PU Lacqured Solid Ply','PPS',5668,0),(18,5,'PU Lacqured Metallic Ply','PPM',6583,0),(19,2,'PU Lacqured Solid MDF','MPS',4745,0),(20,2,'PU Lacqured Metallic MDF','MPM',5660,0);
+INSERT INTO `finish_price` VALUES (1,2,'Membrane Glossy MDF','XXA',4344,1,0,0),(2,2,'Membrane Designer MDF','XXB',3181,1,0,0),(3,2,'Membrane Standard MDF','XXC',2290,1,0,0),(4,3,'Membrane Glossy HDF','XXD',4896,1,0,0),(5,3,'Membrane Designer HDF','XXE',3733,1,0,0),(6,3,'Membrane Standard HDF','XXF',2843,1,0,0),(7,5,'HPL MR + Gloss Ply','XXG',4461,1,0,0),(8,5,'HPL High Gloss Ply','XXH',3675,1,0,0),(9,5,'HPL Matt Ply','XXI',3338,1,0,0),(10,3,'Oriental Acrylic Solid HDF','XXJ',6765,1,0,0),(11,3,'Oriental Acrylic Woodgrain HDF','XXK',7618,1,0,0),(12,5,'Milano Acrylic Standard Ply','XXL',9337,1,0,0),(13,5,'Milano Acrylic Premium Ply','XXM',12204,1,0,0),(14,2,'Polymer Glossy MDF','XXN',5600,1,0,0),(15,3,'PU Lacqured Solid HDF','XXO',5210,1,0,0),(16,3,'PU Lacqured Metallic HDF','XXP',6126,1,0,0),(17,5,'PU Lacqured Solid Ply','XXQ',5668,1,0,0),(18,5,'PU Lacqured Metallic Ply','XXR',6583,1,0,0),(19,2,'PU Lacqured Solid MDF','XXS',4745,1,0,0),(20,2,'PU Lacqured Metallic MDF','XXT',5660,1,1,0),(22,1,'gfgbfg','bfgbfgb',111,0,0,1);
 /*!40000 ALTER TABLE `finish_price` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,7 +271,7 @@ CREATE TABLE `kitchen_component_master` (
   `image` varchar(100) DEFAULT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +280,7 @@ CREATE TABLE `kitchen_component_master` (
 
 LOCK TABLES `kitchen_component_master` WRITE;
 /*!40000 ALTER TABLE `kitchen_component_master` DISABLE KEYS */;
-INSERT INTO `kitchen_component_master` VALUES (1,'Wall Carcase','WC','CARCASE','Carcass 250x250.jpg',0),(2,'Base Carcase','BC','CARCASE','Carcass 250x250.jpg',0),(3,'Tall Carcase','TU','CARCASE','Carcass 250x250.jpg',0),(4,'Base-Blind Carcase','BB','CARCASE','Carcass 250x250.jpg',0),(5,'Regular Profile Shutter - SH101','SH101','SHUTTER','SH 101.png',0),(6,'Regular Profile Shutter - SH102','SH102','SHUTTER','SH 102.png',0),(7,'Regular Profile Shutter - SH103','SH103','SHUTTER','SH 103.png',0),(8,'Regular Profile Shutter - SH105','SH105','SHUTTER','SH 105.png',0),(9,'Regular Profile Shutter - SH107','SH107','SHUTTER','SH 107.png',0),(10,'Regular Profile Shutter - SH108','SH108','SHUTTER','SH 108.png',0),(11,'Regular Profile Shutter - SH109','SH109','SHUTTER','SH 109.png',0),(12,'Regular Profile Shutter - SH110','SH110','SHUTTER','SH 110.png',0),(13,'Regular Profile Shutter - SH113','SH113','SHUTTER','SH 113.png',0),(14,'Regular Profile Shutter - SH114','SH114','SHUTTER','SH 114.png',0),(15,'Regular Profile Shutter - SH119','SH119','SHUTTER','SH 119.png',0),(16,'Regular Profile Shutter - SH121','SH121','SHUTTER','SH 121.png',0),(17,'Regular Profile Shutter - SH128','SH128','SHUTTER','SH 128.png',0),(18,'Regular Profile Shutter - SH129','SH129','SHUTTER','SH 129.png',0),(19,'Regular Profile Shutter - SH131','SH131','SHUTTER','SH 131.png',0),(20,'Regular Profile Shutter - SH115','SH115','SHUTTER','SH 115.png',0),(21,'Regular Profile Shutter - SH116','SH116','SHUTTER','SH 116.png',0),(22,'Regular Profile Shutter - SH118','SH118','SHUTTER','SH 118.png',0),(23,'Plain-Eco Profile Shutter - SH104','SH104','SHUTTER','SH 104.jpg',0),(24,'Plain-Eco Profile Shutter - SH106','SH106','SHUTTER','SH 106.jpg',0),(25,'Plain-Eco Profile Shutter - SH111','SH111','SHUTTER','SH 111.jpg',0),(26,'Plain-Eco Profile Shutter - SH123','SH123','SHUTTER','SH 123.jpg',0),(27,'HIGH GLOSS Shutter- SH133','SH133','SHUTTER','SH 123.png',0),(28,'Plain-Eco Profile Shutter - SH130 (2 Sides)','SH130','SHUTTER','SH 130.jpg',0),(29,'Plain-Eco Profile Shutter - SH46','SH146','SHUTTER','SH 146.jpg',0),(30,'Plain-Eco Profile Shutter - SH135 (2 Sides)','SH135','SHUTTER','SH 135.jpg',0),(31,'Regular Glass Shutter - SH118','SH118GL','SHUTTER','SH 121 GLASS.png',0),(32,'Mesh Glass Shutter - SH118','SH118MGL','SHUTTER','SH 118 MESH GLASS.png',0),(33,'Aluminium Glass Frame Shutter - G55','G55','SHUTTER','C55.png',0),(34,'Aluminium Glass Frame Shutter - G50','G50','SHUTTER','C55.png',0),(35,'Aluminium Glass Frame Shutter - G20','G20','SHUTTER','G20.png',0),(36,'Regular Drawer Front - DF201','DF201','DRAWER','DF 101.jpg',0),(37,'Regular Drawer Front - DF202','DF202','DRAWER','DF 102.jpg',0),(38,'Regular Drawer Front - DF203','DF203','DRAWER','DF 103.jpg',0),(39,'Regular Drawer Front - DF205','DF205','DRAWER','DF 105.jpg',0),(40,'Regular Drawer Front - DF207','DF207','DRAWER','DF 107.jpg',0),(41,'Regular Drawer Front - DF208','DF208','DRAWER','DF 208.jpg',0),(42,'Regular Drawer Front - DF209','DF209','DRAWER','DF 109.jpg',0),(43,'Regular Drawer Front - DF213','DF213','DRAWER','DF 213.jpg',0),(44,'Regular Drawer Front - DF214','DF214','DRAWER','DF 214.jpg',0),(45,'Regular Drawer Front - DF219','DF219','DRAWER','DF 219.jpg',0),(46,'Regular Drawer Front - DF221','DF221','DRAWER','DF 221.jpg',0),(47,'Regular Drawer Front - DF228','DF228','DRAWER','DF 228.jpg',0),(48,'Regular Drawer Front - DF229','DF229','DRAWER','DF 229.jpg',0),(49,'Regular Drawer Front - DF231','DF231','DRAWER','DF 231.jpg',0),(50,'Regular Drawer Front - DF215','DF215','DRAWER','DF 215.jpg',0),(51,'Regular Drawer Front - DF216','DF216','DRAWER','DF 216.jpg',0),(52,'Regular Drawer Front - DF218','DF218','DRAWER','DF 218.jpg',0),(53,'Plain-Eco Drawer Front - DF204','DF204','DRAWER','DF 204.jpg',0),(54,'Plain-Eco Drawer Front - DF206','DF206','DRAWER','DF 206.jpg',0),(55,'Plain-Eco Drawer Front - DF211','DF211','DRAWER','DF 211.jpg',0),(56,'Plain-Eco Drawer Front - DF223','DF223','DRAWER','DF 223.jpg',0),(57,'High-Gloss Drawer Front - DF233','DF233','DRAWER','DF 223.jpg',0),(58,'Plain-Eco Drawer Front - DF230','DF230','DRAWER','DF 230.jpg',0),(59,'Plain-Eco Drawer Front - DF246','DF246','DRAWER','DF 246.jpg',0),(60,'Filler','FILLER','FILLER','Ebony.jpg',0),(61,'Panel','PLT-PANEL','PANEL','Piombo.jpg',0),(62,'Pelmet - PL1','PL1','PELMET','Cornice PL1.jpg',0),(63,'Pelmet - PL2','PL2','PELMET','Cornice PL2.jpg',0),(64,'Cornice - CR1','CR1','CORNICE','Cornice CR1.jpg',0),(65,'Cornice - CR2','CR2','CORNICE','Cornice CR2.jpg',0),(66,'Cornice - CR3','CR3','CORNICE','Cornice CR3.jpg',0),(67,'Cornice - CR4','CR4','CORNICE','Cornice CR4.jpg',0),(68,'Profile Handles - H-01','HANDLEH01','HANDLE','1.jpg',0),(69,'Profile Handles - H-10','HANDLEH10','HANDLE','H10 CD 160 mm .jpg',0),(70,'Profile Handles - H-14','HANDLEH14','HANDLE','H14 CD 160 mm .jpg',0),(71,'Profile Handles - H-15','HANDLEH15','HANDLE','H15 CD 120,160,224mm .jpg',0),(72,'Profile Handles - H-17','HANDLEH17','HANDLE','H17 CD 224,320 mm .jpg',0),(73,'Profile Handles - EP-01','HANDLEEP01','HANDLE','Shutter EP 01.jpg',0),(74,'Profile Handles - H-31','HANDLEH31','HANDLE','H31 CD 228,320,400,500,800,1300mm.jpg',0),(75,'Profile Handles - H-33','HANDLEH33','HANDLE','H33 CD 297,447,497,597,797,897mm.jpg',0),(76,'Profile Handles - H-34','HANDLEH34','HANDLE','H34 CD 196,246,500mm .jpg',0),(77,'Profile Handles - H-35','HANDLEH35','HANDLE','H35 CD 32 mm .jpg',0),(78,'Profile Handles - H-36','HANDLEH36','HANDLE','1big.jpg',0);
+INSERT INTO `kitchen_component_master` VALUES (1,'Wall Carcase','WC','CARCASE','Carcass 250x250.jpg',0),(2,'Base Carcase','BC','CARCASE','Carcass 250x250.jpg',0),(3,'Tall Carcase','TU','CARCASE','Carcass 250x250.jpg',0),(4,'Base-Blind Carcase','BB','CARCASE','Carcass 250x250.jpg',0),(5,'Regular Profile Shutter - SH101','SH101','SHUTTER','SH 101.png',0),(6,'Regular Profile Shutter - SH102','SH102','SHUTTER','SH 102.png',0),(7,'Regular Profile Shutter - SH103','SH103','SHUTTER','SH 103.png',0),(8,'Regular Profile Shutter - SH105','SH105','SHUTTER','SH 105.png',0),(9,'Regular Profile Shutter - SH107','SH107','SHUTTER','SH 107.png',0),(10,'Regular Profile Shutter - SH108','SH108','SHUTTER','SH 108.png',0),(11,'Regular Profile Shutter - SH109','SH109','SHUTTER','SH 109.png',0),(12,'Regular Profile Shutter - SH110','SH110','SHUTTER','SH 110.png',0),(13,'Regular Profile Shutter - SH113','SH113','SHUTTER','SH 113.png',0),(14,'Regular Profile Shutter - SH114','SH114','SHUTTER','SH 114.png',0),(15,'Regular Profile Shutter - SH119','SH119','SHUTTER','SH 119.png',0),(16,'Regular Profile Shutter - SH121','SH121','SHUTTER','SH 121.png',0),(17,'Regular Profile Shutter - SH128','SH128','SHUTTER','SH 128.png',0),(18,'Regular Profile Shutter - SH129','SH129','SHUTTER','SH 129.png',0),(19,'Regular Profile Shutter - SH131','SH131','SHUTTER','SH 131.png',0),(20,'Regular Profile Shutter - SH115','SH115','SHUTTER','SH 115.png',0),(21,'Regular Profile Shutter - SH116','SH116','SHUTTER','SH 116.png',0),(22,'Regular Profile Shutter - SH118','SH118','SHUTTER','SH 118.png',0),(23,'Plain-Eco Profile Shutter - SH104','SH104','SHUTTER','SH 104.jpg',0),(24,'Plain-Eco Profile Shutter - SH106','SH106','SHUTTER','SH 106.jpg',0),(25,'Plain-Eco Profile Shutter - SH111','SH111','SHUTTER','SH 111.jpg',0),(26,'Plain-Eco Profile Shutter - SH123','SH123','SHUTTER','SH 123.jpg',0),(27,'HIGH GLOSS Shutter- SH133','SH133','SHUTTER','SH 123.png',0),(28,'Plain-Eco Profile Shutter - SH130 (2 Sides)','SH130','SHUTTER','SH 130.jpg',0),(29,'Plain-Eco Profile Shutter - SH46','SH146','SHUTTER','SH 146.jpg',0),(30,'Plain-Eco Profile Shutter - SH135 (2 Sides)','SH135','SHUTTER','SH 135.jpg',0),(31,'Regular Glass Shutter - SH118','SH118GL','SHUTTER','SH 121 GLASS.png',0),(32,'Mesh Glass Shutter - SH118','SH118MGL','SHUTTER','SH 118 MESH GLASS.png',0),(33,'Aluminium Glass Frame Shutter - G55','G55','SHUTTER','C55.png',0),(34,'Aluminium Glass Frame Shutter - G50','G50','SHUTTER','C55.png',0),(35,'Aluminium Glass Frame Shutter - G20','G20','SHUTTER','G20.png',0),(36,'Regular Drawer Front - DF201','DF201','DRAWER','DF 101.jpg',0),(37,'Regular Drawer Front - DF202','DF202','DRAWER','DF 102.jpg',0),(38,'Regular Drawer Front - DF203','DF203','DRAWER','DF 103.jpg',0),(39,'Regular Drawer Front - DF205','DF205','DRAWER','DF 105.jpg',0),(40,'Regular Drawer Front - DF207','DF207','DRAWER','DF 107.jpg',0),(41,'Regular Drawer Front - DF208','DF208','DRAWER','DF 208.jpg',0),(42,'Regular Drawer Front - DF209','DF209','DRAWER','DF 109.jpg',0),(43,'Regular Drawer Front - DF213','DF213','DRAWER','DF 213.jpg',0),(44,'Regular Drawer Front - DF214','DF214','DRAWER','DF 214.jpg',0),(45,'Regular Drawer Front - DF219','DF219','DRAWER','DF 219.jpg',0),(46,'Regular Drawer Front - DF221','DF221','DRAWER','DF 221.jpg',0),(47,'Regular Drawer Front - DF228','DF228','DRAWER','DF 228.jpg',0),(48,'Regular Drawer Front - DF229','DF229','DRAWER','DF 229.jpg',0),(49,'Regular Drawer Front - DF231','DF231','DRAWER','DF 231.jpg',0),(50,'Regular Drawer Front - DF215','DF215','DRAWER','DF 215.jpg',0),(51,'Regular Drawer Front - DF216','DF216','DRAWER','DF 216.jpg',0),(52,'Regular Drawer Front - DF218','DF218','DRAWER','DF 218.jpg',0),(53,'Plain-Eco Drawer Front - DF204','DF204','DRAWER','DF 204.jpg',0),(54,'Plain-Eco Drawer Front - DF206','DF206','DRAWER','DF 206.jpg',0),(55,'Plain-Eco Drawer Front - DF211','DF211','DRAWER','DF 211.jpg',0),(56,'Plain-Eco Drawer Front - DF223','DF223','DRAWER','DF 223.jpg',0),(57,'High-Gloss Drawer Front - DF233','DF233','DRAWER','DF 223.jpg',0),(58,'Plain-Eco Drawer Front - DF230','DF230','DRAWER','DF 230.jpg',0),(59,'Plain-Eco Drawer Front - DF246','DF246','DRAWER','DF 246.jpg',0),(60,'Filler','FILLER','FILLER','Ebony.jpg',0),(61,'Panel','PLT-PANEL','PANEL','Piombo.jpg',0),(62,'Pelmet - PL1','PL1','PELMET','Cornice PL1.jpg',0),(63,'Pelmet - PL2','PL2','PELMET','Cornice PL2.jpg',0),(64,'Cornice - CR1','CR1','CORNICE','Cornice CR1.jpg',0),(65,'Cornice - CR2','CR2','CORNICE','Cornice CR2.jpg',0),(66,'Cornice - CR3','CR3','CORNICE','Cornice CR3.jpg',0),(67,'Cornice - CR4','CR4','CORNICE','Cornice CR4.jpg',0),(68,'Profile Handles - H-01','HANDLEH01','HANDLE','1.jpg',0),(69,'Profile Handles - H-10','HANDLEH10','HANDLE','H10 CD 160 mm .jpg',0),(70,'Profile Handles - H-14','HANDLEH14','HANDLE','H14 CD 160 mm .jpg',0),(71,'Profile Handles - H-15','HANDLEH15','HANDLE','H15 CD 120,160,224mm .jpg',0),(72,'Profile Handles - H-17','HANDLEH17','HANDLE','H17 CD 224,320 mm .jpg',0),(73,'Profile Handles - EP-01','HANDLEEP01','HANDLE','Shutter EP 01.jpg',0),(74,'Profile Handles - H-31','HANDLEH31','HANDLE','H31 CD 228,320,400,500,800,1300mm.jpg',0),(75,'Profile Handles - H-33','HANDLEH33','HANDLE','H33 CD 297,447,497,597,797,897mm.jpg',0),(76,'Profile Handles - H-34','HANDLEH34','HANDLE','H34 CD 196,246,500mm .jpg',0),(77,'Profile Handles - H-35','HANDLEH35','HANDLE','H35 CD 32 mm .jpg',0),(78,'Profile Handles - H-36','HANDLEH36','HANDLE','1big.jpg',0),(79,'Drawer','DF2451','DRAWER','PhotoScan 2.jpg',0),(80,'Shutter SH1192','SH1333','SHUTTER','PhotoScan 2.jpg',0);
 /*!40000 ALTER TABLE `kitchen_component_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +306,7 @@ CREATE TABLE `order_details` (
   PRIMARY KEY (`id`),
   KEY `order_details_order_head_id_fk` (`order_head_id`),
   CONSTRAINT `order_details_order_head_id_fk` FOREIGN KEY (`order_head_id`) REFERENCES `order_head` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -278,7 +315,6 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (1,3,'WC90603018PB-0600090018300','WC','PB',600,900,300,0,1,0),(2,3,'WC11603018PB-0600110018300','WC','PB',600,1100,300,0,1,0),(3,4,'BC90603018MDF-0600090018300','BC','MDF',600,900,300,0,1,0),(4,3,'PLT-PANEL-18PB-0564028018000','PLT-PANEL','PB',564,280,0,0,1,0),(5,3,'PLT-PANEL-18PB-0564005018000','PLT-PANEL','PB',564,50,0,0,1,0),(6,3,'SH133-18SHDFGLOS-0735039018000','SH133','SHDFGLOS',735,390,0,0,1,0),(7,3,'SH113-18SHDFGLOS-0923008118000','SH113','SHDFGLOS',923,81,0,0,1,0),(8,3,'SH133-18SHDFGLOS-0739044918000','SH133','SHDFGLOS',739,449,0,0,1,0),(9,3,'DF233-18SHDFGLOS-0160048018000','DF233','SHDFGLOS',160,480,0,0,1,0),(10,3,'FILLER-18SHDFGLOS-0735006518000','FILLER','SHDFGLOS',735,65,0,0,1,0),(11,3,'PL1-18SHDF-0325003518000','PL1','SHDF',325,35,0,0,1,0),(12,3,'CR1-18SHDF-0450005018000','CR1','SHDF',450,50,0,0,1,0),(13,3,'EP011000MM','EP01','',1000,0,0,0,1,0),(14,3,'HANDLEEP011000MM','HANDLEEP01','',1000,0,0,0,1,0),(15,3,'WC105603018PB-0600110018300','WC','PB',600,1100,300,1,1,0),(17,3,'WC90603018PB-0600090018300','WC','PB',600,900,300,0,NULL,0),(18,3,'WC105603018PB-0600110018300','WC','PB',600,1100,300,1,NULL,0),(19,3,'WC105603018PB-0600110018300','WC','PB',600,1100,300,1,1,0),(20,3,'WC105603018PB-0600110018300','WC','PB',600,1100,300,1,NULL,0),(21,3,'WC105603018PB-0600110018300','WC','PB',600,1100,300,1,NULL,0),(22,3,'WC105603018PB-0600110018300','WC','PB',600,1100,300,1,0,0),(23,3,'WC90603018PB-0600090018300','WC','PB',600,900,300,0,0,0),(24,5,'SH102-18PB-0600030018000','SH102','PB',600,300,0,0,0,0),(25,5,'WC105603018PB-0600110018300','WC','PB',600,1100,300,1,1,0),(26,5,'WC90603018PB-0600090018300','WC','PB',600,900,300,0,0,0);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,7 +355,7 @@ CREATE TABLE `order_head` (
   CONSTRAINT `order_head_billing_party_id_fk` FOREIGN KEY (`billing_party_id`) REFERENCES `party_master` (`id`),
   CONSTRAINT `order_head_delivery_party_id_fk` FOREIGN KEY (`delivery_party_id`) REFERENCES `party_master` (`id`),
   CONSTRAINT `order_head_order_initiated_by_fk` FOREIGN KEY (`order_initiated_by`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,7 +364,7 @@ CREATE TABLE `order_head` (
 
 LOCK TABLES `order_head` WRITE;
 /*!40000 ALTER TABLE `order_head` DISABLE KEYS */;
-INSERT INTO `order_head` VALUES (1,'OC1','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Pantaloons India','4654654','564654','2017-11-01 00:00:00','85000','E001',1,'C',NULL,'25',0),(2,'OC2','H','EH','NON_PROJECTS','COMPONENTS',2,2,NULL,'D','T','Edge Turnkey Kitchens','5897','8798','2017-11-01 00:00:00','175000','E002',1,'C',NULL,'12',0),(3,'OC3','SP','EH','NON_PROJECTS','COMPONENTS',2,2,NULL,'R','T','Edge Turnkey','397548','4654567','2017-11-01 00:00:00','95246','E001',1,'C',NULL,'12',0),(4,'OC4','H','EH','NON_PROJECTS','COMPONENTS',1,1,NULL,'T','T','Pantaloon India Interiors','78956','8795','2017-11-08 00:00:00','150000','E001',1,'C',NULL,'10',0),(5,'OC5','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Pantaloon Foundation','498198',NULL,'2017-11-11 00:00:00',NULL,'E001',1,'C',NULL,'10',0),(6,'OC6','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Trial Project','64654','65465465','2017-11-15 00:00:00',NULL,'E001',1,'C',NULL,'5',0);
+INSERT INTO `order_head` VALUES (1,'OC1','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Pantaloons India','4654654','564654','2017-11-01 00:00:00','85000','E001',1,'C',NULL,'25',0),(2,'OC2','H','EH','NON_PROJECTS','COMPONENTS',2,2,NULL,'D','T','Edge Turnkey Kitchens','5897','8798','2017-11-01 00:00:00','175000','E002',1,'C',NULL,'12',0),(3,'OC3','SP','EH','NON_PROJECTS','COMPONENTS',2,2,NULL,'R','T','Edge Turnkey','397548','4654567','2017-11-01 00:00:00','95246','E001',1,'C',NULL,'12',0),(4,'OC4','H','EH','NON_PROJECTS','COMPONENTS',1,1,NULL,'T','T','Pantaloon India Interiors','78956','8795','2017-11-08 00:00:00','150000','E001',1,'C',NULL,'10',0),(5,'OC5','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Pantaloon Foundation','498198',NULL,'2017-11-11 00:00:00',NULL,'E001',1,'C',NULL,'10',0),(6,'OC6','H','ECH','NON_PROJECTS','COMPONENTS',1,1,NULL,'D','T','Trial Project','64654','65465465','2017-11-15 00:00:00',NULL,'E001',1,'C',NULL,'5',0),(7,'OC7','K','EH','NON_PROJECTS','COMPONENTS',1,1,'440033','D','N','Pantaloons Interior','687687','78786','2017-11-21 00:00:00',NULL,'E001',1,'C',NULL,'2',0);
 /*!40000 ALTER TABLE `order_head` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,6 +419,7 @@ CREATE TABLE `raw_material_master` (
   `material` varchar(100) DEFAULT NULL,
   `material_code` varchar(100) DEFAULT NULL,
   `price` double NOT NULL DEFAULT '0',
+  `back_panel_price` double DEFAULT '0',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
@@ -394,7 +431,7 @@ CREATE TABLE `raw_material_master` (
 
 LOCK TABLES `raw_material_master` WRITE;
 /*!40000 ALTER TABLE `raw_material_master` DISABLE KEYS */;
-INSERT INTO `raw_material_master` VALUES (1,'Particle Board','PB',997,0),(2,'Medium Density Fiber Board','MF',1365,0),(3,'High Density Fiber Board','HF',1581,0),(4,'Supertuff High Density Fiber Board','SHDF',0,0),(5,'Boiled Water Ply','BW',2021,0),(6,'Supertuff High Density Fiber Board Glossy','SHDFGLOS',0,0);
+INSERT INTO `raw_material_master` VALUES (1,'Particle Board','PB',997,596,0),(2,'Medium Density Fiber Board','MF',1365,734,0),(3,'High Density Fiber Board','HF',1581,734,0),(4,'Supertuff High Density Fiber Board','SHDF',0,0,0),(5,'Boiled Water Ply','BW',2021,1162,0),(6,'Supertuff High Density Fiber Board Glossy','SHDFGLOS',0,0,0);
 /*!40000 ALTER TABLE `raw_material_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -467,7 +504,7 @@ CREATE TABLE `section_profile_master` (
   `price` double NOT NULL DEFAULT '0',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -476,7 +513,7 @@ CREATE TABLE `section_profile_master` (
 
 LOCK TABLES `section_profile_master` WRITE;
 /*!40000 ALTER TABLE `section_profile_master` DISABLE KEYS */;
-INSERT INTO `section_profile_master` VALUES (120,'A','HORIZONTAL','WALL_CARCASS',561651,1),(121,'A1','HORIZONTAL','BASE_CARCASS',1111,1);
+INSERT INTO `section_profile_master` VALUES (1,'C-Horizontal for Base Carcass','HORIZONTAL','BASE_CARCASS',472,0),(2,'C-Vertical for Tall Carcass','VERTICAL','TALL_UNIT',865,0),(3,'J-Horizontal for Base Carcass','HORIZONTAL','BASE_CARCASS',393,0),(4,'J-Vertical for Tall Carcass','VERTICAL','TALL_UNIT',755,0),(5,'Bottom Profile','HORIZONTAL','WALL_CARCASS',350,0);
 /*!40000 ALTER TABLE `section_profile_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -495,7 +532,7 @@ CREATE TABLE `segment_master` (
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `segment_code_UNIQUE` (`segment_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -504,7 +541,7 @@ CREATE TABLE `segment_master` (
 
 LOCK TABLES `segment_master` WRITE;
 /*!40000 ALTER TABLE `segment_master` DISABLE KEYS */;
-INSERT INTO `segment_master` VALUES (1,'HOME','H','Home Segment',0),(2,'SPECIAL PROJECTS','SP','Special Projects',0),(3,'OFFICE','O','Office Segment',0);
+INSERT INTO `segment_master` VALUES (1,'HOME','H','Home Segment',0),(2,'SPECIAL PROJECTS','SP','Special Projects',0),(3,'OFFICE','O','Office Segment',0),(4,'KITCHEN','K','Kitchen',0);
 /*!40000 ALTER TABLE `segment_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -550,7 +587,7 @@ CREATE TABLE `standard_carcass_dimension_master` (
   `carcass_category` varchar(100) DEFAULT NULL COMMENT 'JAVA ENUM com.spacewood.digitalbusiness.standardcarcassdimension.CarcassCategory',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -559,7 +596,7 @@ CREATE TABLE `standard_carcass_dimension_master` (
 
 LOCK TABLES `standard_carcass_dimension_master` WRITE;
 /*!40000 ALTER TABLE `standard_carcass_dimension_master` DISABLE KEYS */;
-INSERT INTO `standard_carcass_dimension_master` VALUES (1,300,'WIDTH','WC',0),(2,400,'WIDTH','WC',0),(3,450,'WIDTH','WC',0),(4,500,'WIDTH','WC',0),(5,600,'WIDTH','WC',0),(6,750,'WIDTH','WC',0),(7,800,'WIDTH','WC',0),(8,900,'WIDTH','WC',0),(9,1050,'WIDTH','WC',0),(10,150,'WIDTH','BC',0),(11,170,'WIDTH','BC',0),(12,200,'WIDTH','BC',0),(13,300,'WIDTH','BC',0),(14,400,'WIDTH','BC',0),(15,450,'WIDTH','BC',0),(16,500,'WIDTH','BC',0),(17,600,'WIDTH','BC',0),(18,750,'WIDTH','BC',0),(19,800,'WIDTH','BC',0),(20,900,'WIDTH','BC',0),(21,1050,'WIDTH','BC',0),(22,1000,'WIDTH','BC',0),(23,450,'WIDTH','TU',0),(24,600,'WIDTH','TU',0),(25,1050,'WIDTH','BB',0),(26,720,'HEIGHT','WC',0),(27,600,'HEIGHT','WC',0),(28,340,'HEIGHT','WC',0),(29,700,'HEIGHT','WC',0),(30,360,'HEIGHT','WC',0),(31,400,'HEIGHT','WC',0),(32,1300,'HEIGHT','WC',0),(33,350,'HEIGHT','WC',0),(34,1120,'HEIGHT','WC',0),(35,300,'HEIGHT','WC',0),(36,1200,'HEIGHT','WC',0),(37,1300,'HEIGHT','WC',0),(38,720,'HEIGHT','BC',0),(39,700,'HEIGHT','BC',0),(40,1260,'HEIGHT','TU',0),(41,1320,'HEIGHT','TU',0),(42,1900,'HEIGHT','TU',0),(43,1920,'HEIGHT','TU',0),(44,2080,'HEIGHT','TU',0),(45,2020,'HEIGHT','TU',0),(46,1960,'HEIGHT','TU',0),(47,320,'DEPTH','WC',0),(48,300,'DEPTH','WC',0),(49,560,'DEPTH','BC',0),(50,400,'DEPTH','BC',0),(51,580,'DEPTH','TU',0),(52,560,'DEPTH','TU',0),(53,560,'DEPTH','BB',0),(54,700,'HEIGHT','BB',0),(55,540,'HEIGHT','WC',0);
+INSERT INTO `standard_carcass_dimension_master` VALUES (1,300,'WIDTH','WC',0),(2,400,'WIDTH','WC',0),(3,450,'WIDTH','WC',0),(4,500,'WIDTH','WC',0),(5,600,'WIDTH','WC',0),(6,750,'WIDTH','WC',0),(7,800,'WIDTH','WC',0),(8,900,'WIDTH','WC',0),(9,1050,'WIDTH','WC',0),(10,150,'WIDTH','BC',0),(11,170,'WIDTH','BC',0),(12,200,'WIDTH','BC',0),(13,300,'WIDTH','BC',0),(14,400,'WIDTH','BC',0),(15,450,'WIDTH','BC',0),(16,500,'WIDTH','BC',0),(17,600,'WIDTH','BC',0),(18,750,'WIDTH','BC',0),(19,800,'WIDTH','BC',0),(20,900,'WIDTH','BC',0),(21,1050,'WIDTH','BC',0),(22,1000,'WIDTH','BC',0),(23,450,'WIDTH','TU',0),(24,600,'WIDTH','TU',0),(25,1050,'WIDTH','BB',0),(26,720,'HEIGHT','WC',0),(27,600,'HEIGHT','WC',0),(28,340,'HEIGHT','WC',0),(29,700,'HEIGHT','WC',0),(30,360,'HEIGHT','WC',0),(31,400,'HEIGHT','WC',0),(32,1300,'HEIGHT','WC',0),(33,350,'HEIGHT','WC',0),(34,1120,'HEIGHT','WC',0),(35,300,'HEIGHT','WC',0),(36,1200,'HEIGHT','WC',0),(37,1300,'HEIGHT','WC',0),(38,720,'HEIGHT','BC',0),(39,700,'HEIGHT','BC',0),(40,1260,'HEIGHT','TU',0),(41,1320,'HEIGHT','TU',0),(42,1900,'HEIGHT','TU',0),(43,1920,'HEIGHT','TU',0),(44,2080,'HEIGHT','TU',0),(45,2020,'HEIGHT','TU',0),(46,1960,'HEIGHT','TU',0),(47,320,'DEPTH','WC',0),(48,300,'DEPTH','WC',0),(49,560,'DEPTH','BC',0),(50,400,'DEPTH','BC',0),(51,580,'DEPTH','TU',0),(52,560,'DEPTH','TU',0),(53,560,'DEPTH','BB',0),(54,700,'HEIGHT','BB',0),(55,540,'HEIGHT','WC',0),(56,1000,'WIDTH','WC',0);
 /*!40000 ALTER TABLE `standard_carcass_dimension_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -640,4 +677,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-20 17:47:11
+-- Dump completed on 2017-11-25 12:22:27

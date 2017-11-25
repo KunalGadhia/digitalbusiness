@@ -114,10 +114,10 @@
                             <option value="">Select Sub Type</option>
                             <option ng-repeat="subType in carcassSubTypeList" value="{{subType.subTypeCode}}">{{subType.subType}}</option>
                         </select>
-<!--                        <select class="form-control" ng-model="editableCarcassDetail.stdCarcassPriceId">
-                            <option value="">Standard Carcass List</option>
-                            <option ng-repeat="stdList in carcassStdList" value="{{stdList.id}}">{{stdList.description}}</option>
-                        </select>-->
+                        <!--                        <select class="form-control" ng-model="editableCarcassDetail.stdCarcassPriceId">
+                                                    <option value="">Standard Carcass List</option>
+                                                    <option ng-repeat="stdList in carcassStdList" value="{{stdList.id}}">{{stdList.description}}</option>
+                                                </select>-->
                         <!--<input type="checkbox" class="form-control" style="height:25px" placeholder="Enter Shelf" ng-model="editableCarcassDetail.shelf">-->
                     </div>
                 </div>
@@ -727,10 +727,12 @@
             </table>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-lg btn-primary" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
-                <i class="fa fa-print"></i>
-                Generate Proforma Invoice
-            </button>
+            <a target="_blank" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
+                <button class="btn btn-lg btn-primary" >
+                    <i class="fa fa-print"></i>
+                    Generate Proforma Invoice
+                </button>
+            </a>
         </div>        
     </div>
 </div>

@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 angular.module('digitalbusiness.filters', [])
-    .filter('getById', function () {
+        .filter('getById', function () {
             return function (input, id) {
                 console.log("input in filter", input);
-                console.log("id in filter",id);
+                console.log("id in filter", id);
                 var i = 0, len = input.length;
                 for (; i < len; i++) {
                     if (+input[i].id === +id) {
@@ -17,9 +17,39 @@ angular.module('digitalbusiness.filters', [])
                 return null;
             };
         })
-    .filter('monthName', function () {
+        .filter('total', function () {
+            return function (input) {
+                var i = input instanceof Array ? input.length : 0;
+                var a = arguments.length;
+                if (a === 1 || i === 0)
+                    return i;
+                var keys = [];
+                while (a-- > 1) {
+                    var key = arguments[a].split('.');
+                    var property = getNestedPropertyByKey(input[0], key);
+                    if (isNaN(property))
+                        throw 'filter sumProduct can count only numeric values';
+                    keys.push(key);
+                }
+
+                var total = 0.00;
+                while (i--) {
+                    var product = 1;
+                    for (var k = 0; k < keys.length; k++)
+                        product *= getNestedPropertyByKey(input[i], keys[k]);
+                    total += product;
+                }
+                return total;
+                function getNestedPropertyByKey(data, key) {
+                    for (var j = 0; j < key.length; j++)
+                        data = data[key[j]];
+                    return data;
+                }
+            };
+        })
+        .filter('monthName', function () {
             return function (monthName) {
-                        console.log("monthName",monthName);
+                console.log("monthName", monthName);
                 switch (monthName) {
                     case 1 :
                         //console.log("monthNamecase",monthName);
