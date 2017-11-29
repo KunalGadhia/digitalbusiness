@@ -13,7 +13,7 @@
     <div class="container no-padding">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
             <br>
-            <div class="col-lg-6 col-md-5 col-sm-6 col-xs-12" style="font-size: 12px">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="font-size: 12px">
                 Spacewood Furnishers Pvt Ltd. T-48, MIDC Hingna, Nagpur-16
                 <br>
                 Ph No : 07104-235968 / Fax No : 07104-232139 / Email : info@spacewood.in
@@ -87,7 +87,9 @@
                         <tr>
                             <th class="text-right">#</th>
                             <th>Product Code</th>
+                            <th>Description</th>
                             <th>Colors</th>
+                            <th>Section Profile</th>
                             <th>Shelf Count</th>
 <!--                            <th>Top Color</th>
                             <th>Bottom Color</th>                        -->
@@ -102,14 +104,26 @@
                     <tbody>
                         <tr ng-repeat="orderDetails in carcassDetailsList">
                             <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                            <td class="text-left">{{ orderDetails.productCode}}</td>                         
+                            <td class="text-left">{{ orderDetails.productCode}}</td>
                             <td class="text-left">
-                                <span ng-if="orderDetails.leftColorId !== null">Left :{{ orderDetails.leftColorObject.colorName}}</span>
+                                <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grainDirection}}</span>
+                            </td>
+                            <td class="text-left">
+                                <span>Internal Color :{{orderDetails.internalColorObject.colorName}}</span>
+                                <span ng-if="orderDetails.leftColorId !== null">| Left :{{ orderDetails.leftColorObject.colorName}}</span>
                                 <span ng-if="orderDetails.rightColorId !== null">| Right : {{ orderDetails.rightColorObject.colorName}}</span>
                                 <span ng-if="orderDetails.topColorId !== null">| Top : {{ orderDetails.topColorObject.colorName}}</span>
                                 <span ng-if="orderDetails.bottomColorId !== null">| Bottom : {{ orderDetails.bottomColorObject.colorName}}</span>
-                                <span ng-if="orderDetails.backColorId !== null">| Bottom : {{ orderDetails.backColorObject.colorName}}</span>
+                                <span ng-if="orderDetails.backColorId !== null">| Back : {{ orderDetails.backColorObject.colorName}}</span>
+                                <!--<span ng-if="orderDetails.sideMatching === 'NSM'">N/A</span>-->                                
                             </td>
+                            <td>
+                            <span ng-if="orderDetails.sectionProfileId !== null">{{orderDetails.sectionProfileObject.name}}</span>
+                            <span ng-if="orderDetails.sectionProfileId === null">N/A</span>
+                        </td>
                             <td class="text-left">{{orderDetails.shelfCount}}</td>
 <!--                            <td class="text-left">{{ orderDetails.rightColorObject.colorName}}</td> 
                             <td class="text-left">{{ orderDetails.topColorObject.colorName}}</td> 
@@ -124,8 +138,8 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="9" class="text-right">Total Amount :</th>
-                            <th class="text-left">&#8377; {{ carcassDetailsList | total:'price'}}</th>
+                            <th colspan="10" class="text-right">Total Order Amount :</th>
+                            <th colspan="2" class="text-right">&#8377; {{ carcassDetailsList | total:'price'}}</th>
                         </tr>
                     </tfoot>
                 </table>

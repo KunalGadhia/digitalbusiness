@@ -36,6 +36,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.finish_price_service',
     'digitalbusiness.services.section_profile',
     'digitalbusiness.services.carcass_subtype',
+    'digitalbusiness.services.panel_material_thickness',
 
 //    // directive services
 //    'safedeals.services.bank_addition',
@@ -58,6 +59,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.finish_price',
     'digitalbusiness.states.masters_section_profile',
     'digitalbusiness.states.carcass_subtype',
+    'digitalbusiness.states.panel_material_thickness',
 
     'digitalbusiness.states.auth'
 

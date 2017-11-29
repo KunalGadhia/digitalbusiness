@@ -1,0 +1,62 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="savePanelMaterialThickness(editablePanelMaterialThickness)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Panel Material Thickness Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Material</label>
+                                <select class="form-control" ng-model="editablePanelMaterialThickness.material" required="">
+                                    <option value="">Select Material</option>
+                                    <option ng-repeat="material in materialList" value="{{material.materialCode}}">{{material.material}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Thickness</label>
+                                <input class="form-control" type="number" step="any" placeholder="Thickness" ng-model="editablePanelMaterialThickness.thickness"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input class="form-control" type="number" step="any" ng-model="editablePanelMaterialThickness.price" required="">
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="row" ng-show="editableReason.repeatName">
+                        <div class="col-sm-6 text-danger">
+                            Found Records For Above Entered Name
+                        </div>
+                        <div class="col-sm-6">
+                            
+                        </div>                        
+                    </div>                    -->
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary">
+                            <i class="fa fa-save"></i>
+                            Save 
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

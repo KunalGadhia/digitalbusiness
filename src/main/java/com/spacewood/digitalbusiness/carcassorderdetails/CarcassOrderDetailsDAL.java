@@ -53,6 +53,7 @@ public class CarcassOrderDetailsDAL {
         public static final String SECTION_PROFILE_ID = "section_profile_id";
         public static final String SECTION_PROFILE_PRICE = "section_profile_price";
         public static final String CARCASS_SUB_TYPE = "carcass_sub_type";
+        public static final String GRAIN_DIRECTION = "grain_direction";
 
     }
 
@@ -94,7 +95,8 @@ public class CarcassOrderDetailsDAL {
                         Columns.FINISH_PRICE,
                         Columns.SECTION_PROFILE_ID,
                         Columns.SECTION_PROFILE_PRICE,
-                        Columns.CARCASS_SUB_TYPE
+                        Columns.CARCASS_SUB_TYPE,
+                        Columns.GRAIN_DIRECTION
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -182,6 +184,11 @@ public class CarcassOrderDetailsDAL {
         parameters.put(Columns.SECTION_PROFILE_ID, carcassOrderDetails.getSectionProfileId());
         parameters.put(Columns.SECTION_PROFILE_PRICE, carcassOrderDetails.getSectionProfilePrice());
         parameters.put(Columns.CARCASS_SUB_TYPE, carcassOrderDetails.getCarcassSubType());
+        if (carcassOrderDetails.getGrainDirection() == null) {
+            parameters.put(Columns.GRAIN_DIRECTION, carcassOrderDetails.getGrainDirection().NO_GRAIN);
+        } else {
+            parameters.put(Columns.GRAIN_DIRECTION, carcassOrderDetails.getGrainDirection().name());
+        }
 
         Number newId = insertCarcassOrderDetail.executeAndReturnKey(parameters);
         carcassOrderDetails = findById(newId.intValue());
@@ -222,7 +229,8 @@ public class CarcassOrderDetailsDAL {
                 + Columns.FINISH_PRICE + " = ?,"
                 + Columns.SECTION_PROFILE_ID + " = ?,"
                 + Columns.SECTION_PROFILE_PRICE + " = ?,"
-                + Columns.CARCASS_SUB_TYPE + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.CARCASS_SUB_TYPE + " = ?,"
+                + Columns.GRAIN_DIRECTION + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     carcassOrderDetails.getOrderHeadId(),
@@ -253,6 +261,7 @@ public class CarcassOrderDetailsDAL {
                     carcassOrderDetails.getSectionProfileId(),
                     carcassOrderDetails.getSectionProfilePrice(),
                     carcassOrderDetails.getCarcassSubType(),
+                    carcassOrderDetails.getGrainDirection().name(),
                     carcassOrderDetails.getId()
                 });
         carcassOrderDetails = findById(carcassOrderDetails.getId());

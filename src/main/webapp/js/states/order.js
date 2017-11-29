@@ -218,10 +218,10 @@ angular.module("digitalbusiness.states.order", [])
 
             $scope.openCarcass = function () {
                 KitchenComponentService.findByCategory({
-                    'category': 'CARCASE '
-                }, function (carcaseList) {
-                    console.log("Carcase List :%O", carcaseList);
-                    $scope.carcaseList1 = carcaseList;
+                    'category': 'CARCASS '
+                }, function (carcassList) {
+                    console.log("Carcass List :%O", carcassList);
+                    $scope.carcaseList1 = carcassList;
                 });
                 $scope.showCarcassSelectionWidget = true;
                 $scope.showPanelSelectionWidget = false;
@@ -351,7 +351,7 @@ angular.module("digitalbusiness.states.order", [])
                 KitchenComponentService.get({
                     'id': componentId
                 }, function (kcObject) {
-                    $scope.carcaseName = kcObject.component;
+                    $scope.carcassName = kcObject.component;
                     $scope.carcassComponent = kcObject.componentCode;
                 });
             };
@@ -562,6 +562,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.bbDepthList.push(std.stdValue);
                 });
             });
+            $scope.carcassGrainDirection = false;
             $scope.carcassLeftColor = false;
             $scope.carcassRightColor = false;
             $scope.carcassBackColor = false;
@@ -582,15 +583,17 @@ angular.module("digitalbusiness.states.order", [])
 //                console.log("CSTL :%O", carcassSubTypeList);
 //            });
             console.log("Carcass SUb Type List :%O", $scope.carcassSubTypeList);
-            $scope.$watch('carcaseName', function (carcassName) {
+            $scope.$watch('carcassName', function (carcassName) {
                 $scope.typeLike;
-                if (carcassName === "Wall Carcase") {
+                if (carcassName === "Wall Carcass") {
+                    console.log("WC");
                     $scope.carcassSubTypeList = CarcassSubtypeService.findByParentType({
                         'parentType': 'WC'
                     }, function (carcassSubTypeList) {
                         console.log("CSTL :%O", carcassSubTypeList);
                     });
                     $scope.typeLike = "Wall";
+
                     $scope.showSideMatching = true;
                     $scope.OSM = true;
                     $scope.BSM = true;
@@ -614,13 +617,14 @@ angular.module("digitalbusiness.states.order", [])
                         $scope.carcassStdList = stdList;
                     });
 
-                } else if (carcassName === "Base Carcase") {
+                } else if (carcassName === "Base Carcass") {
                     $scope.carcassSubTypeList = CarcassSubtypeService.findByParentType({
                         'parentType': 'BC'
                     }, function (carcassSubTypeList) {
                         console.log("CSTL :%O", carcassSubTypeList);
                     });
                     $scope.typeLike = "Base C";
+//                    $scope.editableCarcassDetail.shelf = 1;
                     $scope.showSideMatching = true;
                     $scope.OSM = true;
                     $scope.BSM = true;
@@ -643,13 +647,14 @@ angular.module("digitalbusiness.states.order", [])
                     }, function (stdList) {
                         $scope.carcassStdList = stdList;
                     });
-                } else if (carcassName === "Tall Carcase") {
+                } else if (carcassName === "Tall Carcass") {
                     $scope.carcassSubTypeList = CarcassSubtypeService.findByParentType({
                         'parentType': 'TU'
                     }, function (carcassSubTypeList) {
                         console.log("CSTL :%O", carcassSubTypeList);
                     });
                     $scope.typeLike = "Tall";
+//                    $scope.editableCarcassDetail.shelf = 5;
                     $scope.showSideMatching = true;
                     $scope.OSM = true;
                     $scope.BSM = true;
@@ -672,7 +677,7 @@ angular.module("digitalbusiness.states.order", [])
                     }, function (stdList) {
                         $scope.carcassStdList = stdList;
                     });
-                } else if (carcassName === "Base-Blind Carcase") {
+                } else if (carcassName === "Base-Blind Carcass") {
                     $scope.typeLike = "Base B";
                     $scope.showSideMatching = false;
 //                    $scope.carcassLeftColor = false;
@@ -719,8 +724,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showOSMBottom = false;
                     $scope.showASM = false;
                     $scope.showFSM = false;
-                    console.log("Carcass Name :%O", $scope.carcaseName);
-                    if ($scope.carcaseName === "Base Carcase" || $scope.carcaseName === "Sink Carcass" || $scope.carcaseName === "Microwave Carcase") {
+                    console.log("Carcass Name :%O", $scope.carcassName);
+                    if ($scope.carcassName === "Base Carcass" || $scope.carcassName === "Sink Carcass" || $scope.carcassName === "Microwave Carcass") {
                         if (sideMatching === "O") {
                             $scope.showOSM = true;
                             $scope.showOSMTop = false;
@@ -825,60 +830,70 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.$watch('editableCarcassDetail.sideSelection', function (selectedSide) {
                     console.log("Selected Side :%O", selectedSide);
                     if (selectedSide === "LSM") {
+                        $scope.carcassGrainDirection = true;
                         $scope.carcassLeftColor = true;
                         $scope.carcassRightColor = false;
                         $scope.carcassBackColor = false;
                         $scope.carcassTopColor = false;
                         $scope.carcassBottomColor = false;
                     } else if (selectedSide === "RSM") {
+                        $scope.carcassGrainDirection = true;
                         $scope.carcassLeftColor = false;
                         $scope.carcassRightColor = true;
                         $scope.carcassBackColor = false;
                         $scope.carcassTopColor = false;
                         $scope.carcassBottomColor = false;
                     } else if (selectedSide === "TSM") {
+                        $scope.carcassGrainDirection = true;
                         $scope.carcassLeftColor = false;
                         $scope.carcassRightColor = false;
                         $scope.carcassBackColor = false;
                         $scope.carcassTopColor = true;
                         $scope.carcassBottomColor = false;
                     } else if (selectedSide === "BSM") {
+                        $scope.carcassGrainDirection = true;
                         $scope.carcassLeftColor = false;
                         $scope.carcassRightColor = false;
                         $scope.carcassBackColor = false;
                         $scope.carcassTopColor = false;
                         $scope.carcassBottomColor = true;
                     } else if (selectedSide === "LRSM") {
+                        $scope.carcassGrainDirection = true;
                         $scope.carcassLeftColor = true;
                         $scope.carcassRightColor = true;
                         $scope.carcassBackColor = false;
                         $scope.carcassTopColor = false;
                         $scope.carcassBottomColor = false;
                     } else if (selectedSide === "LRTSM") {
+                        $scope.carcassGrainDirection = true;
                         $scope.carcassLeftColor = true;
                         $scope.carcassRightColor = true;
                         $scope.carcassBackColor = false;
                         $scope.carcassTopColor = true;
                         $scope.carcassBottomColor = false;
                     } else if (selectedSide === "LRBSM") {
+                        $scope.carcassGrainDirection = true;
                         $scope.carcassLeftColor = true;
                         $scope.carcassRightColor = true;
                         $scope.carcassBackColor = false;
                         $scope.carcassTopColor = false;
                         $scope.carcassBottomColor = true;
                     } else if (selectedSide === "ASM") {
+                        $scope.carcassGrainDirection = true;
                         $scope.carcassLeftColor = true;
                         $scope.carcassRightColor = true;
                         $scope.carcassBackColor = false;
                         $scope.carcassTopColor = true;
                         $scope.carcassBottomColor = true;
                     } else if (selectedSide === "FSM") {
+                        $scope.carcassGrainDirection = true;
                         $scope.carcassLeftColor = true;
                         $scope.carcassRightColor = true;
                         $scope.carcassBackColor = true;
                         $scope.carcassTopColor = true;
                         $scope.carcassBottomColor = true;
                     } else {
+                        $scope.carcassGrainDirection = false;
                         $scope.carcassLeftColor = false;
                         $scope.carcassRightColor = false;
                         $scope.carcassBackColor = false;
@@ -887,18 +902,28 @@ angular.module("digitalbusiness.states.order", [])
                     }
                 });
                 $scope.$watch('editableCarcassDetail.shelf', function (shelfValue) {
+                    console.log("Carcass Name :%O", $scope.carcassName);
                     if (shelfValue === true) {
                         StandardCarcassPriceService.findCarcassWithShelfByCT({
                             'carcassType': $scope.typeLike
                         }, function (stdListRefined) {
                             $scope.carcassStdList = stdListRefined;
                         });
+//                        $scope.editableCarcassDetail.shelf = '1';
+                        if ($scope.carcassName === "Wall Carcass") {
+                            $scope.editableCarcassDetail.shelfCount = 1;
+                        } else if ($scope.carcassName === "Base Carcass") {
+                            $scope.editableCarcassDetail.shelfCount = 1;
+                        } else if ($scope.carcassName === "Tall Carcass") {
+                            $scope.editableCarcassDetail.shelfCount = 5;
+                        }
                     } else if (shelfValue === false) {
                         StandardCarcassPriceService.findCarcassWithoutShelfByCT({
                             'carcassType': $scope.typeLike
                         }, function (stdListRefined) {
                             $scope.carcassStdList = stdListRefined;
                         });
+                        $scope.editableCarcassDetail.shelfCount = 0;
                     }
                 });
             });
@@ -2131,14 +2156,14 @@ angular.module("digitalbusiness.states.order", [])
 //                if()
 //                OrderDetailsService.save(orderDetail, function () {
 //                    $scope.editableCarcassDetail = "";
-//                    $scope.carcaseName = "";
+
 //                    $scope.refreshList();
 //                });
                 console.log("FInal Save :%O", orderDetail);
                 CarcassOrderDetailsService.save(orderDetail, function () {
                     console.log("Saved Successfully");
                     $scope.editableCarcassDetail = "";
-                    $scope.carcaseName = "";
+                    $scope.carcassName = "";
                     $scope.intColorName = "";
                     $scope.leftColorName = "";
                     $scope.rightColorName = "";
@@ -2450,13 +2475,32 @@ angular.module("digitalbusiness.states.order", [])
                     carcassDetailObject.bottomColorObject = ColorService.get({
                         'id': carcassDetailObject.bottomColorId
                     });
+                    carcassDetailObject.internalColorObject = ColorService.get({
+                        'id': carcassDetailObject.intColorId
+                    });
+                    if (carcassDetailObject.sectionProfileId !== 'NULL') {
+                        carcassDetailObject.sectionProfileObject = SectionProfileService.get({
+                            'id': carcassDetailObject.sectionProfileId
+                        });
+                    }
+                    carcassDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': carcassDetailObject.component
+                    });
+                    carcassDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': carcassDetailObject.material
+                    });
+                    if (carcassDetailObject.sideFinish !== '0') {
+                        carcassDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
+                            'finishCode': carcassDetailObject.sideFinish
+                        });
+                    }
                 });
             });
             ///////////////////End//////////////////////////////////////
 
         }
         )
-        .controller('ProformaInvoiceDisplayController', function (ColorService, CarcassOrderDetailsService ,SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('ProformaInvoiceDisplayController', function (SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
@@ -2497,8 +2541,27 @@ angular.module("digitalbusiness.states.order", [])
                     carcassDetailObject.backColorObject = ColorService.get({
                         'id': carcassDetailObject.backColorId
                     });
+                    if (carcassDetailObject.sectionProfileId !== 'NULL') {
+                        carcassDetailObject.sectionProfileObject = SectionProfileService.get({
+                            'id': carcassDetailObject.sectionProfileId
+                        });
+                    }
+
+                    carcassDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': carcassDetailObject.component
+                    });
+                    carcassDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': carcassDetailObject.material
+                    });
+                    if (carcassDetailObject.sideFinish !== '0') {
+                        carcassDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
+                            'finishCode': carcassDetailObject.sideFinish
+                        });
+                    }
+//                    console.log("KC Obj :%O", carcassDetailObject.kitchenComponentObject);
                 });
             });
+            console.log("Carcass Details List :%O", $scope.carcassDetailsList);
 //            OrderHeadService.get({
 //                'id': $stateParams.orderHeadId
 //            }, function (orderHeadObject) {

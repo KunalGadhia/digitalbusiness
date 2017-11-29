@@ -258,6 +258,7 @@
         <script src="${pageContext.request.contextPath}/js/states/finish_price.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/section_profile.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/carcass_subtype.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/panel_material_thickness.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
@@ -279,6 +280,7 @@
         <script src="${pageContext.request.contextPath}/js/services/finish_price_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/section_profile_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/carcass_subtype_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/panel_material_thickness_service.js"></script>
 
     </head>
     <body style="font-family: 'Roboto', sans-serif;">
