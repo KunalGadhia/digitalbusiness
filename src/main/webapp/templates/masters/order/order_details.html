@@ -679,15 +679,7 @@
                             </span>
                         </div>
                     </div>
-                </div>
-                <!--                <div class="col-sm-2">
-                                    <label>Length</label>
-                                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editablePelmetDetail.length" required="">
-                                </div>
-                                <div class="col-sm-2">
-                                    <label>Width</label>
-                                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editablePelmetDetail.width" required="">
-                                </div>-->
+                </div>       
             </div>
             <div class="row">
                 <div class="col-sm-3">
@@ -739,16 +731,66 @@
                     <label>Material</label>
                     <select class="form-control" ng-model="editableCorniceDetail.material" required="">
                         <option value="">Select Material</option>
-                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                        <option value="MF">Medium Density Fiber Board (MDF)</option>
+                        <option value="HF">High Density Fiber Board (HDF)</option>
+                        <!--                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>-->
                     </select>                    
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
+                    <label>Finish</label>
+                    <select class="form-control" ng-model="editableCorniceDetail.finish" required="">
+                        <option value="">Select Finish</option>
+                        <option ng-repeat="finish in corniceFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                    </select>                    
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Color</label>                    
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Color" ng-model="corniceColorName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openCorniceColorWidget()">Select Color</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>       
+                <!--                <div class="col-sm-3">
+                                    <label>Material</label>
+                                    <select class="form-control" ng-model="editableCorniceDetail.material" required="">
+                                        <option value="">Select Material</option>
+                                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                                    </select>                    
+                                </div>
+                                <div class="col-sm-2">
+                                    <label>Length</label>
+                                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableCorniceDetail.length" required="">
+                                </div>
+                                <div class="col-sm-2">
+                                    <label>Width</label>
+                                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableCorniceDetail.width" required="">
+                                </div>-->
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Thickness</label>
+                        <select class="form-control" ng-model="editableCorniceDetail.thickness" required="">
+                            <option value="">Select Thickness</option>
+                            <option ng-repeat="thickness in corniceThicknessList" value="{{thickness.thickness}}">{{thickness.thickness}} mm</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
                     <label>Length</label>
                     <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableCorniceDetail.length" required="">
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <label>Width</label>
                     <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableCorniceDetail.width" required="">
+                </div>
+                <div class="col-sm-3">
+                    <label>Quantity</label>
+                    <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editableCorniceDetail.quantity" required="">
                 </div>
             </div>
             <div class="modal-footer">
@@ -1045,6 +1087,61 @@
     </div>
     <div class="panel-heading text-center">
         <div>
+            <h3>Cornice Details List</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Colors</th>
+                        <th>Section Profile</th>
+                        <th>Shelf Count</th>                        
+                        <th>Thickness</th>
+                        <th>Width</th>
+                        <th>Length</th>
+                        <th>Depth</th>
+                        <th>Quantity</th>
+                        <th>Price (INR)</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetails in corniceDetailsList">
+                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <td class="text-left">{{ orderDetails.productCode}}</td>
+                        <td class="text-left">
+                            <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                            <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                            <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                            <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                        </td>
+                        <td class="text-left">
+                            <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
+                        </td>
+                        <td>N/A</td>                        
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{orderDetails.thickness}} mm</td>  
+                        <td class="text-left">{{ orderDetails.width}} mm</td>
+                        <td class="text-left">{{ orderDetails.length}} mm</td>
+                        <td class="text-left">N/A</td> 
+                        <td class="text-left">{{ orderDetails.quantity}}</td> 
+                        <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
+                        <td class="text-right">                            
+                            <a data-ui-sref="admin.masters_order_details.cornice_delete({ corniceDetailId: orderDetails.id})"
+                               class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-heading text-center">
+        <div>
             <h3>Order Details List</h3>
         </div>
         <div class="modal-body">
@@ -1108,7 +1205,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="carcaseList in carcaseList1 | groupBy:3">
+                <div class=row ng-repeat="carcaseList in carcaseList1| groupBy:3">
                     <div class="col-xs-4 letter-box" ng-repeat="carcase in carcaseList" >
                         <div>
                             <image class="text-center" ng-src="./rest/kitchen_component/{{carcase.id}}/attachment" width="150px" height="220px"/>
@@ -1137,7 +1234,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in sortedColorList1 | groupBy:6">
+                <div class=row ng-repeat="sortedColorList in sortedColorList1| groupBy:6">
                     <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
                         <div>
                             <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
@@ -1166,7 +1263,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="completeColorList in completeColors1 | groupBy:6">
+                <div class=row ng-repeat="completeColorList in completeColors1| groupBy:6">
                     <div class="col-xs-2 letter-box" ng-repeat="completeColor in completeColorList" >
                         <div>
                             <image class="text-center" ng-src="./rest/color/{{completeColor.id}}/attachment" width="50px" height="50px"/>
@@ -1197,7 +1294,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="panelList in panelList1 | groupBy:3">
+                <div class=row ng-repeat="panelList in panelList1| groupBy:3">
                     <div class="col-xs-4 letter-box" ng-repeat="panel in panelList" >
                         <div>
                             <image class="text-center" ng-src="./rest/kitchen_component/{{panel.id}}/attachment" width="150px" height="220px"/>
@@ -1226,7 +1323,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in sortedColorList1 | groupBy:6">
+                <div class=row ng-repeat="sortedColorList in sortedColorList1| groupBy:6">
                     <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
                         <div>
                             <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
@@ -1257,7 +1354,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="shutterList in shutterList1 | groupBy:3">
+                <div class=row ng-repeat="shutterList in shutterList1| groupBy:3">
                     <div class="col-xs-4 letter-box" ng-repeat="shutter in shutterList" >
                         <div>
                             <image class="text-center" ng-src="./rest/kitchen_component/{{shutter.id}}/attachment" width="150px" height="220px"/>
@@ -1288,7 +1385,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="drawerList in drawerList1 | groupBy:3">
+                <div class=row ng-repeat="drawerList in drawerList1| groupBy:3">
                     <div class="col-xs-4 letter-box" ng-repeat="drawer in drawerList" >
                         <div>
                             <image class="text-center" ng-src="./rest/kitchen_component/{{drawer.id}}/attachment" width="150px" height="220px"/>
@@ -1319,7 +1416,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="fillerList in fillerList1 | groupBy:3">
+                <div class=row ng-repeat="fillerList in fillerList1| groupBy:3">
                     <div class="col-xs-4 letter-box" ng-repeat="filler in fillerList" >
                         <div>
                             <image class="text-center" ng-src="./rest/kitchen_component/{{filler.id}}/attachment" width="150px" height="220px"/>
@@ -1348,7 +1445,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in fillerColors1 | groupBy:6">
+                <div class=row ng-repeat="sortedColorList in fillerColors1| groupBy:6">
                     <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
                         <div>
                             <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
@@ -1379,7 +1476,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="pelmetList in pelmetList1 | groupBy:3">
+                <div class=row ng-repeat="pelmetList in pelmetList1| groupBy:3">
                     <div class="col-xs-4 letter-box" ng-repeat="pelmet in pelmetList" >
                         <div>
                             <image class="text-center" ng-src="./rest/kitchen_component/{{pelmet.id}}/attachment" width="150px" height="220px"/>
@@ -1408,7 +1505,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in pelmetColors1 | groupBy:6">
+                <div class=row ng-repeat="sortedColorList in pelmetColors1| groupBy:6">
                     <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
                         <div>
                             <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
@@ -1439,7 +1536,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="corniceList in corniceList1 | groupBy:3">
+                <div class=row ng-repeat="corniceList in corniceList1| groupBy:3">
                     <div class="col-xs-4 letter-box" ng-repeat="cornice in corniceList" >
                         <div>
                             <image class="text-center" ng-src="./rest/kitchen_component/{{cornice.id}}/attachment" width="150px" height="220px"/>
@@ -1447,6 +1544,35 @@
                             <b class="text-center"> {{cornice.component}}</b>
                             <br>
                             <button class="next btn-next" ng-click="selectCornice(cornice.id)">Select Cornice({{cornice.componentCode}})</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showCorniceColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Cornice Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="sortedColorList in corniceColors1| groupBy:6">
+                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                            <br>
+                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectCorniceColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
                         </div>
                         <hr>
                     </div>
@@ -1470,7 +1596,7 @@
                 </span>
             </div>
             <div class="modal-body">
-                <div class=row ng-repeat="handleList in handleList1 | groupBy:3">
+                <div class=row ng-repeat="handleList in handleList1| groupBy:3">
                     <div class="col-xs-4 letter-box" ng-repeat="handle in handleList" >
                         <div>
                             <image class="text-center" ng-src="./rest/kitchen_component/{{handle.id}}/attachment" width="150px" height="220px"/>
