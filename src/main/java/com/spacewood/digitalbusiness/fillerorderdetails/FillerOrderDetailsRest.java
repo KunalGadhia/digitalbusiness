@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.spacewood.digitalbusiness.carcassorderdetails;
+package com.spacewood.digitalbusiness.fillerorderdetails;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -20,44 +20,46 @@ import org.springframework.web.bind.annotation.RestController;
  * @author webdesign
  */
 @RestController
-@RequestMapping("/carcass_order_details")
-public class CarcassOrderDetailsRest {
-    @Autowired
-    private CarcassOrderDetailsDAL carcassOrderDetailDAL;
-     
+@RequestMapping("/filler_order_details")
+public class FillerOrderDetailsRest {
+    
+  @Autowired
+    private FillerOrderDetailsDAL fillerOrderDetailDAL;
+    
     @RequestMapping(method = RequestMethod.GET)
-    public List<CarcassOrderDetails> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
-        return carcassOrderDetailDAL.findAll(offset);
+    public List<FillerOrderDetails> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
+        return fillerOrderDetailDAL.findAll(offset);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public CarcassOrderDetails findById(@PathVariable("id") Integer id) throws SQLException {
-        return carcassOrderDetailDAL.findById(id);
+    public FillerOrderDetails findById(@PathVariable("id") Integer id) throws SQLException {
+        return fillerOrderDetailDAL.findById(id);
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public CarcassOrderDetails insert(@RequestBody CarcassOrderDetails carcassOrderDetails) {
-        return carcassOrderDetailDAL.insert(carcassOrderDetails);
+    public FillerOrderDetails insert(@RequestBody FillerOrderDetails panelOrderDetails) {
+        return fillerOrderDetailDAL.insert(panelOrderDetails);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public CarcassOrderDetails update(@RequestBody CarcassOrderDetails carcassOrderDetails) {
-        return carcassOrderDetailDAL.update(carcassOrderDetails);
+    public FillerOrderDetails update(@RequestBody FillerOrderDetails panelOrderDetails) {
+        return fillerOrderDetailDAL.update(panelOrderDetails);
     }
 
 //    @RolesAllowed("ROLE_SUPER_ADMIN")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Integer id) throws Exception {
-        carcassOrderDetailDAL.delete(id);
+        fillerOrderDetailDAL.delete(id);
     }
     
     @RequestMapping(value = "/find_by/order_head", method = RequestMethod.GET)
-    public List<CarcassOrderDetails> findByOrderHeadId(@RequestParam("orderHeadId") Integer orderHeadId) {
-        return carcassOrderDetailDAL.findByOrderHeadId(orderHeadId);
+    public List<FillerOrderDetails> findByOrderHeadId(@RequestParam("orderHeadId") Integer orderHeadId) {
+        return fillerOrderDetailDAL.findByOrderHeadId(orderHeadId);
     }
     
     @RequestMapping(value = "/find_price_by/order_head", method = RequestMethod.GET)
     public Integer findPriceByOrderHeadId(@RequestParam("orderHeadId") Integer orderHeadId) {
-        return carcassOrderDetailDAL.findPriceByOrderHeadId(orderHeadId);
-    }
+        return fillerOrderDetailDAL.findPriceByOrderHeadId(orderHeadId);
+    }  
+    
 }

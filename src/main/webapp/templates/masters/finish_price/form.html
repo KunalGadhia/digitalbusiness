@@ -55,6 +55,30 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
+<!--                            <div class="col-sm-6">-->
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <!--<input class="form-control" placeholder="Material" ng-model="editableFinishPrice.material" required=""/>-->
+                                    <select class="form-control" ng-model="editableFinishPrice.category" required="">
+                                        <option value="">Select Finish Category</option>
+                                        <option value="PU">PU</option>
+                                        <option value="POLYMER">POLYMER</option>
+                                        <option value="ACRYLIC">ACRYLIC</option>
+                                        <option value="HPL">HPL</option>
+                                        <option value="MEMBRANE">MEMBRANE</option>
+                                    </select>
+                                </div>
+                            <!--</div>-->
+                        </div>
+                        <div class="col-sm-6">
+<!--                            <div class="form-group">
+                                <label>Price</label>
+                                <input type="number" class="form-control" placeholder="Price" ng-model="editableFinishPrice.price" required=""/>
+                            </div>-->
+                        </div>                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>For Carcass</label>
                                     <input type="checkbox" class="form-control" ng-model="editableFinishPrice.forCarcass"/>

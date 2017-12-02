@@ -67,6 +67,11 @@ public class PanelMaterialThicknessDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.MATERIAL + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{material}, new BeanPropertyRowMapper<>(PanelMaterialThickness.class));
     }
+    
+    public PanelMaterialThickness findByMaterialAndThickness(String material, Double thickness) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.MATERIAL + " = ? AND "+ Columns.THICKNESS +" = ?";
+        return jdbcTemplate.queryForObject(sqlQuery, new Object[]{material, thickness}, new BeanPropertyRowMapper<>(PanelMaterialThickness.class));
+    }
 
 //    public List<Reason> findByReasonLike(String reason) {
 //        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND lower(reason) LIKE?";

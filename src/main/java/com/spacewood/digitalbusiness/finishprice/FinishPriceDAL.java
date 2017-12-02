@@ -30,6 +30,7 @@ public class FinishPriceDAL {
         public static final String PRICE = "price";
         public static final String FOR_CARCASS = "for_carcass";
         public static final String FOR_SHUTTER = "for_shutter";
+        public static final String CATEGORY = "category";
         
     }
 
@@ -49,7 +50,8 @@ public class FinishPriceDAL {
                         Columns.FINISH_NAME,
                         Columns.PRICE,
                         Columns.FOR_CARCASS,
-                        Columns.FOR_SHUTTER
+                        Columns.FOR_SHUTTER,
+                        Columns.CATEGORY
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -112,6 +114,7 @@ public class FinishPriceDAL {
         parameters.put(Columns.PRICE, finishPrice.getPrice());
         parameters.put(Columns.FOR_CARCASS, finishPrice.getForCarcass());
         parameters.put(Columns.FOR_SHUTTER, finishPrice.getForShutter());
+        parameters.put(Columns.CATEGORY, finishPrice.getCategory().name());
         
         Number newId = insertFinishPrice.executeAndReturnKey(parameters);
         finishPrice = findById(newId.intValue());
@@ -130,7 +133,8 @@ public class FinishPriceDAL {
                 + Columns.MATERIAL_ID + " = ?,"
                 + Columns.PRICE + " = ?,"
                 + Columns.FOR_CARCASS + " = ?,"
-                + Columns.FOR_SHUTTER + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.FOR_SHUTTER + " = ?,"
+                + Columns.CATEGORY + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     finishPrice.getFinishName(),
@@ -139,6 +143,7 @@ public class FinishPriceDAL {
                     finishPrice.getPrice(),
                     finishPrice.getForCarcass(),
                     finishPrice.getForShutter(),
+                    finishPrice.getCategory().name(),
                     finishPrice.getId()
                 });
         finishPrice = findById(finishPrice.getId());

@@ -10,25 +10,26 @@ angular.module("digitalbusiness.services.panel_material_thickness")
                                 
                 'findAllList': {
                     'method': 'GET',
-                    'url': restRoot + '/reason/find_all_list',                    
+                    'url': restRoot + '/panel_material_thickness/find_all_list',                    
                     'isArray': true
                 },
                 'findByMaterial': {
                     'method': 'GET',
-                    'url': restRoot + '/reason/find/material',
+                    'url': restRoot + '/panel_material_thickness/find/material',
                     'params': {
                         'material': '@material'
                     },
                     'isArray': true
+                },
+                'findByMaterialAndThickness': {
+                    'method': 'GET',
+                    'url': restRoot + '/panel_material_thickness/find/material/thickness',                    
+                    'params': {
+                        'material': '@material',
+                        'thickness': '@thickness'
+                    },
+                    'isArray': false
                 }
-//                'findByReasonLike': {
-//                    'method': 'GET',
-//                    'url': restRoot + '/reason/find/reason_like',                    
-//                    'params': {
-//                        'reason': '@reason'
-//                    },
-//                    'isArray': true
-//                }
                 
             });
         });

@@ -281,6 +281,8 @@
         <script src="${pageContext.request.contextPath}/js/services/section_profile_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/carcass_subtype_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/panel_material_thickness_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/panel_order_details_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/filler_order_details_service.js"></script>
 
     </head>
     <body style="font-family: 'Roboto', sans-serif;">

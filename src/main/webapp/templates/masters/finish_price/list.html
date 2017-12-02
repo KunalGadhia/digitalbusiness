@@ -25,6 +25,7 @@
                 <th>Finish Code</th>
                 <th>Finish Name</th>
                 <th>Material</th>
+                <th>Category</th>
                 <th>Price</th>
                 <th class="text-right">Actions</th>
             </tr>
@@ -35,6 +36,7 @@
                 <td>{{finish.finishCode}}</td>
                 <td>{{ finish.finishName}}</td>   
                 <td>{{ finish.materialObject.material}}</td>
+                <td>{{ finish.category}}</td>
                 <td>{{ finish.price}}</td>
                 <td class="text-right">
                     <a data-ui-sref="admin.masters_finish_price.edit({ finishPriceId: finish.id })"

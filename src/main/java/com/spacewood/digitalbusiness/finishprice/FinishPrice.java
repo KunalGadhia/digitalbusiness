@@ -19,6 +19,7 @@ public class FinishPrice {
     private Double price;
     private Boolean forCarcass;
     private Boolean forShutter;
+    private FinishCategory category;
 
     public Integer getId() {
         return id;
@@ -76,16 +77,25 @@ public class FinishPrice {
         this.forShutter = forShutter;
     }
 
+    public FinishCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(FinishCategory category) {
+        this.category = category;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.finishCode);
-        hash = 37 * hash + Objects.hashCode(this.materialId);
-        hash = 37 * hash + Objects.hashCode(this.finishName);
-        hash = 37 * hash + Objects.hashCode(this.price);
-        hash = 37 * hash + Objects.hashCode(this.forCarcass);
-        hash = 37 * hash + Objects.hashCode(this.forShutter);
+        hash = 17 * hash + Objects.hashCode(this.id);
+        hash = 17 * hash + Objects.hashCode(this.finishCode);
+        hash = 17 * hash + Objects.hashCode(this.materialId);
+        hash = 17 * hash + Objects.hashCode(this.finishName);
+        hash = 17 * hash + Objects.hashCode(this.price);
+        hash = 17 * hash + Objects.hashCode(this.forCarcass);
+        hash = 17 * hash + Objects.hashCode(this.forShutter);
+        hash = 17 * hash + Objects.hashCode(this.category);
         return hash;
     }
 
@@ -122,12 +132,15 @@ public class FinishPrice {
         if (!Objects.equals(this.forShutter, other.forShutter)) {
             return false;
         }
+        if (this.category != other.category) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "FinishPrice{" + "id=" + id + ", finishCode=" + finishCode + ", materialId=" + materialId + ", finishName=" + finishName + ", price=" + price + ", forCarcass=" + forCarcass + ", forShutter=" + forShutter + '}';
+        return "FinishPrice{" + "id=" + id + ", finishCode=" + finishCode + ", materialId=" + materialId + ", finishName=" + finishName + ", price=" + price + ", forCarcass=" + forCarcass + ", forShutter=" + forShutter + ", category=" + category + '}';
     }
     
 }

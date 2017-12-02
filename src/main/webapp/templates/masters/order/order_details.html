@@ -74,7 +74,7 @@
         <div class="modal-body">
             <div class="btn-group btn-group-lg btn-group-justified">
                 <a ng-click="selectView('CARCASS')" class="btn btn-primary text-center">CARCASS</a>
-                <a ng-click="selectView('PANEL')" class="btn btn-primary text-center">PANEL</a>
+                <a ng-click="selectView('PANEL')" class="btn btn-primary text-center">PRELAM PANEL</a>
                 <a ng-click="selectView('SHUTTER')" class="btn btn-primary text-center">SHUTTER</a>
                 <a ng-click="selectView('DRAWER')" class="btn btn-primary text-center">DRAWER</a>
             </div>
@@ -189,11 +189,7 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>Internal Color</label>
-                        <!--                        <select class="form-control" ng-model="editableCarcassDetail.intColorId" required="">
-                                                    <option value="">Select Color</option>
-                                                    <option ng-repeat="color in sortedColorList" data-image="./rest/color/{{color.id}}/attachment" value="{{color.id}}">{{color.colorName}}</option>
-                                                </select>-->
+                        <label>Internal Color</label>                        
                         <div class="input-group">
                             <input class="form-control" placeholder="Select Internal Color" ng-model="intColorName" required="" readonly=""/>
                             <span class="input-group-btn">
@@ -416,28 +412,68 @@
         <form role="role" ng-submit="savePanelDetails(editablePanelDetail)">
             <div class="row">
                 <div class="col-sm-3">
-                    <label>Select Panel</label>
-                    <div class="input-group">
-                        <input class="form-control" placeholder="Select Panel" ng-model="panelName" required="" readonly=""/>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" ng-click="openPanel()">Select Panel</button>
-                        </span>
+                    <div class="form-group">
+                        <label>Select Panel</label>
+                        <!--<div class="input-group">-->
+                        <!--                        <input class="form-control" placeholder="Select Panel" ng-model="panelName" required="" readonly=""/>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary" type="button" ng-click="openPanel()">Select Panel</button>
+                                                </span>-->
+                        <select class="form-control" ng-model="editablePanelDetail.component" required="">
+                            <option value="">Select Prelam Panel</option>
+                            <option ng-repeat="panel in panelList1" value="{{panel.componentCode}}">{{panel.component}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <label>Material</label>
-                    <select class="form-control" ng-model="editablePanelDetail.material" required="">
-                        <option value="">Select Material</option>
-                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
-                    </select>                    
+                    <div class="form-group">
+                        <label>Material</label>
+                        <select class="form-control" ng-model="editablePanelDetail.material" required="">
+                            <option value="">Select Material</option>
+                            <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                        </select>               
+                    </div>
                 </div>
-                <div class="col-sm-2">
-                    <label>Length</label>
-                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editablePanelDetail.length" required="">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Color</label>                    
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Color" ng-model="panelColorName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openPanelColorWidget()">Select Internal Color</button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-2">
-                    <label>Width</label>
-                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editablePanelDetail.width" required="">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Thickness</label>
+                        <select class="form-control" ng-model="editablePanelDetail.thickness" required="">
+                            <option value="">Select Thickness</option>
+                            <option ng-repeat="thickness in panelThicknessList" value="{{thickness.thickness}}">{{thickness.thickness}} mm</option>
+                        </select>
+                    </div>
+                    <!--<input type="number" class="form-control" placeholder="Enter Length" ng-model="editablePanelDetail.length" required="">-->
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Width</label>
+                        <input type="number" class="form-control" placeholder="Enter Width" ng-model="editablePanelDetail.width" required="">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Length</label>
+                        <input type="number" class="form-control" placeholder="Enter Length" ng-model="editablePanelDetail.length" required="">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editablePanelDetail.quantity" required="">
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -533,13 +569,11 @@
         <form role="role" ng-submit="saveFillerDetails(editableFillerDetail)">
             <div class="row">
                 <div class="col-sm-3">
-                    <label>Select Filler</label>
-                    <div class="input-group">
-                        <input class="form-control" placeholder="Select Filler" ng-model="fillerName" required="" readonly=""/>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" ng-click="openFiller()">Select Filler</button>
-                        </span>
-                    </div>
+                    <label>Select Filler</label>                    
+                    <select class="form-control" ng-model="editableFillerDetail.component" required="">
+                        <option value="">Select Filler</option>
+                        <option ng-repeat="filler in fillerList1" value="{{filler.componentCode}}">{{filler.component}}</option>
+                    </select>
                 </div>
                 <div class="col-sm-3">
                     <label>Material</label>
@@ -548,13 +582,52 @@
                         <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
                     </select>                    
                 </div>
+                <div class="col-sm-3">
+                    <label>Finish</label>
+                    <select class="form-control" ng-model="editableFillerDetail.finish" required="">
+                        <option value="">Select Finish</option>
+                        <option ng-repeat="finish in fillerFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                    </select>                    
+                </div>
                 <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Color</label>                    
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Color" ng-model="fillerColorName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openFillerColorWidget()">Select Color</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1" ng-if="showFillerBsm">
+                    <div class="form-group">
+                        <label>Both Side</label>                                            
+                        <input type="checkbox" class="form-control" ng-model="editableFillerDetail.bsm"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Thickness</label>
+                        <select class="form-control" ng-model="editableFillerDetail.thickness" required="">
+                            <option value="">Select Thickness</option>
+                            <option ng-repeat="thickness in fillerThicknessList" value="{{thickness.thickness}}">{{thickness.thickness}} mm</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
                     <label>Length</label>
                     <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableFillerDetail.length" required="">
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <label>Width</label>
                     <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableFillerDetail.width" required="">
+                </div>
+                <div class="col-sm-3">
+                    <label>Quantity</label>
+                    <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editableFillerDetail.quantity" required="">
                 </div>
             </div>
             <div class="modal-footer">
@@ -572,7 +645,7 @@
         <form role="role" ng-submit="savePelmetDetails(editablePelmetDetail)">
             <div class="row">
                 <div class="col-sm-3">
-                    <label>Select Pelemt</label>
+                    <label>Select Pelmet</label>
                     <div class="input-group">
                         <input class="form-control" placeholder="Select Pelmet" ng-model="pelmetName" required="" readonly=""/>
                         <span class="input-group-btn">
@@ -717,11 +790,11 @@
                         <td class="text-right">{{ currentOffset + $index + 1}}</td>
                         <td class="text-left">{{ orderDetails.productCode}}</td>
                         <td class="text-left">
-                                <span>{{orderDetails.kitchenComponentObject.component}}</span>
-                                <span>in {{orderDetails.rawMaterialObject.material}}</span>
-                                <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
-                                <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grainDirection}}</span>
-                            </td>
+                            <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                            <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                            <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                            <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grainDirection}}</span>
+                        </td>
                         <td class="text-left">
                             <span>Internal Color :{{orderDetails.internalColorObject.colorName}}</span>
                             <span ng-if="orderDetails.leftColorId !== null">| Left :{{ orderDetails.leftColorObject.colorName}}</span>
@@ -729,7 +802,7 @@
                             <span ng-if="orderDetails.topColorId !== null">| Top : {{ orderDetails.topColorObject.colorName}}</span>
                             <span ng-if="orderDetails.bottomColorId !== null">| Bottom : {{ orderDetails.bottomColorObject.colorName}}</span>
                             <span ng-if="orderDetails.backColorId !== null">| Back : {{ orderDetails.backColorObject.colorName}}</span>
-<!--                            <span ng-if="orderDetails.intColorId === 'NSM'">N/A</span>-->
+                            <!--                            <span ng-if="orderDetails.intColorId === 'NSM'">N/A</span>-->
                         </td>
                         <td>
                             <span ng-if="orderDetails.sectionProfileId !== null">{{orderDetails.sectionProfileObject.name}}</span>
@@ -760,12 +833,117 @@
                 </tbody>
             </table>
         </div>
-        <!--        <div class="modal-footer">
-                    <button class="btn btn-lg btn-primary" data-ui-sref="proforma_invoice_print({ orderHeadId : orderHead.id})">
-                        <i class="fa fa-print"></i>
-                        Generate Proforma Invoice
-                    </button>
-                </div>        -->
+    </div>
+    <div class="panel-heading text-center">
+        <div>
+            <h3>Panel Details List</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Colors</th>
+                        <th>Section Profile</th>
+                        <th>Shelf Count</th>
+                        <!--                        <th>Right Color</th>
+                                                <th>Top Color</th>
+                                                <th>Bottom Color</th>                        -->
+                        <th>Thickness</th>
+                        <th>Width</th>
+                        <th>Length</th>
+                        <th>Depth</th>
+                        <th>Quantity</th>
+                        <th>Price (INR)</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetails in panelDetailsList">
+                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <td class="text-left">{{ orderDetails.productCode}}</td>
+                        <td class="text-left">
+                            <span>{{orderDetails.kitchenComponentObject.component}} Prelam Edge Binded Panels</span>
+                            <span>in {{orderDetails.rawMaterialObject.material}}</span>                            
+                        </td>
+                        <td class="text-left">
+                            <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
+                        </td>
+                        <td>N/A</td>                        
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{orderDetails.thickness}} mm</td>  
+                        <td class="text-left">{{ orderDetails.width}} mm</td>
+                        <td class="text-left">{{ orderDetails.length}} mm</td>
+                        <td class="text-left">N/A</td> 
+                        <td class="text-left">{{ orderDetails.quantity}}</td> 
+                        <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
+                        <td class="text-right">                            
+                            <a data-ui-sref="admin.masters_order_details.panel_delete({ panelDetailId: orderDetails.id})"
+                               class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-heading text-center">
+        <div>
+            <h3>Filler Details List</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Colors</th>
+                        <th>Section Profile</th>
+                        <th>Shelf Count</th>                        
+                        <th>Thickness</th>
+                        <th>Width</th>
+                        <th>Length</th>
+                        <th>Depth</th>
+                        <th>Quantity</th>
+                        <th>Price (INR)</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetails in fillerDetailsList">
+                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <td class="text-left">{{ orderDetails.productCode}}</td>
+                        <td class="text-left">
+                            <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                            <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                            <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                            <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                        </td>
+                        <td class="text-left">
+                            <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
+                        </td>
+                        <td>N/A</td>                        
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{orderDetails.thickness}} mm</td>  
+                        <td class="text-left">{{ orderDetails.width}} mm</td>
+                        <td class="text-left">{{ orderDetails.length}} mm</td>
+                        <td class="text-left">N/A</td> 
+                        <td class="text-left">{{ orderDetails.quantity}}</td> 
+                        <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
+                        <td class="text-right">                            
+                            <a data-ui-sref="admin.masters_order_details.filler_delete({ fillerDetailId: orderDetails.id})"
+                               class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="panel-heading text-center">
         <div>
@@ -937,6 +1115,35 @@
         </div>        
     </div>
 </div>
+<div class="modal modal-digitalbusiness" ng-if="showPanelColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Panel Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="sortedColorList in sortedColorList1| groupBy:6">
+                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                            <br>
+                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectPanelColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
 <!--/////////////Panel Selection Panel Ends/////////////////-->
 <!--/////////////Shutter Selection Panel//////////////////////-->
 <div class="modal modal-digitalbusiness" ng-if="showShutterSelectionWidget">
@@ -1022,6 +1229,35 @@
                             <b class="text-center"> {{filler.component}}</b>
                             <br>
                             <button class="next btn-next" ng-click="selectFiller(filler.id)">Select Filler({{filler.componentCode}})</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showFillerColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Filler Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="sortedColorList in fillerColors1| groupBy:6">
+                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                            <br>
+                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectFillerColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
                         </div>
                         <hr>
                     </div>

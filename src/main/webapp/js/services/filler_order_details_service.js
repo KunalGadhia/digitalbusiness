@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-angular.module("digitalbusiness.services.carcass_order_details_service", []);
-angular.module("digitalbusiness.services.carcass_order_details_service")
-        .factory('CarcassOrderDetailsService', function ($resource, restRoot, contextPath) {
-            return $resource(restRoot + '/carcass_order_details/:id', {'id': '@id'}, {
+angular.module("digitalbusiness.services.filler_order_details_service", []);
+angular.module("digitalbusiness.services.filler_order_details_service")
+        .factory('FillerOrderDetailsService', function ($resource, restRoot, contextPath) {
+            return $resource(restRoot + '/filler_order_details/:id', {'id': '@id'}, {
                 
                 'findByOrderHeadId': {
                     'method': 'GET',
-                    'url': restRoot + '/carcass_order_details/find_by/order_head',
+                    'url': restRoot + '/filler_order_details/find_by/order_head',
                     'params': {
                         'orderHeadId': '@orderHeadId'
                     },
@@ -18,7 +18,7 @@ angular.module("digitalbusiness.services.carcass_order_details_service")
                 },
                 'findPriceByOrderHeadId': {
                     'method': 'GET',
-                    'url': restRoot + '/carcass_order_details/find_price_by/order_head',
+                    'url': restRoot + '/filler_order_details/find_price_by/order_head',
                     'params': {
                         'orderHeadId': '@orderHeadId'
                     },

@@ -56,6 +56,11 @@ public class PanelMaterialThicknessRest {
         return panelMaterialThicknessDAL.findByMaterial(material);
     }
     
+    @RequestMapping(value = "/find/material/thickness", method = RequestMethod.GET)
+    public PanelMaterialThickness findByMaterialAndThickness(@RequestParam("material") String material, @RequestParam("thickness") Double thickness) throws Exception {
+        return panelMaterialThicknessDAL.findByMaterialAndThickness(material, thickness);
+    }
+    
 //    @RequestMapping(value = "/find/reason_like", method = RequestMethod.GET)
 //    public List<Reason> findByReasonLike(@RequestParam("reason") String reason) {
 //        return panelMaterialThicknessDAL.findByReasonLike(reason);

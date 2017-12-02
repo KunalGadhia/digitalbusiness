@@ -121,6 +121,11 @@ public class CarcassOrderDetailsDAL {
         return jdbcTemplate.query(sqlQuery, new Object[]{orderHeadId}, new BeanPropertyRowMapper<>(CarcassOrderDetails.class));
     }
 
+    public Integer findPriceByOrderHeadId(Integer orderHeadId) {
+        String sqlQuery = "SELECT sum(price) FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_HEAD_ID + " = ?";
+        return jdbcTemplate.queryForInt(sqlQuery, orderHeadId);
+    }
+
     public CarcassOrderDetails insert(CarcassOrderDetails carcassOrderDetails) {
         System.out.println("Insert Order Detail :" + carcassOrderDetails);
         Map<String, Object> parameters = new HashMap<>();

@@ -25,6 +25,16 @@ angular.module("digitalbusiness.states.order", [])
                 'templateUrl': templateRoot + '/masters/order/carcass_detail_delete.html',
                 'controller': 'CarcassDetailDeleteController'
             });
+            $stateProvider.state('admin.masters_order_details.panel_delete', {
+                'url': '/:panelDetailId/panel/delete',
+                'templateUrl': templateRoot + '/masters/order/panel_detail_delete.html',
+                'controller': 'PanelDetailDeleteController'
+            });
+            $stateProvider.state('admin.masters_order_details.filler_delete', {
+                'url': '/:fillerDetailId/filler/delete',
+                'templateUrl': templateRoot + '/masters/order/filler_detail_delete.html',
+                'controller': 'FillerDetailDeleteController'
+            });
 //            $stateProvider.state('admin.masters_sale_type.delete', {
 //                'url': '/:saleTypeId/delete',
 //                'templateUrl': templateRoot + '/masters/sale_type/delete.html',
@@ -84,7 +94,7 @@ angular.module("digitalbusiness.states.order", [])
 
 
         })
-        .controller('OrderDetailsController', function (RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
@@ -202,6 +212,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showPelmetSelectionWidget = false;
             $scope.showCorniceSelectionWidget = false;
             $scope.showHandleSelectionWidget = false;
+            $scope.showPanelColorSelectionWidget = false;
 
             $scope.closeWidget = function () {
                 $scope.showCarcassSelectionWidget = false;
@@ -213,6 +224,8 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showCorniceSelectionWidget = false;
                 $scope.showHandleSelectionWidget = false;
                 $scope.showCarcassColorSelectionWidget = false;
+                $scope.showPanelColorSelectionWidget = false;
+                $scope.showFillerColorSelectionWidget = false;
                 $scope.showCarcassSidesColorSelectionWidget = false;
             };
 
@@ -233,6 +246,12 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showHandleSelectionWidget = false;
 
             };
+            KitchenComponentService.findByCategory({
+                'category': 'PANEL '
+            }, function (panelList) {
+                console.log("Panel List :%O", panelList);
+                $scope.panelList1 = panelList;
+            });
             $scope.openPanel = function () {
                 KitchenComponentService.findByCategory({
                     'category': 'PANEL '
@@ -279,6 +298,11 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showCorniceSelectionWidget = false;
                 $scope.showHandleSelectionWidget = false;
             };
+            KitchenComponentService.findByCategory({
+                'category': 'FILLER'
+            }, function (fillerList) {
+                $scope.fillerList1 = fillerList;
+            });
             $scope.openFiller = function () {
                 KitchenComponentService.findByCategory({
                     'category': 'FILLER'
@@ -623,7 +647,7 @@ angular.module("digitalbusiness.states.order", [])
                     }, function (carcassSubTypeList) {
                         console.log("CSTL :%O", carcassSubTypeList);
                     });
-                    $scope.typeLike = "Base C";
+                    $scope.typeLike = "Base";
 //                    $scope.editableCarcassDetail.shelf = 1;
                     $scope.showSideMatching = true;
                     $scope.OSM = true;
@@ -918,6 +942,7 @@ angular.module("digitalbusiness.states.order", [])
                             $scope.editableCarcassDetail.shelfCount = 5;
                         }
                     } else if (shelfValue === false) {
+                        console.log("Type Like :%O", $scope.typeLike);
                         StandardCarcassPriceService.findCarcassWithoutShelfByCT({
                             'carcassType': $scope.typeLike
                         }, function (stdListRefined) {
@@ -1063,6 +1088,139 @@ angular.module("digitalbusiness.states.order", [])
 //            $scope.saveCarcassDetails = function (carcassDetails) {
 //                console.log("This are carcass details :%O", carcassDetails);
 //            };
+            ///////////////////////////////////////////////////////////////////
+            ////////////////////////Panel Form Functionality///////////////////
+            $scope.showPanelColorSelectionWidget = false;
+            $scope.openPanelColorWidget = function () {
+                $scope.showPanelColorSelectionWidget = true;
+            };
+
+            $scope.selectPanelColor = function (colorId, colorName) {
+                console.log(colorId);
+                $scope.closeWidget();
+                $scope.editablePanelDetail.colorId = colorId;
+                $scope.panelColorName = colorName;
+            };
+
+            $scope.$watch('editablePanelDetail.material', function (material) {
+                console.log("Material :%O", material);
+                $scope.panelColorName = "";
+                $scope.editablePanelDetail.colorId = "";
+                ColorConstraintService.findByMaterialCode({
+                    'materialCode': material
+                }, function (sortedColor) {
+                    console.log("Sorted COlor :%O", sortedColor);
+                    $scope.sortedColorList1 = [];
+                    angular.forEach(sortedColor.colors, function (colorId) {
+                        ColorService.get({
+                            'id': colorId
+                        }, function (colorObject) {
+                            $scope.sortedColorList1.push(colorObject);
+                        });
+                    });
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $scope.sortedColorList1 = [];
+                    } else if (response.status === 404) {
+                        $scope.sortedColorList1 = [];
+                    } else if (response.status === 400) {
+                        $scope.sortedColorList1 = [];
+                    }
+                });
+
+                PanelMaterialThicknessService.findByMaterial({
+                    'material': material
+                }, function (panelThicknessObject) {
+                    console.log("Panel Thickness Object :%O", panelThicknessObject);
+                    $scope.panelThicknessList = panelThicknessObject;
+                });
+
+
+            });
+
+            $scope.$watch('editablePanelDetail.thickness', function (thickness) {
+                console.log("Material :%O", $scope.editablePanelDetail.material);
+                console.log("Thickness :%O", thickness);
+                var material = $scope.editablePanelDetail.material;
+                PanelMaterialThicknessService.findByMaterialAndThickness({
+                    'material': material,
+                    'thickness': thickness
+                }, function (panelThicknessPrice) {
+                    $scope.editablePanelDetail.materialPrice = panelThicknessPrice.price;
+                    console.log("Price :%O", $scope.editablePanelDetail.materialPrice);
+                });
+            });
+
+            ///////////////////////////////////////////////////////////////////
+            //////////////////////Filler Form Functionality////////////////////
+            $scope.showFillerColorSelectionWidget = false;
+            $scope.openFillerColorWidget = function () {
+                $scope.showFillerColorSelectionWidget = true;
+            };
+
+            $scope.selectFillerColor = function (colorId, colorName) {
+                console.log(colorId);
+                $scope.closeWidget();
+                $scope.editableFillerDetail.colorId = colorId;
+                $scope.fillerColorName = colorName;
+            };
+
+            $scope.$watch('editableFillerDetail.material', function (material) {
+                console.log("Side Material :%O", material);
+                RawMaterialService.findByMaterialCode({
+                    'materialCode': material
+                }, function (materialObject) {
+                    console.log("Material Object :%O", materialObject);
+                    FinishPriceService.findCarcassFinishByMaterialId({
+                        'materialId': materialObject.id
+                    }, function (finishList) {
+                        console.log("FInish List :%O", finishList);
+                        $scope.fillerFinishList = finishList;
+                    });
+                });
+                PanelMaterialThicknessService.findByMaterial({
+                    'material': material
+                }, function (fillerThicknessObject) {
+                    console.log("Filler Thickness Object :%O", fillerThicknessObject);
+                    $scope.fillerThicknessList = fillerThicknessObject;
+                });
+            });
+            $scope.showFillerBsm = false;
+            $scope.$watch('editableFillerDetail.finish', function (finishName) {
+                console.log("FInish Name :%O", finishName);
+                FinishPriceService.findByFinishCode({
+                    'finishCode': finishName
+                }, function (finishObject) {
+                    console.log("Finish Object :%O", finishObject);
+                    $scope.editableFillerDetail.finishPrice = finishObject.price;
+                    if (finishObject.category === "PU" || finishObject.category === "MEMBRANE") {
+                        $scope.showFillerBsm = true;
+                    } else {
+                        $scope.showFillerBsm = false;
+                    }
+                });
+                ColorConstraintService.findByFinishCode({
+                    'finishCode': finishName
+                }, function (sortedColorObject) {
+                    console.log("Sorted COlor :%O", sortedColorObject);
+                    $scope.fillerColors1 = [];
+                    angular.forEach(sortedColorObject.colors, function (colorId) {
+                        ColorService.get({
+                            'id': colorId
+                        }, function (colorObject) {
+                            $scope.fillerColors1.push(colorObject);
+                        });
+                    });
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $scope.fillerColors1 = [];
+                    } else if (response.status === 404) {
+                        $scope.fillerColors1 = [];
+                    } else if (response.status === 400) {
+                        $scope.fillerColors1 = [];
+                    }
+                });
+            });
             ///////////////////////////////////////////////////////////////////
             function closestValue(num, arr) {
                 var curr = arr[0];
@@ -2177,7 +2335,7 @@ angular.module("digitalbusiness.states.order", [])
 
             };
             $scope.savePanelDetails = function (panelOrderDetail) {
-                panelOrderDetail.component = $scope.panelComponent;
+//                panelOrderDetail.component = $scope.panelComponent;
                 panelOrderDetail.depth = '0';
                 var l1;
                 var w1;
@@ -2208,13 +2366,21 @@ angular.module("digitalbusiness.states.order", [])
                     w1 = panelOrderDetail.width.toString();
                 }
 
-                var productCode = panelOrderDetail.component + "-18" + panelOrderDetail.material + "-" + l1 + "" + w1 + "18000";
+                var productCode = panelOrderDetail.component + "" + panelOrderDetail.thickness + "" + panelOrderDetail.material + "XXXX-" + l1 + "" + w1 + "" + panelOrderDetail.thickness + "000";
                 panelOrderDetail.productCode = productCode;
                 panelOrderDetail.orderHeadId = $stateParams.orderHeadId;
-                OrderDetailsService.save(panelOrderDetail, function () {
+                var basicArea = (panelOrderDetail.width * panelOrderDetail.length);
+                var basicAreaSqMt = basicArea / 1000000;
+                panelOrderDetail.price = (panelOrderDetail.quantity * (basicAreaSqMt * panelOrderDetail.materialPrice));
+                console.log("Panel Details :%O", panelOrderDetail);
+                PanelOrderDetailsService.save(panelOrderDetail, function () {
+                    console.log("Saved Successfully");
                     $scope.editablePanelDetail = "";
                     $scope.panelName = "";
-                    $scope.refreshList();
+//                    $scope.refreshList();
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
                 });
             };
             $scope.saveShutterDetails = function (shutterOrderDetail) {
@@ -2299,7 +2465,7 @@ angular.module("digitalbusiness.states.order", [])
             };
             $scope.saveFillerDetails = function (fillerOrderDetail) {
                 fillerOrderDetail.orderHeadId = $stateParams.orderHeadId;
-                fillerOrderDetail.component = $scope.fillerComponent;
+//                fillerOrderDetail.component = $scope.fillerComponent;
                 fillerOrderDetail.depth = '0';
                 var l1;
                 var w1;
@@ -2329,13 +2495,38 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     w1 = fillerOrderDetail.width.toString();
                 }
-                var productCode = fillerOrderDetail.component + "-18" + fillerOrderDetail.material + "-" + l1 + "" + w1 + "18000";
+
+                var fillerArea = (fillerOrderDetail.width * fillerOrderDetail.length);
+                var fillerAreaSqMt = fillerArea / 1000000;
+                console.log("Filler ARea :%O", fillerAreaSqMt);
+                console.log("Fille Order Detail :%O", fillerOrderDetail);
+                if (fillerOrderDetail.bsm !== undefined) {
+                    console.log("Both SIde Colored");
+                    fillerOrderDetail.price = (fillerOrderDetail.quantity * (2 * (fillerAreaSqMt * fillerOrderDetail.finishPrice)));
+                } else if (fillerOrderDetail.bsm === undefined) {
+                    console.log("Regular");
+                    fillerOrderDetail.price = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.finishPrice));
+                }
+                console.log("FInal Price :" + fillerOrderDetail.price);
+//                fillerOrderDetail.price = finalPrice;
+
+//                var productCode = fillerOrderDetail.component + "-18" + fillerOrderDetail.material + "-" + l1 + "" + w1 + "18000";
+                var productCode = fillerOrderDetail.component + "" + fillerOrderDetail.thickness + "" + fillerOrderDetail.material + "X" + fillerOrderDetail.finish + "-" + l1 + "" + w1 + "" + fillerOrderDetail.thickness + "000";
                 fillerOrderDetail.productCode = productCode;
-                OrderDetailsService.save(fillerOrderDetail, function () {
-                    $scope.editableFillerDetail = "";
-                    $scope.fillerName = "";
-                    $scope.refreshList();
+                console.log("Filler Save Object :%O", fillerOrderDetail);
+                FillerOrderDetailsService.save(fillerOrderDetail, function () {
+                    console.log("Saved Successfully");
+                    $scope.editablePanelDetail = "";
+                    $scope.fillerColorName = "";
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
                 });
+//                OrderDetailsService.save(fillerOrderDetail, function () {
+//                    $scope.editableFillerDetail = "";
+//                    $scope.fillerName = "";
+//                    $scope.refreshList();
+//                });
             };
             $scope.savePelmetDetails = function (pelmetOrderDetail) {
                 pelmetOrderDetail.orderHeadId = $stateParams.orderHeadId;
@@ -2496,12 +2687,48 @@ angular.module("digitalbusiness.states.order", [])
                     }
                 });
             });
+            $scope.panelDetailsList = PanelOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (panelOrderList) {
+                angular.forEach($scope.panelDetailsList, function (panelDetailObject) {
+                    panelDetailObject.colorObject = ColorService.get({
+                        'id': panelDetailObject.colorId
+                    });
+                    panelDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': panelDetailObject.component
+                    });
+                    panelDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': panelDetailObject.material
+                    });
+                });
+            });
+            $scope.fillerDetailsList = FillerOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (fillerOrderList) {
+                angular.forEach($scope.fillerDetailsList, function (fillerDetailObject) {
+                    fillerDetailObject.colorObject = ColorService.get({
+                        'id': fillerDetailObject.colorId
+                    });
+                    fillerDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': fillerDetailObject.component
+                    });
+                    fillerDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': fillerDetailObject.material
+                    });
+                    fillerDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
+                        'finishCode': fillerDetailObject.finish
+                    });
+                });
+            });
             ///////////////////End//////////////////////////////////////
 
         }
         )
-        .controller('ProformaInvoiceDisplayController', function (SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('ProformaInvoiceDisplayController', function (FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
+            var carcassTotalPrice = 0;
+            var panelTotalPrice = 0;
+            $scope.mainInvoiceList = [];
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderHeadObject) {
@@ -2558,10 +2785,68 @@ angular.module("digitalbusiness.states.order", [])
                             'finishCode': carcassDetailObject.sideFinish
                         });
                     }
+                    $scope.mainInvoiceList.push(carcassDetailObject);
 //                    console.log("KC Obj :%O", carcassDetailObject.kitchenComponentObject);
                 });
             });
-            console.log("Carcass Details List :%O", $scope.carcassDetailsList);
+            $scope.panelDetailsList = PanelOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (panelOrderList) {
+                angular.forEach($scope.panelDetailsList, function (panelDetailObject) {
+                    panelDetailObject.colorObject = ColorService.get({
+                        'id': panelDetailObject.colorId
+                    });
+                    panelDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': panelDetailObject.component
+                    });
+                    panelDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': panelDetailObject.material
+                    });
+                    $scope.mainInvoiceList.push(panelDetailObject);
+                });
+            });
+            $scope.fillerDetailsList = FillerOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (fillerOrderList) {
+                angular.forEach($scope.fillerDetailsList, function (fillerDetailObject) {
+                    fillerDetailObject.colorObject = ColorService.get({
+                        'id': fillerDetailObject.colorId
+                    });
+                    fillerDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': fillerDetailObject.component
+                    });
+                    fillerDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': fillerDetailObject.material
+                    });
+                    fillerDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
+                        'finishCode': fillerDetailObject.finish
+                    });
+                    $scope.mainInvoiceList.push(fillerDetailObject);
+                });
+            });
+//            $scope.carcassTotal = $filter('total')($scope.carcassDetailsList, 'price');
+//            console.log("Carcass Total :" + $scope.carcassTotal);
+
+//            $scope.carcassPrice = CarcassOrderDetailsService.findPriceByOrderHeadId({
+//                'orderHeadId': $stateParams.orderHeadId
+//            });
+//
+//            $scope.carcassPrice.$promise.then(function (cPrice) {
+//                console.log("Price After getting Resolved :%O", cPrice);
+//            });
+//            CarcassOrderDetailsService.findPriceByOrderHeadId({
+//                'orderHeadId': $stateParams.orderHeadId
+//            }, function (carcassPrice) {
+//                PanelOrderDetailsService.findPriceByOrderHeadId({
+//                    'orderHeadId': $stateParams.orderHeadId
+//                }, function (panelPrice) {
+//                    console.log("Carcass Price :"+carcassPrice);
+//                    console.log("Panel Price :"+panelPrice);
+//                    $scope.totalAmount = carcassPrice + panelPrice;
+//                });
+//            });            
+
+            console.log("Main Invoice List :%O", $scope.mainInvoiceList);
 //            OrderHeadService.get({
 //                'id': $stateParams.orderHeadId
 //            }, function (orderHeadObject) {
@@ -2582,6 +2867,32 @@ angular.module("digitalbusiness.states.order", [])
                 carcassOrderDetail.$delete(function () {
                     $state.go('admin.masters_order_details', {
                         'orderHeadId': $scope.editableCarcassDetail.orderHeadId
+                    }, {'reload': true});
+                });
+
+            };
+        })
+        .controller('PanelDetailDeleteController', function (PanelOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Panel:%O", $stateParams);
+            $scope.editablePanelDetail = PanelOrderDetailsService.get({'id': $stateParams.panelDetailId});
+            $scope.deletePanelDetail = function (panelOrderDetail) {
+                console.log("Panel Order Detail :%O", panelOrderDetail);
+                panelOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $scope.editablePanelDetail.orderHeadId
+                    }, {'reload': true});
+                });
+
+            };
+        })
+        .controller('FillerDetailDeleteController', function (FillerOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Panel:%O", $stateParams);
+            $scope.editableFillerDetail = FillerOrderDetailsService.get({'id': $stateParams.fillerDetailId});
+            $scope.deleteFillerDetail = function (fillerOrderDetail) {
+                console.log("Filler Order Detail :%O", fillerOrderDetail);
+                fillerOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $scope.editableFillerDetail.orderHeadId
                     }, {'reload': true});
                 });
 
