@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.spacewood.digitalbusiness.fillerorderdetails;
+package com.spacewood.digitalbusiness.pelmetorderdetails;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -20,46 +20,46 @@ import org.springframework.web.bind.annotation.RestController;
  * @author webdesign
  */
 @RestController
-@RequestMapping("/filler_order_details")
-public class FillerOrderDetailsRest {
+@RequestMapping("/pelmet_order_details")
+public class PelmetOrderDetailsRest {
 
     @Autowired
-    private FillerOrderDetailsDAL fillerOrderDetailDAL;
+    private PelmetOrderDetailsDAL pelmetOrderDetailDAL;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<FillerOrderDetails> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
-        return fillerOrderDetailDAL.findAll(offset);
+    public List<PelmetOrderDetails> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
+        return pelmetOrderDetailDAL.findAll(offset);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public FillerOrderDetails findById(@PathVariable("id") Integer id) throws SQLException {
-        return fillerOrderDetailDAL.findById(id);
+    public PelmetOrderDetails findById(@PathVariable("id") Integer id) throws SQLException {
+        return pelmetOrderDetailDAL.findById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public FillerOrderDetails insert(@RequestBody FillerOrderDetails panelOrderDetails) {
-        return fillerOrderDetailDAL.insert(panelOrderDetails);
+    public PelmetOrderDetails insert(@RequestBody PelmetOrderDetails pelmetOrderDetails) {
+        return pelmetOrderDetailDAL.insert(pelmetOrderDetails);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public FillerOrderDetails update(@RequestBody FillerOrderDetails panelOrderDetails) {
-        return fillerOrderDetailDAL.update(panelOrderDetails);
+    public PelmetOrderDetails update(@RequestBody PelmetOrderDetails pelmetOrderDetails) {
+        return pelmetOrderDetailDAL.update(pelmetOrderDetails);
     }
 
 //    @RolesAllowed("ROLE_SUPER_ADMIN")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Integer id) throws Exception {
-        fillerOrderDetailDAL.delete(id);
+        pelmetOrderDetailDAL.delete(id);
     }
 
     @RequestMapping(value = "/find_by/order_head", method = RequestMethod.GET)
-    public List<FillerOrderDetails> findByOrderHeadId(@RequestParam("orderHeadId") Integer orderHeadId) {
-        return fillerOrderDetailDAL.findByOrderHeadId(orderHeadId);
+    public List<PelmetOrderDetails> findByOrderHeadId(@RequestParam("orderHeadId") Integer orderHeadId) {
+        return pelmetOrderDetailDAL.findByOrderHeadId(orderHeadId);
     }
 
     @RequestMapping(value = "/find_price_by/order_head", method = RequestMethod.GET)
     public Integer findPriceByOrderHeadId(@RequestParam("orderHeadId") Integer orderHeadId) {
-        return fillerOrderDetailDAL.findPriceByOrderHeadId(orderHeadId);
+        return pelmetOrderDetailDAL.findPriceByOrderHeadId(orderHeadId);
     }
 
 }

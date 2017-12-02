@@ -39,6 +39,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.panel_material_thickness',
     'digitalbusiness.services.panel_order_details_service',
     'digitalbusiness.services.filler_order_details_service',
+    'digitalbusiness.services.pelmet_order_details_service',
 
 //    // directive services
 //    'safedeals.services.bank_addition',

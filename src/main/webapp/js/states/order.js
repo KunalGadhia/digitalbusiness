@@ -35,6 +35,11 @@ angular.module("digitalbusiness.states.order", [])
                 'templateUrl': templateRoot + '/masters/order/filler_detail_delete.html',
                 'controller': 'FillerDetailDeleteController'
             });
+            $stateProvider.state('admin.masters_order_details.pelmet_delete', {
+                'url': '/:pelmetDetailId/pelmet/delete',
+                'templateUrl': templateRoot + '/masters/order/pelmet_detail_delete.html',
+                'controller': 'PelmetDetailDeleteController'
+            });
 //            $stateProvider.state('admin.masters_sale_type.delete', {
 //                'url': '/:saleTypeId/delete',
 //                'templateUrl': templateRoot + '/masters/sale_type/delete.html',
@@ -94,7 +99,7 @@ angular.module("digitalbusiness.states.order", [])
 
 
         })
-        .controller('OrderDetailsController', function (FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
@@ -227,6 +232,7 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showPanelColorSelectionWidget = false;
                 $scope.showFillerColorSelectionWidget = false;
                 $scope.showCarcassSidesColorSelectionWidget = false;
+                $scope.showPelmetColorSelectionWidget = false;
             };
 
             $scope.openCarcass = function () {
@@ -1218,6 +1224,71 @@ angular.module("digitalbusiness.states.order", [])
                         $scope.fillerColors1 = [];
                     } else if (response.status === 400) {
                         $scope.fillerColors1 = [];
+                    }
+                });
+            });
+            ///////////////////////////////////////////////////////////////////
+            /////////////////Pelmet Form Functionality/////////////////////////
+            $scope.showPelmetColorSelectionWidget = false;
+            $scope.openPelmetColorWidget = function () {
+                $scope.showPelmetColorSelectionWidget = true;
+            };
+
+            $scope.selectPelmetColor = function (colorId, colorName) {
+                console.log(colorId);
+                $scope.closeWidget();
+                $scope.editablePelmetDetail.colorId = colorId;
+                $scope.pelmetColorName = colorName;
+            };
+
+            $scope.$watch('editablePelmetDetail.material', function (material) {
+                console.log("Side Material :%O", material);
+                RawMaterialService.findByMaterialCode({
+                    'materialCode': material
+                }, function (materialObject) {
+                    console.log("Material Object :%O", materialObject);
+                    FinishPriceService.findCarcassFinishByMaterialId({
+                        'materialId': materialObject.id
+                    }, function (finishList) {
+                        console.log("FInish List :%O", finishList);
+                        $scope.pelmetFinishList = finishList;
+                    });
+                });
+                PanelMaterialThicknessService.findByMaterial({
+                    'material': material
+                }, function (pelmetThicknessObject) {
+                    console.log("Pelmet Thickness Object :%O", pelmetThicknessObject);
+                    $scope.pelmetThicknessList = pelmetThicknessObject;
+                });
+            });
+            $scope.showFillerBsm = false;
+            $scope.$watch('editablePelmetDetail.finish', function (finishName) {
+                console.log("FInish Name :%O", finishName);
+                FinishPriceService.findByFinishCode({
+                    'finishCode': finishName
+                }, function (finishObject) {
+                    console.log("Finish Object :%O", finishObject);
+                    $scope.editablePelmetDetail.finishPrice = finishObject.price;
+                });
+                ColorConstraintService.findByFinishCode({
+                    'finishCode': finishName
+                }, function (sortedColorObject) {
+                    console.log("Sorted COlor :%O", sortedColorObject);
+                    $scope.pelmetColors1 = [];
+                    angular.forEach(sortedColorObject.colors, function (colorId) {
+                        ColorService.get({
+                            'id': colorId
+                        }, function (colorObject) {
+                            $scope.pelmetColors1.push(colorObject);
+                        });
+                    });
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $scope.pelmetColors1 = [];
+                    } else if (response.status === 404) {
+                        $scope.pelmetColors1 = [];
+                    } else if (response.status === 400) {
+                        $scope.pelmetColors1 = [];
                     }
                 });
             });
@@ -2560,13 +2631,27 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     w1 = pelmetOrderDetail.width.toString();
                 }
-                var productCode = pelmetOrderDetail.component + "-18" + pelmetOrderDetail.material + "-" + l1 + "" + w1 + "18000";
+                var pelmetArea = (pelmetOrderDetail.width * pelmetOrderDetail.length);
+                var pelmetAreaSqMt = pelmetArea / 1000000;
+                console.log("Pelmet Area :%O", pelmetAreaSqMt);
+                pelmetOrderDetail.price = (pelmetOrderDetail.quantity * (pelmetAreaSqMt * pelmetOrderDetail.finishPrice));
+                console.log("Pelmet Price :%O", pelmetOrderDetail.price);
+                var productCode = pelmetOrderDetail.component + "" + pelmetOrderDetail.thickness + "" + pelmetOrderDetail.material + "X" + pelmetOrderDetail.finish + "-" + l1 + "" + w1 + "" + pelmetOrderDetail.thickness + "000";
                 pelmetOrderDetail.productCode = productCode;
-                OrderDetailsService.save(pelmetOrderDetail, function () {
+                console.log("Pelmet Save Object :%O", pelmetOrderDetail);
+                PelmetOrderDetailsService.save(pelmetOrderDetail, function () {
+                    console.log("Saved Successfully");
                     $scope.editablePelmetDetail = "";
-                    $scope.pelmetName = "";
-                    $scope.refreshList();
+                    $scope.pelmetColorName = "";
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
                 });
+//                OrderDetailsService.save(pelmetOrderDetail, function () {
+//                    $scope.editablePelmetDetail = "";
+//                    $scope.pelmetName = "";
+//                    $scope.refreshList();
+//                });
             };
             $scope.saveCorniceDetails = function (corniceOrderDetail) {
                 corniceOrderDetail.orderHeadId = $stateParams.orderHeadId;
@@ -2720,11 +2805,29 @@ angular.module("digitalbusiness.states.order", [])
                     });
                 });
             });
+            $scope.pelmetDetailsList = PelmetOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (pelmetOrderList) {
+                angular.forEach($scope.pelmetDetailsList, function (pelmetDetailObject) {
+                    pelmetDetailObject.colorObject = ColorService.get({
+                        'id': pelmetDetailObject.colorId
+                    });
+                    pelmetDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': pelmetDetailObject.component
+                    });
+                    pelmetDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': pelmetDetailObject.material
+                    });
+                    pelmetDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
+                        'finishCode': pelmetDetailObject.finish
+                    });
+                });
+            });
             ///////////////////End//////////////////////////////////////
 
         }
         )
-        .controller('ProformaInvoiceDisplayController', function (FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+        .controller('ProformaInvoiceDisplayController', function (PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
             var carcassTotalPrice = 0;
             var panelTotalPrice = 0;
@@ -2824,6 +2927,25 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.mainInvoiceList.push(fillerDetailObject);
                 });
             });
+            $scope.pelmetDetailsList = PelmetOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (pelmetOrderList) {
+                angular.forEach($scope.pelmetDetailsList, function (pelmetDetailObject) {
+                    pelmetDetailObject.colorObject = ColorService.get({
+                        'id': pelmetDetailObject.colorId
+                    });
+                    pelmetDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': pelmetDetailObject.component
+                    });
+                    pelmetDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': pelmetDetailObject.material
+                    });
+                    pelmetDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
+                        'finishCode': pelmetDetailObject.finish
+                    });
+                    $scope.mainInvoiceList.push(pelmetDetailObject);
+                });
+            });
 //            $scope.carcassTotal = $filter('total')($scope.carcassDetailsList, 'price');
 //            console.log("Carcass Total :" + $scope.carcassTotal);
 
@@ -2893,6 +3015,19 @@ angular.module("digitalbusiness.states.order", [])
                 fillerOrderDetail.$delete(function () {
                     $state.go('admin.masters_order_details', {
                         'orderHeadId': $scope.editableFillerDetail.orderHeadId
+                    }, {'reload': true});
+                });
+
+            };
+        })
+        .controller('PelmetDetailDeleteController', function (PelmetOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Pelmet:%O", $stateParams);
+            $scope.editablePelmetDetail = PelmetOrderDetailsService.get({'id': $stateParams.pelmetDetailId});
+            $scope.deletePelmetDetail = function (pelmetOrderDetail) {
+                console.log("Filler Order Detail :%O", pelmetOrderDetail);
+                pelmetOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $scope.editablePelmetDetail.orderHeadId
                     }, {'reload': true});
                 });
 

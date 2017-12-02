@@ -180,6 +180,29 @@
                             <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
                         </tr>
                     </tbody>
+                    <tbody>
+                        <tr ng-repeat="orderDetails in pelmetDetailsList">
+                            <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                            <td class="text-left">{{ orderDetails.productCode}}</td>
+                            <td class="text-left">
+                                <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                            </td>
+                            <td class="text-left">
+                                <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
+                            </td>
+                            <td>N/A</td>                        
+                            <td class="text-left">N/A</td>
+                            <td class="text-left">{{orderDetails.thickness}} mm</td>  
+                            <td class="text-left">{{ orderDetails.width}} mm</td>
+                            <td class="text-left">{{ orderDetails.length}} mm</td>
+                            <td class="text-left">N/A</td> 
+                            <td class="text-left">{{ orderDetails.quantity}}</td> 
+                            <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
+                        </tr>
+                    </tbody>
                     <tfoot>
                         <tr>
                             <th colspan="10" class="text-right">Total Order Amount :</th>
