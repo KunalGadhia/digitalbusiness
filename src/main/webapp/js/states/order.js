@@ -2938,6 +2938,11 @@ angular.module("digitalbusiness.states.order", [])
             var carcassTotalPrice = 0;
             var panelTotalPrice = 0;
             $scope.mainInvoiceList = [];
+            if ($scope.mainInvoiceList.length === 0) {
+                console.log("Initial Length 0");
+                $scope.srNo = 0;
+            }
+
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderHeadObject) {
@@ -2962,6 +2967,8 @@ angular.module("digitalbusiness.states.order", [])
             }, function (carcassOrderList) {
                 console.log("Carcass Order List :%O", carcassOrderList);
                 angular.forEach($scope.carcassDetailsList, function (carcassDetailObject) {
+                    $scope.srNo = $scope.srNo + 1;
+                    carcassDetailObject.srNo = $scope.srNo;
                     carcassDetailObject.rightColorObject = ColorService.get({
                         'id': carcassDetailObject.rightColorId
                     });
@@ -2976,6 +2983,9 @@ angular.module("digitalbusiness.states.order", [])
                     });
                     carcassDetailObject.backColorObject = ColorService.get({
                         'id': carcassDetailObject.backColorId
+                    });
+                    carcassDetailObject.internalColorObject = ColorService.get({
+                        'id': carcassDetailObject.intColorId
                     });
                     if (carcassDetailObject.sectionProfileId !== 'NULL') {
                         carcassDetailObject.sectionProfileObject = SectionProfileService.get({
@@ -3002,6 +3012,8 @@ angular.module("digitalbusiness.states.order", [])
                 'orderHeadId': $stateParams.orderHeadId
             }, function (panelOrderList) {
                 angular.forEach($scope.panelDetailsList, function (panelDetailObject) {
+                    $scope.srNo = $scope.srNo + 1;
+                    panelDetailObject.srNo = $scope.srNo;
                     panelDetailObject.colorObject = ColorService.get({
                         'id': panelDetailObject.colorId
                     });
@@ -3018,6 +3030,8 @@ angular.module("digitalbusiness.states.order", [])
                 'orderHeadId': $stateParams.orderHeadId
             }, function (fillerOrderList) {
                 angular.forEach($scope.fillerDetailsList, function (fillerDetailObject) {
+                    $scope.srNo = $scope.srNo + 1;
+                    fillerDetailObject.srNo = $scope.srNo;
                     fillerDetailObject.colorObject = ColorService.get({
                         'id': fillerDetailObject.colorId
                     });
@@ -3037,6 +3051,8 @@ angular.module("digitalbusiness.states.order", [])
                 'orderHeadId': $stateParams.orderHeadId
             }, function (pelmetOrderList) {
                 angular.forEach($scope.pelmetDetailsList, function (pelmetDetailObject) {
+                    $scope.srNo = $scope.srNo + 1;
+                    pelmetDetailObject.srNo = $scope.srNo;
                     pelmetDetailObject.colorObject = ColorService.get({
                         'id': pelmetDetailObject.colorId
                     });
@@ -3056,6 +3072,8 @@ angular.module("digitalbusiness.states.order", [])
                 'orderHeadId': $stateParams.orderHeadId
             }, function (corniceOrderList) {
                 angular.forEach($scope.corniceDetailsList, function (corniceDetailObject) {
+                    $scope.srNo = $scope.srNo + 1;
+                    corniceDetailObject.srNo = $scope.srNo;
                     corniceDetailObject.colorObject = ColorService.get({
                         'id': corniceDetailObject.colorId
                     });

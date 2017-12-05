@@ -101,131 +101,195 @@
                             <th>Price (INR)</th>                            
                         </tr>
                     </thead>
+                    <!--                    <tbody>
+                                            <tr ng-repeat="orderDetails in carcassDetailsList">
+                                                <td class="text-right">{{orderDetails.srNo}}</td>
+                                                <td class="text-left">{{ orderDetails.productCode}}</td>
+                                                <td class="text-left">
+                                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                                    <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                                    <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grainDirection}}</span>
+                                                </td>
+                                                <td class="text-left">
+                                                    <span>Internal Color :{{orderDetails.internalColorObject.colorName}}</span>
+                                                    <span ng-if="orderDetails.leftColorId !== null">| Left :{{ orderDetails.leftColorObject.colorName}}</span>
+                                                    <span ng-if="orderDetails.rightColorId !== null">| Right : {{ orderDetails.rightColorObject.colorName}}</span>
+                                                    <span ng-if="orderDetails.topColorId !== null">| Top : {{ orderDetails.topColorObject.colorName}}</span>
+                                                    <span ng-if="orderDetails.bottomColorId !== null">| Bottom : {{ orderDetails.bottomColorObject.colorName}}</span>
+                                                    <span ng-if="orderDetails.backColorId !== null">| Back : {{ orderDetails.backColorObject.colorName}}</span>
+                                                    <span ng-if="orderDetails.sideMatching === 'NSM'">N/A</span>                                
+                                                </td>
+                                                <td>
+                                                    <span ng-if="orderDetails.sectionProfileId !== null">{{orderDetails.sectionProfileObject.name}}</span>
+                                                    <span ng-if="orderDetails.sectionProfileId === null">N/A</span>
+                                                </td>
+                                                <td class="text-left">{{orderDetails.shelfCount}}</td>
+                                                                        <td class="text-left">{{ orderDetails.rightColorObject.colorName}}</td> 
+                                                                            <td class="text-left">{{ orderDetails.topColorObject.colorName}}</td> 
+                                                                            <td class="text-left"></td> 
+                                                <td class="text-left">18 mm</td>  
+                                                <td class="text-left">{{ orderDetails.width}} mm</td>
+                                                <td class="text-left">{{ orderDetails.length}} mm</td>
+                                                <td class="text-left">{{ orderDetails.depth}} mm</td> 
+                                                <td class="text-left">{{ orderDetails.quantity}}</td> 
+                                                <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
+                                            </tr>
+                                        </tbody>
+                                        <tbody>
+                                            <tr ng-repeat="orderDetails in panelDetailsList">
+                                                <td class="text-right">{{orderDetails.srNo}}</td>
+                                                <td class="text-left">{{ orderDetails.productCode}}</td>
+                                                <td class="text-left">
+                                                    <span>{{orderDetails.kitchenComponentObject.component}} Prelam Edge Binded Panels</span>
+                                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>                            
+                                                </td>
+                                                <td class="text-left">
+                                                    <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
+                                                </td>
+                                                <td>N/A</td>                        
+                                                <td class="text-left">N/A</td>
+                                                <td class="text-left">{{orderDetails.thickness}} mm</td>  
+                                                <td class="text-left">{{ orderDetails.width}} mm</td>
+                                                <td class="text-left">{{ orderDetails.length}} mm</td>
+                                                <td class="text-left">N/A</td> 
+                                                <td class="text-left">{{ orderDetails.quantity}}</td> 
+                                                <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
+                                            </tr>
+                                        </tbody>
+                                        <tbody>
+                                            <tr ng-repeat="orderDetails in fillerDetailsList">
+                                                <td class="text-right">{{orderDetails.srNo}}</td>
+                                                <td class="text-left">{{ orderDetails.productCode}}</td>
+                                                <td class="text-left">
+                                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                                                </td>
+                                                <td class="text-left">
+                                                    <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
+                                                </td>
+                                                <td>N/A</td>                        
+                                                <td class="text-left">N/A</td>
+                                                <td class="text-left">{{orderDetails.thickness}} mm</td>  
+                                                <td class="text-left">{{ orderDetails.width}} mm</td>
+                                                <td class="text-left">{{ orderDetails.length}} mm</td>
+                                                <td class="text-left">N/A</td> 
+                                                <td class="text-left">{{ orderDetails.quantity}}</td> 
+                                                <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
+                                            </tr>
+                                        </tbody>
+                                        <tbody>
+                                            <tr ng-repeat="orderDetails in pelmetDetailsList">
+                                                <td class="text-right">{{orderDetails.srNo}}</td>
+                                                <td class="text-left">{{ orderDetails.productCode}}</td>
+                                                <td class="text-left">
+                                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                                                </td>
+                                                <td class="text-left">
+                                                    <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
+                                                </td>
+                                                <td>N/A</td>                        
+                                                <td class="text-left">N/A</td>
+                                                <td class="text-left">{{orderDetails.thickness}} mm</td>  
+                                                <td class="text-left">{{ orderDetails.width}} mm</td>
+                                                <td class="text-left">{{ orderDetails.length}} mm</td>
+                                                <td class="text-left">N/A</td> 
+                                                <td class="text-left">{{ orderDetails.quantity}}</td> 
+                                                <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
+                                            </tr>
+                                        </tbody>
+                                        <tbody>
+                                            <tr ng-repeat="orderDetails in corniceDetailsList">
+                                                <td class="text-right">{{orderDetails.srNo}}</td>
+                                                <td class="text-left">{{ orderDetails.productCode}}</td>
+                                                <td class="text-left">
+                                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                                                </td>
+                                                <td class="text-left">
+                                                    <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
+                                                </td>
+                                                <td>N/A</td>                        
+                                                <td class="text-left">N/A</td>
+                                                <td class="text-left">{{orderDetails.thickness}} mm</td>  
+                                                <td class="text-left">{{ orderDetails.width}} mm</td>
+                                                <td class="text-left">{{ orderDetails.length}} mm</td>
+                                                <td class="text-left">N/A</td> 
+                                                <td class="text-left">{{ orderDetails.quantity}}</td> 
+                                                <td class="text-left">&#8377;{{ orderDetails.price}}</td>                         
+                                            </tr>
+                                        </tbody>-->
+                    <!-- Trial Purpose ----------->
                     <tbody>
-                        <tr ng-repeat="orderDetails in carcassDetailsList">
-                            <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <tr ng-repeat="orderDetails in mainInvoiceList">
+                            <td class="text-right">{{orderDetails.srNo}}</td>
                             <td class="text-left">{{ orderDetails.productCode}}</td>
                             <td class="text-left">
-                                <span>{{orderDetails.kitchenComponentObject.component}}</span>
-                                <span>in {{orderDetails.rawMaterialObject.material}}</span>
-                                <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
-                                <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grainDirection}}</span>
+                                <span ng-if="orderDetails.grainDirection !== undefined">
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                    <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grainDirection}}</span>
+                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                                </span>
+                                <span ng-if="orderDetails.grainDirection === undefined && orderDetails.finish !== undefined">
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span ng-if="orderDetails.finish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                                </span>
+                                <span ng-if="orderDetails.grainDirection === undefined && orderDetails.finish === undefined">
+                                    <span>{{orderDetails.kitchenComponentObject.component}} Prelam Edge Binded Panels </span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>                                    
+                                </span>
                             </td>
                             <td class="text-left">
-                                <span>Internal Color :{{orderDetails.internalColorObject.colorName}}</span>
-                                <span ng-if="orderDetails.leftColorId !== null">| Left :{{ orderDetails.leftColorObject.colorName}}</span>
-                                <span ng-if="orderDetails.rightColorId !== null">| Right : {{ orderDetails.rightColorObject.colorName}}</span>
-                                <span ng-if="orderDetails.topColorId !== null">| Top : {{ orderDetails.topColorObject.colorName}}</span>
-                                <span ng-if="orderDetails.bottomColorId !== null">| Bottom : {{ orderDetails.bottomColorObject.colorName}}</span>
-                                <span ng-if="orderDetails.backColorId !== null">| Back : {{ orderDetails.backColorObject.colorName}}</span>
-                                <!--<span ng-if="orderDetails.sideMatching === 'NSM'">N/A</span>-->                                
+                                <span ng-if="orderDetails.colorId === undefined">
+                                    <span>Internal Color :{{orderDetails.internalColorObject.colorName}}</span>
+                                    <span ng-if="orderDetails.leftColorId !== null">| Left :{{ orderDetails.leftColorObject.colorName}}</span>
+                                    <span ng-if="orderDetails.rightColorId !== null">| Right : {{ orderDetails.rightColorObject.colorName}}</span>
+                                    <span ng-if="orderDetails.topColorId !== null">| Top : {{ orderDetails.topColorObject.colorName}}</span>
+                                    <span ng-if="orderDetails.bottomColorId !== null">| Bottom : {{ orderDetails.bottomColorObject.colorName}}</span>
+                                    <span ng-if="orderDetails.backColorId !== null">| Back : {{ orderDetails.backColorObject.colorName}}</span>
+                                    <span ng-if="orderDetails.sideMatching === 'NSM'">N/A</span>                                    
+                                </span>
+                                <span ng-if="orderDetails.colorId !== undefined">
+                                    <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
+                                </span>
+
                             </td>
                             <td>
                                 <span ng-if="orderDetails.sectionProfileId !== null">{{orderDetails.sectionProfileObject.name}}</span>
                                 <span ng-if="orderDetails.sectionProfileId === null">N/A</span>
+                                <span ng-if="orderDetails.sectionProfileId === undefined">N/A</span>
                             </td>
-                            <td class="text-left">{{orderDetails.shelfCount}}</td>
-                            <!--                        <td class="text-left">{{ orderDetails.rightColorObject.colorName}}</td> 
-                                                        <td class="text-left">{{ orderDetails.topColorObject.colorName}}</td> 
-                                                        <td class="text-left"></td> -->
-                            <td class="text-left">18 mm</td>  
+                            <td class="text-left">
+                                <span ng-if="orderDetails.shelfCount > 0"> {{orderDetails.shelfCount}}</span>
+                                <span ng-if="orderDetails.shelfCount === undefined">N/A</span>
+                            </td>
+                            <td class="text-left">
+                                <span ng-if="orderDetails.thickness === undefined">18 mm</span>
+                                <span ng-if="orderDetails.thickness !== undefined">{{orderDetails.thickness}} mm</span>
+                            </td>  
                             <td class="text-left">{{ orderDetails.width}} mm</td>
                             <td class="text-left">{{ orderDetails.length}} mm</td>
-                            <td class="text-left">{{ orderDetails.depth}} mm</td> 
+                            <td class="text-left">
+                                <span ng-if="orderDetails.depth > 0">{{ orderDetails.depth}} mm</span>
+                                <span ng-if="orderDetails.depth === undefined">N/A</span>
+                            </td> 
                             <td class="text-left">{{ orderDetails.quantity}}</td> 
                             <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
                         </tr>
                     </tbody>
-                    <tbody>
-                        <tr ng-repeat="orderDetails in panelDetailsList">
-                            <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                            <td class="text-left">{{ orderDetails.productCode}}</td>
-                            <td class="text-left">
-                                <span>{{orderDetails.kitchenComponentObject.component}} Prelam Edge Binded Panels</span>
-                                <span>in {{orderDetails.rawMaterialObject.material}}</span>                            
-                            </td>
-                            <td class="text-left">
-                                <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
-                            </td>
-                            <td>N/A</td>                        
-                            <td class="text-left">N/A</td>
-                            <td class="text-left">{{orderDetails.thickness}} mm</td>  
-                            <td class="text-left">{{ orderDetails.width}} mm</td>
-                            <td class="text-left">{{ orderDetails.length}} mm</td>
-                            <td class="text-left">N/A</td> 
-                            <td class="text-left">{{ orderDetails.quantity}}</td> 
-                            <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
-                        </tr>
-                    </tbody>
-                    <tbody>
-                        <tr ng-repeat="orderDetails in fillerDetailsList">
-                            <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                            <td class="text-left">{{ orderDetails.productCode}}</td>
-                            <td class="text-left">
-                                <span>{{orderDetails.kitchenComponentObject.component}}</span>
-                                <span>in {{orderDetails.rawMaterialObject.material}}</span>
-                                <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
-                                <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
-                            </td>
-                            <td class="text-left">
-                                <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
-                            </td>
-                            <td>N/A</td>                        
-                            <td class="text-left">N/A</td>
-                            <td class="text-left">{{orderDetails.thickness}} mm</td>  
-                            <td class="text-left">{{ orderDetails.width}} mm</td>
-                            <td class="text-left">{{ orderDetails.length}} mm</td>
-                            <td class="text-left">N/A</td> 
-                            <td class="text-left">{{ orderDetails.quantity}}</td> 
-                            <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
-                        </tr>
-                    </tbody>
-                    <tbody>
-                        <tr ng-repeat="orderDetails in pelmetDetailsList">
-                            <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                            <td class="text-left">{{ orderDetails.productCode}}</td>
-                            <td class="text-left">
-                                <span>{{orderDetails.kitchenComponentObject.component}}</span>
-                                <span>in {{orderDetails.rawMaterialObject.material}}</span>
-                                <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
-                                <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
-                            </td>
-                            <td class="text-left">
-                                <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
-                            </td>
-                            <td>N/A</td>                        
-                            <td class="text-left">N/A</td>
-                            <td class="text-left">{{orderDetails.thickness}} mm</td>  
-                            <td class="text-left">{{ orderDetails.width}} mm</td>
-                            <td class="text-left">{{ orderDetails.length}} mm</td>
-                            <td class="text-left">N/A</td> 
-                            <td class="text-left">{{ orderDetails.quantity}}</td> 
-                            <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
-                        </tr>
-                    </tbody>
-                    <tbody>
-                    <tr ng-repeat="orderDetails in corniceDetailsList">
-                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                        <td class="text-left">{{ orderDetails.productCode}}</td>
-                        <td class="text-left">
-                            <span>{{orderDetails.kitchenComponentObject.component}}</span>
-                            <span>in {{orderDetails.rawMaterialObject.material}}</span>
-                            <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
-                            <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
-                        </td>
-                        <td class="text-left">
-                            <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
-                        </td>
-                        <td>N/A</td>                        
-                        <td class="text-left">N/A</td>
-                        <td class="text-left">{{orderDetails.thickness}} mm</td>  
-                        <td class="text-left">{{ orderDetails.width}} mm</td>
-                        <td class="text-left">{{ orderDetails.length}} mm</td>
-                        <td class="text-left">N/A</td> 
-                        <td class="text-left">{{ orderDetails.quantity}}</td> 
-                        <td class="text-left">&#8377;{{ orderDetails.price}}</td>                         
-                    </tr>
-                </tbody>
+                    <!---- Trial Ends ------------>
                     <tfoot>
                         <tr>
                             <th colspan="10" class="text-right">Total Order Amount :</th>

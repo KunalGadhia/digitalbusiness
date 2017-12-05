@@ -259,6 +259,7 @@
         <script src="${pageContext.request.contextPath}/js/states/section_profile.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/carcass_subtype.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/panel_material_thickness.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/handle_price.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
@@ -285,6 +286,7 @@
         <script src="${pageContext.request.contextPath}/js/services/filler_order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/pelmet_order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/cornice_order_details_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/handle_price_service.js"></script>
 
     </head>
     <body style="font-family: 'Roboto', sans-serif;">

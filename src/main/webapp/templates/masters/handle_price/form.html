@@ -1,0 +1,65 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveHandlePrice(editableHandlePrice)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Handle Price Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Kitchen Component</label>
+                                <select class="form-control" ng-model="editableHandlePrice.kitchenComponent" required="">
+                                    <option value="">Select Kitchen Component</option>
+                                    <option ng-repeat="kitchenComponent in kitchenComponentList" value="{{kitchenComponent.componentCode}}">{{kitchenComponent.component}}</option>
+                                </select>
+                                <!--<input class="form-control" placeholder="Sub Type Name" ng-model="editableHandlePrice.subType" required=""/>-->
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Finish</label>
+                                <input class="form-control" placeholder="Finish" ng-model="editableHandlePrice.finish" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    <div class="row">
+                                            <div class="col-sm-6 text-danger" ng-show="editableHandlePrice.repeatName">
+                                                Found Records For Above Entered Name
+                                            </div>
+                                            <div class="col-sm-6 text-danger" ng-show="editableHandlePrice.repeatCode">
+                                                Repeat Material Code is not allowed.Enter unique code.
+                                            </div>
+                                        </div>-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>CD (in mm)</label>
+                            <input type="number" class="form-control" ng-model='editableHandlePrice.cd' required="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Price (INR)</label>
+                            <input type="number" ng-model="editableHandlePrice.price" required="">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

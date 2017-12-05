@@ -41,6 +41,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.filler_order_details_service',
     'digitalbusiness.services.pelmet_order_details_service',
     'digitalbusiness.services.cornice_order_details_service',
+    'digitalbusiness.services.handle_price',
 
 //    // directive services
 //    'safedeals.services.bank_addition',
@@ -64,6 +65,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.masters_section_profile',
     'digitalbusiness.states.carcass_subtype',
     'digitalbusiness.states.panel_material_thickness',
+    'digitalbusiness.states.handle_price',
 
     'digitalbusiness.states.auth'
 
