@@ -42,6 +42,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.pelmet_order_details_service',
     'digitalbusiness.services.cornice_order_details_service',
     'digitalbusiness.services.handle_price',
+    'digitalbusiness.services.handle_order_details_service',
 
 //    // directive services
 //    'safedeals.services.bank_addition',

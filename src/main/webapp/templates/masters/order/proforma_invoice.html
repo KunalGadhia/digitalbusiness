@@ -229,7 +229,7 @@
                     <!-- Trial Purpose ----------->
                     <tbody>
                         <tr ng-repeat="orderDetails in mainInvoiceList">
-                            <td class="text-right">{{orderDetails.srNo}}</td>
+                            <td class="text-right">{{$index + 1}}</td>
                             <td class="text-left">{{ orderDetails.productCode}}</td>
                             <td class="text-left">
                                 <span ng-if="orderDetails.grainDirection !== undefined">
@@ -239,7 +239,7 @@
                                     <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grainDirection}}</span>
                                     <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
                                 </span>
-                                <span ng-if="orderDetails.grainDirection === undefined && orderDetails.finish !== undefined">
+                                <span ng-if="orderDetails.grainDirection === undefined && orderDetails.finish !== undefined && orderDetails.width !== undefined">
                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
                                     <span ng-if="orderDetails.finish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
@@ -250,9 +250,13 @@
                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
                                     <span ng-if="orderDetails.bsm === true"> (Both Side)</span>                                    
                                 </span>
+                                <span ng-if="orderDetails.grainDirection === undefined && orderDetails.finish !== undefined && orderDetails.width === undefined">
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.finish}}</span> 
+                                </span>
                             </td>
                             <td class="text-left">
-                                <span ng-if="orderDetails.colorId === undefined">
+                                <span ng-if="orderDetails.intColorId !== undefined">
                                     <span>Internal Color :{{orderDetails.internalColorObject.colorName}}</span>
                                     <span ng-if="orderDetails.leftColorId !== null">| Left :{{ orderDetails.leftColorObject.colorName}}</span>
                                     <span ng-if="orderDetails.rightColorId !== null">| Right : {{ orderDetails.rightColorObject.colorName}}</span>
@@ -263,6 +267,9 @@
                                 </span>
                                 <span ng-if="orderDetails.colorId !== undefined">
                                     <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
+                                </span>
+                                <span ng-if="orderDetails.colorId === undefined">
+                                    <span>N/A</span>
                                 </span>
 
                             </td>
@@ -276,10 +283,14 @@
                                 <span ng-if="orderDetails.shelfCount === undefined">N/A</span>
                             </td>
                             <td class="text-left">
-                                <span ng-if="orderDetails.thickness === undefined">18 mm</span>
+                                <span ng-if="orderDetails.thickness === undefined && orderDetails.width !== undefined">18 mm</span>
                                 <span ng-if="orderDetails.thickness !== undefined">{{orderDetails.thickness}} mm</span>
+                                <span ng-if="orderDetails.thickness === undefined && orderDetails.width === undefined">N/A</span>
                             </td>  
-                            <td class="text-left">{{ orderDetails.width}} mm</td>
+                            <td class="text-left">
+                                <span ng-if="orderDetails.width !== undefined">{{ orderDetails.width}} mm</span>
+                                <span ng-if="orderDetails.width === undefined">N/A</span>
+                            </td>
                             <td class="text-left">{{ orderDetails.length}} mm</td>
                             <td class="text-left">
                                 <span ng-if="orderDetails.depth > 0">{{ orderDetails.depth}} mm</span>

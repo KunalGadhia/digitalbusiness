@@ -287,6 +287,7 @@
         <script src="${pageContext.request.contextPath}/js/services/pelmet_order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/cornice_order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/handle_price_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/handle_order_details_service.js"></script>
 
     </head>
     <body style="font-family: 'Roboto', sans-serif;">

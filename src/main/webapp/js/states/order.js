@@ -45,6 +45,11 @@ angular.module("digitalbusiness.states.order", [])
                 'templateUrl': templateRoot + '/masters/order/cornice_detail_delete.html',
                 'controller': 'CorniceDetailDeleteController'
             });
+            $stateProvider.state('admin.masters_order_details.handle_delete', {
+                'url': '/:handleDetailId/handle/delete',
+                'templateUrl': templateRoot + '/masters/order/handle_detail_delete.html',
+                'controller': 'HandleDetailDeleteController'
+            });
 //            $stateProvider.state('admin.masters_sale_type.delete', {
 //                'url': '/:saleTypeId/delete',
 //                'templateUrl': templateRoot + '/masters/sale_type/delete.html',
@@ -104,7 +109,7 @@ angular.module("digitalbusiness.states.order", [])
 
 
         })
-        .controller('OrderDetailsController', function (CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
@@ -1361,6 +1366,69 @@ angular.module("digitalbusiness.states.order", [])
                     } else if (response.status === 400) {
                         $scope.corniceColors1 = [];
                     }
+                });
+            });
+            ///////////////////////////////////////////////////////////////////
+            //////////////////Handle Form Functionality////////////////////////
+
+            $scope.$watch('handleName', function (handle) {
+                console.log("Handle :%O", handle);
+                console.log("Handle Component :%O", $scope.handleComponent);
+                $scope.showCD1 = false;
+                $scope.showCD2 = false;
+                if ($scope.handleComponent === "HAN-EP01") {
+                    $scope.showCD2 = true;
+                    $scope.showCD1 = false;
+                    $scope.handlePriceList = [];
+                    HandlePriceService.findByKitchenComponent({
+                        'kitchenComponent': $scope.handleComponent
+                    }, function (handlePriceList) {
+                        console.log("Handle Price List :%O", handlePriceList);
+                        angular.forEach(handlePriceList, function (hplObject) {
+                            $scope.handlePriceList.push(hplObject);
+                        });
+                    });
+                } else {
+                    $scope.showCD2 = false;
+                    $scope.showCD1 = true;
+                    $scope.handlePriceList = [];
+                    HandlePriceService.findByKitchenComponent({
+                        'kitchenComponent': $scope.handleComponent
+                    }, function (handlePriceList) {
+                        console.log("Handle Price List :%O", handlePriceList);
+                        angular.forEach(handlePriceList, function (hplObject) {
+                            $scope.handlePriceList.push(hplObject);
+                        });
+                    });
+                }
+            });
+            $scope.$watch('editableHandleDetail.length', function (cd) {
+                console.log("CD :%O", cd);
+                angular.forEach($scope.handlePriceList, function (handlePriceObject) {
+                    console.log("Handle Price Object :%O", handlePriceObject.cd);
+                    if (handlePriceObject.cd.toString() === cd.toString()) {
+                        $scope.mainHandleObject = handlePriceObject;
+                        console.log("Got the Object :%O", $scope.mainHandleObject);
+                        $scope.editableHandleDetail.finish = $scope.mainHandleObject.finish;
+                        $scope.editableHandleDetail.stdPrice = $scope.mainHandleObject.price;
+                    } else {
+                        console.log("Not My COncern ");
+                    }
+
+//                    if (handlePriceObject.cd.) {
+//                        $scope.mainHandleObject = handlePriceObject;
+
+//                    } else {
+//                        console.log("Not My Concern");
+//                    }
+                });
+            });
+            $scope.$watch('editableHandleDetail.handleType', function (handleType) {
+                HandlePriceService.get({
+                    'id': handleType
+                }, function (handlePriceObject) {
+                    $scope.editableHandleDetail.finish = handlePriceObject.finish;
+                    $scope.editableHandleDetail.stdPrice = handlePriceObject.price;
                 });
             });
             ///////////////////////////////////////////////////////////////////
@@ -2784,9 +2852,9 @@ angular.module("digitalbusiness.states.order", [])
             $scope.saveHandleDetails = function (handleOrderDetail) {
                 handleOrderDetail.orderHeadId = $stateParams.orderHeadId;
                 handleOrderDetail.component = $scope.handleComponent;
-                handleOrderDetail.depth = '0';
-                handleOrderDetail.width = '0';
-                handleOrderDetail.material = '';
+//                handleOrderDetail.depth = '0';
+//                handleOrderDetail.width = '0';
+//                handleOrderDetail.material = '';
                 var l1;
                 var lengthLessThan100 = function (inputNo) {
                     var genNum = "00" + inputNo.toString();
@@ -2801,12 +2869,22 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     l1 = handleOrderDetail.length.toString();
                 }
-                var productCode = handleOrderDetail.component + "" + handleOrderDetail.material + "" + l1 + "MM";
+                var productCode = handleOrderDetail.component + "XXXXXXXX-" + l1 + "MM";
                 handleOrderDetail.productCode = productCode;
-                OrderDetailsService.save(handleOrderDetail, function () {
+                if (handleOrderDetail.component === "HAN-EP01") {
+                    var meterLength = (handleOrderDetail.length / 1000);
+                    handleOrderDetail.price = (handleOrderDetail.quantity * (meterLength * handleOrderDetail.stdPrice));
+                } else {
+                    handleOrderDetail.price = (handleOrderDetail.quantity * handleOrderDetail.stdPrice);
+                }
+                console.log("Handle Save Object :%O", handleOrderDetail);
+                HandleOrderDetailsService.save(handleOrderDetail, function () {
+                    console.log("Saved Successfully");
                     $scope.editableHandleDetail = "";
                     $scope.handleName = "";
-                    $scope.refreshList();
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
                 });
             };
             ///////////////////End//////////////////////////////////////
@@ -2929,11 +3007,20 @@ angular.module("digitalbusiness.states.order", [])
                     });
                 });
             });
+            $scope.handleDetailsList = HandleOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (handleOrderList) {
+                angular.forEach($scope.handleDetailsList, function (handleDetailObject) {
+                    handleDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': handleDetailObject.component
+                    });
+                });
+            });
             ///////////////////End//////////////////////////////////////
 
         }
         )
-        .controller('ProformaInvoiceDisplayController', function (CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+        .controller('ProformaInvoiceDisplayController', function (HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
             var carcassTotalPrice = 0;
             var panelTotalPrice = 0;
@@ -3089,6 +3176,16 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.mainInvoiceList.push(corniceDetailObject);
                 });
             });
+            $scope.handleDetailsList = HandleOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (handleOrderList) {
+                angular.forEach($scope.handleDetailsList, function (handleDetailObject) {
+                    handleDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': handleDetailObject.component
+                    });
+                   $scope.mainInvoiceList.push(handleDetailObject); 
+                });
+            });
 //            $scope.carcassTotal = $filter('total')($scope.carcassDetailsList, 'price');
 //            console.log("Carcass Total :" + $scope.carcassTotal);
 
@@ -3184,6 +3281,19 @@ angular.module("digitalbusiness.states.order", [])
                 corniceOrderDetail.$delete(function () {
                     $state.go('admin.masters_order_details', {
                         'orderHeadId': $scope.editableCorniceDetail.orderHeadId
+                    }, {'reload': true});
+                });
+
+            };
+        })
+        .controller('HandleDetailDeleteController', function (HandleOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Pelmet:%O", $stateParams);
+            $scope.editableHandleDetail = HandleOrderDetailsService.get({'id': $stateParams.handleDetailId});
+            $scope.deleteHandleDetail = function (handleOrderDetail) {
+                console.log("Filler Order Detail :%O", handleOrderDetail);
+                handleOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $scope.editableHandleDetail.orderHeadId
                     }, {'reload': true});
                 });
 
