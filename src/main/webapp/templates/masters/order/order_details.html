@@ -491,29 +491,162 @@
         <form role="role" ng-submit="saveShutterDetails(editableShutterDetail)">
             <div class="row">
                 <div class="col-sm-3">
-                    <label>Select Shutter</label>
-                    <div class="input-group">
-                        <input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" readonly=""/>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" ng-click="openShutter()">Select Shutter</button>
-                        </span>
+                    <div class="form-group">
+                        <label>Finish</label>
+                        <select class="form-control" ng-model="editableShutterDetail.finish" required="">
+                            <option value="">Select Finish</option>
+                            <option ng-repeat="finish in shutterFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Color</label>                    
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Color" ng-model="shutterColorName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openShutterColorWidget()">Select Color</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1" ng-if="showShutterBsm">
+                    <div class="form-group">
+                        <label>Both Side</label>                                            
+                        <input type="checkbox" class="form-control" ng-model="editableShutterDetail.bsm"/>
+                    </div>
+                </div>
+                <div class="col-sm-3" ng-if="shutterModelSelection">
+                    <div class="form-group">
+                        <label>Select Shutter</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openShutter()">Select Shutter</button>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <label>Material</label>
-                    <select class="form-control" ng-model="editableShutterDetail.material" required="">
-                        <option value="">Select Material</option>
-                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
-                    </select>                    
+                    <div class="form-group">
+                        <label>Grain (Optional)</label>
+                        <select class="form-control" ng-model="editableShutterDetail.grain">
+                            <option value="">Select Grain Direction</option>
+                            <option value="HORIZONTAL">Horizontal</option>
+                            <option value="VERTICAL">Vertical</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-sm-2">
-                    <label>Length</label>
-                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableShutterDetail.length" required="">
+            </div>
+            <div class="row">
+                <!--                <div class="col-sm-3" ng-if="shutterModelSelection">
+                                    <div class="form-group">
+                                        <label>Select Shutter</label>
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" readonly=""/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="openShutter()">Select Shutter</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>-->
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Material</label>
+                        <input type="text" class="form-control" ng-model="shutterMaterialObject.material" required="" readonly="">
+                        <!--                        <select class="form-control" ng-model="editableShutterDetail.material" required="">
+                                                    <option value="">Select Material</option>
+                                                    <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                                                </select> -->
+                    </div>
                 </div>
-                <div class="col-sm-2">
-                    <label>Width</label>
-                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableShutterDetail.width" required="">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Thickness</label>
+                        <select class="form-control" ng-model="editableShutterDetail.thickness" required="">
+                            <option value="">Select Thickness</option>
+                            <option ng-repeat="shutterThickness in shutterThicknessList" value="{{shutterThickness.thickness}}">{{shutterThickness.thickness}} mm</option>
+                        </select>
+                    </div>
+                </div>      
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Length</label>
+                        <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableShutterDetail.length" required="">
+                    </div>
                 </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Width</label>
+                        <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableShutterDetail.width" required="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" class="form-control" ng-model="editableShutterDetail.quantity" required="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Select Handle</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Handle" ng-model="shutterHandleName" readonly=""/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openShutterHandle()">Select Handle</button>
+                        </span>
+                    </div>
+                </div>                
+                <div class="col-sm-3">
+                    <div ng-if="showShutterCD1">
+                        <label>Center Distance</label>
+                        <select class="form-control" ng-model="editableShutterDetail.handleLength">
+                            <option value="">Select Center Distance</option>
+                            <option ng-repeat="handlePrice in shutterHandlePriceList" value="{{handlePrice.cd}}">{{handlePrice.cd}} mm</option>
+                        </select>
+                    </div>
+                    <div ng-if="showShutterCD2">
+                        <label>Handle Type</label>
+                        <select class="form-control" ng-model="editableShutterDetail.shutterHandleType">
+                            <option value="">Select Handle Type</option>
+                            <option ng-repeat="handlePrice in shutterHandlePriceList" value="{{handlePrice.id}}">{{handlePrice.finish}}</option>
+                        </select>
+                    </div>                    
+                </div>
+                <div class="col-sm-3">
+                    <label>Finish</label>
+                    <input type="text" class="form-control" placeholder="Handle Finish" ng-model="editableShutterDetail.handleFinish"readonly="">
+                </div>
+                <div class="col-sm-3" ng-if="showShutterCD2">
+                    <div class="form-group">
+                        <label>Length</label>
+                        <input type="number" class="form-control" placeholder="Length" ng-model="editableShutterDetail.handleLength">
+                    </div>
+                </div>
+                <!--                <div class="col-sm-3">
+                                    <label>Quantity</label>
+                                    <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editableHandleDetail.quantity" required="">
+                                </div>                -->
+            </div>
+            <div class="row">
+                <!--<div class="col-sm-3" ng-show="whenIWant">-->
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="number" class="form-control" placeholder="Price" ng-model="editableShutterDetail.handlePrice" readonly="">
+                    </div>
+                </div>
+                <!--                <div class="col-sm-3" ng-if="showCD2">
+                                    <div class="form-group">
+                                        <label>Length</label>
+                                        <input type="number" class="form-control" placeholder="Length" ng-model="editableHandleDetail.length" required="">
+                                    </div>
+                                </div>-->
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-lg btn-primary">
@@ -1438,6 +1571,64 @@
                             <b class="text-center"> {{shutter.component}}</b>
                             <br>
                             <button class="next btn-next" ng-click="selectShutter(shutter.id)">Select Shutter({{shutter.componentCode}})</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showShutterColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Shutter Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="sortedColorList in shutterColors1| groupBy:6">
+                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                            <br>
+                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectShutterColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showShutterHandleSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Handle
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="handleList in shutterHandleList1| groupBy:3">
+                    <div class="col-xs-4 letter-box" ng-repeat="handle in handleList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/kitchen_component/{{handle.id}}/attachment" width="150px" height="220px"/>
+                            <br>
+                            <b class="text-center"> {{handle.component}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectShutterHandle(handle.id)">Select Handle({{handle.componentCode}})</button>
                         </div>
                         <hr>
                     </div>

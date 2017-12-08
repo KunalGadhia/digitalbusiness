@@ -43,6 +43,8 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.cornice_order_details_service',
     'digitalbusiness.services.handle_price',
     'digitalbusiness.services.handle_order_details_service',
+    'digitalbusiness.services.shutter_order_details_service',
+    'digitalbusiness.services.shutter_finish_price',
 
 //    // directive services
 //    'safedeals.services.bank_addition',
@@ -67,6 +69,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.carcass_subtype',
     'digitalbusiness.states.panel_material_thickness',
     'digitalbusiness.states.handle_price',
+    'digitalbusiness.states.shutter_finish_price',
 
     'digitalbusiness.states.auth'
 

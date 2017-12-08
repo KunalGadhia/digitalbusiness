@@ -53,7 +53,7 @@ public class CarcassOrderDetailsDAL {
         public static final String SECTION_PROFILE_ID = "section_profile_id";
         public static final String SECTION_PROFILE_PRICE = "section_profile_price";
         public static final String CARCASS_SUB_TYPE = "carcass_sub_type";
-        public static final String GRAIN_DIRECTION = "grain_direction";
+        public static final String GRAIN_DIRECTION = "grain";
 
     }
 

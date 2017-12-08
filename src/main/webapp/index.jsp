@@ -217,6 +217,7 @@
         <script type="text/javascript" src="https://spacewood.in/wp-includes/js/jquery/jquery.js?ver=1.12.4"></script>
         <script type="text/javascript" src="https://spacewood.in/wp-includes/js/jquery/jquery-migrate.js?ver=1.4.1"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
         <!-- Icons & Images -->
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/icons/spacew.ico">
@@ -260,6 +261,7 @@
         <script src="${pageContext.request.contextPath}/js/states/carcass_subtype.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/panel_material_thickness.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/handle_price.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/shutter_finish_price.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
@@ -288,6 +290,8 @@
         <script src="${pageContext.request.contextPath}/js/services/cornice_order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/handle_price_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/handle_order_details_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/shutter_order_details_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/shutter_finish_price_service.js"></script>
 
     </head>
     <body style="font-family: 'Roboto', sans-serif;">
