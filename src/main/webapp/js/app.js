@@ -45,6 +45,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.handle_order_details_service',
     'digitalbusiness.services.shutter_order_details_service',
     'digitalbusiness.services.shutter_finish_price',
+    'digitalbusiness.services.drawer_order_details_service',
 
 //    // directive services
 //    'safedeals.services.bank_addition',

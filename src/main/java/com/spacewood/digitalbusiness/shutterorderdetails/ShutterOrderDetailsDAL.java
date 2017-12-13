@@ -130,9 +130,9 @@ public class ShutterOrderDetailsDAL {
             parameters.put(Columns.BSM, shutterOrderDetails.getBsm());
         }
         if (shutterOrderDetails.getGrain() == null) {
-            parameters.put(CarcassOrderDetailsDAL.Columns.GRAIN_DIRECTION, GrainDirection.NO_GRAIN);
+            parameters.put(Columns.GRAIN, GrainDirection.NO_GRAIN);
         } else {
-            parameters.put(CarcassOrderDetailsDAL.Columns.GRAIN_DIRECTION, shutterOrderDetails.getGrain().name());
+            parameters.put(Columns.GRAIN, shutterOrderDetails.getGrain().name());
         }
         parameters.put(Columns.HANDLE, shutterOrderDetails.getHandle());
         parameters.put(Columns.HANDLE_LENGTH, shutterOrderDetails.getHandleLength());
