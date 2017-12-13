@@ -26,6 +26,7 @@ public class CorniceOrderDetails {
     private Double price;
     private Double finishPrice;
     private String finish;
+    private String orderFor;
 
     public Integer getId() {
         return id;
@@ -131,22 +132,31 @@ public class CorniceOrderDetails {
         this.finish = finish;
     }
 
+    public String getOrderFor() {
+        return orderFor;
+    }
+
+    public void setOrderFor(String orderFor) {
+        this.orderFor = orderFor;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        hash = 59 * hash + Objects.hashCode(this.productCode);
-        hash = 59 * hash + Objects.hashCode(this.material);
-        hash = 59 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 59 * hash + Objects.hashCode(this.component);
-        hash = 59 * hash + Objects.hashCode(this.width);
-        hash = 59 * hash + Objects.hashCode(this.length);
-        hash = 59 * hash + Objects.hashCode(this.thickness);
-        hash = 59 * hash + Objects.hashCode(this.quantity);
-        hash = 59 * hash + Objects.hashCode(this.colorId);
-        hash = 59 * hash + Objects.hashCode(this.price);
-        hash = 59 * hash + Objects.hashCode(this.finishPrice);
-        hash = 59 * hash + Objects.hashCode(this.finish);
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.productCode);
+        hash = 29 * hash + Objects.hashCode(this.material);
+        hash = 29 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 29 * hash + Objects.hashCode(this.component);
+        hash = 29 * hash + Objects.hashCode(this.width);
+        hash = 29 * hash + Objects.hashCode(this.length);
+        hash = 29 * hash + Objects.hashCode(this.thickness);
+        hash = 29 * hash + Objects.hashCode(this.quantity);
+        hash = 29 * hash + Objects.hashCode(this.colorId);
+        hash = 29 * hash + Objects.hashCode(this.price);
+        hash = 29 * hash + Objects.hashCode(this.finishPrice);
+        hash = 29 * hash + Objects.hashCode(this.finish);
+        hash = 29 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -172,6 +182,9 @@ public class CorniceOrderDetails {
             return false;
         }
         if (!Objects.equals(this.finish, other.finish)) {
+            return false;
+        }
+        if (!Objects.equals(this.orderFor, other.orderFor)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
@@ -206,8 +219,8 @@ public class CorniceOrderDetails {
 
     @Override
     public String toString() {
-        return "CorniceOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", finishPrice=" + finishPrice + ", finish=" + finish + '}';
-    }        
+        return "CorniceOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", finishPrice=" + finishPrice + ", finish=" + finish + ", orderFor=" + orderFor + '}';
+    }
     
     
 }

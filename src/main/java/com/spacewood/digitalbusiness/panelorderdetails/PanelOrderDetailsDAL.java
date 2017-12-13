@@ -36,6 +36,7 @@ public class PanelOrderDetailsDAL {
         public static final String QUANTITY = "quantity";
         public static final String PRICE = "price";
         public static final String MATERIAL_PRICE = "material_price";
+        public static final String ORDER_FOR = "order_for";
 
     }
 
@@ -60,7 +61,8 @@ public class PanelOrderDetailsDAL {
                         Columns.THICKNESS,
                         Columns.QUANTITY,
                         Columns.PRICE,
-                        Columns.MATERIAL_PRICE
+                        Columns.MATERIAL_PRICE,
+                        Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -84,7 +86,7 @@ public class PanelOrderDetailsDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_HEAD_ID + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{orderHeadId}, new BeanPropertyRowMapper<>(PanelOrderDetails.class));
     }
-    
+
     public Integer findPriceByOrderHeadId(Integer orderHeadId) {
         String sqlQuery = "SELECT sum(price) FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_HEAD_ID + " = ?";
         return jdbcTemplate.queryForInt(sqlQuery, orderHeadId);
@@ -104,6 +106,7 @@ public class PanelOrderDetailsDAL {
         parameters.put(Columns.QUANTITY, panelOrderDetails.getQuantity());
         parameters.put(Columns.PRICE, Math.round(panelOrderDetails.getPrice()));
         parameters.put(Columns.MATERIAL_PRICE, panelOrderDetails.getMaterialPrice());
+        parameters.put(Columns.ORDER_FOR, "PANEL");
 
         Number newId = insertPanelOrderDetail.executeAndReturnKey(parameters);
         panelOrderDetails = findById(newId.intValue());

@@ -50,6 +50,11 @@ angular.module("digitalbusiness.states.order", [])
                 'templateUrl': templateRoot + '/masters/order/handle_detail_delete.html',
                 'controller': 'HandleDetailDeleteController'
             });
+            $stateProvider.state('admin.masters_order_details.shutter_delete', {
+                'url': '/:shutterDetailId/shutter/delete',
+                'templateUrl': templateRoot + '/masters/order/shutter_detail_delete.html',
+                'controller': 'ShutterDetailDeleteController'
+            });            
 //            $stateProvider.state('admin.masters_sale_type.delete', {
 //                'url': '/:saleTypeId/delete',
 //                'templateUrl': templateRoot + '/masters/sale_type/delete.html',
@@ -3241,6 +3246,24 @@ angular.module("digitalbusiness.states.order", [])
                     });
                 });
             });
+            $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
+               'orderHeadId': $stateParams.orderHeadId 
+            }, function(sutterOrderList){
+                angular.forEach($scope.shutterDetailsList, function (shutterDetailObject) {
+                    shutterDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': shutterDetailObject.component
+                    });
+                    shutterDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': shutterDetailObject.material
+                    });
+                    shutterDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
+                        'finishCode': shutterDetailObject.finish
+                    });
+                    shutterDetailObject.colorObject = ColorService.get({
+                        'id': shutterDetailObject.colorId
+                    });
+                });
+            });
             ///////////////////End//////////////////////////////////////
 
         }
@@ -3411,6 +3434,25 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.mainInvoiceList.push(handleDetailObject);
                 });
             });
+            $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
+               'orderHeadId': $stateParams.orderHeadId 
+            }, function(sutterOrderList){
+                angular.forEach($scope.shutterDetailsList, function (shutterDetailObject) {
+                    shutterDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': shutterDetailObject.component
+                    });
+                    shutterDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': shutterDetailObject.material
+                    });
+                    shutterDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
+                        'finishCode': shutterDetailObject.finish
+                    });
+                    shutterDetailObject.colorObject = ColorService.get({
+                        'id': shutterDetailObject.colorId
+                    });
+                    $scope.mainInvoiceList.push(shutterDetailObject);
+                });
+            });
 //            $scope.carcassTotal = $filter('total')($scope.carcassDetailsList, 'price');
 //            console.log("Carcass Total :" + $scope.carcassTotal);
 
@@ -3515,10 +3557,23 @@ angular.module("digitalbusiness.states.order", [])
             console.log("What are STate Params Pelmet:%O", $stateParams);
             $scope.editableHandleDetail = HandleOrderDetailsService.get({'id': $stateParams.handleDetailId});
             $scope.deleteHandleDetail = function (handleOrderDetail) {
-                console.log("Filler Order Detail :%O", handleOrderDetail);
+                console.log("Handle Order Detail :%O", handleOrderDetail);
                 handleOrderDetail.$delete(function () {
                     $state.go('admin.masters_order_details', {
                         'orderHeadId': $scope.editableHandleDetail.orderHeadId
+                    }, {'reload': true});
+                });
+
+            };
+        })
+        .controller('ShutterDetailDeleteController', function (ShutterOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Pelmet:%O", $stateParams);
+            $scope.editableShutterDetail = ShutterOrderDetailsService.get({'id': $stateParams.shutterDetailId});
+            $scope.deleteShutterDetail = function (shutterOrderDetail) {
+                console.log("Shutter Order Detail :%O", shutterOrderDetail);
+                shutterOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $scope.editableShutterDetail.orderHeadId
                     }, {'reload': true});
                 });
 

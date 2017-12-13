@@ -22,6 +22,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ShutterOrderDetailsDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
@@ -42,9 +43,9 @@ public class ShutterOrderDetailsDAL {
         public static final String GRAIN = "grain";
         public static final String HANDLE = "handle";
         public static final String HANDLE_LENGTH = "handle_length";
-        public static final String HANDLE_FINISH = "handle_finish";        
+        public static final String HANDLE_FINISH = "handle_finish";
         public static final String HANDLE_PRICE = "handle_price";
-
+        public static final String ORDER_FOR = "order_for";
     }
 
     public static final String TABLE_NAME = "shutter_order_details";
@@ -76,7 +77,8 @@ public class ShutterOrderDetailsDAL {
                         Columns.HANDLE,
                         Columns.HANDLE_LENGTH,
                         Columns.HANDLE_FINISH,
-                        Columns.HANDLE_PRICE
+                        Columns.HANDLE_PRICE,
+                        Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -128,7 +130,7 @@ public class ShutterOrderDetailsDAL {
             parameters.put(Columns.BSM, shutterOrderDetails.getBsm());
         }
         if (shutterOrderDetails.getGrain() == null) {
-            parameters.put(CarcassOrderDetailsDAL.Columns.GRAIN_DIRECTION, shutterOrderDetails.getGrain().NO_GRAIN);
+            parameters.put(CarcassOrderDetailsDAL.Columns.GRAIN_DIRECTION, GrainDirection.NO_GRAIN);
         } else {
             parameters.put(CarcassOrderDetailsDAL.Columns.GRAIN_DIRECTION, shutterOrderDetails.getGrain().name());
         }
@@ -136,7 +138,8 @@ public class ShutterOrderDetailsDAL {
         parameters.put(Columns.HANDLE_LENGTH, shutterOrderDetails.getHandleLength());
         parameters.put(Columns.HANDLE_FINISH, shutterOrderDetails.getHandleFinish());
         parameters.put(Columns.HANDLE_PRICE, shutterOrderDetails.getHandlePrice());
-        
+        parameters.put(Columns.ORDER_FOR, "SHUTTER");
+
         Number newId = insertShutterOrderDetail.executeAndReturnKey(parameters);
         shutterOrderDetails = findById(newId.intValue());
         return shutterOrderDetails;

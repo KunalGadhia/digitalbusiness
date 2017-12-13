@@ -232,28 +232,72 @@
                             <td class="text-right">{{$index + 1}}</td>
                             <td class="text-left">{{ orderDetails.productCode}}</td>
                             <td class="text-left">
-                                <span ng-if="orderDetails.grainDirection !== undefined">
+                                <span ng-if="orderDetails.orderFor === 'CARCASS'">
                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
                                     <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
                                     <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grainDirection}}</span>
-                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
                                 </span>
-                                <span ng-if="orderDetails.grainDirection === undefined && orderDetails.finish !== undefined && orderDetails.width !== undefined">
+                                <span ng-if="orderDetails.orderFor === 'PANEL'">
+                                    <span>{{orderDetails.kitchenComponentObject.component}} Prelam Edge Binded Panels</span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'SHUTTER'">
+                                    <span>Shutter </span>
                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
-                                    <span ng-if="orderDetails.finish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                                    <span ng-if="orderDetails.grain !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grain}}</span>                            
+                                    <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'DRAWER'">
+
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'FILLER'">
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
                                     <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
                                 </span>
-                                <span ng-if="orderDetails.grainDirection === undefined && orderDetails.finish === undefined">
-                                    <span>{{orderDetails.kitchenComponentObject.component}} Prelam Edge Binded Panels </span>
-                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
-                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>                                    
-                                </span>
-                                <span ng-if="orderDetails.grainDirection === undefined && orderDetails.finish !== undefined && orderDetails.width === undefined">
+                                <span ng-if="orderDetails.orderFor === 'PELMET'">
                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
-                                    <span>in {{orderDetails.finish}}</span> 
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
                                 </span>
+                                <span ng-if="orderDetails.orderFor === 'CORNICE'">
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'HANDLE'">
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.finish}}</span>
+                                </span>
+                                <!--                                <span ng-if="orderDetails.grainDirection !== undefined">
+                                                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                                                    <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                                                    <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grainDirection}}</span>
+                                                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                                                                </span>
+                                                                <span ng-if="orderDetails.grainDirection === undefined && orderDetails.finish !== undefined && orderDetails.width !== undefined">
+                                                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                                                    <span ng-if="orderDetails.finish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                                                                </span>
+                                                                <span ng-if="orderDetails.grainDirection === undefined && orderDetails.finish === undefined">
+                                                                    <span>{{orderDetails.kitchenComponentObject.component}} Prelam Edge Binded Panels </span>
+                                                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>                                    
+                                                                </span>
+                                                                <span ng-if="orderDetails.grainDirection === undefined && orderDetails.finish !== undefined && orderDetails.width === undefined">
+                                                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                                                    <span>in {{orderDetails.finish}}</span> 
+                                                                </span>-->
                             </td>
                             <td class="text-left">
                                 <span ng-if="orderDetails.intColorId !== undefined">
@@ -263,14 +307,16 @@
                                     <span ng-if="orderDetails.topColorId !== null">| Top : {{ orderDetails.topColorObject.colorName}}</span>
                                     <span ng-if="orderDetails.bottomColorId !== null">| Bottom : {{ orderDetails.bottomColorObject.colorName}}</span>
                                     <span ng-if="orderDetails.backColorId !== null">| Back : {{ orderDetails.backColorObject.colorName}}</span>
-                                    <span ng-if="orderDetails.sideMatching === 'NSM'">N/A</span>                                    
+                                    <!--<span ng-if="orderDetails.sideMatching === 'NSM'">N/A</span>-->                                    
                                 </span>
                                 <span ng-if="orderDetails.colorId !== undefined">
                                     <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
                                 </span>
-                                <span ng-if="orderDetails.colorId === undefined">
+                                <span ng-if="orderDetails.orderFor === 'HANDLE'">
+                                    <span ng-if="orderDetails.colorId === undefined">
                                     <span>N/A</span>
                                 </span>
+                                </span>                                
 
                             </td>
                             <td>

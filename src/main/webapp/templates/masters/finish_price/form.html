@@ -40,7 +40,7 @@
                                     <label>Material</label>
                                     <!--<input class="form-control" placeholder="Material" ng-model="editableFinishPrice.material" required=""/>-->
                                     <select class="form-control" ng-model="editableFinishPrice.materialId" required="">
-                                        <option value="">Select Material</option>
+                                        <option value="">Select Material</option>                                        
                                         <option ng-repeat="material in materialList" value="{{material.id}}">{{material.material}}</option>
                                     </select>
                                 </div>
@@ -66,6 +66,7 @@
                                         <option value="ACRYLIC">ACRYLIC</option>
                                         <option value="HPL">HPL</option>
                                         <option value="MEMBRANE">MEMBRANE</option>
+                                        <option value="ALUMINIUM">ALUMINIUM</option>
                                     </select>
                                 </div>
                             <!--</div>-->

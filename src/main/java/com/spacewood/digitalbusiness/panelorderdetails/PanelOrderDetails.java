@@ -24,6 +24,7 @@ public class PanelOrderDetails {
     private Integer colorId;
     private Double price;
     private Double materialPrice;
+    private String orderFor;
 
     public Integer getId() {
         return id;
@@ -121,21 +122,30 @@ public class PanelOrderDetails {
         this.materialPrice = materialPrice;
     }
 
+    public String getOrderFor() {
+        return orderFor;
+    }
+
+    public void setOrderFor(String orderFor) {
+        this.orderFor = orderFor;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.id);
-        hash = 17 * hash + Objects.hashCode(this.productCode);
-        hash = 17 * hash + Objects.hashCode(this.material);
-        hash = 17 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 17 * hash + Objects.hashCode(this.component);
-        hash = 17 * hash + Objects.hashCode(this.width);
-        hash = 17 * hash + Objects.hashCode(this.length);
-        hash = 17 * hash + Objects.hashCode(this.thickness);
-        hash = 17 * hash + Objects.hashCode(this.quantity);
-        hash = 17 * hash + Objects.hashCode(this.colorId);
-        hash = 17 * hash + Objects.hashCode(this.price);
-        hash = 17 * hash + Objects.hashCode(this.materialPrice);
+        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.productCode);
+        hash = 71 * hash + Objects.hashCode(this.material);
+        hash = 71 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 71 * hash + Objects.hashCode(this.component);
+        hash = 71 * hash + Objects.hashCode(this.width);
+        hash = 71 * hash + Objects.hashCode(this.length);
+        hash = 71 * hash + Objects.hashCode(this.thickness);
+        hash = 71 * hash + Objects.hashCode(this.quantity);
+        hash = 71 * hash + Objects.hashCode(this.colorId);
+        hash = 71 * hash + Objects.hashCode(this.price);
+        hash = 71 * hash + Objects.hashCode(this.materialPrice);
+        hash = 71 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -158,6 +168,9 @@ public class PanelOrderDetails {
             return false;
         }
         if (!Objects.equals(this.component, other.component)) {
+            return false;
+        }
+        if (!Objects.equals(this.orderFor, other.orderFor)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
@@ -192,7 +205,7 @@ public class PanelOrderDetails {
 
     @Override
     public String toString() {
-        return "PanelOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", materialPrice=" + materialPrice + '}';
+        return "PanelOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", materialPrice=" + materialPrice + ", orderFor=" + orderFor + '}';
     }
         
 }

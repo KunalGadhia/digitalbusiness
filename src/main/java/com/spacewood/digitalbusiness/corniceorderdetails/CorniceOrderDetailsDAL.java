@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CorniceOrderDetailsDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
@@ -35,7 +36,8 @@ public class CorniceOrderDetailsDAL {
         public static final String QUANTITY = "quantity";
         public static final String PRICE = "price";
         public static final String FINISH_PRICE = "finish_price";
-        public static final String FINISH = "finish";        
+        public static final String FINISH = "finish";
+        public static final String ORDER_FOR = "order_for";
 
     }
 
@@ -61,7 +63,8 @@ public class CorniceOrderDetailsDAL {
                         Columns.QUANTITY,
                         Columns.PRICE,
                         Columns.FINISH_PRICE,
-                        Columns.FINISH                        
+                        Columns.FINISH,
+                        Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -105,7 +108,8 @@ public class CorniceOrderDetailsDAL {
         parameters.put(Columns.QUANTITY, corniceOrderDetails.getQuantity());
         parameters.put(Columns.PRICE, Math.round(corniceOrderDetails.getPrice()));
         parameters.put(Columns.FINISH_PRICE, corniceOrderDetails.getFinishPrice());
-        parameters.put(Columns.FINISH, corniceOrderDetails.getFinish());        
+        parameters.put(Columns.FINISH, corniceOrderDetails.getFinish());
+        parameters.put(Columns.ORDER_FOR, "CORNICE");
         Number newId = insertCorniceOrderDetail.executeAndReturnKey(parameters);
         corniceOrderDetails = findById(newId.intValue());
         return corniceOrderDetails;
@@ -128,7 +132,7 @@ public class CorniceOrderDetailsDAL {
                 + Columns.THICKNESS + " = ?,"
                 + Columns.QUANTITY + " = ?,"
                 + Columns.PRICE + " = ?,"
-                + Columns.FINISH_PRICE + " = ?,"                
+                + Columns.FINISH_PRICE + " = ?,"
                 + Columns.FINISH + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
@@ -143,7 +147,7 @@ public class CorniceOrderDetailsDAL {
                     corniceOrderDetails.getQuantity(),
                     corniceOrderDetails.getPrice(),
                     corniceOrderDetails.getFinishPrice(),
-                    corniceOrderDetails.getFinish(),                    
+                    corniceOrderDetails.getFinish(),
                     corniceOrderDetails.getId()
                 });
         corniceOrderDetails = findById(corniceOrderDetails.getId());

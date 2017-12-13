@@ -14,5 +14,6 @@ public enum FinishCategory {
     POLYMER,
     ACRYLIC,
     HPL,
-    MEMBRANE
+    MEMBRANE,
+    ALUMINIUM
 }

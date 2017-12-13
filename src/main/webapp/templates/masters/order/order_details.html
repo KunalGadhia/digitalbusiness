@@ -1133,6 +1133,64 @@
     </div>
     <div class="panel-heading text-center">
         <div>
+            <h3>Shutter Details List</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Colors</th>
+                        <th>Section Profile</th>
+                        <th>Shelf Count</th>
+                        <th>Thickness</th>
+                        <th>Width</th>
+                        <th>Length</th>
+                        <th>Depth</th>
+                        <th>Quantity</th>
+                        <th>Price (INR)</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetails in shutterDetailsList">
+                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <td class="text-left">{{ orderDetails.productCode}}</td>
+                        <td class="text-left">
+                            <span>Shutter </span>
+                            <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                            <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                            <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                            <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                            <span ng-if="orderDetails.grain !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grain}}</span>                            
+                            <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
+                        </td>
+                        <td class="text-left">
+                            <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
+                        </td>
+                        <td>N/A</td>                        
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{orderDetails.thickness}} mm</td>  
+                        <td class="text-left">{{ orderDetails.width}} mm</td>
+                        <td class="text-left">{{ orderDetails.length}} mm</td>
+                        <td class="text-left">N/A</td> 
+                        <td class="text-left">{{ orderDetails.quantity}}</td> 
+                        <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
+                        <td class="text-right">                            
+                            <a data-ui-sref="admin.masters_order_details.shutter_delete({ shutterDetailId: orderDetails.id})"
+                               class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-heading text-center">
+        <div>
             <h3>Filler Details List</h3>
         </div>
         <div class="modal-body">

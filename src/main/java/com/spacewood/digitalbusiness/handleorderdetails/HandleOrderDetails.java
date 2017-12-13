@@ -20,6 +20,7 @@ public class HandleOrderDetails {
     private Integer quantity;    
     private Double price;
     private String finish;
+    private String orderFor;
 
     public Integer getId() {
         return id;
@@ -85,17 +86,26 @@ public class HandleOrderDetails {
         this.finish = finish;
     }
 
+    public String getOrderFor() {
+        return orderFor;
+    }
+
+    public void setOrderFor(String orderFor) {
+        this.orderFor = orderFor;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.productCode);
-        hash = 41 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 41 * hash + Objects.hashCode(this.component);
-        hash = 41 * hash + Objects.hashCode(this.length);
-        hash = 41 * hash + Objects.hashCode(this.quantity);
-        hash = 41 * hash + Objects.hashCode(this.price);
-        hash = 41 * hash + Objects.hashCode(this.finish);
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.productCode);
+        hash = 89 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 89 * hash + Objects.hashCode(this.component);
+        hash = 89 * hash + Objects.hashCode(this.length);
+        hash = 89 * hash + Objects.hashCode(this.quantity);
+        hash = 89 * hash + Objects.hashCode(this.price);
+        hash = 89 * hash + Objects.hashCode(this.finish);
+        hash = 89 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -120,6 +130,9 @@ public class HandleOrderDetails {
         if (!Objects.equals(this.finish, other.finish)) {
             return false;
         }
+        if (!Objects.equals(this.orderFor, other.orderFor)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -140,7 +153,7 @@ public class HandleOrderDetails {
 
     @Override
     public String toString() {
-        return "HandleOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", orderHeadId=" + orderHeadId + ", component=" + component + ", length=" + length + ", quantity=" + quantity + ", price=" + price + ", finish=" + finish + '}';
+        return "HandleOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", orderHeadId=" + orderHeadId + ", component=" + component + ", length=" + length + ", quantity=" + quantity + ", price=" + price + ", finish=" + finish + ", orderFor=" + orderFor + '}';
     }
         
 }

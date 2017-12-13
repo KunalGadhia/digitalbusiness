@@ -53,7 +53,8 @@ public class CarcassOrderDetailsDAL {
         public static final String SECTION_PROFILE_ID = "section_profile_id";
         public static final String SECTION_PROFILE_PRICE = "section_profile_price";
         public static final String CARCASS_SUB_TYPE = "carcass_sub_type";
-        public static final String GRAIN_DIRECTION = "grain";
+        public static final String GRAIN_DIRECTION = "grain_direction";
+        public static final String ORDER_FOR = "order_for";
 
     }
 
@@ -96,7 +97,8 @@ public class CarcassOrderDetailsDAL {
                         Columns.SECTION_PROFILE_ID,
                         Columns.SECTION_PROFILE_PRICE,
                         Columns.CARCASS_SUB_TYPE,
-                        Columns.GRAIN_DIRECTION
+                        Columns.GRAIN_DIRECTION,
+                        Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -194,7 +196,7 @@ public class CarcassOrderDetailsDAL {
         } else {
             parameters.put(Columns.GRAIN_DIRECTION, carcassOrderDetails.getGrainDirection().name());
         }
-
+        parameters.put(Columns.ORDER_FOR, "CARCASS");
         Number newId = insertCarcassOrderDetail.executeAndReturnKey(parameters);
         carcassOrderDetails = findById(newId.intValue());
         return carcassOrderDetails;
