@@ -663,6 +663,171 @@
         <form role="role" ng-submit="saveDrawerDetails(editableDrawerDetail)">
             <div class="row">
                 <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Finish</label>
+                        <select class="form-control" ng-model="editableDrawerDetail.finish" required="">
+                            <option value="">Select Finish</option>
+                            <option ng-repeat="finish in drawerFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Color</label>                    
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Color" ng-model="drawerColorName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openDrawerColorWidget()">Select Color</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+<!--                <div class="col-sm-1" ng-if="showShutterBsm">
+                    <div class="form-group">
+                        <label>Both Side</label>                                            
+                        <input type="checkbox" class="form-control" ng-model="editableShutterDetail.bsm"/>
+                    </div>
+                </div>-->
+                <div class="col-sm-3" ng-if="drawerModelSelection">
+                    <div class="form-group">
+                        <label>Select Drawer</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Drawer" ng-model="drawerName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openDrawer()">Select Drawer</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Grain (Optional)</label>
+                        <select class="form-control" ng-model="editableDrawerDetail.grain">
+                            <option value="">Select Grain Direction</option>
+                            <option value="HORIZONTAL">Horizontal</option>
+                            <option value="VERTICAL">Vertical</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--                <div class="col-sm-3" ng-if="shutterModelSelection">
+                                    <div class="form-group">
+                                        <label>Select Shutter</label>
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" readonly=""/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="openShutter()">Select Shutter</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>-->
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Material</label>
+                        <input type="text" class="form-control" ng-model="editableDrawerDetail.material" required="" readonly="">
+                        <!--                        <select class="form-control" ng-model="editableShutterDetail.material" required="">
+                                                    <option value="">Select Material</option>
+                                                    <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                                                </select> -->
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Thickness</label>
+                        <select class="form-control" ng-model="editableDrawerDetail.thickness" required="">
+                            <option value="">Select Thickness</option>
+                            <option ng-repeat="drawerThickness in drawerThicknessList" value="{{drawerThickness.thickness}}">{{drawerThickness.thickness}} mm</option>
+                        </select>
+                    </div>
+                </div>      
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Length</label>
+                        <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableDrawerDetail.length" required="">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Width</label>
+                        <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableDrawerDetail.width" required="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" class="form-control" ng-model="editableDrawerDetail.quantity" required="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Select Handle</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Handle" ng-model="drawerHandleName" readonly=""/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openDrawerHandle()">Select Handle</button>
+                        </span>
+                    </div>
+                </div>                
+                <div class="col-sm-3">
+                    <div ng-if="showDrawerCD1">
+                        <label>Center Distance</label>
+                        <select class="form-control" ng-model="editableDrawerDetail.handleLength">
+                            <option value="">Select Center Distance</option>
+                            <option ng-repeat="handlePrice in drawerHandlePriceList" value="{{handlePrice.cd}}">{{handlePrice.cd}} mm</option>
+                        </select>
+                    </div>
+                    <div ng-if="showDrawerCD2">
+                        <label>Handle Type</label>
+                        <select class="form-control" ng-model="editableDrawerDetail.drawerHandleType">
+                            <option value="">Select Handle Type</option>
+                            <option ng-repeat="handlePrice in drawerHandlePriceList" value="{{handlePrice.id}}">{{handlePrice.finish}}</option>
+                        </select>
+                    </div>                    
+                </div>
+                <div class="col-sm-3">
+                    <label>Finish</label>
+                    <input type="text" class="form-control" placeholder="Handle Finish" ng-model="editableDrawerDetail.handleFinish"readonly="">
+                </div>
+                <div class="col-sm-3" ng-if="showDrawerCD2">
+                    <div class="form-group">
+                        <label>Length</label>
+                        <input type="number" class="form-control" placeholder="Length" ng-model="editableDrawerDetail.handleLength">
+                    </div>
+                </div>
+                <!--                <div class="col-sm-3">
+                                    <label>Quantity</label>
+                                    <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editableHandleDetail.quantity" required="">
+                                </div>                -->
+            </div>
+            <div class="row">
+                <!--<div class="col-sm-3" ng-show="whenIWant">-->
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="number" class="form-control" placeholder="Price" ng-model="editableDrawerDetail.handlePrice" readonly="">
+                    </div>
+                </div>
+                <!--                <div class="col-sm-3" ng-if="showCD2">
+                                    <div class="form-group">
+                                        <label>Length</label>
+                                        <input type="number" class="form-control" placeholder="Length" ng-model="editableHandleDetail.length" required="">
+                                    </div>
+                                </div>-->
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fa fa-save"></i>
+                    Add
+                </button>                       				
+            </div>
+<!--            <div class="row">
+                <div class="col-sm-3">
                     <label>Select Drawer</label>
                     <div class="input-group">
                         <input class="form-control" placeholder="Select Drawer" ng-model="drawerName" required="" readonly=""/>
@@ -692,7 +857,7 @@
                     <i class="fa fa-save"></i>
                     Add
                 </button>                       				
-            </div>
+            </div>-->
         </form>
     </div>
     <div class="panel-heading text-center" ng-if="showFiller">
@@ -1191,6 +1356,63 @@
     </div>
     <div class="panel-heading text-center">
         <div>
+            <h3>Drawer Details List</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Colors</th>
+                        <th>Section Profile</th>
+                        <th>Shelf Count</th>
+                        <th>Thickness</th>
+                        <th>Width</th>
+                        <th>Length</th>
+                        <th>Depth</th>
+                        <th>Quantity</th>
+                        <th>Price (INR)</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetails in drawerDetailsList">
+                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <td class="text-left">{{ orderDetails.productCode}}</td>
+                        <td class="text-left">
+                            <span>Drawer </span>
+                            <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                            <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                            <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>                            
+                            <span ng-if="orderDetails.grain !== 'NO_GRAIN'"> Grain Direction : {{orderDetails.grain}}</span>                            
+                            <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
+                        </td>
+                        <td class="text-left">
+                            <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
+                        </td>
+                        <td>N/A</td>                        
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{orderDetails.thickness}} mm</td>  
+                        <td class="text-left">{{ orderDetails.width}} mm</td>
+                        <td class="text-left">{{ orderDetails.length}} mm</td>
+                        <td class="text-left">N/A</td> 
+                        <td class="text-left">{{ orderDetails.quantity}}</td> 
+                        <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
+                        <td class="text-right">                            
+                            <a data-ui-sref="admin.masters_order_details.drawer_delete({ drawerDetailId: orderDetails.id})"
+                               class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-heading text-center">
+        <div>
             <h3>Filler Details List</h3>
         </div>
         <div class="modal-body">
@@ -1408,7 +1630,7 @@
         </div>
     </div>
     <div class="panel-heading text-center">
-        <div>
+<!--        <div>
             <h3>Order Details List</h3>
         </div>
         <div class="modal-body">
@@ -1417,7 +1639,7 @@
                     <tr>
                         <th class="text-right">#</th>
                         <th>Product Code</th>
-                        <!--<th>Component</th>-->
+                        <th>Component</th>
                         <th>Thickness</th>
                         <th>Width</th>
                         <th>Length</th>
@@ -1434,10 +1656,10 @@
                         <td class="text-left">{{ orderDetails.length}} mm</td>
                         <td class="text-left">{{ orderDetails.depth}} mm</td>                        
                         <td class="text-right">
-                            <!--                            <a data-ui-sref="admin.masters_kitchen_component.edit({ kitchenComponentId: kitchenComponent.id })"
+                                                        <a data-ui-sref="admin.masters_kitchen_component.edit({ kitchenComponentId: kitchenComponent.id })"
                                                            class="btn btn-primary">					
                                                             <i class="fa fa-pencil"></i>
-                                                        </a>-->
+                                                        </a>
                             <a data-ui-sref="admin.masters_kitchen_component.delete({ kitchenComponentId: kitchenComponent.id })"
                                class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
@@ -1446,7 +1668,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div>-->
         <div class="modal-footer">
             <a target="_blank" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
                 <button class="btn btn-lg btn-primary" >
@@ -1718,6 +1940,64 @@
                             <b class="text-center"> {{drawer.component}}</b>
                             <br>
                             <button class="next btn-next" ng-click="selectDrawer(drawer.id)">Select Drawer({{drawer.componentCode}})</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showDrawerColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Drawer Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="sortedColorList in drawerColors1| groupBy:6">
+                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                            <br>
+                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectDrawerColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showDrawerHandleSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Handle
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="handleList in drawerHandleList1| groupBy:3">
+                    <div class="col-xs-4 letter-box" ng-repeat="handle in handleList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/kitchen_component/{{handle.id}}/attachment" width="150px" height="220px"/>
+                            <br>
+                            <b class="text-center"> {{handle.component}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectDrawerHandle(handle.id)">Select Handle({{handle.componentCode}})</button>
                         </div>
                         <hr>
                     </div>

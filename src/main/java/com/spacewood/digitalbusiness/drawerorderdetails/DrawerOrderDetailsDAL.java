@@ -126,7 +126,7 @@ public class DrawerOrderDetailsDAL {
         parameters.put(Columns.HANDLE_LENGTH, drawerOrderDetails.getHandleLength());
         parameters.put(Columns.HANDLE_FINISH, drawerOrderDetails.getHandleFinish());
         parameters.put(Columns.HANDLE_PRICE, drawerOrderDetails.getHandlePrice());
-        parameters.put(Columns.ORDER_FOR, "SHUTTER");
+        parameters.put(Columns.ORDER_FOR, "DRAWER");
 
         Number newId = insertDrawerOrderDetail.executeAndReturnKey(parameters);
         drawerOrderDetails = findById(newId.intValue());

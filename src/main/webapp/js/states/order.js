@@ -54,7 +54,12 @@ angular.module("digitalbusiness.states.order", [])
                 'url': '/:shutterDetailId/shutter/delete',
                 'templateUrl': templateRoot + '/masters/order/shutter_detail_delete.html',
                 'controller': 'ShutterDetailDeleteController'
-            });            
+            });
+            $stateProvider.state('admin.masters_order_details.drawer_delete', {
+                'url': '/:drawerDetailId/drawer/delete',
+                'templateUrl': templateRoot + '/masters/order/drawer_detail_delete.html',
+                'controller': 'DrawerDetailDeleteController'
+            });
 //            $stateProvider.state('admin.masters_sale_type.delete', {
 //                'url': '/:saleTypeId/delete',
 //                'templateUrl': templateRoot + '/masters/sale_type/delete.html',
@@ -114,7 +119,7 @@ angular.module("digitalbusiness.states.order", [])
 
 
         })
-        .controller('OrderDetailsController', function (DrawerOrderDetailsService , ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (DrawerOrderDetailsService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
@@ -252,6 +257,8 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showPelmetColorSelectionWidget = false;
                 $scope.showCorniceColorSelectionWidget = false;
                 $scope.showShutterHandleSelectionWidget = false;
+                $scope.showDrawerColorSelectionWidget = false;
+                $scope.showDrawerHandleSelectionWidget = false;
             };
 
             $scope.openCarcass = function () {
@@ -1623,6 +1630,181 @@ angular.module("digitalbusiness.states.order", [])
                 });
             });
             ///////////////////////////////////////////////////////////////////
+            ///////////////////////Drawer Form Functionality///////////////////
+            $scope.showDrawerColorSelectionWidget = false;
+            $scope.showDrawerHandleSelectionWidget = false;
+            $scope.drawerModelSelection = false;
+            $scope.openDrawerColorWidget = function () {
+                $scope.showDrawerColorSelectionWidget = true;
+            };
+
+            $scope.openDrawerHandle = function () {
+                KitchenComponentService.findByCategory({
+                    'category': 'HANDLE'
+                }, function (handleList) {
+                    $scope.drawerHandleList1 = handleList;
+                });
+                $scope.showDrawerHandleSelectionWidget = true;
+            };
+
+            $scope.selectDrawerHandle = function (componentId) {
+                $scope.closeWidget();
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (kcObject) {
+                    $scope.drawerHandleName = kcObject.component;
+                    $scope.drawerHandleComponent = kcObject.componentCode;
+                    $scope.editableDrawerDetail.handle = kcObject.componentCode;
+                });
+            };
+
+            $scope.selectDrawerColor = function (colorId, colorName) {
+                console.log(colorId);
+                $scope.closeWidget();
+                $scope.editableDrawerDetail.colorId = colorId;
+                $scope.drawerColorName = colorName;
+            };
+            $scope.drawerFinishList = [];
+//            $scope.shutterFinishList = FinishPriceService.findAllList();
+            ShutterFinishPriceService.findUniqueFinish(function (finishList) {
+                console.log("Finish List :%O", finishList);
+                angular.forEach(finishList, function (finishCode) {
+                    FinishPriceService.findByFinishCode({
+                        'finishCode': finishCode
+                    }, function (finishObject) {
+                        $scope.drawerFinishList.push(finishObject);
+                    });
+                });
+                console.log("Shutter Finish List :%O", $scope.drawerFinishList);
+            });
+
+            $scope.$watch('editableDrawerDetail.finish', function (finishName) {
+                console.log("FInish Name :%O", finishName);
+                $scope.drawerFinishCode = finishName;
+                ShutterFinishPriceService.findByFinish({
+                    'finish': finishName
+                }, function (shutterFinishThicknessList) {
+                    $scope.drawerThicknessList = shutterFinishThicknessList;
+                });
+                FinishPriceService.findByFinishCode({
+                    'finishCode': finishName
+                }, function (finishObject) {
+                    console.log("Finish Object :%O", finishObject);
+                    RawMaterialService.get({
+                        'id': finishObject.materialId
+                    }, function (drawerMaterialObject) {
+                        console.log("Shutter Material :%O", drawerMaterialObject);
+                        $scope.drawerMaterialObject = drawerMaterialObject;
+                        $scope.editableDrawerDetail.material = drawerMaterialObject.materialCode;
+                    });
+//                    $scope.editableShutterDetail.finishPrice = finishObject.price;
+//                    if (finishObject.category === "PU" || finishObject.category === "MEMBRANE") {
+//                        $scope.showShutterBsm = true;
+//                    } else {
+//                        $scope.showShutterBsm = false;
+//                    }
+                    if (finishObject.category === "MEMBRANE") {
+                        $scope.drawerModelSelection = true;
+                    } else {
+                        $scope.drawerModelSelection = false;
+                        $scope.editableDrawerDetail.component = '';
+                        $scope.shutterName = '';
+                    }
+                });
+                ColorConstraintService.findByFinishCode({
+                    'finishCode': finishName
+                }, function (sortedColorObject) {
+                    console.log("Sorted COlor :%O", sortedColorObject);
+                    $scope.drawerColors1 = [];
+                    angular.forEach(sortedColorObject.colors, function (colorId) {
+                        ColorService.get({
+                            'id': colorId
+                        }, function (colorObject) {
+                            $scope.drawerColors1.push(colorObject);
+                        });
+                    });
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $scope.drawerColors1 = [];
+                    } else if (response.status === 404) {
+                        $scope.drawerColors1 = [];
+                    } else if (response.status === 400) {
+                        $scope.drawerColors1 = [];
+                    }
+                });
+            });
+            $scope.$watch('editableDrawerDetail.thickness', function (thickness) {
+                ShutterFinishPriceService.findByFinishThickness({
+                    'finish': $scope.drawerFinishCode,
+                    'thickness': thickness
+                }, function (ShutterFinishPrice) {
+                    console.log("Shutter Finish Price :%O", ShutterFinishPrice);
+                    $scope.editableDrawerDetail.stdOneSidePrice = ShutterFinishPrice.oneSidePrice;
+//                    $scope.editableDrawerDetail.stdBothSidePrice = ShutterFinishPrice.bothSidePrice;
+                });
+            });
+            $scope.$watch('drawerHandleName', function (handle) {
+                console.log("Handle :%O", handle);
+                console.log("Handle Component :%O", $scope.drawerHandleComponent);
+                $scope.showDrawerCD1 = false;
+                $scope.showDrawerCD2 = false;
+                if ($scope.drawerHandleComponent === "HAN-EP01") {
+                    $scope.showDrawerCD2 = true;
+                    $scope.showDrawerCD1 = false;
+                    $scope.drawerHandlePriceList = [];
+                    HandlePriceService.findByKitchenComponent({
+                        'kitchenComponent': $scope.drawerHandleComponent
+                    }, function (drawerHandlePriceList) {
+                        console.log("Handle Price List :%O", drawerHandlePriceList);
+                        angular.forEach(drawerHandlePriceList, function (hplObject) {
+                            $scope.drawerHandlePriceList.push(hplObject);
+                        });
+                    });
+                } else {
+                    $scope.showDrawerCD2 = false;
+                    $scope.showDrawerCD1 = true;
+                    $scope.drawerHandlePriceList = [];
+                    HandlePriceService.findByKitchenComponent({
+                        'kitchenComponent': $scope.drawerHandleComponent
+                    }, function (drawerHandlePriceList) {
+                        console.log("Handle Price List :%O", drawerHandlePriceList);
+                        angular.forEach(drawerHandlePriceList, function (hplObject) {
+                            $scope.drawerHandlePriceList.push(hplObject);
+                        });
+                    });
+                }
+            });
+            $scope.$watch('editableDrawerDetail.handleLength', function (cd) {
+                console.log("CD :%O", cd);
+                angular.forEach($scope.drawerHandlePriceList, function (handlePriceObject) {
+                    console.log("Handle Price Object :%O", handlePriceObject.cd);
+                    if (handlePriceObject.cd.toString() === cd.toString()) {
+                        $scope.mainDrawerHandleObject = handlePriceObject;
+                        console.log("Got the Object :%O", $scope.mainDrawerHandleObject);
+                        $scope.editableDrawerDetail.handleFinish = $scope.mainDrawerHandleObject.finish;
+                        $scope.editableDrawerDetail.handlePrice = $scope.mainDrawerHandleObject.price;
+                    } else {
+                        console.log("Not My COncern ");
+                    }
+
+//                    if (handlePriceObject.cd.) {
+//                        $scope.mainHandleObject = handlePriceObject;
+
+//                    } else {
+//                        console.log("Not My Concern");
+//                    }
+                });
+            });
+            $scope.$watch('editableDrawerDetail.drawerHandleType', function (handleType) {
+                HandlePriceService.get({
+                    'id': handleType
+                }, function (handlePriceObject) {
+                    $scope.editableDrawerDetail.handleFinish = handlePriceObject.finish;
+                    $scope.editableDrawerDetail.handlePrice = handlePriceObject.price;
+                });
+            });
+            ///////////////////////////////////////////////////////////////////
+
             function closestValue(num, arr) {
                 var curr = arr[0];
                 var diff = Math.abs(num - curr);
@@ -2895,13 +3077,56 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     w1 = drawerOrderDetail.width.toString();
                 }
-                var productCode = drawerOrderDetail.component + "-18" + drawerOrderDetail.material + "-" + l1 + "" + w1 + "18000";
+
+                if (drawerOrderDetail.component !== undefined) {
+                    var productCode = drawerOrderDetail.component + "X-" + Math.round(drawerOrderDetail.thickness) + "" + drawerOrderDetail.material + "X" + drawerOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(drawerOrderDetail.thickness) + "000";
+                } else {
+                    var productCode = "DRAWERX-" + Math.round(drawerOrderDetail.thickness) + "" + drawerOrderDetail.material + "X" + drawerOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(drawerOrderDetail.thickness) + "000";
+                }
+                var shutterArea = (drawerOrderDetail.length * drawerOrderDetail.width);
+                var shutterAreaSqMt = (shutterArea / 1000000);
+                console.log("Shutter Area Sq Mt :%O", shutterAreaSqMt);
+                if (drawerOrderDetail.handle === "HAN-EP01") {
+                    var meterLength = (drawerOrderDetail.handleLength / 1000);
+                    drawerOrderDetail.handleMainPrice = (meterLength * drawerOrderDetail.handlePrice);
+                } else {
+                    drawerOrderDetail.handleMainPrice = drawerOrderDetail.handlePrice;
+                }
+
+                if (drawerOrderDetail.handle === undefined) {
+                    drawerOrderDetail.handleMainPrice = 0;
+                }
+                console.log("Handle Price :%O", drawerOrderDetail.handleMainPrice);
+
+//                if (drawerOrderDetail.bsm === true) {
+//                    console.log("Both Side");
+//                    drawerOrderDetail.price = (drawerOrderDetail.quantity * ((shutterAreaSqMt * drawerOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice));
+//                } else if (drawerOrderDetail.bsm === undefined) {
+//                    console.log("One Side");
+                drawerOrderDetail.price = (drawerOrderDetail.quantity * ((shutterAreaSqMt * drawerOrderDetail.stdOneSidePrice) + drawerOrderDetail.handleMainPrice));
+//                }
+
                 drawerOrderDetail.productCode = productCode;
-                OrderDetailsService.save(drawerOrderDetail, function () {
+
+                console.log("Drawer Save Object :%O", drawerOrderDetail);
+                DrawerOrderDetailsService.save(drawerOrderDetail, function () {
+                    console.log("Saved Successfully");
                     $scope.editableDrawerDetail = "";
                     $scope.drawerName = "";
-                    $scope.refreshList();
+                    $scope.drawerColorName = "";
+                    $scope.drawerHandleName = "";
+//                    $scope.refreshList();
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
                 });
+//                var productCode = drawerOrderDetail.component + "-18" + drawerOrderDetail.material + "-" + l1 + "" + w1 + "18000";
+//                drawerOrderDetail.productCode = productCode;
+//                OrderDetailsService.save(drawerOrderDetail, function () {
+//                    $scope.editableDrawerDetail = "";
+//                    $scope.drawerName = "";
+//                    $scope.refreshList();
+//                });
             };
             $scope.saveFillerDetails = function (fillerOrderDetail) {
                 fillerOrderDetail.orderHeadId = $stateParams.orderHeadId;
@@ -3247,8 +3472,8 @@ angular.module("digitalbusiness.states.order", [])
                 });
             });
             $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
-               'orderHeadId': $stateParams.orderHeadId 
-            }, function(sutterOrderList){
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (shutterOrderList) {
                 angular.forEach($scope.shutterDetailsList, function (shutterDetailObject) {
                     shutterDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
                         'componentCode': shutterDetailObject.component
@@ -3261,6 +3486,24 @@ angular.module("digitalbusiness.states.order", [])
                     });
                     shutterDetailObject.colorObject = ColorService.get({
                         'id': shutterDetailObject.colorId
+                    });
+                });
+            });
+            $scope.drawerDetailsList = DrawerOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (drawerOrderList) {
+                angular.forEach($scope.drawerDetailsList, function (drawerDetailObject) {
+                    drawerDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': drawerDetailObject.component
+                    });
+                    drawerDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': drawerDetailObject.material
+                    });
+                    drawerDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
+                        'finishCode': drawerDetailObject.finish
+                    });
+                    drawerDetailObject.colorObject = ColorService.get({
+                        'id': drawerDetailObject.colorId
                     });
                 });
             });
@@ -3435,8 +3678,8 @@ angular.module("digitalbusiness.states.order", [])
                 });
             });
             $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
-               'orderHeadId': $stateParams.orderHeadId 
-            }, function(sutterOrderList){
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (sutterOrderList) {
                 angular.forEach($scope.shutterDetailsList, function (shutterDetailObject) {
                     shutterDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
                         'componentCode': shutterDetailObject.component
@@ -3451,6 +3694,25 @@ angular.module("digitalbusiness.states.order", [])
                         'id': shutterDetailObject.colorId
                     });
                     $scope.mainInvoiceList.push(shutterDetailObject);
+                });
+            });
+            $scope.drawerDetailsList = DrawerOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (drawerOrderList) {
+                angular.forEach($scope.drawerDetailsList, function (drawerDetailObject) {
+                    drawerDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
+                        'componentCode': drawerDetailObject.component
+                    });
+                    drawerDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': drawerDetailObject.material
+                    });
+                    drawerDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
+                        'finishCode': drawerDetailObject.finish
+                    });
+                    drawerDetailObject.colorObject = ColorService.get({
+                        'id': drawerDetailObject.colorId
+                    });
+                    $scope.mainInvoiceList.push(drawerDetailObject);
                 });
             });
 //            $scope.carcassTotal = $filter('total')($scope.carcassDetailsList, 'price');
@@ -3574,6 +3836,19 @@ angular.module("digitalbusiness.states.order", [])
                 shutterOrderDetail.$delete(function () {
                     $state.go('admin.masters_order_details', {
                         'orderHeadId': $scope.editableShutterDetail.orderHeadId
+                    }, {'reload': true});
+                });
+
+            };
+        })
+        .controller('DrawerDetailDeleteController', function (DrawerOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Pelmet:%O", $stateParams);
+            $scope.editableDrawerDetail = DrawerOrderDetailsService.get({'id': $stateParams.drawerDetailId});
+            $scope.deleteDrawerDetail = function (drawerOrderDetail) {
+                console.log("Drawer Order Detail :%O", drawerOrderDetail);
+                drawerOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $scope.editableDrawerDetail.orderHeadId
                     }, {'reload': true});
                 });
 
