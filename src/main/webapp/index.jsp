@@ -262,6 +262,7 @@
         <script src="${pageContext.request.contextPath}/js/states/panel_material_thickness.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/handle_price.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/shutter_finish_price.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/user.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>

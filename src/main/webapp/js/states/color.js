@@ -120,13 +120,6 @@ angular.module("digitalbusiness.states.masters_color", [])
             $scope.colors = ColorService.query({
                 'offset': $scope.currentOffset
             }, function (s) {
-//                angular.forEach(s, function (singleObject) {
-//                    var restCall = "./rest/color/" + singleObject.id + "/attachment";
-//                    singleObject.imagePath = restCall;
-//                    console.log("What si this :%O", singleObject);
-////                    $scope.mainArray.push(singleObject);
-//                });
-
             });
 
             $scope.nextPage = function () {
@@ -140,6 +133,21 @@ angular.module("digitalbusiness.states.masters_color", [])
                 $scope.currentOffset -= paginationLimit;
                 $state.go(".", {'offset': $scope.currentOffset}, {'reload': true});
             };
+            $scope.$watch('colorCategory', function (colorCategory) {
+                console.log("Color Category :%O", colorCategory);
+                if (colorCategory === '') {
+                    $scope.colors = ColorService.query({
+                        'offset': $scope.currentOffset
+                    }, function (s) {
+                    });
+                } else {
+                    ColorService.findByColorCategory({
+                        'colorCategory': colorCategory
+                    }, function (colorList) {
+                        $scope.colors = colorList;
+                    });
+                }
+            });
         })
         .controller('ColorAddController', function (ColorService, $scope, $stateParams, $state, paginationLimit) {
 

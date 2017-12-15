@@ -71,6 +71,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.panel_material_thickness',
     'digitalbusiness.states.handle_price',
     'digitalbusiness.states.shutter_finish_price',
+    'digitalbusiness.states.user',
 
     'digitalbusiness.states.auth'
 

@@ -5,7 +5,9 @@
  */
 package com.spacewood.digitalbusiness.user;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -45,12 +47,12 @@ public class UserRest {
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public User insert(@RequestBody User user) {
+    public User insert(@RequestBody User user) throws JsonProcessingException, ParseException {
         return userDAL.insert(user);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public User update(@RequestBody User user) {
+    public User update(@RequestBody User user) throws Exception {
         return userDAL.update(user);
     }
 

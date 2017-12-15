@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.user;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -12,16 +13,18 @@ import java.util.Objects;
  * @author hp-pc
  */
 public class User {
+
     private Integer id;
-	private String username;
-	private String password;
-        private Role role;
-        private String name;
-	private String nameOfCompany;
-        private String address;
-	private String mobileNo;
-        private Integer cityId;
-        private boolean approved;
+    private String username;
+    private String password;
+    private Role role;
+    private String name;
+    private String nameOfCompany;
+    private String address;
+    private String mobileNo;
+    private Integer cityId;
+    private List<Integer> parties;
+    private boolean approved;
 
     public Integer getId() {
         return id;
@@ -101,26 +104,38 @@ public class User {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }    
+
+    public List<Integer> getParties() {
+        return parties;
+    }
+
+    public void setParties(List<Integer> parties) {
+        this.parties = parties;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.username);
-        hash = 97 * hash + Objects.hashCode(this.password);
-        hash = 97 * hash + Objects.hashCode(this.role);
-        hash = 97 * hash + Objects.hashCode(this.name);
-        hash = 97 * hash + Objects.hashCode(this.nameOfCompany);
-        hash = 97 * hash + Objects.hashCode(this.address);
-        hash = 97 * hash + Objects.hashCode(this.mobileNo);
-        hash = 97 * hash + Objects.hashCode(this.cityId);
-        hash = 97 * hash + (this.approved ? 1 : 0);
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.username);
+        hash = 59 * hash + Objects.hashCode(this.password);
+        hash = 59 * hash + Objects.hashCode(this.role);
+        hash = 59 * hash + Objects.hashCode(this.name);
+        hash = 59 * hash + Objects.hashCode(this.nameOfCompany);
+        hash = 59 * hash + Objects.hashCode(this.address);
+        hash = 59 * hash + Objects.hashCode(this.mobileNo);
+        hash = 59 * hash + Objects.hashCode(this.cityId);
+        hash = 59 * hash + Objects.hashCode(this.parties);
+        hash = 59 * hash + (this.approved ? 1 : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
@@ -128,16 +143,13 @@ public class User {
             return false;
         }
         final User other = (User) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (this.approved != other.approved) {
             return false;
         }
         if (!Objects.equals(this.username, other.username)) {
             return false;
         }
         if (!Objects.equals(this.password, other.password)) {
-            return false;
-        }
-        if (this.role != other.role) {
             return false;
         }
         if (!Objects.equals(this.name, other.name)) {
@@ -152,10 +164,16 @@ public class User {
         if (!Objects.equals(this.mobileNo, other.mobileNo)) {
             return false;
         }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (this.role != other.role) {
+            return false;
+        }
         if (!Objects.equals(this.cityId, other.cityId)) {
             return false;
         }
-        if (this.approved != other.approved) {
+        if (!Objects.equals(this.parties, other.parties)) {
             return false;
         }
         return true;
@@ -163,7 +181,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + ", name=" + name + ", nameOfCompany=" + nameOfCompany + ", address=" + address + ", mobileNo=" + mobileNo + ", cityId=" + cityId + ", approved=" + approved + '}';
-    }                
-        
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + ", name=" + name + ", nameOfCompany=" + nameOfCompany + ", address=" + address + ", mobileNo=" + mobileNo + ", cityId=" + cityId + ", parties=" + parties + ", approved=" + approved + '}';
+    }        
+
 }

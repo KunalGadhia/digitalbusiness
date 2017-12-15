@@ -1,0 +1,121 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveUser(editableUser)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        User Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" class="form-control" ng-model="editableUser.username" required="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="text" class="form-control" ng-model="editableUser.password" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 text-danger" ng-show="editableUser.repeatUsername">
+                            Found Records For Above Entered Name
+                        </div>
+                        <div class="col-sm-6 text-danger">                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Role</label>
+                                <select class="form-control" ng-model="editableUser.role" required="">
+                                    <option value="">Select Role</option>
+                                    <option value="ROLE_ADMIN">Admin</option>
+                                    <option value="ROLE_DEALER">Dealer</option>
+                                </select>                                
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Name Of User</label>
+                                <input type="text" class="form-control" ng-model="editableUser.name" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Name Of Company</label>
+                                <input type="text" class="form-control" ng-model="editableUser.nameOfCompany">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" class="form-control" ng-model="editableUser.address">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Mobile Number</label>
+                                <input type="number" class="form-control" ng-model="editableUser.mobileNo">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Parties</label>
+                                <input class="form-control"
+                                       placeholder="Select Parties"
+                                       uib-typeahead="parties.id as parties.dealerName for parties in searchParties($viewValue)"
+                                       typeahead-on-select="setParty($item)"
+                                       typeahead-editable="false"
+                                       typeahead-loading="loadingParty" 
+                                       typeahead-no-results="noPartyFound"
+                                       ng-model="partyName" />
+                                <p ng-show="noPartyFound" class="help-block text-muted">No Parties Found</p>
+                                <p ng-show="loadingParty" class="help-block text-muted">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">                            
+                        </div>
+                        <div class="col-sm-6">
+                            <ul ng-repeat="party in partyDisplay" class="left_margin">
+                                <li class="col-md-8">
+                                    {{party.dealerName}} 
+                                </li>
+                                <li class="col-md-4 list-unstyled">
+                                    <button type="button" ng-click="removeParties(party)" class="btn btn-link top_padding">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>                        
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableUser.repeatUsername">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

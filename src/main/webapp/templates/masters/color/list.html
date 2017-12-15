@@ -11,8 +11,21 @@
             <a data-ui-sref="admin.masters_color.add"
                class="btn btn-default">
                 <i class="fa fa-plus"></i>
-                Add Color Component
+                Add Color
             </a>
+        </div>
+        <div class="pull-right">
+            <select class="form-control col-md-2" ng-model="colorCategory">
+                <option value="">Filter By Color Category</option>
+                <option value="PRELAM">PRELAM</option>
+                <option value="STANDARD_MEMBRANE">STANDARD MEMBRANE</option>
+                <option value="DESIGNER_MEMBRANE">DESIGNER MEMBRANE</option>
+                <option value="HIGHGLOSS_MEMBRANE">HIGHGLOSS MEMBRANE</option>
+                <option value="HPL">HPL</option>
+                <option value="BACK_PAINTED">PU PAINTED</option>
+                <option value="READYMADE_ACRYLIC">ACRYLIC</option>
+                <option value="READYMADE_POLYMER">POLYMER</option>                                    
+            </select>
         </div>
         <div>
             <h4>Color Master</h4>
