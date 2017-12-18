@@ -45,6 +45,10 @@ public class ShutterOrderDetailsDAL {
         public static final String HANDLE_LENGTH = "handle_length";
         public static final String HANDLE_FINISH = "handle_finish";
         public static final String HANDLE_PRICE = "handle_price";
+        public static final String HINGE_POSITION = "hinge_position";
+        public static final String GLASS = "glass";
+        public static final String STEP = "step";
+        public static final String JALI = "jali";
         public static final String ORDER_FOR = "order_for";
     }
 
@@ -78,6 +82,10 @@ public class ShutterOrderDetailsDAL {
                         Columns.HANDLE_LENGTH,
                         Columns.HANDLE_FINISH,
                         Columns.HANDLE_PRICE,
+                        Columns.HINGE_POSITION,
+                        Columns.GLASS,
+                        Columns.STEP,
+                        Columns.JALI,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -138,6 +146,18 @@ public class ShutterOrderDetailsDAL {
         parameters.put(Columns.HANDLE_LENGTH, shutterOrderDetails.getHandleLength());
         parameters.put(Columns.HANDLE_FINISH, shutterOrderDetails.getHandleFinish());
         parameters.put(Columns.HANDLE_PRICE, shutterOrderDetails.getHandlePrice());
+        if (shutterOrderDetails.getHingePosition() == null) {
+            parameters.put(Columns.HINGE_POSITION, HingePosition.NO_HINGE);
+        } else {
+            parameters.put(Columns.HINGE_POSITION, shutterOrderDetails.getHingePosition().name());
+        }
+        if (shutterOrderDetails.getGlass() == null) {
+            parameters.put(Columns.GLASS, Glass.NO_GLASS);
+        } else {
+            parameters.put(Columns.GLASS, shutterOrderDetails.getGlass().name());
+        }
+        parameters.put(Columns.STEP, shutterOrderDetails.getStep());
+        parameters.put(Columns.JALI, shutterOrderDetails.getJali());
         parameters.put(Columns.ORDER_FOR, "SHUTTER");
 
         Number newId = insertShutterOrderDetail.executeAndReturnKey(parameters);

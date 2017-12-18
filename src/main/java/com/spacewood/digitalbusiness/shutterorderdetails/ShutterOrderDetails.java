@@ -32,6 +32,10 @@ public class ShutterOrderDetails {
     private Double handleLength;
     private String handleFinish;
     private Double handlePrice;
+    private HingePosition hingePosition;
+    private Glass glass;
+    private Boolean step;
+    private Boolean jali;
     private String orderFor;
 
     public Integer getId() {
@@ -202,30 +206,66 @@ public class ShutterOrderDetails {
         this.orderFor = orderFor;
     }
 
+    public HingePosition getHingePosition() {
+        return hingePosition;
+    }
+
+    public void setHingePosition(HingePosition hingePosition) {
+        this.hingePosition = hingePosition;
+    }
+
+    public Glass getGlass() {
+        return glass;
+    }
+
+    public void setGlass(Glass glass) {
+        this.glass = glass;
+    }
+
+    public Boolean getStep() {
+        return step;
+    }
+
+    public void setStep(Boolean step) {
+        this.step = step;
+    }
+
+    public Boolean getJali() {
+        return jali;
+    }
+
+    public void setJali(Boolean jali) {
+        this.jali = jali;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.productCode);
-        hash = 97 * hash + Objects.hashCode(this.material);
-        hash = 97 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 97 * hash + Objects.hashCode(this.component);
-        hash = 97 * hash + Objects.hashCode(this.width);
-        hash = 97 * hash + Objects.hashCode(this.length);
-        hash = 97 * hash + Objects.hashCode(this.thickness);
-        hash = 97 * hash + Objects.hashCode(this.quantity);
-        hash = 97 * hash + Objects.hashCode(this.colorId);
-        hash = 97 * hash + Objects.hashCode(this.price);
-        hash = 97 * hash + Objects.hashCode(this.stdOneSidePrice);
-        hash = 97 * hash + Objects.hashCode(this.stdBothSidePrice);
-        hash = 97 * hash + Objects.hashCode(this.finish);
-        hash = 97 * hash + Objects.hashCode(this.bsm);
-        hash = 97 * hash + Objects.hashCode(this.grain);
-        hash = 97 * hash + Objects.hashCode(this.handle);
-        hash = 97 * hash + Objects.hashCode(this.handleLength);
-        hash = 97 * hash + Objects.hashCode(this.handleFinish);
-        hash = 97 * hash + Objects.hashCode(this.handlePrice);
-        hash = 97 * hash + Objects.hashCode(this.orderFor);
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.productCode);
+        hash = 29 * hash + Objects.hashCode(this.material);
+        hash = 29 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 29 * hash + Objects.hashCode(this.component);
+        hash = 29 * hash + Objects.hashCode(this.width);
+        hash = 29 * hash + Objects.hashCode(this.length);
+        hash = 29 * hash + Objects.hashCode(this.thickness);
+        hash = 29 * hash + Objects.hashCode(this.quantity);
+        hash = 29 * hash + Objects.hashCode(this.colorId);
+        hash = 29 * hash + Objects.hashCode(this.price);
+        hash = 29 * hash + Objects.hashCode(this.stdOneSidePrice);
+        hash = 29 * hash + Objects.hashCode(this.stdBothSidePrice);
+        hash = 29 * hash + Objects.hashCode(this.finish);
+        hash = 29 * hash + Objects.hashCode(this.bsm);
+        hash = 29 * hash + Objects.hashCode(this.grain);
+        hash = 29 * hash + Objects.hashCode(this.handle);
+        hash = 29 * hash + Objects.hashCode(this.handleLength);
+        hash = 29 * hash + Objects.hashCode(this.handleFinish);
+        hash = 29 * hash + Objects.hashCode(this.handlePrice);
+        hash = 29 * hash + Objects.hashCode(this.hingePosition);
+        hash = 29 * hash + Objects.hashCode(this.glass);
+        hash = 29 * hash + Objects.hashCode(this.step);
+        hash = 29 * hash + Objects.hashCode(this.jali);
+        hash = 29 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -304,12 +344,24 @@ public class ShutterOrderDetails {
         if (!Objects.equals(this.handlePrice, other.handlePrice)) {
             return false;
         }
+        if (this.hingePosition != other.hingePosition) {
+            return false;
+        }
+        if (this.glass != other.glass) {
+            return false;
+        }
+        if (!Objects.equals(this.step, other.step)) {
+            return false;
+        }
+        if (!Objects.equals(this.jali, other.jali)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "ShutterOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", stdBothSidePrice=" + stdBothSidePrice + ", finish=" + finish + ", bsm=" + bsm + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", orderFor=" + orderFor + '}';
-    }
+        return "ShutterOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", stdBothSidePrice=" + stdBothSidePrice + ", finish=" + finish + ", bsm=" + bsm + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", hingePosition=" + hingePosition + ", glass=" + glass + ", step=" + step + ", jali=" + jali + ", orderFor=" + orderFor + '}';
+    }    
     
 }

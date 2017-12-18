@@ -44,31 +44,26 @@ angular.module("digitalbusiness.states", ['ngAnimate', 'ui.bootstrap'])
                 $anchorScroll();
             };
         })
-        .controller('LoginController', function ($scope, $state, $stateParams, $timeout, UserService, AuthFactory) {
-            console.log("Inside Login COntroller");
+        .controller('LoginController', function ($scope, $state, $stateParams, $timeout, UserService, AuthFactory) {            
             $scope.username = $stateParams.username;
             $scope.message = $stateParams.message;
             $scope.error = $stateParams.error;
             $timeout(function () {
                 $scope.message = false;
             }, 3000);
-            $scope.login = function (username, password) {
-                console.log("Username :%O", username);
-                console.log("Password :%O", password);
+            $scope.login = function (username, password) {                
                 UserService.login({
                     'username': username,
                     'password': password
-                }, function (data) {
-                    console.log("Data :%O", data);
+                }, function (data) {                    
                     AuthFactory.refresh();
                     UserService.findByUsername({
                         'username': data.username
-                    }, function (data) {
-                        console.log("Login Validated Now Fetching Authority!!");
+                    }, function (data) {                        
                         if (data.role === "ROLE_ADMIN") {
                             $state.go("admin.masters");
-                        } else if (data.role === "ROLE_DEALER") {
-                            $state.go("main.dealer");
+                        } else if (data.role === "ROLE_DEALER") {                            
+                            $state.go("admin.dealers");
                         }
                     });
 //                    UserService.findByUsername({
@@ -108,9 +103,9 @@ angular.module("digitalbusiness.states", ['ngAnimate', 'ui.bootstrap'])
 //                    });
                 }, function () {
                     console.log("Invalid Person");
-                    $scope.error = true;                    
-                    $scope.username="";
-                    $scope.password="";
+                    $scope.error = true;
+                    $scope.username = "";
+                    $scope.password = "";
                 });
             };
 //            $scope.guestLogin = function () {

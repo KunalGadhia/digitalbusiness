@@ -14,6 +14,10 @@ angular.module("digitalbusiness.states.admin", [])
                 'url': '/masters',
                 'templateUrl': templateRoot + '/masters/menu.html'
             });
+            $stateProvider.state('admin.dealers', {
+                'url': '/dealers',
+                'templateUrl': templateRoot + '/masters/dealer_menu.html'
+            });
             $stateProvider.state('admin.logout', {
                 'url': '/logout',
                 'templateUrl': templateRoot + '/logout.html',

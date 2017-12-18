@@ -1530,11 +1530,49 @@ angular.module("digitalbusiness.states.order", [])
                         $scope.showShutterBsm = false;
                     }
                     if (finishObject.category === "MEMBRANE") {
+                        console.log("Membrane Shutter");
+                        if ($scope.editableShutterDetail.material === "MF") {
+                            $("#shutterLength").attr({
+                                'min': 300,
+                                'max': 2350
+                            });
+                            $("#shutterWidth").attr({
+                                'min': 150,
+                                'max': 1100
+                            });
+                        } else {
+                            $("#shutterLength").attr({
+                                'min': 100,
+                                'max': 2350
+                            });
+                            $("#shutterWidth").attr({
+                                'min': 100,
+                                'max': 1100
+                            });
+                        }
+
                         $scope.shutterModelSelection = true;
                     } else {
+                        $("#shutterLength").attr({
+                            'min': 100,
+                            'max': 2350
+                        });
+                        $("#shutterWidth").attr({
+                            'min': 100,
+                            'max': 1100
+                        });
                         $scope.shutterModelSelection = false;
+                        $scope.showGlassStep = false;
                         $scope.editableShutterDetail.component = '';
                         $scope.shutterName = '';
+                    }
+                });
+                $scope.showGlassStep = false;
+                $scope.$watch('editableShutterDetail.glass', function(glassType){
+                    if(glassType === "REGULAR_GLASS"){
+                        $scope.showGlassStep = true;
+                    }else{
+                        $scope.showGlassStep = false;
                     }
                 });
                 ColorConstraintService.findByFinishCode({
@@ -3016,14 +3054,20 @@ angular.module("digitalbusiness.states.order", [])
                 if (shutterOrderDetail.handle === undefined) {
                     shutterOrderDetail.handleMainPrice = 0;
                 }
+                if(shutterOrderDetail.jali === true){
+                    shutterOrderDetail.jaliPrice = 260;
+                }else{
+                    shutterOrderDetail.jaliPrice = 0;
+                }
+                console.log("Jali Price :%O",shutterOrderDetail.jaliPrice);
                 console.log("Handle Price :%O", shutterOrderDetail.handleMainPrice);
 
                 if (shutterOrderDetail.bsm === true) {
                     console.log("Both Side");
-                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice));
+                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice));
                 } else if (shutterOrderDetail.bsm === undefined) {
                     console.log("One Side");
-                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice));
+                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice));
                 }
 
                 shutterOrderDetail.productCode = productCode;
