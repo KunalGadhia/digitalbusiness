@@ -123,9 +123,9 @@ public class CarcassOrderDetailsDAL {
         return jdbcTemplate.query(sqlQuery, new Object[]{orderHeadId}, new BeanPropertyRowMapper<>(CarcassOrderDetails.class));
     }
 
-    public Integer findPriceByOrderHeadId(Integer orderHeadId) {
+    public Double findPriceByOrderHeadId(Integer orderHeadId) {
         String sqlQuery = "SELECT sum(price) FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_HEAD_ID + " = ?";
-        return jdbcTemplate.queryForInt(sqlQuery, orderHeadId);
+        return jdbcTemplate.queryForObject(sqlQuery, new Object[]{orderHeadId}, Double.class);
     }
 
     public CarcassOrderDetails insert(CarcassOrderDetails carcassOrderDetails) {

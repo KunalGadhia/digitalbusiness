@@ -5,9 +5,7 @@
  */
 angular.module('digitalbusiness.filters', [])
         .filter('getById', function () {
-            return function (input, id) {
-                console.log("input in filter", input);
-                console.log("id in filter", id);
+            return function (input, id) {                
                 var i = 0, len = input.length;
                 for (; i < len; i++) {
                     if (+input[i].id === +id) {
@@ -18,7 +16,7 @@ angular.module('digitalbusiness.filters', [])
             };
         })
         .filter('total', function () {
-            return function (input) {
+            return function (input) {                
                 var i = input instanceof Array ? input.length : 0;
                 var a = arguments.length;
                 if (a === 1 || i === 0)

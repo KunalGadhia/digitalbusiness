@@ -109,6 +109,7 @@ public class OrderHeadDAL {
 //        return jdbcTemplate.query(sqlQuery, new Object[]{nameLike}, new BeanPropertyRowMapper<>(Employee.class));
 //    }
     public OrderHead insert(OrderHead orderHead) {
+        System.out.println("Order Head :{}"+orderHead);
         Map<String, Object> parameters = new HashMap<>();
         String OrderNumber;
 
@@ -138,8 +139,17 @@ public class OrderHeadDAL {
         parameters.put(Columns.PO_VALUE, orderHead.getPoValue());
         parameters.put(Columns.MARKETING_HEAD, orderHead.getMarketingHead());
         parameters.put(Columns.ORDER_INITIATED_BY, orderHead.getOrderInitiatedBy());
-        parameters.put(Columns.RATE_APPLICABILITY, orderHead.getRateApplicability().name());
-        parameters.put(Columns.RATE_CONTRACT, orderHead.getRateContract());
+        if (orderHead.getRateApplicability() == null) {
+            parameters.put(Columns.RATE_APPLICABILITY, RateApplicability.NA);
+        } else {
+            parameters.put(Columns.RATE_APPLICABILITY, orderHead.getRateApplicability().name());
+        }
+        if (orderHead.getRateContract() == null) {
+            parameters.put(Columns.RATE_CONTRACT, "N/A");
+        } else {
+            parameters.put(Columns.RATE_CONTRACT, orderHead.getRateContract());
+        }
+
         parameters.put(Columns.ORC_PER, orderHead.getOrcPer());
 
         Number newId = insertOrderHead.executeAndReturnKey(parameters);

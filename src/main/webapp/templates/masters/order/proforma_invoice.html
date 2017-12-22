@@ -356,15 +356,54 @@
                             <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
                         </tr>
                     </tbody>
-                    <!---- Trial Ends ------------>
-                    <tfoot>
+                    <!---- Trial Ends------------>
+<!--                    <tfoot>
                         <tr>
-                            <th colspan="10" class="text-right">Total Order Amount :</th>
-                            <th colspan="2" class="text-right">&#8377; {{ mainInvoiceList | total:'price'}}</th>
+                            <th colspan="2"><input ng-show="never" ng-model="orderTotal"></th>
+                            <th colspan="8" class="text-right">Total Order Amount :</th>
+                            <th colspan="2" class="text-right">&#8377; {{ mainInvoiceList | total:'price'}}</th>                                                        
                         </tr>
-                    </tfoot>
+                        <tr ng-if="showIgst">                            
+                            <th colspan="10" class="text-right">IGST :</th>
+                            <th colspan="2" class="text-right">&#8377; {{igst}}</th>                                                        
+                        </tr>
+                        <tr ng-if="showCgst">                            
+                            <th colspan="10" class="text-right">SGST (9%) :</th>
+                            <th colspan="2" class="text-right">&#8377; {{sgst}}</th>                                                        
+                        </tr>
+                        <tr ng-if="showCgst">                            
+                            <th colspan="10" class="text-right">CGST (9%) :</th>
+                            <th colspan="2" class="text-right">&#8377; {{cgst}}</th>                                                        
+                        </tr>
+                        <tr>
+                            <th colspan="10" class="text-right">Net Amount :</th>
+                            <th colspan="2" class="text-right">&#8377; {{netAmount}}</th>                                                        
+                        </tr>
+                    </tfoot>-->
                 </table>
-            </div>
+                <hr style="border-top: 2px solid">
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Order Amount :</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ mainInvoiceList | total:'price'}}</strong></div>
+                </div>
+                <div class="row" ng-if="showIgst">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>IGST (18%) :</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{igst}}</strong></div>
+                </div>
+                <div class="row" ng-if="showCgst">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>SGST (9%) :</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{sgst}}</strong></div>
+                </div>
+                <div class="row" ng-if="showCgst">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>CGST (9%) :</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{cgst}}</strong></div>
+                </div>
+                <hr style="border-top: 2px solid">
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Net Amount :</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{netAmount}}</strong></div>
+                </div>
+            </div>            
         </div>
     </div>    
 </div>

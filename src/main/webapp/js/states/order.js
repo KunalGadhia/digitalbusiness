@@ -1568,10 +1568,10 @@ angular.module("digitalbusiness.states.order", [])
                     }
                 });
                 $scope.showGlassStep = false;
-                $scope.$watch('editableShutterDetail.glass', function(glassType){
-                    if(glassType === "REGULAR_GLASS"){
+                $scope.$watch('editableShutterDetail.glass', function (glassType) {
+                    if (glassType === "REGULAR_GLASS") {
                         $scope.showGlassStep = true;
-                    }else{
+                    } else {
                         $scope.showGlassStep = false;
                     }
                 });
@@ -3054,12 +3054,12 @@ angular.module("digitalbusiness.states.order", [])
                 if (shutterOrderDetail.handle === undefined) {
                     shutterOrderDetail.handleMainPrice = 0;
                 }
-                if(shutterOrderDetail.jali === true){
+                if (shutterOrderDetail.jali === true) {
                     shutterOrderDetail.jaliPrice = 260;
-                }else{
+                } else {
                     shutterOrderDetail.jaliPrice = 0;
                 }
-                console.log("Jali Price :%O",shutterOrderDetail.jaliPrice);
+                console.log("Jali Price :%O", shutterOrderDetail.jaliPrice);
                 console.log("Handle Price :%O", shutterOrderDetail.handleMainPrice);
 
                 if (shutterOrderDetail.bsm === true) {
@@ -3557,9 +3557,20 @@ angular.module("digitalbusiness.states.order", [])
         )
         .controller('ProformaInvoiceDisplayController', function (DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
+            var totalPrice = 0;
             var carcassTotalPrice = 0;
             var panelTotalPrice = 0;
+            var shutterTotalPrice = 0;
+            var drawerTotalPrice = 0;
+            var fillerTotalPrice = 0;
+            var pelmetTotalPrice = 0;
+            var corniceTotalPrice = 0;
+            var handleTotalPrice = 0;
+            $scope.componentTotalList = [];
             $scope.mainInvoiceList = [];
+            $scope.showCgst = false;
+            $scope.showIgst = false;
+            $scope.gstObject = {};
             if ($scope.mainInvoiceList.length === 0) {
                 console.log("Initial Length 0");
                 $scope.srNo = 0;
@@ -3588,6 +3599,7 @@ angular.module("digitalbusiness.states.order", [])
                 'orderHeadId': $stateParams.orderHeadId
             }, function (carcassOrderList) {
                 console.log("Carcass Order List :%O", carcassOrderList);
+                $scope.carcassTotalPrice = 0;
                 angular.forEach($scope.carcassDetailsList, function (carcassDetailObject) {
                     $scope.srNo = $scope.srNo + 1;
                     carcassDetailObject.srNo = $scope.srNo;
@@ -3626,9 +3638,17 @@ angular.module("digitalbusiness.states.order", [])
                             'finishCode': carcassDetailObject.sideFinish
                         });
                     }
+//                    $scope.carcassTotalPrice = $scope.carcassTotalPrice + carcassDetailObject.price;
+//                    console.log("Carcass Total Price" + $scope.carcassTotalPrice);
+                    carcassTotalPrice = carcassTotalPrice + carcassDetailObject.price;
+//                    console.log("Total Carcass Price :" + totalPrice);
                     $scope.mainInvoiceList.push(carcassDetailObject);
 //                    console.log("KC Obj :%O", carcassDetailObject.kitchenComponentObject);
                 });
+                $scope.carcassTotalPrice = carcassTotalPrice;
+                console.log("Carcass Total Price in function :" + $scope.carcassTotalPrice);
+                $scope.captureTotal($scope.carcassTotalPrice);
+                $scope.componentTotalList.push($scope.carcassTotalPrice);
             });
             $scope.panelDetailsList = PanelOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
@@ -3645,8 +3665,14 @@ angular.module("digitalbusiness.states.order", [])
                     panelDetailObject.rawMaterialObject = RawMaterialService.findByMaterialCode({
                         'materialCode': panelDetailObject.material
                     });
+                    totalPrice = totalPrice + panelDetailObject.price;
+                    console.log("Panel Added to Total Price " + totalPrice);
+                    panelTotalPrice = panelTotalPrice + panelDetailObject.price;
                     $scope.mainInvoiceList.push(panelDetailObject);
                 });
+                $scope.panelTotalPrice = panelTotalPrice;
+//                console.log("Panel Total Price :%O", panelTotalPrice);
+                $scope.captureTotal($scope.panelTotalPrice);
             });
             $scope.fillerDetailsList = FillerOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
@@ -3666,8 +3692,14 @@ angular.module("digitalbusiness.states.order", [])
                     fillerDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
                         'finishCode': fillerDetailObject.finish
                     });
+                    totalPrice = totalPrice + fillerDetailObject.price;
+                    console.log("Added Filler Price :%O", totalPrice);
+                    fillerTotalPrice = fillerTotalPrice + fillerDetailObject.price;
                     $scope.mainInvoiceList.push(fillerDetailObject);
                 });
+                $scope.fillerTotalPrice = fillerTotalPrice;
+//                console.log("Filler Total Price :%O", $scope.fillerTotalPrice);
+                $scope.captureTotal($scope.fillerTotalPrice);
             });
             $scope.pelmetDetailsList = PelmetOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
@@ -3687,8 +3719,14 @@ angular.module("digitalbusiness.states.order", [])
                     pelmetDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
                         'finishCode': pelmetDetailObject.finish
                     });
+                    totalPrice = totalPrice + pelmetDetailObject.price;
+                    pelmetTotalPrice = pelmetTotalPrice + pelmetDetailObject.price;
+//                    console.log("Added Pelmet Price :%O", totalPrice);
                     $scope.mainInvoiceList.push(pelmetDetailObject);
                 });
+                $scope.pelmetTotalPrice = pelmetTotalPrice;
+                console.log("Pelmet totaol Price :%O", $scope.pelmetTotalPrice);
+                $scope.captureTotal($scope.pelmetTotalPrice);
             });
             $scope.corniceDetailsList = CorniceOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
@@ -3708,8 +3746,14 @@ angular.module("digitalbusiness.states.order", [])
                     corniceDetailObject.finishPriceObject = FinishPriceService.findByFinishCode({
                         'finishCode': corniceDetailObject.finish
                     });
+                    totalPrice = totalPrice + corniceDetailObject.price;
+                    corniceTotalPrice = corniceTotalPrice + corniceDetailObject.price;
+                    console.log("Added Cornice Price :%O", totalPrice);
                     $scope.mainInvoiceList.push(corniceDetailObject);
                 });
+                $scope.cornicetotalPrice = corniceTotalPrice;
+                console.log("Cornice Total Price :%O", corniceTotalPrice);
+                $scope.captureTotal(corniceTotalPrice);
             });
             $scope.handleDetailsList = HandleOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
@@ -3718,12 +3762,18 @@ angular.module("digitalbusiness.states.order", [])
                     handleDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
                         'componentCode': handleDetailObject.component
                     });
+                    totalPrice = totalPrice + handleDetailObject.price;
+//                    console.log("Added Handle Price :%O", totalPrice);
+                    handleTotalPrice = handleTotalPrice + handleDetailObject.price;
                     $scope.mainInvoiceList.push(handleDetailObject);
                 });
+                $scope.handleTotalPrice = handleTotalPrice;
+                console.log("Handle Total Price :%O", $scope.handleTotalPrice);
+                $scope.captureTotal($scope.handleTotalPrice);
             });
             $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
-            }, function (sutterOrderList) {
+            }, function (shutterOrderList) {
                 angular.forEach($scope.shutterDetailsList, function (shutterDetailObject) {
                     shutterDetailObject.kitchenComponentObject = KitchenComponentService.findByComponentCode({
                         'componentCode': shutterDetailObject.component
@@ -3737,8 +3787,14 @@ angular.module("digitalbusiness.states.order", [])
                     shutterDetailObject.colorObject = ColorService.get({
                         'id': shutterDetailObject.colorId
                     });
+                    totalPrice = totalPrice + shutterDetailObject.price;
+//                    console.log("Added SHutter Price :%O", totalPrice);
+                    shutterTotalPrice = shutterTotalPrice + shutterDetailObject.price;
                     $scope.mainInvoiceList.push(shutterDetailObject);
                 });
+                $scope.shutterTotalPrice = shutterTotalPrice;
+                console.log("Shutter Total Price :%O", $scope.shutterTotalPrice);
+                $scope.captureTotal($scope.shutterTotalPrice);
             });
             $scope.drawerDetailsList = DrawerOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
@@ -3756,14 +3812,20 @@ angular.module("digitalbusiness.states.order", [])
                     drawerDetailObject.colorObject = ColorService.get({
                         'id': drawerDetailObject.colorId
                     });
+                    totalPrice = totalPrice + drawerDetailObject.price;
+                    drawerTotalPrice = drawerTotalPrice + drawerDetailObject.price;
+//                    console.log("Added Filler Price :%O", totalPrice);
                     $scope.mainInvoiceList.push(drawerDetailObject);
                 });
+                $scope.drawerTotalPrice = drawerTotalPrice;
+                console.log("Drawer total Price :%O" + $scope.drawerTotalPrice);
+                $scope.captureTotal($scope.drawerTotalPrice);
             });
-//            $scope.carcassTotal = $filter('total')($scope.carcassDetailsList, 'price');
-//            console.log("Carcass Total :" + $scope.carcassTotal);
-
-//            $scope.carcassPrice = CarcassOrderDetailsService.findPriceByOrderHeadId({
+//            console.log("Final Price After Adding Everything :%O", totalPrice);
+//            CarcassOrderDetailsService.findPriceByOrderHeadId({
 //                'orderHeadId': $stateParams.orderHeadId
+//            }, function (carcassPrice) {
+//                console.log("Carcass Price :" + carcassPrice);
 //            });
 //
 //            $scope.carcassPrice.$promise.then(function (cPrice) {
@@ -3779,9 +3841,52 @@ angular.module("digitalbusiness.states.order", [])
 //                    console.log("Panel Price :"+panelPrice);
 //                    $scope.totalAmount = carcassPrice + panelPrice;
 //                });
-//            });            
-
+//            });
+            console.log("Carcass Total Price :%O", $scope.carcassTotalPrice);
             console.log("Main Invoice List :%O", $scope.mainInvoiceList);
+            $scope.getTotal = 0;
+            var totalArr = [];
+            $scope.captureTotal = function (total) {
+                totalArr.push(total);
+                angular.forEach(totalArr, function (price) {
+//                    console.log("Price Inside Loop :%O", price);
+                });
+                $scope.getTotal = $scope.getTotal + total;
+                console.log("THIS IS IT " + $scope.getTotal);
+                $scope.orderTotal = $scope.getTotal;
+                console.log("$scope.orderHead :%O", $scope.orderHead);
+                PartyService.get({
+                    'id': $scope.orderHead.billingPartyId
+                }, function (partyObject) {
+                    console.log("Party Object :%O", partyObject);
+                    if (partyObject.state === "MS") {
+                        console.log("STate Party Apply SGST & CGST");
+                        $scope.cgst = Math.round((($scope.orderTotal / 100) * 9));
+                        $scope.sgst = Math.round((($scope.orderTotal / 100) * 9));
+                        $scope.netAmount = Math.round(($scope.orderTotal + $scope.cgst + $scope.sgst));
+                        $scope.showCgst = true;
+                        $scope.showIgst = false;
+                        console.log("Net AMount MS:%O" + $scope.netAmount);
+                    } else if (partyObject.state === "OMS") {
+                        console.log("Other State Party Apply IGST");
+                        $scope.igst = Math.round((($scope.orderTotal / 100) * 18));
+                        $scope.netAmount = Math.round(($scope.orderTotal + $scope.igst));
+                        $scope.showCgst = false;
+                        $scope.showIgst = true;
+                        console.log("Net AMount OMS:%O" + $scope.netAmount);
+                    }
+
+                });
+
+            };
+//            $scope.$on('$viewContentLoaded', function () {
+//
+////                alert("Page Loaded COmpletely");
+//                //Here your view content is fully loaded !!
+//            });
+//            $scope.pageLoaded = function (price) {
+//                console.log("Price :%O", price);
+//            };
 //            OrderHeadService.get({
 //                'id': $stateParams.orderHeadId
 //            }, function (orderHeadObject) {

@@ -13,5 +13,6 @@ public enum RateApplicability {
     C,
     A,
     M,
-    X
+    X,
+    NA
 }

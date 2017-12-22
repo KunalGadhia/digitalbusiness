@@ -65,8 +65,6 @@ angular.module("digitalbusiness.states.party", [])
 
             $scope.editableParty = {};
 
-
-
             $scope.saveParty = function (party) {
                 console.log("user", party);
                 PartyService.save(party, function () {

@@ -41,6 +41,7 @@ public class PartyDAL {
         public static final String PAN_NUMBER = "pan_number";
 //        public static final String CST_NUMBER = "cst_number";
         public static final String GST_NUMBER = "gst_number";
+        public static final String STATE = "state";
         
     }
 
@@ -69,7 +70,8 @@ public class PartyDAL {
                         Columns.BILL_BOARD_TEL,
                         Columns.DIRECT_TEL_NO,
                         Columns.PAN_NUMBER,                        
-                        Columns.GST_NUMBER
+                        Columns.GST_NUMBER,
+                        Columns.STATE
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -113,6 +115,7 @@ public class PartyDAL {
         parameters.put(Columns.PAN_NUMBER, party.getPanNumber());
 //        parameters.put(Columns.CST_NUMBER, party.getCstNumber());
         parameters.put(Columns.GST_NUMBER, party.getGstNumber());
+        parameters.put(Columns.STATE, party.getState());
         
         Number newId = insertParty.executeAndReturnKey(parameters);
         party = findById(newId.intValue());
@@ -140,8 +143,9 @@ public class PartyDAL {
                 + Columns.BILL_BOARD_TEL + " = ?,"
                 + Columns.DIRECT_TEL_NO + " = ?,"
                 + Columns.PAN_NUMBER + " = ?,"
+                + Columns.GST_NUMBER + " = ?,"
 //                + Columns.CST_NUMBER + " = ?,"
-                + Columns.GST_NUMBER + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.STATE + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     party.getDealerCode(),
@@ -160,6 +164,7 @@ public class PartyDAL {
                     party.getPanNumber(),
 //                    party.getCstNumber(),
                     party.getGstNumber(),
+                    party.getState(),
                     party.getId()
                 });
         party = findById(party.getId());

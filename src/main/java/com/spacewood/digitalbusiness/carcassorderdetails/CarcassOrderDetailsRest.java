@@ -57,7 +57,7 @@ public class CarcassOrderDetailsRest {
     }
     
     @RequestMapping(value = "/find_price_by/order_head", method = RequestMethod.GET)
-    public Integer findPriceByOrderHeadId(@RequestParam("orderHeadId") Integer orderHeadId) {
+    public Double findPriceByOrderHeadId(@RequestParam("orderHeadId") Integer orderHeadId) {
         return carcassOrderDetailDAL.findPriceByOrderHeadId(orderHeadId);
     }
 }

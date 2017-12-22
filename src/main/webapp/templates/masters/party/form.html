@@ -129,6 +129,16 @@
                                 <input type="text"  class="form-control" placeholder="GST Number" ng-model="editableParty.gstNumber" required=""/>
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>State</label>
+                                <select class="form-control" ng-model="editableParty.state">
+                                    <option value="">Select State</option>
+                                    <option value="MS">Within Maharashtra</option>
+                                    <option value="OMS">Other Than Maharashtra</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="modal-footer">
