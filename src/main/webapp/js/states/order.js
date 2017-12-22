@@ -69,11 +69,32 @@ angular.module("digitalbusiness.states.order", [])
 
         .controller('OrderHeadController', function (OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
             $scope.editableOrderHead = {};
-
+            $scope.adminPartyTypeAhead = false;
+            $scope.dealerPartyDropdown = false;
+            $scope.dealerPartyList = [];
+            $scope.editableOrderHead.billType = "D";
+            $scope.editableOrderHead.orderSubType = "N";
             $scope.user = $rootScope.currentUser;
             UserService.findByUsername({
                 'username': $scope.user.username
             }, function (userObject) {
+                console.log("User Object :%O", userObject);
+                if (userObject.role === "ROLE_ADMIN") {
+                    console.log("Admin Login");
+                    $scope.adminPartyTypeAhead = true;
+                    $scope.dealerPartyDropdown = false;
+                } else {
+                    console.log("Dealer Login");
+                    $scope.adminPartyTypeAhead = false;
+                    $scope.dealerPartyDropdown = true;
+                    angular.forEach(userObject.parties, function (partyId) {
+                        PartyService.get({
+                            'id': partyId
+                        }, function (partyObject) {
+                            $scope.dealerPartyList.push(partyObject);
+                        });
+                    });
+                }
                 $scope.editableOrderHead.orderInitiatedBy = userObject.id;
                 $scope.editableOrderHead.user = userObject;
             });
@@ -84,6 +105,24 @@ angular.module("digitalbusiness.states.order", [])
             SaleTypeService.findAllList(function (saleTypeList) {
                 $scope.saleTypeList = saleTypeList;
             });
+            /////////////////New Thing///////////////////
+            $scope.$watch('editableOrderHead.billingPartyId', function(billingPartyId){
+                $scope.editableOrderHead.deliveryPartyId = billingPartyId;
+                PartyService.get({
+                   'id': billingPartyId 
+                }, function(billingPartyObject){
+                    $scope.editableOrderHead.party = billingPartyObject;
+                    $scope.editableOrderHead.party1 = billingPartyObject;
+                });
+            });
+            $scope.$watch('editableOrderHead.deliveryPartyId', function(deliveryPartyId){
+                PartyService.get({
+                   'id': deliveryPartyId 
+                }, function(billingPartyObject){                    
+                    $scope.editableOrderHead.party1 = billingPartyObject;
+                });
+            });
+            ////////////////////////////////////////////////
 
             $scope.setParty = function (party) {
                 $scope.editableOrderHead.party = party;

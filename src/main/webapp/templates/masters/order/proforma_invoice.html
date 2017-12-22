@@ -357,29 +357,29 @@
                         </tr>
                     </tbody>
                     <!---- Trial Ends------------>
-<!--                    <tfoot>
-                        <tr>
-                            <th colspan="2"><input ng-show="never" ng-model="orderTotal"></th>
-                            <th colspan="8" class="text-right">Total Order Amount :</th>
-                            <th colspan="2" class="text-right">&#8377; {{ mainInvoiceList | total:'price'}}</th>                                                        
-                        </tr>
-                        <tr ng-if="showIgst">                            
-                            <th colspan="10" class="text-right">IGST :</th>
-                            <th colspan="2" class="text-right">&#8377; {{igst}}</th>                                                        
-                        </tr>
-                        <tr ng-if="showCgst">                            
-                            <th colspan="10" class="text-right">SGST (9%) :</th>
-                            <th colspan="2" class="text-right">&#8377; {{sgst}}</th>                                                        
-                        </tr>
-                        <tr ng-if="showCgst">                            
-                            <th colspan="10" class="text-right">CGST (9%) :</th>
-                            <th colspan="2" class="text-right">&#8377; {{cgst}}</th>                                                        
-                        </tr>
-                        <tr>
-                            <th colspan="10" class="text-right">Net Amount :</th>
-                            <th colspan="2" class="text-right">&#8377; {{netAmount}}</th>                                                        
-                        </tr>
-                    </tfoot>-->
+                    <!--                    <tfoot>
+                                            <tr>
+                                                <th colspan="2"><input ng-show="never" ng-model="orderTotal"></th>
+                                                <th colspan="8" class="text-right">Total Order Amount :</th>
+                                                <th colspan="2" class="text-right">&#8377; {{ mainInvoiceList | total:'price'}}</th>                                                        
+                                            </tr>
+                                            <tr ng-if="showIgst">                            
+                                                <th colspan="10" class="text-right">IGST :</th>
+                                                <th colspan="2" class="text-right">&#8377; {{igst}}</th>                                                        
+                                            </tr>
+                                            <tr ng-if="showCgst">                            
+                                                <th colspan="10" class="text-right">SGST (9%) :</th>
+                                                <th colspan="2" class="text-right">&#8377; {{sgst}}</th>                                                        
+                                            </tr>
+                                            <tr ng-if="showCgst">                            
+                                                <th colspan="10" class="text-right">CGST (9%) :</th>
+                                                <th colspan="2" class="text-right">&#8377; {{cgst}}</th>                                                        
+                                            </tr>
+                                            <tr>
+                                                <th colspan="10" class="text-right">Net Amount :</th>
+                                                <th colspan="2" class="text-right">&#8377; {{netAmount}}</th>                                                        
+                                            </tr>
+                                        </tfoot>-->
                 </table>
                 <hr style="border-top: 2px solid">
                 <div class="row">
@@ -402,6 +402,84 @@
                 <div class="row">
                     <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Net Amount :</strong></div>
                     <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{netAmount}}</strong></div>
+                </div>
+                <hr style="border-top: 2px solid">
+                <div class="row">
+                    <strong style="margin-left: 30px">Remark :</strong>
+                    <br>
+                    <span style="margin-left: 30px">Terms and Conditions as applicable to this Proforma Invoice</span>                    
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2 col-xs-2 text-left">1. Delivery Terms :</span>
+                    <span class="col-md-10 col-xs-10 text-left"> FOB/Ex Works</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">2. Delivery Schedule :</span>
+                    <span class="col-md-10  col-xs-10 text-left">15 Days</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">3. Freight :</span>
+                    <span class="col-md-10  col-xs-10 text-left">To Your Account</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">4.Duty / Taxes :</span>
+                    <span class="col-md-10  col-xs-10 text-left">As Above</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">5.Octroi :</span>
+                    <span class="col-md-10  col-xs-10 text-left">To Your Account</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">6. Installation :</span>
+                    <span class="col-md-10  col-xs-10 text-left">To Your Account</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">7. Prices Validity Period :</span>
+                    <span class="col-md-10  col-xs-10 text-left">As per Prevailing Rate Agreement</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">8. Payment Terms :</span>
+                    <span class="col-md-10  col-xs-10 text-left">Credit Period 30 Days</span>
+                </div>
+                <br>
+                <div class="row">
+                    <strong style="margin-left: 30px">Our Bank Details (Applicable in case of direct deposits) :</strong>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">Bank :</span>
+                    <span class="col-md-10  col-xs-10 text-left">Union Bank Of India</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">Branch :</span>
+                    <span class="col-md-10  col-xs-10 text-left">Dhantoli, Nagpur</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">A/C No :</span>
+                    <span class="col-md-10  col-xs-10 text-left">366005010000307</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">RTGS/IFSC :</span>
+                    <span class="col-md-10  col-xs-10 text-left">UBIN0536601</span>
+                </div>
+                <br>
+                <div class="row">
+                    <span class="text-danger" style="margin-left: 30px">
+                        <strong>
+                            GST shall be charged as per the rate applicable on all clearances from the effective date as shall be notified by the Government Of India
+                        </strong>
+                    </span>
+                </div>
+                <hr style="border-top: 2px solid; margin-bottom: 0px">
+                <div class="row col-lg-12">                    
+                    <span class="col-md-4 col-xs-4 text-center">Issued By</span>
+                    <span class="col-md-4 col-xs-4 text-center">PI Approved By</span>
+                    <span class="col-md-4 col-xs-4 text-center">Read and Accepted By</span>                    
+                </div>                
+                <hr style="border-top: 2px solid">                
+                <div class="row col-lg-12">
+                    <span class="col-md-4 col-xs-4 text-center">SPACEWOOD FURNISHERS PVT LTD.</span>
+                    <span class="col-md-4 col-xs-4 text-center">Mr. Harish Patwardhan</span>
+                    <span class="col-md-4 col-xs-4 text-center">{{party.dealerName}}</span>
                 </div>
             </div>            
         </div>

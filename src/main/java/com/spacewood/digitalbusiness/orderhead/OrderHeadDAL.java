@@ -123,10 +123,10 @@ public class OrderHeadDAL {
 
         OrderNumber = "OC" + srNumber;
         parameters.put(Columns.ORDER_NUM, OrderNumber);
-        parameters.put(Columns.SEGMENT, orderHead.getSegment());
-        parameters.put(Columns.SALE_TYPE, orderHead.getSaleType());
-        parameters.put(Columns.ENTRY_TYPE, orderHead.getEntryType().name());
-        parameters.put(Columns.ORDER_TYPE, orderHead.getOrderType().name());
+        parameters.put(Columns.SEGMENT, "K");
+        parameters.put(Columns.SALE_TYPE, "KC");
+        parameters.put(Columns.ENTRY_TYPE, EntryType.NON_PROJECTS);
+        parameters.put(Columns.ORDER_TYPE, OrderType.COMPONENTS);
         parameters.put(Columns.BILLING_PARTY_ID, orderHead.getBillingPartyId());
         parameters.put(Columns.DELIVERY_PARTY_ID, orderHead.getDeliveryPartyId());
         parameters.put(Columns.POSTAL_CODE, orderHead.getPostalCode());

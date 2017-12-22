@@ -1,11 +1,11 @@
 <div class="panel panel-default">
     <div class="panel-heading text-center">       
         <div class="pull-left">
-<!--            <a data-ui-sref="admin.masters"
-               class="btn btn-default">
-                <i class="fa fa-arrow-left"></i>
-                Back
-            </a>-->
+            <!--            <a data-ui-sref="admin.masters"
+                           class="btn btn-default">
+                            <i class="fa fa-arrow-left"></i>
+                            Back
+                        </a>-->
             <button class="btn btn-default" 
                     type="button"
                     onclick="window.history.back()">
@@ -18,55 +18,55 @@
             <h3>Order Entry</h3>
         </div>
         <form role="role" ng-submit="saveOrderHead(editableOrderHead)">
-            <div class="modal-header">
+<!--            <div class="modal-header">
                 <h4 class="modal-title pull-left">                        
                     Basic Details
                 </h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Segment</label>
-                            <!--<input class="form-control" placeholder="Dealer Code" ng-model="editableParty.dealerCode" required=""/>-->
-                            <select class="form-control" ng-model="editableOrderHead.segment">
-                                <option value="">Select Segment</option>
-                                <option ng-repeat="segment in segmentList" value="{{segment.segmentCode}}">{{segment.segment}}</option>                                
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Sale Type</label>
-                            <!--<input class="form-control" placeholder="Dealer Name" ng-model="editableParty.dealerName" required=""/>-->
-                            <select class="form-control" ng-model="editableOrderHead.saleType">
-                                <option value="">Select Sale Type</option>
-                                <option ng-repeat="saleType in saleTypeList" value="{{saleType.saleTypeCode}}">{{saleType.saleType}}</option>                                
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Type</label>
-                            <!--<input class="form-control" placeholder="Dealer Code" ng-model="editableParty.dealerCode" required=""/>-->
-                            <select class="form-control" ng-model="editableOrderHead.entryType">
-                                <option value="">Select Type</option>
-                                <option value="NON_PROJECTS">NON PROJECTS</option>                                
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Order Type</label>
-                            <!--<input class="form-control" placeholder="Dealer Name" ng-model="editableParty.dealerName" required=""/>-->
-                            <select class="form-control" ng-model="editableOrderHead.orderType">
-                                <option value="">Select Order Type</option>
-                                <option value="COMPONENTS">COMPONENTS</option>                                
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div>-->
+            <!--<div class="modal-body">-->
+                <!--                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Segment</label>
+                                            <input class="form-control" placeholder="Dealer Code" ng-model="editableParty.dealerCode" required=""/>
+                                            <select class="form-control" ng-model="editableOrderHead.segment">
+                                                <option value="">Select Segment</option>
+                                                <option ng-repeat="segment in segmentList" value="{{segment.segmentCode}}">{{segment.segment}}</option>                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Sale Type</label>
+                                            <input class="form-control" placeholder="Dealer Name" ng-model="editableParty.dealerName" required=""/>
+                                            <select class="form-control" ng-model="editableOrderHead.saleType">
+                                                <option value="">Select Sale Type</option>
+                                                <option ng-repeat="saleType in saleTypeList" value="{{saleType.saleTypeCode}}">{{saleType.saleType}}</option>                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Type</label>
+                                            <input class="form-control" placeholder="Dealer Code" ng-model="editableParty.dealerCode" required=""/>
+                                            <select class="form-control" ng-model="editableOrderHead.entryType">
+                                                <option value="">Select Type</option>
+                                                <option value="NON_PROJECTS">NON PROJECTS</option>                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Order Type</label>
+                                            <input class="form-control" placeholder="Dealer Name" ng-model="editableParty.dealerName" required=""/>
+                                            <select class="form-control" ng-model="editableOrderHead.orderType">
+                                                <option value="">Select Order Type</option>
+                                                <option value="COMPONENTS">COMPONENTS</option>                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>-->
+            <!--</div>-->
             <div class="modal-body">
                 <div class="modal-body row">
                     <div class="col-lg-6 col-md-6 col-sm-12">
@@ -89,9 +89,13 @@
                                                typeahead-editable="false"
                                                typeahead-loading="loadingParty" 
                                                typeahead-no-results="noPartyFound"                                       
-                                               ng-model="editableOrderHead.party.dealerCode" required=""/>
+                                               ng-model="editableOrderHead.party.dealerCode" required="" ng-if="adminPartyTypeAhead"/>
                                         <p ng-show="noPartyFound" class="help-block text-muted">No Parties Found</p>
                                         <p ng-show="loadingParty" class="help-block text-muted">Loading...</p>
+                                        <select class="form-control" ng-model="editableOrderHead.billingPartyId" required="" ng-if="dealerPartyDropdown">
+                                            <option value="">Select billing Party</option>
+                                            <option ng-repeat="party in dealerPartyList" value="{{party.id}}">{{party.dealerName}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -222,10 +226,13 @@
                                                typeahead-editable="false"
                                                typeahead-loading="loadingParty1" 
                                                typeahead-no-results="noParty1Found"                                       
-                                               ng-model="editableOrderHead.party1.dealerCode" required=""/>
+                                               ng-model="editableOrderHead.party1.dealerCode" required="" ng-if="adminPartyTypeAhead"/>
                                         <p ng-show="noParty1Found" class="help-block text-muted">No Parties Found</p>
-                                        <p ng-show="loadingParty1" class="help-block text-muted">Loading...</p>                                        
-
+                                        <p ng-show="loadingParty1" class="help-block text-muted">Loading...</p>                      
+                                        <select class="form-control" ng-model="editableOrderHead.deliveryPartyId" required="" ng-if="dealerPartyDropdown">
+                                            <option value="">Select Delivery Party</option>
+                                            <option ng-repeat="party in dealerPartyList" value="{{party.id}}">{{party.dealerName}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -325,12 +332,12 @@
                                 <select class="form-control" ng-model="editableOrderHead.billType">
                                     <option value="">Select Bill Type</option>
                                     <option value="D">DIRECT SALES</option>
-                                    <option value="T">TRANSFER</option>
+<!--                                    <option value="T">TRANSFER</option>
                                     <option value="R">RE-PROCESSING</option>
                                     <option value="S">SELF CONSUMPTION</option>
                                     <option value="E">EXPORT INCLUDING NEPAL</option>
                                     <option value="X">SEZ-1/2 (NO TAX)</option>
-                                    <option value="C">CT3</option>                                        
+                                    <option value="C">CT3</option>                                        -->
                                 </select>
                             </div>
                         </div>
@@ -340,13 +347,13 @@
                                 <!--<input class="form-control" placeholder="Party Name" ng-model="editableOrderHead.party.dealerName" readonly="">-->
                                 <select class="form-control" ng-model="editableOrderHead.orderSubType">
                                     <option value="">Select Order Sub Type</option>
-                                    <option value="T">SERVICE ORDER</option>
+                                    <!--<option value="T">SERVICE ORDER</option>-->
                                     <option value="N">NORMAL</option>
-                                    <option value="D">DISPLAY</option>
+<!--                                    <option value="D">DISPLAY</option>
                                     <option value="R">REPLACEMENT</option>
                                     <option value="S">STOCK</option>
                                     <option value="C">COMMERCIAL</option>
-                                    <option value="F">FOC</option>
+                                    <option value="F">FOC</option>-->
                                 </select>
                             </div>
                         </div>
@@ -364,10 +371,16 @@
                         </div>
                     </div>
                     <div class="row">
+                        <!--                        <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label>Cust Order ID</label>
+                                                        <input type="text" class="form-control" placeholder="Will Be Generated Automati" ng-model="editableOrderHead.orderId">
+                                                    </div>
+                                                </div>-->
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Cust Order ID</label>
-                                <input type="text" class="form-control" placeholder="Will Be Generated Automati" ng-model="editableOrderHead.orderId">
+                                <label>Order Initiated By</label>
+                                <input type="text" class="form-control" placeholder="Order Initiated By" ng-model="editableOrderHead.user.username" readonly="">
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -400,7 +413,7 @@
                         </div>
 
                     </div>
-                    <div class="row">
+<!--                    <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Order Initiated By</label>
@@ -410,7 +423,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Rate Applicability</label>
-                                <!--<input class="form-control" type="text" placeholder="DD-MM-YYYY" ng-model="editableOrderHead.poDate"/>-->
+                                <input class="form-control" type="text" placeholder="DD-MM-YYYY" ng-model="editableOrderHead.poDate"/>
                                 <select class="form-control" ng-model="editableOrderHead.rateApplicability">
                                     <option value="">Select Rate Applicability</option>
                                     <option value="C">RATE CONTRACT</option>
@@ -433,7 +446,7 @@
                                 <input class="form-control" type="text" placeholder="ORC Percentage" ng-model="editableOrderHead.orcPer"/>
                             </div>
                         </div>
-                    </div>                    
+                    </div>                    -->
                 </div>                
             </div>
             <div class="modal-footer">

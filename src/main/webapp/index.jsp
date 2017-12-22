@@ -226,7 +226,7 @@
         <!-- Spacewood UI Ends-->       
 
         <!--Stylesheet-->
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap/3.3.5/css/bootstrap.min.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap/3.3.5/css/bootstrap.min.css" media="all"/>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>        
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/modal-override.css"/>
