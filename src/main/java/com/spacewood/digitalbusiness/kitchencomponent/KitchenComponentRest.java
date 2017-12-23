@@ -81,6 +81,11 @@ public class KitchenComponentRest {
         return kitchenComponentDAL.findByComponentLike(component);
     }
     
+    @RequestMapping(value = "/find/handle/component_like", method = RequestMethod.GET)
+    public List<KitchenComponent> findByHandleComponentLike(@RequestParam("component") String component) {
+        return kitchenComponentDAL.findByHandleComponentLike(component);
+    }
+    
     @RequestMapping(value = "/find/category", method = RequestMethod.GET)
     public List<KitchenComponent> findByCategory(@RequestParam("category") String category) {
         return kitchenComponentDAL.findByCategory(category);

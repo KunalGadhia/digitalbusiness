@@ -37,6 +37,14 @@ angular.module("digitalbusiness.services.kitchen_component")
                     },
                     'isArray': true
                 },
+                'findByHandleComponentLike': {
+                    'method': 'GET',
+                    'url': restRoot + '/kitchen_component/find/handle/component_like',
+                    'params': {
+                        'component': '@component'
+                    },
+                    'isArray': true
+                },
                 'findByCategory': {
                     'method': 'GET',
                     'url': restRoot + '/kitchen_component/find/category',
