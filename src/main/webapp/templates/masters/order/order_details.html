@@ -1365,7 +1365,7 @@
                             <span ng-if="orderDetails.glass === 'MESH_GLASS'">Mesh Glass </span>
                             <span>Shutter </span>
                             <span>{{orderDetails.kitchenComponentObject.component}}</span>
-                            <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                            <span ng-if="orderDetails.material !== null">in {{orderDetails.rawMaterialObject.material}}</span>
                             <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
                             <span ng-if="orderDetails.bsm === true"><strong>(Both Side)</strong></span>
                             <span ng-if="orderDetails.step === true"><strong>& Glass Step</strong></span>

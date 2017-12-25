@@ -1590,17 +1590,17 @@ angular.module("digitalbusiness.states.order", [])
 
             $scope.$watch('editableShutterDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
-                if(finishName === "XXW"){
+                if (finishName === "XXW") {
                     $scope.alFinish = true;
-                }else if(finishName === "XXX"){
+                } else if (finishName === "XXX") {
                     $scope.alFinish = true;
-                }else if(finishName === "XXY"){
+                } else if (finishName === "XXY") {
                     $scope.alFinish = true;
-                }else if(finishName === "XXZ"){
+                } else if (finishName === "XXZ") {
                     $scope.alFinish = true;
-                }else if(finishName === "XAA"){
+                } else if (finishName === "XAA") {
                     $scope.alFinish = true;
-                }else{
+                } else {
                     $scope.alFinish = false;
                 }
                 $scope.shutterHandleList1 = [];
@@ -2295,7 +2295,11 @@ angular.module("digitalbusiness.states.order", [])
                             var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.shelf === true) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
                             orderDetail.productCode = productCode;
                             if (orderDetail.sectionDirection === 'HORIZONTAL') {
                                 profileArea = orderDetail.width / 1000;
@@ -2343,7 +2347,11 @@ angular.module("digitalbusiness.states.order", [])
                             var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.shelf === true) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
                             orderDetail.productCode = productCode;
                             if (orderDetail.sectionDirection === 'HORIZONTAL') {
                                 profileArea = orderDetail.width / 1000;
@@ -2393,7 +2401,12 @@ angular.module("digitalbusiness.states.order", [])
                         var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
-                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        if (orderDetail.shelf === true) {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                        } else {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                        }
+//                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
                             profileArea = orderDetail.width / 1000;
@@ -2444,7 +2457,12 @@ angular.module("digitalbusiness.states.order", [])
                         var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
-                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        if (orderDetail.shelf === true) {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                        } else {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                        }
+//                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
                             profileArea = orderDetail.width / 1000;
@@ -2491,7 +2509,12 @@ angular.module("digitalbusiness.states.order", [])
                         var basicAreaPrice = (basicSqMt * orderDetail.backPanelPrice);
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
 //                        var backAreaPrice = ()
-                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        if (orderDetail.shelf === true) {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                        } else {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                        }
+//                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
                             profileArea = orderDetail.width / 1000;
@@ -2530,8 +2553,12 @@ angular.module("digitalbusiness.states.order", [])
                         basicArea = p1 + p2 + p3;
                         basicSqMt = basicArea / 1000000;
                         var basicAreaPrice = basicSqMt * orderDetail.finishPrice;
-
-                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        if (orderDetail.shelf === true) {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                        } else {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                        }
+//                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
 
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
@@ -2570,7 +2597,12 @@ angular.module("digitalbusiness.states.order", [])
                         basicArea = p1 + p2 + p3;
                         basicSqMt = basicArea / 1000000;
                         totalArea = basicSqMt;
-                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXX-" + l1 + "" + w1 + "18" + d1;
+                        if (orderDetail.shelf === true) {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
+                        } else {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
+                        }
+//                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXX-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
                         console.log("Total Area Regular :%O", totalArea);
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
@@ -2642,7 +2674,12 @@ angular.module("digitalbusiness.states.order", [])
                             var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.shelf === true) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
+//                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                             orderDetail.productCode = productCode;
                             if (orderDetail.sectionDirection === 'HORIZONTAL') {
                                 profileArea = orderDetail.width / 1000;
@@ -2688,7 +2725,12 @@ angular.module("digitalbusiness.states.order", [])
                             var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.shelf === true) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
+//                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                             orderDetail.productCode = productCode;
                             if (orderDetail.sectionDirection === 'HORIZONTAL') {
                                 profileArea = orderDetail.width / 1000;
@@ -2735,7 +2777,12 @@ angular.module("digitalbusiness.states.order", [])
                         var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
-                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        if (orderDetail.shelf === true) {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                        } else {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                        }
+//                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
                             profileArea = orderDetail.width / 1000;
@@ -2785,7 +2832,12 @@ angular.module("digitalbusiness.states.order", [])
                         var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
-                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        if (orderDetail.shelf === true) {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                        } else {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                        }
+//                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
                             profileArea = orderDetail.width / 1000;
@@ -2831,7 +2883,12 @@ angular.module("digitalbusiness.states.order", [])
                         totalArea = basicSqMt + extraSqMt;
                         var basicAreaPrice = (basicSqMt * orderDetail.backPanelPrice);
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
-                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        if (orderDetail.shelf === true) {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                        } else {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                        }
+//                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
                             profileArea = orderDetail.width / 1000;
@@ -2870,8 +2927,12 @@ angular.module("digitalbusiness.states.order", [])
                         basicArea = p1 + p2 + p3;
                         basicSqMt = basicArea / 1000000;
                         var basicAreaPrice = basicSqMt * orderDetail.finishPrice;
-
-                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
+                        if (orderDetail.shelf === true) {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                        } else {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                        }
+//                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
 
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
@@ -2915,7 +2976,12 @@ angular.module("digitalbusiness.states.order", [])
                         backSqMt = backArea / 1000000;
                         shelfSqMt = shelfArea / 1000000;
                         totalArea = basicSqMt;
-                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXX-" + l1 + "" + w1 + "18" + d1;
+                        if (orderDetail.shelf === true) {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
+                        } else {
+                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
+                        }
+//                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXX-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
                         console.log("Std Material Price :%O", orderDetail.stdMaterialPrice);
                         var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
