@@ -528,7 +528,7 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="form-group">
+                    <div class="form-group" ng-hide="alFinish">
                         <label>Grain (Optional)</label>
                         <select class="form-control" ng-model="editableShutterDetail.grain">
                             <option value="">Select Grain Direction</option>
@@ -613,7 +613,7 @@
                         <input type="checkbox" class="form-control" ng-model="editableShutterDetail.step">
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2" ng-hide="alFinish">
                     <div class="form-group">
                         <label>Ventilated Grill (Optional)</label>
                         <input type="checkbox" class="form-control" ng-model="editableShutterDetail.jali">
@@ -629,6 +629,9 @@
             <div class="row">
                 <div class="col-sm-3">
                     <label>Select Handle</label>
+<!--                    <select class="form-control" ng-model="editableShutterDetail.handle">
+                        <option></option>
+                    </select>-->
                     <div class="input-group">
                         <input class="form-control" placeholder="Select Handle" ng-model="shutterHandleName" readonly=""/>
                         <span class="input-group-btn">

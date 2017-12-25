@@ -39,7 +39,7 @@
                                 <div class="form-group">
                                     <label>Material</label>
                                     <!--<input class="form-control" placeholder="Material" ng-model="editableFinishPrice.material" required=""/>-->
-                                    <select class="form-control" ng-model="editableFinishPrice.materialId" required="">
+                                    <select class="form-control" ng-model="editableFinishPrice.materialId">
                                         <option value="">Select Material</option>                                        
                                         <option ng-repeat="material in materialList" value="{{material.id}}">{{material.material}}</option>
                                     </select>

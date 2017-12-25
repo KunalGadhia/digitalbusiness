@@ -106,19 +106,19 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.saleTypeList = saleTypeList;
             });
             /////////////////New Thing///////////////////
-            $scope.$watch('editableOrderHead.billingPartyId', function(billingPartyId){
+            $scope.$watch('editableOrderHead.billingPartyId', function (billingPartyId) {
                 $scope.editableOrderHead.deliveryPartyId = billingPartyId;
                 PartyService.get({
-                   'id': billingPartyId 
-                }, function(billingPartyObject){
+                    'id': billingPartyId
+                }, function (billingPartyObject) {
                     $scope.editableOrderHead.party = billingPartyObject;
                     $scope.editableOrderHead.party1 = billingPartyObject;
                 });
             });
-            $scope.$watch('editableOrderHead.deliveryPartyId', function(deliveryPartyId){
+            $scope.$watch('editableOrderHead.deliveryPartyId', function (deliveryPartyId) {
                 PartyService.get({
-                   'id': deliveryPartyId 
-                }, function(billingPartyObject){                    
+                    'id': deliveryPartyId
+                }, function (billingPartyObject) {
                     $scope.editableOrderHead.party1 = billingPartyObject;
                 });
             });
@@ -158,7 +158,7 @@ angular.module("digitalbusiness.states.order", [])
 
 
         })
-        .controller('OrderDetailsController', function (DrawerOrderDetailsService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
@@ -1502,13 +1502,58 @@ angular.module("digitalbusiness.states.order", [])
             $scope.openShutterColorWidget = function () {
                 $scope.showShutterColorSelectionWidget = true;
             };
-
+            $scope.shutterHandleList1 = [];
             $scope.openShutterHandle = function () {
-                KitchenComponentService.findByCategory({
-                    'category': 'HANDLE'
-                }, function (handleList) {
-                    $scope.shutterHandleList1 = handleList;
-                });
+//                KitchenComponentService.findByCategory({
+//                    'category': 'HANDLE'
+//                }, function (handleList) {
+//                    $scope.shutterHandleList1 = handleList;
+//                });
+                console.log("Finish in Handle Selection :%O", $scope.editableShutterDetail.finish);
+                console.log("Shutter COmponent :%O", $scope.shutterComponent);
+                if ($scope.editableShutterDetail.shutterComponent !== '' && $scope.editableShutterDetail.shutterComponent !== undefined) {
+                    console.log("Component Undefined");
+                    ShutterHandleMappingService.findByShutterCode({
+                        'shutterCode': $scope.shutterComponent
+                    }, function (mappingList) {
+                        console.log("Mapping List :%O", mappingList);
+                        angular.forEach(mappingList.handles, function (kitchenComponentId) {
+                            KitchenComponentService.get({
+                                'id': kitchenComponentId
+                            }, function (kcObject) {
+                                $scope.shutterHandleList1.push(kcObject);
+                            });
+                        });
+                    });
+                } else {
+                    ShutterHandleMappingService.findByFinishCode({
+                        'finishCode': $scope.editableShutterDetail.finish
+                    }, function (mappingList) {
+                        console.log("Mapping List :%O", mappingList);
+                        angular.forEach(mappingList.handles, function (kitchenComponentId) {
+                            KitchenComponentService.get({
+                                'id': kitchenComponentId
+                            }, function (kcObject) {
+                                $scope.shutterHandleList1.push(kcObject);
+                            });
+                        });
+                    });
+                }
+//                if ($scope.editableShutterDetail.finish !== undefined) {
+//                    ShutterHandleMappingService.findByFinishCode({
+//                        'finishCode': $scope.editableShutterDetail.finish
+//                    }, function (mappingList) {
+//                        console.log("Mapping List :%O", mappingList);
+//                        angular.forEach(mappingList.handles, function (kitchenComponentId) {
+//                            KitchenComponentService.get({
+//                                'id': kitchenComponentId
+//                            }, function (kcObject) {
+//                                $scope.shutterHandleList1.push(kcObject);
+//                            });
+//                        });
+//                    });
+//                }
+//                if($scope.editableShutterDetail.)
                 $scope.showShutterHandleSelectionWidget = true;
             };
 
@@ -1545,6 +1590,27 @@ angular.module("digitalbusiness.states.order", [])
 
             $scope.$watch('editableShutterDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
+                if(finishName === "XXW"){
+                    $scope.alFinish = true;
+                }else if(finishName === "XXX"){
+                    $scope.alFinish = true;
+                }else if(finishName === "XXY"){
+                    $scope.alFinish = true;
+                }else if(finishName === "XXZ"){
+                    $scope.alFinish = true;
+                }else if(finishName === "XAA"){
+                    $scope.alFinish = true;
+                }else{
+                    $scope.alFinish = false;
+                }
+                $scope.shutterHandleList1 = [];
+                $scope.shutterHandleName = '';
+                $scope.editableShutterDetail.handleLength = '';
+                $scope.editableShutterDetail.shutterHandleType = '';
+                $scope.editableShutterDetail.handleFinish = '';
+                $scope.editableShutterDetail.handleLength = '';
+                $scope.editableShutterDetail.handlePrice = '';
+                $scope.editableShutterDetail.handle = '';
                 $scope.shutterFinishCode = finishName;
                 ShutterFinishPriceService.findByFinish({
                     'finish': finishName
@@ -3044,6 +3110,12 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
             $scope.saveShutterDetails = function (shutterOrderDetail) {
+                console.log("Hanlde :%O", shutterOrderDetail);
+                if (shutterOrderDetail.handle === "") {
+                    shutterOrderDetail.handle = null;
+                    shutterOrderDetail.handleFinish = null;
+                    shutterOrderDetail.handleLength = null;
+                }
                 shutterOrderDetail.orderHeadId = $stateParams.orderHeadId;
                 shutterOrderDetail.component = $scope.shutterComponent;
                 shutterOrderDetail.depth = '0';
@@ -3077,12 +3149,17 @@ angular.module("digitalbusiness.states.order", [])
                 }
                 if (shutterOrderDetail.component !== undefined) {
                     var productCode = shutterOrderDetail.component + "X-" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                } else if (shutterOrderDetail.material === undefined) {
+                    var productCode = "SHUTTER-" + Math.round(shutterOrderDetail.thickness) + "XXX" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                 } else {
                     var productCode = "SHUTTER-" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                 }
                 var shutterArea = (shutterOrderDetail.length * shutterOrderDetail.width);
                 var shutterAreaSqMt = (shutterArea / 1000000);
+                var shutterRunningMeter = ((2 * shutterOrderDetail.length) + (2 * shutterOrderDetail.width));
+                var shutterMt = (shutterRunningMeter / 1000);
                 console.log("Shutter Area Sq Mt :%O", shutterAreaSqMt);
+                console.log("Shutter Running Mt :%O", shutterMt);
                 if (shutterOrderDetail.handle === "HAN-EP01") {
                     var meterLength = (shutterOrderDetail.handleLength / 1000);
                     shutterOrderDetail.handleMainPrice = (meterLength * shutterOrderDetail.handlePrice);
@@ -3100,13 +3177,24 @@ angular.module("digitalbusiness.states.order", [])
                 }
                 console.log("Jali Price :%O", shutterOrderDetail.jaliPrice);
                 console.log("Handle Price :%O", shutterOrderDetail.handleMainPrice);
-
-                if (shutterOrderDetail.bsm === true) {
-                    console.log("Both Side");
-                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice));
-                } else if (shutterOrderDetail.bsm === undefined) {
-                    console.log("One Side");
-                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice));
+                if (shutterOrderDetail.finish === "XXW") {
+                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                } else if (shutterOrderDetail.finish === "XXX") {
+                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                } else if (shutterOrderDetail.finish === "XXY") {
+                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                } else if (shutterOrderDetail.finish === "XXZ") {
+                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                } else if (shutterOrderDetail.finish === "XAA") {
+                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                } else {
+                    if (shutterOrderDetail.bsm === true) {
+                        console.log("Both Side");
+                        shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice));
+                    } else if (shutterOrderDetail.bsm === undefined) {
+                        console.log("One Side");
+                        shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice));
+                    }
                 }
 
                 shutterOrderDetail.productCode = productCode;
