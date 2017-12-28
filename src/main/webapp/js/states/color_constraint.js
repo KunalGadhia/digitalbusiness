@@ -78,7 +78,9 @@ angular.module("digitalbusiness.states.color_constraint", [])
             $scope.editableColorConstraint.colors = [];
 
             $scope.rawMaterialList = RawMaterialService.findAllList();
-            $scope.finishList = FinishPriceService.findAllList();
+            $scope.finishList = FinishPriceService.findAllList(function (finishList) {
+                console.log("Finish List :%O", finishList);
+            });
 
             $scope.saveColorConstraint = function (colorConstraint) {
                 ColorConstraintService.save(colorConstraint, function (savedData) {

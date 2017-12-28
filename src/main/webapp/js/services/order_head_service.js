@@ -16,14 +16,14 @@ angular.module("digitalbusiness.services.order_head")
 //                    },
 //                    'isArray': true
 //                },
-//                'findByName': {
-//                    'method': 'GET',
-//                    'url': restRoot + '/employee/find/name',
-//                    'params': {
-//                        'name': '@name'
-//                    },
-//                    'isArray': false
-//                }
+                'findOrderGenerationSource': {
+                    'method': 'GET',
+                    'url': restRoot + '/order_head/find/initiatedBy',
+                    'params': {
+                        'userId': '@userId'
+                    },
+                    'isArray': true
+                }
             });
         });
 

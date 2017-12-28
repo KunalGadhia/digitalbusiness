@@ -45,6 +45,11 @@ public class OrderHeadRest {
     public List findByOrderNumber(@RequestParam("orderNum") String orderNum) throws Exception {
         return orderHeadDAL.findByOrderNumber(orderNum);
     }
+    
+    @RequestMapping(value="/find/initiatedBy", method = RequestMethod.GET)
+    public List<OrderHead> findOrderGenerationSource(@RequestParam("userId") Integer userId) throws SQLException {
+        return orderHeadDAL.findOrderGenerationSource(userId);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public OrderHead update(@RequestBody OrderHead orderHead) {

@@ -98,6 +98,11 @@ public class OrderHeadDAL {
         String stringEntry = orderNum + "%";
         return jdbcTemplate.query(sqlQuery, new Object[]{stringEntry}, new BeanPropertyRowMapper<>(OrderHead.class));
     }
+    
+    public List<OrderHead> findOrderGenerationSource(Integer userId){
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_INITIATED_BY + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{userId}, new BeanPropertyRowMapper<>(OrderHead.class));
+    }
 
 //    public Employee findByName(String name) {       
 //        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.EMP_NAME + " = ?";        
