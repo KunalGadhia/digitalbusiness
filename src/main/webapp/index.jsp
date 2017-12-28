@@ -303,6 +303,7 @@
         <script src="${pageContext.request.contextPath}/js/states/shutter_finish_price.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/user.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/shutter_handle_mapping.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/filler_finish_price.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
@@ -335,6 +336,7 @@
         <script src="${pageContext.request.contextPath}/js/services/shutter_finish_price_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/drawer_order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/shutter_handle_mapping_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/filler_finish_price_service.js"></script>
 
     </head>
     <body style="font-family: 'Roboto', sans-serif;">

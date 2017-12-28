@@ -1,0 +1,84 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveFillerFinishPrice(editableFillerFinishPrice)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Filler Finish Price Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Finish</label>
+                                <select class="form-control" ng-model="editableFillerFinishPrice.finish" required="">
+                                    <option value="">Select Finish</option>
+                                    <option ng-repeat="finish in finishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                                </select>
+                                <!--<input class="form-control" placeholder="Sub Type Name" ng-model="editableCarcassSubtype.subType" required=""/>-->
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Material</label>
+                                <input type="text" class="form-control" ng-model="materialObject.material" required="" readonly="">
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    <div class="row">
+                                            <div class="col-sm-6 text-danger" ng-show="editableCarcassSubtype.repeatName">
+                                                Found Records For Above Entered Name
+                                            </div>
+                                            <div class="col-sm-6 text-danger" ng-show="editableCarcassSubtype.repeatCode">
+                                                Repeat Material Code is not allowed.Enter unique code.
+                                            </div>
+                                        </div>-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Thickness</label>
+                                <input type="number" step="any" class="form-control" ng-model='editableFillerFinishPrice.thickness' required="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>One Side Price</label>
+                                <input type="number" ng-model="editableFillerFinishPrice.oneSidePrice" required="">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Both Side Price</label>
+                                <input type="number" class="form-control" ng-model='editableFillerFinishPrice.bothSidePrice' required="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+<!--                            <div class="form-group">
+                                <label>One Side Price</label>
+                                <input type="number" ng-model="editableShutterFinishPrice.oneSidePrice" required="">
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

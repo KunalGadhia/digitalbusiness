@@ -164,7 +164,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderDetailsController', function (DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
@@ -1230,34 +1230,58 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editableFillerDetail.colorId = colorId;
                 $scope.fillerColorName = colorName;
             };
-            $scope.$watch('editableFillerDetail.material', function (material) {
-                console.log("Side Material :%O", material);
-                RawMaterialService.findByMaterialCode({
-                    'materialCode': material
-                }, function (materialObject) {
-                    console.log("Material Object :%O", materialObject);
-                    FinishPriceService.findCarcassFinishByMaterialId({
-                        'materialId': materialObject.id
-                    }, function (finishList) {
-                        console.log("FInish List :%O", finishList);
-                        $scope.fillerFinishList = finishList;
+            $scope.fillerFinishList = [];
+//            $scope.shutterFinishList = FinishPriceService.findAllList();
+            FillerFinishPriceService.findUniqueFinish(function (finishList) {
+                console.log("Finish List :%O", finishList);
+                angular.forEach(finishList, function (finishCode) {
+                    FinishPriceService.findByFinishCode({
+                        'finishCode': finishCode
+                    }, function (finishObject) {
+                        $scope.fillerFinishList.push(finishObject);
                     });
                 });
-                PanelMaterialThicknessService.findByMaterial({
-                    'material': material
-                }, function (fillerThicknessObject) {
-                    console.log("Filler Thickness Object :%O", fillerThicknessObject);
-                    $scope.fillerThicknessList = fillerThicknessObject;
-                });
+                console.log("Filler Finish List :%O", $scope.fillerFinishList);
             });
+//            $scope.$watch('editableFillerDetail.material', function (material) {
+//                console.log("Side Material :%O", material);
+//                RawMaterialService.findByMaterialCode({
+//                    'materialCode': material
+//                }, function (materialObject) {
+//                    console.log("Material Object :%O", materialObject);
+//                    FinishPriceService.findCarcassFinishByMaterialId({
+//                        'materialId': materialObject.id
+//                    }, function (finishList) {
+//                        console.log("FInish List :%O", finishList);
+//                        $scope.fillerFinishList = finishList;
+//                    });
+//                });
+//                PanelMaterialThicknessService.findByMaterial({
+//                    'material': material
+//                }, function (fillerThicknessObject) {
+//                    console.log("Filler Thickness Object :%O", fillerThicknessObject);
+//                    $scope.fillerThicknessList = fillerThicknessObject;
+//                });
+//            });
             $scope.showFillerBsm = false;
             $scope.$watch('editableFillerDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
+                $scope.fillerFinishCode = finishName;
+                FillerFinishPriceService.findByFinish({
+                    'finish': finishName
+                }, function (fillerFinishThicknessList) {
+                    $scope.fillerThicknessList = fillerFinishThicknessList;
+                });
                 FinishPriceService.findByFinishCode({
                     'finishCode': finishName
                 }, function (finishObject) {
                     console.log("Finish Object :%O", finishObject);
-                    $scope.editableFillerDetail.finishPrice = finishObject.price;
+                    RawMaterialService.get({
+                        'id': finishObject.materialId
+                    }, function (rmObject) {
+                        $scope.editableFillerDetail.material = rmObject.materialCode;
+                    });
+//                    $scope.editableFillerDetail.finishPrice = finishObject.price;
                     if (finishObject.category === "PU" || finishObject.category === "MEMBRANE") {
                         $scope.showFillerBsm = true;
                     } else {
@@ -1286,6 +1310,24 @@ angular.module("digitalbusiness.states.order", [])
                     }
                 });
             });
+
+            $scope.$watch('editableFillerDetail.thickness', function (thickness) {
+                console.log("Thickness :%O", thickness);
+                if (thickness === '8') {
+                    $scope.showFillerBsm = false;
+                } else {
+                    $scope.showFillerBsm = true;
+                }
+                FillerFinishPriceService.findByFinishThickness({
+                    'finish': $scope.fillerFinishCode,
+                    'thickness': thickness
+                }, function (fillerFinishPrice) {
+                    console.log("Filler Finish Price :%O", fillerFinishPrice);
+                    $scope.editableFillerDetail.stdOneSidePrice = fillerFinishPrice.oneSidePrice;
+                    $scope.editableFillerDetail.stdBothSidePrice = fillerFinishPrice.bothSidePrice;
+                });
+            });
+
             ///////////////////////////////////////////////////////////////////
             /////////////////Pelmet Form Functionality/////////////////////////
             $scope.showPelmetColorSelectionWidget = false;
@@ -3361,12 +3403,15 @@ angular.module("digitalbusiness.states.order", [])
                 var fillerAreaSqMt = fillerArea / 1000000;
                 console.log("Filler ARea :%O", fillerAreaSqMt);
                 console.log("Fille Order Detail :%O", fillerOrderDetail);
-                if (fillerOrderDetail.bsm !== true) {
+                if (fillerOrderDetail.bsm === true) {
                     console.log("Both SIde Colored");
-                    fillerOrderDetail.price = (fillerOrderDetail.quantity * (2 * (fillerAreaSqMt * fillerOrderDetail.finishPrice)));
+                    fillerOrderDetail.price = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdBothSidePrice));
                 } else if (fillerOrderDetail.bsm === false) {
+                    console.log("Single Side");
+                    fillerOrderDetail.price = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdOneSidePrice));
+                } else {
                     console.log("Regular");
-                    fillerOrderDetail.price = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.finishPrice));
+                    fillerOrderDetail.price = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdOneSidePrice));
                 }
                 console.log("FInal Price :" + fillerOrderDetail.price);
 //                fillerOrderDetail.price = finalPrice;

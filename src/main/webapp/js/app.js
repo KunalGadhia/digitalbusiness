@@ -47,6 +47,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.shutter_finish_price',
     'digitalbusiness.services.drawer_order_details_service',
     'digitalbusiness.services.shutter_handle_mapping_service',
+    'digitalbusiness.services.filler_finish_price',
 
 //    // directive services
 //    'safedeals.services.bank_addition',
@@ -74,6 +75,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.shutter_finish_price',
     'digitalbusiness.states.user',
     'digitalbusiness.states.shutter_handle_mapping',
+    'digitalbusiness.states.filler_finish_price',
 
     'digitalbusiness.states.auth'
 

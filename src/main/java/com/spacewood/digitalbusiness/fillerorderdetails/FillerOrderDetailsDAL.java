@@ -35,7 +35,8 @@ public class FillerOrderDetailsDAL {
         public static final String THICKNESS = "thickness";
         public static final String QUANTITY = "quantity";
         public static final String PRICE = "price";
-        public static final String FINISH_PRICE = "finish_price";
+        public static final String STD_ONE_SIDE_PRICE = "std_one_side_price";
+        public static final String STD_BOTH_SIDE_PRICE = "std_both_side_price";
         public static final String FINISH = "finish";
         public static final String BSM = "bsm";
         public static final String ORDER_FOR = "order_for";
@@ -63,7 +64,8 @@ public class FillerOrderDetailsDAL {
                         Columns.THICKNESS,
                         Columns.QUANTITY,
                         Columns.PRICE,
-                        Columns.FINISH_PRICE,
+                        Columns.STD_ONE_SIDE_PRICE,
+                        Columns.STD_BOTH_SIDE_PRICE,
                         Columns.FINISH,
                         Columns.BSM,
                         Columns.ORDER_FOR
@@ -109,7 +111,8 @@ public class FillerOrderDetailsDAL {
         parameters.put(Columns.THICKNESS, fillerOrderDetails.getThickness());
         parameters.put(Columns.QUANTITY, fillerOrderDetails.getQuantity());
         parameters.put(Columns.PRICE, Math.round(fillerOrderDetails.getPrice()));
-        parameters.put(Columns.FINISH_PRICE, fillerOrderDetails.getFinishPrice());
+        parameters.put(Columns.STD_ONE_SIDE_PRICE, fillerOrderDetails.getStdOneSidePrice());
+        parameters.put(Columns.STD_BOTH_SIDE_PRICE, fillerOrderDetails.getStdBothSidePrice());
         parameters.put(Columns.FINISH, fillerOrderDetails.getFinish());
         if (fillerOrderDetails.getBsm() == null) {
             parameters.put(Columns.BSM, 0);
@@ -139,7 +142,8 @@ public class FillerOrderDetailsDAL {
                 + Columns.THICKNESS + " = ?,"
                 + Columns.QUANTITY + " = ?,"
                 + Columns.PRICE + " = ?,"
-                + Columns.FINISH_PRICE + " = ?,"
+                + Columns.STD_ONE_SIDE_PRICE + " = ?,"
+                + Columns.STD_BOTH_SIDE_PRICE + " = ?,"
                 + Columns.FINISH + " = ?,"
                 + Columns.BSM + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
@@ -154,7 +158,8 @@ public class FillerOrderDetailsDAL {
                     fillerOrderDetails.getThickness(),
                     fillerOrderDetails.getQuantity(),
                     fillerOrderDetails.getPrice(),
-                    fillerOrderDetails.getFinishPrice(),
+                    fillerOrderDetails.getStdOneSidePrice(),
+                    fillerOrderDetails.getStdBothSidePrice(),
                     fillerOrderDetails.getFinish(),
                     fillerOrderDetails.getBsm(),
                     fillerOrderDetails.getId()

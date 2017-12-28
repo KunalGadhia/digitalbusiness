@@ -23,7 +23,8 @@ public class FillerOrderDetails {
     private Integer quantity;
     private Integer colorId;
     private Double price;
-    private Double finishPrice;
+    private Double stdOneSidePrice;
+    private Double stdBothSidePrice;
     private String finish;
     private Boolean bsm;
     private String orderFor;
@@ -116,12 +117,20 @@ public class FillerOrderDetails {
         this.price = price;
     }
 
-    public Double getFinishPrice() {
-        return finishPrice;
+    public Double getStdOneSidePrice() {
+        return stdOneSidePrice;
     }
 
-    public void setFinishPrice(Double finishPrice) {
-        this.finishPrice = finishPrice;
+    public void setStdOneSidePrice(Double stdOneSidePrice) {
+        this.stdOneSidePrice = stdOneSidePrice;
+    }
+
+    public Double getStdBothSidePrice() {
+        return stdBothSidePrice;
+    }
+
+    public void setStdBothSidePrice(Double stdBothSidePrice) {
+        this.stdBothSidePrice = stdBothSidePrice;
     }
 
     public String getFinish() {
@@ -150,22 +159,23 @@ public class FillerOrderDetails {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.productCode);
-        hash = 37 * hash + Objects.hashCode(this.material);
-        hash = 37 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 37 * hash + Objects.hashCode(this.component);
-        hash = 37 * hash + Objects.hashCode(this.width);
-        hash = 37 * hash + Objects.hashCode(this.length);
-        hash = 37 * hash + Objects.hashCode(this.thickness);
-        hash = 37 * hash + Objects.hashCode(this.quantity);
-        hash = 37 * hash + Objects.hashCode(this.colorId);
-        hash = 37 * hash + Objects.hashCode(this.price);
-        hash = 37 * hash + Objects.hashCode(this.finishPrice);
-        hash = 37 * hash + Objects.hashCode(this.finish);
-        hash = 37 * hash + Objects.hashCode(this.bsm);
-        hash = 37 * hash + Objects.hashCode(this.orderFor);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.productCode);
+        hash = 97 * hash + Objects.hashCode(this.material);
+        hash = 97 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 97 * hash + Objects.hashCode(this.component);
+        hash = 97 * hash + Objects.hashCode(this.width);
+        hash = 97 * hash + Objects.hashCode(this.length);
+        hash = 97 * hash + Objects.hashCode(this.thickness);
+        hash = 97 * hash + Objects.hashCode(this.quantity);
+        hash = 97 * hash + Objects.hashCode(this.colorId);
+        hash = 97 * hash + Objects.hashCode(this.price);
+        hash = 97 * hash + Objects.hashCode(this.stdOneSidePrice);
+        hash = 97 * hash + Objects.hashCode(this.stdBothSidePrice);
+        hash = 97 * hash + Objects.hashCode(this.finish);
+        hash = 97 * hash + Objects.hashCode(this.bsm);
+        hash = 97 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -220,7 +230,10 @@ public class FillerOrderDetails {
         if (!Objects.equals(this.price, other.price)) {
             return false;
         }
-        if (!Objects.equals(this.finishPrice, other.finishPrice)) {
+        if (!Objects.equals(this.stdOneSidePrice, other.stdOneSidePrice)) {
+            return false;
+        }
+        if (!Objects.equals(this.stdBothSidePrice, other.stdBothSidePrice)) {
             return false;
         }
         if (!Objects.equals(this.bsm, other.bsm)) {
@@ -231,7 +244,7 @@ public class FillerOrderDetails {
 
     @Override
     public String toString() {
-        return "FillerOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", finishPrice=" + finishPrice + ", finish=" + finish + ", bsm=" + bsm + ", orderFor=" + orderFor + '}';
+        return "FillerOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", stdBothSidePrice=" + stdBothSidePrice + ", finish=" + finish + ", bsm=" + bsm + ", orderFor=" + orderFor + '}';
     }
         
 }

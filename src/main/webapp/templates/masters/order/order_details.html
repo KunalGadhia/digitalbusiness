@@ -909,14 +909,7 @@
                         <option value="">Select Filler</option>
                         <option ng-repeat="filler in fillerList1" value="{{filler.componentCode}}">{{filler.component}}</option>
                     </select>
-                </div>
-                <div class="col-sm-3">
-                    <label>Material</label>
-                    <select class="form-control" ng-model="editableFillerDetail.material" required="">
-                        <option value="">Select Material</option>
-                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
-                    </select>                    
-                </div>
+                </div>                
                 <div class="col-sm-3">
                     <label>Finish</label>
                     <select class="form-control" ng-model="editableFillerDetail.finish" required="">
@@ -924,6 +917,25 @@
                         <option ng-repeat="finish in fillerFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
                     </select>                    
                 </div>
+                <div class="col-sm-3">
+                    <label>Material</label>
+                    <input class="form-control" placeholder="Material" ng-model="editableFillerDetail.material" required="" readonly="">
+<!--                    <select class="form-control" ng-model="editableFillerDetail.material" required="">
+                        <option value="">Select Material</option>
+                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                    </select>                    -->
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Thickness</label>
+                        <select class="form-control" ng-model="editableFillerDetail.thickness" required="">
+                            <option value="">Select Thickness</option>
+                            <option ng-repeat="thickness in fillerThicknessList" value="{{thickness.thickness}}">{{thickness.thickness}} mm</option>
+                        </select>
+                    </div>
+                </div>                
+            </div>
+            <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>Color</label>                    
@@ -939,17 +951,6 @@
                     <div class="form-group">
                         <label>Both Side</label>                                            
                         <input type="checkbox" class="form-control" ng-model="editableFillerDetail.bsm"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>Thickness</label>
-                        <select class="form-control" ng-model="editableFillerDetail.thickness" required="">
-                            <option value="">Select Thickness</option>
-                            <option ng-repeat="thickness in fillerThicknessList" value="{{thickness.thickness}}">{{thickness.thickness}} mm</option>
-                        </select>
                     </div>
                 </div>
                 <div class="col-sm-3">
