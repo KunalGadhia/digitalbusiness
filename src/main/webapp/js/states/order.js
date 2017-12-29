@@ -164,7 +164,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderDetailsController', function (FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
@@ -1555,10 +1555,10 @@ angular.module("digitalbusiness.states.order", [])
                 console.log(colorId);
                 $scope.closeWidget();
                 $scope.editableShutterDetail.intColorId = colorId;
-                console.log("Int COlor :%O",$scope.editableShutterDetail.intColorId);
+                console.log("Int COlor :%O", $scope.editableShutterDetail.intColorId);
                 $scope.shutterInternalColorName = colorName;
             };
-            $scope.shutterHandleList1 = [];
+            $scope.drawerHandleList1 = [];
             $scope.openShutterHandle = function () {
 //                KitchenComponentService.findByCategory({
 //                    'category': 'HANDLE'
@@ -1567,7 +1567,7 @@ angular.module("digitalbusiness.states.order", [])
 //                });
                 console.log("Finish in Handle Selection :%O", $scope.editableShutterDetail.finish);
                 console.log("Shutter COmponent :%O", $scope.shutterComponent);
-                if ($scope.shutterComponent !== undefined && $scope.editableShutterDetail !== '') {
+                if ($scope.shutterComponent !== undefined && $scope.shutterComponent !== '') {
 //                if ($scope.editableShutterDetail.shutterComponent !== '' && $scope.editableShutterDetail.shutterComponent !== undefined) {
                     console.log("Component Available");
                     ShutterHandleMappingService.findByShutterCode({
@@ -1578,7 +1578,7 @@ angular.module("digitalbusiness.states.order", [])
                             KitchenComponentService.get({
                                 'id': kitchenComponentId
                             }, function (kcObject) {
-                                $scope.shutterHandleList1.push(kcObject);
+                                $scope.drawerHandleList1.push(kcObject);
                             });
                         });
                     });
@@ -1591,7 +1591,7 @@ angular.module("digitalbusiness.states.order", [])
                             KitchenComponentService.get({
                                 'id': kitchenComponentId
                             }, function (kcObject) {
-                                $scope.shutterHandleList1.push(kcObject);
+                                $scope.drawerHandleList1.push(kcObject);
                             });
                         });
                     });
@@ -1683,7 +1683,7 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     $scope.alFinish = false;
                 }
-                $scope.shutterHandleList1 = [];
+                $scope.drawerHandleList1 = [];
                 $scope.shutterHandleName = '';
                 $scope.editableShutterDetail.handleLength = '';
                 $scope.editableShutterDetail.shutterHandleType = '';
@@ -1866,18 +1866,50 @@ angular.module("digitalbusiness.states.order", [])
                 console.log(colorId);
                 $scope.closeWidget();
                 $scope.editableDrawerDetail.intColorId = colorId;
-                console.log("Int COlor :%O",$scope.editableDrawerDetail.intColorId);
+                console.log("Int COlor :%O", $scope.editableDrawerDetail.intColorId);
                 $scope.drawerInternalColorName = colorName;
             };
             $scope.openDrawerColorWidget = function () {
                 $scope.showDrawerColorSelectionWidget = true;
             };
             $scope.openDrawerHandle = function () {
-                KitchenComponentService.findByCategory({
-                    'category': 'HANDLE'
-                }, function (handleList) {
-                    $scope.drawerHandleList1 = handleList;
-                });
+                console.log("Drawer COmponent :%O", $scope.drawerComponent);
+                if ($scope.drawerComponent !== undefined && $scope.drawerComponent !== '') {
+//                if ($scope.editableShutterDetail.shutterComponent !== '' && $scope.editableShutterDetail.shutterComponent !== undefined) {
+                    $scope.drawerHandleList1 = [];
+                    console.log("Component Available");
+                    DrawerHandleMappingService.findByDrawerCode({
+                        'drawerCode': $scope.drawerComponent
+                    }, function (mappingList) {
+                        console.log("Mapping List :%O", mappingList);
+                        angular.forEach(mappingList.handles, function (kitchenComponentId) {
+                            KitchenComponentService.get({
+                                'id': kitchenComponentId
+                            }, function (kcObject) {
+                                $scope.drawerHandleList1.push(kcObject);
+                            });
+                        });
+                    });
+                } else {
+                    ShutterHandleMappingService.findByFinishCode({
+                        'finishCode': $scope.editableDrawerDetail.finish
+                    }, function (mappingList) {
+                        $scope.drawerHandleList1 = [];
+                        console.log("Mapping List :%O", mappingList);
+                        angular.forEach(mappingList.handles, function (kitchenComponentId) {
+                            KitchenComponentService.get({
+                                'id': kitchenComponentId
+                            }, function (kcObject) {
+                                $scope.drawerHandleList1.push(kcObject);
+                            });
+                        });
+                    });
+                }
+//                KitchenComponentService.findByCategory({
+//                    'category': 'HANDLE'
+//                }, function (handleList) {
+//                    $scope.drawerHandleList1 = handleList;
+//                });
                 $scope.showDrawerHandleSelectionWidget = true;
             };
             $scope.selectDrawerHandle = function (componentId) {
@@ -3364,7 +3396,7 @@ angular.module("digitalbusiness.states.order", [])
                     } else if (shutterOrderDetail.bsm === false) {
                         console.log("One Side");
                         shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice));
-                    }else if (shutterOrderDetail.bsm === undefined){
+                    } else if (shutterOrderDetail.bsm === undefined) {
                         shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice));
                     }
                 }

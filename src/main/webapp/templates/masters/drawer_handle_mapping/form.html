@@ -1,12 +1,12 @@
 <div class="modal modal-digitalbusiness">
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog">
-        <form role="form" ng-submit="saveShutterHandleMapping(editableShutterHandleMapping)">
+        <form role="form" ng-submit="saveDrawerHandleMapping(editableDrawerHandleMapping)">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">
                         <i class="fa fa-user"></i>
-                        Shutter Handle Mapping Form
+                        Drawer Handle Mapping Form
                     </h3>
                 </div>
                 <div class="modal-body">
@@ -14,7 +14,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Finish</label>
-                                <select class="form-control" ng-model="editableShutterHandleMapping.finishCode">
+                                <select class="form-control" ng-model="editableDrawerHandleMapping.finishCode">
                                     <option value="">Select Finish</option>
                                     <option ng-repeat="finish in finishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
                                 </select>
@@ -22,20 +22,20 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Shutter</label>
-                                <select class="form-control" ng-model="editableShutterHandleMapping.shutterCode">
-                                    <option value="">Select Shutter</option>
-                                    <option ng-repeat="shutter in shutterList" value="{{shutter.componentCode}}">{{shutter.component}}</option>
+                                <label>Drawer</label>
+                                <select class="form-control" ng-model="editableDrawerHandleMapping.drawerCode">
+                                    <option value="">Select Drawer</option>
+                                    <option ng-repeat="drawer in drawerList" value="{{drawer.componentCode}}">{{drawer.component}}</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6 text-danger" ng-show="editableShutterHandleMapping.repeatFinishCode">
+                        <div class="col-sm-6 text-danger" ng-show="editableDrawerHandleMapping.repeatFinishCode">
                             Found Record for the selected Finish.Finish should be unique
                         </div>
-                        <div class="col-sm-6 text-danger" ng-show="editableShutterHandleMapping.repeatShutterCode">
-                            Found Record for the selected Shutter.Shutter should be unique
+                        <div class="col-sm-6 text-danger" ng-show="editableDrawerHandleMapping.repeatDrawerCode">
+                            Found Record for the selected Drawer.Drawer should be unique
                         </div>
                     </div>                    
                     <div class="row">                        
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-lg btn-primary" ng-disabled="editableShutterHandleMapping.repeatFinishCode || editableShutterHandleMapping.repeatShutterCode">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableDrawerHandleMapping.repeatFinishCode || editableDrawerHandleMapping.repeatDrawerCode">
                             <i class="fa fa-save"></i>
                             Save
                         </button>
