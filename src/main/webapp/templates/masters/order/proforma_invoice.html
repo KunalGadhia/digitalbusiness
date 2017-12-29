@@ -269,6 +269,7 @@
                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
                                     <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
                                     <span ng-if="orderDetails.bsm === true"> <strong>(Both Side) </strong></span>
+                                    <span ng-if="orderDetails.grain !== 'NO_GRAIN'"> <strong>Grain : {{orderDetails.grain}} </strong></span>
                                 </span>
                                 <span ng-if="orderDetails.orderFor === 'PELMET'">
                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
@@ -310,7 +311,7 @@
                                                                 </span>-->
                             </td>
                             <td class="text-left">
-                                <span ng-if="orderDetails.intColorId !== undefined">
+                                <span ng-if="orderDetails.orderFor === 'CARCASS'">
                                     <span>Internal Color :{{orderDetails.internalColorObject.colorName}}</span>
                                     <span ng-if="orderDetails.leftColorId !== null">| Left :{{ orderDetails.leftColorObject.colorName}}</span>
                                     <span ng-if="orderDetails.rightColorId !== null">| Right : {{ orderDetails.rightColorObject.colorName}}</span>
@@ -319,9 +320,31 @@
                                     <span ng-if="orderDetails.backColorId !== null">| Back : {{ orderDetails.backColorObject.colorName}}</span>
                                     <!--<span ng-if="orderDetails.sideMatching === 'NSM'">N/A</span>-->                                    
                                 </span>
-                                <span ng-if="orderDetails.colorId !== undefined">
+                                <span ng-if="orderDetails.orderFor === 'FILLER'">
+                                    <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
+                                    <span>Color :{{orderDetails.colorObject.colorName}}</span> 
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'SHUTTER'">
+                                    <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
+                                    <span>Color :{{orderDetails.colorObject.colorName}}</span> 
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'DRAWER'">
+                                    <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
+                                    <span>Color :{{orderDetails.colorObject.colorName}}</span> 
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'PANEL'">                                    
                                     <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
                                 </span>
+                                <span ng-if="orderDetails.orderFor === 'PELMET'">
+                                    <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'CORNICE'">
+                                    <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
+                                </span>
+<!--                                <span ng-if="orderDetails.colorId !== undefined">
+                                    <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
+                                    <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
+                                </span>-->
                                 <span ng-if="orderDetails.orderFor === 'HANDLE'">
                                     <span ng-if="orderDetails.colorId === undefined">
                                         <span>N/A</span>

@@ -28,6 +28,7 @@ public class ShutterOrderDetailsDAL {
         public static final String ID = "id";
         public static final String ORDER_HEAD_ID = "order_head_id";
         public static final String COLOR_ID = "color_id";
+        public static final String INT_COLOR_ID = "int_color_id";
         public static final String PRODUCT_CODE = "product_code";
         public static final String COMPONENT = "component";
         public static final String MATERIAL = "material";
@@ -65,6 +66,7 @@ public class ShutterOrderDetailsDAL {
                 .usingColumns(
                         Columns.ORDER_HEAD_ID,
                         Columns.COLOR_ID,
+                        Columns.INT_COLOR_ID,
                         Columns.PRODUCT_CODE,
                         Columns.COMPONENT,
                         Columns.MATERIAL,
@@ -121,6 +123,7 @@ public class ShutterOrderDetailsDAL {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(Columns.ORDER_HEAD_ID, shutterOrderDetails.getOrderHeadId());
         parameters.put(Columns.COLOR_ID, shutterOrderDetails.getColorId());
+        parameters.put(Columns.INT_COLOR_ID, shutterOrderDetails.getIntColorId());
         parameters.put(Columns.PRODUCT_CODE, shutterOrderDetails.getProductCode());
         parameters.put(Columns.COMPONENT, shutterOrderDetails.getComponent());
         parameters.put(Columns.MATERIAL, shutterOrderDetails.getMaterial());
@@ -174,6 +177,7 @@ public class ShutterOrderDetailsDAL {
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.ORDER_HEAD_ID + " = ?,"
                 + Columns.COLOR_ID + " = ?,"
+                + Columns.INT_COLOR_ID + " = ?,"
                 + Columns.PRODUCT_CODE + " = ?, "
                 + Columns.COMPONENT + " = ?,"
                 + Columns.MATERIAL + " = ?,"
@@ -195,6 +199,7 @@ public class ShutterOrderDetailsDAL {
                 new Object[]{
                     shutterOrderDetails.getOrderHeadId(),
                     shutterOrderDetails.getColorId(),
+                    shutterOrderDetails.getIntColorId(),
                     shutterOrderDetails.getProductCode(),
                     shutterOrderDetails.getComponent(),
                     shutterOrderDetails.getMaterial(),

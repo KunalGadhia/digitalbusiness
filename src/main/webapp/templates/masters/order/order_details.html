@@ -602,7 +602,7 @@
                                 <option value="REGULAR_GLASS">Regular Glass</option>
                                 <option value="MESH_GLASS">Mesh Glass</option>
                             </select>
-<!--                            <input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" readonly=""/>
+                            <!--                            <input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" readonly=""/>
                             -->
                         </div>
                     </div>
@@ -619,6 +619,20 @@
                         <input type="checkbox" class="form-control" ng-model="editableShutterDetail.jali">
                     </div>
                 </div>
+                <div class="col-sm-3" ng-if="editableShutterDetail.bsm === false">
+                    <div class="form-group">
+                        <label>Balancing Color</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Balancing Color" ng-model="shutterInternalColorName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openInternalShutterColorWidget()">Select Balancing Color</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Quantity</label>
@@ -629,9 +643,9 @@
             <div class="row">
                 <div class="col-sm-3">
                     <label>Select Handle</label>
-<!--                    <select class="form-control" ng-model="editableShutterDetail.handle">
-                        <option></option>
-                    </select>-->
+                    <!--                    <select class="form-control" ng-model="editableShutterDetail.handle">
+                                            <option></option>
+                                        </select>-->
                     <div class="input-group">
                         <input class="form-control" placeholder="Select Handle" ng-model="shutterHandleName" readonly=""/>
                         <span class="input-group-btn">
@@ -792,6 +806,17 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-3" ng-if="editableDrawerDetail.bsm === false">
+                    <div class="form-group">
+                        <label>Balancing Color</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Balancing Color" ng-model="drawerInternalColorName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openInternalDrawerColorWidget()">Select Balancing Color</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -920,10 +945,10 @@
                 <div class="col-sm-3">
                     <label>Material</label>
                     <input class="form-control" placeholder="Material" ng-model="editableFillerDetail.material" required="" readonly="">
-<!--                    <select class="form-control" ng-model="editableFillerDetail.material" required="">
-                        <option value="">Select Material</option>
-                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
-                    </select>                    -->
+                    <!--                    <select class="form-control" ng-model="editableFillerDetail.material" required="">
+                                            <option value="">Select Material</option>
+                                            <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                                        </select>                    -->
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
@@ -954,17 +979,47 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <label>Length</label>
-                    <input type="number" class="form-control" placeholder="Enter Length" max="2400" ng-model="editableFillerDetail.length" required="">
+                    <div class="form-group">
+                        <label>Length</label>
+                        <input type="number" class="form-control" placeholder="Enter Length" max="2400" ng-model="editableFillerDetail.length" required="">
+                    </div>
                 </div>
                 <div class="col-sm-3">
-                    <label>Width</label>
-                    <input type="number" class="form-control" placeholder="Enter Width" min="50" ng-model="editableFillerDetail.width" required="">
+                    <div class="form-group">
+                        <label>Width</label>
+                        <input type="number" class="form-control" placeholder="Enter Width" min="50" ng-model="editableFillerDetail.width" required="">
+                    </div>
                 </div>
                 <div class="col-sm-3">
-                    <label>Quantity</label>
-                    <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editableFillerDetail.quantity" required="">
+                    <div class="form-group">
+                        <label>Grain Direction (Optional)</label>
+                        <select class="form-control" ng-model="editableFillerDetail.grain">
+                            <option value="">Grain Direction</option>
+                            <option value="HORIZONTAL">Horizontal</option>
+                            <option value="VERTICAL">Vertical</option>
+                        </select>
+                    </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" ng-if="editableFillerDetail.bsm === false">
+                    <div class="form-group">
+                        <label>Balancing Color</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Balancing Color" ng-model="fillerInternalColorName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openInternalFillerColorWidget()">Select Internal Color</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editableFillerDetail.quantity" required="">
+                    </div>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-lg btn-primary">
@@ -1376,6 +1431,7 @@
                             <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
                         </td>
                         <td class="text-left">
+                            <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
                             <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
                         </td>
                         <td>N/A</td>                        
@@ -1433,6 +1489,7 @@
                             <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
                         </td>
                         <td class="text-left">
+                            <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
                             <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
                         </td>
                         <td>N/A</td>                        
@@ -1486,8 +1543,10 @@
                             <span>in {{orderDetails.rawMaterialObject.material}}</span>
                             <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
                             <span ng-if="orderDetails.bsm === true"> <strong>(Both Side) </strong></span>
+                            <span ng-if="orderDetails.grain !== 'NO_GRAIN'"> <strong>Grain : {{orderDetails.grain}} </strong></span>
                         </td>
                         <td class="text-left">
+                            <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
                             <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
                         </td>
                         <td>N/A</td>                        
@@ -1931,6 +1990,35 @@
         </div>        
     </div>
 </div>
+<div class="modal modal-digitalbusiness" ng-if="showShutterInternalColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Balancing Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="sortedColorList in shutterInternalColorList1| groupBy:6">
+                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                            <br>
+                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectInternalShutterColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
 <div class="modal modal-digitalbusiness" ng-if="showShutterHandleSelectionWidget">
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
@@ -2020,6 +2108,35 @@
         </div>        
     </div>
 </div>
+<div class="modal modal-digitalbusiness" ng-if="showDrawerInternalColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Balancing Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="sortedColorList in drawerInternalColorList1| groupBy:6">
+                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                            <br>
+                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectInternalDrawerColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
 <div class="modal modal-digitalbusiness" ng-if="showDrawerHandleSelectionWidget">
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
@@ -2101,6 +2218,35 @@
                             <b class="text-center"> {{sortedColor.colorName}}</b>
                             <br>
                             <button class="next btn-next" ng-click="selectFillerColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showFillerInternalColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Balancing Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="sortedColorList in fillerInternalColorList1| groupBy:6">
+                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                            <br>
+                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectInternalFillerColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
                         </div>
                         <hr>
                     </div>

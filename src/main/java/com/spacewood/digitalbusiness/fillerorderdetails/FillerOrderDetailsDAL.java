@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.fillerorderdetails;
 
+import com.spacewood.digitalbusiness.shutterorderdetails.GrainDirection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class FillerOrderDetailsDAL {
         public static final String ID = "id";
         public static final String ORDER_HEAD_ID = "order_head_id";
         public static final String COLOR_ID = "color_id";
+        public static final String INT_COLOR_ID = "int_color_id";
         public static final String PRODUCT_CODE = "product_code";
         public static final String COMPONENT = "component";
         public static final String MATERIAL = "material";
@@ -39,6 +41,7 @@ public class FillerOrderDetailsDAL {
         public static final String STD_BOTH_SIDE_PRICE = "std_both_side_price";
         public static final String FINISH = "finish";
         public static final String BSM = "bsm";
+        public static final String GRAIN = "grain";
         public static final String ORDER_FOR = "order_for";
 
     }
@@ -56,6 +59,7 @@ public class FillerOrderDetailsDAL {
                 .usingColumns(
                         Columns.ORDER_HEAD_ID,
                         Columns.COLOR_ID,
+                        Columns.INT_COLOR_ID,
                         Columns.PRODUCT_CODE,
                         Columns.COMPONENT,
                         Columns.MATERIAL,
@@ -68,6 +72,7 @@ public class FillerOrderDetailsDAL {
                         Columns.STD_BOTH_SIDE_PRICE,
                         Columns.FINISH,
                         Columns.BSM,
+                        Columns.GRAIN,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -103,6 +108,7 @@ public class FillerOrderDetailsDAL {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(Columns.ORDER_HEAD_ID, fillerOrderDetails.getOrderHeadId());
         parameters.put(Columns.COLOR_ID, fillerOrderDetails.getColorId());
+        parameters.put(Columns.INT_COLOR_ID, fillerOrderDetails.getIntColorId());
         parameters.put(Columns.PRODUCT_CODE, fillerOrderDetails.getProductCode());
         parameters.put(Columns.COMPONENT, fillerOrderDetails.getComponent());
         parameters.put(Columns.MATERIAL, fillerOrderDetails.getMaterial());
@@ -119,6 +125,11 @@ public class FillerOrderDetailsDAL {
         } else {
             parameters.put(Columns.BSM, fillerOrderDetails.getBsm());
         }
+        if (fillerOrderDetails.getGrain() == null) {
+            parameters.put(Columns.GRAIN, GrainDirection.NO_GRAIN);
+        } else {
+            parameters.put(Columns.GRAIN, fillerOrderDetails.getGrain());
+        }
         parameters.put(Columns.ORDER_FOR, "FILLER");
         Number newId = insertFillerOrderDetail.executeAndReturnKey(parameters);
         fillerOrderDetails = findById(newId.intValue());
@@ -134,6 +145,7 @@ public class FillerOrderDetailsDAL {
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.ORDER_HEAD_ID + " = ?,"
                 + Columns.COLOR_ID + " = ?,"
+                + Columns.INT_COLOR_ID + " = ?,"
                 + Columns.PRODUCT_CODE + " = ?, "
                 + Columns.COMPONENT + " = ?,"
                 + Columns.MATERIAL + " = ?,"
@@ -145,11 +157,13 @@ public class FillerOrderDetailsDAL {
                 + Columns.STD_ONE_SIDE_PRICE + " = ?,"
                 + Columns.STD_BOTH_SIDE_PRICE + " = ?,"
                 + Columns.FINISH + " = ?,"
-                + Columns.BSM + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.BSM + " = ?,"
+                + Columns.GRAIN + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     fillerOrderDetails.getOrderHeadId(),
                     fillerOrderDetails.getColorId(),
+                    fillerOrderDetails.getIntColorId(),
                     fillerOrderDetails.getProductCode(),
                     fillerOrderDetails.getComponent(),
                     fillerOrderDetails.getMaterial(),
@@ -162,6 +176,7 @@ public class FillerOrderDetailsDAL {
                     fillerOrderDetails.getStdBothSidePrice(),
                     fillerOrderDetails.getFinish(),
                     fillerOrderDetails.getBsm(),
+                    fillerOrderDetails.getGrain(),
                     fillerOrderDetails.getId()
                 });
         fillerOrderDetails = findById(fillerOrderDetails.getId());

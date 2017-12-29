@@ -22,6 +22,7 @@ public class DrawerOrderDetails {
     private Double thickness;
     private Integer quantity;
     private Integer colorId;
+    private Integer intColorId;
     private Double price;
     private Double stdOneSidePrice;    
     private String finish;    
@@ -184,28 +185,37 @@ public class DrawerOrderDetails {
         this.orderFor = orderFor;
     }
 
+    public Integer getIntColorId() {
+        return intColorId;
+    }
+
+    public void setIntColorId(Integer intColorId) {
+        this.intColorId = intColorId;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.id);
-        hash = 29 * hash + Objects.hashCode(this.productCode);
-        hash = 29 * hash + Objects.hashCode(this.material);
-        hash = 29 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 29 * hash + Objects.hashCode(this.component);
-        hash = 29 * hash + Objects.hashCode(this.width);
-        hash = 29 * hash + Objects.hashCode(this.length);
-        hash = 29 * hash + Objects.hashCode(this.thickness);
-        hash = 29 * hash + Objects.hashCode(this.quantity);
-        hash = 29 * hash + Objects.hashCode(this.colorId);
-        hash = 29 * hash + Objects.hashCode(this.price);
-        hash = 29 * hash + Objects.hashCode(this.stdOneSidePrice);
-        hash = 29 * hash + Objects.hashCode(this.finish);
-        hash = 29 * hash + Objects.hashCode(this.grain);
-        hash = 29 * hash + Objects.hashCode(this.handle);
-        hash = 29 * hash + Objects.hashCode(this.handleLength);
-        hash = 29 * hash + Objects.hashCode(this.handleFinish);
-        hash = 29 * hash + Objects.hashCode(this.handlePrice);
-        hash = 29 * hash + Objects.hashCode(this.orderFor);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.productCode);
+        hash = 47 * hash + Objects.hashCode(this.material);
+        hash = 47 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 47 * hash + Objects.hashCode(this.component);
+        hash = 47 * hash + Objects.hashCode(this.width);
+        hash = 47 * hash + Objects.hashCode(this.length);
+        hash = 47 * hash + Objects.hashCode(this.thickness);
+        hash = 47 * hash + Objects.hashCode(this.quantity);
+        hash = 47 * hash + Objects.hashCode(this.colorId);
+        hash = 47 * hash + Objects.hashCode(this.intColorId);
+        hash = 47 * hash + Objects.hashCode(this.price);
+        hash = 47 * hash + Objects.hashCode(this.stdOneSidePrice);
+        hash = 47 * hash + Objects.hashCode(this.finish);
+        hash = 47 * hash + Objects.hashCode(this.grain);
+        hash = 47 * hash + Objects.hashCode(this.handle);
+        hash = 47 * hash + Objects.hashCode(this.handleLength);
+        hash = 47 * hash + Objects.hashCode(this.handleFinish);
+        hash = 47 * hash + Objects.hashCode(this.handlePrice);
+        hash = 47 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -263,6 +273,9 @@ public class DrawerOrderDetails {
         if (!Objects.equals(this.colorId, other.colorId)) {
             return false;
         }
+        if (!Objects.equals(this.intColorId, other.intColorId)) {
+            return false;
+        }
         if (!Objects.equals(this.price, other.price)) {
             return false;
         }
@@ -283,7 +296,7 @@ public class DrawerOrderDetails {
 
     @Override
     public String toString() {
-        return "DrawerOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", finish=" + finish + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", orderFor=" + orderFor + '}';
+        return "DrawerOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", intColorId=" + intColorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", finish=" + finish + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", orderFor=" + orderFor + '}';
     }
         
 }

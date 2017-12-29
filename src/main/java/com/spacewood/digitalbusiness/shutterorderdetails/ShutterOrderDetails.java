@@ -22,6 +22,7 @@ public class ShutterOrderDetails {
     private Double thickness;
     private Integer quantity;
     private Integer colorId;
+    private Integer intColorId;
     private Double price;
     private Double stdOneSidePrice;
     private Double stdBothSidePrice;
@@ -238,9 +239,17 @@ public class ShutterOrderDetails {
         this.jali = jali;
     }
 
+    public Integer getIntColorId() {
+        return intColorId;
+    }
+
+    public void setIntColorId(Integer intColorId) {
+        this.intColorId = intColorId;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 7;
         hash = 29 * hash + Objects.hashCode(this.id);
         hash = 29 * hash + Objects.hashCode(this.productCode);
         hash = 29 * hash + Objects.hashCode(this.material);
@@ -251,6 +260,7 @@ public class ShutterOrderDetails {
         hash = 29 * hash + Objects.hashCode(this.thickness);
         hash = 29 * hash + Objects.hashCode(this.quantity);
         hash = 29 * hash + Objects.hashCode(this.colorId);
+        hash = 29 * hash + Objects.hashCode(this.intColorId);
         hash = 29 * hash + Objects.hashCode(this.price);
         hash = 29 * hash + Objects.hashCode(this.stdOneSidePrice);
         hash = 29 * hash + Objects.hashCode(this.stdBothSidePrice);
@@ -323,6 +333,9 @@ public class ShutterOrderDetails {
         if (!Objects.equals(this.colorId, other.colorId)) {
             return false;
         }
+        if (!Objects.equals(this.intColorId, other.intColorId)) {
+            return false;
+        }
         if (!Objects.equals(this.price, other.price)) {
             return false;
         }
@@ -361,7 +374,7 @@ public class ShutterOrderDetails {
 
     @Override
     public String toString() {
-        return "ShutterOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", stdBothSidePrice=" + stdBothSidePrice + ", finish=" + finish + ", bsm=" + bsm + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", hingePosition=" + hingePosition + ", glass=" + glass + ", step=" + step + ", jali=" + jali + ", orderFor=" + orderFor + '}';
-    }    
+        return "ShutterOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", intColorId=" + intColorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", stdBothSidePrice=" + stdBothSidePrice + ", finish=" + finish + ", bsm=" + bsm + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", hingePosition=" + hingePosition + ", glass=" + glass + ", step=" + step + ", jali=" + jali + ", orderFor=" + orderFor + '}';
+    }
     
 }
