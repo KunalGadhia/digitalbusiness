@@ -36,6 +36,7 @@ public class PanelOrderDetailsDAL {
         public static final String QUANTITY = "quantity";
         public static final String PRICE = "price";
         public static final String MATERIAL_PRICE = "material_price";
+        public static final String AS_PER_DRAWING = "as_per_drawing";
         public static final String ORDER_FOR = "order_for";
 
     }
@@ -62,6 +63,7 @@ public class PanelOrderDetailsDAL {
                         Columns.QUANTITY,
                         Columns.PRICE,
                         Columns.MATERIAL_PRICE,
+                        Columns.AS_PER_DRAWING,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -106,6 +108,11 @@ public class PanelOrderDetailsDAL {
         parameters.put(Columns.QUANTITY, panelOrderDetails.getQuantity());
         parameters.put(Columns.PRICE, Math.round(panelOrderDetails.getPrice()));
         parameters.put(Columns.MATERIAL_PRICE, panelOrderDetails.getMaterialPrice());
+        if (panelOrderDetails.getAsPerDrawing() == null) {
+            parameters.put(Columns.AS_PER_DRAWING, false);
+        } else {
+            parameters.put(Columns.AS_PER_DRAWING, panelOrderDetails.getAsPerDrawing());
+        }
         parameters.put(Columns.ORDER_FOR, "PANEL");
 
         Number newId = insertPanelOrderDetail.executeAndReturnKey(parameters);

@@ -43,6 +43,7 @@ public class CarcassOrderDetails {
     private Double sectionProfilePrice;
     private String carcassSubType;
     private GrainDirection grainDirection;
+    private Boolean asPerDrawing;
     private String orderFor;
 
     public Integer getId() {
@@ -285,6 +286,14 @@ public class CarcassOrderDetails {
         this.grainDirection = grainDirection;
     }
 
+    public Boolean getAsPerDrawing() {
+        return asPerDrawing;
+    }
+
+    public void setAsPerDrawing(Boolean asPerDrawing) {
+        this.asPerDrawing = asPerDrawing;
+    }
+
     public String getOrderFor() {
         return orderFor;
     }
@@ -296,37 +305,38 @@ public class CarcassOrderDetails {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 73 * hash + Objects.hashCode(this.id);
-        hash = 73 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 73 * hash + Objects.hashCode(this.stdCarcassPriceId);
-        hash = 73 * hash + Objects.hashCode(this.intColorId);
-        hash = 73 * hash + Objects.hashCode(this.leftColorId);
-        hash = 73 * hash + Objects.hashCode(this.rightColorId);
-        hash = 73 * hash + Objects.hashCode(this.backColorId);
-        hash = 73 * hash + Objects.hashCode(this.topColorId);
-        hash = 73 * hash + Objects.hashCode(this.bottomColorId);
-        hash = 73 * hash + Objects.hashCode(this.productCode);
-        hash = 73 * hash + Objects.hashCode(this.component);
-        hash = 73 * hash + Objects.hashCode(this.material);
-        hash = 73 * hash + Objects.hashCode(this.length);
-        hash = 73 * hash + Objects.hashCode(this.width);
-        hash = 73 * hash + Objects.hashCode(this.depth);
-        hash = 73 * hash + Objects.hashCode(this.nonStandardDimension);
-        hash = 73 * hash + Objects.hashCode(this.shelf);
-        hash = 73 * hash + Objects.hashCode(this.shelfCount);
-        hash = 73 * hash + Objects.hashCode(this.sideMatching);
-        hash = 73 * hash + Objects.hashCode(this.sideSelection);
-        hash = 73 * hash + Objects.hashCode(this.sideMaterial);
-        hash = 73 * hash + Objects.hashCode(this.sideFinish);
-        hash = 73 * hash + Objects.hashCode(this.quantity);
-        hash = 73 * hash + Objects.hashCode(this.price);
-        hash = 73 * hash + Objects.hashCode(this.stdMaterialPrice);
-        hash = 73 * hash + Objects.hashCode(this.finishPrice);
-        hash = 73 * hash + Objects.hashCode(this.sectionProfileId);
-        hash = 73 * hash + Objects.hashCode(this.sectionProfilePrice);
-        hash = 73 * hash + Objects.hashCode(this.carcassSubType);
-        hash = 73 * hash + Objects.hashCode(this.grainDirection);
-        hash = 73 * hash + Objects.hashCode(this.orderFor);
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 97 * hash + Objects.hashCode(this.stdCarcassPriceId);
+        hash = 97 * hash + Objects.hashCode(this.intColorId);
+        hash = 97 * hash + Objects.hashCode(this.leftColorId);
+        hash = 97 * hash + Objects.hashCode(this.rightColorId);
+        hash = 97 * hash + Objects.hashCode(this.backColorId);
+        hash = 97 * hash + Objects.hashCode(this.topColorId);
+        hash = 97 * hash + Objects.hashCode(this.bottomColorId);
+        hash = 97 * hash + Objects.hashCode(this.productCode);
+        hash = 97 * hash + Objects.hashCode(this.component);
+        hash = 97 * hash + Objects.hashCode(this.material);
+        hash = 97 * hash + Objects.hashCode(this.length);
+        hash = 97 * hash + Objects.hashCode(this.width);
+        hash = 97 * hash + Objects.hashCode(this.depth);
+        hash = 97 * hash + Objects.hashCode(this.nonStandardDimension);
+        hash = 97 * hash + Objects.hashCode(this.shelf);
+        hash = 97 * hash + Objects.hashCode(this.shelfCount);
+        hash = 97 * hash + Objects.hashCode(this.sideMatching);
+        hash = 97 * hash + Objects.hashCode(this.sideSelection);
+        hash = 97 * hash + Objects.hashCode(this.sideMaterial);
+        hash = 97 * hash + Objects.hashCode(this.sideFinish);
+        hash = 97 * hash + Objects.hashCode(this.quantity);
+        hash = 97 * hash + Objects.hashCode(this.price);
+        hash = 97 * hash + Objects.hashCode(this.stdMaterialPrice);
+        hash = 97 * hash + Objects.hashCode(this.finishPrice);
+        hash = 97 * hash + Objects.hashCode(this.sectionProfileId);
+        hash = 97 * hash + Objects.hashCode(this.sectionProfilePrice);
+        hash = 97 * hash + Objects.hashCode(this.carcassSubType);
+        hash = 97 * hash + Objects.hashCode(this.grainDirection);
+        hash = 97 * hash + Objects.hashCode(this.asPerDrawing);
+        hash = 97 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -435,12 +445,15 @@ public class CarcassOrderDetails {
         if (this.grainDirection != other.grainDirection) {
             return false;
         }
+        if (!Objects.equals(this.asPerDrawing, other.asPerDrawing)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "CarcassOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", stdCarcassPriceId=" + stdCarcassPriceId + ", intColorId=" + intColorId + ", leftColorId=" + leftColorId + ", rightColorId=" + rightColorId + ", backColorId=" + backColorId + ", topColorId=" + topColorId + ", bottomColorId=" + bottomColorId + ", productCode=" + productCode + ", component=" + component + ", material=" + material + ", length=" + length + ", width=" + width + ", depth=" + depth + ", nonStandardDimension=" + nonStandardDimension + ", shelf=" + shelf + ", shelfCount=" + shelfCount + ", sideMatching=" + sideMatching + ", sideSelection=" + sideSelection + ", sideMaterial=" + sideMaterial + ", sideFinish=" + sideFinish + ", quantity=" + quantity + ", price=" + price + ", stdMaterialPrice=" + stdMaterialPrice + ", finishPrice=" + finishPrice + ", sectionProfileId=" + sectionProfileId + ", sectionProfilePrice=" + sectionProfilePrice + ", carcassSubType=" + carcassSubType + ", grainDirection=" + grainDirection + ", orderFor=" + orderFor + '}';
+        return "CarcassOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", stdCarcassPriceId=" + stdCarcassPriceId + ", intColorId=" + intColorId + ", leftColorId=" + leftColorId + ", rightColorId=" + rightColorId + ", backColorId=" + backColorId + ", topColorId=" + topColorId + ", bottomColorId=" + bottomColorId + ", productCode=" + productCode + ", component=" + component + ", material=" + material + ", length=" + length + ", width=" + width + ", depth=" + depth + ", nonStandardDimension=" + nonStandardDimension + ", shelf=" + shelf + ", shelfCount=" + shelfCount + ", sideMatching=" + sideMatching + ", sideSelection=" + sideSelection + ", sideMaterial=" + sideMaterial + ", sideFinish=" + sideFinish + ", quantity=" + quantity + ", price=" + price + ", stdMaterialPrice=" + stdMaterialPrice + ", finishPrice=" + finishPrice + ", sectionProfileId=" + sectionProfileId + ", sectionProfilePrice=" + sectionProfilePrice + ", carcassSubType=" + carcassSubType + ", grainDirection=" + grainDirection + ", asPerDrawing=" + asPerDrawing + ", orderFor=" + orderFor + '}';
     }
     
 }

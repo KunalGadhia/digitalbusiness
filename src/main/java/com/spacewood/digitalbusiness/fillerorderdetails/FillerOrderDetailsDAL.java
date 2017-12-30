@@ -42,6 +42,7 @@ public class FillerOrderDetailsDAL {
         public static final String FINISH = "finish";
         public static final String BSM = "bsm";
         public static final String GRAIN = "grain";
+        public static final String AS_PER_DRAWING = "as_per_drawing";
         public static final String ORDER_FOR = "order_for";
 
     }
@@ -73,6 +74,7 @@ public class FillerOrderDetailsDAL {
                         Columns.FINISH,
                         Columns.BSM,
                         Columns.GRAIN,
+                        Columns.AS_PER_DRAWING,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -129,6 +131,11 @@ public class FillerOrderDetailsDAL {
             parameters.put(Columns.GRAIN, GrainDirection.NO_GRAIN);
         } else {
             parameters.put(Columns.GRAIN, fillerOrderDetails.getGrain());
+        }
+        if (fillerOrderDetails.getAsPerDrawing() == null) {
+            parameters.put(Columns.AS_PER_DRAWING, false);
+        } else {
+            parameters.put(Columns.AS_PER_DRAWING, fillerOrderDetails.getAsPerDrawing());
         }
         parameters.put(Columns.ORDER_FOR, "FILLER");
         Number newId = insertFillerOrderDetail.executeAndReturnKey(parameters);

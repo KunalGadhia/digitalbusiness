@@ -26,7 +26,7 @@ angular.module("digitalbusiness.states.color_constraint", [])
 //                'controller': 'RawMaterialDeleteController'
 //            });            
         })
-        .controller('ColorConstraintListController', function (ColorConstraintService, ColorService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('ColorConstraintListController', function (FinishPriceService, ColorConstraintService, ColorService, $scope, $stateParams, $state, paginationLimit) {
             if (
                     $stateParams.offset === undefined ||
                     isNaN($stateParams.offset) ||
@@ -47,6 +47,9 @@ angular.module("digitalbusiness.states.color_constraint", [])
             }, function (colorConstraintList) {
                 console.log("S :%O", colorConstraintList);
                 angular.forEach($scope.colorConstraints, function (colorConstraint) {
+                    colorConstraint.finishObject = FinishPriceService.findByFinishCode({
+                        'finishCode': colorConstraint.finishCode
+                    });
                     colorConstraint.colorObjects = [];
                     angular.forEach(colorConstraint.colors, function (colorId) {
                         colorConstraint.colorObjects.push(

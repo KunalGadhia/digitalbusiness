@@ -31,6 +31,7 @@ public class DrawerOrderDetails {
     private Double handleLength;
     private String handleFinish;
     private Double handlePrice;
+    private Boolean asPerDrawing;
     private String orderFor;
 
     public Integer getId() {
@@ -113,6 +114,14 @@ public class DrawerOrderDetails {
         this.colorId = colorId;
     }
 
+    public Integer getIntColorId() {
+        return intColorId;
+    }
+
+    public void setIntColorId(Integer intColorId) {
+        this.intColorId = intColorId;
+    }
+
     public Double getPrice() {
         return price;
     }
@@ -177,6 +186,14 @@ public class DrawerOrderDetails {
         this.handlePrice = handlePrice;
     }
 
+    public Boolean getAsPerDrawing() {
+        return asPerDrawing;
+    }
+
+    public void setAsPerDrawing(Boolean asPerDrawing) {
+        this.asPerDrawing = asPerDrawing;
+    }
+
     public String getOrderFor() {
         return orderFor;
     }
@@ -185,37 +202,30 @@ public class DrawerOrderDetails {
         this.orderFor = orderFor;
     }
 
-    public Integer getIntColorId() {
-        return intColorId;
-    }
-
-    public void setIntColorId(Integer intColorId) {
-        this.intColorId = intColorId;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.id);
-        hash = 47 * hash + Objects.hashCode(this.productCode);
-        hash = 47 * hash + Objects.hashCode(this.material);
-        hash = 47 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 47 * hash + Objects.hashCode(this.component);
-        hash = 47 * hash + Objects.hashCode(this.width);
-        hash = 47 * hash + Objects.hashCode(this.length);
-        hash = 47 * hash + Objects.hashCode(this.thickness);
-        hash = 47 * hash + Objects.hashCode(this.quantity);
-        hash = 47 * hash + Objects.hashCode(this.colorId);
-        hash = 47 * hash + Objects.hashCode(this.intColorId);
-        hash = 47 * hash + Objects.hashCode(this.price);
-        hash = 47 * hash + Objects.hashCode(this.stdOneSidePrice);
-        hash = 47 * hash + Objects.hashCode(this.finish);
-        hash = 47 * hash + Objects.hashCode(this.grain);
-        hash = 47 * hash + Objects.hashCode(this.handle);
-        hash = 47 * hash + Objects.hashCode(this.handleLength);
-        hash = 47 * hash + Objects.hashCode(this.handleFinish);
-        hash = 47 * hash + Objects.hashCode(this.handlePrice);
-        hash = 47 * hash + Objects.hashCode(this.orderFor);
+        hash = 61 * hash + Objects.hashCode(this.id);
+        hash = 61 * hash + Objects.hashCode(this.productCode);
+        hash = 61 * hash + Objects.hashCode(this.material);
+        hash = 61 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 61 * hash + Objects.hashCode(this.component);
+        hash = 61 * hash + Objects.hashCode(this.width);
+        hash = 61 * hash + Objects.hashCode(this.length);
+        hash = 61 * hash + Objects.hashCode(this.thickness);
+        hash = 61 * hash + Objects.hashCode(this.quantity);
+        hash = 61 * hash + Objects.hashCode(this.colorId);
+        hash = 61 * hash + Objects.hashCode(this.intColorId);
+        hash = 61 * hash + Objects.hashCode(this.price);
+        hash = 61 * hash + Objects.hashCode(this.stdOneSidePrice);
+        hash = 61 * hash + Objects.hashCode(this.finish);
+        hash = 61 * hash + Objects.hashCode(this.grain);
+        hash = 61 * hash + Objects.hashCode(this.handle);
+        hash = 61 * hash + Objects.hashCode(this.handleLength);
+        hash = 61 * hash + Objects.hashCode(this.handleFinish);
+        hash = 61 * hash + Objects.hashCode(this.handlePrice);
+        hash = 61 * hash + Objects.hashCode(this.asPerDrawing);
+        hash = 61 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -291,12 +301,15 @@ public class DrawerOrderDetails {
         if (!Objects.equals(this.handlePrice, other.handlePrice)) {
             return false;
         }
+        if (!Objects.equals(this.asPerDrawing, other.asPerDrawing)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "DrawerOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", intColorId=" + intColorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", finish=" + finish + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", orderFor=" + orderFor + '}';
+        return "DrawerOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", intColorId=" + intColorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", finish=" + finish + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", asPerDrawing=" + asPerDrawing + ", orderFor=" + orderFor + '}';
     }
         
 }

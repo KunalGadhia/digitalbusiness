@@ -197,13 +197,15 @@
                             </span>
                         </div>
                     </div>
-                </div>
+                </div>               
                 <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>Quantity</label>                      
-                        <!--<div class="input-group">-->
-                        <input type="number" min="1" class="form-control" placeholder="Quantity" ng-model="editableCarcassDetail.quantity" required=""/>
-                        <!--</div>-->
+                    <div class="col-sm-6 form-group">                        
+                        <label>As Per Drawing</label>                            
+                        <input type="checkbox" style="height:25px" class="form-control" ng-model="editableCarcassDetail.asPerDrawing"/>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Quantity</label>                            
+                        <input type="number" min="1" class="form-control" placeholder="Quantity" ng-model="editableCarcassDetail.quantity" required=""/>                                                    
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -471,6 +473,12 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
+                        <label>As Per Drawing (Optional)</label>
+                        <input type="checkbox" class="form-control" ng-model="editablePanelDetail.asPerDrawing">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
                         <label>Quantity</label>
                         <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editablePanelDetail.quantity" required="">
                     </div>
@@ -633,6 +641,12 @@
 
             </div>
             <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>As Per Drawing (Optional)</label>
+                        <input type="checkbox" class="form-control" ng-model="editableShutterDetail.asPerDrawing">
+                    </div>
+                </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Quantity</label>
@@ -815,6 +829,12 @@
                                 <button class="btn btn-primary" type="button" ng-click="openInternalDrawerColorWidget()">Select Balancing Color</button>
                             </span>
                         </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>As Per Drawing (Optional)</label>
+                        <input type="checkbox" class="form-control" ng-model="editableDrawerDetail.asPerDrawing">
                     </div>
                 </div>
                 <div>
@@ -1011,6 +1031,12 @@
                                 <button class="btn btn-primary" type="button" ng-click="openInternalFillerColorWidget()">Select Internal Color</button>
                             </span>
                         </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>As Per Drawing (Optional)</label>
+                        <input type="checkbox" class="form-control" ng-model="editableFillerDetail.asPerDrawing">
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -1293,6 +1319,8 @@
                             <span>in {{orderDetails.rawMaterialObject.material}}</span>
                             <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
                             <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"><strong> Grain Direction : </strong> {{orderDetails.grainDirection}}</span>
+                            <span><strong>& Carcass Sub Type : </strong> {{orderDetails.carcassSubType}}</span>
+                            <span ng-if="orderDetails.asPerDrawing !== false"><strong> (As Per Drawing) </strong></span>
                         </td>
                         <td class="text-left">
                             <span>Internal Color :{{orderDetails.internalColorObject.colorName}}</span>
@@ -1365,7 +1393,8 @@
                         <td class="text-left">{{ orderDetails.productCode}}</td>
                         <td class="text-left">
                             <span>{{orderDetails.kitchenComponentObject.component}} Prelam Edge Binded Panels</span>
-                            <span>in {{orderDetails.rawMaterialObject.material}}</span>                            
+                            <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                            <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>                            
                         </td>
                         <td class="text-left">
                             <span>Color :{{orderDetails.colorObject.colorName}}</span>                            
@@ -1429,6 +1458,7 @@
                             <span ng-if="orderDetails.grain !== 'NO_GRAIN'"><strong> Grain Direction : </strong> {{orderDetails.grain}}</span>
                             <span ng-if="orderDetails.hingePosition !== 'NO_HINGE'"> <strong> Hinge Position : </strong>{{orderDetails.hingePosition}}</span>
                             <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
+                            <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
                         </td>
                         <td class="text-left">
                             <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
@@ -1487,6 +1517,7 @@
                             <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>                            
                             <span ng-if="orderDetails.grain !== 'NO_GRAIN'"><strong> Grain Direction : </strong> {{orderDetails.grain}}</span>                            
                             <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
+                            <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
                         </td>
                         <td class="text-left">
                             <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
@@ -1544,6 +1575,7 @@
                             <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
                             <span ng-if="orderDetails.bsm === true"> <strong>(Both Side) </strong></span>
                             <span ng-if="orderDetails.grain !== 'NO_GRAIN'"> <strong>Grain : {{orderDetails.grain}} </strong></span>
+                            <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
                         </td>
                         <td class="text-left">
                             <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>

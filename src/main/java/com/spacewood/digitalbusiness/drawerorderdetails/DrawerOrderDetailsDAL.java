@@ -42,6 +42,7 @@ public class DrawerOrderDetailsDAL {
         public static final String HANDLE_LENGTH = "handle_length";
         public static final String HANDLE_FINISH = "handle_finish";
         public static final String HANDLE_PRICE = "handle_price";
+        public static final String AS_PER_DRAWING = "as_per_drawing";
         public static final String ORDER_FOR = "order_for";
     }
 
@@ -74,6 +75,7 @@ public class DrawerOrderDetailsDAL {
                         Columns.HANDLE_LENGTH,
                         Columns.HANDLE_FINISH,
                         Columns.HANDLE_PRICE,
+                        Columns.AS_PER_DRAWING,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -129,6 +131,11 @@ public class DrawerOrderDetailsDAL {
         parameters.put(Columns.HANDLE_LENGTH, drawerOrderDetails.getHandleLength());
         parameters.put(Columns.HANDLE_FINISH, drawerOrderDetails.getHandleFinish());
         parameters.put(Columns.HANDLE_PRICE, drawerOrderDetails.getHandlePrice());
+        if(drawerOrderDetails.getAsPerDrawing() == null){
+         parameters.put(Columns.AS_PER_DRAWING, false);   
+        }else{
+         parameters.put(Columns.AS_PER_DRAWING, drawerOrderDetails.getAsPerDrawing());   
+        }        
         parameters.put(Columns.ORDER_FOR, "DRAWER");
 
         Number newId = insertDrawerOrderDetail.executeAndReturnKey(parameters);

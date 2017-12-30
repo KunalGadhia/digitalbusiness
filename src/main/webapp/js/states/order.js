@@ -1558,7 +1558,7 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Int COlor :%O", $scope.editableShutterDetail.intColorId);
                 $scope.shutterInternalColorName = colorName;
             };
-            $scope.drawerHandleList1 = [];
+            $scope.shutterHandleList1 = [];
             $scope.openShutterHandle = function () {
 //                KitchenComponentService.findByCategory({
 //                    'category': 'HANDLE'
@@ -1578,7 +1578,7 @@ angular.module("digitalbusiness.states.order", [])
                             KitchenComponentService.get({
                                 'id': kitchenComponentId
                             }, function (kcObject) {
-                                $scope.drawerHandleList1.push(kcObject);
+                                $scope.shutterHandleList1.push(kcObject);
                             });
                         });
                     });
@@ -1591,7 +1591,9 @@ angular.module("digitalbusiness.states.order", [])
                             KitchenComponentService.get({
                                 'id': kitchenComponentId
                             }, function (kcObject) {
-                                $scope.drawerHandleList1.push(kcObject);
+                                console.log("KC Object :%O", kcObject);
+                                $scope.shutterHandleList1.push(kcObject);
+                                console.log("Shutter Handloe List :%O", $scope.shutterHandleList1);
                             });
                         });
                     });
@@ -1683,7 +1685,7 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     $scope.alFinish = false;
                 }
-                $scope.drawerHandleList1 = [];
+                $scope.shutterHandleList1 = [];
                 $scope.shutterHandleName = '';
                 $scope.editableShutterDetail.handleLength = '';
                 $scope.editableShutterDetail.shutterHandleType = '';
@@ -1969,6 +1971,15 @@ angular.module("digitalbusiness.states.order", [])
             });
             $scope.$watch('editableDrawerDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
+                $scope.drawerHandleList1 = [];
+                $scope.drawerHandlePriceList = [];
+                $scope.drawerHandleName = '';
+                $scope.editableDrawerDetail.handleLength = 'NULL';
+                $scope.editableDrawerDetail.drawerHandleType = 'NULL';
+                $scope.editableDrawerDetail.handleFinish = 'NULL';
+                $scope.editableDrawerDetail.handleLength = 'NULL';
+                $scope.editableDrawerDetail.handlePrice = 'NULL';
+                $scope.editableDrawerDetail.handle = 'NULL';
                 $scope.drawerFinishCode = finishName;
                 ShutterFinishPriceService.findByFinish({
                     'finish': finishName
