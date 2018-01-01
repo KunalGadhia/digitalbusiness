@@ -641,6 +641,16 @@
 
             </div>
             <div class="row">
+                <div class="col-sm-3" ng-if="showStraightener">
+                    <div class="form-group">
+                        <label>Add Straightener</label>
+                        <select class="form-control" ng-model="editableShutterDetail.straightener">
+                            <option value="0">Add Straightener</option>
+                            <option value="1">1 Straightener</option>
+                            <option value="2">2 Straightener</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>As Per Drawing (Optional)</label>
@@ -1075,7 +1085,7 @@
                     <select class="form-control" ng-model="editablePelmetDetail.material" required="">
                         <option value="">Select Material</option>
                         <option value="MF">Medium Density Fiber Board (MDF)</option>
-                        <option value="HF">High Density Fiber Board (HDF)</option>
+                        <!--<option value="HF">High Density Fiber Board (HDF)</option>-->
                         <!--                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>-->
                     </select>                    
                 </div>
@@ -1083,7 +1093,10 @@
                     <label>Finish</label>
                     <select class="form-control" ng-model="editablePelmetDetail.finish" required="">
                         <option value="">Select Finish</option>
-                        <option ng-repeat="finish in pelmetFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                        <option value="XXA">Membrane Glossy MDF</option>
+                        <option value="XXB">Membrane Designer MDF</option>
+                        <option value="XXC">Membrane Standard MDF</option>
+                        <!--<option ng-repeat="finish in pelmetFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>-->
                     </select>                    
                 </div>
                 <div class="col-sm-3">
@@ -1104,13 +1117,13 @@
                         <label>Thickness</label>
                         <select class="form-control" ng-model="editablePelmetDetail.thickness" required="">
                             <option value="">Select Thickness</option>
-                            <option ng-repeat="thickness in pelmetThicknessList" value="{{thickness.thickness}}">{{thickness.thickness}} mm</option>
+                            <option value="25">25 mm</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <label>Length</label>
-                    <input type="number" class="form-control" placeholder="Enter Length" min="1100" max="2250" ng-model="editablePelmetDetail.length" required="">
+                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editablePelmetDetail.length" required="">
                 </div>
                 <div class="col-sm-3">
                     <label>Width</label>
@@ -1149,7 +1162,7 @@
                     <select class="form-control" ng-model="editableCorniceDetail.material" required="">
                         <option value="">Select Material</option>
                         <option value="MF">Medium Density Fiber Board (MDF)</option>
-                        <option value="HF">High Density Fiber Board (HDF)</option>
+                        <!--<option value="HF">High Density Fiber Board (HDF)</option>-->
                         <!--                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>-->
                     </select>                    
                 </div>
@@ -1157,7 +1170,10 @@
                     <label>Finish</label>
                     <select class="form-control" ng-model="editableCorniceDetail.finish" required="">
                         <option value="">Select Finish</option>
-                        <option ng-repeat="finish in corniceFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                        <option value="XXA">Membrane Glossy MDF</option>
+                        <option value="XXB">Membrane Designer MDF</option>
+                        <option value="XXC">Membrane Standard MDF</option>
+                        <!--<option ng-repeat="finish in corniceFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>-->
                     </select>                    
                 </div>
                 <div class="col-sm-3">
@@ -1193,13 +1209,14 @@
                         <label>Thickness</label>
                         <select class="form-control" ng-model="editableCorniceDetail.thickness" required="">
                             <option value="">Select Thickness</option>
-                            <option ng-repeat="thickness in corniceThicknessList" value="{{thickness.thickness}}">{{thickness.thickness}} mm</option>
+                            <option value="25">25 mm</option>
+                            <!--<option ng-repeat="thickness in corniceThicknessList" value="{{thickness.thickness}}">{{thickness.thickness}} mm</option>-->
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <label>Length</label>
-                    <input type="number" class="form-control" placeholder="Enter Length" min="1100" max="2250" ng-model="editableCorniceDetail.length" required="">
+                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableCorniceDetail.length" required="">
                 </div>
                 <div class="col-sm-3">
                     <label>Width</label>
@@ -1319,7 +1336,7 @@
                             <span>in {{orderDetails.rawMaterialObject.material}}</span>
                             <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
                             <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"><strong> Grain Direction : </strong> {{orderDetails.grainDirection}}</span>
-                            <span><strong>& Carcass Sub Type : </strong> {{orderDetails.carcassSubType}}</span>
+                            <span><strong> ({{orderDetails.subTypeObject.subType}}) </strong></span>
                             <span ng-if="orderDetails.asPerDrawing !== false"><strong> (As Per Drawing) </strong></span>
                         </td>
                         <td class="text-left">
@@ -1458,6 +1475,7 @@
                             <span ng-if="orderDetails.grain !== 'NO_GRAIN'"><strong> Grain Direction : </strong> {{orderDetails.grain}}</span>
                             <span ng-if="orderDetails.hingePosition !== 'NO_HINGE'"> <strong> Hinge Position : </strong>{{orderDetails.hingePosition}}</span>
                             <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
+                            <span ng-if="orderDetails.straightener !== 0"><strong>{{orderDetails.straightener}} Straightener</strong></span>
                             <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
                         </td>
                         <td class="text-left">

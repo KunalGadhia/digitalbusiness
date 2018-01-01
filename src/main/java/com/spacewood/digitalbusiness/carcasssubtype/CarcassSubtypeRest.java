@@ -59,6 +59,11 @@ public class CarcassSubtypeRest {
     public List<CarcassSubtype> findByParentType(@RequestParam("parentType") String parentType) throws Exception {
         return carcassSubtypeDAL.findByParentType(parentType);
     }
+    
+    @RequestMapping(value = "/find/parent_type/sub_type_code", method = RequestMethod.GET)
+    public CarcassSubtype findByParentTypeSubTypeCode(@RequestParam("parentType") String parentType, @RequestParam("subTypeCode") String subTypeCode) throws Exception {
+        return carcassSubtypeDAL.findByParentTypeSubTypeCode(parentType, subTypeCode);
+    }
 
 //    @RequestMapping(value = "/find/material_code", method = RequestMethod.GET)
 //    public CarcassSubtype findByMaterialCode(@RequestParam("materialCode") String materialCode) throws Exception {

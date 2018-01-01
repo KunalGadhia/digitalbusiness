@@ -237,10 +237,12 @@
                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
                                     <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
                                     <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"><strong> Grain Direction : </strong>{{orderDetails.grainDirection}}</span>
+                                    <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
                                 </span>
                                 <span ng-if="orderDetails.orderFor === 'PANEL'">
                                     <span>{{orderDetails.kitchenComponentObject.component}} Prelam Edge Binded Panels</span>
                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
                                 </span>
                                 <span ng-if="orderDetails.orderFor === 'SHUTTER'">
                                     <span ng-if="orderDetails.glass === 'REGULAR_GLASS'">Regular Glass </span>
@@ -255,6 +257,8 @@
                                     <span ng-if="orderDetails.grain !== 'NO_GRAIN'"><strong> Grain Direction : </strong> {{orderDetails.grain}}</span>
                                     <span ng-if="orderDetails.hingePosition !== 'NO_HINGE'"> <strong> Hinge Position : </strong>{{orderDetails.hingePosition}}</span>
                                     <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
+                                    <span ng-if="orderDetails.straightener !== 0"><strong>{{orderDetails.straightener}} Straightener</strong></span>
+                                    <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
                                 </span>
                                 <span ng-if="orderDetails.orderFor === 'DRAWER'">
                                     <span>Drawer </span>
@@ -263,6 +267,7 @@
                                     <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>                                    
                                     <span ng-if="orderDetails.grain !== 'NO_GRAIN'"> <strong> Grain Direction : </strong>{{orderDetails.grain}}</span>                            
                                     <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
+                                    <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
                                 </span>
                                 <span ng-if="orderDetails.orderFor === 'FILLER'">
                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
@@ -270,6 +275,7 @@
                                     <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
                                     <span ng-if="orderDetails.bsm === true"> <strong>(Both Side) </strong></span>
                                     <span ng-if="orderDetails.grain !== 'NO_GRAIN'"> <strong>Grain : {{orderDetails.grain}} </strong></span>
+                                    <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
                                 </span>
                                 <span ng-if="orderDetails.orderFor === 'PELMET'">
                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>

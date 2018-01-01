@@ -50,6 +50,8 @@ public class ShutterOrderDetailsDAL {
         public static final String GLASS = "glass";
         public static final String STEP = "step";
         public static final String JALI = "jali";
+        public static final String STRAIGHTENER = "straightener";
+        public static final String STRAIGHTENER_PRICE = "straightener_price";
         public static final String AS_PER_DRAWING = "as_per_drawing";
         public static final String ORDER_FOR = "order_for";
     }
@@ -89,6 +91,8 @@ public class ShutterOrderDetailsDAL {
                         Columns.GLASS,
                         Columns.STEP,
                         Columns.JALI,
+                        Columns.STRAIGHTENER,
+                        Columns.STRAIGHTENER_PRICE,
                         Columns.AS_PER_DRAWING,
                         Columns.ORDER_FOR
                 )
@@ -163,11 +167,13 @@ public class ShutterOrderDetailsDAL {
         }
         parameters.put(Columns.STEP, shutterOrderDetails.getStep());
         parameters.put(Columns.JALI, shutterOrderDetails.getJali());
-        if(shutterOrderDetails.getAsPerDrawing() == null){
-         parameters.put(Columns.AS_PER_DRAWING, false);   
-        }else{
-         parameters.put(Columns.AS_PER_DRAWING, shutterOrderDetails.getAsPerDrawing());   
-        }        
+        parameters.put(Columns.STRAIGHTENER, shutterOrderDetails.getStraightener());
+        parameters.put(Columns.STRAIGHTENER_PRICE, shutterOrderDetails.getStraightenerPrice());
+        if (shutterOrderDetails.getAsPerDrawing() == null) {
+            parameters.put(Columns.AS_PER_DRAWING, false);
+        } else {
+            parameters.put(Columns.AS_PER_DRAWING, shutterOrderDetails.getAsPerDrawing());
+        }
         parameters.put(Columns.ORDER_FOR, "SHUTTER");
 
         Number newId = insertShutterOrderDetail.executeAndReturnKey(parameters);

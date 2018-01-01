@@ -21,14 +21,15 @@ angular.module("digitalbusiness.services.carcass_subtype")
                     },
                     'isArray': true
                 },
-//                'findByMaterialCode': {
-//                    'method': 'GET',
-//                    'url': restRoot + '/raw_material/find/material_code',
-//                    'params': {
-//                        'materialCode': '@materialCode'
-//                    },
-//                    'isArray': false
-//                },
+                'findByParentTypeSubTypeCode': {
+                    'method': 'GET',
+                    'url': restRoot + '/carcass_subtype/find/parent_type/sub_type_code',
+                    'params': {
+                        'parentType': '@parentType',
+                        'subTypeCode': '@subTypeCode'
+                    },
+                    'isArray': false
+                },
                 'findBySubTypeLike': {
                     'method': 'GET',
                     'url': restRoot + '/raw_material/find/subtype_like',

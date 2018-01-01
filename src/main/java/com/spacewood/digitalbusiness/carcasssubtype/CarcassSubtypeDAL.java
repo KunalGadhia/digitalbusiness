@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CarcassSubtypeDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
@@ -28,7 +29,7 @@ public class CarcassSubtypeDAL {
         public static final String PARENT_TYPE = "parent_type";
         public static final String DESCRIPTION = "description";
         public static final String SUB_TYPE_CODE = "sub_type_code";
-        
+
     }
 
     public static final String TABLE_NAME = "carcass_subtype_master";
@@ -64,10 +65,15 @@ public class CarcassSubtypeDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ID + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{id}, new BeanPropertyRowMapper<>(CarcassSubtype.class));
     }
-    
+
     public List<CarcassSubtype> findByParentType(String parentType) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.PARENT_TYPE + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{parentType}, new BeanPropertyRowMapper<>(CarcassSubtype.class));
+    }
+
+    public CarcassSubtype findByParentTypeSubTypeCode(String parentType, String subTypeCode) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.PARENT_TYPE + " = ? AND " + Columns.SUB_TYPE_CODE + " = ?";
+        return jdbcTemplate.queryForObject(sqlQuery, new Object[]{parentType, subTypeCode}, new BeanPropertyRowMapper<>(CarcassSubtype.class));
     }
 
     public List<CarcassSubtype> findBySubTypeLike(String subtype) {
@@ -92,7 +98,7 @@ public class CarcassSubtypeDAL {
         jdbcTemplate.update(sqlQuery, new Object[]{true, id});
     }
 
-    public CarcassSubtype update(CarcassSubtype carcassSubType) {        
+    public CarcassSubtype update(CarcassSubtype carcassSubType) {
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.SUB_TYPE + " = ?, "
                 + Columns.PARENT_TYPE + " = ?, "
@@ -101,7 +107,7 @@ public class CarcassSubtypeDAL {
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     carcassSubType.getSubType(),
-                    carcassSubType.getParentType().name(),                   
+                    carcassSubType.getParentType().name(),
                     carcassSubType.getDescription(),
                     carcassSubType.getSubTypeCode(),
                     carcassSubType.getId()
