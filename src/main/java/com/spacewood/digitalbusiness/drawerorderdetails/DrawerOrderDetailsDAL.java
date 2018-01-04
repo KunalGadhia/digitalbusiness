@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class DrawerOrderDetailsDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
@@ -35,14 +36,15 @@ public class DrawerOrderDetailsDAL {
         public static final String THICKNESS = "thickness";
         public static final String QUANTITY = "quantity";
         public static final String PRICE = "price";
-        public static final String STD_ONE_SIDE_PRICE = "std_one_side_price";        
-        public static final String FINISH = "finish";        
+        public static final String STD_ONE_SIDE_PRICE = "std_one_side_price";
+        public static final String FINISH = "finish";
         public static final String GRAIN = "grain";
         public static final String HANDLE = "handle";
         public static final String HANDLE_LENGTH = "handle_length";
         public static final String HANDLE_FINISH = "handle_finish";
         public static final String HANDLE_PRICE = "handle_price";
         public static final String AS_PER_DRAWING = "as_per_drawing";
+        public static final String REMARK = "remark";
         public static final String ORDER_FOR = "order_for";
     }
 
@@ -68,14 +70,15 @@ public class DrawerOrderDetailsDAL {
                         Columns.THICKNESS,
                         Columns.QUANTITY,
                         Columns.PRICE,
-                        Columns.STD_ONE_SIDE_PRICE,                        
-                        Columns.FINISH,                        
+                        Columns.STD_ONE_SIDE_PRICE,
+                        Columns.FINISH,
                         Columns.GRAIN,
                         Columns.HANDLE,
                         Columns.HANDLE_LENGTH,
                         Columns.HANDLE_FINISH,
                         Columns.HANDLE_PRICE,
                         Columns.AS_PER_DRAWING,
+                        Columns.REMARK,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -120,8 +123,8 @@ public class DrawerOrderDetailsDAL {
         parameters.put(Columns.THICKNESS, drawerOrderDetails.getThickness());
         parameters.put(Columns.QUANTITY, drawerOrderDetails.getQuantity());
         parameters.put(Columns.PRICE, Math.round(drawerOrderDetails.getPrice()));
-        parameters.put(Columns.STD_ONE_SIDE_PRICE, drawerOrderDetails.getStdOneSidePrice());        
-        parameters.put(Columns.FINISH, drawerOrderDetails.getFinish());        
+        parameters.put(Columns.STD_ONE_SIDE_PRICE, drawerOrderDetails.getStdOneSidePrice());
+        parameters.put(Columns.FINISH, drawerOrderDetails.getFinish());
         if (drawerOrderDetails.getGrain() == null) {
             parameters.put(Columns.GRAIN, com.spacewood.digitalbusiness.shutterorderdetails.GrainDirection.NO_GRAIN);
         } else {
@@ -131,11 +134,12 @@ public class DrawerOrderDetailsDAL {
         parameters.put(Columns.HANDLE_LENGTH, drawerOrderDetails.getHandleLength());
         parameters.put(Columns.HANDLE_FINISH, drawerOrderDetails.getHandleFinish());
         parameters.put(Columns.HANDLE_PRICE, drawerOrderDetails.getHandlePrice());
-        if(drawerOrderDetails.getAsPerDrawing() == null){
-         parameters.put(Columns.AS_PER_DRAWING, false);   
-        }else{
-         parameters.put(Columns.AS_PER_DRAWING, drawerOrderDetails.getAsPerDrawing());   
-        }        
+        if (drawerOrderDetails.getAsPerDrawing() == null) {
+            parameters.put(Columns.AS_PER_DRAWING, false);
+        } else {
+            parameters.put(Columns.AS_PER_DRAWING, drawerOrderDetails.getAsPerDrawing());
+        }
+        parameters.put(Columns.REMARK, drawerOrderDetails.getRemark());
         parameters.put(Columns.ORDER_FOR, "DRAWER");
 
         Number newId = insertDrawerOrderDetail.executeAndReturnKey(parameters);
@@ -161,8 +165,8 @@ public class DrawerOrderDetailsDAL {
                 + Columns.THICKNESS + " = ?,"
                 + Columns.QUANTITY + " = ?,"
                 + Columns.PRICE + " = ?,"
-                + Columns.STD_ONE_SIDE_PRICE + " = ?,"                
-                + Columns.FINISH + " = ?,"                
+                + Columns.STD_ONE_SIDE_PRICE + " = ?,"
+                + Columns.FINISH + " = ?,"
                 + Columns.GRAIN + " = ?,"
                 + Columns.HANDLE + " = ?,"
                 + Columns.HANDLE_LENGTH + " = ?,"
@@ -181,8 +185,8 @@ public class DrawerOrderDetailsDAL {
                     drawerOrderDetails.getThickness(),
                     drawerOrderDetails.getQuantity(),
                     drawerOrderDetails.getPrice(),
-                    drawerOrderDetails.getStdOneSidePrice(),                    
-                    drawerOrderDetails.getFinish(),                    
+                    drawerOrderDetails.getStdOneSidePrice(),
+                    drawerOrderDetails.getFinish(),
                     drawerOrderDetails.getGrain(),
                     drawerOrderDetails.getHandle(),
                     drawerOrderDetails.getHandleLength(),

@@ -5,7 +5,6 @@
  */
 package com.spacewood.digitalbusiness.shutterorderdetails;
 
-import com.spacewood.digitalbusiness.carcassorderdetails.CarcassOrderDetailsDAL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +52,7 @@ public class ShutterOrderDetailsDAL {
         public static final String STRAIGHTENER = "straightener";
         public static final String STRAIGHTENER_PRICE = "straightener_price";
         public static final String AS_PER_DRAWING = "as_per_drawing";
+        public static final String REMARK = "remark";
         public static final String ORDER_FOR = "order_for";
     }
 
@@ -94,6 +94,7 @@ public class ShutterOrderDetailsDAL {
                         Columns.STRAIGHTENER,
                         Columns.STRAIGHTENER_PRICE,
                         Columns.AS_PER_DRAWING,
+                        Columns.REMARK,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -174,6 +175,7 @@ public class ShutterOrderDetailsDAL {
         } else {
             parameters.put(Columns.AS_PER_DRAWING, shutterOrderDetails.getAsPerDrawing());
         }
+        parameters.put(Columns.REMARK, shutterOrderDetails.getRemark());
         parameters.put(Columns.ORDER_FOR, "SHUTTER");
 
         Number newId = insertShutterOrderDetail.executeAndReturnKey(parameters);

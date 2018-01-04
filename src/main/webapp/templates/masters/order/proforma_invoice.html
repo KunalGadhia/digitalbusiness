@@ -347,10 +347,10 @@
                                 <span ng-if="orderDetails.orderFor === 'CORNICE'">
                                     <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
                                 </span>
-<!--                                <span ng-if="orderDetails.colorId !== undefined">
-                                    <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
-                                    <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
-                                </span>-->
+                                <!--                                <span ng-if="orderDetails.colorId !== undefined">
+                                                                    <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
+                                                                    <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
+                                                                </span>-->
                                 <span ng-if="orderDetails.orderFor === 'HANDLE'">
                                     <span ng-if="orderDetails.colorId === undefined">
                                         <span>N/A</span>
@@ -509,6 +509,16 @@
                     <span class="col-md-4 col-xs-4 text-center">SPACEWOOD FURNISHERS PVT LTD.</span>
                     <span class="col-md-4 col-xs-4 text-center">Mr. Harish Patwardhan</span>
                     <span class="col-md-4 col-xs-4 text-center">{{party.dealerName}}</span>
+                </div>
+                <div class="row">
+                    <div class="modal-footer">
+                        <a data-ui-sref="admin.dealers">
+                            <button class="btn btn-lg btn-primary" >
+                                <i class="fa fa-check"></i>
+                                Approve Proforma Invoice
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>            
         </div>

@@ -55,6 +55,7 @@ public class CarcassOrderDetailsDAL {
         public static final String CARCASS_SUB_TYPE = "carcass_sub_type";
         public static final String GRAIN_DIRECTION = "grain_direction";
         public static final String AS_PER_DRAWING = "as_per_drawing";
+        public static final String REMARK = "remark";
         public static final String ORDER_FOR = "order_for";
 
     }
@@ -100,6 +101,7 @@ public class CarcassOrderDetailsDAL {
                         Columns.CARCASS_SUB_TYPE,
                         Columns.GRAIN_DIRECTION,
                         Columns.AS_PER_DRAWING,
+                        Columns.REMARK,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -203,6 +205,7 @@ public class CarcassOrderDetailsDAL {
         } else {
             parameters.put(Columns.AS_PER_DRAWING, carcassOrderDetails.getAsPerDrawing());
         }
+        parameters.put(Columns.REMARK, carcassOrderDetails.getRemark());
         parameters.put(Columns.ORDER_FOR, "CARCASS");
         Number newId = insertCarcassOrderDetail.executeAndReturnKey(parameters);
         carcassOrderDetails = findById(newId.intValue());

@@ -40,6 +40,7 @@ public class ShutterOrderDetails {
     private Integer straightener;
     private Double straightenerPrice;
     private Boolean asPerDrawing;
+    private String remark;
     private String orderFor;
 
     public Integer getId() {
@@ -266,6 +267,14 @@ public class ShutterOrderDetails {
         this.asPerDrawing = asPerDrawing;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public String getOrderFor() {
         return orderFor;
     }
@@ -276,36 +285,37 @@ public class ShutterOrderDetails {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.productCode);
-        hash = 79 * hash + Objects.hashCode(this.material);
-        hash = 79 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 79 * hash + Objects.hashCode(this.component);
-        hash = 79 * hash + Objects.hashCode(this.width);
-        hash = 79 * hash + Objects.hashCode(this.length);
-        hash = 79 * hash + Objects.hashCode(this.thickness);
-        hash = 79 * hash + Objects.hashCode(this.quantity);
-        hash = 79 * hash + Objects.hashCode(this.colorId);
-        hash = 79 * hash + Objects.hashCode(this.intColorId);
-        hash = 79 * hash + Objects.hashCode(this.price);
-        hash = 79 * hash + Objects.hashCode(this.stdOneSidePrice);
-        hash = 79 * hash + Objects.hashCode(this.stdBothSidePrice);
-        hash = 79 * hash + Objects.hashCode(this.finish);
-        hash = 79 * hash + Objects.hashCode(this.bsm);
-        hash = 79 * hash + Objects.hashCode(this.grain);
-        hash = 79 * hash + Objects.hashCode(this.handle);
-        hash = 79 * hash + Objects.hashCode(this.handleLength);
-        hash = 79 * hash + Objects.hashCode(this.handleFinish);
-        hash = 79 * hash + Objects.hashCode(this.handlePrice);
-        hash = 79 * hash + Objects.hashCode(this.hingePosition);
-        hash = 79 * hash + Objects.hashCode(this.glass);
-        hash = 79 * hash + Objects.hashCode(this.step);
-        hash = 79 * hash + Objects.hashCode(this.jali);
-        hash = 79 * hash + Objects.hashCode(this.straightener);
-        hash = 79 * hash + Objects.hashCode(this.straightenerPrice);
-        hash = 79 * hash + Objects.hashCode(this.asPerDrawing);
-        hash = 79 * hash + Objects.hashCode(this.orderFor);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.productCode);
+        hash = 97 * hash + Objects.hashCode(this.material);
+        hash = 97 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 97 * hash + Objects.hashCode(this.component);
+        hash = 97 * hash + Objects.hashCode(this.width);
+        hash = 97 * hash + Objects.hashCode(this.length);
+        hash = 97 * hash + Objects.hashCode(this.thickness);
+        hash = 97 * hash + Objects.hashCode(this.quantity);
+        hash = 97 * hash + Objects.hashCode(this.colorId);
+        hash = 97 * hash + Objects.hashCode(this.intColorId);
+        hash = 97 * hash + Objects.hashCode(this.price);
+        hash = 97 * hash + Objects.hashCode(this.stdOneSidePrice);
+        hash = 97 * hash + Objects.hashCode(this.stdBothSidePrice);
+        hash = 97 * hash + Objects.hashCode(this.finish);
+        hash = 97 * hash + Objects.hashCode(this.bsm);
+        hash = 97 * hash + Objects.hashCode(this.grain);
+        hash = 97 * hash + Objects.hashCode(this.handle);
+        hash = 97 * hash + Objects.hashCode(this.handleLength);
+        hash = 97 * hash + Objects.hashCode(this.handleFinish);
+        hash = 97 * hash + Objects.hashCode(this.handlePrice);
+        hash = 97 * hash + Objects.hashCode(this.hingePosition);
+        hash = 97 * hash + Objects.hashCode(this.glass);
+        hash = 97 * hash + Objects.hashCode(this.step);
+        hash = 97 * hash + Objects.hashCode(this.jali);
+        hash = 97 * hash + Objects.hashCode(this.straightener);
+        hash = 97 * hash + Objects.hashCode(this.straightenerPrice);
+        hash = 97 * hash + Objects.hashCode(this.asPerDrawing);
+        hash = 97 * hash + Objects.hashCode(this.remark);
+        hash = 97 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -337,6 +347,9 @@ public class ShutterOrderDetails {
             return false;
         }
         if (!Objects.equals(this.handleFinish, other.handleFinish)) {
+            return false;
+        }
+        if (!Objects.equals(this.remark, other.remark)) {
             return false;
         }
         if (!Objects.equals(this.orderFor, other.orderFor)) {
@@ -413,7 +426,7 @@ public class ShutterOrderDetails {
 
     @Override
     public String toString() {
-        return "ShutterOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", intColorId=" + intColorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", stdBothSidePrice=" + stdBothSidePrice + ", finish=" + finish + ", bsm=" + bsm + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", hingePosition=" + hingePosition + ", glass=" + glass + ", step=" + step + ", jali=" + jali + ", straightener=" + straightener + ", straightenerPrice=" + straightenerPrice + ", asPerDrawing=" + asPerDrawing + ", orderFor=" + orderFor + '}';
-    }
+        return "ShutterOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", intColorId=" + intColorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", stdBothSidePrice=" + stdBothSidePrice + ", finish=" + finish + ", bsm=" + bsm + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", hingePosition=" + hingePosition + ", glass=" + glass + ", step=" + step + ", jali=" + jali + ", straightener=" + straightener + ", straightenerPrice=" + straightenerPrice + ", asPerDrawing=" + asPerDrawing + ", remark=" + remark + ", orderFor=" + orderFor + '}';
+    }    
     
 }

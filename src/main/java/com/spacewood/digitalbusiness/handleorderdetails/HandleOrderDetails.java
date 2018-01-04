@@ -20,6 +20,7 @@ public class HandleOrderDetails {
     private Integer quantity;    
     private Double price;
     private String finish;
+    private String remark;
     private String orderFor;
 
     public Integer getId() {
@@ -86,6 +87,14 @@ public class HandleOrderDetails {
         this.finish = finish;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public String getOrderFor() {
         return orderFor;
     }
@@ -97,15 +106,16 @@ public class HandleOrderDetails {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.productCode);
-        hash = 89 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 89 * hash + Objects.hashCode(this.component);
-        hash = 89 * hash + Objects.hashCode(this.length);
-        hash = 89 * hash + Objects.hashCode(this.quantity);
-        hash = 89 * hash + Objects.hashCode(this.price);
-        hash = 89 * hash + Objects.hashCode(this.finish);
-        hash = 89 * hash + Objects.hashCode(this.orderFor);
+        hash = 19 * hash + Objects.hashCode(this.id);
+        hash = 19 * hash + Objects.hashCode(this.productCode);
+        hash = 19 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 19 * hash + Objects.hashCode(this.component);
+        hash = 19 * hash + Objects.hashCode(this.length);
+        hash = 19 * hash + Objects.hashCode(this.quantity);
+        hash = 19 * hash + Objects.hashCode(this.price);
+        hash = 19 * hash + Objects.hashCode(this.finish);
+        hash = 19 * hash + Objects.hashCode(this.remark);
+        hash = 19 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -128,6 +138,9 @@ public class HandleOrderDetails {
             return false;
         }
         if (!Objects.equals(this.finish, other.finish)) {
+            return false;
+        }
+        if (!Objects.equals(this.remark, other.remark)) {
             return false;
         }
         if (!Objects.equals(this.orderFor, other.orderFor)) {
@@ -153,7 +166,7 @@ public class HandleOrderDetails {
 
     @Override
     public String toString() {
-        return "HandleOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", orderHeadId=" + orderHeadId + ", component=" + component + ", length=" + length + ", quantity=" + quantity + ", price=" + price + ", finish=" + finish + ", orderFor=" + orderFor + '}';
+        return "HandleOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", orderHeadId=" + orderHeadId + ", component=" + component + ", length=" + length + ", quantity=" + quantity + ", price=" + price + ", finish=" + finish + ", remark=" + remark + ", orderFor=" + orderFor + '}';
     }
         
 }

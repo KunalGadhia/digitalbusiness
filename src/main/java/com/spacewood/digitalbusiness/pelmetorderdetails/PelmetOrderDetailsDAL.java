@@ -37,6 +37,7 @@ public class PelmetOrderDetailsDAL {
         public static final String PRICE = "price";
         public static final String FINISH_PRICE = "finish_price";
         public static final String FINISH = "finish";
+        public static final String REMARK = "remark";
         public static final String ORDER_FOR = "order_for";
 
     }
@@ -64,6 +65,7 @@ public class PelmetOrderDetailsDAL {
                         Columns.PRICE,
                         Columns.FINISH_PRICE,
                         Columns.FINISH,
+                        Columns.REMARK,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -109,6 +111,7 @@ public class PelmetOrderDetailsDAL {
         parameters.put(Columns.PRICE, Math.round(pelmetOrderDetails.getPrice()));
         parameters.put(Columns.FINISH_PRICE, pelmetOrderDetails.getFinishPrice());
         parameters.put(Columns.FINISH, pelmetOrderDetails.getFinish());
+        parameters.put(Columns.REMARK, pelmetOrderDetails.getRemark());
         parameters.put(Columns.ORDER_FOR, "PELMET");
         Number newId = insertPelmetOrderDetail.executeAndReturnKey(parameters);
         pelmetOrderDetails = findById(newId.intValue());
