@@ -86,4 +86,9 @@ public class ShutterFinishPriceRest {
         return shutterFinishPriceDAL.findUniqueFinish();
     }
     
+    @RequestMapping(value = "/find_unique_finish/finish_category", method = RequestMethod.GET)
+    public List<String> findUniqueFinishWithCategory(@RequestParam("finishCategory") String finishCategory) {
+        return shutterFinishPriceDAL.findUniqueFinishWithCategory(finishCategory);
+    }
+    
 }

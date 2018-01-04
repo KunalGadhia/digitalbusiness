@@ -514,6 +514,20 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
+                        <label>Finish Category</label>
+                        <select class="form-control" ng-model="editableShutterDetail.finishCategory">
+                            <option value="">Select Main Finish</option>
+                            <option value="MEMBRANE">Membrane</option>
+                            <option value="HPL">HPL</option>
+                            <option value="ACRYLIC">Acrylic</option>
+                            <option value="POLYMER">Polymer</option>
+                            <option value="PU">PU Lacqured</option>
+                            <option value="ALUMINIUM">Aluminium</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
                         <label>Finish</label>
                         <select class="form-control" ng-model="editableShutterDetail.finish" required="">
                             <option value="">Select Finish</option>
@@ -549,7 +563,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+<!--                <div class="col-sm-3">
                     <div class="form-group" ng-hide="alFinish">
                         <label>Grain (Optional)</label>
                         <select class="form-control" ng-model="editableShutterDetail.grain">
@@ -558,7 +572,7 @@
                             <option value="VERTICAL">Vertical</option>
                         </select>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="row">
                 <!--                <div class="col-sm-3" ng-if="shutterModelSelection">
@@ -655,6 +669,16 @@
 
             </div>
             <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group" ng-hide="alFinish">
+                        <label>Grain (Optional)</label>
+                        <select class="form-control" ng-model="editableShutterDetail.grain">
+                            <option value="">Select Grain Direction</option>
+                            <option value="HORIZONTAL">Horizontal</option>
+                            <option value="VERTICAL">Vertical</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-sm-3" ng-if="showStraightener">
                     <div class="form-group">
                         <label>Add Straightener</label>
@@ -664,7 +688,7 @@
                             <option value="2">2 Straightener</option>
                         </select>
                     </div>
-                </div>
+                </div>                
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>As Per Drawing (Optional)</label>
@@ -760,6 +784,20 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
+                        <label>Finish Category</label>
+                        <select class="form-control" ng-model="editableDrawerDetail.finishCategory">
+                            <option value="">Select Main Finish</option>
+                            <option value="MEMBRANE">Membrane</option>
+                            <option value="HPL">HPL</option>
+                            <option value="ACRYLIC">Acrylic</option>
+                            <option value="POLYMER">Polymer</option>
+                            <option value="PU">PU Lacqured</option>
+                            <option value="ALUMINIUM">Aluminium</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
                         <label>Finish</label>
                         <select class="form-control" ng-model="editableDrawerDetail.finish" required="">
                             <option value="">Select Finish</option>
@@ -795,7 +833,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+<!--                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Grain (Optional)</label>
                         <select class="form-control" ng-model="editableDrawerDetail.grain">
@@ -804,7 +842,7 @@
                             <option value="VERTICAL">Vertical</option>
                         </select>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="row">
                 <!--                <div class="col-sm-3" ng-if="shutterModelSelection">
@@ -860,6 +898,16 @@
                                 <button class="btn btn-primary" type="button" ng-click="openInternalDrawerColorWidget()">Select Balancing Color</button>
                             </span>
                         </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Grain (Optional)</label>
+                        <select class="form-control" ng-model="editableDrawerDetail.grain">
+                            <option value="">Select Grain Direction</option>
+                            <option value="HORIZONTAL">Horizontal</option>
+                            <option value="VERTICAL">Vertical</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-3">

@@ -23,6 +23,7 @@
             <tr>
                 <th class="text-right">#</th>
                 <th>Finish</th>
+                <th>Finish Category</th>
                 <th>Material</th>
                 <th>Thickness</th>
                 <th>One Side Price (INR)</th>
@@ -34,6 +35,7 @@
             <tr ng-repeat="shutterFinishPrice in shutterFinishPrices track by $index">
                 <td class="text-right">{{ currentOffset + $index + 1}}</td>
                 <td>{{ shutterFinishPrice.finishObject.finishName}}</td>
+                <td>{{ shutterFinishPrice.finishCategory}}</td>
                 <td>{{ shutterFinishPrice.materialObject.material}}</td>
                 <td>{{ shutterFinishPrice.thickness}}</td>
                 <td>{{ shutterFinishPrice.oneSidePrice}}</td>

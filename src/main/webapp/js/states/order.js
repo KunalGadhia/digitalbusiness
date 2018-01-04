@@ -1320,7 +1320,6 @@ angular.module("digitalbusiness.states.order", [])
                     }
                 });
             });
-
             $scope.showFillerBsm = false;
             $scope.$watch('editableFillerDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
@@ -1368,7 +1367,6 @@ angular.module("digitalbusiness.states.order", [])
                     }
                 });
             });
-
             $scope.$watch('editableFillerDetail.thickness', function (thickness) {
                 console.log("Thickness :%O", thickness);
                 if (thickness === '8') {
@@ -1385,7 +1383,6 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.editableFillerDetail.stdBothSidePrice = fillerFinishPrice.bothSidePrice;
                 });
             });
-
             ///////////////////////////////////////////////////////////////////
             /////////////////Pelmet Form Functionality/////////////////////////
             $scope.showPelmetColorSelectionWidget = false;
@@ -1704,18 +1701,46 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.shutterColorName = colorName;
             };
             $scope.shutterFinishList = [];
-//            $scope.shutterFinishList = FinishPriceService.findAllList();
-            ShutterFinishPriceService.findUniqueFinish(function (finishList) {
-                console.log("Finish List :%O", finishList);
-                angular.forEach(finishList, function (finishCode) {
-                    FinishPriceService.findByFinishCode({
-                        'finishCode': finishCode
-                    }, function (finishObject) {
-                        $scope.shutterFinishList.push(finishObject);
+            $scope.$watch('editableShutterDetail.finishCategory', function (finishCategory) {
+                console.log("Finish Category :%O", finishCategory);
+                $scope.shutterFinishList = [];
+                ShutterFinishPriceService.findUniqueFinishWithCategory({
+                    'finishCategory': finishCategory
+                }, function (finishList) {
+                    console.log("Finish List :%O", finishList);
+                    angular.forEach(finishList, function (finishCode) {
+                        FinishPriceService.findByFinishCode({
+                            'finishCode': finishCode
+                        }, function (finishObject) {
+                            $scope.shutterFinishList.push(finishObject);
+                        });
                     });
+                    console.log("Shutter Finish List :%O", $scope.shutterFinishList);
                 });
-                console.log("Shutter Finish List :%O", $scope.shutterFinishList);
+//               ShutterFinishPriceService.findUniqueFinishWithCategory(function(finishList){
+//                   console.log("Finish List :%O", finishList);
+//                angular.forEach(finishList, function (finishCode) {
+//                    FinishPriceService.findByFinishCode({
+//                        'finishCode': finishCode
+//                    }, function (finishObject) {
+//                        $scope.shutterFinishList.push(finishObject);
+//                    });
+//                });
+//                console.log("Shutter Finish List :%O", $scope.shutterFinishList);
+//               });
             });
+//            $scope.shutterFinishList = FinishPriceService.findAllList();
+//            ShutterFinishPriceService.findUniqueFinish(function (finishList) {
+//                console.log("Finish List :%O", finishList);
+//                angular.forEach(finishList, function (finishCode) {
+//                    FinishPriceService.findByFinishCode({
+//                        'finishCode': finishCode
+//                    }, function (finishObject) {
+//                        $scope.shutterFinishList.push(finishObject);
+//                    });
+//                });
+//                console.log("Shutter Finish List :%O", $scope.shutterFinishList);
+//            });
             $scope.$watch('editableShutterDetail.material', function (material) {
                 console.log("Side Material :%O", material);
                 $scope.shutterInternalColorName = "";
@@ -2026,18 +2051,35 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Drawer COlor Name :%O", $scope.drawerColorName);
             };
             $scope.drawerFinishList = [];
-//            $scope.shutterFinishList = FinishPriceService.findAllList();
-            ShutterFinishPriceService.findUniqueFinish(function (finishList) {
-                console.log("Finish List :%O", finishList);
-                angular.forEach(finishList, function (finishCode) {
-                    FinishPriceService.findByFinishCode({
-                        'finishCode': finishCode
-                    }, function (finishObject) {
-                        $scope.drawerFinishList.push(finishObject);
+            $scope.$watch('editableDrawerDetail.finishCategory', function (finishCategory) {
+                console.log("Finish Category :%O", finishCategory);
+                $scope.drawerFinishList = [];
+                ShutterFinishPriceService.findUniqueFinishWithCategory({
+                    'finishCategory': finishCategory
+                }, function (finishList) {
+                    console.log("Finish List :%O", finishList);
+                    angular.forEach(finishList, function (finishCode) {
+                        FinishPriceService.findByFinishCode({
+                            'finishCode': finishCode
+                        }, function (finishObject) {
+                            $scope.drawerFinishList.push(finishObject);
+                        });
                     });
+                    console.log("Drawer Finish List :%O", $scope.drawerFinishList);
                 });
-                console.log("Shutter Finish List :%O", $scope.drawerFinishList);
             });
+//            $scope.shutterFinishList = FinishPriceService.findAllList();
+//            ShutterFinishPriceService.findUniqueFinish(function (finishList) {
+//                console.log("Finish List :%O", finishList);
+//                angular.forEach(finishList, function (finishCode) {
+//                    FinishPriceService.findByFinishCode({
+//                        'finishCode': finishCode
+//                    }, function (finishObject) {
+//                        $scope.drawerFinishList.push(finishObject);
+//                    });
+//                });
+//                console.log("Shutter Finish List :%O", $scope.drawerFinishList);
+//            });
             $scope.$watch('editableDrawerDetail.material', function (material) {
                 console.log("Side Material :%O", material);
                 $scope.shutterInternalColorName = "";
@@ -3858,7 +3900,6 @@ angular.module("digitalbusiness.states.order", [])
                         'parentType': carcassDetailObject.component,
                         'subTypeCode': carcassDetailObject.carcassSubType
                     });
-
                     carcassDetailObject.rightColorObject = ColorService.get({
                         'id': carcassDetailObject.rightColorId
                     });
@@ -4013,7 +4054,6 @@ angular.module("digitalbusiness.states.order", [])
                     drawerDetailObject.intColorObject = ColorService.get({
                         'id': drawerDetailObject.intColorId
                     });
-
                 });
             });
             ///////////////////End//////////////////////////////////////

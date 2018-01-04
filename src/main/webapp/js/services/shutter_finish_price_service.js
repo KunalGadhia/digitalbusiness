@@ -18,6 +18,14 @@ angular.module("digitalbusiness.services.shutter_finish_price")
                     'url': restRoot + '/shutter_finish_price/find_unique_finish',
                     'isArray': true
                 },
+                'findUniqueFinishWithCategory': {
+                    'method': 'GET',
+                    'url': restRoot + '/shutter_finish_price/find_unique_finish/finish_category',
+                    'params':{
+                      'finishCategory': '@finishCategory'  
+                    },
+                    'isArray': true
+                },
                 'findByFinish': {
                     'method': 'GET',
                     'url': restRoot + '/shutter_finish_price/find_by_finish',

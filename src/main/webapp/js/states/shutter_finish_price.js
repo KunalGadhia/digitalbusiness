@@ -45,13 +45,13 @@ angular.module("digitalbusiness.states.shutter_finish_price", [])
             $scope.shutterFinishPrices = ShutterFinishPriceService.query({
                 'offset': $scope.currentOffset
             }, function (s) {
-                angular.forEach($scope.shutterFinishPrices, function(sfpObject){
-                   sfpObject.finishObject = FinishPriceService.findByFinishCode({
-                       'finishCode' : sfpObject.finish
-                   });
-                   sfpObject.materialObject = RawMaterialService.findByMaterialCode({
-                      'materialCode' : sfpObject.material
-                   });
+                angular.forEach($scope.shutterFinishPrices, function (sfpObject) {
+                    sfpObject.finishObject = FinishPriceService.findByFinishCode({
+                        'finishCode': sfpObject.finish
+                    });
+                    sfpObject.materialObject = RawMaterialService.findByMaterialCode({
+                        'materialCode': sfpObject.material
+                    });
                 });
             });
 
@@ -82,6 +82,8 @@ angular.module("digitalbusiness.states.shutter_finish_price", [])
                 FinishPriceService.findByFinishCode({
                     'finishCode': finishCode
                 }, function (finishObject) {
+//                    console.log("Finish Object :%O", finishObject);
+                    $scope.editableShutterFinishPrice.finishCategory = finishObject.category;
                     RawMaterialService.get({
                         'id': finishObject.materialId
                     }, function (rmObject) {
@@ -131,10 +133,15 @@ angular.module("digitalbusiness.states.shutter_finish_price", [])
                 'id': $stateParams.shutterFinishPriceId
             }, function (shutterFinishPriceData) {
 //                segmentData.empMobileNumber = parseInt(segmentData.empMobileNumber);
+                FinishPriceService.findByFinishCode({
+                    'finishCode': shutterFinishPriceData.finish
+                }, function (finish) {
+                    $scope.editableShutterFinishPrice.finishCategory = finish.category;
+                });
                 $scope.editableShutterFinishPrice = shutterFinishPriceData;
                 RawMaterialService.findByMaterialCode({
-                   'materialCode':shutterFinishPriceData.material 
-                }, function(rmObject){
+                    'materialCode': shutterFinishPriceData.material
+                }, function (rmObject) {
                     $scope.editableShutterFinishPrice.material = rmObject.materialCode;
                     $scope.materialObject = rmObject;
                 });
@@ -144,6 +151,7 @@ angular.module("digitalbusiness.states.shutter_finish_price", [])
                 FinishPriceService.findByFinishCode({
                     'finishCode': finishCode
                 }, function (finishObject) {
+                    $scope.editableShutterFinishPrice.finishCategory = finishObject.category;
                     RawMaterialService.get({
                         'id': finishObject.materialId
                     }, function (rmObject) {

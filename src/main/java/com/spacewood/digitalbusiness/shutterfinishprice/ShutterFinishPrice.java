@@ -18,6 +18,7 @@ public class ShutterFinishPrice {
     private Double thickness;
     private Double oneSidePrice;
     private Double bothSidePrice;
+    private String finishCategory;
 
     public Integer getId() {
         return id;
@@ -67,15 +68,24 @@ public class ShutterFinishPrice {
         this.bothSidePrice = bothSidePrice;
     }
 
+    public String getFinishCategory() {
+        return finishCategory;
+    }
+
+    public void setFinishCategory(String finishCategory) {
+        this.finishCategory = finishCategory;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.finish);
-        hash = 97 * hash + Objects.hashCode(this.material);
-        hash = 97 * hash + Objects.hashCode(this.thickness);
-        hash = 97 * hash + Objects.hashCode(this.oneSidePrice);
-        hash = 97 * hash + Objects.hashCode(this.bothSidePrice);
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.finish);
+        hash = 89 * hash + Objects.hashCode(this.material);
+        hash = 89 * hash + Objects.hashCode(this.thickness);
+        hash = 89 * hash + Objects.hashCode(this.oneSidePrice);
+        hash = 89 * hash + Objects.hashCode(this.bothSidePrice);
+        hash = 89 * hash + Objects.hashCode(this.finishCategory);
         return hash;
     }
 
@@ -97,6 +107,9 @@ public class ShutterFinishPrice {
         if (!Objects.equals(this.material, other.material)) {
             return false;
         }
+        if (!Objects.equals(this.finishCategory, other.finishCategory)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -114,7 +127,7 @@ public class ShutterFinishPrice {
 
     @Override
     public String toString() {
-        return "ShutterFinishPrice{" + "id=" + id + ", finish=" + finish + ", material=" + material + ", thickness=" + thickness + ", oneSidePrice=" + oneSidePrice + ", bothSidePrice=" + bothSidePrice + '}';
+        return "ShutterFinishPrice{" + "id=" + id + ", finish=" + finish + ", material=" + material + ", thickness=" + thickness + ", oneSidePrice=" + oneSidePrice + ", bothSidePrice=" + bothSidePrice + ", finishCategory=" + finishCategory + '}';
     }
             
 }

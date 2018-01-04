@@ -30,6 +30,7 @@ public class ShutterFinishPriceDAL {
         public static final String THICKNESS = "thickness";
         public static final String ONE_SIDE_PRICE = "one_side_price";
         public static final String BOTH_SIDE_PRICE = "both_side_price";
+        public static final String FINISH_CATEGORY = "finish_category";
     }
 
     public static final String TABLE_NAME = "shutter_finish_price_master";
@@ -47,7 +48,8 @@ public class ShutterFinishPriceDAL {
                         Columns.MATERIAL,
                         Columns.THICKNESS,
                         Columns.ONE_SIDE_PRICE,
-                        Columns.BOTH_SIDE_PRICE
+                        Columns.BOTH_SIDE_PRICE,
+                        Columns.FINISH_CATEGORY
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -70,6 +72,11 @@ public class ShutterFinishPriceDAL {
     public List<String> findUniqueFinish() {
         String sqlQuery = "SELECT DISTINCT finish FROM " + TABLE_NAME + " WHERE deleted = FALSE";
         return jdbcTemplate.queryForList(sqlQuery, String.class);
+    }
+
+    public List<String> findUniqueFinishWithCategory(String finishCategory) {
+        String sqlQuery = "SELECT DISTINCT finish FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.FINISH_CATEGORY + " = ?";
+        return jdbcTemplate.queryForList(sqlQuery, new Object[]{finishCategory}, String.class);
     }
 
     public ShutterFinishPrice findById(Integer id) {
@@ -99,6 +106,7 @@ public class ShutterFinishPriceDAL {
         parameters.put(Columns.THICKNESS, shutterFinishPrice.getThickness());
         parameters.put(Columns.ONE_SIDE_PRICE, shutterFinishPrice.getOneSidePrice());
         parameters.put(Columns.BOTH_SIDE_PRICE, shutterFinishPrice.getBothSidePrice());
+        parameters.put(Columns.FINISH_CATEGORY, shutterFinishPrice.getFinishCategory());
         Number newId = insertShutterFinishPrice.executeAndReturnKey(parameters);
         shutterFinishPrice = findById(newId.intValue());
         return shutterFinishPrice;
@@ -115,7 +123,8 @@ public class ShutterFinishPriceDAL {
                 + Columns.MATERIAL + " = ?, "
                 + Columns.THICKNESS + " = ?, "
                 + Columns.ONE_SIDE_PRICE + " = ?, "
-                + Columns.BOTH_SIDE_PRICE + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.BOTH_SIDE_PRICE + " = ?, "
+                + Columns.FINISH_CATEGORY + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     shutterFinishPrice.getFinish(),
@@ -123,6 +132,7 @@ public class ShutterFinishPriceDAL {
                     shutterFinishPrice.getThickness(),
                     shutterFinishPrice.getOneSidePrice(),
                     shutterFinishPrice.getBothSidePrice(),
+                    shutterFinishPrice.getFinishCategory(),
                     shutterFinishPrice.getId()
                 });
         shutterFinishPrice = findById(shutterFinishPrice.getId());
