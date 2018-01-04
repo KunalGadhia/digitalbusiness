@@ -1128,7 +1128,7 @@
                     <label>Finish</label>
                     <select class="form-control" ng-model="editablePelmetDetail.finish" required="">
                         <option value="">Select Finish</option>
-                        <option value="XXA">Membrane Glossy MDF</option>
+                        <option ng-hide="hidePelmetGlossy" value="XXA">Membrane Glossy MDF</option>
                         <option value="XXB">Membrane Designer MDF</option>
                         <option value="XXC">Membrane Standard MDF</option>
                         <!--<option ng-repeat="finish in pelmetFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>-->
@@ -1212,7 +1212,7 @@
                     <label>Finish</label>
                     <select class="form-control" ng-model="editableCorniceDetail.finish" required="">
                         <option value="">Select Finish</option>
-                        <option value="XXA">Membrane Glossy MDF</option>
+                        <option ng-hide="hideCorniceGlossy" value="XXA">Membrane Glossy MDF</option>
                         <option value="XXB">Membrane Designer MDF</option>
                         <option value="XXC">Membrane Standard MDF</option>
                         <!--<option ng-repeat="finish in corniceFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>-->

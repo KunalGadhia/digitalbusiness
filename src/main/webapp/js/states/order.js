@@ -1418,6 +1418,14 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.pelmetThicknessList = pelmetThicknessObject;
                 });
             });
+            $scope.hidePelmetGlossy = false;
+            $scope.$watch('pelmetComponent', function (pelmetComponent) {
+                if (pelmetComponent === "PEL-PL1X") {
+                    $scope.hidePelmetGlossy = true;
+                } else {
+                    $scope.hidePelmetGlossy = false;
+                }
+            });
 //            $scope.showFillerBsm = false;
             $scope.$watch('editablePelmetDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
@@ -1523,6 +1531,16 @@ angular.module("digitalbusiness.states.order", [])
                         $scope.corniceColors1 = [];
                     }
                 });
+            });
+            $scope.hideCorniceGlossy = false;
+            $scope.$watch('corniceComponent', function (corniceComponent) {
+                if (corniceComponent === "COR-CR1X") {
+                    $scope.hideCorniceGlossy = true;
+                } else if (corniceComponent === "COR-CR4X") {
+                    $scope.hideCorniceGlossy = true;
+                } else {
+                    $scope.hideCorniceGlossy = false;
+                }
             });
             $scope.$watch('editableCorniceDetail.thickness', function (corniceThickness) {
                 console.log("Pelmet THickness");
@@ -3464,14 +3482,14 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     shutterOrderDetail.jaliPrice = 0;
                 }
-                
-                if(shutterOrderDetail.straightener === '1'){
+
+                if (shutterOrderDetail.straightener === '1') {
                     shutterOrderDetail.straightenerPrice = 1280;
                     console.log("1 Straightener");
-                }else if(shutterOrderDetail.straightener === '2'){
+                } else if (shutterOrderDetail.straightener === '2') {
                     shutterOrderDetail.straightenerPrice = 2560;
                     console.log("2 Straightener");
-                }else{
+                } else {
                     console.log("No Straightener");
                     shutterOrderDetail.straightenerPrice = 0;
                 }
