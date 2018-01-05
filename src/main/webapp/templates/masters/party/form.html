@@ -140,6 +140,33 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Marketing Head</label>
+                                <input class="form-control"
+                                       placeholder="Enter Marketing Head"
+                                       uib-typeahead="employee.empName as employee.empName for employee in searchEmployee($viewValue)"
+                                       typeahead-on-select="setEmployee($item)"
+                                       typeahead-editable="false"
+                                       typeahead-loading="loadingEmployee" 
+                                       typeahead-no-results="noEmployeeFound"                                       
+                                       ng-model="editableParty.employee.empName" required=""/>
+                                <p ng-show="noEmployeeFound" class="help-block text-muted">No Employees Found</p>
+                                <p ng-show="loadingEmployee" class="help-block text-muted">Loading...</p>
+                            </div>
+                        </div>
+<!--                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>State</label>
+                                <select class="form-control" ng-model="editableParty.state">
+                                    <option value="">Select State</option>
+                                    <option value="MS">Within Maharashtra</option>
+                                    <option value="OMS">Other Than Maharashtra</option>
+                                </select>
+                            </div>
+                        </div>-->
+                    </div>
 
                     <div class="modal-footer">
                         <button class="btn btn-lg btn-primary">

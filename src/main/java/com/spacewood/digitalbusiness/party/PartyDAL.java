@@ -42,6 +42,7 @@ public class PartyDAL {
 //        public static final String CST_NUMBER = "cst_number";
         public static final String GST_NUMBER = "gst_number";
         public static final String STATE = "state";
+        public static final String MARKETING_HEAD_ID = "marketing_head_id";
         
     }
 
@@ -71,7 +72,8 @@ public class PartyDAL {
                         Columns.DIRECT_TEL_NO,
                         Columns.PAN_NUMBER,                        
                         Columns.GST_NUMBER,
-                        Columns.STATE
+                        Columns.STATE,
+                        Columns.MARKETING_HEAD_ID
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -116,6 +118,7 @@ public class PartyDAL {
 //        parameters.put(Columns.CST_NUMBER, party.getCstNumber());
         parameters.put(Columns.GST_NUMBER, party.getGstNumber());
         parameters.put(Columns.STATE, party.getState());
+        parameters.put(Columns.MARKETING_HEAD_ID, party.getMarketingHeadId());
         
         Number newId = insertParty.executeAndReturnKey(parameters);
         party = findById(newId.intValue());
@@ -144,8 +147,8 @@ public class PartyDAL {
                 + Columns.DIRECT_TEL_NO + " = ?,"
                 + Columns.PAN_NUMBER + " = ?,"
                 + Columns.GST_NUMBER + " = ?,"
-//                + Columns.CST_NUMBER + " = ?,"
-                + Columns.STATE + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.STATE + " = ?,"
+                + Columns.MARKETING_HEAD_ID + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     party.getDealerCode(),
@@ -165,6 +168,7 @@ public class PartyDAL {
 //                    party.getCstNumber(),
                     party.getGstNumber(),
                     party.getState(),
+                    party.getMarketingHeadId(),
                     party.getId()
                 });
         party = findById(party.getId());

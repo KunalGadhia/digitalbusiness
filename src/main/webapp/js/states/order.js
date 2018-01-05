@@ -114,14 +114,21 @@ angular.module("digitalbusiness.states.order", [])
             SaleTypeService.findAllList(function (saleTypeList) {
                 $scope.saleTypeList = saleTypeList;
             });
+            $scope.editableOrderHead.poDate = new Date();
             /////////////////New Thing///////////////////
             $scope.$watch('editableOrderHead.billingPartyId', function (billingPartyId) {
                 $scope.editableOrderHead.deliveryPartyId = billingPartyId;
                 PartyService.get({
                     'id': billingPartyId
                 }, function (billingPartyObject) {
+                    console.log("Billing Party Object :%O", billingPartyObject);
                     $scope.editableOrderHead.party = billingPartyObject;
                     $scope.editableOrderHead.party1 = billingPartyObject;
+                    $scope.editableOrderHead.employee = EmployeeService.get({
+                        'id': billingPartyObject.marketingHeadId
+                    }, function (employee) {
+                        $scope.editableOrderHead.marketingHead = employee.empCode;
+                    });
                 });
             });
             $scope.$watch('editableOrderHead.deliveryPartyId', function (deliveryPartyId) {

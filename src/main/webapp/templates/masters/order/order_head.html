@@ -398,8 +398,9 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Marketing Head</label>
+                                <input class="form-control" placeholder="Assigned Marketing Head" ng-model="editableOrderHead.employee.empName" readonly="">
                                 <!--<input class="form-control" type="text" placeholder="Enter Marketing Head" ng-model="editableOrderHead.marketingHead"/>-->
-                                <input class="form-control"
+<!--                                <input class="form-control"
                                        placeholder="Enter Marketing Head"
                                        uib-typeahead="employee.empName as employee.empName for employee in searchEmployee($viewValue)"
                                        typeahead-on-select="setEmployee($item)"
@@ -408,7 +409,7 @@
                                        typeahead-no-results="noEmployeeFound"                                       
                                        ng-model="editableOrderHead.employee.empName" required=""/>
                                 <p ng-show="noEmployeeFound" class="help-block text-muted">No Employees Found</p>
-                                <p ng-show="loadingEmployee" class="help-block text-muted">Loading...</p>
+                                <p ng-show="loadingEmployee" class="help-block text-muted">Loading...</p>-->
                             </div>
                         </div>
 

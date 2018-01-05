@@ -27,7 +27,7 @@ angular.module("digitalbusiness.states.party", [])
             });
         })
 
-        .controller('PartyListController', function (PartyService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('PartyListController', function (PartyService, EmployeeService, $scope, $stateParams, $state, paginationLimit) {
             if (
                     $stateParams.offset === undefined ||
                     isNaN($stateParams.offset) ||
@@ -47,6 +47,11 @@ angular.module("digitalbusiness.states.party", [])
             $scope.parties = PartyService.query({
                 'offset': $scope.currentOffset
             }, function (s) {
+                angular.forEach($scope.parties, function (partyObject) {
+                    partyObject.employeeObject = EmployeeService.get({
+                        'id': partyObject.marketingHeadId
+                    });
+                });
             });
 
             $scope.nextPage = function () {
@@ -61,7 +66,7 @@ angular.module("digitalbusiness.states.party", [])
                 $state.go(".", {'offset': $scope.currentOffset}, {'reload': true});
             };
         })
-        .controller('PartyAddController', function (PartyService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('PartyAddController', function (EmployeeService, PartyService, $scope, $stateParams, $state, paginationLimit) {
 
             $scope.editableParty = {};
 
@@ -70,6 +75,15 @@ angular.module("digitalbusiness.states.party", [])
                 PartyService.save(party, function () {
                     $state.go('admin.masters_party', null, {'reload': true});
                 });
+            };
+
+            $scope.setEmployee = function (employee) {
+                $scope.editableParty.marketingHeadId = employee.id;
+            };
+            $scope.searchEmployee = function (searchTerm) {
+                return EmployeeService.findByNameLike({
+                    'name': searchTerm
+                }).$promise;
             };
 
             $scope.$watch('editableParty.dealerName', function (name) {
@@ -90,14 +104,25 @@ angular.module("digitalbusiness.states.party", [])
                 });
             });
         })
-        .controller('PartyEditController', function (PartyService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('PartyEditController', function (EmployeeService, PartyService, $scope, $stateParams, $state, paginationLimit) {
             PartyService.get({'id': $stateParams.partyId});
             PartyService.get({
                 'id': $stateParams.partyId
             }, function (partyData) {
 //                partyData.empMobileNumber = parseInt(partyData.empMobileNumber);
+                partyData.employee = EmployeeService.get({
+                    'id': partyData.marketingHeadId
+                });
                 $scope.editableParty = partyData;
             });
+            $scope.setEmployee = function (employee) {
+                $scope.editableParty.marketingHeadId = employee.id;
+            };
+            $scope.searchEmployee = function (searchTerm) {
+                return EmployeeService.findByNameLike({
+                    'name': searchTerm
+                }).$promise;
+            };
             $scope.saveParty = function (party) {
                 party.$save(function () {
                     $state.go('admin.masters_party', null, {'reload': true});
@@ -105,7 +130,7 @@ angular.module("digitalbusiness.states.party", [])
             };
         })
         .controller('PartyDeleteController', function (PartyService, $scope, $stateParams, $state, paginationLimit) {
-            $scope.editableParty = PartyService.get({'id': $stateParams.partyId});            
+            $scope.editableParty = PartyService.get({'id': $stateParams.partyId});
             $scope.deleteParty = function (party) {
                 console.log("Employee :%O", party);
                 party.$delete(function () {

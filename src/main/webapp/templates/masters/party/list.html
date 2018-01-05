@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" style="overflow-x:  auto;">
     <div class="panel-heading text-center">
         <div class="pull-left">
             <a data-ui-sref="admin.masters"
@@ -34,7 +34,8 @@
                 <th>Direct Tel No</th>
                 <th>PAN Number</th>
                 <!--<th>CST Number</th>-->
-                <th>GST Number</th>                
+                <th>GST Number</th>
+                <th>Marketing Head</th>                
                 <th class="text-right">Actions</th>
             </tr>
         </thead>
@@ -54,6 +55,7 @@
                 <td>{{ party.panNumber}}</td>
                 <!--<td>{{ party.cstNumber}}</td>-->
                 <td>{{ party.gstNumber}}</td>
+                <td>{{ party.employeeObject.empName}}</td>
                 <td class="text-right">
                     <a data-ui-sref="admin.masters_party.edit({ partyId: party.id })"
                        class="btn btn-primary">					
