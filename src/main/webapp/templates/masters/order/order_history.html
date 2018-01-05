@@ -20,7 +20,7 @@
                 <th>Delivery Party</th>
                 <th>PO Number</th>
                 <th>PO Date</th>                                             
-                <th class="text-right">Actions</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -35,34 +35,46 @@
                     <a data-ui-sref="admin.masters_dealer_order_details({orderHeadId: orderHead.id})"
                        class="btn btn-primary">					
                         <i class="fa fa-info-circle"></i>
+                        Order Details
                     </a>
-<!--                    <a data-ui-sref="admin.masters_party.delete({ partyId: party.id })"
-                       class="btn btn-danger">
-                        <i class="fa fa-trash"></i>
-                    </a>-->
+                    <a data-ui-sref="admin.masters_order_details({orderHeadId: orderHead.id})"
+                       class="btn btn-primary" ng-disabled="orderHead.approved === true">
+                        <i class="fa fa-pencil"></i>
+                        Edit Order
+                    </a>
+                    
+                    <a data-ui-sref="admin.masters_order_history.order_approve({orderHeadId: orderHead.id})"
+                       class="btn btn-primary" ng-disabled="orderHead.approved === true">
+                        <i class="fa fa-check"></i>
+                        Approve
+                    </a>
+                    <!--                    <a data-ui-sref="admin.masters_party.delete({ partyId: party.id })"
+                                           class="btn btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </a>-->
                 </td>
             </tr>
         </tbody>
     </table>
-    <nav class="panel-footer">
-        <ul class="pager">
-            <li>
-                <button ng-click="previousPage()" 
-                        ng-disabled="{{ currentOffset == 0}}" 
-                        class="btn btn-default" >
-                    <i class="fa fa-arrow-left"></i>
-                    Previous
-                </button>
-            </li>
-            <li>
-                <button ng-click="nextPage()"
-                        ng-disabled="parties.length < 10 || nextParty.length === 0"
-                        class="btn btn-default">
-                    Next 
-                    <i class="fa fa-arrow-right"></i>
-                </button>
-            </li>
-        </ul>
-    </nav>
+    <!--    <nav class="panel-footer">
+            <ul class="pager">
+                <li>
+                    <button ng-click="previousPage()" 
+                            ng-disabled="{{ currentOffset == 0}}" 
+                            class="btn btn-default" >
+                        <i class="fa fa-arrow-left"></i>
+                        Previous
+                    </button>
+                </li>
+                <li>
+                    <button ng-click="nextPage()"
+                            ng-disabled="parties.length < 10 || nextParty.length === 0"
+                            class="btn btn-default">
+                        Next 
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+                </li>
+            </ul>
+        </nav>-->
 </div>
 <div data-ui-view=""></div>

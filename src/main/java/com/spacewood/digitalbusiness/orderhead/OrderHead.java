@@ -34,6 +34,7 @@ public class OrderHead {
     private RateApplicability rateApplicability;
     private String rateContract;
     private String orcPer;
+    private Boolean approved;
 
     public Integer getId() {
         return id;
@@ -203,30 +204,39 @@ public class OrderHead {
         this.orcPer = orcPer;
     }
 
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.orderNum);
-        hash = 37 * hash + Objects.hashCode(this.segment);
-        hash = 37 * hash + Objects.hashCode(this.saleType);
-        hash = 37 * hash + Objects.hashCode(this.entryType);
-        hash = 37 * hash + Objects.hashCode(this.orderType);
-        hash = 37 * hash + Objects.hashCode(this.billingPartyId);
-        hash = 37 * hash + Objects.hashCode(this.deliveryPartyId);
-        hash = 37 * hash + Objects.hashCode(this.postalCode);
-        hash = 37 * hash + Objects.hashCode(this.billType);
-        hash = 37 * hash + Objects.hashCode(this.orderSubType);
-        hash = 37 * hash + Objects.hashCode(this.projectName);
-        hash = 37 * hash + Objects.hashCode(this.poNum);
-        hash = 37 * hash + Objects.hashCode(this.orderId);
-        hash = 37 * hash + Objects.hashCode(this.poDate);
-        hash = 37 * hash + Objects.hashCode(this.poValue);
-        hash = 37 * hash + Objects.hashCode(this.marketingHead);
-        hash = 37 * hash + Objects.hashCode(this.orderInitiatedBy);
-        hash = 37 * hash + Objects.hashCode(this.rateApplicability);
-        hash = 37 * hash + Objects.hashCode(this.rateContract);
-        hash = 37 * hash + Objects.hashCode(this.orcPer);
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.orderNum);
+        hash = 83 * hash + Objects.hashCode(this.segment);
+        hash = 83 * hash + Objects.hashCode(this.saleType);
+        hash = 83 * hash + Objects.hashCode(this.entryType);
+        hash = 83 * hash + Objects.hashCode(this.orderType);
+        hash = 83 * hash + Objects.hashCode(this.billingPartyId);
+        hash = 83 * hash + Objects.hashCode(this.deliveryPartyId);
+        hash = 83 * hash + Objects.hashCode(this.postalCode);
+        hash = 83 * hash + Objects.hashCode(this.billType);
+        hash = 83 * hash + Objects.hashCode(this.orderSubType);
+        hash = 83 * hash + Objects.hashCode(this.projectName);
+        hash = 83 * hash + Objects.hashCode(this.poNum);
+        hash = 83 * hash + Objects.hashCode(this.orderId);
+        hash = 83 * hash + Objects.hashCode(this.poDate);
+        hash = 83 * hash + Objects.hashCode(this.poValue);
+        hash = 83 * hash + Objects.hashCode(this.marketingHead);
+        hash = 83 * hash + Objects.hashCode(this.orderInitiatedBy);
+        hash = 83 * hash + Objects.hashCode(this.rateApplicability);
+        hash = 83 * hash + Objects.hashCode(this.rateContract);
+        hash = 83 * hash + Objects.hashCode(this.orcPer);
+        hash = 83 * hash + Objects.hashCode(this.approved);
         return hash;
     }
 
@@ -305,12 +315,15 @@ public class OrderHead {
         if (this.rateApplicability != other.rateApplicability) {
             return false;
         }
+        if (!Objects.equals(this.approved, other.approved)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "OrderHead{" + "id=" + id + ", orderNum=" + orderNum + ", segment=" + segment + ", saleType=" + saleType + ", entryType=" + entryType + ", orderType=" + orderType + ", billingPartyId=" + billingPartyId + ", deliveryPartyId=" + deliveryPartyId + ", postalCode=" + postalCode + ", billType=" + billType + ", orderSubType=" + orderSubType + ", projectName=" + projectName + ", poNum=" + poNum + ", orderId=" + orderId + ", poDate=" + poDate + ", poValue=" + poValue + ", marketingHead=" + marketingHead + ", orderInitiatedBy=" + orderInitiatedBy + ", rateApplicability=" + rateApplicability + ", rateContract=" + rateContract + ", orcPer=" + orcPer + '}';
+        return "OrderHead{" + "id=" + id + ", orderNum=" + orderNum + ", segment=" + segment + ", saleType=" + saleType + ", entryType=" + entryType + ", orderType=" + orderType + ", billingPartyId=" + billingPartyId + ", deliveryPartyId=" + deliveryPartyId + ", postalCode=" + postalCode + ", billType=" + billType + ", orderSubType=" + orderSubType + ", projectName=" + projectName + ", poNum=" + poNum + ", orderId=" + orderId + ", poDate=" + poDate + ", poValue=" + poValue + ", marketingHead=" + marketingHead + ", orderInitiatedBy=" + orderInitiatedBy + ", rateApplicability=" + rateApplicability + ", rateContract=" + rateContract + ", orcPer=" + orcPer + ", approved=" + approved + '}';
     }
     
 }

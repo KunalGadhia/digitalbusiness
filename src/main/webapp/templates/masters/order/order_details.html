@@ -3,7 +3,12 @@
     <div class="panel-heading text-center">
         <div class="pull-left">
             <a data-ui-sref="admin.masters"
-               class="btn btn-default">
+               class="btn btn-default" ng-if="adminLogin">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </a>
+            <a data-ui-sref="admin.dealers"
+               class="btn btn-default" ng-if="dealerLogin">
                 <i class="fa fa-arrow-left"></i>
                 Back
             </a>
@@ -1926,12 +1931,24 @@
                     </table>
                 </div>-->
         <div class="modal-footer">
+            <a data-ui-sref="admin.dealers" ng-if="dealerLogin">
+                <button class="btn btn-lg btn-primary" >
+                    <i class="fa fa-check-circle"></i>
+                    Done
+                </button>
+            </a>
+            <a data-ui-sref="admin.masters" ng-if="adminLogin">
+                <button class="btn btn-lg btn-primary">
+                    <i class="fa fa-check-circle"></i>
+                    Done
+                </button>
+            </a>
             <a target="_blank" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
                 <button class="btn btn-lg btn-primary" >
                     <i class="fa fa-print"></i>
                     Generate Proforma Invoice
                 </button>
-            </a>
+            </a>            
         </div>        
     </div>
 </div>

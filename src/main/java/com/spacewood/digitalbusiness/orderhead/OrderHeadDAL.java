@@ -45,6 +45,7 @@ public class OrderHeadDAL {
         public static final String RATE_APPLICABILITY = "rate_applicability";
         public static final String RATE_CONTRACT = "rate_contract";
         public static final String ORC_PER = "orc_per";
+        public static final String APPROVED = "approved";
 
     }
 
@@ -78,7 +79,8 @@ public class OrderHeadDAL {
                         Columns.ORDER_INITIATED_BY,
                         Columns.RATE_APPLICABILITY,
                         Columns.RATE_CONTRACT,
-                        Columns.ORC_PER
+                        Columns.ORC_PER,
+                        Columns.APPROVED
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -98,8 +100,8 @@ public class OrderHeadDAL {
         String stringEntry = orderNum + "%";
         return jdbcTemplate.query(sqlQuery, new Object[]{stringEntry}, new BeanPropertyRowMapper<>(OrderHead.class));
     }
-    
-    public List<OrderHead> findOrderGenerationSource(Integer userId){
+
+    public List<OrderHead> findOrderGenerationSource(Integer userId) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_INITIATED_BY + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{userId}, new BeanPropertyRowMapper<>(OrderHead.class));
     }
@@ -114,7 +116,7 @@ public class OrderHeadDAL {
 //        return jdbcTemplate.query(sqlQuery, new Object[]{nameLike}, new BeanPropertyRowMapper<>(Employee.class));
 //    }
     public OrderHead insert(OrderHead orderHead) {
-        System.out.println("Order Head :{}"+orderHead);
+        System.out.println("Order Head :{}" + orderHead);
         Map<String, Object> parameters = new HashMap<>();
         String OrderNumber;
 
@@ -156,6 +158,7 @@ public class OrderHeadDAL {
         }
 
         parameters.put(Columns.ORC_PER, orderHead.getOrcPer());
+        parameters.put(Columns.APPROVED, "0");
 
         Number newId = insertOrderHead.executeAndReturnKey(parameters);
         orderHead = findById(newId.intValue());
@@ -188,7 +191,8 @@ public class OrderHeadDAL {
                 + Columns.ORDER_INITIATED_BY + " = ?,"
                 + Columns.RATE_APPLICABILITY + " = ?,"
                 + Columns.RATE_CONTRACT + " = ?,"
-                + Columns.ORC_PER + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.ORC_PER + " = ?,"
+                + Columns.APPROVED + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     orderHead.getOrderNum(),
@@ -211,6 +215,7 @@ public class OrderHeadDAL {
                     orderHead.getRateApplicability().name(),
                     orderHead.getRateContract(),
                     orderHead.getOrcPer(),
+                    orderHead.getApproved(),
                     orderHead.getId()
                 });
         orderHead = findById(orderHead.getId());

@@ -70,6 +70,11 @@ angular.module("digitalbusiness.states.order", [])
                 'templateUrl': templateRoot + '/masters/order/drawer_detail_delete.html',
                 'controller': 'DrawerDetailDeleteController'
             });
+            $stateProvider.state('admin.masters_order_history.order_approve', {
+                'url': '/:orderHeadId/approve_order',
+                'templateUrl': templateRoot + '/masters/order/order_approve.html',
+                'controller': 'OrderApproveController'
+            });
 //            $stateProvider.state('admin.masters_sale_type.delete', {
 //                'url': '/:saleTypeId/delete',
 //                'templateUrl': templateRoot + '/masters/sale_type/delete.html',
@@ -173,6 +178,22 @@ angular.module("digitalbusiness.states.order", [])
         })
         .controller('OrderDetailsController', function (DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
+            //////////////To Detect Category Of Current Logged In User//////////
+            $scope.user = $rootScope.currentUser;
+            $scope.adminLogin = false;
+            $scope.dealerLogin = false;
+            UserService.findByUsername({
+                'username': $scope.user.username
+            }, function (userObject) {                
+                if (userObject.role === "ROLE_ADMIN") {                    
+                    $scope.adminLogin = true;
+                    $scope.dealerLogin = false;
+                } else {                    
+                    $scope.adminLogin = false;
+                    $scope.dealerLogin = true;
+                }
+            });
+            ///////////////////////////////////////
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderHeadObject) {
@@ -4464,6 +4485,17 @@ angular.module("digitalbusiness.states.order", [])
                     $state.go('admin.masters_order_details', {
                         'orderHeadId': $scope.editablePelmetDetail.orderHeadId
                     }, {'reload': true});
+                });
+            };
+        })
+        .controller('OrderApproveController', function (OrderHeadService, $scope, $stateParams, $state, paginationLimit) {            
+            $scope.orderObject = OrderHeadService.get({
+               'id': $stateParams.orderHeadId 
+            });
+            $scope.approveOrder = function(orderHead){
+                orderHead.approved = 1;                              
+                orderHead.$save(function () {
+                    $state.go('admin.masters_order_history', null, {'reload': true});
                 });
             };
         })
