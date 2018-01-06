@@ -12,11 +12,13 @@ angular.module("digitalbusiness.states.admin", [])
             });
             $stateProvider.state('admin.masters', {
                 'url': '/masters',
-                'templateUrl': templateRoot + '/masters/menu.html'
+                'templateUrl': templateRoot + '/masters/menu.html',
+                'controller': 'AdminMasterMenu'
             });
             $stateProvider.state('admin.dealers', {
                 'url': '/dealers',
-                'templateUrl': templateRoot + '/masters/dealer_menu.html'
+                'templateUrl': templateRoot + '/masters/dealer_menu.html',
+                'controller': 'DealerMasterMenu'
             });
             $stateProvider.state('admin.logout', {
                 'url': '/logout',
@@ -24,15 +26,21 @@ angular.module("digitalbusiness.states.admin", [])
                 'controller': 'LogoutController'
             });
         })
-        .controller('AdminController', function ($scope, UserService) {
-            console.log("Inside Admin Controller");
-//            $scope.unapprovedUser = [];
-//            UserService.findUnapprovedUser(function (data) {
-//                angular.forEach(data, function (user) {
-//                    $scope.unapprovedUser.push(user);
-//                });
-//                $scope.countOfUser = $scope.unapprovedUser.length;
-//            });
+        .controller('AdminController', function ($scope, $rootScope, UserService, NotificationService) {            
+            NotificationService.findAllList(function (notificationList) {
+                $scope.notificationList = notificationList;
+            });
+            $scope.user = $rootScope.currentUser;
+            UserService.findByUsername({
+                'username': $scope.user.username
+            }, function (userObject) {                
+                $scope.notificationUserObject = userObject;                
+            });
+        })
+        .controller('AdminMasterMenu', function ($scope, UserService, NotificationService) {
+        })
+        .controller('DealerMasterMenu', function ($scope, UserService, NotificationService) {
+
         })
         .controller('LogoutController', function (UserService, $scope, $state) {
             console.log("Coming to logout Controller??");

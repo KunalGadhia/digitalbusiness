@@ -283,6 +283,7 @@
         <script src="${pageContext.request.contextPath}/js/states.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/admin.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/employee.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/notification.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/party.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/segment.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/sale_type.js"></script>
@@ -309,6 +310,7 @@
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/employee_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/notification_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/party_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/segment_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/sale_type_service.js"></script>
