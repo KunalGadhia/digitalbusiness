@@ -609,12 +609,6 @@
                             <option ng-repeat="shutterThickness in shutterThicknessList" value="{{shutterThickness.thickness}}">{{shutterThickness.thickness}} mm</option>
                         </select>
                     </div>
-                </div>      
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>Length</label>
-                        <input id="shutterLength" type="number" class="form-control" placeholder="Enter Length" min="100" max="2350" ng-model="editableShutterDetail.length" required="">
-                    </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
@@ -622,6 +616,12 @@
                         <input id="shutterWidth" type="number" class="form-control" placeholder="Enter Width" min="100" max="1100" ng-model="editableShutterDetail.width" required="">
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Height</label>
+                        <input id="shutterLength" type="number" class="form-control" placeholder="Enter Height" min="100" max="2350" ng-model="editableShutterDetail.length" required="">
+                    </div>
+                </div>                
             </div>
             <div class="row">               
                 <div class="col-sm-3">
@@ -879,12 +879,6 @@
                             <option ng-repeat="drawerThickness in drawerThicknessList" value="{{drawerThickness.thickness}}">{{drawerThickness.thickness}} mm</option>
                         </select>
                     </div>
-                </div>      
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>Length</label>
-                        <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableDrawerDetail.length" required="">
-                    </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
@@ -892,6 +886,14 @@
                         <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableDrawerDetail.width" required="">
                     </div>
                 </div>
+                
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Height</label>
+                        <input type="number" class="form-control" placeholder="Enter Height" ng-model="editableDrawerDetail.length" required="">
+                    </div>
+                </div>
+                
             </div>
             <div class="row">
                 <div class="col-sm-3" ng-if="editableDrawerDetail.bsm === false">
@@ -1091,16 +1093,16 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>Length</label>
-                        <input type="number" class="form-control" placeholder="Enter Length" max="2400" ng-model="editableFillerDetail.length" required="">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
                         <label>Width</label>
                         <input type="number" class="form-control" placeholder="Enter Width" min="50" ng-model="editableFillerDetail.width" required="">
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Height</label>
+                        <input type="number" class="form-control" placeholder="Enter Height" max="2400" ng-model="editableFillerDetail.length" required="">
+                    </div>
+                </div>                
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Grain Direction (Optional)</label>
@@ -1210,13 +1212,13 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <label>Length</label>
-                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editablePelmetDetail.length" required="">
-                </div>
-                <div class="col-sm-3">
                     <label>Width</label>
                     <input type="number" class="form-control" placeholder="Enter Width" ng-model="editablePelmetDetail.width" required="">
                 </div>
+                <div class="col-sm-3">
+                    <label>Height</label>
+                    <input type="number" class="form-control" placeholder="Enter Height" ng-model="editablePelmetDetail.length" required="">
+                </div>                
                 <div class="col-sm-3">
                     <label>Quantity</label>
                     <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editablePelmetDetail.quantity" required="">
@@ -1310,13 +1312,13 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <label>Length</label>
-                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableCorniceDetail.length" required="">
-                </div>
-                <div class="col-sm-3">
                     <label>Width</label>
                     <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableCorniceDetail.width" required="">
                 </div>
+                <div class="col-sm-3">
+                    <label>Height</label>
+                    <input type="number" class="form-control" placeholder="Enter Height" ng-model="editableCorniceDetail.length" required="">
+                </div>                
                 <div class="col-sm-3">
                     <label>Quantity</label>
                     <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editableCorniceDetail.quantity" required="">

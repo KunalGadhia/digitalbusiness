@@ -50,6 +50,8 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.shutter_handle_mapping_service',
     'digitalbusiness.services.filler_finish_price',
     'digitalbusiness.services.drawer_handle_mapping_service',
+    //ERP INTEGRATION SERVICE
+    'digitalbusiness.services.erp_integration',
 
 //    // directive services
 //    'safedeals.services.bank_addition',

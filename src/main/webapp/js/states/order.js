@@ -184,11 +184,11 @@ angular.module("digitalbusiness.states.order", [])
             $scope.dealerLogin = false;
             UserService.findByUsername({
                 'username': $scope.user.username
-            }, function (userObject) {                
-                if (userObject.role === "ROLE_ADMIN") {                    
+            }, function (userObject) {
+                if (userObject.role === "ROLE_ADMIN") {
                     $scope.adminLogin = true;
                     $scope.dealerLogin = false;
-                } else {                    
+                } else {
                     $scope.adminLogin = false;
                     $scope.dealerLogin = true;
                 }
@@ -4488,12 +4488,49 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderApproveController', function (OrderHeadService, $scope, $stateParams, $state, paginationLimit) {            
+        .controller('OrderApproveController', function (ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, paginationLimit) {
             $scope.orderObject = OrderHeadService.get({
-               'id': $stateParams.orderHeadId 
+                'id': $stateParams.orderHeadId
             });
-            $scope.approveOrder = function(orderHead){
-                orderHead.approved = 1;                              
+            $scope.approveOrder = function (orderHead) {
+
+                console.log("Order Head :%O", orderHead);
+                $scope.newOrderHeadObject = {};
+                $scope.newOrderHeadObject.id = orderHead.id;
+                $scope.newOrderHeadObject.orderNum = orderHead.orderNum;
+                $scope.newOrderHeadObject.segment = orderHead.segment;
+                $scope.newOrderHeadObject.saleType = orderHead.saleType;
+                $scope.newOrderHeadObject.entryType = orderHead.entryType;
+                $scope.newOrderHeadObject.orderType = orderHead.orderType;
+                $scope.newOrderHeadObject.billingPartyId = orderHead.billingPartyId;
+                $scope.newOrderHeadObject.deliveryPartyId = orderHead.deliveryPartyId;
+                $scope.newOrderHeadObject.postalCode = orderHead.postalCode;
+                $scope.newOrderHeadObject.billType = orderHead.billType;
+                $scope.newOrderHeadObject.orderSubType = orderHead.orderSubType;
+                $scope.newOrderHeadObject.projectName = orderHead.projectName;
+                $scope.newOrderHeadObject.poNum = orderHead.poNum;
+                $scope.newOrderHeadObject.orderId = orderHead.orderId;
+                $scope.newOrderHeadObject.poDate = orderHead.poDate;
+                $scope.newOrderHeadObject.poValue = orderHead.poValue;
+                $scope.newOrderHeadObject.marketingHead = orderHead.marketingHead;
+                $scope.newOrderHeadObject.orderInitiatedBy = orderHead.orderInitiatedBy;
+                $scope.newOrderHeadObject.rateApplicability = orderHead.rateApplicability;
+                $scope.newOrderHeadObject.rateContract = orderHead.rateContract;
+                $scope.newOrderHeadObject.orcPer = orderHead.orcPer;
+                $scope.newOrderHeadObject.approved = orderHead.approved;
+                console.log("New Order Head :%O",$scope.newOrderHeadObject);
+                $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
+                        .then(function successCallback(response) {
+                            console.log("Successfully POST-ed data");
+                        }, function errorCallback(response) {
+                            console.log("POST-ing of data failed");
+                        });
+
+//                ErpIntegrationService.InsertOrderHead(orderHead, function (orderHeadCallBack) {
+//                    console.log("Order Head Call Back :%O", orderHeadCallBack);
+//                });
+//                ErpIntegrationService.InsertOrderHead();
+                orderHead.approved = 1;
                 orderHead.$save(function () {
                     $state.go('admin.masters_order_history', null, {'reload': true});
                 });
