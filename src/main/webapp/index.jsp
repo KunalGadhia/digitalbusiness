@@ -341,6 +341,8 @@
         <script src="${pageContext.request.contextPath}/js/services/shutter_handle_mapping_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/filler_finish_price_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/drawer_handle_mapping_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/rate_contract_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/rate_contract_detail_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/erp_integration_service.js"></script>
 
     </head>
