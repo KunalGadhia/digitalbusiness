@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class PartyDAL {
-   
+
     public static final class Columns {
 
         public static final String ID = "id";
@@ -43,7 +43,8 @@ public class PartyDAL {
         public static final String GST_NUMBER = "gst_number";
         public static final String STATE = "state";
         public static final String MARKETING_HEAD_ID = "marketing_head_id";
-        
+        public static final String RATE_CONTRACT_ID = "rate_contract_id";
+
     }
 
     public static final String TABLE_NAME = "party_master";
@@ -70,10 +71,11 @@ public class PartyDAL {
                         Columns.BILLING_FAX,
                         Columns.BILL_BOARD_TEL,
                         Columns.DIRECT_TEL_NO,
-                        Columns.PAN_NUMBER,                        
+                        Columns.PAN_NUMBER,
                         Columns.GST_NUMBER,
                         Columns.STATE,
-                        Columns.MARKETING_HEAD_ID
+                        Columns.MARKETING_HEAD_ID,
+                        Columns.RATE_CONTRACT_ID
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -86,10 +88,10 @@ public class PartyDAL {
     public Party findById(Integer id) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ID + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{id}, new BeanPropertyRowMapper<>(Party.class));
-    }   
-    
-    public Party findByName(String name) {       
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.DEALER_NAME + " = ?";        
+    }
+
+    public Party findByName(String name) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.DEALER_NAME + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{name}, new BeanPropertyRowMapper<>(Party.class));
     }
 
@@ -119,7 +121,8 @@ public class PartyDAL {
         parameters.put(Columns.GST_NUMBER, party.getGstNumber());
         parameters.put(Columns.STATE, party.getState());
         parameters.put(Columns.MARKETING_HEAD_ID, party.getMarketingHeadId());
-        
+        parameters.put(Columns.RATE_CONTRACT_ID, party.getRateContractId());
+
         Number newId = insertParty.executeAndReturnKey(parameters);
         party = findById(newId.intValue());
         return party;
@@ -148,7 +151,8 @@ public class PartyDAL {
                 + Columns.PAN_NUMBER + " = ?,"
                 + Columns.GST_NUMBER + " = ?,"
                 + Columns.STATE + " = ?,"
-                + Columns.MARKETING_HEAD_ID + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.MARKETING_HEAD_ID + " = ?,"
+                + Columns.RATE_CONTRACT_ID + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     party.getDealerCode(),
@@ -165,14 +169,15 @@ public class PartyDAL {
                     party.getBillBoardTel(),
                     party.getDirectTelNo(),
                     party.getPanNumber(),
-//                    party.getCstNumber(),
+                    //                    party.getCstNumber(),
                     party.getGstNumber(),
                     party.getState(),
                     party.getMarketingHeadId(),
+                    party.getRateContractId(),
                     party.getId()
                 });
         party = findById(party.getId());
         return party;
     }
-    
+
 }

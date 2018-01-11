@@ -156,6 +156,21 @@
                                 <p ng-show="loadingEmployee" class="help-block text-muted">Loading...</p>
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Rate Contract</label>
+                                <input class="form-control"
+                                       placeholder="Enter Rate Contract"
+                                       uib-typeahead="rateContract.contractName as rateContract.contractName for rateContract in searchRateContract($viewValue)"
+                                       typeahead-on-select="setRateContract($item)"
+                                       typeahead-editable="false"
+                                       typeahead-loading="loadingRateContract" 
+                                       typeahead-no-results="noRateContractFound"                                       
+                                       ng-model="editableParty.rateContract.contractName" required=""/>
+                                <p ng-show="noRateContractFound" class="help-block text-muted">No Rate Contract Found</p>
+                                <p ng-show="loadingRateContract" class="help-block text-muted">Loading...</p>
+                            </div>
+                        </div>
 <!--                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label>State</label>

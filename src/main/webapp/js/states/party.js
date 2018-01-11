@@ -66,7 +66,7 @@ angular.module("digitalbusiness.states.party", [])
                 $state.go(".", {'offset': $scope.currentOffset}, {'reload': true});
             };
         })
-        .controller('PartyAddController', function (EmployeeService, PartyService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('PartyAddController', function (RateContractService, EmployeeService, PartyService, $scope, $stateParams, $state, paginationLimit) {
 
             $scope.editableParty = {};
 
@@ -83,6 +83,16 @@ angular.module("digitalbusiness.states.party", [])
             $scope.searchEmployee = function (searchTerm) {
                 return EmployeeService.findByNameLike({
                     'name': searchTerm
+                }).$promise;
+            };
+
+            $scope.setRateContract = function (rateContract) {
+                $scope.editableParty.rateContractId = rateContract.id;
+            };
+            $scope.searchRateContract = function (searchTerm) {
+                console.log("Rate COntract :%O", searchTerm);
+                return RateContractService.findByContractNameLike({
+                    'contractName': searchTerm
                 }).$promise;
             };
 
@@ -104,7 +114,7 @@ angular.module("digitalbusiness.states.party", [])
                 });
             });
         })
-        .controller('PartyEditController', function (EmployeeService, PartyService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('PartyEditController', function (RateContractService, EmployeeService, PartyService, $scope, $stateParams, $state, paginationLimit) {
             PartyService.get({'id': $stateParams.partyId});
             PartyService.get({
                 'id': $stateParams.partyId
@@ -112,6 +122,9 @@ angular.module("digitalbusiness.states.party", [])
 //                partyData.empMobileNumber = parseInt(partyData.empMobileNumber);
                 partyData.employee = EmployeeService.get({
                     'id': partyData.marketingHeadId
+                });
+                partyData.rateContract = RateContractService.get({
+                    'id': partyData.rateContractId
                 });
                 $scope.editableParty = partyData;
             });
@@ -121,6 +134,14 @@ angular.module("digitalbusiness.states.party", [])
             $scope.searchEmployee = function (searchTerm) {
                 return EmployeeService.findByNameLike({
                     'name': searchTerm
+                }).$promise;
+            };
+            $scope.setRateContract = function (rateContract) {
+                $scope.editableParty.rateContractId = rateContract.id;
+            };
+            $scope.searchRateContract = function (searchTerm) {
+                return RateContractService.findByContractNameLike({
+                    'contractName': searchTerm
                 }).$promise;
             };
             $scope.saveParty = function (party) {
