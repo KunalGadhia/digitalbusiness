@@ -1,0 +1,137 @@
+<!--<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">-->
+<div class="panel panel-default">
+    <form role="form" ng-submit="saveRateContractDetail(editableRateContractDetail)">
+        <div>
+            <div>
+                <h3 class="text-center">
+                    <!--<i class="fa fa-user"></i>-->
+                    Rate Contract Detail Form
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Finish</label>
+                            <select class="form-control" ng-model="editableRateContractDetail.finish">
+                                <option value="">Select Finish</option>
+                                <option ng-repeat="finish in finishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                            </select>                                
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Material</label>
+                            <input ng-if="readonlyMaterial" class="form-control" ng-model="editableRateContractDetail.material" required="" readonly="">
+                            <select ng-if="selectMaterial" class="form-control" ng-model="editableRateContractDetail.material" required="">
+                                <option value="">Select Material</option>
+                                <option ng-repeat="material in materialList" value="{{material.materialCode}}">{{material.material}}</option>
+                            </select>                                
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Thickness</label>
+                            <input type="number" step="any" class="form-control" placeholder="Thickness" ng-model="editableRateContractDetail.thickness" required=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Component</label>
+                            <select class="form-control" ng-model="editableRateContractDetail.component" required="">
+                                <option value="">Select Component</option>
+                                <option value="SHUTTER">Shutter</option>
+                                <option value="PANEL">Panel</option>
+                                <option value="CARCASS">Carcass</option>
+                            </select>
+                            <!--                                <input class="form-control" placeholder="Contract Name" ng-model="editableRateContract.contractName" required=""/>-->
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Discount Percentage</label>
+                            <input type="number" step="any" class="form-control" placeholder="Discount Percentage" ng-model="editableRateContractDetail.discountPer" required="">
+                            <!--<input class="form-control" placeholder="Contract Description" ng-model="editableRateContract.contractDescription" required=""/>-->
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-lg btn-primary">
+                        <i class="fa fa-save"></i>
+                        Save
+                    </button>                    				
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="panel panel-default" style="overflow-x:  auto;">
+    <div class="panel-heading text-center">
+        <!--        <div class="pull-left">
+                    <a data-ui-sref="admin.masters"
+                       class="btn btn-default">
+                        <i class="fa fa-arrow-left"></i>
+                        Back
+                    </a>
+                </div>-->
+        <!--        <div class="pull-right">
+                    <a data-ui-sref="admin.masters_rate_contract.add"
+                       class="btn btn-default">
+                        <i class="fa fa-plus"></i>
+                        Add Rate Contract
+                    </a>
+                </div>-->
+        <div>
+            <h4>Rate Contract Details</h4>
+        </div>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="text-right">#</th>
+                <th>Finish</th>
+                <th>Material</th>
+                <th>Thickness</th>
+                <th>Component</th>
+                <th>Discount</th>
+                <th class="text-right">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="rateContractDetail in rateContractDetailList">
+                <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td>{{ rateContractDetail.finishObject.finishName}}</td>   
+                <td>{{ rateContractDetail.material}}</td>   
+                <td>{{ rateContractDetail.thickness}}</td>   
+                <td>{{ rateContractDetail.component}}</td>   
+                <td>{{ rateContractDetail.discountPer}} %</td>                  
+                <td class="text-right">
+                    <!--                    <a data-ui-sref="admin.masters_rate_contract.edit({ rateContractId: rateContract.id })"
+                                           class="btn btn-primary">					
+                                            <i class="fa fa-pencil"></i>
+                                        </a>-->
+                    <a data-ui-sref="admin.masters_rate_contract_detail.contract_delete({ rateContractDetailId: rateContractDetail.id })"
+                       class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="modal-footer">
+        <button class="btn btn-lg btn-primary" data-ui-sref="admin.masters_rate_contract">
+            <i class="fa fa-check"></i>
+            Done
+        </button>                    				
+    </div>
+
+</div>
+<div data-ui-view=""></div>
+<!--</div>-->

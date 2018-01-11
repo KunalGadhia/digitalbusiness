@@ -306,6 +306,7 @@
         <script src="${pageContext.request.contextPath}/js/states/shutter_handle_mapping.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/filler_finish_price.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/drawer_handle_mapping.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/rate_contract.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>

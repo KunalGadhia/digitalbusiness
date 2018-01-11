@@ -84,6 +84,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.shutter_handle_mapping',
     'digitalbusiness.states.filler_finish_price',
     'digitalbusiness.states.drawer_handle_mapping',
+    'digitalbusiness.states.masters_rate_contract',
 
     'digitalbusiness.states.auth'
 
