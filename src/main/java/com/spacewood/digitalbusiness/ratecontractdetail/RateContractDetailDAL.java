@@ -76,17 +76,17 @@ public class RateContractDetailDAL {
     }
 
     public RateContractDetail findByShutterFinishMaterialThickness(String finish, String material, Double thickness, Integer rateContractId) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + "WHERE deleted = FALSE AND component='SHUTTER' AND " + Columns.FINISH + "=? AND " + Columns.MATERIAL + "=? AND " + Columns.THICKNESS + "=? AND " + Columns.RATE_CONTRACT_ID + " = ?";
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND component='SHUTTER' AND " + Columns.FINISH + "=? AND " + Columns.MATERIAL + "=? AND " + Columns.THICKNESS + "=? AND " + Columns.RATE_CONTRACT_ID + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{finish, material, thickness, rateContractId}, new BeanPropertyRowMapper<>(RateContractDetail.class));
     }
 
     public RateContractDetail findByPanelMaterialThickness(String material, Double thickness, Integer rateContractId) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + "WHERE deleted = FALSE AND component='PANEL' AND " + Columns.MATERIAL + "=? AND " + Columns.THICKNESS + "=? AND " + Columns.RATE_CONTRACT_ID + " = ?";
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND component='PANEL' AND " + Columns.MATERIAL + "=? AND " + Columns.THICKNESS + "=? AND " + Columns.RATE_CONTRACT_ID + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{material, thickness, rateContractId}, new BeanPropertyRowMapper<>(RateContractDetail.class));
     }
 
     public RateContractDetail findByCarcassMaterialThickness(String material, Double thickness, Integer rateContractId) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + "WHERE deleted = FALSE AND component='CARCASS' AND " + Columns.MATERIAL + "=? AND " + Columns.THICKNESS + "=? AND " + Columns.RATE_CONTRACT_ID + " = ?";
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND component='CARCASS' AND " + Columns.MATERIAL + "=? AND " + Columns.THICKNESS + "=? AND " + Columns.RATE_CONTRACT_ID + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{material, thickness, rateContractId}, new BeanPropertyRowMapper<>(RateContractDetail.class));
     }
 

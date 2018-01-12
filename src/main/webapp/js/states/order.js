@@ -176,7 +176,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderDetailsController', function (DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             //////////////To Detect Category Of Current Logged In User//////////
             $scope.user = $rootScope.currentUser;
@@ -995,6 +995,15 @@ angular.module("digitalbusiness.states.order", [])
                     }
 
                 });
+                OrderHeadService.get({
+                    'id': $stateParams.orderHeadId
+                }, function (orderHeadObject) {
+                    PartyService.get({
+                        'id': orderHeadObject.billingPartyId
+                    }, function (partyObject) {
+                        $scope.editableCarcassDetail.rateContractId = partyObject.rateContractId;
+                    });
+                });
                 $scope.$watch('editableCarcassDetail.sideSelection', function (selectedSide) {
                     console.log("Selected Side :%O", selectedSide);
                     if (selectedSide === "LSM") {
@@ -1242,6 +1251,15 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editablePanelDetail.colorId = colorId;
                 $scope.panelColorName = colorName;
             };
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                PartyService.get({
+                    'id': orderHeadObject.billingPartyId
+                }, function (partyObject) {
+                    $scope.editablePanelDetail.rateContractId = partyObject.rateContractId;
+                });
+            });
             $scope.$watch('editablePanelDetail.material', function (material) {
                 console.log("Material :%O", material);
                 $scope.panelColorName = "";
@@ -1349,6 +1367,15 @@ angular.module("digitalbusiness.states.order", [])
                 });
             });
             $scope.showFillerBsm = false;
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                PartyService.get({
+                    'id': orderHeadObject.billingPartyId
+                }, function (partyObject) {
+                    $scope.editableFillerDetail.rateContractId = partyObject.rateContractId;
+                });
+            });
             $scope.$watch('editableFillerDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
                 $scope.fillerFinishCode = finishName;
@@ -1423,6 +1450,15 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editablePelmetDetail.colorId = colorId;
                 $scope.pelmetColorName = colorName;
             };
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                PartyService.get({
+                    'id': orderHeadObject.billingPartyId
+                }, function (partyObject) {
+                    $scope.editablePelmetDetail.rateContractId = partyObject.rateContractId;
+                });
+            });
             $scope.$watch('editablePelmetDetail.material', function (material) {
                 console.log("Side Material :%O", material);
                 RawMaterialService.findByMaterialCode({
@@ -1505,6 +1541,15 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editableCorniceDetail.colorId = colorId;
                 $scope.corniceColorName = colorName;
             };
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                PartyService.get({
+                    'id': orderHeadObject.billingPartyId
+                }, function (partyObject) {
+                    $scope.editableCorniceDetail.rateContractId = partyObject.rateContractId;
+                });
+            });
             $scope.$watch('editableCorniceDetail.material', function (material) {
                 console.log("Side Material :%O", material);
                 RawMaterialService.findByMaterialCode({
@@ -1756,6 +1801,15 @@ angular.module("digitalbusiness.states.order", [])
 //                });
 //                console.log("Shutter Finish List :%O", $scope.shutterFinishList);
 //               });
+            });
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                PartyService.get({
+                    'id': orderHeadObject.billingPartyId
+                }, function (partyObject) {
+                    $scope.editableShutterDetail.rateContractId = partyObject.rateContractId;
+                });
             });
 //            $scope.shutterFinishList = FinishPriceService.findAllList();
 //            ShutterFinishPriceService.findUniqueFinish(function (finishList) {
@@ -2108,6 +2162,15 @@ angular.module("digitalbusiness.states.order", [])
 //                });
 //                console.log("Shutter Finish List :%O", $scope.drawerFinishList);
 //            });
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                PartyService.get({
+                    'id': orderHeadObject.billingPartyId
+                }, function (partyObject) {
+                    $scope.editableDrawerDetail.rateContractId = partyObject.rateContractId;
+                });
+            });
             $scope.$watch('editableDrawerDetail.material', function (material) {
                 console.log("Side Material :%O", material);
                 $scope.shutterInternalColorName = "";
@@ -2645,9 +2708,9 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Profile Price :%O", profilePrice);
                             console.log("Shelf Price :%O", shelfPrice);
                             var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice));
-                            orderDetail.price = finalPrice;
+                            orderDetail.unitPrice = finalPrice;
                             console.log("Total Area OSM Left/Right :%O", totalArea);
-                            console.log("Total Area OSM Left/Right Price:%O", orderDetail.price);
+                            console.log("Total Area OSM Left/Right Price:%O", orderDetail.unitPrice);
                         } else if (orderDetail.sideSelection === "TSM" || orderDetail.sideSelection === "BSM") {
                             var p1 = (2 * (orderDetail.depth * orderDetail.length));
                             var p2 = (orderDetail.width * orderDetail.depth);
@@ -2697,9 +2760,9 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Shelf :%O", shelfPrice);
                             console.log("Back Area Price :%O", backAreaPrice);
                             var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice));
-                            orderDetail.price = finalPrice;
+                            orderDetail.unitPrice = finalPrice;
                             console.log("Total ARea OSM TOP/Bottom :%O", totalArea);
-                            console.log("Total Area OSM Top/Bottom Price:%O", orderDetail.price);
+                            console.log("Total Area OSM Top/Bottom Price:%O", orderDetail.unitPrice);
                         }
                     } else if (orderDetail.sideMatching === "B") {
                         console.log("Both Matching Carcass");
@@ -2752,9 +2815,9 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Shelf Price :%O", shelfPrice);
                         console.log("Back Panel Price :%O", backAreaPrice);
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice));
-                        orderDetail.price = finalPrice;
+                        orderDetail.unitPrice = finalPrice;
                         console.log("Total Area BSM Left & Right", totalArea);
-                        console.log("Total Price BSM :%O", orderDetail.price);
+                        console.log("Total Price BSM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "T") {
                         console.log("Three Side Matching");
                         var p1 = (orderDetail.width * orderDetail.depth);
@@ -2807,9 +2870,9 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
-                        orderDetail.price = finalPrice;
+                        orderDetail.unitPrice = finalPrice;
                         console.log("Three Side Matching Area :%O", totalArea);
-                        console.log("Total Price TSM :%O", orderDetail.price);
+                        console.log("Total Price TSM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "A") {
                         console.log("All Side Matching");
                         var p1 = (orderDetail.width * orderDetail.length);
@@ -2858,9 +2921,9 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("SHelf Price :%O", shelfPrice);
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice));
-                        orderDetail.price = finalPrice;
+                        orderDetail.unitPrice = finalPrice;
                         console.log("All Side Matching Area :%O", totalArea);
-                        console.log("Total Price ASM :%O", orderDetail.price);
+                        console.log("Total Price ASM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "F") {
                         console.log("Full Side Matching");
                         var p1 = (orderDetail.width * orderDetail.length);
@@ -2901,8 +2964,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Baisc Price :%O", profilePrice);
                         console.log("SHelf Price :%O", shelfPrice);
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + profilePrice + shelfPrice));
-                        orderDetail.price = finalPrice;
-                        console.log("FInal Price Full SIde Matching:%O", orderDetail.price);
+                        orderDetail.unitPrice = finalPrice;
+                        console.log("FInal Price Full SIde Matching:%O", orderDetail.unitPrice);
                     } else {
                         console.log("Regular");
                         var p1 = (2 * (orderDetail.depth * orderDetail.length));
@@ -2936,7 +2999,7 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Standard Price :%O", orderDetail.standardPrice);
                         console.log("Quantity :%O", orderDetail.quantity);
-                        orderDetail.price = ((orderDetail.standardPrice + profilePrice) * orderDetail.quantity);
+                        orderDetail.unitPrice = ((orderDetail.standardPrice + profilePrice) * orderDetail.quantity);
 //                        StandardCarcassPriceService.get({
 //                            'id': orderDetail.stdCarcassPriceId
 //                        }, function (stdPriceObject) {
@@ -3019,9 +3082,9 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Profile Price :%O", profilePrice);
                             console.log("Shelf Price :%O", shelfPrice);
                             var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
-                            orderDetail.price = finalPrice;
+                            orderDetail.unitPrice = finalPrice;
                             console.log("Total Area OSM Left/Right :%O", totalArea);
-                            console.log("Total Area OSM Left/Right Price:%O", orderDetail.price);
+                            console.log("Total Area OSM Left/Right Price:%O", orderDetail.unitPrice);
                         } else if (orderDetail.sideSelection === "TSM" || orderDetail.sideSelection === "BSM") {
                             var p1 = (2 * (orderDetail.depth * orderDetail.length));
                             var p2 = (orderDetail.width * orderDetail.depth);
@@ -3069,9 +3132,9 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Shelf Price :%O", shelfPrice);
                             console.log("Profile Price :%O", profilePrice);
                             var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
-                            orderDetail.price = finalPrice;
+                            orderDetail.unitPrice = finalPrice;
                             console.log("Total ARea OSM TOP/Bottom :%O", totalArea);
-                            console.log("Total Area OSM Top/Bottom Price:%O", orderDetail.price);
+                            console.log("Total Area OSM Top/Bottom Price:%O", orderDetail.unitPrice);
                         }
                     } else if (orderDetail.sideMatching === "B") {
                         console.log("Both Matching Carcass");
@@ -3124,9 +3187,9 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Area Price :%O", shelfPrice);
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
-                        orderDetail.price = finalPrice;
+                        orderDetail.unitPrice = finalPrice;
                         console.log("Total Area BSM Left & Right", totalArea);
-                        console.log("Total Price BSM :%O", orderDetail.price);
+                        console.log("Total Price BSM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "T") {
                         console.log("Three Side Matching");
                         var p1 = (orderDetail.width * orderDetail.depth);
@@ -3178,9 +3241,9 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
-                        orderDetail.price = finalPrice;
+                        orderDetail.unitPrice = finalPrice;
                         console.log("Three Side Matching Area :%O", totalArea);
-                        console.log("Total Price TSM :%O", orderDetail.price);
+                        console.log("Total Price TSM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "A") {
                         console.log("All Side Matching");
                         var p1 = (orderDetail.width * orderDetail.length);
@@ -3228,9 +3291,9 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice));
-                        orderDetail.price = finalPrice;
+                        orderDetail.unitPrice = finalPrice;
                         console.log("All Side Matching Area :%O", totalArea);
-                        console.log("Total Price ASM :%O", orderDetail.price);
+                        console.log("Total Price ASM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "F") {
                         console.log("Full Side Matching");
                         var p1 = (orderDetail.width * orderDetail.length);
@@ -3271,8 +3334,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Baisc Price :%O", profilePrice);
                         console.log("SHelf Price :%O", shelfPrice);
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + profilePrice + shelfPrice));
-                        orderDetail.price = finalPrice;
-                        console.log("FInal Price Full SIde Matching:%O", orderDetail.price);
+                        orderDetail.unitPrice = finalPrice;
+                        console.log("FInal Price Full SIde Matching:%O", orderDetail.unitPrice);
                     } else {
                         console.log("Regular");
                         console.log("Order Details :%O", orderDetail);
@@ -3323,9 +3386,9 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
                         var finalPrice = ((profilePrice + basicAreaPrice + backAreaPrice + shelfPrice) * orderDetail.quantity);
-                        orderDetail.price = finalPrice;
+                        orderDetail.unitPrice = finalPrice;
                         console.log("Total Area Regular :%O", totalArea);
-                        console.log("Total Price Regular :%O", orderDetail.price);
+                        console.log("Total Price Regular :%O", orderDetail.unitPrice);
                     }
                 } else {
                     alert("Some Exception Happening, Please try again.");
@@ -3417,25 +3480,69 @@ angular.module("digitalbusiness.states.order", [])
 //                    $scope.editableCarcassDetail = "";
 
 //                    $scope.refreshList();
-//                });
+//                });                
+                $scope.applyCarcassDiscount = function (orderDetail) {
+                    RateContractDetailService.findByCarcassMaterialThickness({
+                        'material': orderDetail.material,
+                        'thickness': 18,
+                        'rateContractId': orderDetail.rateContractId
+                    }, function (rateContractDetailObject) {
+                        var discountPrice = ((orderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
+                        orderDetail.price = (orderDetail.unitPrice - discountPrice);
+                        CarcassOrderDetailsService.save(orderDetail, function () {
+                            console.log("Saved Successfully");
+                            $scope.editableCarcassDetail = "";
+                            $scope.carcassName = "";
+                            $scope.intColorName = "";
+                            $scope.leftColorName = "";
+                            $scope.rightColorName = "";
+                            $scope.backColorName = "";
+                            $scope.topColorName = "";
+                            $scope.bottomColorName = "";
+                            $state.go('admin.masters_order_details', {
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, {'reload': true});
+                        });
+                    });
+                };
                 console.log("FInal Save :%O", orderDetail);
-                CarcassOrderDetailsService.save(orderDetail, function () {
-                    console.log("Saved Successfully");
-                    $scope.editableCarcassDetail = "";
-                    $scope.carcassName = "";
-                    $scope.intColorName = "";
-                    $scope.leftColorName = "";
-                    $scope.rightColorName = "";
-                    $scope.backColorName = "";
-                    $scope.topColorName = "";
-                    $scope.bottomColorName = "";
-                    $state.go('admin.masters_order_details', {
-                        'orderHeadId': $stateParams.orderHeadId
-                    }, {'reload': true});
-                });
+                $scope.applyCarcassDiscount(orderDetail);
+//                CarcassOrderDetailsService.save(orderDetail, function () {
+//                    console.log("Saved Successfully");
+//                    $scope.editableCarcassDetail = "";
+//                    $scope.carcassName = "";
+//                    $scope.intColorName = "";
+//                    $scope.leftColorName = "";
+//                    $scope.rightColorName = "";
+//                    $scope.backColorName = "";
+//                    $scope.topColorName = "";
+//                    $scope.bottomColorName = "";
+//                    $state.go('admin.masters_order_details', {
+//                        'orderHeadId': $stateParams.orderHeadId
+//                    }, {'reload': true});
+//                });
             };
             $scope.savePanelDetails = function (panelOrderDetail) {
 //                panelOrderDetail.component = $scope.panelComponent;
+                $scope.applyPanelDiscount = function (panelOrderDetail) {
+                    RateContractDetailService.findByPanelMaterialThickness({
+                        'material': panelOrderDetail.material,
+                        'thickness': panelOrderDetail.thickness,
+                        'rateContractId': panelOrderDetail.rateContractId
+                    }, function (rateContractDetailObject) {
+                        var discountPrice = ((panelOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
+                        panelOrderDetail.price = (panelOrderDetail.unitPrice - discountPrice);
+                        PanelOrderDetailsService.save(panelOrderDetail, function () {
+                            console.log("Saved Successfully");
+                            $scope.editablePanelDetail = "";
+                            $scope.panelName = "";
+//                    $scope.refreshList();
+                            $state.go('admin.masters_order_details', {
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, {'reload': true});
+                        });
+                    });
+                };
                 panelOrderDetail.depth = '0';
                 var l1;
                 var w1;
@@ -3466,25 +3573,46 @@ angular.module("digitalbusiness.states.order", [])
                     w1 = panelOrderDetail.width.toString();
                 }
 
-                var productCode = panelOrderDetail.component + "" + panelOrderDetail.thickness + "" + panelOrderDetail.material + "XXXX-" + l1 + "" + w1 + "" + panelOrderDetail.thickness + "000";
+                var productCode = panelOrderDetail.component + "" + Math.round(panelOrderDetail.thickness) + "" + panelOrderDetail.material + "XXXX-" + l1 + "" + w1 + "" + Math.round(panelOrderDetail.thickness) + "000";
                 panelOrderDetail.productCode = productCode;
                 panelOrderDetail.orderHeadId = $stateParams.orderHeadId;
                 var basicArea = (panelOrderDetail.width * panelOrderDetail.length);
                 var basicAreaSqMt = basicArea / 1000000;
-                panelOrderDetail.price = (panelOrderDetail.quantity * (basicAreaSqMt * panelOrderDetail.materialPrice));
+                panelOrderDetail.unitPrice = (panelOrderDetail.quantity * (basicAreaSqMt * panelOrderDetail.materialPrice));
                 console.log("Panel Details :%O", panelOrderDetail);
-                PanelOrderDetailsService.save(panelOrderDetail, function () {
-                    console.log("Saved Successfully");
-                    $scope.editablePanelDetail = "";
-                    $scope.panelName = "";
-//                    $scope.refreshList();
-                    $state.go('admin.masters_order_details', {
-                        'orderHeadId': $stateParams.orderHeadId
-                    }, {'reload': true});
-                });
+                $scope.applyPanelDiscount(panelOrderDetail);
+//                PanelOrderDetailsService.save(panelOrderDetail, function () {
+//                    console.log("Saved Successfully");
+//                    $scope.editablePanelDetail = "";
+//                    $scope.panelName = "";
+////                    $scope.refreshList();
+//                    $state.go('admin.masters_order_details', {
+//                        'orderHeadId': $stateParams.orderHeadId
+//                    }, {'reload': true});
+//                });
             };
             $scope.saveShutterDetails = function (shutterOrderDetail) {
-                console.log("shutterOrderDetail :%O", shutterOrderDetail);
+                $scope.applyShutterDiscount = function (shutterOrderDetail) {
+                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                        'finish': shutterOrderDetail.finish,
+                        'material': shutterOrderDetail.material,
+                        'thickness': shutterOrderDetail.thickness,
+                        'rateContractId': shutterOrderDetail.rateContractId
+                    }, function (rateContractDetailObject) {
+                        var discountPrice = ((shutterOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
+                        shutterOrderDetail.price = (shutterOrderDetail.unitPrice - discountPrice);
+                        ShutterOrderDetailsService.save(shutterOrderDetail, function () {
+                            $scope.editableShutterDetail = "";
+                            $scope.shutterName = "";
+                            $scope.shutterColorName = "";
+                            $scope.shutterHandleName = "";
+//                    $scope.refreshList();
+                            $state.go('admin.masters_order_details', {
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, {'reload': true});
+                        });
+                    });
+                };
                 if (shutterOrderDetail.handle === "") {
                     shutterOrderDetail.handle = null;
                     shutterOrderDetail.handleFinish = null;
@@ -3567,41 +3695,50 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Handle Price :%O", shutterOrderDetail.handleMainPrice);
                 console.log("Shtraightener Price :%O", shutterOrderDetail.straightenerPrice);
                 if (shutterOrderDetail.finish === "XXW") {
-                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                    shutterOrderDetail.material = "AL";
+                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
                 } else if (shutterOrderDetail.finish === "XXX") {
-                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                    shutterOrderDetail.material = "AL";
+                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
                 } else if (shutterOrderDetail.finish === "XXY") {
-                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                    shutterOrderDetail.material = "AL";
+                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
                 } else if (shutterOrderDetail.finish === "XXZ") {
-                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                    shutterOrderDetail.material = "AL";
+                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
                 } else if (shutterOrderDetail.finish === "XAA") {
-                    shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                    shutterOrderDetail.material = "AL";
+                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
                 } else {
                     console.log("Else Loop Non Al");
                     if (shutterOrderDetail.bsm === true) {
                         console.log("Both Side");
-                        shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
                     } else if (shutterOrderDetail.bsm === false) {
                         console.log("One Side");
-                        shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
                     } else if (shutterOrderDetail.bsm === undefined) {
-                        shutterOrderDetail.price = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
                     }
                 }
 
                 shutterOrderDetail.productCode = productCode;
+
                 console.log("Shutter Save Object :%O", shutterOrderDetail);
-                ShutterOrderDetailsService.save(shutterOrderDetail, function () {
-                    console.log("Saved Successfully");
-                    $scope.editableShutterDetail = "";
-                    $scope.shutterName = "";
-                    $scope.shutterColorName = "";
-                    $scope.shutterHandleName = "";
-//                    $scope.refreshList();
-                    $state.go('admin.masters_order_details', {
-                        'orderHeadId': $stateParams.orderHeadId
-                    }, {'reload': true});
-                });
+                $scope.applyShutterDiscount(shutterOrderDetail);
+
+
+//                ShutterOrderDetailsService.save(shutterOrderDetail, function () {
+//                    console.log("Saved Successfully");
+//                    $scope.editableShutterDetail = "";
+//                    $scope.shutterName = "";
+//                    $scope.shutterColorName = "";
+//                    $scope.shutterHandleName = "";
+////                    $scope.refreshList();
+//                    $state.go('admin.masters_order_details', {
+//                        'orderHeadId': $stateParams.orderHeadId
+//                    }, {'reload': true});
+//                });
 //                OrderDetailsService.save(shutterOrderDetail, function () {
 //                    $scope.editableShutterDetail = "";
 //                    $scope.shutterName = "";
@@ -3646,6 +3783,28 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     var productCode = "DRAWERX-" + Math.round(drawerOrderDetail.thickness) + "" + drawerOrderDetail.material + "X" + drawerOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(drawerOrderDetail.thickness) + "000";
                 }
+                $scope.applyDrawerDiscount = function (drawerOrderDetail) {
+                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                        'finish': drawerOrderDetail.finish,
+                        'material': drawerOrderDetail.material,
+                        'thickness': drawerOrderDetail.thickness,
+                        'rateContractId': drawerOrderDetail.rateContractId
+                    }, function (rateContractDetailObject) {
+                        var discountPrice = ((drawerOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
+                        drawerOrderDetail.price = (drawerOrderDetail.unitPrice - discountPrice);
+                        DrawerOrderDetailsService.save(drawerOrderDetail, function () {
+                            console.log("Saved Successfully");
+                            $scope.editableDrawerDetail = "";
+                            $scope.drawerName = "";
+                            $scope.drawerColorName = "";
+                            $scope.drawerHandleName = "";
+//                    $scope.refreshList();
+                            $state.go('admin.masters_order_details', {
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, {'reload': true});
+                        });
+                    });
+                };
                 var shutterArea = (drawerOrderDetail.length * drawerOrderDetail.width);
                 var shutterAreaSqMt = (shutterArea / 1000000);
                 console.log("Shutter Area Sq Mt :%O", shutterAreaSqMt);
@@ -3665,22 +3824,23 @@ angular.module("digitalbusiness.states.order", [])
 //                    drawerOrderDetail.price = (drawerOrderDetail.quantity * ((shutterAreaSqMt * drawerOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice));
 //                } else if (drawerOrderDetail.bsm === undefined) {
 //                    console.log("One Side");
-                drawerOrderDetail.price = (drawerOrderDetail.quantity * ((shutterAreaSqMt * drawerOrderDetail.stdOneSidePrice) + drawerOrderDetail.handleMainPrice));
+                drawerOrderDetail.unitPrice = (drawerOrderDetail.quantity * ((shutterAreaSqMt * drawerOrderDetail.stdOneSidePrice) + drawerOrderDetail.handleMainPrice));
 //                }
 
                 drawerOrderDetail.productCode = productCode;
                 console.log("Drawer Save Object :%O", drawerOrderDetail);
-                DrawerOrderDetailsService.save(drawerOrderDetail, function () {
-                    console.log("Saved Successfully");
-                    $scope.editableDrawerDetail = "";
-                    $scope.drawerName = "";
-                    $scope.drawerColorName = "";
-                    $scope.drawerHandleName = "";
-//                    $scope.refreshList();
-                    $state.go('admin.masters_order_details', {
-                        'orderHeadId': $stateParams.orderHeadId
-                    }, {'reload': true});
-                });
+                $scope.applyDrawerDiscount(drawerOrderDetail);
+//                DrawerOrderDetailsService.save(drawerOrderDetail, function () {
+//                    console.log("Saved Successfully");
+//                    $scope.editableDrawerDetail = "";
+//                    $scope.drawerName = "";
+//                    $scope.drawerColorName = "";
+//                    $scope.drawerHandleName = "";
+////                    $scope.refreshList();
+//                    $state.go('admin.masters_order_details', {
+//                        'orderHeadId': $stateParams.orderHeadId
+//                    }, {'reload': true});
+//                });
 //                var productCode = drawerOrderDetail.component + "-18" + drawerOrderDetail.material + "-" + l1 + "" + w1 + "18000";
 //                drawerOrderDetail.productCode = productCode;
 //                OrderDetailsService.save(drawerOrderDetail, function () {
@@ -3702,6 +3862,25 @@ angular.module("digitalbusiness.states.order", [])
                 var widthLessThan100 = function (inputNo) {
                     var genNum = "00" + inputNo.toString();
                     w1 = genNum;
+                };
+                $scope.applyFillerDiscount = function (fillerOrderDetail) {
+                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                        'finish': fillerOrderDetail.finish,
+                        'material': fillerOrderDetail.material,
+                        'thickness': fillerOrderDetail.thickness,
+                        'rateContractId': fillerOrderDetail.rateContractId
+                    }, function (rateContractDetailObject) {
+                        var discountPrice = ((fillerOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
+                        fillerOrderDetail.price = (fillerOrderDetail.unitPrice - discountPrice);
+                        FillerOrderDetailsService.save(fillerOrderDetail, function () {
+                            console.log("Saved Successfully");
+                            $scope.editablePanelDetail = "";
+                            $scope.fillerColorName = "";
+                            $state.go('admin.masters_order_details', {
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, {'reload': true});
+                        });
+                    });
                 };
                 if (fillerOrderDetail.length < 1000) {
                     if (fillerOrderDetail.length < 100) {
@@ -3728,13 +3907,13 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Fille Order Detail :%O", fillerOrderDetail);
                 if (fillerOrderDetail.bsm === true) {
                     console.log("Both SIde Colored");
-                    fillerOrderDetail.price = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdBothSidePrice));
+                    fillerOrderDetail.unitPrice = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdBothSidePrice));
                 } else if (fillerOrderDetail.bsm === false) {
                     console.log("Single Side");
-                    fillerOrderDetail.price = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdOneSidePrice));
+                    fillerOrderDetail.unitPrice = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdOneSidePrice));
                 } else {
                     console.log("Regular");
-                    fillerOrderDetail.price = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdOneSidePrice));
+                    fillerOrderDetail.unitPrice = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdOneSidePrice));
                 }
                 console.log("FInal Price :" + fillerOrderDetail.price);
 //                fillerOrderDetail.price = finalPrice;
@@ -3743,14 +3922,16 @@ angular.module("digitalbusiness.states.order", [])
                 var productCode = fillerOrderDetail.component + "" + fillerOrderDetail.thickness + "" + fillerOrderDetail.material + "X" + fillerOrderDetail.finish + "-" + l1 + "" + w1 + "" + fillerOrderDetail.thickness + "000";
                 fillerOrderDetail.productCode = productCode;
                 console.log("Filler Save Object :%O", fillerOrderDetail);
-                FillerOrderDetailsService.save(fillerOrderDetail, function () {
-                    console.log("Saved Successfully");
-                    $scope.editablePanelDetail = "";
-                    $scope.fillerColorName = "";
-                    $state.go('admin.masters_order_details', {
-                        'orderHeadId': $stateParams.orderHeadId
-                    }, {'reload': true});
-                });
+                $scope.applyFillerDiscount(fillerOrderDetail);
+//                FillerOrderDetailsService.save(fillerOrderDetail, function () {
+//                    console.log("Saved Successfully");
+//                    $scope.editablePanelDetail = "";
+//                    $scope.fillerColorName = "";
+//                    $state.go('admin.masters_order_details', {
+//                        'orderHeadId': $stateParams.orderHeadId
+//                    }, {'reload': true});
+//                });
+//                /////////////////////
 //                OrderDetailsService.save(fillerOrderDetail, function () {
 //                    $scope.editableFillerDetail = "";
 //                    $scope.fillerName = "";
@@ -3761,6 +3942,25 @@ angular.module("digitalbusiness.states.order", [])
                 pelmetOrderDetail.orderHeadId = $stateParams.orderHeadId;
                 pelmetOrderDetail.component = $scope.pelmetComponent;
                 pelmetOrderDetail.depth = '0';
+                $scope.applyPelmetDiscount = function (pelmetOrderDetail) {
+                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                        'finish': pelmetOrderDetail.finish,
+                        'material': pelmetOrderDetail.material,
+                        'thickness': pelmetOrderDetail.thickness,
+                        'rateContractId': pelmetOrderDetail.rateContractId
+                    }, function (rateContractDetailObject) {
+                        var discountPrice = ((pelmetOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
+                        pelmetOrderDetail.price = (pelmetOrderDetail.unitPrice - discountPrice);
+                        PelmetOrderDetailsService.save(pelmetOrderDetail, function () {
+                            console.log("Saved Successfully");
+                            $scope.editablePelmetDetail = "";
+                            $scope.pelmetColorName = "";
+                            $state.go('admin.masters_order_details', {
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, {'reload': true});
+                        });
+                    });
+                };
                 var l1;
                 var w1;
                 var lengthLessThan100 = function (inputNo) {
@@ -3792,19 +3992,20 @@ angular.module("digitalbusiness.states.order", [])
                 var pelmetArea = (pelmetOrderDetail.width * pelmetOrderDetail.length);
                 var pelmetAreaSqMt = pelmetArea / 1000000;
                 console.log("Pelmet Area :%O", pelmetAreaSqMt);
-                pelmetOrderDetail.price = (pelmetOrderDetail.quantity * (pelmetAreaSqMt * pelmetOrderDetail.finishPrice));
+                pelmetOrderDetail.unitPrice = (pelmetOrderDetail.quantity * (pelmetAreaSqMt * pelmetOrderDetail.finishPrice));
                 console.log("Pelmet Price :%O", pelmetOrderDetail.price);
                 var productCode = pelmetOrderDetail.component + "" + pelmetOrderDetail.thickness + "" + pelmetOrderDetail.material + "X" + pelmetOrderDetail.finish + "-" + l1 + "" + w1 + "" + pelmetOrderDetail.thickness + "000";
                 pelmetOrderDetail.productCode = productCode;
                 console.log("Pelmet Save Object :%O", pelmetOrderDetail);
-                PelmetOrderDetailsService.save(pelmetOrderDetail, function () {
-                    console.log("Saved Successfully");
-                    $scope.editablePelmetDetail = "";
-                    $scope.pelmetColorName = "";
-                    $state.go('admin.masters_order_details', {
-                        'orderHeadId': $stateParams.orderHeadId
-                    }, {'reload': true});
-                });
+                $scope.applyPelmetDiscount(pelmetOrderDetail);
+//                PelmetOrderDetailsService.save(pelmetOrderDetail, function () {
+//                    console.log("Saved Successfully");
+//                    $scope.editablePelmetDetail = "";
+//                    $scope.pelmetColorName = "";
+//                    $state.go('admin.masters_order_details', {
+//                        'orderHeadId': $stateParams.orderHeadId
+//                    }, {'reload': true});
+//                });
 //                OrderDetailsService.save(pelmetOrderDetail, function () {
 //                    $scope.editablePelmetDetail = "";
 //                    $scope.pelmetName = "";
@@ -3815,6 +4016,25 @@ angular.module("digitalbusiness.states.order", [])
                 corniceOrderDetail.orderHeadId = $stateParams.orderHeadId;
                 corniceOrderDetail.component = $scope.corniceComponent;
                 corniceOrderDetail.depth = '0';
+                $scope.applyCorniceDiscount = function (corniceOrderDetail) {
+                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                        'finish': corniceOrderDetail.finish,
+                        'material': corniceOrderDetail.material,
+                        'thickness': corniceOrderDetail.thickness,
+                        'rateContractId': corniceOrderDetail.rateContractId
+                    }, function (rateContractDetailObject) {
+                        var discountPrice = ((corniceOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
+                        corniceOrderDetail.price = (corniceOrderDetail.unitPrice - discountPrice);
+                        CorniceOrderDetailsService.save(corniceOrderDetail, function () {
+                            console.log("Saved Successfully");
+                            $scope.editableCorniceDetail = "";
+                            $scope.corniceColorName = "";
+                            $state.go('admin.masters_order_details', {
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, {'reload': true});
+                        });
+                    });
+                };
                 var l1;
                 var w1;
                 var lengthLessThan100 = function (inputNo) {
@@ -3848,20 +4068,22 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Total ARea :%O", corniceAreaSqMt);
                 console.log("Std Price :%O", corniceOrderDetail.finishPrice);
 //                pelmetOrderDetail.price = (pelmetOrderDetail.quantity * (pelmetAreaSqMt * pelmetOrderDetail.finishPrice));
-                corniceOrderDetail.price = (corniceOrderDetail.quantity * (corniceAreaSqMt * corniceOrderDetail.finishPrice));
+                corniceOrderDetail.unitPrice = (corniceOrderDetail.quantity * (corniceAreaSqMt * corniceOrderDetail.finishPrice));
                 console.log("Final Price :%O", corniceOrderDetail.price);
 //                var productCode = corniceOrderDetail.component + "-18" + corniceOrderDetail.material + "-" + l1 + "" + w1 + "18000";
                 var productCode = corniceOrderDetail.component + "" + corniceOrderDetail.thickness + "" + corniceOrderDetail.material + "X" + corniceOrderDetail.finish + "-" + l1 + "" + w1 + "" + corniceOrderDetail.thickness + "000";
                 corniceOrderDetail.productCode = productCode;
                 console.log("Cornice Final Save :%O", corniceOrderDetail);
-                CorniceOrderDetailsService.save(corniceOrderDetail, function () {
-                    console.log("Saved Successfully");
-                    $scope.editableCorniceDetail = "";
-                    $scope.corniceColorName = "";
-                    $state.go('admin.masters_order_details', {
-                        'orderHeadId': $stateParams.orderHeadId
-                    }, {'reload': true});
-                });
+                $scope.applyCorniceDiscount(corniceOrderDetail);
+//                CorniceOrderDetailsService.save(corniceOrderDetail, function () {
+//                    console.log("Saved Successfully");
+//                    $scope.editableCorniceDetail = "";
+//                    $scope.corniceColorName = "";
+//                    $state.go('admin.masters_order_details', {
+//                        'orderHeadId': $stateParams.orderHeadId
+//                    }, {'reload': true});
+//                });
+                ///////////////////////////////
 //                OrderDetailsService.save(corniceOrderDetail, function () {
 //                    $scope.editableCorniceDetail = "";
 //                    $scope.corniceName = "";
@@ -4518,7 +4740,7 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.newOrderHeadObject.rateContract = orderHead.rateContract;
                 $scope.newOrderHeadObject.orcPer = orderHead.orcPer;
                 $scope.newOrderHeadObject.approved = orderHead.approved;
-                console.log("New Order Head :%O",$scope.newOrderHeadObject);
+                console.log("New Order Head :%O", $scope.newOrderHeadObject);
                 $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
                         .then(function successCallback(response) {
                             console.log("Successfully POST-ed data");
