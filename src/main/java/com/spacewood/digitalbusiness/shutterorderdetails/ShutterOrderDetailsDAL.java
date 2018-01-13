@@ -158,7 +158,7 @@ public class ShutterOrderDetailsDAL {
         parameters.put(Columns.HANDLE_PRICE, shutterOrderDetails.getHandlePrice());
         if (shutterOrderDetails.getHingePosition() == null) {
             parameters.put(Columns.HINGE_POSITION, HingePosition.NO_HINGE);
-        } else {
+        }else {
             parameters.put(Columns.HINGE_POSITION, shutterOrderDetails.getHingePosition().name());
         }
         if (shutterOrderDetails.getGlass() == null) {

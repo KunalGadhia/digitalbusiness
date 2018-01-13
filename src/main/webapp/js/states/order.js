@@ -2696,6 +2696,15 @@ angular.module("digitalbusiness.states.order", [])
                             } else {
                                 var profilePrice = 0;
                             }
+                            ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////                            
                             if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                                 var finalShArea = (orderDetail.shelfCount * shelfSqMt);
                                 var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
@@ -2707,7 +2716,8 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Back Price :%O", backAreaPrice);
                             console.log("Profile Price :%O", profilePrice);
                             console.log("Shelf Price :%O", shelfPrice);
-                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice));
+                            console.log("Hardware Price :%O", hardwarePrice);
+                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice + hardwarePrice));
                             orderDetail.unitPrice = finalPrice;
                             console.log("Total Area OSM Left/Right :%O", totalArea);
                             console.log("Total Area OSM Left/Right Price:%O", orderDetail.unitPrice);
@@ -2747,6 +2757,15 @@ angular.module("digitalbusiness.states.order", [])
                             } else {
                                 var profilePrice = 0;
                             }
+                            ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                             if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                                 console.log("Shelf Count :%O", orderDetail.shelfCount);
                                 var finalShArea = (orderDetail.shelfCount * shelfSqMt);
@@ -2759,7 +2778,8 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Profile Price :%O", profilePrice);
                             console.log("Shelf :%O", shelfPrice);
                             console.log("Back Area Price :%O", backAreaPrice);
-                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice));
+                            console.log("Hardware Price :%O", hardwarePrice);
+                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice +  hardwarePrice));
                             orderDetail.unitPrice = finalPrice;
                             console.log("Total ARea OSM TOP/Bottom :%O", totalArea);
                             console.log("Total Area OSM Top/Bottom Price:%O", orderDetail.unitPrice);
@@ -2802,6 +2822,15 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
@@ -2814,7 +2843,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
                         console.log("Back Panel Price :%O", backAreaPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice));
+                        console.log("Hardware Price :%O",hardwarePrice)
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("Total Area BSM Left & Right", totalArea);
                         console.log("Total Price BSM :%O", orderDetail.unitPrice);
@@ -2857,6 +2887,15 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
@@ -2869,7 +2908,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Back Panel Price :%O", backAreaPrice);
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
+                        console.log("Hardware Price :%O",hardwarePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("Three Side Matching Area :%O", totalArea);
                         console.log("Total Price TSM :%O", orderDetail.unitPrice);
@@ -2909,6 +2949,15 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
@@ -2920,7 +2969,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("E Price :%O", extraAreaPrice);
                         console.log("Profile Price :%O", profilePrice);
                         console.log("SHelf Price :%O", shelfPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice));
+                        console.log("Hardware Price :%O",hardwarePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("All Side Matching Area :%O", totalArea);
                         console.log("Total Price ASM :%O", orderDetail.unitPrice);
@@ -2953,6 +3003,15 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
@@ -2963,7 +3022,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Baisc Area Price :%O", basicAreaPrice);
                         console.log("Profile Baisc Price :%O", profilePrice);
                         console.log("SHelf Price :%O", shelfPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + profilePrice + shelfPrice));
+                        console.log("Hardware Price :%O",hardwarePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + profilePrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("FInal Price Full SIde Matching:%O", orderDetail.unitPrice);
                     } else {
@@ -3070,6 +3130,15 @@ angular.module("digitalbusiness.states.order", [])
                             } else {
                                 var profilePrice = 0;
                             }
+                            ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                             if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                                 var finalShArea = (orderDetail.shelfCount * shelfSqMt);
                                 var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
@@ -3081,7 +3150,8 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Back Panel Price :%O", backAreaPrice);
                             console.log("Profile Price :%O", profilePrice);
                             console.log("Shelf Price :%O", shelfPrice);
-                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
+                            console.log("Hardware Price :%O",hardwarePrice);
+                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice + hardwarePrice));
                             orderDetail.unitPrice = finalPrice;
                             console.log("Total Area OSM Left/Right :%O", totalArea);
                             console.log("Total Area OSM Left/Right Price:%O", orderDetail.unitPrice);
@@ -3120,6 +3190,15 @@ angular.module("digitalbusiness.states.order", [])
                             } else {
                                 var profilePrice = 0;
                             }
+                            ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                             if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                                 var finalShArea = (orderDetail.shelfCount * shelfSqMt);
                                 var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
@@ -3131,7 +3210,8 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Back Area Price :%O", backAreaPrice);
                             console.log("Shelf Price :%O", shelfPrice);
                             console.log("Profile Price :%O", profilePrice);
-                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
+                            console.log("Hardware Price :%O",hardwarePrice);
+                            var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice + hardwarePrice));
                             orderDetail.unitPrice = finalPrice;
                             console.log("Total ARea OSM TOP/Bottom :%O", totalArea);
                             console.log("Total Area OSM Top/Bottom Price:%O", orderDetail.unitPrice);
@@ -3174,6 +3254,15 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
@@ -3186,7 +3275,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Back Panel Price :%O", backAreaPrice);
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Area Price :%O", shelfPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
+                        console.log("Hardware Price :%O",hardwarePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("Total Area BSM Left & Right", totalArea);
                         console.log("Total Price BSM :%O", orderDetail.unitPrice);
@@ -3228,6 +3318,15 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
@@ -3240,7 +3339,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Back Area Price :%O", backAreaPrice);
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice));
+                        console.log("Hardware Price :%O",hardwarePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("Three Side Matching Area :%O", totalArea);
                         console.log("Total Price TSM :%O", orderDetail.unitPrice);
@@ -3279,6 +3379,15 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
@@ -3290,7 +3399,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("E Price :%O", extraAreaPrice);
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice));
+                        console.log("Hardware Price :%O",hardwarePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("All Side Matching Area :%O", totalArea);
                         console.log("Total Price ASM :%O", orderDetail.unitPrice);
@@ -3323,6 +3433,15 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
@@ -3333,7 +3452,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Baisc Area Price :%O", basicAreaPrice);
                         console.log("Profile Baisc Price :%O", profilePrice);
                         console.log("SHelf Price :%O", shelfPrice);
-                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + profilePrice + shelfPrice));
+                        console.log("Hardware Price :%O",hardwarePrice);
+                        var finalPrice = (orderDetail.quantity * (basicAreaPrice + profilePrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("FInal Price Full SIde Matching:%O", orderDetail.unitPrice);
                     } else {
@@ -3374,6 +3494,15 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        ///////////Hardware Price///////////////////
+                            if(orderDetail.component === "WC"){
+                                var hardwarePrice = 245;
+                            }else if(orderDetail.component === "BC"){
+                                var hardwarePrice = 260;
+                            }else if(orderDetail.component === "TU"){
+                                var hardwarePrice = 400;
+                            }
+                            ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
                             console.log("Shelf Count :%O", orderDetail.shelfCount);
                             var finalShArea = (orderDetail.shelfCount * shelfSqMt);
@@ -3385,7 +3514,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Back Price :%O", backAreaPrice);
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
-                        var finalPrice = ((profilePrice + basicAreaPrice + backAreaPrice + shelfPrice) * orderDetail.quantity);
+                        console.log("Hardware Price :%O",hardwarePrice);
+                        var finalPrice = ((profilePrice + basicAreaPrice + backAreaPrice + shelfPrice + hardwarePrice) * orderDetail.quantity);
                         orderDetail.unitPrice = finalPrice;
                         console.log("Total Area Regular :%O", totalArea);
                         console.log("Total Price Regular :%O", orderDetail.unitPrice);
