@@ -2698,11 +2698,11 @@ angular.module("digitalbusiness.states.order", [])
                             }
                             ///////////Hardware Price///////////////////
                             if (orderDetail.component === "WC") {
-                                var hardwarePrice = 245;
+                                var hardwarePrice = 172;
                             } else if (orderDetail.component === "BC") {
-                                var hardwarePrice = 260;
+                                var hardwarePrice = 263;
                             } else if (orderDetail.component === "TU") {
-                                var hardwarePrice = 400;
+                                var hardwarePrice = 367;
                             }
                             ////////////////////////////////////////////                            
                             if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -2759,11 +2759,11 @@ angular.module("digitalbusiness.states.order", [])
                             }
                             ///////////Hardware Price///////////////////
                             if (orderDetail.component === "WC") {
-                                var hardwarePrice = 245;
+                                var hardwarePrice = 172;
                             } else if (orderDetail.component === "BC") {
-                                var hardwarePrice = 260;
+                                var hardwarePrice = 263;
                             } else if (orderDetail.component === "TU") {
-                                var hardwarePrice = 400;
+                                var hardwarePrice = 367;
                             }
                             ////////////////////////////////////////////
                             if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -2824,11 +2824,11 @@ angular.module("digitalbusiness.states.order", [])
                         }
                         ///////////Hardware Price///////////////////
                         if (orderDetail.component === "WC") {
-                            var hardwarePrice = 245;
+                            var hardwarePrice = 172;
                         } else if (orderDetail.component === "BC") {
-                            var hardwarePrice = 260;
+                            var hardwarePrice = 263;
                         } else if (orderDetail.component === "TU") {
-                            var hardwarePrice = 400;
+                            var hardwarePrice = 367;
                         }
                         ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -2889,11 +2889,11 @@ angular.module("digitalbusiness.states.order", [])
                         }
                         ///////////Hardware Price///////////////////
                         if (orderDetail.component === "WC") {
-                            var hardwarePrice = 245;
+                            var hardwarePrice = 172;
                         } else if (orderDetail.component === "BC") {
-                            var hardwarePrice = 260;
+                            var hardwarePrice = 263;
                         } else if (orderDetail.component === "TU") {
-                            var hardwarePrice = 400;
+                            var hardwarePrice = 367;
                         }
                         ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -2951,11 +2951,11 @@ angular.module("digitalbusiness.states.order", [])
                         }
                         ///////////Hardware Price///////////////////
                         if (orderDetail.component === "WC") {
-                            var hardwarePrice = 245;
+                            var hardwarePrice = 172;
                         } else if (orderDetail.component === "BC") {
-                            var hardwarePrice = 260;
+                            var hardwarePrice = 263;
                         } else if (orderDetail.component === "TU") {
-                            var hardwarePrice = 400;
+                            var hardwarePrice = 367;
                         }
                         ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -3005,11 +3005,11 @@ angular.module("digitalbusiness.states.order", [])
                         }
                         ///////////Hardware Price///////////////////
                         if (orderDetail.component === "WC") {
-                            var hardwarePrice = 245;
+                            var hardwarePrice = 172;
                         } else if (orderDetail.component === "BC") {
-                            var hardwarePrice = 260;
+                            var hardwarePrice = 263;
                         } else if (orderDetail.component === "TU") {
-                            var hardwarePrice = 400;
+                            var hardwarePrice = 367;
                         }
                         ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -3132,11 +3132,11 @@ angular.module("digitalbusiness.states.order", [])
                             }
                             ///////////Hardware Price///////////////////
                             if (orderDetail.component === "WC") {
-                                var hardwarePrice = 245;
+                                var hardwarePrice = 172;
                             } else if (orderDetail.component === "BC") {
-                                var hardwarePrice = 260;
+                                var hardwarePrice = 263;
                             } else if (orderDetail.component === "TU") {
-                                var hardwarePrice = 400;
+                                var hardwarePrice = 367;
                             }
                             ////////////////////////////////////////////
                             if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -3192,11 +3192,11 @@ angular.module("digitalbusiness.states.order", [])
                             }
                             ///////////Hardware Price///////////////////
                             if (orderDetail.component === "WC") {
-                                var hardwarePrice = 245;
+                                var hardwarePrice = 172;
                             } else if (orderDetail.component === "BC") {
-                                var hardwarePrice = 260;
+                                var hardwarePrice = 263;
                             } else if (orderDetail.component === "TU") {
-                                var hardwarePrice = 400;
+                                var hardwarePrice = 367;
                             }
                             ////////////////////////////////////////////
                             if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -3256,11 +3256,11 @@ angular.module("digitalbusiness.states.order", [])
                         }
                         ///////////Hardware Price///////////////////
                         if (orderDetail.component === "WC") {
-                            var hardwarePrice = 245;
+                            var hardwarePrice = 172;
                         } else if (orderDetail.component === "BC") {
-                            var hardwarePrice = 260;
+                            var hardwarePrice = 263;
                         } else if (orderDetail.component === "TU") {
-                            var hardwarePrice = 400;
+                            var hardwarePrice = 367;
                         }
                         ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -3320,11 +3320,11 @@ angular.module("digitalbusiness.states.order", [])
                         }
                         ///////////Hardware Price///////////////////
                         if (orderDetail.component === "WC") {
-                            var hardwarePrice = 245;
+                            var hardwarePrice = 172;
                         } else if (orderDetail.component === "BC") {
-                            var hardwarePrice = 260;
+                            var hardwarePrice = 263;
                         } else if (orderDetail.component === "TU") {
-                            var hardwarePrice = 400;
+                            var hardwarePrice = 367;
                         }
                         ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -3381,11 +3381,11 @@ angular.module("digitalbusiness.states.order", [])
                         }
                         ///////////Hardware Price///////////////////
                         if (orderDetail.component === "WC") {
-                            var hardwarePrice = 245;
+                            var hardwarePrice = 172;
                         } else if (orderDetail.component === "BC") {
-                            var hardwarePrice = 260;
+                            var hardwarePrice = 263;
                         } else if (orderDetail.component === "TU") {
-                            var hardwarePrice = 400;
+                            var hardwarePrice = 367;
                         }
                         ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -3435,11 +3435,11 @@ angular.module("digitalbusiness.states.order", [])
                         }
                         ///////////Hardware Price///////////////////
                         if (orderDetail.component === "WC") {
-                            var hardwarePrice = 245;
+                            var hardwarePrice = 172;
                         } else if (orderDetail.component === "BC") {
-                            var hardwarePrice = 260;
+                            var hardwarePrice = 263;
                         } else if (orderDetail.component === "TU") {
-                            var hardwarePrice = 400;
+                            var hardwarePrice = 367;
                         }
                         ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -3496,11 +3496,11 @@ angular.module("digitalbusiness.states.order", [])
                         }
                         ///////////Hardware Price///////////////////
                         if (orderDetail.component === "WC") {
-                            var hardwarePrice = 245;
+                            var hardwarePrice = 172;
                         } else if (orderDetail.component === "BC") {
-                            var hardwarePrice = 260;
+                            var hardwarePrice = 263;
                         } else if (orderDetail.component === "TU") {
-                            var hardwarePrice = 400;
+                            var hardwarePrice = 367;
                         }
                         ////////////////////////////////////////////
                         if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
@@ -3844,7 +3844,7 @@ angular.module("digitalbusiness.states.order", [])
                     shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
                 } else if (shutterOrderDetail.finish === "XAA") {
                     shutterOrderDetail.material = "AL";
-                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice) + 168));
                 } else {
                     console.log("Else Loop Non Al");
                     if (shutterOrderDetail.bsm === true) {
@@ -3861,7 +3861,8 @@ angular.module("digitalbusiness.states.order", [])
                 shutterOrderDetail.productCode = productCode;
 
                 console.log("Shutter Save Object :%O", shutterOrderDetail);
-                $scope.applyShutterDiscount(shutterOrderDetail);
+                ///////////////DIsabled for trial///////
+//                $scope.applyShutterDiscount(shutterOrderDetail);
 
 
 //                ShutterOrderDetailsService.save(shutterOrderDetail, function () {
@@ -4850,13 +4851,44 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderApproveController', function (ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, paginationLimit) {
+        .controller('OrderApproveController', function (RateContractDetailService, PartyService, ColorService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, $rootScope, paginationLimit) {
             $scope.orderObject = OrderHeadService.get({
                 'id': $stateParams.orderHeadId
+            }, function (orderObject) {
+//                orderObject.billingPartyObject = PartyService.get({
+//                    'id': orderObject.billingPartyId
+//                });
+//                orderObject.deliveryPartyObject = PartyService.get({
+//                    'id': orderObject.deliveryPartyId
+//                });
+//
+//                $scope.orderObject = orderObject;
+//                console.log("What is Order Object :%O", $scope.orderObject);
+//                $scope.orderObject.rateContractId = $scope.orderObject.billingPartyObject;
+
             });
+
+//            $scope.currentUser = $rootScope.currentUser;
+//            console.log("Current User :%O", $scope.currentUser);
+//            UserService.findByUsername({
+//               'username':$scope.currentUser.username 
+//            }, function(userObject){
+//                $scope.rateContract = 
+//            });
             $scope.approveOrder = function (orderHead) {
 
                 console.log("Order Head :%O", orderHead);
+                PartyService.get({
+                    'id': orderHead.billingPartyId
+                }, function (billingPartyObject) {
+                    orderHead.billingPartyObject = billingPartyObject;
+                });
+                PartyService.get({
+                    'id': orderHead.deliveryPartyId
+                }, function (deliveryPartyObject) {
+                    orderHead.deliveryPartyObject = deliveryPartyObject;
+                });
+//                $scope.newOrderHeadObject = angular.copy(orderHead);
                 $scope.newOrderHeadObject = {};
                 $scope.newOrderHeadObject.id = orderHead.id;
                 $scope.newOrderHeadObject.orderNum = orderHead.orderNum;
@@ -4880,10 +4912,74 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.newOrderHeadObject.rateContract = orderHead.rateContract;
                 $scope.newOrderHeadObject.orcPer = orderHead.orcPer;
                 $scope.newOrderHeadObject.approved = orderHead.approved;
+                $scope.newOrderHeadObject.billingPartyObject = angular.copy(orderHead.billingPartyObject);
+                $scope.newOrderHeadObject.deliveryPartyObject = angular.copy(orderHead.deliveryPartyObject);
                 console.log("New Order Head :%O", $scope.newOrderHeadObject);
                 $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
                         .then(function successCallback(response) {
                             console.log("Successfully POST-ed data");
+                            var orderDetailList = [];
+                            CarcassOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (carcassOrderList) {
+                                angular.forEach(carcassOrderList, function (carcassOrderObject) {
+                                    RateContractDetailService.findByCarcassMaterialThickness({
+                                        'material': carcassOrderObject.material,
+                                        'thickness': 18,
+                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+                                    }, function (rateContractDetailObject) {
+                                        carcassOrderObject.discountPer = rateContractDetailObject.discountPer;
+                                    });
+                                    ColorService.get({
+                                        'id': carcassOrderObject.intColorId
+                                    }, function (intColorObject) {
+                                        carcassOrderObject.intColorObject = angular.copy(intColorObject);
+                                        console.log("Int Color Object :%O", carcassOrderObject.intColorObject);
+                                    });
+                                    if (carcassOrderObject.leftColorId !== null) {
+                                        ColorService.get({
+                                            'id': carcassOrderObject.leftColorId
+                                        }, function (leftColorObject) {
+                                            carcassOrderObject.leftColorObject = angular.copy(leftColorObject);
+                                        });
+                                    }
+                                    if (carcassOrderObject.rightColorId !== null) {
+                                        ColorService.get({
+                                            'id': carcassOrderObject.rightColorId
+                                        }, function (rightColorObject) {
+                                            carcassOrderObject.rightColorObject = angular.copy(rightColorObject);
+                                        });
+                                    }
+                                    if (carcassOrderObject.backColorId !== null) {
+                                        ColorService.get({
+                                            'id': carcassOrderObject.backColorId
+                                        }, function (backColorObject) {
+                                            carcassOrderObject.backColorObject = angular.copy(backColorObject);
+                                        });
+                                    }
+                                    if (carcassOrderObject.topColorId !== null) {
+                                        ColorService.get({
+                                            'id': carcassOrderObject.topColorId
+                                        }, function (topColorObject) {
+                                            carcassOrderObject.topColorObject = angular.copy(topColorObject);
+                                        });
+                                    }
+                                    if (carcassOrderObject.bottomColorId !== null) {
+                                        ColorService.get({
+                                            'id': carcassOrderObject.bottomColorId
+                                        }, function (bottomColorObject) {
+                                            carcassOrderObject.bottomColorObject = angular.copy(bottomColorObject);
+                                        });
+                                    }
+                                    console.log("Final Carcass Order Detail Before Pushing Into ERP :%O", carcassOrderObject);
+                                    $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderDetail", carcassOrderObject).then(function successCallback(response) {
+                                        console.log("Success Response :%O", response);
+                                    }, function errorCallback(response) {
+                                        console.log("Error Response :%O", response);
+                                        alert("Something went wrong in Carcass Order Detail");
+                                    });
+                                });
+                            });
                         }, function errorCallback(response) {
                             console.log("POST-ing of data failed");
                         });
@@ -4896,8 +4992,10 @@ angular.module("digitalbusiness.states.order", [])
                 orderHead.$save(function () {
                     $state.go('admin.masters_order_history', null, {'reload': true});
                 });
-            };
-        })
+            }
+            ;
+        }
+        )
         .controller('CorniceDetailDeleteController', function (CorniceOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
             console.log("What are STate Params Pelmet:%O", $stateParams);
             $scope.editableCorniceDetail = CorniceOrderDetailsService.get({'id': $stateParams.corniceDetailId});

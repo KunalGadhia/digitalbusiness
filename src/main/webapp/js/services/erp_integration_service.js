@@ -10,8 +10,12 @@ angular.module("digitalbusiness.services.erp_integration")
             return $resource({
                 
                 'InsertOrderHead': {
-                    'method': 'POST',                    
-                    'url': erpRestRoot + '/Innopan/OrderHead'                                       
+                    'method': 'POST',
+                    'url': erpRestRoot + '/Innopan/OrderHead'
+                },
+                'InsertOrderDetail': {
+                    'method': 'POST',
+                    'url': erpRestRoot + '/Innopan/OrderDetail'
                 }
             });
         });

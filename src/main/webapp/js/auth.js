@@ -24,7 +24,7 @@ angular.module('digitalbusiness.states.auth', ['digitalbusiness.constants'])
                     return this.hasRole("ROLE_DEALER");
                 };
                 User.prototype.isAdmin = function () {
-                    return this.hasRole("ROLE_DEALER");
+                    return this.hasRole("ROLE_ADMIN");
                 };
 
                 //Singleton Variable to store the currently logged in User
