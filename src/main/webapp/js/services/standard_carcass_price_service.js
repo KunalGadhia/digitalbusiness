@@ -39,6 +39,14 @@ angular.module("digitalbusiness.services.standard_carcass_price")
                     },
                     'isArray': true
                 },
+                'findSinkCarcassWithoutShelfByCT': {
+                    'method': 'GET',
+                    'url': restRoot + '/std_carcass_price/find/sink/without_shelf/ct',
+                    'params': {
+                        'carcassType': '@carcassType'
+                    },
+                    'isArray': true
+                },
                 'findCarcassWithShelfByCT': {
                     'method': 'GET',
                     'url': restRoot + '/std_carcass_price/find/with_shelf/ct',

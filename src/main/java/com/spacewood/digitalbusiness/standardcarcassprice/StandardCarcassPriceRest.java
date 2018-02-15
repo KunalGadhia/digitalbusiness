@@ -70,6 +70,11 @@ public class StandardCarcassPriceRest {
         return standardCarcassPriceDAL.findCarcassWithoutShelfByCT(carcassType);
     }
     
+    @RequestMapping(value = "/find/sink/without_shelf/ct", method = RequestMethod.GET)
+    public List<StandardCarcassPrice> findSinkCarcassWithoutShelfByCT(String carcassType) {
+        return standardCarcassPriceDAL.findSinkCarcassWithoutShelfByCT(carcassType);
+    }
+    
     @RequestMapping(value = "/find/with_shelf", method = RequestMethod.GET)
     public List<StandardCarcassPrice> findCarcassWithShelf() {
         return standardCarcassPriceDAL.findCarcassWithShelf();

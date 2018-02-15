@@ -96,6 +96,12 @@ public class StandardCarcassPriceDAL {
         return jdbcTemplate.query(sqlQuery, new Object[]{ctNameLike}, new BeanPropertyRowMapper<>(StandardCarcassPrice.class));
     }
     
+    public List<StandardCarcassPrice> findSinkCarcassWithoutShelfByCT(String carcassType) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.SHELF + " = 0 AND lower(description) LIKE '%Base%' OR lower(description) LIKE ?";
+        String ctNameLike = "%" + carcassType.toLowerCase() + "%";
+        return jdbcTemplate.query(sqlQuery, new Object[]{ctNameLike}, new BeanPropertyRowMapper<>(StandardCarcassPrice.class));
+    }
+    
     public List<StandardCarcassPrice> findCarcassWithShelf() {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.SHELF + " > 0";
         return jdbcTemplate.query(sqlQuery, new Object[]{}, new BeanPropertyRowMapper<>(StandardCarcassPrice.class));

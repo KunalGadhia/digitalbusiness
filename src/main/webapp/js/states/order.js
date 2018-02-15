@@ -810,10 +810,21 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("SP List %O", spList);
                         $scope.sectionProfileList = spList;
                     });
+                    $scope.tempArray = [];
                     StandardCarcassPriceService.findCarcassWithoutShelfByCT({
                         'carcassType': $scope.typeLike
                     }, function (stdList) {
-                        $scope.carcassStdList = stdList;
+                        angular.forEach(stdList, function (singleObject) {
+                            $scope.tempArray.push(singleObject);
+                        });
+                        StandardCarcassPriceService.findCarcassWithoutShelfByCT({
+                            'carcassType': 'Sink'
+                        }, function (stdSinkList) {
+                            angular.forEach(stdSinkList, function (singleSinkObject) {
+                                $scope.tempArray.push(singleSinkObject);
+                            });
+                        });
+                        $scope.carcassStdList = $scope.tempArray;
                     });
                 } else if (carcassName === "Tall Carcass") {
                     $scope.carcassSubTypeList = CarcassSubtypeService.findByParentType({
@@ -1081,6 +1092,7 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.$watch('editableCarcassDetail.shelf', function (shelfValue) {
                     console.log("Carcass Name :%O", $scope.carcassName);
                     if (shelfValue === true) {
+//                        console.log("Type Like Default :%O", $scope.typeLike);
                         StandardCarcassPriceService.findCarcassWithShelfByCT({
                             'carcassType': $scope.typeLike
                         }, function (stdListRefined) {
@@ -1096,12 +1108,23 @@ angular.module("digitalbusiness.states.order", [])
                         }
                     } else if (shelfValue === false) {
                         console.log("Type Like :%O", $scope.typeLike);
-                        StandardCarcassPriceService.findCarcassWithoutShelfByCT({
-                            'carcassType': $scope.typeLike
-                        }, function (stdListRefined) {
-                            $scope.carcassStdList = stdListRefined;
-                        });
-                        $scope.editableCarcassDetail.shelfCount = 0;
+                        if ($scope.typeLike === "Base") {
+//                            $scope.tempArray = [];
+                            StandardCarcassPriceService.findSinkCarcassWithoutShelfByCT({
+                                'carcassType': 'Sink'
+                            }, function (stdList) {                                
+                                $scope.carcassStdList = stdList;
+                            });
+
+                            $scope.editableCarcassDetail.shelfCount = 0;
+                        } else {
+                            StandardCarcassPriceService.findCarcassWithoutShelfByCT({
+                                'carcassType': $scope.typeLike
+                            }, function (stdListRefined) {
+                                $scope.carcassStdList = stdListRefined;
+                            });
+                            $scope.editableCarcassDetail.shelfCount = 0;
+                        }
                     }
                 });
             });
