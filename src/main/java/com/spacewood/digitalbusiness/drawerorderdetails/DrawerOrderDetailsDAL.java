@@ -46,6 +46,8 @@ public class DrawerOrderDetailsDAL {
         public static final String AS_PER_DRAWING = "as_per_drawing";
         public static final String REMARK = "remark";
         public static final String ORDER_FOR = "order_for";
+        public static final String INT_COLOR_CODE = "int_color_code";
+        public static final String COLOR_CODE = "color_code";
     }
 
     public static final String TABLE_NAME = "drawer_order_details";
@@ -79,7 +81,9 @@ public class DrawerOrderDetailsDAL {
                         Columns.HANDLE_PRICE,
                         Columns.AS_PER_DRAWING,
                         Columns.REMARK,
-                        Columns.ORDER_FOR
+                        Columns.ORDER_FOR,
+                        Columns.INT_COLOR_CODE,
+                        Columns.COLOR_CODE
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -141,6 +145,8 @@ public class DrawerOrderDetailsDAL {
         }
         parameters.put(Columns.REMARK, drawerOrderDetails.getRemark());
         parameters.put(Columns.ORDER_FOR, "DRAWER");
+        parameters.put(Columns.INT_COLOR_CODE, drawerOrderDetails.getIntColorCode());
+        parameters.put(Columns.COLOR_CODE, drawerOrderDetails.getColorCode());
 
         Number newId = insertDrawerOrderDetail.executeAndReturnKey(parameters);
         drawerOrderDetails = findById(newId.intValue());

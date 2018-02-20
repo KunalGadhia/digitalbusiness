@@ -18,6 +18,32 @@
             <h4>Party Master</h4>
         </div>
     </div>
+    <div class="panel-heading text-center">        
+        <form ng-submit="searchPartyName()">
+            <div class="row">
+                <div class="col-sm-9">
+                    <input class="form-control"
+                           placeholder="Enter Party Name"
+                           uib-typeahead="party.id as party.dealerName for party in searchParty($viewValue)"
+                           typeahead-on-select="setParty($item)"
+                           typeahead-editable="false"
+                           typeahead-loading="loadingParty" 
+                           typeahead-no-results="noPartyFound"                                       
+                           ng-model="partyName" required=""/>
+                    <p ng-show="noPartyFound" class="help-block text-muted">No Parties Found</p>
+                    <p ng-show="loadingParty" class="help-block text-muted">Loading...</p>                    
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary pull-right">Search Party</button>
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-primary pull-left" ng-click="clearSearch()">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr>

@@ -39,6 +39,7 @@ public class PanelOrderDetailsDAL {
         public static final String AS_PER_DRAWING = "as_per_drawing";
         public static final String REMARK = "remark";
         public static final String ORDER_FOR = "order_for";
+        public static final String COLOR_CODE = "color_code";
 
     }
 
@@ -66,7 +67,8 @@ public class PanelOrderDetailsDAL {
                         Columns.MATERIAL_PRICE,
                         Columns.AS_PER_DRAWING,
                         Columns.REMARK,
-                        Columns.ORDER_FOR
+                        Columns.ORDER_FOR,
+                        Columns.COLOR_CODE
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -117,6 +119,7 @@ public class PanelOrderDetailsDAL {
         }
         parameters.put(Columns.REMARK, panelOrderDetails.getRemark());
         parameters.put(Columns.ORDER_FOR, "PANEL");
+        parameters.put(Columns.COLOR_CODE, panelOrderDetails.getColorCode());
 
         Number newId = insertPanelOrderDetail.executeAndReturnKey(parameters);
         panelOrderDetails = findById(newId.intValue());

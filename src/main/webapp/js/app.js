@@ -1,3 +1,4 @@
+//var digitalbusiness = angular.module("digitalbusiness", [
 angular.module("digitalbusiness", [
     //    include libraries
     'ui.router',
@@ -91,44 +92,47 @@ angular.module("digitalbusiness", [
 ])
 
         .run(['$state', '$rootScope', 'AuthFactory', '$location', 'UserService', function ($state, $rootScope, AuthFactory, $location, UserService) {
-                console.log("Auth Factory :%O", AuthFactory);
-//                UserService.login({
-//                    'username': "guest",
-//                    'password': "guest"
-//                }, function () {
-//                    console.log("Coming Here to log in as a guest??");
-//                    $state.go("corporate_site.home", {reload: 'true'});                    
-//                }, function () {
-//                    $rootScope.error = "Login Failed. Invalid Credentials.";
-//                });
-//                $state.go("corporate_site.home", {reload: 'true'});
-
-//For tracking state changes during runtime.. outputs the statename as a state change is triggered
-//            $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-//                console.log("Switching To: ", toState.name);
-//            });
                 AuthFactory.registerUserChangeHandler(function (currentUser) {
-                    console.log("What is Current User :%O", currentUser);
                     $rootScope.currentUser = currentUser;
                 });
 
                 AuthFactory.refresh().then(function (currentUser) {
-                    console.log("Current User is", currentUser);
                 }, function (reason) {
-//                console.log("Reason :%O", reason);
-//                User is not Logged in
                     $location.path("login");
-//                    UserService.login({
-//                        'username': 'guest',
-//                        'password': 'guest'
-//                    }, function () {
-//                        console.log("Log in as a guest");
-//                        $state.go("main.intro.intro_tagline", {reload: 'true'});
-//                    }, function () {
-//                        $rootScope.error = "Login Failed. Invalid Credentials.";
-//                    });
-                    //$state.go("main.intro.intro_tagline", {reload: 'true'});
-                    //$state.go("corporate_site.home", {reload: 'true'});
                 });
-//            $state.go('admin.masters');
+//                //CORS Added///////
+//                digitalbusiness.config(['$httpProvider', function ($httpProvider) {
+//
+//                        $httpProvider.defaults.useXDomain = true;
+//
+//                        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+//
+//                    }
+//
+//                ]);
+//                // Added all header request and response.
+//                digitalbusiness.all('/*', function (request, response, next) {
+//                    response.header("Access-Control-Allow-Origin", "*");
+//                    response.header("Access-Control-Allow-Headers", "X-Requested-With");
+//                    response.header("Access-Control-Allow-Methods", "GET, POST", "PUT", "DELETE");
+//                    next();
+//                });
             }]);
+////CORS Added///////
+//digitalbusiness.config(['$httpProvider', function ($httpProvider) {
+//
+//        $httpProvider.defaults.useXDomain = true;
+//
+//        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+//
+//    }
+//
+//]);
+//// Added all header request and response.
+//digitalbusiness.all('/*', function (request, response, next) {
+//    console.log("Getting Into CORS");
+//    response.header("Access-Control-Allow-Origin", "*");
+//    response.header("Access-Control-Allow-Headers", "X-Requested-With");
+//    response.header("Access-Control-Allow-Methods", "GET, POST", "PUT", "DELETE");
+//    next();
+//});

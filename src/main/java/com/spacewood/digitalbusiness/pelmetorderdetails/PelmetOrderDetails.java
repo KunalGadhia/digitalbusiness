@@ -27,6 +27,7 @@ public class PelmetOrderDetails {
     private String finish;
     private String remark;
     private String orderFor;
+    private String colorCode;
 
     public Integer getId() {
         return id;
@@ -148,6 +149,14 @@ public class PelmetOrderDetails {
         this.orderFor = orderFor;
     }
 
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -166,6 +175,7 @@ public class PelmetOrderDetails {
         hash = 97 * hash + Objects.hashCode(this.finish);
         hash = 97 * hash + Objects.hashCode(this.remark);
         hash = 97 * hash + Objects.hashCode(this.orderFor);
+        hash = 97 * hash + Objects.hashCode(this.colorCode);
         return hash;
     }
 
@@ -197,6 +207,9 @@ public class PelmetOrderDetails {
             return false;
         }
         if (!Objects.equals(this.orderFor, other.orderFor)) {
+            return false;
+        }
+        if (!Objects.equals(this.colorCode, other.colorCode)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
@@ -231,7 +244,7 @@ public class PelmetOrderDetails {
 
     @Override
     public String toString() {
-        return "PelmetOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", finishPrice=" + finishPrice + ", finish=" + finish + ", remark=" + remark + ", orderFor=" + orderFor + '}';
+        return "PelmetOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", finishPrice=" + finishPrice + ", finish=" + finish + ", remark=" + remark + ", orderFor=" + orderFor + ", colorCode=" + colorCode + '}';
     }
         
 }

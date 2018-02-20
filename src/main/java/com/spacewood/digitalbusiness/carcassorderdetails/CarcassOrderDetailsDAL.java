@@ -57,6 +57,12 @@ public class CarcassOrderDetailsDAL {
         public static final String AS_PER_DRAWING = "as_per_drawing";
         public static final String REMARK = "remark";
         public static final String ORDER_FOR = "order_for";
+        public static final String INT_COLOR_CODE = "int_color_code";
+        public static final String LEFT_COLOR_CODE = "left_color_code";
+        public static final String RIGHT_COLOR_CODE = "right_color_code";
+        public static final String BACK_COLOR_CODE = "back_color_code";
+        public static final String TOP_COLOR_CODE = "top_color_code";
+        public static final String BOTTOM_COLOR_CODE = "bottom_color_code";
 
     }
 
@@ -102,7 +108,13 @@ public class CarcassOrderDetailsDAL {
                         Columns.GRAIN_DIRECTION,
                         Columns.AS_PER_DRAWING,
                         Columns.REMARK,
-                        Columns.ORDER_FOR
+                        Columns.ORDER_FOR,
+                        Columns.INT_COLOR_CODE,
+                        Columns.LEFT_COLOR_CODE,
+                        Columns.RIGHT_COLOR_CODE,
+                        Columns.BACK_COLOR_CODE,
+                        Columns.TOP_COLOR_CODE,
+                        Columns.BOTTOM_COLOR_CODE
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -207,6 +219,12 @@ public class CarcassOrderDetailsDAL {
         }
         parameters.put(Columns.REMARK, carcassOrderDetails.getRemark());
         parameters.put(Columns.ORDER_FOR, "CARCASS");
+        parameters.put(Columns.INT_COLOR_CODE, carcassOrderDetails.getIntColorCode());
+        parameters.put(Columns.LEFT_COLOR_CODE, carcassOrderDetails.getLeftColorCode());
+        parameters.put(Columns.RIGHT_COLOR_CODE, carcassOrderDetails.getRightColorCode());
+        parameters.put(Columns.BACK_COLOR_CODE, carcassOrderDetails.getBackColorCode());
+        parameters.put(Columns.TOP_COLOR_CODE, carcassOrderDetails.getTopColorCode());
+        parameters.put(Columns.BOTTOM_COLOR_CODE, carcassOrderDetails.getBottomColorCode());
         Number newId = insertCarcassOrderDetail.executeAndReturnKey(parameters);
         carcassOrderDetails = findById(newId.intValue());
         return carcassOrderDetails;

@@ -65,6 +65,40 @@ angular.module("digitalbusiness.states.party", [])
                 $scope.currentOffset -= paginationLimit;
                 $state.go(".", {'offset': $scope.currentOffset}, {'reload': true});
             };
+
+            $scope.searchParty = function (searchTerm) {
+                return PartyService.findByNameLike({
+                    'name': searchTerm
+                }).$promise;
+            };
+
+            $scope.setParty = function (party) {
+                $scope.searchPartyId = party.id;
+            };
+
+            $scope.searchPartyName = function () {
+                $scope.parties = [];
+                PartyService.get({
+                    'id': $scope.searchPartyId
+                }, function (partyObject) {
+                    $scope.parties.push(partyObject);
+                });
+            };
+
+            $scope.clearSearch = function () {
+                $scope.searchPartyId = '';
+                $scope.partyObject = {};
+                $scope.parties = PartyService.query({
+                    'offset': $scope.currentOffset
+                }, function (partyList) {
+                    angular.forEach($scope.parties, function (partyObject) {
+                        partyObject.employeeObject = EmployeeService.get({
+                            'id': partyObject.marketingHeadId
+                        });
+                    });
+                });
+            };
+
         })
         .controller('PartyAddController', function (RateContractService, EmployeeService, PartyService, $scope, $stateParams, $state, paginationLimit) {
 

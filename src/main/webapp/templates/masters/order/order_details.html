@@ -46,8 +46,8 @@
                     <span class="col-sm-7 text-left" ng-if="orderHead.billType === 'C'">CT3</span>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <label class="col-sm-6 text-left">Customer Order No :</label>
-                    <span class="col-sm-6 text-left">{{orderHead.orderId}}</span>
+                    <label class="col-sm-6 text-left">Customer Ref No :</label>
+                    <span class="col-sm-6 text-left">{{orderHead.orderNum}}</span>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <label class="col-sm-5 text-left">Dealer City :</label>
@@ -613,13 +613,13 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Width</label>
-                        <input id="shutterWidth" type="number" class="form-control" placeholder="Enter Width" min="100" max="1100" ng-model="editableShutterDetail.width" required="">
+                        <input id="shutterWidth" type="number" class="form-control" placeholder="Enter Width" min="50" max="1100" ng-model="editableShutterDetail.width" required="">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Height</label>
-                        <input id="shutterLength" type="number" class="form-control" placeholder="Enter Height" min="100" max="2350" ng-model="editableShutterDetail.length" required="">
+                        <input id="shutterLength" type="number" class="form-control" placeholder="Enter Height" min="50" max="2350" ng-model="editableShutterDetail.length" required="">
                     </div>
                 </div>                
             </div>
@@ -1433,6 +1433,7 @@
                         <th>Width</th>
                         <th>Length</th>
                         <th>Depth</th>
+                        <th>Remark</th>
                         <th>Quantity</th>
                         <th>Price (INR)</th>
                         <th class="text-right">Actions</th>
@@ -1472,6 +1473,7 @@
                         <td class="text-left">{{ orderDetails.width}} mm</td>
                         <td class="text-left">{{ orderDetails.length}} mm</td>
                         <td class="text-left">{{ orderDetails.depth}} mm</td> 
+                        <td class="text-left">{{ orderDetails.remark}} mm</td> 
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">
@@ -1510,6 +1512,7 @@
                         <th>Width</th>
                         <th>Length</th>
                         <th>Depth</th>
+                        <th>Remark</th>
                         <th>Quantity</th>
                         <th>Price (INR)</th>
                         <th class="text-right">Actions</th>
@@ -1532,7 +1535,8 @@
                         <td class="text-left">{{orderDetails.thickness}} mm</td>  
                         <td class="text-left">{{ orderDetails.width}} mm</td>
                         <td class="text-left">{{ orderDetails.length}} mm</td>
-                        <td class="text-left">N/A</td> 
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">                            
@@ -1564,6 +1568,7 @@
                         <th>Width</th>
                         <th>Length</th>
                         <th>Depth</th>
+                        <th>Remark</th>
                         <th>Quantity</th>
                         <th>Price (INR)</th>
                         <th class="text-right">Actions</th>
@@ -1599,6 +1604,7 @@
                         <td class="text-left">{{ orderDetails.width}} mm</td>
                         <td class="text-left">{{ orderDetails.length}} mm</td>
                         <td class="text-left">N/A</td> 
+                        <td class="text-left">{{ orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">                            
@@ -1630,6 +1636,7 @@
                         <th>Width</th>
                         <th>Length</th>
                         <th>Depth</th>
+                        <th>Remark</th>
                         <th>Quantity</th>
                         <th>Price (INR)</th>
                         <th class="text-right">Actions</th>
@@ -1658,6 +1665,7 @@
                         <td class="text-left">{{ orderDetails.width}} mm</td>
                         <td class="text-left">{{ orderDetails.length}} mm</td>
                         <td class="text-left">N/A</td> 
+                        <td class="text-left">{{ orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">                            
@@ -1689,6 +1697,7 @@
                         <th>Width</th>
                         <th>Length</th>
                         <th>Depth</th>
+                        <th>Remark</th>
                         <th>Quantity</th>
                         <th>Price (INR)</th>
                         <th class="text-right">Actions</th>
@@ -1716,6 +1725,7 @@
                         <td class="text-left">{{ orderDetails.width}} mm</td>
                         <td class="text-left">{{ orderDetails.length}} mm</td>
                         <td class="text-left">N/A</td> 
+                        <td class="text-left">{{ orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">                            
@@ -1747,6 +1757,7 @@
                         <th>Width</th>
                         <th>Length</th>
                         <th>Depth</th>
+                        <th>Remark</th>
                         <th>Quantity</th>
                         <th>Price (INR)</th>
                         <th class="text-right">Actions</th>
@@ -1770,7 +1781,8 @@
                         <td class="text-left">{{orderDetails.thickness}} mm</td>  
                         <td class="text-left">{{ orderDetails.width}} mm</td>
                         <td class="text-left">{{ orderDetails.length}} mm</td>
-                        <td class="text-left">N/A</td> 
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{ orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">                            
@@ -1802,6 +1814,7 @@
                         <th>Width</th>
                         <th>Length</th>
                         <th>Depth</th>
+                        <th>Remark</th>
                         <th>Quantity</th>
                         <th>Price (INR)</th>
                         <th class="text-right">Actions</th>
@@ -1826,6 +1839,7 @@
                         <td class="text-left">{{ orderDetails.width}} mm</td>
                         <td class="text-left">{{ orderDetails.length}} mm</td>
                         <td class="text-left">N/A</td> 
+                        <td class="text-left">{{ orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">                            
@@ -1857,6 +1871,7 @@
                         <th>Width</th>
                         <th>Length</th>
                         <th>Depth</th>
+                        <th>Remark</th>
                         <th>Quantity</th>
                         <th>Price (INR)</th>
                         <th class="text-right">Actions</th>
@@ -1878,7 +1893,8 @@
                         <td class="text-left">N/A</td>  
                         <td class="text-left">N/A</td>
                         <td class="text-left">{{ orderDetails.length}} mm</td>
-                        <td class="text-left">N/A</td> 
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{ orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">                            
@@ -2005,7 +2021,7 @@
                             <br>
                             <b class="text-center"> {{sortedColor.colorName}}</b>
                             <br>
-                            <button class="next btn-next" ng-click="selectInternalCarcassColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                            <button class="next btn-next" ng-click="selectInternalCarcassColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
                         </div>
                         <hr>
                     </div>
@@ -2034,7 +2050,7 @@
                             <br>
                             <b class="text-center"> {{completeColor.colorName}}</b>
                             <br>
-                            <button class="next btn-next" ng-click="selectSideCarcassColor(completeColor.id, completeColor.colorName)">Select Color</button>
+                            <button class="next btn-next" ng-click="selectSideCarcassColor(completeColor.id, completeColor.colorName, completeColor.colorCode)">Select Color</button>
                         </div>
                         <hr>
                     </div>
@@ -2094,7 +2110,7 @@
                             <br>
                             <b class="text-center"> {{sortedColor.colorName}}</b>
                             <br>
-                            <button class="next btn-next" ng-click="selectPanelColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                            <button class="next btn-next" ng-click="selectPanelColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
                         </div>
                         <hr>
                     </div>
@@ -2154,7 +2170,7 @@
                             <br>
                             <b class="text-center"> {{sortedColor.colorName}}</b>
                             <br>
-                            <button class="next btn-next" ng-click="selectShutterColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                            <button class="next btn-next" ng-click="selectShutterColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
                         </div>
                         <hr>
                     </div>
@@ -2183,7 +2199,7 @@
                             <br>
                             <b class="text-center"> {{sortedColor.colorName}}</b>
                             <br>
-                            <button class="next btn-next" ng-click="selectInternalShutterColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                            <button class="next btn-next" ng-click="selectInternalShutterColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
                         </div>
                         <hr>
                     </div>
@@ -2272,7 +2288,7 @@
                             <br>
                             <b class="text-center"> {{sortedColor.colorName}}</b>
                             <br>
-                            <button class="next btn-next" ng-click="selectDrawerColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                            <button class="next btn-next" ng-click="selectDrawerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
                         </div>
                         <hr>
                     </div>
@@ -2301,7 +2317,7 @@
                             <br>
                             <b class="text-center"> {{sortedColor.colorName}}</b>
                             <br>
-                            <button class="next btn-next" ng-click="selectInternalDrawerColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                            <button class="next btn-next" ng-click="selectInternalDrawerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
                         </div>
                         <hr>
                     </div>
@@ -2390,7 +2406,7 @@
                             <br>
                             <b class="text-center"> {{sortedColor.colorName}}</b>
                             <br>
-                            <button class="next btn-next" ng-click="selectFillerColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                            <button class="next btn-next" ng-click="selectFillerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
                         </div>
                         <hr>
                     </div>
@@ -2419,7 +2435,7 @@
                             <br>
                             <b class="text-center"> {{sortedColor.colorName}}</b>
                             <br>
-                            <button class="next btn-next" ng-click="selectInternalFillerColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                            <button class="next btn-next" ng-click="selectInternalFillerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
                         </div>
                         <hr>
                     </div>
@@ -2479,7 +2495,7 @@
                             <br>
                             <b class="text-center"> {{sortedColor.colorName}}</b>
                             <br>
-                            <button class="next btn-next" ng-click="selectPelmetColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                            <button class="next btn-next" ng-click="selectPelmetColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
                         </div>
                         <hr>
                     </div>
@@ -2539,7 +2555,7 @@
                             <br>
                             <b class="text-center"> {{sortedColor.colorName}}</b>
                             <br>
-                            <button class="next btn-next" ng-click="selectCorniceColor(sortedColor.id, sortedColor.colorName)">Select Color</button>
+                            <button class="next btn-next" ng-click="selectCorniceColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
                         </div>
                         <hr>
                     </div>

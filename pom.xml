@@ -25,7 +25,38 @@
         <spring.security.version>4.0.1.RELEASE</spring.security.version>
         <slf4j.version>1.7.12</slf4j.version>
     </properties>
-    
+    <!--    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+        <init-param>
+            <param-name>cors.allowed.origins</param-name>
+            <param-value>*</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.allowed.methods</param-name>
+            <param-value>GET,POST,HEAD,OPTIONS,PUT</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.allowed.headers</param-name>
+            <param-value>Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.exposed.headers</param-name>
+            <param-value>Access-Control-Allow-Origin,Access-Control-Allow-Credentials</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.support.credentials</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.preflight.maxage</param-name>
+            <param-value>10</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>-->
     <dependencies>
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -222,7 +253,7 @@
             <version>2.4</version>
         </dependency>
         <!-- Moment.js -->
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>momentjs</artifactId>
             <version>2.10.6</version>
@@ -269,6 +300,13 @@
             <artifactId>angular-ui-bootstrap</artifactId>
             <version>1.0.3</version>
         </dependency>-->
+        
+        <!-- CORS Filter -->
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>2.1</version>
+        </dependency>
         
         <!-- Underscore.js -->
         <dependency>
@@ -384,8 +422,53 @@
             <version>1.6.0</version>
         </dependency>
     </dependencies>
+    
 
     <build>
+        <!--        <filter>
+            <filter-name>CorsFilter</filter-name>
+            <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+            <init-param>
+                <param-name>cors.allowed.origins</param-name>
+                <param-value>*</param-value>
+            </init-param>
+            <init-param>
+                <param-name>cors.allowed.methods</param-name>
+                <param-value>GET,POST,HEAD,OPTIONS,PUT</param-value>
+            </init-param>
+            <init-param>
+                <param-name>cors.allowed.headers</param-name>
+                <param-value>Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers</param-value>
+            </init-param>
+            <init-param>
+                <param-name>cors.exposed.headers</param-name>
+                <param-value>Access-Control-Allow-Origin,Access-Control-Allow-Credentials</param-value>
+            </init-param>
+            <init-param>
+                <param-name>cors.support.credentials</param-name>
+                <param-value>true</param-value>
+            </init-param>
+            <init-param>
+                <param-name>cors.preflight.maxage</param-name>
+                <param-value>10</param-value>
+            </init-param>
+        </filter>
+        <filter-mapping>
+            <filter-name>CorsFilter</filter-name>
+            <url-pattern>/*</url-pattern>
+        </filter-mapping>-->
+        <!--        <plugins>
+            <plugin>
+                <filter>
+                    <filter-name>CorsFilter</filter-name>
+                    <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+                </filter>
+                <filter-mapping>
+                    <filter-name>CorsFilter</filter-name>
+                    <url-pattern>/*</url-pattern>
+                </filter-mapping>
+            </plugin>
+        </plugins>-->
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -497,7 +580,7 @@
                     <username>${digitalbusiness.db.username}</username>
                     <password>${digitalbusiness.db.password}</password>
                 </configuration>
-<!--                <executions>
+                <!--                <executions>
                      Unit Test SQL executions 
                     <execution>
                         <id>drop-db-before-unit-test-if-any</id>

@@ -2,7 +2,12 @@
     <div class="panel-heading text-center">
         <div class="pull-left">
             <a data-ui-sref="admin.masters"
-               class="btn btn-default">
+               class="btn btn-default" ng-show="adminBackButton">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </a>
+            <a data-ui-sref="admin.dealers"
+               class="btn btn-default" ng-show="dealerBackButton">
                 <i class="fa fa-arrow-left"></i>
                 Back
             </a>

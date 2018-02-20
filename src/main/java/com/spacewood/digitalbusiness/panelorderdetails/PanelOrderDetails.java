@@ -27,6 +27,7 @@ public class PanelOrderDetails {
     private Boolean asPerDrawing;
     private String remark;
     private String orderFor;
+    private String colorCode;
 
     public Integer getId() {
         return id;
@@ -148,24 +149,33 @@ public class PanelOrderDetails {
         this.orderFor = orderFor;
     }
 
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.id);
-        hash = 23 * hash + Objects.hashCode(this.productCode);
-        hash = 23 * hash + Objects.hashCode(this.material);
-        hash = 23 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 23 * hash + Objects.hashCode(this.component);
-        hash = 23 * hash + Objects.hashCode(this.width);
-        hash = 23 * hash + Objects.hashCode(this.length);
-        hash = 23 * hash + Objects.hashCode(this.thickness);
-        hash = 23 * hash + Objects.hashCode(this.quantity);
-        hash = 23 * hash + Objects.hashCode(this.colorId);
-        hash = 23 * hash + Objects.hashCode(this.price);
-        hash = 23 * hash + Objects.hashCode(this.materialPrice);
-        hash = 23 * hash + Objects.hashCode(this.asPerDrawing);
-        hash = 23 * hash + Objects.hashCode(this.remark);
-        hash = 23 * hash + Objects.hashCode(this.orderFor);
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.id);
+        hash = 43 * hash + Objects.hashCode(this.productCode);
+        hash = 43 * hash + Objects.hashCode(this.material);
+        hash = 43 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 43 * hash + Objects.hashCode(this.component);
+        hash = 43 * hash + Objects.hashCode(this.width);
+        hash = 43 * hash + Objects.hashCode(this.length);
+        hash = 43 * hash + Objects.hashCode(this.thickness);
+        hash = 43 * hash + Objects.hashCode(this.quantity);
+        hash = 43 * hash + Objects.hashCode(this.colorId);
+        hash = 43 * hash + Objects.hashCode(this.price);
+        hash = 43 * hash + Objects.hashCode(this.materialPrice);
+        hash = 43 * hash + Objects.hashCode(this.asPerDrawing);
+        hash = 43 * hash + Objects.hashCode(this.remark);
+        hash = 43 * hash + Objects.hashCode(this.orderFor);
+        hash = 43 * hash + Objects.hashCode(this.colorCode);
         return hash;
     }
 
@@ -194,6 +204,9 @@ public class PanelOrderDetails {
             return false;
         }
         if (!Objects.equals(this.orderFor, other.orderFor)) {
+            return false;
+        }
+        if (!Objects.equals(this.colorCode, other.colorCode)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
@@ -231,7 +244,7 @@ public class PanelOrderDetails {
 
     @Override
     public String toString() {
-        return "PanelOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", materialPrice=" + materialPrice + ", asPerDrawing=" + asPerDrawing + ", remark=" + remark + ", orderFor=" + orderFor + '}';
+        return "PanelOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", materialPrice=" + materialPrice + ", asPerDrawing=" + asPerDrawing + ", remark=" + remark + ", orderFor=" + orderFor + ", colorCode=" + colorCode + '}';
     }
             
 }

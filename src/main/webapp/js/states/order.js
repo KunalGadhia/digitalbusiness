@@ -1112,7 +1112,7 @@ angular.module("digitalbusiness.states.order", [])
 //                            $scope.tempArray = [];
                             StandardCarcassPriceService.findSinkCarcassWithoutShelfByCT({
                                 'carcassType': 'Sink'
-                            }, function (stdList) {                                
+                            }, function (stdList) {
                                 $scope.carcassStdList = stdList;
                             });
 
@@ -1228,33 +1228,39 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Side Name :%O", $scope.sideName);
                 $scope.showCarcassSidesColorSelectionWidget = true;
             };
-            $scope.selectInternalCarcassColor = function (colorId, colorName) {
+            $scope.selectInternalCarcassColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 $scope.closeWidget();
+                $scope.editableCarcassDetail.intColorCode = colorCode;
                 $scope.editableCarcassDetail.intColorId = colorId;
                 $scope.intColorName = colorName;
             };
-            $scope.selectSideCarcassColor = function (colorId, colorName) {
+            $scope.selectSideCarcassColor = function (colorId, colorName, colorCode) {
                 console.log("Getting Side Name in Select ?? :%O", $scope.sideName);
                 var side = $scope.sideName;
                 if (side === "Left") {
                     $scope.closeWidget();
+                    $scope.editableCarcassDetail.leftColorCode = colorCode;
                     $scope.editableCarcassDetail.leftColorId = colorId;
                     $scope.leftColorName = colorName;
                 } else if (side === "Right") {
                     $scope.closeWidget();
+                    $scope.editableCarcassDetail.rightColorCode = colorCode;
                     $scope.editableCarcassDetail.rightColorId = colorId;
                     $scope.rightColorName = colorName;
                 } else if (side === "Back") {
                     $scope.closeWidget();
+                    $scope.editableCarcassDetail.backColorCode = colorCode;
                     $scope.editableCarcassDetail.backColorId = colorId;
                     $scope.backColorName = colorName;
                 } else if (side === "Top") {
                     $scope.closeWidget();
+                    $scope.editableCarcassDetail.topColorCode = colorCode;
                     $scope.editableCarcassDetail.topColorId = colorId;
                     $scope.topColorName = colorName;
                 } else if (side === "Bottom") {
                     $scope.closeWidget();
+                    $scope.editableCarcassDetail.bottomColorCode = colorCode;
                     $scope.editableCarcassDetail.bottomColorId = colorId;
                     $scope.bottomColorName = colorName;
                 }
@@ -1268,9 +1274,10 @@ angular.module("digitalbusiness.states.order", [])
             $scope.openPanelColorWidget = function () {
                 $scope.showPanelColorSelectionWidget = true;
             };
-            $scope.selectPanelColor = function (colorId, colorName) {
+            $scope.selectPanelColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 $scope.closeWidget();
+                $scope.editablePanelDetail.colorCode = colorCode;
                 $scope.editablePanelDetail.colorId = colorId;
                 $scope.panelColorName = colorName;
             };
@@ -1338,15 +1345,17 @@ angular.module("digitalbusiness.states.order", [])
             $scope.openInternalFillerColorWidget = function () {
                 $scope.showFillerInternalColorSelectionWidget = true;
             };
-            $scope.selectFillerColor = function (colorId, colorName) {
+            $scope.selectFillerColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 $scope.closeWidget();
+                $scope.editableFillerDetail.colorCode = colorCode;
                 $scope.editableFillerDetail.colorId = colorId;
                 $scope.fillerColorName = colorName;
             };
-            $scope.selectInternalFillerColor = function (colorId, colorName) {
+            $scope.selectInternalFillerColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 $scope.closeWidget();
+                $scope.editableFillerDetail.intColorCode = colorCode;
                 $scope.editableFillerDetail.intColorId = colorId;
                 $scope.fillerInternalColorName = colorName;
             };
@@ -1467,9 +1476,10 @@ angular.module("digitalbusiness.states.order", [])
             $scope.openPelmetColorWidget = function () {
                 $scope.showPelmetColorSelectionWidget = true;
             };
-            $scope.selectPelmetColor = function (colorId, colorName) {
+            $scope.selectPelmetColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 $scope.closeWidget();
+                $scope.editablePelmetDetail.colorCode = colorCode;
                 $scope.editablePelmetDetail.colorId = colorId;
                 $scope.pelmetColorName = colorName;
             };
@@ -1558,9 +1568,10 @@ angular.module("digitalbusiness.states.order", [])
             $scope.openCorniceColorWidget = function () {
                 $scope.showCorniceColorSelectionWidget = true;
             };
-            $scope.selectCorniceColor = function (colorId, colorName) {
+            $scope.selectCorniceColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 $scope.closeWidget();
+                $scope.editableCorniceDetail.colorCode = colorCode;
                 $scope.editableCorniceDetail.colorId = colorId;
                 $scope.corniceColorName = colorName;
             };
@@ -1721,9 +1732,10 @@ angular.module("digitalbusiness.states.order", [])
             $scope.openInternalShutterColorWidget = function () {
                 $scope.showShutterInternalColorSelectionWidget = true;
             };
-            $scope.selectInternalShutterColor = function (colorId, colorName) {
+            $scope.selectInternalShutterColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 $scope.closeWidget();
+                $scope.editableShutterDetail.intColorCode = colorCode;
                 $scope.editableShutterDetail.intColorId = colorId;
                 console.log("Int COlor :%O", $scope.editableShutterDetail.intColorId);
                 $scope.shutterInternalColorName = colorName;
@@ -1790,9 +1802,10 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.editableShutterDetail.handle = kcObject.componentCode;
                 });
             };
-            $scope.selectShutterColor = function (colorId, colorName) {
+            $scope.selectShutterColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 $scope.closeWidget();
+                $scope.editableShutterDetail.colorCode = colorCode;
                 $scope.editableShutterDetail.colorId = colorId;
                 $scope.shutterColorName = colorName;
             };
@@ -1922,20 +1935,20 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Membrane Shutter");
                         if ($scope.editableShutterDetail.material === "MF") {
                             $("#shutterLength").attr({
-                                'min': 300,
+                                'min': 50,
                                 'max': 2350
                             });
                             $("#shutterWidth").attr({
-                                'min': 150,
+                                'min': 50,
                                 'max': 1100
                             });
                         } else {
                             $("#shutterLength").attr({
-                                'min': 100,
+                                'min': 50,
                                 'max': 2350
                             });
                             $("#shutterWidth").attr({
-                                'min': 100,
+                                'min': 50,
                                 'max': 1100
                             });
                         }
@@ -1943,11 +1956,11 @@ angular.module("digitalbusiness.states.order", [])
                         $scope.shutterModelSelection = true;
                     } else {
                         $("#shutterLength").attr({
-                            'min': 100,
+                            'min': 50,
                             'max': 2350
                         });
                         $("#shutterWidth").attr({
-                            'min': 100,
+                            'min': 50,
                             'max': 1100
                         });
                         $scope.shutterModelSelection = false;
@@ -2087,9 +2100,10 @@ angular.module("digitalbusiness.states.order", [])
             $scope.openInternalDrawerColorWidget = function () {
                 $scope.showDrawerInternalColorSelectionWidget = true;
             };
-            $scope.selectInternalDrawerColor = function (colorId, colorName) {
+            $scope.selectInternalDrawerColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 $scope.closeWidget();
+                $scope.editableDrawerDetail.intColorCode = colorCode;
                 $scope.editableDrawerDetail.intColorId = colorId;
                 console.log("Int COlor :%O", $scope.editableDrawerDetail.intColorId);
                 $scope.drawerInternalColorName = colorName;
@@ -2147,10 +2161,11 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.editableDrawerDetail.handle = kcObject.componentCode;
                 });
             };
-            $scope.selectDrawerColor = function (colorId, colorName) {
+            $scope.selectDrawerColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 console.log("Color Name :%O", colorName);
                 $scope.closeWidget();
+                $scope.editableDrawerDetail.colorCode = colorCode;
                 $scope.editableDrawerDetail.colorId = colorId;
                 $scope.drawerColorName = colorName;
                 console.log("Drawer COlor Name :%O", $scope.drawerColorName);
@@ -3885,7 +3900,7 @@ angular.module("digitalbusiness.states.order", [])
 
                 console.log("Shutter Save Object :%O", shutterOrderDetail);
                 ///////////////DIsabled for trial///////
-//                $scope.applyShutterDiscount(shutterOrderDetail);
+                $scope.applyShutterDiscount(shutterOrderDetail);
 
 
 //                ShutterOrderDetailsService.save(shutterOrderDetail, function () {
@@ -4878,15 +4893,15 @@ angular.module("digitalbusiness.states.order", [])
             $scope.orderObject = OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderObject) {
-//                orderObject.billingPartyObject = PartyService.get({
-//                    'id': orderObject.billingPartyId
-//                });
-//                orderObject.deliveryPartyObject = PartyService.get({
-//                    'id': orderObject.deliveryPartyId
-//                });
+                $scope.orderObject.billingPartyObject = PartyService.get({
+                    'id': orderObject.billingPartyId
+                });
+                $scope.orderObject.deliveryPartyObject = PartyService.get({
+                    'id': orderObject.deliveryPartyId
+                });
 //
 //                $scope.orderObject = orderObject;
-//                console.log("What is Order Object :%O", $scope.orderObject);
+                console.log("What is Order Object :%O", $scope.orderObject);
 //                $scope.orderObject.rateContractId = $scope.orderObject.billingPartyObject;
 
             });
@@ -4899,19 +4914,11 @@ angular.module("digitalbusiness.states.order", [])
 //                $scope.rateContract = 
 //            });
             $scope.approveOrder = function (orderHead) {
-
+                delete orderHead.billingPartyObject.$promise;
+                delete orderHead.billingPartyObject.$resolved;
+                delete orderHead.deliveryPartyObject.$promise;
+                delete orderHead.deliveryPartyObject.$resolved;
                 console.log("Order Head :%O", orderHead);
-                PartyService.get({
-                    'id': orderHead.billingPartyId
-                }, function (billingPartyObject) {
-                    orderHead.billingPartyObject = billingPartyObject;
-                });
-                PartyService.get({
-                    'id': orderHead.deliveryPartyId
-                }, function (deliveryPartyObject) {
-                    orderHead.deliveryPartyObject = deliveryPartyObject;
-                });
-//                $scope.newOrderHeadObject = angular.copy(orderHead);
                 $scope.newOrderHeadObject = {};
                 $scope.newOrderHeadObject.id = orderHead.id;
                 $scope.newOrderHeadObject.orderNum = orderHead.orderNum;
@@ -4938,11 +4945,13 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.newOrderHeadObject.billingPartyObject = angular.copy(orderHead.billingPartyObject);
                 $scope.newOrderHeadObject.deliveryPartyObject = angular.copy(orderHead.deliveryPartyObject);
                 console.log("New Order Head :%O", $scope.newOrderHeadObject);
+//                $http.post("http://14.192.18.131:9080/Innocal/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
                 $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
                         .then(function successCallback(response) {
-                            console.log("Successfully POST-ed data");
-                            var orderDetailList = [];
-                            CarcassOrderDetailsService.findByOrderHeadId({
+                            console.log("Successfully POST-ed data :%O", response);
+//                            var orderDetailList = [];
+//                            $scope.finalOrderList = [];
+                            $scope.carcassPromise = CarcassOrderDetailsService.findByOrderHeadId({
                                 'orderHeadId': $stateParams.orderHeadId
                             }, function (carcassOrderList) {
                                 angular.forEach(carcassOrderList, function (carcassOrderObject) {
@@ -4953,68 +4962,172 @@ angular.module("digitalbusiness.states.order", [])
                                     }, function (rateContractDetailObject) {
                                         carcassOrderObject.discountPer = rateContractDetailObject.discountPer;
                                     });
-                                    ColorService.get({
-                                        'id': carcassOrderObject.intColorId
-                                    }, function (intColorObject) {
-                                        carcassOrderObject.intColorObject = angular.copy(intColorObject);
-                                        console.log("Int Color Object :%O", carcassOrderObject.intColorObject);
-                                    });
-                                    if (carcassOrderObject.leftColorId !== null) {
-                                        ColorService.get({
-                                            'id': carcassOrderObject.leftColorId
-                                        }, function (leftColorObject) {
-                                            carcassOrderObject.leftColorObject = angular.copy(leftColorObject);
-                                        });
-                                    }
-                                    if (carcassOrderObject.rightColorId !== null) {
-                                        ColorService.get({
-                                            'id': carcassOrderObject.rightColorId
-                                        }, function (rightColorObject) {
-                                            carcassOrderObject.rightColorObject = angular.copy(rightColorObject);
-                                        });
-                                    }
-                                    if (carcassOrderObject.backColorId !== null) {
-                                        ColorService.get({
-                                            'id': carcassOrderObject.backColorId
-                                        }, function (backColorObject) {
-                                            carcassOrderObject.backColorObject = angular.copy(backColorObject);
-                                        });
-                                    }
-                                    if (carcassOrderObject.topColorId !== null) {
-                                        ColorService.get({
-                                            'id': carcassOrderObject.topColorId
-                                        }, function (topColorObject) {
-                                            carcassOrderObject.topColorObject = angular.copy(topColorObject);
-                                        });
-                                    }
-                                    if (carcassOrderObject.bottomColorId !== null) {
-                                        ColorService.get({
-                                            'id': carcassOrderObject.bottomColorId
-                                        }, function (bottomColorObject) {
-                                            carcassOrderObject.bottomColorObject = angular.copy(bottomColorObject);
-                                        });
-                                    }
                                     console.log("Final Carcass Order Detail Before Pushing Into ERP :%O", carcassOrderObject);
-                                    $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderDetail", carcassOrderObject).then(function successCallback(response) {
-                                        console.log("Success Response :%O", response);
-                                    }, function errorCallback(response) {
-                                        console.log("Error Response :%O", response);
-                                        alert("Something went wrong in Carcass Order Detail");
-                                    });
+                                    $scope.erpPush(carcassOrderObject);
                                 });
                             });
+                            ////////////////////Panel ERP Insertion/////////////////////////////
+                            $scope.panelPromise = PanelOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (panelOrderList) {
+                                angular.forEach(panelOrderList, function (panelOrderObject) {
+                                    RateContractDetailService.findByPanelMaterialThickness({
+                                        'material': panelOrderObject.material,
+                                        'thickness': panelOrderObject.thickness,
+                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+                                    }, function (rateContractDetailObject) {
+                                        panelOrderObject.discountPer = rateContractDetailObject.discountPer;
+                                    });
+//                                    ColorService.get({
+//                                        'id': panelOrderObject.colorId
+//                                    }, function (colorObject) {
+//                                        delete colorObject.$promise;
+//                                        delete colorObject.$resolved;
+//                                        panelOrderObject.colorObject = angular.copy(colorObject);
+//                                        console.log("Color Object :%O", panelOrderObject.colorObject);
+//                                    });
+                                    console.log("Final Panel Order Detail Before Pushing Into ERP :%O", panelOrderObject);
+//                                    $scope.finalOrderList.push(panelOrderObject);
+                                    $scope.erpPush(panelOrderObject);
+                                });
+                            });
+                            ////////////////////////////////////////////////////////////////////
+                            ////////////////////Shutter ERP Insertion/////////////////////////////
+                            ShutterOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (shutterOrderList) {
+                                angular.forEach(shutterOrderList, function (shutterOrderObject) {
+                                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                                        'finish': shutterOrderObject.finish,
+                                        'material': shutterOrderObject.material,
+                                        'thickness': shutterOrderObject.thickness,
+                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+                                    }, function (rateContractDetailObject) {
+                                        shutterOrderObject.discountPer = rateContractDetailObject.discountPer;
+                                    });
+                                    console.log("Final Shutter Order Detail Before Pushing Into ERP :%O", shutterOrderObject);
+                                    $scope.erpPush(shutterOrderObject);
+                                });
+                            });
+                            ////////////////////////////////////////////////////////////////////
+                            ////////////////////Drawer ERP Insertion/////////////////////////////
+                            DrawerOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (drawerOrderList) {
+                                angular.forEach(drawerOrderList, function (drawerOrderObject) {
+                                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                                        'finish': drawerOrderObject.finish,
+                                        'material': drawerOrderObject.material,
+                                        'thickness': drawerOrderObject.thickness,
+                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+                                    }, function (rateContractDetailObject) {
+                                        drawerOrderObject.discountPer = rateContractDetailObject.discountPer;
+                                    });
+                                    console.log("Final Drawer Order Detail Before Pushing Into ERP :%O", drawerOrderObject);
+                                    $scope.erpPush(drawerOrderObject);
+                                });
+                            });
+                            ////////////////////////////////////////////////////////////////////
+                            ////////////////////Filler ERP Insertion/////////////////////////////
+                            FillerOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (fillerOrderList) {
+                                angular.forEach(fillerOrderList, function (fillerOrderObject) {
+                                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                                        'finish': fillerOrderObject.finish,
+                                        'material': fillerOrderObject.material,
+                                        'thickness': fillerOrderObject.thickness,
+                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+                                    }, function (rateContractDetailObject) {
+                                        fillerOrderObject.discountPer = rateContractDetailObject.discountPer;
+                                    });
+                                    console.log("Final Filler Order Detail Before Pushing Into ERP :%O", fillerOrderObject);
+                                    $scope.erpPush(fillerOrderObject);
+                                });
+                            });
+                            ////////////////////////////////////////////////////////////////////
+                            ////////////////////Pelmet ERP Insertion/////////////////////////////
+                            PelmetOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (pelmetOrderList) {
+                                angular.forEach(pelmetOrderList, function (pelmetOrderObject) {
+                                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                                        'finish': pelmetOrderObject.finish,
+                                        'material': pelmetOrderObject.material,
+                                        'thickness': pelmetOrderObject.thickness,
+                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+                                    }, function (rateContractDetailObject) {
+                                        pelmetOrderObject.discountPer = rateContractDetailObject.discountPer;
+                                    });
+                                    console.log("Final Pelmet Order Detail Before Pushing Into ERP :%O", pelmetOrderObject);
+                                    $scope.erpPush(pelmetOrderObject);
+                                });
+                            });
+                            ////////////////////////////////////////////////////////////////////
+                            ////////////////////Cornice ERP Insertion/////////////////////////////
+                            CorniceOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (corniceOrderList) {
+                                angular.forEach(corniceOrderList, function (corniceOrderObject) {
+                                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                                        'finish': corniceOrderObject.finish,
+                                        'material': corniceOrderObject.material,
+                                        'thickness': corniceOrderObject.thickness,
+                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+                                    }, function (rateContractDetailObject) {
+                                        corniceOrderObject.discountPer = rateContractDetailObject.discountPer;
+                                    });
+                                    console.log("Final Cornice Order Detail Before Pushing Into ERP :%O", corniceOrderObject);
+                                    $scope.erpPush(corniceOrderObject);
+                                });
+                            });
+                            ////////////////////////////////////////////////////////////////////
+                            ////////////////////Handle ERP Insertion/////////////////////////////
+                            HandleOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (handleOrderList) {
+                                angular.forEach(handleOrderList, function (handleOrderObject) {
+                                    console.log("Final Handle Order Detail Before Pushing Into ERP :%O", handleOrderObject);
+                                    $scope.erpPush(handleOrderObject);
+                                });
+                            });
+                            ////////////////////////////////////////////////////////////////////
+
+//                            $scope.carcassPromise.$promise.then(function (carcassList) {
+//                                $scope.panelPromise.$promise.then(function (panelList) {
+//                                    console.log("Promise Resolved :%O", $scope.finalOrderList);
+//                                    angular.forEach($scope.finalOrderList, function (singleOrderObject) {
+//                                        $scope.erpPush(singleOrderObject);
+//                                    });
+//                                });
+//                            });
+//                            console.log("WHat is Final List NOw :%O", $scope.finalOrderList);
+                            $scope.erpPush = function (orderDetails) {
+                                console.log("Order Details :%O", orderDetails);
+                                $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
+//                                $http.post("http://14.192.18.131:9080/Innocal/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
+                                    console.log("Carcass Success Response :%O", response);
+                                }, function errorCallback(response) {
+                                    console.log("Carcass Error Response :%O", response);
+                                    alert("Something went wrong in Carcass Order Detail");
+                                });
+                            };
+                            orderHead.approved = 1;
+                            orderHead.$save(function () {
+                                $state.go('admin.masters_order_history', null, {'reload': true});
+                            });
                         }, function errorCallback(response) {
-                            console.log("POST-ing of data failed");
+                            console.log("POST-ing of data failed :%O", response);
                         });
 
 //                ErpIntegrationService.InsertOrderHead(orderHead, function (orderHeadCallBack) {
 //                    console.log("Order Head Call Back :%O", orderHeadCallBack);
 //                });
 //                ErpIntegrationService.InsertOrderHead();
-                orderHead.approved = 1;
-                orderHead.$save(function () {
-                    $state.go('admin.masters_order_history', null, {'reload': true});
-                });
+//                orderHead.approved = 1;
+//                orderHead.$save(function () {
+//                    $state.go('admin.masters_order_history', null, {'reload': true});
+//                });
             }
             ;
         }
@@ -5074,6 +5187,13 @@ angular.module("digitalbusiness.states.order", [])
                 'username': $scope.currentUser.username
             }, function (userObject) {
                 console.log("THis is User Object :%O", userObject);
+                if (userObject.role === "ROLE_ADMIN") {
+                    $scope.adminBackButton = true;
+                    $scope.dealerBackButton = false;
+                } else if (userObject.role === "ROLE_DEALER") {
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
+                }
                 $scope.orderHeadList = OrderHeadService.findOrderGenerationSource({
                     'userId': userObject.id
                 }, function (orderHeadList) {

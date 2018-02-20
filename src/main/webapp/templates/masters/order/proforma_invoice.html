@@ -57,8 +57,8 @@
                         <span class="col-sm-7 col-xs-7 text-left" ng-if="orderHead.billType === 'C'">CT3</span>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <label class="col-sm-6 col-xs-6 text-left">Customer Order No :</label>
-                        <span class="col-sm-6 col-xs-6 text-left">{{orderHead.orderId}}</span>
+                        <label class="col-sm-6 col-xs-6 text-left">Customer Ref No :</label>
+                        <span class="col-sm-6 col-xs-6 text-left">{{orderHead.orderNum}}</span>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <label class="col-sm-5 col-xs-6 text-left">Dealer City :</label>
@@ -97,6 +97,7 @@
                             <th>Width</th>
                             <th>Length</th>
                             <th>Depth</th>
+                            <th>Remark</th>
                             <th>Quantity</th>
                             <th>Price (INR)</th>                            
                         </tr>
@@ -381,6 +382,7 @@
                                 <span ng-if="orderDetails.depth > 0">{{ orderDetails.depth}} mm</span>
                                 <span ng-if="orderDetails.depth === undefined">N/A</span>
                             </td> 
+                            <td class="text-left">{{ orderDetails.remark}}</td>
                             <td class="text-left">{{ orderDetails.quantity}}</td> 
                             <td class="text-left">&#8377;{{ orderDetails.price}}</td>                             
                         </tr>
@@ -410,6 +412,11 @@
                                             </tr>
                                         </tfoot>-->
                 </table>
+                <hr style="border-top: 2px solid">
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Total Quantity :</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>{{ mainInvoiceList | total:'quantity'}}</strong></div>
+                </div>
                 <hr style="border-top: 2px solid">
                 <div class="row">
                     <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Order Amount :</strong></div>
@@ -451,11 +458,11 @@
                     <span class="col-md-10  col-xs-10 text-left">To Your Account</span>
                 </div>
                 <div class="row" style="margin-left: 30px">
-                    <span class="col-md-2  col-xs-2 text-left">4.Duty / Taxes :</span>
+                    <span class="col-md-2  col-xs-2 text-left">4. Duty / Taxes :</span>
                     <span class="col-md-10  col-xs-10 text-left">As Above</span>
                 </div>
                 <div class="row" style="margin-left: 30px">
-                    <span class="col-md-2  col-xs-2 text-left">5.Octroi :</span>
+                    <span class="col-md-2  col-xs-2 text-left">5. Octroi :</span>
                     <span class="col-md-10  col-xs-10 text-left">To Your Account</span>
                 </div>
                 <div class="row" style="margin-left: 30px">
@@ -466,10 +473,10 @@
                     <span class="col-md-2  col-xs-2 text-left">7. Prices Validity Period :</span>
                     <span class="col-md-10  col-xs-10 text-left">As per Prevailing Rate Agreement</span>
                 </div>
-                <div class="row" style="margin-left: 30px">
+<!--                <div class="row" style="margin-left: 30px">
                     <span class="col-md-2  col-xs-2 text-left">8. Payment Terms :</span>
                     <span class="col-md-10  col-xs-10 text-left">Credit Period 30 Days</span>
-                </div>
+                </div>-->
                 <br>
                 <div class="row">
                     <strong style="margin-left: 30px">Our Bank Details (Applicable in case of direct deposits) :</strong>

@@ -33,6 +33,8 @@ public class FillerOrderDetails {
     private Boolean asPerDrawing;
     private String remark;
     private String orderFor;
+    private String intColorCode;
+    private String colorCode;
 
     public Integer getId() {
         return id;
@@ -194,29 +196,47 @@ public class FillerOrderDetails {
         this.orderFor = orderFor;
     }
 
+    public String getIntColorCode() {
+        return intColorCode;
+    }
+
+    public void setIntColorCode(String intColorCode) {
+        this.intColorCode = intColorCode;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.id);
-        hash = 29 * hash + Objects.hashCode(this.productCode);
-        hash = 29 * hash + Objects.hashCode(this.material);
-        hash = 29 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 29 * hash + Objects.hashCode(this.component);
-        hash = 29 * hash + Objects.hashCode(this.width);
-        hash = 29 * hash + Objects.hashCode(this.length);
-        hash = 29 * hash + Objects.hashCode(this.thickness);
-        hash = 29 * hash + Objects.hashCode(this.quantity);
-        hash = 29 * hash + Objects.hashCode(this.colorId);
-        hash = 29 * hash + Objects.hashCode(this.intColorId);
-        hash = 29 * hash + Objects.hashCode(this.price);
-        hash = 29 * hash + Objects.hashCode(this.stdOneSidePrice);
-        hash = 29 * hash + Objects.hashCode(this.stdBothSidePrice);
-        hash = 29 * hash + Objects.hashCode(this.finish);
-        hash = 29 * hash + Objects.hashCode(this.bsm);
-        hash = 29 * hash + Objects.hashCode(this.grain);
-        hash = 29 * hash + Objects.hashCode(this.asPerDrawing);
-        hash = 29 * hash + Objects.hashCode(this.remark);
-        hash = 29 * hash + Objects.hashCode(this.orderFor);
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.productCode);
+        hash = 79 * hash + Objects.hashCode(this.material);
+        hash = 79 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 79 * hash + Objects.hashCode(this.component);
+        hash = 79 * hash + Objects.hashCode(this.width);
+        hash = 79 * hash + Objects.hashCode(this.length);
+        hash = 79 * hash + Objects.hashCode(this.thickness);
+        hash = 79 * hash + Objects.hashCode(this.quantity);
+        hash = 79 * hash + Objects.hashCode(this.colorId);
+        hash = 79 * hash + Objects.hashCode(this.intColorId);
+        hash = 79 * hash + Objects.hashCode(this.price);
+        hash = 79 * hash + Objects.hashCode(this.stdOneSidePrice);
+        hash = 79 * hash + Objects.hashCode(this.stdBothSidePrice);
+        hash = 79 * hash + Objects.hashCode(this.finish);
+        hash = 79 * hash + Objects.hashCode(this.bsm);
+        hash = 79 * hash + Objects.hashCode(this.grain);
+        hash = 79 * hash + Objects.hashCode(this.asPerDrawing);
+        hash = 79 * hash + Objects.hashCode(this.remark);
+        hash = 79 * hash + Objects.hashCode(this.orderFor);
+        hash = 79 * hash + Objects.hashCode(this.intColorCode);
+        hash = 79 * hash + Objects.hashCode(this.colorCode);
         return hash;
     }
 
@@ -248,6 +268,12 @@ public class FillerOrderDetails {
             return false;
         }
         if (!Objects.equals(this.orderFor, other.orderFor)) {
+            return false;
+        }
+        if (!Objects.equals(this.intColorCode, other.intColorCode)) {
+            return false;
+        }
+        if (!Objects.equals(this.colorCode, other.colorCode)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
@@ -297,7 +323,7 @@ public class FillerOrderDetails {
 
     @Override
     public String toString() {
-        return "FillerOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", intColorId=" + intColorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", stdBothSidePrice=" + stdBothSidePrice + ", finish=" + finish + ", bsm=" + bsm + ", grain=" + grain + ", asPerDrawing=" + asPerDrawing + ", remark=" + remark + ", orderFor=" + orderFor + '}';
-    }        
+        return "FillerOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", intColorId=" + intColorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", stdBothSidePrice=" + stdBothSidePrice + ", finish=" + finish + ", bsm=" + bsm + ", grain=" + grain + ", asPerDrawing=" + asPerDrawing + ", remark=" + remark + ", orderFor=" + orderFor + ", intColorCode=" + intColorCode + ", colorCode=" + colorCode + '}';
+    }
        
 }
