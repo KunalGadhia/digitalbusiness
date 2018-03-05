@@ -56,6 +56,7 @@ public class ShutterOrderDetailsDAL {
         public static final String ORDER_FOR = "order_for";
         public static final String INT_COLOR_CODE = "int_color_code";
         public static final String COLOR_CODE = "color_code";
+        public static final String DISCOUNT_PER = "discount_per";
     }
 
     public static final String TABLE_NAME = "shutter_order_details";
@@ -99,7 +100,8 @@ public class ShutterOrderDetailsDAL {
                         Columns.REMARK,
                         Columns.ORDER_FOR,
                         Columns.INT_COLOR_CODE,
-                        Columns.COLOR_CODE
+                        Columns.COLOR_CODE,
+                        Columns.DISCOUNT_PER
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -183,6 +185,7 @@ public class ShutterOrderDetailsDAL {
         parameters.put(Columns.ORDER_FOR, "SHUTTER");
         parameters.put(Columns.INT_COLOR_CODE, shutterOrderDetails.getIntColorCode());
         parameters.put(Columns.COLOR_CODE, shutterOrderDetails.getColorCode());
+        parameters.put(Columns.DISCOUNT_PER, shutterOrderDetails.getDiscountPer());
 
         Number newId = insertShutterOrderDetail.executeAndReturnKey(parameters);
         shutterOrderDetails = findById(newId.intValue());

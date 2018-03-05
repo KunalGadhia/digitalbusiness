@@ -3655,6 +3655,7 @@ angular.module("digitalbusiness.states.order", [])
                         'thickness': 18,
                         'rateContractId': orderDetail.rateContractId
                     }, function (rateContractDetailObject) {
+                        orderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((orderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
                         orderDetail.price = (orderDetail.unitPrice - discountPrice);
                         CarcassOrderDetailsService.save(orderDetail, function () {
@@ -3698,8 +3699,10 @@ angular.module("digitalbusiness.states.order", [])
                         'thickness': panelOrderDetail.thickness,
                         'rateContractId': panelOrderDetail.rateContractId
                     }, function (rateContractDetailObject) {
+                        panelOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((panelOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
                         panelOrderDetail.price = (panelOrderDetail.unitPrice - discountPrice);
+                        console.log("Panle Order Detail Save Object :%O", panelOrderDetail);
                         PanelOrderDetailsService.save(panelOrderDetail, function () {
                             console.log("Saved Successfully");
                             $scope.editablePanelDetail = "";
@@ -3767,6 +3770,7 @@ angular.module("digitalbusiness.states.order", [])
                         'thickness': shutterOrderDetail.thickness,
                         'rateContractId': shutterOrderDetail.rateContractId
                     }, function (rateContractDetailObject) {
+                        shutterOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((shutterOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
                         shutterOrderDetail.price = (shutterOrderDetail.unitPrice - discountPrice);
                         ShutterOrderDetailsService.save(shutterOrderDetail, function () {
@@ -3818,11 +3822,11 @@ angular.module("digitalbusiness.states.order", [])
                     w1 = shutterOrderDetail.width.toString();
                 }
                 if (shutterOrderDetail.component !== undefined) {
-                    var productCode = shutterOrderDetail.component + "X-" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                    var productCode = shutterOrderDetail.component + "XX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                 } else if (shutterOrderDetail.material === undefined) {
-                    var productCode = "SHUTTER-" + Math.round(shutterOrderDetail.thickness) + "XXX" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                    var productCode = "SHUTTERX" + Math.round(shutterOrderDetail.thickness) + "XXX" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                 } else {
-                    var productCode = "SHUTTER-" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                    var productCode = "SHUTTERX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                 }
                 var shutterArea = (shutterOrderDetail.length * shutterOrderDetail.width);
                 var shutterAreaSqMt = (shutterArea / 1000000);
@@ -3954,9 +3958,9 @@ angular.module("digitalbusiness.states.order", [])
                 }
 
                 if (drawerOrderDetail.component !== undefined) {
-                    var productCode = drawerOrderDetail.component + "X-" + Math.round(drawerOrderDetail.thickness) + "" + drawerOrderDetail.material + "X" + drawerOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(drawerOrderDetail.thickness) + "000";
+                    var productCode = drawerOrderDetail.component + "XX" + Math.round(drawerOrderDetail.thickness) + "" + drawerOrderDetail.material + "X" + drawerOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(drawerOrderDetail.thickness) + "000";
                 } else {
-                    var productCode = "DRAWERX-" + Math.round(drawerOrderDetail.thickness) + "" + drawerOrderDetail.material + "X" + drawerOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(drawerOrderDetail.thickness) + "000";
+                    var productCode = "DRAWERXX" + Math.round(drawerOrderDetail.thickness) + "" + drawerOrderDetail.material + "X" + drawerOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(drawerOrderDetail.thickness) + "000";
                 }
                 $scope.applyDrawerDiscount = function (drawerOrderDetail) {
                     RateContractDetailService.findByShutterFinishMaterialThickness({
@@ -3965,6 +3969,7 @@ angular.module("digitalbusiness.states.order", [])
                         'thickness': drawerOrderDetail.thickness,
                         'rateContractId': drawerOrderDetail.rateContractId
                     }, function (rateContractDetailObject) {
+                        drawerOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((drawerOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
                         drawerOrderDetail.price = (drawerOrderDetail.unitPrice - discountPrice);
                         DrawerOrderDetailsService.save(drawerOrderDetail, function () {
@@ -4049,6 +4054,7 @@ angular.module("digitalbusiness.states.order", [])
                         'thickness': fillerOrderDetail.thickness,
                         'rateContractId': fillerOrderDetail.rateContractId
                     }, function (rateContractDetailObject) {
+                        fillerOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((fillerOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
                         fillerOrderDetail.price = (fillerOrderDetail.unitPrice - discountPrice);
                         FillerOrderDetailsService.save(fillerOrderDetail, function () {
@@ -4128,6 +4134,7 @@ angular.module("digitalbusiness.states.order", [])
                         'thickness': pelmetOrderDetail.thickness,
                         'rateContractId': pelmetOrderDetail.rateContractId
                     }, function (rateContractDetailObject) {
+                        pelmetOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((pelmetOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
                         pelmetOrderDetail.price = (pelmetOrderDetail.unitPrice - discountPrice);
                         PelmetOrderDetailsService.save(pelmetOrderDetail, function () {
@@ -4202,6 +4209,7 @@ angular.module("digitalbusiness.states.order", [])
                         'thickness': corniceOrderDetail.thickness,
                         'rateContractId': corniceOrderDetail.rateContractId
                     }, function (rateContractDetailObject) {
+                        corniceOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((corniceOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
                         corniceOrderDetail.price = (corniceOrderDetail.unitPrice - discountPrice);
                         CorniceOrderDetailsService.save(corniceOrderDetail, function () {
@@ -4945,8 +4953,8 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.newOrderHeadObject.billingPartyObject = angular.copy(orderHead.billingPartyObject);
                 $scope.newOrderHeadObject.deliveryPartyObject = angular.copy(orderHead.deliveryPartyObject);
                 console.log("New Order Head :%O", $scope.newOrderHeadObject);
-//                $http.post("http://14.192.18.131:9080/Innocal/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
-                $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
+                $http.post("http://14.192.18.131:9080/Innocal/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
+//                $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
                         .then(function successCallback(response) {
                             console.log("Successfully POST-ed data :%O", response);
 //                            var orderDetailList = [];
@@ -4955,13 +4963,13 @@ angular.module("digitalbusiness.states.order", [])
                                 'orderHeadId': $stateParams.orderHeadId
                             }, function (carcassOrderList) {
                                 angular.forEach(carcassOrderList, function (carcassOrderObject) {
-                                    RateContractDetailService.findByCarcassMaterialThickness({
-                                        'material': carcassOrderObject.material,
-                                        'thickness': 18,
-                                        'rateContractId': orderHead.billingPartyObject.rateContractId
-                                    }, function (rateContractDetailObject) {
-                                        carcassOrderObject.discountPer = rateContractDetailObject.discountPer;
-                                    });
+//                                    RateContractDetailService.findByCarcassMaterialThickness({
+//                                        'material': carcassOrderObject.material,
+//                                        'thickness': 18,
+//                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+//                                    }, function (rateContractDetailObject) {
+//                                        carcassOrderObject.discountPer = rateContractDetailObject.discountPer;
+//                                    });
                                     console.log("Final Carcass Order Detail Before Pushing Into ERP :%O", carcassOrderObject);
                                     $scope.erpPush(carcassOrderObject);
                                 });
@@ -4971,13 +4979,13 @@ angular.module("digitalbusiness.states.order", [])
                                 'orderHeadId': $stateParams.orderHeadId
                             }, function (panelOrderList) {
                                 angular.forEach(panelOrderList, function (panelOrderObject) {
-                                    RateContractDetailService.findByPanelMaterialThickness({
-                                        'material': panelOrderObject.material,
-                                        'thickness': panelOrderObject.thickness,
-                                        'rateContractId': orderHead.billingPartyObject.rateContractId
-                                    }, function (rateContractDetailObject) {
-                                        panelOrderObject.discountPer = rateContractDetailObject.discountPer;
-                                    });
+//                                    RateContractDetailService.findByPanelMaterialThickness({
+//                                        'material': panelOrderObject.material,
+//                                        'thickness': panelOrderObject.thickness,
+//                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+//                                    }, function (rateContractDetailObject) {
+//                                        panelOrderObject.discountPer = rateContractDetailObject.discountPer;
+//                                    });
 //                                    ColorService.get({
 //                                        'id': panelOrderObject.colorId
 //                                    }, function (colorObject) {
@@ -4997,14 +5005,14 @@ angular.module("digitalbusiness.states.order", [])
                                 'orderHeadId': $stateParams.orderHeadId
                             }, function (shutterOrderList) {
                                 angular.forEach(shutterOrderList, function (shutterOrderObject) {
-                                    RateContractDetailService.findByShutterFinishMaterialThickness({
-                                        'finish': shutterOrderObject.finish,
-                                        'material': shutterOrderObject.material,
-                                        'thickness': shutterOrderObject.thickness,
-                                        'rateContractId': orderHead.billingPartyObject.rateContractId
-                                    }, function (rateContractDetailObject) {
-                                        shutterOrderObject.discountPer = rateContractDetailObject.discountPer;
-                                    });
+//                                    RateContractDetailService.findByShutterFinishMaterialThickness({
+//                                        'finish': shutterOrderObject.finish,
+//                                        'material': shutterOrderObject.material,
+//                                        'thickness': shutterOrderObject.thickness,
+//                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+//                                    }, function (rateContractDetailObject) {
+//                                        shutterOrderObject.discountPer = rateContractDetailObject.discountPer;
+//                                    });
                                     console.log("Final Shutter Order Detail Before Pushing Into ERP :%O", shutterOrderObject);
                                     $scope.erpPush(shutterOrderObject);
                                 });
@@ -5015,14 +5023,14 @@ angular.module("digitalbusiness.states.order", [])
                                 'orderHeadId': $stateParams.orderHeadId
                             }, function (drawerOrderList) {
                                 angular.forEach(drawerOrderList, function (drawerOrderObject) {
-                                    RateContractDetailService.findByShutterFinishMaterialThickness({
-                                        'finish': drawerOrderObject.finish,
-                                        'material': drawerOrderObject.material,
-                                        'thickness': drawerOrderObject.thickness,
-                                        'rateContractId': orderHead.billingPartyObject.rateContractId
-                                    }, function (rateContractDetailObject) {
-                                        drawerOrderObject.discountPer = rateContractDetailObject.discountPer;
-                                    });
+//                                    RateContractDetailService.findByShutterFinishMaterialThickness({
+//                                        'finish': drawerOrderObject.finish,
+//                                        'material': drawerOrderObject.material,
+//                                        'thickness': drawerOrderObject.thickness,
+//                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+//                                    }, function (rateContractDetailObject) {
+//                                        drawerOrderObject.discountPer = rateContractDetailObject.discountPer;
+//                                    });
                                     console.log("Final Drawer Order Detail Before Pushing Into ERP :%O", drawerOrderObject);
                                     $scope.erpPush(drawerOrderObject);
                                 });
@@ -5033,14 +5041,14 @@ angular.module("digitalbusiness.states.order", [])
                                 'orderHeadId': $stateParams.orderHeadId
                             }, function (fillerOrderList) {
                                 angular.forEach(fillerOrderList, function (fillerOrderObject) {
-                                    RateContractDetailService.findByShutterFinishMaterialThickness({
-                                        'finish': fillerOrderObject.finish,
-                                        'material': fillerOrderObject.material,
-                                        'thickness': fillerOrderObject.thickness,
-                                        'rateContractId': orderHead.billingPartyObject.rateContractId
-                                    }, function (rateContractDetailObject) {
-                                        fillerOrderObject.discountPer = rateContractDetailObject.discountPer;
-                                    });
+//                                    RateContractDetailService.findByShutterFinishMaterialThickness({
+//                                        'finish': fillerOrderObject.finish,
+//                                        'material': fillerOrderObject.material,
+//                                        'thickness': fillerOrderObject.thickness,
+//                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+//                                    }, function (rateContractDetailObject) {
+//                                        fillerOrderObject.discountPer = rateContractDetailObject.discountPer;
+//                                    });
                                     console.log("Final Filler Order Detail Before Pushing Into ERP :%O", fillerOrderObject);
                                     $scope.erpPush(fillerOrderObject);
                                 });
@@ -5051,14 +5059,14 @@ angular.module("digitalbusiness.states.order", [])
                                 'orderHeadId': $stateParams.orderHeadId
                             }, function (pelmetOrderList) {
                                 angular.forEach(pelmetOrderList, function (pelmetOrderObject) {
-                                    RateContractDetailService.findByShutterFinishMaterialThickness({
-                                        'finish': pelmetOrderObject.finish,
-                                        'material': pelmetOrderObject.material,
-                                        'thickness': pelmetOrderObject.thickness,
-                                        'rateContractId': orderHead.billingPartyObject.rateContractId
-                                    }, function (rateContractDetailObject) {
-                                        pelmetOrderObject.discountPer = rateContractDetailObject.discountPer;
-                                    });
+//                                    RateContractDetailService.findByShutterFinishMaterialThickness({
+//                                        'finish': pelmetOrderObject.finish,
+//                                        'material': pelmetOrderObject.material,
+//                                        'thickness': pelmetOrderObject.thickness,
+//                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+//                                    }, function (rateContractDetailObject) {
+//                                        pelmetOrderObject.discountPer = rateContractDetailObject.discountPer;
+//                                    });
                                     console.log("Final Pelmet Order Detail Before Pushing Into ERP :%O", pelmetOrderObject);
                                     $scope.erpPush(pelmetOrderObject);
                                 });
@@ -5069,14 +5077,14 @@ angular.module("digitalbusiness.states.order", [])
                                 'orderHeadId': $stateParams.orderHeadId
                             }, function (corniceOrderList) {
                                 angular.forEach(corniceOrderList, function (corniceOrderObject) {
-                                    RateContractDetailService.findByShutterFinishMaterialThickness({
-                                        'finish': corniceOrderObject.finish,
-                                        'material': corniceOrderObject.material,
-                                        'thickness': corniceOrderObject.thickness,
-                                        'rateContractId': orderHead.billingPartyObject.rateContractId
-                                    }, function (rateContractDetailObject) {
-                                        corniceOrderObject.discountPer = rateContractDetailObject.discountPer;
-                                    });
+//                                    RateContractDetailService.findByShutterFinishMaterialThickness({
+//                                        'finish': corniceOrderObject.finish,
+//                                        'material': corniceOrderObject.material,
+//                                        'thickness': corniceOrderObject.thickness,
+//                                        'rateContractId': orderHead.billingPartyObject.rateContractId
+//                                    }, function (rateContractDetailObject) {
+//                                        corniceOrderObject.discountPer = rateContractDetailObject.discountPer;
+//                                    });
                                     console.log("Final Cornice Order Detail Before Pushing Into ERP :%O", corniceOrderObject);
                                     $scope.erpPush(corniceOrderObject);
                                 });
@@ -5104,8 +5112,8 @@ angular.module("digitalbusiness.states.order", [])
 //                            console.log("WHat is Final List NOw :%O", $scope.finalOrderList);
                             $scope.erpPush = function (orderDetails) {
                                 console.log("Order Details :%O", orderDetails);
-                                $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
-//                                $http.post("http://14.192.18.131:9080/Innocal/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
+//                                $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
+                                $http.post("http://14.192.18.131:9080/Innocal/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
                                     console.log("Carcass Success Response :%O", response);
                                 }, function errorCallback(response) {
                                     console.log("Carcass Error Response :%O", response);

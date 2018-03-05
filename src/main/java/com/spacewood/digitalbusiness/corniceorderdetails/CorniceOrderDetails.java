@@ -29,6 +29,7 @@ public class CorniceOrderDetails {
     private String remark;
     private String orderFor;
     private String colorCode;
+    private Double discountPer;
 
     public Integer getId() {
         return id;
@@ -158,6 +159,14 @@ public class CorniceOrderDetails {
         this.colorCode = colorCode;
     }
 
+    public Double getDiscountPer() {
+        return discountPer;
+    }
+
+    public void setDiscountPer(Double discountPer) {
+        this.discountPer = discountPer;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -177,6 +186,7 @@ public class CorniceOrderDetails {
         hash = 37 * hash + Objects.hashCode(this.remark);
         hash = 37 * hash + Objects.hashCode(this.orderFor);
         hash = 37 * hash + Objects.hashCode(this.colorCode);
+        hash = 37 * hash + Objects.hashCode(this.discountPer);
         return hash;
     }
 
@@ -240,12 +250,15 @@ public class CorniceOrderDetails {
         if (!Objects.equals(this.finishPrice, other.finishPrice)) {
             return false;
         }
+        if (!Objects.equals(this.discountPer, other.discountPer)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "CorniceOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", finishPrice=" + finishPrice + ", finish=" + finish + ", remark=" + remark + ", orderFor=" + orderFor + ", colorCode=" + colorCode + '}';
+        return "CorniceOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", finishPrice=" + finishPrice + ", finish=" + finish + ", remark=" + remark + ", orderFor=" + orderFor + ", colorCode=" + colorCode + ", discountPer=" + discountPer + '}';
     }
     
 }

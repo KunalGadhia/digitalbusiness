@@ -40,6 +40,7 @@ public class CorniceOrderDetailsDAL {
         public static final String REMARK = "remark";
         public static final String ORDER_FOR = "order_for";
         public static final String COLOR_CODE = "color_code";
+        public static final String DISCOUNT_PER = "discount_per";
 
     }
 
@@ -68,7 +69,8 @@ public class CorniceOrderDetailsDAL {
                         Columns.FINISH,
                         Columns.REMARK,
                         Columns.ORDER_FOR,
-                        Columns.COLOR_CODE
+                        Columns.COLOR_CODE,
+                        Columns.DISCOUNT_PER
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -116,6 +118,7 @@ public class CorniceOrderDetailsDAL {
         parameters.put(Columns.REMARK, corniceOrderDetails.getRemark());
         parameters.put(Columns.ORDER_FOR, "CORNICE");
         parameters.put(Columns.COLOR_CODE, corniceOrderDetails.getColorCode());
+        parameters.put(Columns.DISCOUNT_PER, corniceOrderDetails.getDiscountPer());
         Number newId = insertCorniceOrderDetail.executeAndReturnKey(parameters);
         corniceOrderDetails = findById(newId.intValue());
         return corniceOrderDetails;

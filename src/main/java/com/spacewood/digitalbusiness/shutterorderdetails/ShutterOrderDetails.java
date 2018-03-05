@@ -44,6 +44,7 @@ public class ShutterOrderDetails {
     private String orderFor;
     private String intColorCode;
     private String colorCode;
+    private Double discountPer;
 
     public Integer getId() {
         return id;
@@ -301,41 +302,50 @@ public class ShutterOrderDetails {
         this.colorCode = colorCode;
     }
 
+    public Double getDiscountPer() {
+        return discountPer;
+    }
+
+    public void setDiscountPer(Double discountPer) {
+        this.discountPer = discountPer;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 71 * hash + Objects.hashCode(this.id);
-        hash = 71 * hash + Objects.hashCode(this.productCode);
-        hash = 71 * hash + Objects.hashCode(this.material);
-        hash = 71 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 71 * hash + Objects.hashCode(this.component);
-        hash = 71 * hash + Objects.hashCode(this.width);
-        hash = 71 * hash + Objects.hashCode(this.length);
-        hash = 71 * hash + Objects.hashCode(this.thickness);
-        hash = 71 * hash + Objects.hashCode(this.quantity);
-        hash = 71 * hash + Objects.hashCode(this.colorId);
-        hash = 71 * hash + Objects.hashCode(this.intColorId);
-        hash = 71 * hash + Objects.hashCode(this.price);
-        hash = 71 * hash + Objects.hashCode(this.stdOneSidePrice);
-        hash = 71 * hash + Objects.hashCode(this.stdBothSidePrice);
-        hash = 71 * hash + Objects.hashCode(this.finish);
-        hash = 71 * hash + Objects.hashCode(this.bsm);
-        hash = 71 * hash + Objects.hashCode(this.grain);
-        hash = 71 * hash + Objects.hashCode(this.handle);
-        hash = 71 * hash + Objects.hashCode(this.handleLength);
-        hash = 71 * hash + Objects.hashCode(this.handleFinish);
-        hash = 71 * hash + Objects.hashCode(this.handlePrice);
-        hash = 71 * hash + Objects.hashCode(this.hingePosition);
-        hash = 71 * hash + Objects.hashCode(this.glass);
-        hash = 71 * hash + Objects.hashCode(this.step);
-        hash = 71 * hash + Objects.hashCode(this.jali);
-        hash = 71 * hash + Objects.hashCode(this.straightener);
-        hash = 71 * hash + Objects.hashCode(this.straightenerPrice);
-        hash = 71 * hash + Objects.hashCode(this.asPerDrawing);
-        hash = 71 * hash + Objects.hashCode(this.remark);
-        hash = 71 * hash + Objects.hashCode(this.orderFor);
-        hash = 71 * hash + Objects.hashCode(this.intColorCode);
-        hash = 71 * hash + Objects.hashCode(this.colorCode);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.productCode);
+        hash = 47 * hash + Objects.hashCode(this.material);
+        hash = 47 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 47 * hash + Objects.hashCode(this.component);
+        hash = 47 * hash + Objects.hashCode(this.width);
+        hash = 47 * hash + Objects.hashCode(this.length);
+        hash = 47 * hash + Objects.hashCode(this.thickness);
+        hash = 47 * hash + Objects.hashCode(this.quantity);
+        hash = 47 * hash + Objects.hashCode(this.colorId);
+        hash = 47 * hash + Objects.hashCode(this.intColorId);
+        hash = 47 * hash + Objects.hashCode(this.price);
+        hash = 47 * hash + Objects.hashCode(this.stdOneSidePrice);
+        hash = 47 * hash + Objects.hashCode(this.stdBothSidePrice);
+        hash = 47 * hash + Objects.hashCode(this.finish);
+        hash = 47 * hash + Objects.hashCode(this.bsm);
+        hash = 47 * hash + Objects.hashCode(this.grain);
+        hash = 47 * hash + Objects.hashCode(this.handle);
+        hash = 47 * hash + Objects.hashCode(this.handleLength);
+        hash = 47 * hash + Objects.hashCode(this.handleFinish);
+        hash = 47 * hash + Objects.hashCode(this.handlePrice);
+        hash = 47 * hash + Objects.hashCode(this.hingePosition);
+        hash = 47 * hash + Objects.hashCode(this.glass);
+        hash = 47 * hash + Objects.hashCode(this.step);
+        hash = 47 * hash + Objects.hashCode(this.jali);
+        hash = 47 * hash + Objects.hashCode(this.straightener);
+        hash = 47 * hash + Objects.hashCode(this.straightenerPrice);
+        hash = 47 * hash + Objects.hashCode(this.asPerDrawing);
+        hash = 47 * hash + Objects.hashCode(this.remark);
+        hash = 47 * hash + Objects.hashCode(this.orderFor);
+        hash = 47 * hash + Objects.hashCode(this.intColorCode);
+        hash = 47 * hash + Objects.hashCode(this.colorCode);
+        hash = 47 * hash + Objects.hashCode(this.discountPer);
         return hash;
     }
 
@@ -447,12 +457,15 @@ public class ShutterOrderDetails {
         if (!Objects.equals(this.asPerDrawing, other.asPerDrawing)) {
             return false;
         }
+        if (!Objects.equals(this.discountPer, other.discountPer)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "ShutterOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", intColorId=" + intColorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", stdBothSidePrice=" + stdBothSidePrice + ", finish=" + finish + ", bsm=" + bsm + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", hingePosition=" + hingePosition + ", glass=" + glass + ", step=" + step + ", jali=" + jali + ", straightener=" + straightener + ", straightenerPrice=" + straightenerPrice + ", asPerDrawing=" + asPerDrawing + ", remark=" + remark + ", orderFor=" + orderFor + ", intColorCode=" + intColorCode + ", colorCode=" + colorCode + '}';
+        return "ShutterOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", intColorId=" + intColorId + ", price=" + price + ", stdOneSidePrice=" + stdOneSidePrice + ", stdBothSidePrice=" + stdBothSidePrice + ", finish=" + finish + ", bsm=" + bsm + ", grain=" + grain + ", handle=" + handle + ", handleLength=" + handleLength + ", handleFinish=" + handleFinish + ", handlePrice=" + handlePrice + ", hingePosition=" + hingePosition + ", glass=" + glass + ", step=" + step + ", jali=" + jali + ", straightener=" + straightener + ", straightenerPrice=" + straightenerPrice + ", asPerDrawing=" + asPerDrawing + ", remark=" + remark + ", orderFor=" + orderFor + ", intColorCode=" + intColorCode + ", colorCode=" + colorCode + ", discountPer=" + discountPer + '}';
     }
     
 }

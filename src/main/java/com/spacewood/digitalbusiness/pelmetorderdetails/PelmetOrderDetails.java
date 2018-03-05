@@ -28,6 +28,7 @@ public class PelmetOrderDetails {
     private String remark;
     private String orderFor;
     private String colorCode;
+    private Double discountPer;
 
     public Integer getId() {
         return id;
@@ -157,9 +158,17 @@ public class PelmetOrderDetails {
         this.colorCode = colorCode;
     }
 
+    public Double getDiscountPer() {
+        return discountPer;
+    }
+
+    public void setDiscountPer(Double discountPer) {
+        this.discountPer = discountPer;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 5;
         hash = 97 * hash + Objects.hashCode(this.id);
         hash = 97 * hash + Objects.hashCode(this.productCode);
         hash = 97 * hash + Objects.hashCode(this.material);
@@ -176,6 +185,7 @@ public class PelmetOrderDetails {
         hash = 97 * hash + Objects.hashCode(this.remark);
         hash = 97 * hash + Objects.hashCode(this.orderFor);
         hash = 97 * hash + Objects.hashCode(this.colorCode);
+        hash = 97 * hash + Objects.hashCode(this.discountPer);
         return hash;
     }
 
@@ -239,12 +249,15 @@ public class PelmetOrderDetails {
         if (!Objects.equals(this.finishPrice, other.finishPrice)) {
             return false;
         }
+        if (!Objects.equals(this.discountPer, other.discountPer)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "PelmetOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", finishPrice=" + finishPrice + ", finish=" + finish + ", remark=" + remark + ", orderFor=" + orderFor + ", colorCode=" + colorCode + '}';
+        return "PelmetOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", finishPrice=" + finishPrice + ", finish=" + finish + ", remark=" + remark + ", orderFor=" + orderFor + ", colorCode=" + colorCode + ", discountPer=" + discountPer + '}';
     }
         
 }
