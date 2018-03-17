@@ -86,7 +86,7 @@ public class ColorConstraintDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.MATERIAL_CODE + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{materialCode}, colorRowMapper);
     }
-    
+
     public ColorConstraint findByFinishCode(String finishCode) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.FINISH_CODE + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{finishCode}, colorRowMapper);
@@ -100,7 +100,11 @@ public class ColorConstraintDAL {
     public ColorConstraint insert(ColorConstraint colorConstraint) throws JsonProcessingException {
         logger.info("location object in DAL line95 {}", colorConstraint);
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put(Columns.COMPONENT, colorConstraint.getComponent().name());
+        if (colorConstraint.getComponent() == null) {
+            parameters.put(Columns.COMPONENT, ConstraintItem.NO_COMPONENT);
+        } else {
+            parameters.put(Columns.COMPONENT, colorConstraint.getComponent().name());
+        }
         parameters.put(Columns.MATERIAL_CODE, colorConstraint.getMaterialCode());
         parameters.put(Columns.COLORS, colorConstraint.getColors() == null ? "[]" : mapper.writeValueAsString(colorConstraint.getColors()));
         parameters.put(Columns.FINISH_CODE, colorConstraint.getFinishCode());

@@ -40,9 +40,7 @@ and open the template in the editor.
 
     }
     .main-text{
-        position: absolute;
-        top: 188px;
-        width: 96.66666666666666%;
+        width: 100%;
         color: #FFF;
     }
 
@@ -170,16 +168,19 @@ and open the template in the editor.
     }
     .footer-po{
         position: relative;
-        top: -152px;
     }
     .footer-hr-position{
         position: relative !important;
-        top: -168px !important;
-    }.mt264{
+        margin: 10px 0px;
+    }
+    .footer-margin img{
+        max-width: 60%;
+        margin-top: 25px;
+    }
+    .mt264{
         position:relative;
-        bottom: 22px;
-        top: -192px;
-    }.mb245 {
+    }
+    .mb245 {
         margin-bottom: 245px;
         margin-top: -0.2em;
     }.footer-form-in-bg {
@@ -430,8 +431,6 @@ and open the template in the editor.
         padding-top: 375px;
     }
     .main-text{
-        position: absolute;
-        top: 50px;
         width: 96.66666666666666%;
         color: #FFF;
     }
@@ -767,6 +766,12 @@ and open the template in the editor.
     }
 
 }
+@media (min-width:768px){
+    .main-text {
+        position: absolute;
+        top: 45px;
+    }
+}
 @media (min-width:641px) { 
     select, input[type="text"], input[type="email"], textarea, input[type="tel"], textarea, input[type="number"] {
         border: 1px solid #d6d6d6;
@@ -794,10 +799,14 @@ and open the template in the editor.
         padding-top: 0px;
     }
     .main-text{
-        position: absolute;
-        top: 0px;
-        width: 96.66666666666666%;
+        width: 100%;
         color: #FFF;
+    }
+    .b-right {
+        border-bottom: 2px solid #636061;
+        border-right: 0px solid #636061;
+        padding-bottom: 20px;
+        padding-top: 20px;
     }
     .mrml40{
         margin: 0px 40px 0px 18px !important;
@@ -902,13 +911,7 @@ and open the template in the editor.
         padding: 0px 0px 0px 0px;
         line-height: 24px;
         list-style-type: none;
-        height: 218px;
-    }
-    .b-right{
-        border-right: 2px solid #636061;
-        border-bottom: 0px solid #636061;
-        padding-bottom: 0px;
-        padding-top: 0px;
+        height: auto;
     }
     .footer-po{
         position: relative;
@@ -978,7 +981,7 @@ and open the template in the editor.
         height: 323px;
     }
     .pt80{
-        padding-top:80px;
+        padding-top:40px;
     }
     .light-gray{
         background-color:#f1f1f2;
@@ -1130,6 +1133,14 @@ and open the template in the editor.
     }
 
 }
+@media (min-width:768px){
+    .b-right {
+        border-bottom: 0px solid #636061;
+        border-right: 2px solid #636061;
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+}
 @media (min-width:961px) {
     select, input[type="text"], input[type="email"], textarea, input[type="tel"], textarea, input[type="number"] {
         border: 1px solid #d6d6d6;
@@ -1262,6 +1273,7 @@ and open the template in the editor.
         border-bottom: 0px solid #636061;
         padding-bottom: 0px;
         padding-top: 0px;
+        height: 270px;
     }
     .footer-po{
         position: relative;
@@ -1477,7 +1489,10 @@ and open the template in the editor.
     }.copyright-css-hide{
         display:block
     }
-
+    .footer-margin img{
+        max-width: 100%;
+        margin-top: 0;
+    }
 }
 @media (min-width:1025px) {
     select, input[type="text"], input[type="email"], textarea, input[type="tel"], textarea, input[type="number"] {

@@ -38,5 +38,6 @@ public enum ConstraintItem {
     PU_LACQURED_METTALIC_PLY,
     PU_LACQURED_SOLID_MDF,
     PU_LACQURED_METTALIC_MDF,
+    NO_COMPONENT
     
 }

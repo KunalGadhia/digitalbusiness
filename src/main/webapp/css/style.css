@@ -2,6 +2,397 @@
         padding-left:0px;
         padding-right:0px;
 }
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+.carousel-control { 
+    width: 8%;
+    width: 0px;
+}
+.carousel-control.left,
+.carousel-control.right {
+    background-image: none;
+    opacity: 1;
+}
+.carousel-control > a > span {
+    color: white;
+    font-size: 29px !important;
+}
+ .active > div { 
+     display:none; 
+ }
+ .active > div:first-child { 
+     display:block; 
+ }
+
+ .itemCaption{
+    text-align: center;
+    padding: 10px;
+ }
+ .itemCaption img{
+    border-radius: 50%;
+    box-shadow: 0px 0px 1px 4px rgba(255, 179, 0, 0.8), 0px 0px 2px 8px rgba(255, 179, 0, 0.4);
+    margin-bottom: 15px;
+ }
+ .itemCaption p:nth-child(2){
+    font-size: 16px;
+    font-weight: 600;
+ }
+ .itemCaption p:nth-child(2):before,
+ .itemCaption p:nth-child(2):after{
+     font-family: FontAwesome;
+     font-size: 20px;
+     position: relative;
+     color: #ffb300;
+ }
+ .itemCaption p:nth-child(2):after{
+    content: '\f10e';
+    top: 10px;
+    right: -10px;
+ }
+ .itemCaption p:nth-child(2):before{
+    content: '\f10d';
+    top: -5px;
+    left: -10px;
+ }
+ .itemCaption p:nth-child(3){
+    font-size: 18px;
+    font-style: italic;
+ }
+ .itemCaption p:last-child{
+     font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+ }
+ .testimo .carousel-control.left,
+ .testimo .carousel-control.right{
+     top: 110px !important;
+ }
+ .testimo .carousel-control .glyphicon-chevron-right,
+ .carousel-control .icon-next{
+     right: 0 !important;
+ }
+ .testimo .carousel-indicators li{
+    background: #ffb300;
+    width: 14px;
+    height: 14px;
+ }
+ .testimo .carousel-indicators .active{
+    background: #000;
+    width: 16px;
+    height: 16px;
+    -webkit-transition: 0.5s; /* Safari */
+    transition: width 0.5s;
+ }
+ .testimo .carousel-indicators {
+    bottom: -30px;
+}
+
+/*xs*/
+@media (max-width: 320px){
+    td{
+        padding-left: 115px !important;
+        font-size: 12px;
+    }
+    .panel .form-group {
+        width: 70%;
+    }
+}
+@media (max-width: 480px){
+    .panel .panel-heading h4 {
+        margin: 45px 0 0 0 !important;
+    }
+    .panel .form-group{
+        margin-bottom: 20px !important;
+        width: 60%;
+        margin: 0 auto;
+        border: 1px solid #000;
+        padding: 10px;
+        border-radius: 15px;
+        box-shadow: 2px 2px 5px 0px #777;
+    }
+    .panel .panel-body div.col-xs-6{
+        width: 100%;
+    }
+    .icon_ht {
+        height: 130px !important;
+        margin-bottom: 10px;
+    }
+    .form-group span{
+        font-size: 16px;
+        color: #000;
+    }
+    .panel-body {
+        padding: 0 15px;
+    }
+    hr.ng-scope{
+        margin: 0;
+    }
+    .modal-header{
+        margin-bottom: 15px;
+    }
+    .footer-ul:nth-child(5){
+        padding-top: 20px !important;
+    }
+}
+@media (max-width: 767px){
+    .carousel-inner .active.left{
+        left: -50%; 
+    }
+    .carousel-inner .active.right{ 
+        left: 50%; 
+    }
+    .carousel-inner .next{ 
+        left:  50%; 
+    }
+    .carousel-inner .prev{ 
+        left: -50%; 
+    }
+    .active > div:first-child + div { 
+        display:block; 
+    }
+    .itemCaption p:nth-child(2){
+        font-size: 14px;
+        font-weight: 600;
+        text-align: justify;
+    }
+    /*-- inner page --*/
+    #main-content .col-xs-6{
+        padding: 0;
+    }
+    .panel .panel-heading h4{
+        margin: 5px 0;
+    }
+    /*-- table responsive --*/
+    .panel{
+        border: none;
+    }
+    table, thead, tbody, th, td, tr { 
+	display: block; 
+    }
+    thead tr{
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    tr{
+        border: 1px solid #777;
+        margin: 10px 0;
+    }
+    .table-striped>tbody>tr:nth-of-type(odd) {
+        background-color: #fff;
+    }
+    td:nth-of-type(odd) { 
+        background: #eee; 
+    }
+    td{
+        border: none;
+        border-top: none !important;
+        position: relative;
+        padding-left: 50%;
+        padding-left: 130px !important;
+    }
+    td.text-right{
+        text-align: left !important;
+    }
+    td:before { 
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+        text-align: left;
+        font-weight: 600;
+    }
+    td:nth-of-type(1):before { content: "#"; }
+    td:nth-of-type(2):before { content: "Employee Code"; }
+    td:nth-of-type(3):before { content: "Name"; }
+    td:nth-of-type(4):before { content: "Mobile Number"; }
+    td:nth-of-type(5):before { content: "Email ID"; }
+    td:nth-of-type(6):before { content: "Actions"; }
+    
+    footer {
+        margin: 20px 0px 0px 0px;
+    }
+}
+
+/*sm*/
+@media (min-width: 768px) and (max-width: 991px) {
+    .carousel-inner .active.left { 
+        left: -50%; 
+    }
+    .carousel-inner .active.right { 
+        left: 50%; 
+    }
+    .carousel-inner .next{ 
+        left:  50%; 
+    }
+    .carousel-inner .prev{ 
+        left: -50%; 
+    }
+    .active > div:first-child + div { 
+        display:block; 
+    }
+}
+
+/*md*/
+@media (min-width: 992px) and (max-width: 1199px) {
+    .carousel-inner .active.left { 
+        left: -33%; 
+    }
+    .carousel-inner .active.right { 
+        left: 33%; 
+    }
+    .carousel-inner .next{ 
+        left:  33%; 
+    }
+    .carousel-inner .prev{ 
+        left: -33%; 
+    }
+    .active > div:first-child + div { 
+        display:block; 
+    }
+    .active > div:first-child + div + div { 
+        display:block; 
+    }
+}
+
+/*lg*/
+@media (min-width: 1200px) {
+    .carousel-inner .active.left { 
+        left: -25%; 
+    }
+    .carousel-inner .active.right{ 
+        left:  25%; 
+    }
+    .carousel-inner .next{ 
+        left:  25%; 
+    }
+    .carousel-inner .prev{ 
+        left: -25%; 
+    }
+    .active > div:first-child + div { 
+        display:block; 
+    }
+    .active > div:first-child + div + div { 
+        display:block; 
+    }
+    .active > div:first-child + div + div + div { 
+        display:block; 
+    }
+}
+
+.block {
+    width: 306px;
+    height: 230px;
+}
+
+/*-- navbar menu --*/
+.panelToggle{
+    display: none;
+}
+ul.menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    float: right;
+}
+ul.menu li {
+    font-size: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    float: left;
+    transition: .3s;
+    -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+         -o-transform: translateZ(0);
+          transform: translateZ(0);
+}
+ul.menu li a{
+    padding: 10px 10px;
+}
+ul.menu li:hover {
+    transition: .3s;
+}
+ul.menu li:hover a {
+    color: #ffb300;
+    text-decoration: none;
+}
+.headerPadding{
+    padding-top: 40px;
+}
+
+/*--  responsive css --*/
+@media only screen and (max-width: 767px){
+    ul.menu li span{
+        display:none;
+    }
+    ul.menu li {
+        width: 100%;
+        text-align: left;
+    }
+    ul.menu{
+        float: none;
+    }
+    .panel {
+        display: block;
+        width: 100%;
+        box-shadow: none !important;
+    }
+    .resp-nav {
+        display: none;
+        width: 100%;
+    }
+    button.toggle-button {
+        background: none;
+        border: 0;
+        color: inherit;
+        /* cursor: default; */
+        font: inherit;
+        line-height: normal;
+        overflow: visible;
+        padding: 0;
+        -webkit-appearance: button; /* for input */
+        -webkit-user-select: none; /* for button */
+           -moz-user-select: none;
+            -ms-user-select: none;
+    }
+    button::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+    .toggle-button {
+        margin: 0 0 0 50px;
+        position: relative;
+        font-size: 24px;
+    }
+    .toggle-button::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 5px;
+        width: 40px;
+        height: 3px;
+        background: #000;
+        box-shadow: 0 7px 0 0 #ffb300,0 14px 0 0 #000;
+    }
+    .toggle-button span {
+      text-transform: uppercase;
+    }
+
+    .headerPadding{
+        padding-top: 10px;
+    }
+    .fixedBox{
+        float: none !important;
+        margin: 0 auto;
+        padding-top: 20px;
+    }
+    
+}
 
 /*
 To change this license header, choose License Headers in Project Properties.

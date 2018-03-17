@@ -185,10 +185,7 @@
             }
         </style>
         <style>            
-            .container {
-                position: relative;
-                width: 50%;
-            }
+
 
             .image {
                 display: block;
@@ -276,9 +273,9 @@
         <!--JavaScript-->
         <script src="${pageContext.request.contextPath}/js/app.js"></script>
         <script src="${pageContext.request.contextPath}/js/auth.js"></script>
-        <script src="${pageContext.request.contextPath}/js/filters.js"></script>
-<!--        <script src="${pageContext.request.contextPath}/js/directives/datetime_picker.js"></script>
-        
+        <script src="${pageContext.request.contextPath}/js/filters.js"></script>        
+        <!--        <script src="${pageContext.request.contextPath}/js/directives/datetime_picker.js"></script>
+                
         <!--states-->
         <script src="${pageContext.request.contextPath}/js/states.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/admin.js"></script>

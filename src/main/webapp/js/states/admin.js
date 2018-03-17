@@ -26,21 +26,22 @@ angular.module("digitalbusiness.states.admin", [])
                 'controller': 'LogoutController'
             });
         })
-        .controller('AdminController', function ($scope, $rootScope, UserService, NotificationService) {            
+        .controller('AdminController', function ($scope, $rootScope, UserService, NotificationService) {
             NotificationService.findAllList(function (notificationList) {
                 $scope.notificationList = notificationList;
             });
             $scope.user = $rootScope.currentUser;
             UserService.findByUsername({
                 'username': $scope.user.username
-            }, function (userObject) {                
-                $scope.notificationUserObject = userObject;                
+            }, function (userObject) {
+                $scope.notificationUserObject = userObject;
             });
         })
         .controller('AdminMasterMenu', function ($scope, UserService, NotificationService) {
+            console.log("In Admin Master Menu");
         })
         .controller('DealerMasterMenu', function ($scope, UserService, NotificationService) {
-
+            console.log("In Dealer Menu");
         })
         .controller('LogoutController', function (UserService, $scope, $state) {
             console.log("Coming to logout Controller??");

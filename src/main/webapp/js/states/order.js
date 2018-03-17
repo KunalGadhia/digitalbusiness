@@ -1657,6 +1657,28 @@ angular.module("digitalbusiness.states.order", [])
                 });
             });
             ///////////////////////////////////////////////////////////////////
+            //////////////////////Back Space Not Allowed Functionality/////////            
+//            $scope.no_backspaces = function (event) {
+//                console.log("Event :%O", event);
+//                var backspace = 8;
+//                if (event.keyCode === backspace) {
+//                    event.preventDefault();
+//                }
+//            };
+//            var getKeyboardEventResult = function (keyEvent, keyEventDesc)
+//            {
+//                return keyEventDesc + " (keyCode: " + (window.event ? keyEvent.keyCode : keyEvent.which) + ")";
+//            };
+//
+//            // Event handlers
+//            $scope.onKeyDown = function ($event) {
+//                $scope.onKeyDownResult = getKeyboardEventResult($event, "Key down");
+//                console.log("Key Down Result :%O", $scope.onKeyDownResult);
+//                $scope.$watch('onKeyDownResult', function (keyDownResult) {
+//                    console.log("Key Down Result :%O", keyDownResult);
+//                });
+//            };
+            ///////////////////////////////////////////////////////////////////
             //////////////////Handle Form Functionality////////////////////////
 
             $scope.$watch('handleName', function (handle) {
@@ -3763,7 +3785,8 @@ angular.module("digitalbusiness.states.order", [])
 //                });
             };
             $scope.saveShutterDetails = function (shutterOrderDetail) {
-                $scope.applyShutterDiscount = function (shutterOrderDetail) {
+                $scope.applyShutterDiscount = function (shutterOrderDetail, handlePrice) {
+                    console.log("Handle Price :%O", handlePrice);
                     RateContractDetailService.findByShutterFinishMaterialThickness({
                         'finish': shutterOrderDetail.finish,
                         'material': shutterOrderDetail.material,
@@ -3772,7 +3795,7 @@ angular.module("digitalbusiness.states.order", [])
                     }, function (rateContractDetailObject) {
                         shutterOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((shutterOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
-                        shutterOrderDetail.price = (shutterOrderDetail.unitPrice - discountPrice);
+                        shutterOrderDetail.price = ((shutterOrderDetail.unitPrice - discountPrice) + handlePrice);
                         ShutterOrderDetailsService.save(shutterOrderDetail, function () {
                             $scope.editableShutterDetail = "";
                             $scope.shutterName = "";
@@ -3891,20 +3914,24 @@ angular.module("digitalbusiness.states.order", [])
                     console.log("Else Loop Non Al");
                     if (shutterOrderDetail.bsm === true) {
                         console.log("Both Side");
-                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+//                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
                     } else if (shutterOrderDetail.bsm === false) {
                         console.log("One Side");
-                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+//                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
                     } else if (shutterOrderDetail.bsm === undefined) {
-                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+//                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
                     }
                 }
 
                 shutterOrderDetail.productCode = productCode;
+                var handlePrice = shutterOrderDetail.handleMainPrice;
 
                 console.log("Shutter Save Object :%O", shutterOrderDetail);
                 ///////////////DIsabled for trial///////
-                $scope.applyShutterDiscount(shutterOrderDetail);
+                $scope.applyShutterDiscount(shutterOrderDetail, handlePrice);
 
 
 //                ShutterOrderDetailsService.save(shutterOrderDetail, function () {
@@ -4829,25 +4856,6 @@ angular.module("digitalbusiness.states.order", [])
 
                 });
             };
-//            $scope.$on('$viewContentLoaded', function () {
-//
-////                alert("Page Loaded COmpletely");
-//                //Here your view content is fully loaded !!
-//            });
-//            $scope.pageLoaded = function (price) {
-//                console.log("Price :%O", price);
-//            };
-//            OrderHeadService.get({
-//                'id': $stateParams.orderHeadId
-//            }, function (orderHeadObject) {
-//                $scope.orderHead = orderHeadObject;
-//                PartyService.get({
-//                    'id': orderHeadObject.billingPartyId
-//                }, function (billingPartyObject) {
-//                    $scope.billingParty = billingPartyObject;
-//                });
-//            });
-
         })
         .controller('CarcassDetailDeleteController', function (CarcassOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
             console.log("What are STate Params :%O", $stateParams);

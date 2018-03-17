@@ -196,7 +196,7 @@
                     <div class="form-group">
                         <label>Internal Color</label>                        
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Internal Color" ng-model="intColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Internal Color" ng-model="intColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openInternalCarcassColorWidget()">Select Internal Color</button>
                             </span>
@@ -297,7 +297,7 @@
                     <div class="form-group">
                         <label>Left Color</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Left Color" ng-model="leftColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Left Color" ng-model="leftColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Left')">Select Left Color</button>
                             </span>
@@ -308,7 +308,7 @@
                     <div class="form-group">
                         <label>Right Color</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Right Color" ng-model="rightColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Right Color" ng-model="rightColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Right')">Select Right Color</button>
                             </span>
@@ -319,7 +319,7 @@
                     <div class="input-group">
                         <label>Top Color</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Top Color" ng-model="topColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Top Color" ng-model="topColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Top')">Select Top Color</button>
                             </span>
@@ -332,9 +332,9 @@
                     <div class="input-group">
                         <label>Bottom Color</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Bottom Color" ng-model="bottomColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Bottom Color" ng-model="bottomColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Bottom')">Select Internal Color</button>
+                                <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Bottom')">Select Bottom Color</button>
                             </span>
                         </div>
                     </div>
@@ -343,7 +343,7 @@
                     <div class="form-group">
                         <label>Back Color</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Back Color" ng-model="backColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Back Color" ng-model="backColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Back')">Select Back Color</button>
                             </span>
@@ -452,7 +452,7 @@
                     <div class="form-group">
                         <label>Color</label>                    
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Color" ng-model="panelColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Color" ng-model="panelColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openPanelColorWidget()">Select Internal Color</button>
                             </span>
@@ -544,7 +544,7 @@
                     <div class="form-group">
                         <label>Color</label>                    
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Color" ng-model="shutterColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Color" ng-model="shutterColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openShutterColorWidget()">Select Color</button>
                             </span>
@@ -568,16 +568,16 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="col-sm-3">
-                    <div class="form-group" ng-hide="alFinish">
-                        <label>Grain (Optional)</label>
-                        <select class="form-control" ng-model="editableShutterDetail.grain">
-                            <option value="">Select Grain Direction</option>
-                            <option value="HORIZONTAL">Horizontal</option>
-                            <option value="VERTICAL">Vertical</option>
-                        </select>
-                    </div>
-                </div>-->
+                <!--                <div class="col-sm-3">
+                                    <div class="form-group" ng-hide="alFinish">
+                                        <label>Grain (Optional)</label>
+                                        <select class="form-control" ng-model="editableShutterDetail.grain">
+                                            <option value="">Select Grain Direction</option>
+                                            <option value="HORIZONTAL">Horizontal</option>
+                                            <option value="VERTICAL">Vertical</option>
+                                        </select>
+                                    </div>
+                                </div>-->
             </div>
             <div class="row">
                 <!--                <div class="col-sm-3" ng-if="shutterModelSelection">
@@ -631,6 +631,7 @@
                             <option value="">Select Hinge Position</option>
                             <option value="LH">LH</option>
                             <option value="RH">RH</option>
+                            <option value="LH_AND_RH">LH & RH</option>
                         </select>
                     </div>
                 </div>
@@ -664,7 +665,7 @@
                     <div class="form-group">
                         <label>Balancing Color</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Balancing Color" ng-model="shutterInternalColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Balancing Color" ng-model="shutterInternalColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openInternalShutterColorWidget()">Select Balancing Color</button>
                             </span>
@@ -814,7 +815,7 @@
                     <div class="form-group">
                         <label>Color</label>                    
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Color" ng-model="drawerColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Color" ng-model="drawerColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openDrawerColorWidget()">Select Color</button>
                             </span>
@@ -838,16 +839,16 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>Grain (Optional)</label>
-                        <select class="form-control" ng-model="editableDrawerDetail.grain">
-                            <option value="">Select Grain Direction</option>
-                            <option value="HORIZONTAL">Horizontal</option>
-                            <option value="VERTICAL">Vertical</option>
-                        </select>
-                    </div>
-                </div>-->
+                <!--                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Grain (Optional)</label>
+                                        <select class="form-control" ng-model="editableDrawerDetail.grain">
+                                            <option value="">Select Grain Direction</option>
+                                            <option value="HORIZONTAL">Horizontal</option>
+                                            <option value="VERTICAL">Vertical</option>
+                                        </select>
+                                    </div>
+                                </div>-->
             </div>
             <div class="row">
                 <!--                <div class="col-sm-3" ng-if="shutterModelSelection">
@@ -886,21 +887,21 @@
                         <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableDrawerDetail.width" required="">
                     </div>
                 </div>
-                
+
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Height</label>
                         <input type="number" class="form-control" placeholder="Enter Height" ng-model="editableDrawerDetail.length" required="">
                     </div>
                 </div>
-                
+
             </div>
             <div class="row">
                 <div class="col-sm-3" ng-if="editableDrawerDetail.bsm === false">
                     <div class="form-group">
                         <label>Balancing Color</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Balancing Color" ng-model="drawerInternalColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Balancing Color" ng-model="drawerInternalColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openInternalDrawerColorWidget()">Select Balancing Color</button>
                             </span>
@@ -1078,7 +1079,7 @@
                     <div class="form-group">
                         <label>Color</label>                    
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Color" ng-model="fillerColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Color" ng-model="fillerColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openFillerColorWidget()">Select Color</button>
                             </span>
@@ -1119,7 +1120,7 @@
                     <div class="form-group">
                         <label>Balancing Color</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Balancing Color" ng-model="fillerInternalColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Balancing Color" ng-model="fillerInternalColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openInternalFillerColorWidget()">Select Internal Color</button>
                             </span>
@@ -1193,7 +1194,7 @@
                     <div class="form-group">
                         <label>Color</label>                    
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Color" ng-model="pelmetColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Color" ng-model="pelmetColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openPelmetColorWidget()">Select Color</button>
                             </span>
@@ -1277,7 +1278,7 @@
                     <div class="form-group">
                         <label>Color</label>                    
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Color" ng-model="corniceColorName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Color" ng-model="corniceColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openCorniceColorWidget()">Select Color</button>
                             </span>

@@ -12,5 +12,6 @@ package com.spacewood.digitalbusiness.shutterorderdetails;
 public enum HingePosition {
     NO_HINGE,
     LH,
-    RH
+    RH,
+    LH_AND_RH
 }
