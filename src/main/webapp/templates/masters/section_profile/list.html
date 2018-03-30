@@ -31,12 +31,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="sectionProfile in sectionProfiles track by $index">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ sectionProfile.name}}</td>   
-                <td>{{ sectionProfile.direction}}</td>  
-                <td>{{ sectionProfile.carcassType}}</td>
-                <td>{{ sectionProfile.price}}</td>
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Name">{{ sectionProfile.name}}</td>   
+                <td data-title="Direction">{{ sectionProfile.direction}}</td>  
+                <td data-title="Carcass type">{{ sectionProfile.carcassType}}</td>
+                <td data-title="Price">{{ sectionProfile.price}}</td>
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_section_profile.edit({ sectionProfileId: sectionProfile.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

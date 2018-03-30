@@ -492,7 +492,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Quantity</label>
-                        <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editablePanelDetail.quantity" required="">
+                        <input type="number" min="1" class="form-control" placeholder="Enter Quantity" ng-model="editablePanelDetail.quantity" required="">
                     </div>
                 </div>
             </div>
@@ -561,7 +561,7 @@
                     <div class="form-group">
                         <label>Select Shutter</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openShutter()">Select Shutter</button>
                             </span>
@@ -665,7 +665,7 @@
                     <div class="form-group">
                         <label>Balancing Color</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Balancing Color" ng-model="shutterInternalColorName" required="" onkeypress="return false;"/>
+                            <input class="form-control" placeholder="Select Balancing Color" ng-model="shutterInternalColorName" readonly=""/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openInternalShutterColorWidget()">Select Balancing Color</button>
                             </span>
@@ -704,7 +704,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Quantity</label>
-                        <input type="number" class="form-control" ng-model="editableShutterDetail.quantity" required="">
+                        <input type="number" class="form-control" min="1" ng-model="editableShutterDetail.quantity" required="">
                     </div>
                 </div>
             </div>
@@ -735,7 +735,7 @@
                             <option value="">Select Handle Type</option>
                             <option ng-repeat="handlePrice in shutterHandlePriceList" value="{{handlePrice.id}}">{{handlePrice.finish}}</option>
                         </select>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="col-sm-3">
                     <label>Finish</label>
@@ -744,7 +744,7 @@
                 <div class="col-sm-3" ng-if="showShutterCD2">
                     <div class="form-group">
                         <label>Length</label>
-                        <input type="number" class="form-control" placeholder="Length" ng-model="editableShutterDetail.handleLength">
+                        <input type="number" class="form-control" placeholder="Length" ng-model="editableShutterDetail.handleLength" required="">
                     </div>
                 </div>
                 <!--                <div class="col-sm-3">
@@ -832,7 +832,7 @@
                     <div class="form-group">
                         <label>Select Drawer</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Drawer" ng-model="drawerName" required="" readonly=""/>
+                            <input class="form-control" placeholder="Select Drawer" ng-model="drawerName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openDrawer()">Select Drawer</button>
                             </span>
@@ -901,7 +901,7 @@
                     <div class="form-group">
                         <label>Balancing Color</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Balancing Color" ng-model="drawerInternalColorName" required="" onkeypress="return false;"/>
+                            <input class="form-control" placeholder="Select Balancing Color" ng-model="drawerInternalColorName" required="" readonly=""/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openInternalDrawerColorWidget()">Select Balancing Color</button>
                             </span>
@@ -928,7 +928,7 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Quantity</label>
-                            <input type="number" class="form-control" ng-model="editableDrawerDetail.quantity" required="">
+                            <input type="number" class="form-control" min="1" ng-model="editableDrawerDetail.quantity" required="">
                         </div>
                     </div>
                 </div>
@@ -966,7 +966,7 @@
                 <div class="col-sm-3" ng-if="showDrawerCD2">
                     <div class="form-group">
                         <label>Length</label>
-                        <input type="number" class="form-control" placeholder="Length" ng-model="editableDrawerDetail.handleLength">
+                        <input type="number" class="form-control" placeholder="Length" ng-model="editableDrawerDetail.handleLength" required="">
                     </div>
                 </div>
                 <!--                <div class="col-sm-3">
@@ -1120,7 +1120,7 @@
                     <div class="form-group">
                         <label>Balancing Color</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="Select Balancing Color" ng-model="fillerInternalColorName" required="" onkeypress="return false;"/>
+                            <input class="form-control" placeholder="Select Balancing Color" ng-model="fillerInternalColorName" required="" readonly=""/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openInternalFillerColorWidget()">Select Internal Color</button>
                             </span>
@@ -1136,7 +1136,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Quantity</label>
-                        <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editableFillerDetail.quantity" required="">
+                        <input type="number" min="1" class="form-control" placeholder="Enter Quantity" ng-model="editableFillerDetail.quantity" required="">
                     </div>
                 </div>
 
@@ -1222,7 +1222,7 @@
                 </div>                
                 <div class="col-sm-3">
                     <label>Quantity</label>
-                    <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editablePelmetDetail.quantity" required="">
+                    <input type="number" min="1" class="form-control" placeholder="Enter Quantity" ng-model="editablePelmetDetail.quantity" required="">
                 </div>
             </div>
             <hr style="border-top:  1px solid;">
@@ -1322,7 +1322,7 @@
                 </div>                
                 <div class="col-sm-3">
                     <label>Quantity</label>
-                    <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editableCorniceDetail.quantity" required="">
+                    <input type="number" min="1" class="form-control" placeholder="Enter Quantity" ng-model="editableCorniceDetail.quantity" required="">
                 </div>
             </div>
             <hr style="border-top:  1px solid;">
@@ -1377,7 +1377,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label>Quantity</label>
-                    <input type="number" class="form-control" placeholder="Enter Quantity" ng-model="editableHandleDetail.quantity" required="">
+                    <input type="number" min="1" class="form-control" placeholder="Enter Quantity" ng-model="editableHandleDetail.quantity" required="">
                 </div>                
             </div>
             <div class="row">

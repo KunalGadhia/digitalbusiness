@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+    <div class="panel-heading text-center">       
+        <div class="pull-left">
+            <!--            <a data-ui-sref="admin.masters"
+                           class="btn btn-default">
+                            <i class="fa fa-arrow-left"></i>
+                            Back
+                        </a>-->
+            <button class="btn btn-default" 
+                    type="button"
+                    onclick="window.history.back()">
+                Back
+            </button>
+        </div>
+        <div class="pull-right">            
+        </div>
+        <div>
+            <h3>Approved Order Report</h3>
+        </div>
+        <form>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Select Approval Date</label>
+                    <input class="form-control" type="date" placeholder="DD-MM-YYYY" ng-model="approvalDate"/>
+                </div>
+            </div>                   
+
+            <div class="modal-footer">
+                <a class='btn btn-primary btn-lg' target="_blank" data-ui-sref="approved_order_report_display({'approvalDate': approvalDate})">Fetch Report</a>                
+            </div>
+        </form>
+    </div>
+</div>
+<div data-ui-view=""></div>
+

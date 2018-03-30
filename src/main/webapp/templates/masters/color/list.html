@@ -44,13 +44,13 @@
         </thead>
         <tbody>
             <tr ng-repeat="color in colors track by $index">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ color.colorCode}}</td>   
-                <td>{{ color.colorName}}</td>  
-                <td>{{ color.colorCategory}}</td>
-                <td><image ng-src="./rest/color/{{color.id}}/attachment" width="50px" height="50px"/></td>
+                <td  data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Color Code">{{ color.colorCode}}</td>   
+                <td data-title="Color Name">{{ color.colorName}}</td>  
+                <td data-title="Color Category">{{ color.colorCategory}}</td>
+                <td data-title="Image"><image ng-src="./rest/color/{{color.id}}/attachment" width="50px" height="50px"/></td>
                 <!--<td><image ng-src="{{kitchenComponent.imagePath}}" width="150px" height="220px"/></td>-->                
-                <td class="text-right">
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_color.edit({ colorId: color.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

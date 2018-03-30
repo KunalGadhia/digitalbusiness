@@ -30,17 +30,17 @@
         </thead>
         <tbody>
             <tr ng-repeat="shutterHandleMapping in shutterHandleMappingList">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ shutterHandleMapping.finishObject.finishName}}</td>   
-                <td>{{ shutterHandleMapping.shutterCode}}</td>                                  
-                <td>
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Finish">{{ shutterHandleMapping.finishObject.finishName}}</td>   
+                <td data-title="Shutter">{{ shutterHandleMapping.shutterCode}}</td>                                  
+                <td data-title="Handles">
                     <ul>
                         <li ng-repeat="handle in shutterHandleMapping.handleObjects">
-                                {{handle.componentCode}}
+                            {{handle.componentCode}}
                         </li>
                     </ul>                    
                 </td>
-                <td class="text-right">
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_shutter_handle_mapping.edit({ shutterHandleMappingId: shutterHandleMapping.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

@@ -86,6 +86,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.filler_finish_price',
     'digitalbusiness.states.drawer_handle_mapping',
     'digitalbusiness.states.masters_rate_contract',
+    'digitalbusiness.states.approved_order_report',
 
     'digitalbusiness.states.auth'
 

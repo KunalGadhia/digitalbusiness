@@ -32,13 +32,13 @@
         </thead>
         <tbody>
             <tr ng-repeat="finish in finishPrices track by $index">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{finish.finishCode}}</td>
-                <td>{{ finish.finishName}}</td>   
-                <td>{{ finish.materialObject.material}}</td>
-                <td>{{ finish.category}}</td>
-                <td>{{ finish.price}}</td>
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Finish Code">{{finish.finishCode}}</td>
+                <td data-title="Finish Name">{{ finish.finishName}}</td>   
+                <td data-title="Material">{{ finish.materialObject.material}}</td>
+                <td data-title="Category">{{ finish.category}}</td>
+                <td data-title="Price">{{ finish.price}}</td>
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_finish_price.edit({ finishPriceId: finish.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

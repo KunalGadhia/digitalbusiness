@@ -50,6 +50,11 @@ public class OrderHeadRest {
     public List<OrderHead> findOrderGenerationSource(@RequestParam("userId") Integer userId) throws SQLException {
         return orderHeadDAL.findOrderGenerationSource(userId);
     }
+    
+    @RequestMapping(value="/find/approvalDate", method = RequestMethod.GET)
+    public List<OrderHead> findByApprovalDate(@RequestParam("approvalDate") String approvalDate) throws SQLException {
+        return orderHeadDAL.findByApprovalDate(approvalDate);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public OrderHead update(@RequestBody OrderHead orderHead) {

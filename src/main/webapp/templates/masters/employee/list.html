@@ -31,12 +31,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="employee in employees">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ employee.empCode}}</td>   
-                <td>{{ employee.empName}}</td>  
-                <td>{{ employee.empMobileNumber}}</td>
-                <td>{{ employee.empMailid}}</td>                
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Employee Code">{{ employee.empCode}}</td>   
+                <td data-title="Name">{{ employee.empName}}</td>  
+                <td data-title="Mobile Number">{{ employee.empMobileNumber}}</td>
+                <td data-title="Email ID">{{ employee.empMailid}}</td>                
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_employee.edit({ employeeId: employee.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

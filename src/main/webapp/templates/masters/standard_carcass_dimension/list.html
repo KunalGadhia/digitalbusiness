@@ -30,11 +30,11 @@
         </thead>
         <tbody>
             <tr ng-repeat="standardCarcassDimension in standardCarcassDimensions">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ standardCarcassDimension.dimensionAttribute}}</td>   
-                <td>{{ standardCarcassDimension.carcassCategory}}</td>  
-                <td>{{ standardCarcassDimension.stdValue}}</td>                                
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Dimension Attribute">{{ standardCarcassDimension.dimensionAttribute}}</td>   
+                <td data-title="Carcass">{{ standardCarcassDimension.carcassCategory}}</td>  
+                <td data-title="Value (in MM)">{{ standardCarcassDimension.stdValue}}</td>                                
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_standard_carcass_dimension.edit({ stdCarcassDimensionId: standardCarcassDimension.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

@@ -30,17 +30,17 @@
         </thead>
         <tbody>
             <tr ng-repeat="drawerHandleMapping in drawerHandleMappingList">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ drawerHandleMapping.finishObject.finishName}}</td>   
-                <td>{{ drawerHandleMapping.drawerCode}}</td>                                  
-                <td>
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Finish">{{ drawerHandleMapping.finishObject.finishName}}</td>   
+                <td data-title="Drawer">{{ drawerHandleMapping.drawerCode}}</td>                                  
+                <td data-title="Handles">
                     <ul>
                         <li ng-repeat="handle in drawerHandleMapping.handleObjects">
                                 {{handle.componentCode}}
                         </li>
                     </ul>                    
                 </td>
-                <td class="text-right">
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_drawer_handle_mapping.edit({ drawerHandleMappingId: drawerHandleMapping.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

@@ -1,3 +1,44 @@
+.block {
+    width: 306px;
+    height: 230px;
+}
+
+/*-- navbar menu --*/
+.panelToggle{
+    display: none;
+}
+ul.menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    float: right;
+}
+ul.menu li {
+    font-size: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    float: left;
+    transition: .3s;
+    -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+         -o-transform: translateZ(0);
+          transform: translateZ(0);
+}
+ul.menu li a{
+    padding: 10px 10px;
+}
+ul.menu li:hover {
+    transition: .3s;
+}
+ul.menu li:hover a {
+    color: #ffb300;
+    text-decoration: none;
+}
+.headerPadding{
+    padding-top: 40px;
+}
+
 .no-padding{
         padding-left:0px;
         padding-right:0px;
@@ -68,6 +109,7 @@
  .testimo .carousel-control.left,
  .testimo .carousel-control.right{
      top: 110px !important;
+     background: transparent;
  }
  .testimo .carousel-control .glyphicon-chevron-right,
  .carousel-control .icon-next{
@@ -88,20 +130,28 @@
  .testimo .carousel-indicators {
     bottom: -30px;
 }
-
+.table.table-striped .btn-primary{
+    width: 60%;
+    margin: 1px;
+}
 /*xs*/
 @media (max-width: 320px){
     td{
-        padding-left: 115px !important;
+        padding-left: 110px !important;
         font-size: 12px;
     }
     .panel .form-group {
         width: 70%;
     }
+    .table.table-striped .btn-primary{
+        width: 90% !important;
+    }
+    
 }
 @media (max-width: 480px){
     .panel .panel-heading h4 {
         margin: 45px 0 0 0 !important;
+        text-align: left;
     }
     .panel .form-group{
         margin-bottom: 20px !important;
@@ -112,6 +162,21 @@
         border-radius: 15px;
         box-shadow: 2px 2px 5px 0px #777;
     }
+    .panel-footer{
+        padding: 0 !important;
+        border-top: none;
+        border-radius: 0;
+    }
+    .panel-footer button{
+        margin: 5px 5px;
+    }
+    .panel-footer ul li:nth-child(1){
+        float: left;
+    }
+    .panel-footer ul li:nth-child(2){
+        float: right;
+    }
+    
     .panel .panel-body div.col-xs-6{
         width: 100%;
     }
@@ -135,38 +200,11 @@
     .footer-ul:nth-child(5){
         padding-top: 20px !important;
     }
-}
-@media (max-width: 767px){
-    .carousel-inner .active.left{
-        left: -50%; 
+    td{
+        padding-left: 130px !important;
     }
-    .carousel-inner .active.right{ 
-        left: 50%; 
-    }
-    .carousel-inner .next{ 
-        left:  50%; 
-    }
-    .carousel-inner .prev{ 
-        left: -50%; 
-    }
-    .active > div:first-child + div { 
-        display:block; 
-    }
-    .itemCaption p:nth-child(2){
-        font-size: 14px;
-        font-weight: 600;
-        text-align: justify;
-    }
-    /*-- inner page --*/
-    #main-content .col-xs-6{
-        padding: 0;
-    }
-    .panel .panel-heading h4{
-        margin: 5px 0;
-    }
-    /*-- table responsive --*/
-    .panel{
-        border: none;
+    .table.table-striped .btn-primary{
+        width: 90%;
     }
     table, thead, tbody, th, td, tr { 
 	display: block; 
@@ -192,11 +230,13 @@
         position: relative;
         padding-left: 50%;
         padding-left: 130px !important;
+        white-space: normal;
     }
     td.text-right{
         text-align: left !important;
     }
-    td:before { 
+    td:before {
+        content: attr(data-title);
         position: absolute;
         top: 6px;
         left: 6px;
@@ -206,127 +246,8 @@
         text-align: left;
         font-weight: 600;
     }
-    td:nth-of-type(1):before { content: "#"; }
-    td:nth-of-type(2):before { content: "Employee Code"; }
-    td:nth-of-type(3):before { content: "Name"; }
-    td:nth-of-type(4):before { content: "Mobile Number"; }
-    td:nth-of-type(5):before { content: "Email ID"; }
-    td:nth-of-type(6):before { content: "Actions"; }
-    
-    footer {
-        margin: 20px 0px 0px 0px;
-    }
 }
-
-/*sm*/
-@media (min-width: 768px) and (max-width: 991px) {
-    .carousel-inner .active.left { 
-        left: -50%; 
-    }
-    .carousel-inner .active.right { 
-        left: 50%; 
-    }
-    .carousel-inner .next{ 
-        left:  50%; 
-    }
-    .carousel-inner .prev{ 
-        left: -50%; 
-    }
-    .active > div:first-child + div { 
-        display:block; 
-    }
-}
-
-/*md*/
-@media (min-width: 992px) and (max-width: 1199px) {
-    .carousel-inner .active.left { 
-        left: -33%; 
-    }
-    .carousel-inner .active.right { 
-        left: 33%; 
-    }
-    .carousel-inner .next{ 
-        left:  33%; 
-    }
-    .carousel-inner .prev{ 
-        left: -33%; 
-    }
-    .active > div:first-child + div { 
-        display:block; 
-    }
-    .active > div:first-child + div + div { 
-        display:block; 
-    }
-}
-
-/*lg*/
-@media (min-width: 1200px) {
-    .carousel-inner .active.left { 
-        left: -25%; 
-    }
-    .carousel-inner .active.right{ 
-        left:  25%; 
-    }
-    .carousel-inner .next{ 
-        left:  25%; 
-    }
-    .carousel-inner .prev{ 
-        left: -25%; 
-    }
-    .active > div:first-child + div { 
-        display:block; 
-    }
-    .active > div:first-child + div + div { 
-        display:block; 
-    }
-    .active > div:first-child + div + div + div { 
-        display:block; 
-    }
-}
-
-.block {
-    width: 306px;
-    height: 230px;
-}
-
-/*-- navbar menu --*/
-.panelToggle{
-    display: none;
-}
-ul.menu {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    float: right;
-}
-ul.menu li {
-    font-size: 15px;
-    text-align: center;
-    text-transform: uppercase;
-    float: left;
-    transition: .3s;
-    -webkit-transform: translateZ(0);
-      -moz-transform: translateZ(0);
-        -ms-transform: translateZ(0);
-         -o-transform: translateZ(0);
-          transform: translateZ(0);
-}
-ul.menu li a{
-    padding: 10px 10px;
-}
-ul.menu li:hover {
-    transition: .3s;
-}
-ul.menu li:hover a {
-    color: #ffb300;
-    text-decoration: none;
-}
-.headerPadding{
-    padding-top: 40px;
-}
-
-/*--  responsive css --*/
-@media only screen and (max-width: 767px){
+@media (max-width: 767px){
     ul.menu li span{
         display:none;
     }
@@ -337,10 +258,11 @@ ul.menu li:hover a {
     ul.menu{
         float: none;
     }
-    .panel {
+    .panelToggle {
         display: block;
         width: 100%;
         box-shadow: none !important;
+        margin-bottom: 20px;
     }
     .resp-nav {
         display: none;
@@ -392,7 +314,119 @@ ul.menu li:hover a {
         padding-top: 20px;
     }
     
+    .carousel-inner .active.left{
+        left: -50%; 
+    }
+    .carousel-inner .active.right{ 
+        left: 50%; 
+    }
+    .carousel-inner .next{ 
+        left:  50%; 
+    }
+    .carousel-inner .prev{ 
+        left: -50%; 
+    }
+    .active > div:first-child + div { 
+        display:block; 
+    }
+    .itemCaption p:nth-child(2){
+        font-size: 14px;
+        font-weight: 600;
+        text-align: justify;
+    }
+    /*-- inner page --*/
+    #main-content .col-xs-6{
+        padding: 0;
+    }
+    .panel .panel-heading h4{
+        margin: 5px 0;
+    }
+    /*-- table responsive --*/
+    .panel{
+        border: none;
+    }
+    
+    
+    
+    footer {
+        margin: 20px 0px 0px 0px;
+    }
+    .table.table-striped .btn-primary{
+        width: 60%;
+    }
 }
+
+/*sm*/
+@media (min-width: 768px) and (max-width: 991px) {
+    .carousel-inner .active.left { 
+        left: -50%; 
+    }
+    .carousel-inner .active.right { 
+        left: 50%; 
+    }
+    .carousel-inner .next{ 
+        left:  50%; 
+    }
+    .carousel-inner .prev{ 
+        left: -50%; 
+    }
+    .active > div:first-child + div { 
+        display:block; 
+    }
+    .table.table-striped .btn-primary{
+        width: 90%;
+    }
+}
+
+/*md*/
+@media (min-width: 992px) and (max-width: 1199px) {
+    .carousel-inner .active.left { 
+        left: -33%; 
+    }
+    .carousel-inner .active.right { 
+        left: 33%; 
+    }
+    .carousel-inner .next{ 
+        left:  33%; 
+    }
+    .carousel-inner .prev{ 
+        left: -33%; 
+    }
+    .active > div:first-child + div { 
+        display:block; 
+    }
+    .active > div:first-child + div + div { 
+        display:block; 
+    }
+}
+
+/*lg*/
+@media (min-width: 1200px) {
+    .carousel-inner .active.left { 
+        left: -25%; 
+    }
+    .carousel-inner .active.right{ 
+        left:  25%; 
+    }
+    .carousel-inner .next{ 
+        left:  25%; 
+    }
+    .carousel-inner .prev{ 
+        left: -25%; 
+    }
+    .active > div:first-child + div { 
+        display:block; 
+    }
+    .active > div:first-child + div + div { 
+        display:block; 
+    }
+    .active > div:first-child + div + div + div { 
+        display:block; 
+    }
+}
+
+
+
 
 /*
 To change this license header, choose License Headers in Project Properties.

@@ -29,10 +29,10 @@
         </thead>
         <tbody>
             <tr ng-repeat="reason in reasons">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ reason.reason}}</td>                   
-                <td>{{ reason.description}}</td>                              
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Reason">{{ reason.reason}}</td>                   
+                <td data-title="Description">{{ reason.description}}</td>                              
+                <td data-title="Actions"class="text-right">
                     <a data-ui-sref="admin.masters_reason.edit({ reasonId: reason.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

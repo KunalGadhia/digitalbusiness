@@ -31,12 +31,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="carcassSubtype in carcassSubtypes track by $index">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ carcassSubtype.subType}}</td>
-                <td>{{ carcassSubtype.parentType}}</td>
-                <td>{{ carcassSubtype.description}}</td>
-                <td>{{ carcassSubtype.subTypeCode}}</td>
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Sub Type">{{ carcassSubtype.subType}}</td>
+                <td data-title="Parent Type">{{ carcassSubtype.parentType}}</td>
+                <td data-title="Description">{{ carcassSubtype.description}}</td>
+                <td data-title="Sub Type Code">{{ carcassSubtype.subTypeCode}}</td>
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_carcass_subtype.edit({ carcassSubtypeId: carcassSubtype.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

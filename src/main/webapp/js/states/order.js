@@ -423,19 +423,68 @@ angular.module("digitalbusiness.states.order", [])
 
             };
             $scope.openDrawer = function () {
-                KitchenComponentService.findByCategory({
-                    'category': 'DRAWER '
-                }, function (drawerList) {
-                    $scope.drawerList1 = drawerList;
-                });
-                $scope.showCarcassSelectionWidget = false;
-                $scope.showPanelSelectionWidget = false;
-                $scope.showShutterSelectionWidget = false;
-                $scope.showDrawerSelectionWidget = true;
-                $scope.showFillerSelectionWidget = false;
-                $scope.showPelmetSelectionWidget = false;
-                $scope.showCorniceSelectionWidget = false;
-                $scope.showHandleSelectionWidget = false;
+                console.log("Drawer Finish :%O", $scope.editableDrawerDetail.finish);
+                if ($scope.editableDrawerDetail.finish === "XXA") {
+                    console.log("Membrane Glossy MDF");
+                    $scope.drawerList1 = [];
+                    KitchenComponentService.get({
+                        'id': 57
+                    }, function (drawerObject) {
+                        $scope.drawerList1 = [drawerObject];
+                    });
+                    $scope.showCarcassSelectionWidget = false;
+                    $scope.showPanelSelectionWidget = false;
+                    $scope.showShutterSelectionWidget = false;
+                    $scope.showDrawerSelectionWidget = true;
+                    $scope.showFillerSelectionWidget = false;
+                    $scope.showPelmetSelectionWidget = false;
+                    $scope.showCorniceSelectionWidget = false;
+                    $scope.showHandleSelectionWidget = false;
+                } else if ($scope.editableDrawerDetail.finish === "XXD") {
+                    console.log("Membrane Glossy HDF");
+                    $scope.drawerList1 = [];
+                    KitchenComponentService.get({
+                        'id': 57
+                    }, function (drawerObject) {
+                        $scope.drawerList1 = [drawerObject];
+                    });
+                    $scope.showCarcassSelectionWidget = false;
+                    $scope.showPanelSelectionWidget = false;
+                    $scope.showShutterSelectionWidget = false;
+                    $scope.showDrawerSelectionWidget = true;
+                    $scope.showFillerSelectionWidget = false;
+                    $scope.showPelmetSelectionWidget = false;
+                    $scope.showCorniceSelectionWidget = false;
+                    $scope.showHandleSelectionWidget = false;
+                } else {
+                    $scope.drawerList1 = [];
+                    KitchenComponentService.findByCategory({
+                        'category': 'DRAWER '
+                    }, function (drawerList) {
+                        $scope.drawerList1 = drawerList;
+                    });
+                    $scope.showCarcassSelectionWidget = false;
+                    $scope.showPanelSelectionWidget = false;
+                    $scope.showShutterSelectionWidget = false;
+                    $scope.showDrawerSelectionWidget = true;
+                    $scope.showFillerSelectionWidget = false;
+                    $scope.showPelmetSelectionWidget = false;
+                    $scope.showCorniceSelectionWidget = false;
+                    $scope.showHandleSelectionWidget = false;
+                }
+//                KitchenComponentService.findByCategory({
+//                    'category': 'DRAWER '
+//                }, function (drawerList) {
+//                    $scope.drawerList1 = drawerList;
+//                });
+//                $scope.showCarcassSelectionWidget = false;
+//                $scope.showPanelSelectionWidget = false;
+//                $scope.showShutterSelectionWidget = false;
+//                $scope.showDrawerSelectionWidget = true;
+//                $scope.showFillerSelectionWidget = false;
+//                $scope.showPelmetSelectionWidget = false;
+//                $scope.showCorniceSelectionWidget = false;
+//                $scope.showHandleSelectionWidget = false;
             };
             KitchenComponentService.findByCategory({
                 'category': 'FILLER'
@@ -3785,8 +3834,11 @@ angular.module("digitalbusiness.states.order", [])
 //                });
             };
             $scope.saveShutterDetails = function (shutterOrderDetail) {
-                $scope.applyShutterDiscount = function (shutterOrderDetail, handlePrice) {
+                $scope.applyShutterDiscount = function (shutterOrderDetail, handlePrice, jaliPrice, straightenerPrice) {
                     console.log("Handle Price :%O", handlePrice);
+                    console.log("Jali Price :%O", jaliPrice);
+                    console.log("Straightener Price :%O", straightenerPrice);
+
                     RateContractDetailService.findByShutterFinishMaterialThickness({
                         'finish': shutterOrderDetail.finish,
                         'material': shutterOrderDetail.material,
@@ -3795,7 +3847,8 @@ angular.module("digitalbusiness.states.order", [])
                     }, function (rateContractDetailObject) {
                         shutterOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((shutterOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
-                        shutterOrderDetail.price = ((shutterOrderDetail.unitPrice - discountPrice) + handlePrice);
+                        console.log("Discount Price :%O", discountPrice);
+                        shutterOrderDetail.price = ((shutterOrderDetail.unitPrice - discountPrice) + handlePrice + jaliPrice + straightenerPrice);
                         ShutterOrderDetailsService.save(shutterOrderDetail, function () {
                             $scope.editableShutterDetail = "";
                             $scope.shutterName = "";
@@ -3845,11 +3898,34 @@ angular.module("digitalbusiness.states.order", [])
                     w1 = shutterOrderDetail.width.toString();
                 }
                 if (shutterOrderDetail.component !== undefined) {
-                    var productCode = shutterOrderDetail.component + "XX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                    console.log("Shutter Order Detail Glass :%O", shutterOrderDetail.glass);
+                    if (shutterOrderDetail.glass !== "NO_GLASS") {
+                        console.log("With Glass");
+                        if (shutterOrderDetail.bsm === true) {
+                            console.log("Glass with BSM");
+                            var productCode = shutterOrderDetail.component + "BG" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        } else {
+                            console.log("Glass without BSM");
+                            var productCode = shutterOrderDetail.component + "XG" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        }
+                    } else {
+                        console.log("Without Glass");
+                        if (shutterOrderDetail.bsm === true) {
+                            console.log("Without Glass with BSM");
+                            var productCode = shutterOrderDetail.component + "BX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        } else {
+                            console.log("Without without BSM");
+                            var productCode = shutterOrderDetail.component + "XX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        }
+                    }
                 } else if (shutterOrderDetail.material === undefined) {
                     var productCode = "SHUTTERX" + Math.round(shutterOrderDetail.thickness) + "XXX" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                 } else {
-                    var productCode = "SHUTTERX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                    if (shutterOrderDetail.bsm === true) {
+                        var productCode = "SHUTTERB" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                    } else {
+                        var productCode = "SHUTTERX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                    }
                 }
                 var shutterArea = (shutterOrderDetail.length * shutterOrderDetail.width);
                 var shutterAreaSqMt = (shutterArea / 1000000);
@@ -3877,16 +3953,16 @@ angular.module("digitalbusiness.states.order", [])
                     shutterOrderDetail.handleMainPrice = 0;
                 }
                 if (shutterOrderDetail.jali === true) {
-                    shutterOrderDetail.jaliPrice = 260;
+                    shutterOrderDetail.jaliPrice = 206;
                 } else {
                     shutterOrderDetail.jaliPrice = 0;
                 }
 
                 if (shutterOrderDetail.straightener === '1') {
-                    shutterOrderDetail.straightenerPrice = 1280;
+                    shutterOrderDetail.straightenerPrice = 945;
                     console.log("1 Straightener");
                 } else if (shutterOrderDetail.straightener === '2') {
-                    shutterOrderDetail.straightenerPrice = 2560;
+                    shutterOrderDetail.straightenerPrice = 1890;
                     console.log("2 Straightener");
                 } else {
                     console.log("No Straightener");
@@ -3915,23 +3991,28 @@ angular.module("digitalbusiness.states.order", [])
                     if (shutterOrderDetail.bsm === true) {
                         console.log("Both Side");
 //                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
-                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+//                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice) + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * (shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice));
                     } else if (shutterOrderDetail.bsm === false) {
                         console.log("One Side");
 //                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
-                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+//                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * (shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice));
                     } else if (shutterOrderDetail.bsm === undefined) {
-//                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
-                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+//                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.handleMainPrice + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));                        
+//                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice) + shutterOrderDetail.jaliPrice + shutterOrderDetail.straightenerPrice));
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * (shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice));
                     }
                 }
 
                 shutterOrderDetail.productCode = productCode;
-                var handlePrice = shutterOrderDetail.handleMainPrice;
+                var handlePrice = (shutterOrderDetail.quantity * shutterOrderDetail.handleMainPrice);
+                var jaliPrice = (shutterOrderDetail.quantity * shutterOrderDetail.jaliPrice);
+                var straightenerPrice = (shutterOrderDetail.quantity * shutterOrderDetail.straightenerPrice);
 
                 console.log("Shutter Save Object :%O", shutterOrderDetail);
                 ///////////////DIsabled for trial///////
-                $scope.applyShutterDiscount(shutterOrderDetail, handlePrice);
+                $scope.applyShutterDiscount(shutterOrderDetail, handlePrice, jaliPrice, straightenerPrice);
 
 
 //                ShutterOrderDetailsService.save(shutterOrderDetail, function () {
@@ -3989,7 +4070,7 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     var productCode = "DRAWERXX" + Math.round(drawerOrderDetail.thickness) + "" + drawerOrderDetail.material + "X" + drawerOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(drawerOrderDetail.thickness) + "000";
                 }
-                $scope.applyDrawerDiscount = function (drawerOrderDetail) {
+                $scope.applyDrawerDiscount = function (drawerOrderDetail, drawerPrice) {
                     RateContractDetailService.findByShutterFinishMaterialThickness({
                         'finish': drawerOrderDetail.finish,
                         'material': drawerOrderDetail.material,
@@ -3998,7 +4079,7 @@ angular.module("digitalbusiness.states.order", [])
                     }, function (rateContractDetailObject) {
                         drawerOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((drawerOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
-                        drawerOrderDetail.price = (drawerOrderDetail.unitPrice - discountPrice);
+                        drawerOrderDetail.price = ((drawerOrderDetail.unitPrice - discountPrice) + drawerPrice);
                         DrawerOrderDetailsService.save(drawerOrderDetail, function () {
                             console.log("Saved Successfully");
                             $scope.editableDrawerDetail = "";
@@ -4035,12 +4116,14 @@ angular.module("digitalbusiness.states.order", [])
 //                    drawerOrderDetail.price = (drawerOrderDetail.quantity * ((shutterAreaSqMt * drawerOrderDetail.stdBothSidePrice) + shutterOrderDetail.handleMainPrice));
 //                } else if (drawerOrderDetail.bsm === undefined) {
 //                    console.log("One Side");
-                drawerOrderDetail.unitPrice = (drawerOrderDetail.quantity * ((shutterAreaSqMt * drawerOrderDetail.stdOneSidePrice) + drawerOrderDetail.handleMainPrice));
+//                drawerOrderDetail.unitPrice = (drawerOrderDetail.quantity * ((shutterAreaSqMt * drawerOrderDetail.stdOneSidePrice) + drawerOrderDetail.handleMainPrice));
+                drawerOrderDetail.unitPrice = (drawerOrderDetail.quantity * ((shutterAreaSqMt * drawerOrderDetail.stdOneSidePrice)));
 //                }
 
                 drawerOrderDetail.productCode = productCode;
                 console.log("Drawer Save Object :%O", drawerOrderDetail);
-                $scope.applyDrawerDiscount(drawerOrderDetail);
+                var drawerPrice = (drawerOrderDetail.quantity + drawerOrderDetail.handleMainPrice);
+                $scope.applyDrawerDiscount(drawerOrderDetail, drawerPrice);
 //                DrawerOrderDetailsService.save(drawerOrderDetail, function () {
 //                    console.log("Saved Successfully");
 //                    $scope.editableDrawerDetail = "";
@@ -4131,7 +4214,11 @@ angular.module("digitalbusiness.states.order", [])
 //                fillerOrderDetail.price = finalPrice;
 
 //                var productCode = fillerOrderDetail.component + "-18" + fillerOrderDetail.material + "-" + l1 + "" + w1 + "18000";
-                var productCode = fillerOrderDetail.component + "" + fillerOrderDetail.thickness + "" + fillerOrderDetail.material + "X" + fillerOrderDetail.finish + "-" + l1 + "" + w1 + "" + fillerOrderDetail.thickness + "000";
+                if (fillerOrderDetail.bsm === true) {
+                    var productCode = fillerOrderDetail.component + "B" + fillerOrderDetail.thickness + "" + fillerOrderDetail.material + "" + fillerOrderDetail.finish + "-" + l1 + "" + w1 + "" + fillerOrderDetail.thickness + "000";
+                } else {
+                    var productCode = fillerOrderDetail.component + "" + fillerOrderDetail.thickness + "" + fillerOrderDetail.material + "X" + fillerOrderDetail.finish + "-" + l1 + "" + w1 + "" + fillerOrderDetail.thickness + "000";
+                }
                 fillerOrderDetail.productCode = productCode;
                 console.log("Filler Save Object :%O", fillerOrderDetail);
                 $scope.applyFillerDiscount(fillerOrderDetail);
@@ -4930,6 +5017,9 @@ angular.module("digitalbusiness.states.order", [])
 //                $scope.rateContract = 
 //            });
             $scope.approveOrder = function (orderHead) {
+                orderHead.approvalDate = new Date().getTime();
+                orderHead.$save(function () {
+                });
                 delete orderHead.billingPartyObject.$promise;
                 delete orderHead.billingPartyObject.$resolved;
                 delete orderHead.deliveryPartyObject.$promise;

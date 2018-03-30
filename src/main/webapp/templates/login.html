@@ -337,23 +337,6 @@ and open the template in the editor.
 <!-- Main UI Ends -->
 
 <script>
-//    $('.carousel[data-type="multi"] .item').each(function() {
-//	var next = $(this).next();
-//	if (!next.length) {
-//		next = $(this).siblings(':first');
-//	}
-//	next.children(':first-child').clone().appendTo($(this));
-//
-//	for (var i = 0; i < 1; i++) {
-//		next = next.next();
-//		if (!next.length) {
-//			next = $(this).siblings(':first');
-//		}
-//
-//		next.children(':first-child').clone().appendTo($(this));
-//	}
-//});
-
 //open-close menu
 $(".toggle").click(function(event){
   event.stopPropagation();
@@ -363,7 +346,4 @@ $(".resp-nav").on("click", function (event) {
   event.stopPropagation();
 });
 
-$(document).on("click", function () {
-  $(".resp-nav").hide();
-});
 </script>

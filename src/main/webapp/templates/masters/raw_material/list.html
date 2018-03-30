@@ -31,12 +31,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="rawMaterial in rawMaterials track by $index">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ rawMaterial.material}}</td>
-                <td>{{ rawMaterial.materialCode}}</td>
-                <td>{{ rawMaterial.price}}</td>
-                <td>{{ rawMaterial.backPanelPrice}}</td>
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Material">{{ rawMaterial.material}}</td>
+                <td data-title="Material Code">{{ rawMaterial.materialCode}}</td>
+                <td data-title="Price">{{ rawMaterial.price}}</td>
+                <td data-title="Back Panel Price">{{ rawMaterial.backPanelPrice}}</td>
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_raw_material.edit({ rawMaterialId: rawMaterial.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

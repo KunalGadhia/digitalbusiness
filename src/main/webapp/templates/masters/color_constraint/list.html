@@ -31,18 +31,18 @@
         </thead>
         <tbody>
             <tr ng-repeat="colorConstraint in colorConstraints">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ colorConstraint.component}}</td>   
-                <td>{{ colorConstraint.materialCode}}</td>  
-                <td>{{ colorConstraint.finishObject.finishName}}</td>  
-                <td>
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Component">{{ colorConstraint.component}}</td>   
+                <td data-title="Material Code">{{ colorConstraint.materialCode}}</td>  
+                <td data-title="Finish Code">{{ colorConstraint.finishObject.finishName}}</td>  
+                <td data-title="Colors">
                     <ul>
                         <li ng-repeat="color in colorConstraint.colorObjects" >                            
                                 {{color.colorName}}
                         </li>
                     </ul>                    
                 </td>
-                <td class="text-right">
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_color_constraint.edit({ colorConstraintId: colorConstraint.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

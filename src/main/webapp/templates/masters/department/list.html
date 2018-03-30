@@ -29,10 +29,10 @@
         </thead>
         <tbody>
             <tr ng-repeat="department in departments">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ department.name}}</td>                   
-                <td>{{ department.description}}</td>                              
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Department">{{ department.name}}</td>                   
+                <td data-title="Description">{{ department.description}}</td>                              
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_department.edit({ departmentId: department.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

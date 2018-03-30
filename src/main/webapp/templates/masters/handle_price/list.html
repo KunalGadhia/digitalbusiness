@@ -31,12 +31,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="handlePrice in handlePrices track by $index">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ handlePrice.kitchenComponent}}</td>
-                <td>{{ handlePrice.finish}}</td>
-                <td>{{ handlePrice.cd}} mm</td>
-                <td>&#8377; {{ handlePrice.price}}</td>
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Kitchen Component">{{ handlePrice.kitchenComponent}}</td>
+                <td data-title="Finish">{{ handlePrice.finish}}</td>
+                <td data-title="CD (in mm)">{{ handlePrice.cd}} mm</td>
+                <td data-title="Price (INR)">&#8377; {{ handlePrice.price}}</td>
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_handle_price.edit({ handlePriceId: handlePrice.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

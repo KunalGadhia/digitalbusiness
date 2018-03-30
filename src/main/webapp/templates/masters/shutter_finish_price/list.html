@@ -33,14 +33,14 @@
         </thead>
         <tbody>
             <tr ng-repeat="shutterFinishPrice in shutterFinishPrices track by $index">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ shutterFinishPrice.finishObject.finishName}}</td>
-                <td>{{ shutterFinishPrice.finishCategory}}</td>
-                <td>{{ shutterFinishPrice.materialObject.material}}</td>
-                <td>{{ shutterFinishPrice.thickness}}</td>
-                <td>{{ shutterFinishPrice.oneSidePrice}}</td>
-                <td>{{ shutterFinishPrice.bothSidePrice}}</td>
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Finish">{{ shutterFinishPrice.finishObject.finishName}}</td>
+                <td data-title="Finish Category">{{ shutterFinishPrice.finishCategory}}</td>
+                <td data-title="Material">{{ shutterFinishPrice.materialObject.material}}</td>
+                <td data-title="Thickness">{{ shutterFinishPrice.thickness}}</td>
+                <td data-title="One Side Price (INR)">{{ shutterFinishPrice.oneSidePrice}}</td>
+                <td data-title="Both Side Price (INR)">{{ shutterFinishPrice.bothSidePrice}}</td>
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_shutter_finish_price.edit({ shutterFinishPriceId: shutterFinishPrice.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

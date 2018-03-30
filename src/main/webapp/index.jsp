@@ -275,7 +275,7 @@
         <script src="${pageContext.request.contextPath}/js/auth.js"></script>
         <script src="${pageContext.request.contextPath}/js/filters.js"></script>        
         <!--        <script src="${pageContext.request.contextPath}/js/directives/datetime_picker.js"></script>
-                
+       
         <!--states-->
         <script src="${pageContext.request.contextPath}/js/states.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/admin.js"></script>
@@ -304,6 +304,7 @@
         <script src="${pageContext.request.contextPath}/js/states/filler_finish_price.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/drawer_handle_mapping.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/rate_contract.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/approved_order_report.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>

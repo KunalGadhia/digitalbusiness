@@ -23,6 +23,14 @@ angular.module("digitalbusiness.services.order_head")
                         'userId': '@userId'
                     },
                     'isArray': true
+                },
+                'findByApprovalDate': {
+                    'method': 'GET',
+                    'url': restRoot + '/order_head/find/approvalDate',
+                    'params': {
+                        'approvalDate': '@approvalDate'
+                    },
+                    'isArray': true
                 }
             });
         });

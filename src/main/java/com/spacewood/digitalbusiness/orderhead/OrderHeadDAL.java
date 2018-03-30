@@ -45,6 +45,7 @@ public class OrderHeadDAL {
         public static final String RATE_APPLICABILITY = "rate_applicability";
         public static final String RATE_CONTRACT = "rate_contract";
         public static final String ORC_PER = "orc_per";
+        public static final String APPROVAL_DATE = "approval_date";
         public static final String APPROVED = "approved";
 
     }
@@ -80,6 +81,7 @@ public class OrderHeadDAL {
                         Columns.RATE_APPLICABILITY,
                         Columns.RATE_CONTRACT,
                         Columns.ORC_PER,
+                        Columns.APPROVAL_DATE,
                         Columns.APPROVED
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -104,6 +106,11 @@ public class OrderHeadDAL {
     public List<OrderHead> findOrderGenerationSource(Integer userId) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_INITIATED_BY + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{userId}, new BeanPropertyRowMapper<>(OrderHead.class));
+    }
+    
+    public List<OrderHead> findByApprovalDate(String approvalDate) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.APPROVAL_DATE + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{approvalDate}, new BeanPropertyRowMapper<>(OrderHead.class));
     }
 
 //    public Employee findByName(String name) {       
@@ -192,6 +199,7 @@ public class OrderHeadDAL {
                 + Columns.RATE_APPLICABILITY + " = ?,"
                 + Columns.RATE_CONTRACT + " = ?,"
                 + Columns.ORC_PER + " = ?,"
+                + Columns.APPROVAL_DATE + " = ?,"
                 + Columns.APPROVED + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
@@ -215,6 +223,7 @@ public class OrderHeadDAL {
                     orderHead.getRateApplicability().name(),
                     orderHead.getRateContract(),
                     orderHead.getOrcPer(),
+                    orderHead.getApprovalDate(),
                     orderHead.getApproved(),
                     orderHead.getId()
                 });

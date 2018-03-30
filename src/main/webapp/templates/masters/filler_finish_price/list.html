@@ -32,13 +32,13 @@
         </thead>
         <tbody>
             <tr ng-repeat="fillerFinishPrice in fillerFinishPrices track by $index">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ fillerFinishPrice.finishObject.finishName}}</td>
-                <td>{{ fillerFinishPrice.materialObject.material}}</td>
-                <td>{{ fillerFinishPrice.thickness}}</td>
-                <td>{{ fillerFinishPrice.oneSidePrice}}</td>
-                <td>{{ fillerFinishPrice.bothSidePrice}}</td>
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Finish">{{ fillerFinishPrice.finishObject.finishName}}</td>
+                <td data-title="Material">{{ fillerFinishPrice.materialObject.material}}</td>
+                <td data-title="Thickness">{{ fillerFinishPrice.thickness}}</td>
+                <td data-title="One Side Price(INR)">{{ fillerFinishPrice.oneSidePrice}}</td>
+                <td data-title="Both Side Price(INR)">{{ fillerFinishPrice.bothSidePrice}}</td>
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_filler_finish_price.edit({ fillerFinishPriceId: fillerFinishPrice.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

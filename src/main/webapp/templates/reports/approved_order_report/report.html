@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+    <div class="panel-heading text-center">
+        <div class="pull-left">
+            <a data-ui-sref="admin.masters"
+               class="btn btn-default" ng-show="adminBackButton">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </a>
+            <a data-ui-sref="admin.dealers"
+               class="btn btn-default" ng-show="dealerBackButton">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </a>
+        </div>       
+        <div>
+            <h4>Orders Approved Through Innocal on {{filterDate | date:"mediumDate"}}</h4>
+        </div>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="text-right">#</th>
+                <th>Order Number</th>
+                <th>Project Name</th>
+                <th>Billing Party</th>                
+                <th>Customer PO Number</th>
+                <th>PO Date</th>               
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="orderHead in orderHeadList">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Order Number">{{ orderHead.orderNum}}</td>
+                <td data-title="Project Name">{{ orderHead.projectName}}</td>                    
+                <td data-title="Billing Party">{{ orderHead.billingPartyObject.dealerName}}</td>                
+                <td data-title="Customer PO Number">{{ orderHead.poNum}}</td> 
+                <td data-title="PO Date">{{ orderHead.poDate | date:"mediumDate"}}</td>                
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div data-ui-view=""></div>

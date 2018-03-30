@@ -34,14 +34,14 @@
         </thead>
         <tbody>
             <tr ng-repeat="user in users">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ user.username}}</td>   
-                <td>{{ user.role}}</td>  
-                <td>{{ user.name}}</td>  
-                <td>{{ user.nameOfCompany}}</td>
-                <td>{{ user.address}}</td>
-                <td>{{ user.mobileNo}}</td>                
-                <td>
+                <td data-title="Username" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Role">{{ user.username}}</td>   
+                <td data-title="Name">{{ user.role}}</td>  
+                <td data-title="Name Of Company">{{ user.name}}</td>  
+                <td data-title="Address">{{ user.nameOfCompany}}</td>
+                <td data-title="Mobile No">{{ user.address}}</td>
+                <td data-title="Associated Parties">{{ user.mobileNo}}</td>                
+                <td data-title="Actions">
                     <ul>
                         <li ng-repeat="party in user.partyObjects" >                            
                                 {{party.dealerName}}

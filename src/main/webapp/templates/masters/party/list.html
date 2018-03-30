@@ -67,22 +67,22 @@
         </thead>
         <tbody>
             <tr ng-repeat="party in parties">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ party.dealerCode}}</td>   
-                <td>{{ party.dealerName}}</td>  
-                <td>{{ party.glCode}}</td>
-                <td>{{ party.billingAdd1}}</td>
-                <td>{{ party.billingAdd2}}</td>
-                <td>{{ party.billingEmail}}</td>
-                <td>{{ party.city}}</td>
-                <td>{{ party.billingFax}}</td>
-                <td>{{ party.billBoardTel}}</td>
-                <td>{{ party.directTelNo}}</td>
-                <td>{{ party.panNumber}}</td>
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Dealer Code">{{ party.dealerCode}}</td>   
+                <td data-title="Dealer Name">{{ party.dealerName}}</td>  
+                <td data-title="GL Code">{{ party.glCode}}</td>
+                <td data-title="Billing Add 1">{{ party.billingAdd1}}</td>
+                <td data-title="Billing Add 2">{{ party.billingAdd2}}</td>
+                <td data-title="Billing Email">{{ party.billingEmail}}</td>
+                <td data-title="City">{{ party.city}}</td>
+                <td data-title="Billing Fax">{{ party.billingFax}}</td>
+                <td data-title="Bill Board Tel">{{ party.billBoardTel}}</td>
+                <td data-title="Direct Tel No">{{ party.directTelNo}}</td>
+                <td data-title="PAN Number">{{ party.panNumber}}</td>
                 <!--<td>{{ party.cstNumber}}</td>-->
-                <td>{{ party.gstNumber}}</td>
-                <td>{{ party.employeeObject.empName}}</td>
-                <td class="text-right">
+                <td data-title="GST Number">{{ party.gstNumber}}</td>
+                <td data-title="Marketing Head">{{ party.employeeObject.empName}}</td>
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_party.edit({ partyId: party.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

@@ -30,13 +30,13 @@
         </thead>
         <tbody>
             <tr ng-repeat="orderHead in orderHeadList">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ orderHead.projectName}}</td>                    
-                <td>{{ orderHead.billingPartyObject.dealerName}}</td>
-                <td>{{ orderHead.deliveryPartyObject.dealerName}}</td>
-                <td>{{ orderHead.poNum}}</td> 
-                <td>{{ orderHead.poDate | date:"mediumDate"}}</td>                                
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Project Name">{{ orderHead.projectName}}</td>                    
+                <td data-title="Billing Party">{{ orderHead.billingPartyObject.dealerName}}</td>
+                <td data-title="Delivery Party">{{ orderHead.deliveryPartyObject.dealerName}}</td>
+                <td data-title="PO Number">{{ orderHead.poNum}}</td> 
+                <td data-title="PO Date">{{ orderHead.poDate | date:"mediumDate"}}</td>                                
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_dealer_order_details({orderHeadId: orderHead.id})"
                        class="btn btn-primary">					
                         <i class="fa fa-info-circle"></i>

@@ -30,11 +30,11 @@
         </thead>
         <tbody>
             <tr ng-repeat="panelMaterialThickness in panelMaterialThicknessList">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ panelMaterialThickness.material}}</td>                   
-                <td>{{ panelMaterialThickness.thickness}}</td>                              
-                <td>{{panelMaterialThickness.price}}</td>
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Material">{{ panelMaterialThickness.material}}</td>                   
+                <td data-title="Thickness">{{ panelMaterialThickness.thickness}}</td>                              
+                <td data-title="Price (INR)">{{panelMaterialThickness.price}}</td>
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_panel_material_thickness.edit({ panelMaterialThicknessId: panelMaterialThickness.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

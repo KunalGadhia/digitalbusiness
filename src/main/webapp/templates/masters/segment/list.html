@@ -30,11 +30,11 @@
         </thead>
         <tbody>
             <tr ng-repeat="segment in segments">
-                <td class="text-right">{{ currentOffset + $index + 1}}</td>
-                <td>{{ segment.segment}}</td>   
-                <td>{{ segment.segmentCode}}</td>  
-                <td>{{ segment.description}}</td>                              
-                <td class="text-right">
+                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="Segment">{{ segment.segment}}</td>   
+                <td data-title="Segment Code">{{ segment.segmentCode}}</td>  
+                <td data-title="Description">{{ segment.description}}</td>                              
+                <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_segment.edit({ segmentId: segment.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>

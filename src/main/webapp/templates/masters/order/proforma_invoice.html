@@ -230,7 +230,7 @@
                     <!-- Trial Purpose ----------->
                     <tbody>
                         <tr ng-repeat="orderDetails in mainInvoiceList">
-                            <td class="text-right">{{$index + 1}}</td>
+                            <td data-title="" class="text-right">{{$index + 1}}</td>
                             <td class="text-left">{{ orderDetails.productCode}}</td>
                             <td class="text-left">
                                 <span ng-if="orderDetails.orderFor === 'CARCASS'">

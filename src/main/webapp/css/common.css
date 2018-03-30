@@ -166,19 +166,9 @@ and open the template in the editor.
         padding-bottom: 20px;
         padding-top: 20px;
     }
-    .footer-po{
-        position: relative;
-    }
-    .footer-hr-position{
-        position: relative !important;
-        margin: 10px 0px;
-    }
     .footer-margin img{
         max-width: 60%;
         margin-top: 25px;
-    }
-    .mt264{
-        position:relative;
     }
     .mb245 {
         margin-bottom: 245px;
@@ -329,7 +319,6 @@ and open the template in the editor.
         margin-top:28px;
         text-align:right;
     }
-    
     .cust-nav1{
         margin-top:35px;
         margin-bottom:25px;
@@ -537,7 +526,7 @@ and open the template in the editor.
         padding: 0px 0px 0px 0px;
         line-height: 24px;
         list-style-type: none;
-        height: 218px;
+        height: 150px;
     }
     .b-right{
         border-right: 2px solid #636061;
@@ -545,18 +534,7 @@ and open the template in the editor.
         padding-bottom: 0px;
         padding-top: 0px;
     }
-    .footer-po{
-        position: relative;
-        top: -152px;
-    }
-    .footer-hr-position{
-        position: relative !important;
-        top: -168px !important;
-    }.mt264{
-        position:relative;
-        bottom: 22px;
-        top: -192px;
-    }.mb245 {
+    .mb245 {
         margin-bottom: 245px;
         margin-top: -5.2em;
     }.footer-form-in-bg {
@@ -609,10 +587,6 @@ and open the template in the editor.
         background-repeat:no-repeat;       
         width:100%;
         height: 498px;
-    }
-
-    .footer-margin{
-        margin-top: 238px;
     }
     .pt80{
         padding-top: 40px;
@@ -913,18 +887,7 @@ and open the template in the editor.
         list-style-type: none;
         height: auto;
     }
-    .footer-po{
-        position: relative;
-        top: -152px;
-    }
-    .footer-hr-position{
-        position: relative !important;
-        top: -168px !important;
-    }.mt264{
-        position:relative;
-        bottom: 22px;
-        top: -192px;
-    }.mb245 {
+    .mb245 {
         margin-bottom: 245px;
         margin-top: -5.2em;
     }.footer-form-in-bg {
@@ -1140,6 +1103,10 @@ and open the template in the editor.
         padding-bottom: 20px;
         padding-top: 20px;
     }
+    footer{
+        background-color: #231f20;
+        padding: 10px 0;
+    }
 }
 @media (min-width:961px) {
     select, input[type="text"], input[type="email"], textarea, input[type="tel"], textarea, input[type="number"] {
@@ -1266,27 +1233,17 @@ and open the template in the editor.
         padding: 0px 0px 0px 0px;
         line-height: 24px;
         list-style-type: none;
-        height: 218px;
+        height: 200px;
     }
     .b-right{
         border-right: 2px solid #636061;
         border-bottom: 0px solid #636061;
         padding-bottom: 0px;
         padding-top: 0px;
-        height: 270px;
+        height: auto;
+        
     }
-    .footer-po{
-        position: relative;
-        top: -152px;
-    }
-    .footer-hr-position{
-        position: relative !important;
-        top: -168px !important;
-    }.mt264{
-        position:relative;
-        bottom: 22px;
-        top: -192px;
-    }.mb245 {
+    .mb245 {
         margin-bottom: 245px;
         margin-top: -4.2em;
     }.footer-form-in-bg {
@@ -1630,7 +1587,7 @@ and open the template in the editor.
         padding: 0px 0px 0px 0px;
         line-height: 24px;
         list-style-type: none;
-        height: 218px;
+        height: 150px;
     }
     .b-right{
         border-right: 2px solid #636061;
@@ -1638,18 +1595,7 @@ and open the template in the editor.
         padding-bottom: 0px;
         padding-top: 0px;
     }
-    .footer-po{
-        position: relative;
-        top: -152px;
-    }
-    .footer-hr-position{
-        position: relative !important;
-        top: -168px !important;
-    }.mt264{
-        position:relative;
-        bottom: 22px;
-        top: -192px;
-    }.mb245 {
+    .mb245 {
         margin-bottom: 245px;
         margin-top: 2.8em;
     }.footer-form-in-bg {
@@ -2026,7 +1972,7 @@ and open the template in the editor.
         padding: 0px 0px 0px 0px;
         line-height: 24px;
         list-style-type: none;
-        height: 218px;
+        height: 150px;
     }
     .b-right{
         border-right: 2px solid #636061;
@@ -2034,18 +1980,7 @@ and open the template in the editor.
         padding-bottom: 20px;
         padding-top: 0px;
     }
-    .footer-po{
-        position: relative;
-        top: -152px;
-    }
-    .footer-hr-position{
-        position: relative !important;
-        top: -168px !important;
-    }.mt264{
-        position:relative;
-        bottom: 22px;
-        top: -192px;
-    }.mb245 {
+    .mb245 {
         margin-bottom: 245px;
         margin-top: 0.8em;
     }.footer-form-in-bg {
