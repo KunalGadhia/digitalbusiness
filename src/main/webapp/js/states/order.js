@@ -4081,7 +4081,7 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     var productCode = "DRAWERXX" + Math.round(drawerOrderDetail.thickness) + "" + drawerOrderDetail.material + "X" + drawerOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(drawerOrderDetail.thickness) + "000";
                 }
-                $scope.applyDrawerDiscount = function (drawerOrderDetail, drawerPrice) {
+                $scope.applyDrawerDiscount = function (drawerOrderDetail, handlePrice) {
                     RateContractDetailService.findByShutterFinishMaterialThickness({
                         'finish': drawerOrderDetail.finish,
                         'material': drawerOrderDetail.material,
@@ -4090,7 +4090,7 @@ angular.module("digitalbusiness.states.order", [])
                     }, function (rateContractDetailObject) {
                         drawerOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((drawerOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
-                        drawerOrderDetail.price = ((drawerOrderDetail.unitPrice - discountPrice) + drawerPrice);
+                        drawerOrderDetail.price = ((drawerOrderDetail.unitPrice - discountPrice) + handlePrice);
                         DrawerOrderDetailsService.save(drawerOrderDetail, function () {
                             console.log("Saved Successfully");
                             $scope.editableDrawerDetail = "";
@@ -4133,8 +4133,8 @@ angular.module("digitalbusiness.states.order", [])
 
                 drawerOrderDetail.productCode = productCode;
                 console.log("Drawer Save Object :%O", drawerOrderDetail);
-                var drawerPrice = (drawerOrderDetail.quantity + drawerOrderDetail.handleMainPrice);
-                $scope.applyDrawerDiscount(drawerOrderDetail, drawerPrice);
+                var handlePrice = (drawerOrderDetail.quantity * drawerOrderDetail.handleMainPrice);
+                $scope.applyDrawerDiscount(drawerOrderDetail, handlePrice);
 //                DrawerOrderDetailsService.save(drawerOrderDetail, function () {
 //                    console.log("Saved Successfully");
 //                    $scope.editableDrawerDetail = "";
