@@ -3900,13 +3900,24 @@ angular.module("digitalbusiness.states.order", [])
                 if (shutterOrderDetail.component !== undefined) {
                     console.log("Shutter Order Detail Glass :%O", shutterOrderDetail.glass);
                     if (shutterOrderDetail.glass !== "NO_GLASS") {
-                        console.log("With Glass");
-                        if (shutterOrderDetail.bsm === true) {
-                            console.log("Glass with BSM");
-                            var productCode = shutterOrderDetail.component + "BG" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        if (shutterOrderDetail.glass === undefined) {
+                            console.log("Without Glass");
+                            if (shutterOrderDetail.bsm === true) {
+                                console.log("Without Glass with BSM");
+                                var productCode = shutterOrderDetail.component + "BX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            } else {
+                                console.log("Without without BSM");
+                                var productCode = shutterOrderDetail.component + "XX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            }
                         } else {
-                            console.log("Glass without BSM");
-                            var productCode = shutterOrderDetail.component + "XG" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            console.log("With Glass");
+                            if (shutterOrderDetail.bsm === true) {
+                                console.log("Glass with BSM");
+                                var productCode = shutterOrderDetail.component + "BG" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            } else {
+                                console.log("Glass without BSM");
+                                var productCode = shutterOrderDetail.component + "XG" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            }
                         }
                     } else {
                         console.log("Without Glass");
