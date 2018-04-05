@@ -53,6 +53,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.drawer_handle_mapping_service',
     'digitalbusiness.services.rate_contract',
     'digitalbusiness.services.rate_contract_detail',
+    'digitalbusiness.services.hardware_price',
     //ERP INTEGRATION SERVICE
     'digitalbusiness.services.erp_integration',
 
@@ -87,6 +88,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.drawer_handle_mapping',
     'digitalbusiness.states.masters_rate_contract',
     'digitalbusiness.states.approved_order_report',
+    'digitalbusiness.states.hardware',
 
     'digitalbusiness.states.auth'
 
