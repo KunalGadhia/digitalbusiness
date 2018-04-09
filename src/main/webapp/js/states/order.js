@@ -181,7 +181,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderDetailsController', function (HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (HardwareOrderDetailsService, MaxKitchenService, HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             //////////////To Detect Category Of Current Logged In User//////////
             $scope.user = $rootScope.currentUser;
@@ -228,6 +228,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showCornice = false;
             $scope.showHandle = false;
             $scope.showHardware = false;
+            $scope.showMaxKitchen = false;
             $scope.selectView = function (view) {
                 console.log("View :" + view);
                 if (view === "CARCASS") {
@@ -240,6 +241,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showCornice = false;
                     $scope.showHandle = false;
                     $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
                 } else if (view === "PANEL") {
                     $scope.showCarcass = false;
                     $scope.showPanel = true;
@@ -250,6 +252,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showCornice = false;
                     $scope.showHandle = false;
                     $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
                 } else if (view === "SHUTTER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -260,6 +263,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showCornice = false;
                     $scope.showHandle = false;
                     $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
                 } else if (view === "DRAWER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -270,6 +274,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showCornice = false;
                     $scope.showHandle = false;
                     $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
                 } else if (view === "FILLER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -280,6 +285,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showCornice = false;
                     $scope.showHandle = false;
                     $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
                 } else if (view === "PELMET") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -290,6 +296,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showCornice = false;
                     $scope.showHandle = false;
                     $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
                 } else if (view === "CORNICE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -300,6 +307,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showCornice = true;
                     $scope.showHandle = false;
                     $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
                 } else if (view === "HANDLE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -310,6 +318,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showCornice = false;
                     $scope.showHandle = true;
                     $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
                 } else if (view === "HARDWARE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -320,6 +329,18 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showCornice = false;
                     $scope.showHandle = false;
                     $scope.showHardware = true;
+                    $scope.showMaxKitchen = false;
+                } else if (view === "MAXKITCHEN") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                    $scope.showHardware = false;
+                    $scope.showMaxKitchen = true;
                 }
             };
             //////////Select Component Selection View///////////////
@@ -2491,6 +2512,17 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
             /////////////////////Hardware Form Functionality End///////////////
+            /////////////////Max Kitchen Form Functionality////////////////////
+            $scope.editableMaxKitchenDetail = {};
+            $scope.$watch('editableMaxKitchenDetail.category', function (category) {
+                console.log("Category :%O", category);
+                MaxKitchenService.findByCategory({
+                    'category': category
+                }, function (componentList) {
+                    $scope.componentList = componentList;
+                });
+            });
+            /////////////////Max Kitchen Form Functionality End////////////////
 
             function closestValue(num, arr) {
                 var curr = arr[0];

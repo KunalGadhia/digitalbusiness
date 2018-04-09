@@ -55,6 +55,8 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.rate_contract_detail',
     'digitalbusiness.services.hardware_price',
     'digitalbusiness.services.hardware_order_details_service',
+    'digitalbusiness.services.max_kitchen',
+    'digitalbusiness.services.max_kitchen_order_details_service',
     //ERP INTEGRATION SERVICE
     'digitalbusiness.services.erp_integration',
 

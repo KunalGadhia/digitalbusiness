@@ -91,7 +91,7 @@
             </div>
             <div class="btn-group btn-group-lg btn-group-justified">
                 <a ng-click="selectView('HARDWARE')" class="btn btn-primary text-center">HARDWARE</a>
-                <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
+                <a ng-click="selectView('MAXKITCHEN')" class="btn btn-primary text-center">MAX KITCHEN</a>
                 <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
                 <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
             </div>
@@ -1439,13 +1439,94 @@
                     <input type="number" min="1" class="form-control" placeholder="Enter Quantity" ng-model="editableHardwareDetail.quantity" required="">
                 </div>                
             </div>            
-<!--            <hr style="border-top:  1px solid;">
+            <!--            <hr style="border-top:  1px solid;">
+                        <div class="row">
+                            <div class="form-group col-sm-4 col-md-4">
+                                <label>Additional Remark (Optional)</label>
+                                <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editableHandleDetail.remark"></textarea>
+                            </div>
+                        </div>-->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fa fa-save"></i>
+                    Add
+                </button>                       				
+            </div>
+        </form>
+    </div>
+    <div class="panel-heading text-center" ng-if="showMaxKitchen">
+        <div>
+            <h3>Enter Max Kitchen Order Details</h3>
+        </div>
+        <form role="role" ng-submit="saveMaxKitchenDetails(editableMaxKitchenDetail)">
             <div class="row">
-                <div class="form-group col-sm-4 col-md-4">
-                    <label>Additional Remark (Optional)</label>
-                    <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editableHandleDetail.remark"></textarea>
+                <div class="col-sm-4">
+                    <label>Select Category</label>                   
+                    <select class="form-control" ng-model="editableMaxKitchenDetail.category" required="">
+                        <option value="">Select Hardware</option>
+                        <option value="BASE_SHELF_UNITS">Base Shelf Units</option>
+                        <option value="BASE_GAS_FRAME_UNITS">Base Gas Frame Units</option>
+                        <option value="BASE_CORNER_UNITS">Base Corner Units</option>
+                        <option value="BASE_SINK_UNITS">Base Sink Units</option>
+                        <option value="BASE_PULLOUT_DRAWER">Base-Pullout & Drawer Units</option>
+                        <option value="TALL_UNIT_ACCESSORIES">Tall Accessories & Shelf Units</option>
+                        <option value="WALL_SHELF_UNITS">Wall Shelf Units</option>
+                        <option value="WALL_AQGD_UNITS">Wall Aquaguard Units</option>
+                        <option value="WALL_GLASS_UNITS">Wall Glass Shutter Units</option>
+                        <option value="WALL_CORNER_UNITS">Wall Corner Units</option>
+                        <option value="WALL_LIFTUP_UNITS">Wall Top Opening(Lift Up) Units</option>
+                        <option value="WALL_ROLLUP_UNITS">Wall Roll Up Units</option>
+                        <option value="OPEN_SHELF_UNITS">Open Shelves Units</option>
+                        <option value="FILLER_END_PANEL">Filler & End Panels</option>
+                        <option value="VALANCE">Valance (Chimney Cover)</option>
+                        <option value="HANDLE">Max Handle</option>
+                        <option value="PVC_SKIRTING_ACCESSORIES">PVC Skirting & Add On Accessories</option>
+                    </select>            
+                </div>                
+                <div class="col-sm-4">
+                    <div>
+                        <label>Component</label>
+                        <select class="form-control" ng-model="editableMaxKitchenDetail.componentId" required="">
+                            <option value="">Select Component</option>
+                            <option ng-repeat="component in componentList" value="{{component.id}}">{{component.description}}</option>
+                        </select>
+                    </div>                                      
+                </div>                
+                <div class="col-sm-4">
+                    <label>Shutter Finish</label>
+                    <select class="form-control" ng-model="editableMaxKitchenDetail.finish" required="">
+                        <option value="">Select Finish</option>
+                        <option value="HDF_MATT">HDF Matt Finish</option>
+                        <option value="HDF_GLOSS">HDF Gloss Finish</option>
+                        <option value="G50_GLASS">G-50 Aluminium Glass Shutter</option>
+                    </select>
                 </div>
-            </div>-->
+                <div class="row">                    
+                    <div class="col-sm-3">
+                        <label>Width (in mm)</label>
+                        <input class="form-control" ng-model="editableMaxKitchenDetail.width" readonly="">
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Height (in mm)</label>
+                        <input class="form-control" ng-model="editableMaxKitchenDetail.height" readonly="">
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Depth (in mm)</label>
+                        <input class="form-control" ng-model="editableMaxKitchenDetail.depth" readonly="">
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Quantity</label>
+                        <input class="form-control" ng-model="editableMaxKitchenDetail.quantity" readonly="">
+                    </div>
+                </div>                
+            </div>            
+            <!--            <hr style="border-top:  1px solid;">
+                        <div class="row">
+                            <div class="form-group col-sm-4 col-md-4">
+                                <label>Additional Remark (Optional)</label>
+                                <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editableHandleDetail.remark"></textarea>
+                            </div>
+                        </div>-->
             <div class="modal-footer">
                 <button type="submit" class="btn btn-lg btn-primary">
                     <i class="fa fa-save"></i>

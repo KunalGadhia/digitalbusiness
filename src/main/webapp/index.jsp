@@ -346,6 +346,8 @@
         <script src="${pageContext.request.contextPath}/js/services/erp_integration_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/hardware_price_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/hardware_order_details_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/max_kitchen_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/max_kitchen_order_details_service.js"></script>
 
     </head>
     <body style="font-family: 'Roboto', sans-serif;">
