@@ -16,6 +16,11 @@ angular.module("digitalbusiness.services.hardware_price")
                     },
                     'isArray': true
                 },
+                'findAllList': {
+                    'method': 'GET',
+                    'url': restRoot + '/hardware_price/find_all_list',                    
+                    'isArray': true
+                },
                 'findByName': {
                     'method': 'GET',
                     'url': restRoot + '/hardware_price/find/name',

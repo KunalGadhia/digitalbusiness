@@ -60,6 +60,11 @@ angular.module("digitalbusiness.states.order", [])
                 'templateUrl': templateRoot + '/masters/order/handle_detail_delete.html',
                 'controller': 'HandleDetailDeleteController'
             });
+            $stateProvider.state('admin.masters_order_details.hardware_delete', {
+                'url': '/:hardwareDetailId/hardware/delete',
+                'templateUrl': templateRoot + '/masters/order/hardware_detail_delete.html',
+                'controller': 'HardwareDetailDeleteController'
+            });
             $stateProvider.state('admin.masters_order_details.shutter_delete', {
                 'url': '/:shutterDetailId/shutter/delete',
                 'templateUrl': templateRoot + '/masters/order/shutter_detail_delete.html',
@@ -176,7 +181,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderDetailsController', function (RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             //////////////To Detect Category Of Current Logged In User//////////
             $scope.user = $rootScope.currentUser;
@@ -222,6 +227,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showPelmet = false;
             $scope.showCornice = false;
             $scope.showHandle = false;
+            $scope.showHardware = false;
             $scope.selectView = function (view) {
                 console.log("View :" + view);
                 if (view === "CARCASS") {
@@ -233,6 +239,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showPelmet = false;
                     $scope.showCornice = false;
                     $scope.showHandle = false;
+                    $scope.showHardware = false;
                 } else if (view === "PANEL") {
                     $scope.showCarcass = false;
                     $scope.showPanel = true;
@@ -242,6 +249,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showPelmet = false;
                     $scope.showCornice = false;
                     $scope.showHandle = false;
+                    $scope.showHardware = false;
                 } else if (view === "SHUTTER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -251,6 +259,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showPelmet = false;
                     $scope.showCornice = false;
                     $scope.showHandle = false;
+                    $scope.showHardware = false;
                 } else if (view === "DRAWER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -260,6 +269,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showPelmet = false;
                     $scope.showCornice = false;
                     $scope.showHandle = false;
+                    $scope.showHardware = false;
                 } else if (view === "FILLER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -269,6 +279,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showPelmet = false;
                     $scope.showCornice = false;
                     $scope.showHandle = false;
+                    $scope.showHardware = false;
                 } else if (view === "PELMET") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -278,6 +289,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showPelmet = true;
                     $scope.showCornice = false;
                     $scope.showHandle = false;
+                    $scope.showHardware = false;
                 } else if (view === "CORNICE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -287,6 +299,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showPelmet = false;
                     $scope.showCornice = true;
                     $scope.showHandle = false;
+                    $scope.showHardware = false;
                 } else if (view === "HANDLE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -296,6 +309,17 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showPelmet = false;
                     $scope.showCornice = false;
                     $scope.showHandle = true;
+                    $scope.showHardware = false;
+                } else if (view === "HARDWARE") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                    $scope.showHardware = true;
                 }
             };
             //////////Select Component Selection View///////////////
@@ -2441,6 +2465,32 @@ angular.module("digitalbusiness.states.order", [])
                 });
             });
             ///////////////////////////////////////////////////////////////////
+            /////////////////////Hardware Form Functionality///////////////////
+            $scope.editableHardwareDetail = {};
+            $scope.hardwareList = HardwarePriceService.findAllList();
+            $scope.$watch('editableHardwareDetail.hardwareId', function (hardwareId) {
+                console.log("Hardware Id :%O", hardwareId);
+                HardwarePriceService.get({
+                    'id': hardwareId
+                }, function (hardwareObject) {
+                    $scope.editableHardwareDetail.productCode = hardwareObject.productCode;
+                    $scope.editableHardwareDetail.hardwareName = hardwareObject.hardwareName;
+                    $scope.editableHardwareDetail.stdPrice = hardwareObject.price;
+                });
+            });
+            $scope.saveHardwareDetails = function (hardwareOrderDetails) {
+                hardwareOrderDetails.orderHeadId = $stateParams.orderHeadId;
+                hardwareOrderDetails.price = (hardwareOrderDetails.quantity * hardwareOrderDetails.stdPrice);
+                console.log("Hardware Order Details :%O", hardwareOrderDetails);
+                HardwareOrderDetailsService.save(hardwareOrderDetails, function () {
+                    console.log("Saved Successfully");
+                    $scope.editableHardwareDetail = "";
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
+                });
+            };
+            /////////////////////Hardware Form Functionality End///////////////
 
             function closestValue(num, arr) {
                 var curr = arr[0];
@@ -4576,6 +4626,10 @@ angular.module("digitalbusiness.states.order", [])
                     });
                 });
             });
+            $scope.hardwareDetailsList = HardwareOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (hardwareOrderList) {
+            });
             $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
             }, function (shutterOrderList) {
@@ -4622,7 +4676,7 @@ angular.module("digitalbusiness.states.order", [])
 
         }
         )
-        .controller('ProformaInvoiceDisplayController', function (DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+        .controller('ProformaInvoiceDisplayController', function (HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
             var totalPrice = 0;
             var carcassTotalPrice = 0;
@@ -4633,6 +4687,7 @@ angular.module("digitalbusiness.states.order", [])
             var pelmetTotalPrice = 0;
             var corniceTotalPrice = 0;
             var handleTotalPrice = 0;
+            var hardwareTotalPrice = 0;
             $scope.componentTotalList = [];
             $scope.mainInvoiceList = [];
             $scope.showCgst = false;
@@ -4841,6 +4896,17 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Handle Total Price :%O", $scope.handleTotalPrice);
                 $scope.captureTotal($scope.handleTotalPrice);
             });
+            $scope.hardwareDetailsList = HardwareOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (hardwareOrderList) {
+                angular.forEach($scope.hardwareDetailsList, function (hardwareDetailObject) {
+                    totalPrice = totalPrice + hardwareDetailObject.price;
+                    hardwareTotalPrice = hardwareTotalPrice + hardwareDetailObject.price;
+                    $scope.mainInvoiceList.push(hardwareDetailObject);
+                });
+                $scope.hardwareTotalPrice = hardwareTotalPrice;
+                $scope.captureTotal($scope.hardwareTotalPrice);
+            });
             $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
             }, function (shutterOrderList) {
@@ -5003,7 +5069,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderApproveController', function (RateContractDetailService, PartyService, ColorService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, $rootScope, paginationLimit) {
+        .controller('OrderApproveController', function (HardwareOrderDetailsService, RateContractDetailService, PartyService, ColorService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, $rootScope, paginationLimit) {
             $scope.orderObject = OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderObject) {
@@ -5209,6 +5275,16 @@ angular.module("digitalbusiness.states.order", [])
                                 });
                             });
                             ////////////////////////////////////////////////////////////////////
+                            ////////////////////Hardware ERP Insertion/////////////////////////////
+                            HardwareOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (hardwareOrderList) {
+                                angular.forEach(hardwareOrderList, function (hardwareOrderObject) {
+                                    console.log("Final Hardware Order Detail Before Pushing Into ERP :%O", hardwareOrderObject);
+                                    $scope.erpPush(hardwareOrderObject);
+                                });
+                            });
+                            ////////////////////////////////////////////////////////////////////
 
 //                            $scope.carcassPromise.$promise.then(function (carcassList) {
 //                                $scope.panelPromise.$promise.then(function (panelList) {
@@ -5269,6 +5345,18 @@ angular.module("digitalbusiness.states.order", [])
                 handleOrderDetail.$delete(function () {
                     $state.go('admin.masters_order_details', {
                         'orderHeadId': $scope.editableHandleDetail.orderHeadId
+                    }, {'reload': true});
+                });
+            };
+        })
+        .controller('HardwareDetailDeleteController', function (HardwareOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Pelmet:%O", $stateParams);
+            $scope.editableHardwareDetail = HardwareOrderDetailsService.get({'id': $stateParams.hardwareDetailId});
+            $scope.deleteHardwareDetail = function (hardwareOrderDetail) {
+                console.log("Handle Order Detail :%O", hardwareOrderDetail);
+                hardwareOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $scope.editableHardwareDetail.orderHeadId
                     }, {'reload': true});
                 });
             };

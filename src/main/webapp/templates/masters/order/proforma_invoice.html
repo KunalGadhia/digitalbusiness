@@ -294,6 +294,9 @@
                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
                                     <span>in {{orderDetails.finish}}</span>
                                 </span>
+                                <span ng-if="orderDetails.orderFor === 'HARDWARE'">
+                                    <span>{{orderDetails.hardwareName}}</span>                                    
+                                </span>
                                 <!--                                <span ng-if="orderDetails.grainDirection !== undefined">
                                                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
                                                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>

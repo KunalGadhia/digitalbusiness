@@ -29,6 +29,11 @@ public class HardwarePriceRest {
     public List<HardwarePrice> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
         return hardwarePriceDAL.findAll(offset);
     }
+    
+    @RequestMapping(value="/find_all_list", method = RequestMethod.GET)
+    public List<HardwarePrice> findAllList() throws SQLException {
+        return hardwarePriceDAL.findAllList();
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public HardwarePrice findById(@PathVariable("id") Integer id) throws SQLException {
