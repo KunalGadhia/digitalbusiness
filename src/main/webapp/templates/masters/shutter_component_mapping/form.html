@@ -1,0 +1,90 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveShutterComponentMapping(editableShutterComponentMapping)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Shutter Handle Mapping Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Finish</label>
+                                <select class="form-control" ng-model="editableShutterComponentMapping.finishCode">
+                                    <option value="">Select Finish</option>
+                                    <option ng-repeat="finish in finishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                                </select>
+                            </div>
+                        </div>
+<!--                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Shutter</label>
+                                <select class="form-control" ng-model="editableShutterComponentMapping.shutterCode">
+                                    <option value="">Select Shutter</option>
+                                    <option ng-repeat="shutter in shutterList" value="{{shutter.componentCode}}">{{shutter.component}}</option>
+                                </select>
+                            </div>
+                        </div>-->
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 text-danger" ng-show="editableShutterComponentMapping.repeatFinishCode">
+                            Found Record for the selected Finish.Finish should be unique
+                        </div>
+<!--                        <div class="col-sm-6 text-danger" ng-show="editableShutterHandleMapping.repeatShutterCode">
+                            Found Record for the selected Shutter.Shutter should be unique
+                        </div>-->
+                    </div>                    
+                    <div class="row">                        
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Shutters</label>
+                                <input class="form-control"
+                                       placeholder="Select Shutters"
+                                       uib-typeahead="shutters.componentCode as shutters.componentCode for shutters in searchShutters($viewValue)"
+                                       typeahead-on-select="setShutter($item)"
+                                       typeahead-editable="false"
+                                       typeahead-loading="loadingShutter" 
+                                       typeahead-no-results="noShutterFound"
+                                       ng-model="shutterName" />
+                                <p ng-show="noShutterFound" class="help-block text-muted">No Shutter Found</p>
+                                <p ng-show="loadingShutter" class="help-block text-muted">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="col-sm-6">
+                            <ul ng-repeat="shutter in shutterDisplay" class="left_margin">
+                                <li class="col-md-8">
+                                    {{shutter.componentCode}} 
+                                </li>
+                                <li class="col-md-4 list-unstyled">
+                                    <button type="button" ng-click="removeShutters(shutter)" class="btn btn-link top_padding">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">                            
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableShutterComponentMapping.repeatFinishCode">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

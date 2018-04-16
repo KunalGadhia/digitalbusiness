@@ -57,6 +57,8 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.hardware_order_details_service',
     'digitalbusiness.services.max_kitchen',
     'digitalbusiness.services.max_kitchen_order_details_service',
+    'digitalbusiness.services.shutter_component_mapping_service',
+    'digitalbusiness.services.drawer_component_mapping_service',
     //ERP INTEGRATION SERVICE
     'digitalbusiness.services.erp_integration',
 
@@ -92,6 +94,8 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.masters_rate_contract',
     'digitalbusiness.states.approved_order_report',
     'digitalbusiness.states.hardware',
+    'digitalbusiness.states.shutter_component_mapping',
+    'digitalbusiness.states.drawer_component_mapping',
 
     'digitalbusiness.states.auth'
 

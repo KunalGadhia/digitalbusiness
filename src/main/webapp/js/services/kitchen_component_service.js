@@ -45,6 +45,22 @@ angular.module("digitalbusiness.services.kitchen_component")
                     },
                     'isArray': true
                 },
+                'findByShutterComponentLike': {
+                    'method': 'GET',
+                    'url': restRoot + '/kitchen_component/find/shutter/component_like',
+                    'params': {
+                        'component': '@component'
+                    },
+                    'isArray': true
+                },
+                'findByDrawerComponentLike': {
+                    'method': 'GET',
+                    'url': restRoot + '/kitchen_component/find/drawer/component_like',
+                    'params': {
+                        'component': '@component'
+                    },
+                    'isArray': true
+                },
                 'findByCategory': {
                     'method': 'GET',
                     'url': restRoot + '/kitchen_component/find/category',

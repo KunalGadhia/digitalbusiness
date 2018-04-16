@@ -85,6 +85,18 @@ public class KitchenComponentDAL {
         String userNameLike = "%" + component.toLowerCase() + "%";
         return jdbcTemplate.query(sqlQuery, new Object[]{userNameLike}, new BeanPropertyRowMapper<>(KitchenComponent.class));
     }
+    
+    public List<KitchenComponent> findByShutterComponentLike(String component) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND category = 'SHUTTER' AND lower(component) LIKE?";
+        String userNameLike = "%" + component.toLowerCase() + "%";
+        return jdbcTemplate.query(sqlQuery, new Object[]{userNameLike}, new BeanPropertyRowMapper<>(KitchenComponent.class));
+    }
+    
+    public List<KitchenComponent> findByDrawerComponentLike(String component) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND category = 'DRAWER' AND lower(component) LIKE?";
+        String userNameLike = "%" + component.toLowerCase() + "%";
+        return jdbcTemplate.query(sqlQuery, new Object[]{userNameLike}, new BeanPropertyRowMapper<>(KitchenComponent.class));
+    }
 
     public List<KitchenComponent> findByCategory(String category) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ?";        

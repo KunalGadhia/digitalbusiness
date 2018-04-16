@@ -1,0 +1,78 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveDrawerComponentMapping(editableDrawerComponentMapping)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Drawer Handle Mapping Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Finish</label>
+                                <select class="form-control" ng-model="editableDrawerComponentMapping.finishCode">
+                                    <option value="">Select Finish</option>
+                                    <option ng-repeat="finish in finishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 text-danger" ng-show="editableDrawerComponentMapping.repeatFinishCode">
+                            Found Record for the selected Finish.Finish should be unique
+                        </div>
+                    </div>                    
+                    <div class="row">                        
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Drawers</label>
+                                <input class="form-control"
+                                       placeholder="Select Drawers"
+                                       uib-typeahead="drawers.componentCode as drawers.componentCode for drawers in searchDrawers($viewValue)"
+                                       typeahead-on-select="setDrawer($item)"
+                                       typeahead-editable="false"
+                                       typeahead-loading="loadingDrawer" 
+                                       typeahead-no-results="noDrawerFound"
+                                       ng-model="drawerName" />
+                                <p ng-show="noDrawerFound" class="help-block text-muted">No Drawer Found</p>
+                                <p ng-show="loadingDrawer" class="help-block text-muted">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="col-sm-6">
+                            <ul ng-repeat="drawer in drawerDisplay" class="left_margin">
+                                <li class="col-md-8">
+                                    {{drawer.componentCode}} 
+                                </li>
+                                <li class="col-md-4 list-unstyled">
+                                    <button type="button" ng-click="removeDrawers(drawer)" class="btn btn-link top_padding">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">                            
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableDrawerComponentMapping.repeatFinishCode">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

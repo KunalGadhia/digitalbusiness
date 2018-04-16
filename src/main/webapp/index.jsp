@@ -306,6 +306,8 @@
         <script src="${pageContext.request.contextPath}/js/states/rate_contract.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/approved_order_report.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/hardware_price.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/shutter_component_mapping.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/drawer_component_mapping.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
@@ -348,6 +350,8 @@
         <script src="${pageContext.request.contextPath}/js/services/hardware_order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/max_kitchen_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/max_kitchen_order_details_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/shutter_component_mapping_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/drawer_component_mapping_service.js"></script>
 
     </head>
     <body style="font-family: 'Roboto', sans-serif;">

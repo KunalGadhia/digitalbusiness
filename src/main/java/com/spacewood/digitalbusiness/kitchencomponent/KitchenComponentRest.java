@@ -86,6 +86,16 @@ public class KitchenComponentRest {
         return kitchenComponentDAL.findByHandleComponentLike(component);
     }
     
+    @RequestMapping(value = "/find/shutter/component_like", method = RequestMethod.GET)
+    public List<KitchenComponent> findByShutterComponentLike(@RequestParam("component") String component) {
+        return kitchenComponentDAL.findByShutterComponentLike(component);
+    }
+    
+    @RequestMapping(value = "/find/drawer/component_like", method = RequestMethod.GET)
+    public List<KitchenComponent> findByDrawerComponentLike(@RequestParam("component") String component) {
+        return kitchenComponentDAL.findByDrawerComponentLike(component);
+    }
+    
     @RequestMapping(value = "/find/category", method = RequestMethod.GET)
     public List<KitchenComponent> findByCategory(@RequestParam("category") String category) {
         return kitchenComponentDAL.findByCategory(category);
