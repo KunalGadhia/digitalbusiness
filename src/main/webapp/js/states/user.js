@@ -17,7 +17,7 @@ angular.module("digitalbusiness.states.user", [])
             });
             $stateProvider.state('admin.masters_user.edit', {
                 'url': '/:userId/edit',
-                'templateUrl': templateRoot + '/masters/user/form.html',
+                'templateUrl': templateRoot + '/masters/user/edit_form.html',
                 'controller': 'UserEditController'
             });
             $stateProvider.state('admin.masters_user.delete', {

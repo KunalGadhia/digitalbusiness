@@ -5,7 +5,6 @@
  */
 package com.spacewood.digitalbusiness.maxkitchenorderdetails;
 
-import com.spacewood.digitalbusiness.hardwareorderdetails.HardwareOrderDetails;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1461,30 +1461,32 @@
         <form role="role" ng-submit="saveMaxKitchenDetails(editableMaxKitchenDetail)">
             <div class="row">
                 <div class="col-sm-4">
-                    <label>Select Category</label>                   
-                    <select class="form-control" ng-model="editableMaxKitchenDetail.category" required="">
-                        <option value="">Select Hardware</option>
-                        <option value="BASE_SHELF_UNITS">Base Shelf Units</option>
-                        <option value="BASE_GAS_FRAME_UNITS">Base Gas Frame Units</option>
-                        <option value="BASE_CORNER_UNITS">Base Corner Units</option>
-                        <option value="BASE_SINK_UNITS">Base Sink Units</option>
-                        <option value="BASE_PULLOUT_DRAWER">Base-Pullout & Drawer Units</option>
-                        <option value="TALL_UNIT_ACCESSORIES">Tall Accessories & Shelf Units</option>
-                        <option value="WALL_SHELF_UNITS">Wall Shelf Units</option>
-                        <option value="WALL_AQGD_UNITS">Wall Aquaguard Units</option>
-                        <option value="WALL_GLASS_UNITS">Wall Glass Shutter Units</option>
-                        <option value="WALL_CORNER_UNITS">Wall Corner Units</option>
-                        <option value="WALL_LIFTUP_UNITS">Wall Top Opening(Lift Up) Units</option>
-                        <option value="WALL_ROLLUP_UNITS">Wall Roll Up Units</option>
-                        <option value="OPEN_SHELF_UNITS">Open Shelves Units</option>
-                        <option value="FILLER_END_PANEL">Filler & End Panels</option>
-                        <option value="VALANCE">Valance (Chimney Cover)</option>
-                        <option value="HANDLE">Max Handle</option>
-                        <option value="PVC_SKIRTING_ACCESSORIES">PVC Skirting & Add On Accessories</option>
-                    </select>            
+                    <div class="form-group">
+                        <label>Select Category</label>                   
+                        <select class="form-control" ng-model="editableMaxKitchenDetail.category" required="">
+                            <option value="">Select Hardware</option>
+                            <option value="BASE_SHELF_UNITS">Base Shelf Units</option>
+                            <option value="BASE_GAS_FRAME_UNITS">Base Gas Frame Units</option>
+                            <option value="BASE_CORNER_UNITS">Base Corner Units</option>
+                            <option value="BASE_SINK_UNITS">Base Sink Units</option>
+                            <option value="BASE_PULLOUT_DRAWER">Base-Pullout & Drawer Units</option>
+                            <option value="TALL_UNIT_ACCESSORIES">Tall Accessories & Shelf Units</option>
+                            <option value="WALL_SHELF_UNITS">Wall Shelf Units</option>
+                            <option value="WALL_AQGD_UNITS">Wall Aquaguard Units</option>
+                            <option value="WALL_GLASS_UNITS">Wall Glass Shutter Units</option>
+                            <option value="WALL_CORNER_UNITS">Wall Corner Units</option>
+                            <option value="WALL_LIFTUP_UNITS">Wall Top Opening(Lift Up) Units</option>
+                            <option value="WALL_ROLLUP_UNITS">Wall Roll Up Units</option>
+                            <option value="OPEN_SHELF_UNITS">Open Shelves Units</option>
+                            <option value="FILLER_END_PANEL">Filler & End Panels</option>
+                            <option value="VALANCE">Valance (Chimney Cover)</option>
+                            <option value="HANDLE">Max Handle</option>
+                            <option value="PVC_SKIRTING_ACCESSORIES">PVC Skirting & Add On Accessories</option>
+                        </select>
+                    </div>
                 </div>                
                 <div class="col-sm-4">
-                    <div>
+                    <div class="form-group">
                         <label>Component</label>
                         <select class="form-control" ng-model="editableMaxKitchenDetail.componentId" required="">
                             <option value="">Select Component</option>
@@ -1493,30 +1495,40 @@
                     </div>                                      
                 </div>                
                 <div class="col-sm-4">
-                    <label>Shutter Finish</label>
-                    <select class="form-control" ng-model="editableMaxKitchenDetail.finish" required="">
-                        <option value="">Select Finish</option>
-                        <option value="HDF_MATT">HDF Matt Finish</option>
-                        <option value="HDF_GLOSS">HDF Gloss Finish</option>
-                        <option value="G50_GLASS">G-50 Aluminium Glass Shutter</option>
-                    </select>
+                    <div class="form-group">
+                        <label>Shutter Finish</label>
+                        <select class="form-control" ng-model="editableMaxKitchenDetail.shutterFinish" required="">
+                            <option value="">Select Finish</option>
+                            <option value="HDF_MATT" ng-if="maxKitchenObject.glass === false">HDF Matt Finish</option>
+                            <option value="HDF_GLOSS" ng-if="maxKitchenObject.glass === false">HDF Gloss Finish</option>
+                            <option value="G50_GLASS" ng-if="maxKitchenObject.glass === true">G-50 Aluminium Glass Shutter</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">                    
                     <div class="col-sm-3">
-                        <label>Width (in mm)</label>
-                        <input class="form-control" ng-model="editableMaxKitchenDetail.width" readonly="">
+                        <div class="form-group">
+                            <label>Width (in mm)</label>
+                            <input class="form-control" ng-model="editableMaxKitchenDetail.width" readonly="">
+                        </div>                        
                     </div>
                     <div class="col-sm-3">
-                        <label>Height (in mm)</label>
-                        <input class="form-control" ng-model="editableMaxKitchenDetail.height" readonly="">
+                        <div class="form-group">
+                            <label>Height (in mm)</label>
+                            <input class="form-control" ng-model="editableMaxKitchenDetail.height" readonly="">
+                        </div>
                     </div>
                     <div class="col-sm-3">
-                        <label>Depth (in mm)</label>
-                        <input class="form-control" ng-model="editableMaxKitchenDetail.depth" readonly="">
+                        <div class="form-group">
+                            <label>Depth (in mm)</label>
+                            <input class="form-control" ng-model="editableMaxKitchenDetail.depth" readonly="">
+                        </div>
                     </div>
                     <div class="col-sm-3">
-                        <label>Quantity</label>
-                        <input class="form-control" ng-model="editableMaxKitchenDetail.quantity" readonly="">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input class="form-control" ng-model="editableMaxKitchenDetail.quantity" required="">
+                        </div>
                     </div>
                 </div>                
             </div>            
@@ -2079,7 +2091,7 @@
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">                            
-                            <a data-ui-sref="admin.masters_order_details.hardware_delete({ hardwareDetailId orderDetails.id})"
+                            <a data-ui-sref="admin.masters_order_details.hardware_delete({ hardwareDetailId: orderDetails.id})"
                                class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
                             </a>
@@ -2089,6 +2101,64 @@
             </table>
         </div>
     </div>
+    <div class="panel-heading text-center" ng-show="maxKitchenOrderDetailsList.length > 0">
+        <div>
+            <h3>Max Kitchen Details List</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Colors</th>
+                        <th>Section Profile</th>
+                        <th>Shelf Count</th>                        
+                        <th>Thickness</th>
+                        <th>Width</th>
+                        <th>Length</th>
+                        <th>Depth</th>
+                        <th>Remark</th>
+                        <th>Quantity</th>
+                        <th>Price (INR)</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetails in maxKitchenOrderDetailsList">
+                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <td class="text-left">{{ orderDetails.productCode}}</td>
+                        <td class="text-left">
+                            <span>{{orderDetails.description}}</span>
+                            <span ng-show="orderDetails.shutterFinish === 'HDF_MATT'">& Shutter Finish = HDF Matt Finish</span>
+                            <span ng-show="orderDetails.shutterFinish === 'HDF_GLOSS'">& Shutter Finish = HDF Glossy Finish</span>
+                            <span ng-show="orderDetails.shutterFinish === 'G50_GLASS'">& Shutter Finish = G50 Aluminium Glass Shutter</span>
+                        </td>
+                        <td class="text-left">
+                            <span>N/A</span>                            
+                        </td>
+                        <td>N/A</td>                        
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">N/A</td>                          
+                        <td class="text-left">{{orderDetails.width}}</td>
+                        <td class="text-left">{{orderDetails.height}}</td>
+                        <td class="text-left">{{orderDetails.depth}}</td>
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{ orderDetails.quantity}}</td> 
+                        <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
+                        <td class="text-right">                            
+                            <a data-ui-sref="admin.masters_order_details.max_kitchen_delete({ maxKitchenDetailId: orderDetails.id})"
+                               class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <div class="panel-heading text-center">
         <!--        <div>
                     <h3>Order Details List</h3>

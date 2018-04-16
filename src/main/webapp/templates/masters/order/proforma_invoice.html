@@ -297,6 +297,12 @@
                                 <span ng-if="orderDetails.orderFor === 'HARDWARE'">
                                     <span>{{orderDetails.hardwareName}}</span>                                    
                                 </span>
+                                <span ng-if="orderDetails.orderFor === 'MAX_KITCHEN'">
+                                    <span>{{orderDetails.description}}</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'HDF_MATT'">& Shutter Finish = HDF Matt Finish</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'HDF_GLOSS'">& Shutter Finish = HDF Glossy Finish</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'G50_GLASS'">& Shutter Finish = G50 Aluminium Glass Shutter</span>
+                                </span>
                                 <!--                                <span ng-if="orderDetails.grainDirection !== undefined">
                                                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
                                                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
@@ -359,7 +365,13 @@
                                     <span ng-if="orderDetails.colorId === undefined">
                                         <span>N/A</span>
                                     </span>
-                                </span>                                
+                                </span> 
+                                <span ng-if="orderDetails.orderFor === 'HARDWARE'">                                    
+                                    <span>N/A</span>                                    
+                                </span> 
+                                <span ng-if="orderDetails.orderFor === 'MAX_KITCHEN'">
+                                    <span>N/A</span>                                    
+                                </span> 
 
                             </td>
                             <td>
@@ -380,7 +392,39 @@
                                 <span ng-if="orderDetails.width !== undefined">{{ orderDetails.width}} mm</span>
                                 <span ng-if="orderDetails.width === undefined">N/A</span>
                             </td>
-                            <td class="text-left">{{ orderDetails.length}} mm</td>
+                            <!--<td class="text-left">{{ orderDetails.length}} mm</td>-->
+                            <td class="text-left">
+                                <span ng-if="orderDetails.orderFor === 'CARCASS'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'FILLER'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'SHUTTER'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'DRAWER'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'PANEL'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'PELMET'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'CORNICE'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'HANDLE'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'HARDWARE'">
+                                    N/A
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'MAX_KITCHEN'">
+                                    {{ orderDetails.height}} mm
+                                </span>
+                            </td>                            
                             <td class="text-left">
                                 <span ng-if="orderDetails.depth > 0">{{ orderDetails.depth}} mm</span>
                                 <span ng-if="orderDetails.depth === undefined">N/A</span>
@@ -476,10 +520,10 @@
                     <span class="col-md-2  col-xs-2 text-left">7. Prices Validity Period :</span>
                     <span class="col-md-10  col-xs-10 text-left">As per Prevailing Rate Agreement</span>
                 </div>
-<!--                <div class="row" style="margin-left: 30px">
-                    <span class="col-md-2  col-xs-2 text-left">8. Payment Terms :</span>
-                    <span class="col-md-10  col-xs-10 text-left">Credit Period 30 Days</span>
-                </div>-->
+                <!--                <div class="row" style="margin-left: 30px">
+                                    <span class="col-md-2  col-xs-2 text-left">8. Payment Terms :</span>
+                                    <span class="col-md-10  col-xs-10 text-left">Credit Period 30 Days</span>
+                                </div>-->
                 <br>
                 <div class="row">
                     <strong style="margin-left: 30px">Our Bank Details (Applicable in case of direct deposits) :</strong>
@@ -520,16 +564,16 @@
                     <span class="col-md-4 col-xs-4 text-center">Mr. Harish Patwardhan</span>
                     <span class="col-md-4 col-xs-4 text-center">{{party.dealerName}}</span>
                 </div>
-<!--                <div class="row">
-                    <div class="modal-footer">
-                        <a data-ui-sref="admin.dealers">
-                            <button class="btn btn-lg btn-primary" >
-                                <i class="fa fa-check"></i>
-                                Approve Proforma Invoice
-                            </button>
-                        </a>
-                    </div>
-                </div>-->
+                <!--                <div class="row">
+                                    <div class="modal-footer">
+                                        <a data-ui-sref="admin.dealers">
+                                            <button class="btn btn-lg btn-primary" >
+                                                <i class="fa fa-check"></i>
+                                                Approve Proforma Invoice
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>-->
             </div>            
         </div>
     </div>    

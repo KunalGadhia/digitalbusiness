@@ -13,30 +13,51 @@
             </a>
         </div>       
         <div>
-            <h4>Orders Approved Through Innocal on {{filterDate | date:"mediumDate"}}</h4>
+            <h4>Orders Approved Through Innocal on {{filterDate| date:"mediumDate"}}</h4>
         </div>
     </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th class="text-right">#</th>
+                <th>PO Date</th>
                 <th>Order Number</th>
                 <th>Project Name</th>
-                <th>Billing Party</th>                
-                <th>Customer PO Number</th>
-                <th>PO Date</th>               
+                <th>Billing Party</th>
+                <th>Customer PO Number</th>                
+                <th>Order Amount</th>
+                <th>CGST (9%)</th>
+                <th>SGST (9%)</th>
+                <th>IGST (18%)</th>
+                <th>Net Amount</th>                
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="orderHead in orderHeadList">
                 <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="PO Date">{{ orderHead.poDate | date:"mediumDate"}}</td>
                 <td data-title="Order Number">{{ orderHead.orderNum}}</td>
                 <td data-title="Project Name">{{ orderHead.projectName}}</td>                    
                 <td data-title="Billing Party">{{ orderHead.billingPartyObject.dealerName}}</td>                
-                <td data-title="Customer PO Number">{{ orderHead.poNum}}</td> 
-                <td data-title="PO Date">{{ orderHead.poDate | date:"mediumDate"}}</td>                
+                <td data-title="Customer PO Number">{{ orderHead.poNum}}</td>
+                <td data-title="Total Order Amount">&#8377; {{ orderHead.orderAmount | number:2}}</td>
+                <td data-title="CGST">&#8377; {{ orderHead.cgstAmount | number:2}}</td>
+                <td data-title="SGST">&#8377; {{ orderHead.sgstAmount | number:2}}</td>
+                <td data-title="IGST">&#8377; {{ orderHead.igstAmount | number:2}}</td>
+                <td data-title="Net Amount">&#8377; {{ orderHead.netAmount | number:2}}</td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <!--                <td colspan="5"></td>-->
+                <td colspan="6"><strong>Total Amount of All the Orders Approved on {{filterDate| date:"mediumDate"}} :</strong></td>
+                <td>&#8377; {{orderHeadList| total:'orderAmount' | number: 2}}</td>
+                <td>&#8377; {{orderHeadList| total:'cgstAmount' | number: 2}}</td>
+                <td>&#8377; {{orderHeadList| total:'sgstAmount' | number: 2}}</td>
+                <td>&#8377; {{orderHeadList| total:'igstAmount' | number: 2}}</td>
+                <td>&#8377; {{orderHeadList| total:'netAmount' | number: 2}}</td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 <div data-ui-view=""></div>

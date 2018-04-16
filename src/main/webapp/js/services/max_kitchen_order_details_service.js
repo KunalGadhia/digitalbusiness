@@ -5,7 +5,7 @@
  */
 angular.module("digitalbusiness.services.max_kitchen_order_details_service", []);
 angular.module("digitalbusiness.services.max_kitchen_order_details_service")
-        .factory('HardwareOrderDetailsService', function ($resource, restRoot, contextPath) {
+        .factory('MaxKitchenOrderDetailsService', function ($resource, restRoot, contextPath) {
             return $resource(restRoot + '/max_kitchen_order_details/:id', {'id': '@id'}, {
                 
                 'findByOrderHeadId': {

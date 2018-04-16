@@ -65,6 +65,11 @@ angular.module("digitalbusiness.states.order", [])
                 'templateUrl': templateRoot + '/masters/order/hardware_detail_delete.html',
                 'controller': 'HardwareDetailDeleteController'
             });
+            $stateProvider.state('admin.masters_order_details.max_kitchen_delete', {
+                'url': '/:maxKitchenDetailId/max_kitchen/delete',
+                'templateUrl': templateRoot + '/masters/order/max_kitchen_detail_delete.html',
+                'controller': 'MaxKitchenDetailDeleteController'
+            });
             $stateProvider.state('admin.masters_order_details.shutter_delete', {
                 'url': '/:shutterDetailId/shutter/delete',
                 'templateUrl': templateRoot + '/masters/order/shutter_detail_delete.html',
@@ -181,7 +186,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderDetailsController', function (HardwareOrderDetailsService, MaxKitchenService, HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (MaxKitchenOrderDetailsService, MaxKitchenService, HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             //////////////To Detect Category Of Current Logged In User//////////
             $scope.user = $rootScope.currentUser;
@@ -1780,7 +1785,7 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Handle Component :%O", $scope.handleComponent);
                 $scope.showCD1 = false;
                 $scope.showCD2 = false;
-                if ($scope.handleComponent === "HAN-EP01") {
+                if ($scope.handleComponent === "HANDEP01") {
                     $scope.showCD2 = true;
                     $scope.showCD1 = false;
                     $scope.handlePriceList = [];
@@ -2130,7 +2135,7 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Handle Component :%O", $scope.shutterHandleComponent);
                 $scope.showShutterCD1 = false;
                 $scope.showShutterCD2 = false;
-                if ($scope.shutterHandleComponent === "HAN-EP01") {
+                if ($scope.shutterHandleComponent === "HANDEP01") {
                     $scope.showShutterCD2 = true;
                     $scope.showShutterCD1 = false;
                     $scope.shutterHandlePriceList = [];
@@ -2430,7 +2435,7 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Handle Component :%O", $scope.drawerHandleComponent);
                 $scope.showDrawerCD1 = false;
                 $scope.showDrawerCD2 = false;
-                if ($scope.drawerHandleComponent === "HAN-EP01") {
+                if ($scope.drawerHandleComponent === "HANDEP01") {
                     $scope.showDrawerCD2 = true;
                     $scope.showDrawerCD1 = false;
                     $scope.drawerHandlePriceList = [];
@@ -2522,6 +2527,41 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.componentList = componentList;
                 });
             });
+            $scope.$watch('editableMaxKitchenDetail.componentId', function (componentId) {
+                MaxKitchenService.get({
+                    'id': componentId
+                }, function (maxKitchenObject) {
+                    console.log("Max Kitchen Object :%O", maxKitchenObject);
+                    $scope.maxKitchenObject = maxKitchenObject;
+                    $scope.editableMaxKitchenDetail.width = maxKitchenObject.width;
+                    $scope.editableMaxKitchenDetail.height = maxKitchenObject.height;
+                    $scope.editableMaxKitchenDetail.depth = maxKitchenObject.depth;
+                });
+            });
+            $scope.saveMaxKitchenDetails = function (maxKitchenOrderDetails) {
+                maxKitchenOrderDetails.orderHeadId = $stateParams.orderHeadId;
+                maxKitchenOrderDetails.productCode = $scope.maxKitchenObject.productCode;
+                maxKitchenOrderDetails.description = $scope.maxKitchenObject.description;
+                if (maxKitchenOrderDetails.shutterFinish === "HDF_MATT") {
+                    maxKitchenOrderDetails.stdPrice = $scope.maxKitchenObject.hdfMattPrice;
+                    maxKitchenOrderDetails.price = (maxKitchenOrderDetails.quantity * $scope.maxKitchenObject.hdfMattPrice);
+                } else if (maxKitchenOrderDetails.shutterFinish === "HDF_GLOSS") {
+                    maxKitchenOrderDetails.stdPrice = $scope.maxKitchenObject.hdfGlossPrice;
+                    maxKitchenOrderDetails.price = (maxKitchenOrderDetails.quantity * $scope.maxKitchenObject.hdfGlossPrice);
+                } else if (maxKitchenOrderDetails.shutterFinish === "G50_GLASS") {
+                    maxKitchenOrderDetails.stdPrice = $scope.maxKitchenObject.glassG50AluPrice;
+                    maxKitchenOrderDetails.price = (maxKitchenOrderDetails.quantity * $scope.maxKitchenObject.glassG50AluPrice);
+                }
+                console.log("Max Kitchen Order Details :%O", maxKitchenOrderDetails);
+
+                MaxKitchenOrderDetailsService.save(maxKitchenOrderDetails, function () {
+                    console.log("Saved Successfully");
+                    $scope.editableMaxKitchenDetail = "";
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
+                });
+            };
             /////////////////Max Kitchen Form Functionality End////////////////
 
             function closestValue(num, arr) {
@@ -4032,7 +4072,7 @@ angular.module("digitalbusiness.states.order", [])
                 if (shutterOrderDetail.hingePosition === "") {
                     shutterOrderDetail.hingePosition = "NO_HINGE";
                 }
-                if (shutterOrderDetail.handle === "HAN-EP01") {
+                if (shutterOrderDetail.handle === "HANDEP01") {
                     var meterLength = (shutterOrderDetail.handleLength / 1000);
                     shutterOrderDetail.handleMainPrice = (meterLength * shutterOrderDetail.handlePrice);
                 } else {
@@ -4189,7 +4229,7 @@ angular.module("digitalbusiness.states.order", [])
                 var shutterArea = (drawerOrderDetail.length * drawerOrderDetail.width);
                 var shutterAreaSqMt = (shutterArea / 1000000);
                 console.log("Shutter Area Sq Mt :%O", shutterAreaSqMt);
-                if (drawerOrderDetail.handle === "HAN-EP01") {
+                if (drawerOrderDetail.handle === "HANDEP01") {
                     var meterLength = (drawerOrderDetail.handleLength / 1000);
                     drawerOrderDetail.handleMainPrice = (meterLength * drawerOrderDetail.handlePrice);
                 } else {
@@ -4506,7 +4546,7 @@ angular.module("digitalbusiness.states.order", [])
                 }
                 var productCode = handleOrderDetail.component + "XXXXXXXX-" + l1 + "MM";
                 handleOrderDetail.productCode = productCode;
-                if (handleOrderDetail.component === "HAN-EP01") {
+                if (handleOrderDetail.component === "HANDEP01") {
                     var meterLength = (handleOrderDetail.length / 1000);
                     handleOrderDetail.price = (handleOrderDetail.quantity * (meterLength * handleOrderDetail.stdPrice));
                 } else {
@@ -4662,6 +4702,12 @@ angular.module("digitalbusiness.states.order", [])
                 'orderHeadId': $stateParams.orderHeadId
             }, function (hardwareOrderList) {
             });
+            $scope.maxKitchenOrderDetailsList = MaxKitchenOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (maxKitchenOrderList) {
+                console.log("Max Kitchen List :%O", maxKitchenOrderList);
+                $scope.maxKitchenOrderDetailsList = maxKitchenOrderList;
+            });
             $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
             }, function (shutterOrderList) {
@@ -4708,7 +4754,7 @@ angular.module("digitalbusiness.states.order", [])
 
         }
         )
-        .controller('ProformaInvoiceDisplayController', function (HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+        .controller('ProformaInvoiceDisplayController', function (MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
             var totalPrice = 0;
             var carcassTotalPrice = 0;
@@ -4720,6 +4766,7 @@ angular.module("digitalbusiness.states.order", [])
             var corniceTotalPrice = 0;
             var handleTotalPrice = 0;
             var hardwareTotalPrice = 0;
+            var maxKitchenTotalPrice = 0;
             $scope.componentTotalList = [];
             $scope.mainInvoiceList = [];
             $scope.showCgst = false;
@@ -4939,6 +4986,17 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.hardwareTotalPrice = hardwareTotalPrice;
                 $scope.captureTotal($scope.hardwareTotalPrice);
             });
+            $scope.maxKitchenDetailsList = MaxKitchenOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (maxKitchenOrderList) {
+                angular.forEach($scope.maxKitchenDetailsList, function (maxKitchenDetailObject) {
+                    totalPrice = totalPrice + maxKitchenDetailObject.price;
+                    maxKitchenTotalPrice = maxKitchenTotalPrice + maxKitchenDetailObject.price;
+                    $scope.mainInvoiceList.push(maxKitchenDetailObject);
+                });
+                $scope.maxKitchenTotalPrice = maxKitchenTotalPrice;
+                $scope.captureTotal($scope.maxKitchenTotalPrice);
+            });
             $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
             }, function (shutterOrderList) {
@@ -5101,7 +5159,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderApproveController', function (HardwareOrderDetailsService, RateContractDetailService, PartyService, ColorService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, $rootScope, paginationLimit) {
+        .controller('OrderApproveController', function (MaxKitchenOrderDetailsService, HardwareOrderDetailsService, RateContractDetailService, PartyService, ColorService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, $rootScope, paginationLimit) {
             $scope.orderObject = OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderObject) {
@@ -5317,6 +5375,16 @@ angular.module("digitalbusiness.states.order", [])
                                 });
                             });
                             ////////////////////////////////////////////////////////////////////
+                            ////////////////////Max Kitchen ERP Insertion/////////////////////////////
+                            MaxKitchenOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (maxKitchenOrderList) {
+                                angular.forEach(maxKitchenOrderList, function (maxKitchenOrderObject) {
+                                    console.log("Final Max Kitchen Order Detail Before Pushing Into ERP :%O", maxKitchenOrderObject);
+                                    $scope.erpPush(maxKitchenOrderObject);
+                                });
+                            });
+                            ////////////////////////////////////////////////////////////////////
 
 //                            $scope.carcassPromise.$promise.then(function (carcassList) {
 //                                $scope.panelPromise.$promise.then(function (panelList) {
@@ -5382,13 +5450,25 @@ angular.module("digitalbusiness.states.order", [])
             };
         })
         .controller('HardwareDetailDeleteController', function (HardwareOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
-            console.log("What are STate Params Pelmet:%O", $stateParams);
+            console.log("What are STate Params Hardware:%O", $stateParams);
             $scope.editableHardwareDetail = HardwareOrderDetailsService.get({'id': $stateParams.hardwareDetailId});
             $scope.deleteHardwareDetail = function (hardwareOrderDetail) {
                 console.log("Handle Order Detail :%O", hardwareOrderDetail);
                 hardwareOrderDetail.$delete(function () {
                     $state.go('admin.masters_order_details', {
                         'orderHeadId': $scope.editableHardwareDetail.orderHeadId
+                    }, {'reload': true});
+                });
+            };
+        })        
+        .controller('MaxKitchenDetailDeleteController', function (MaxKitchenOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Kitchen:%O", $stateParams);
+            $scope.editableMaxKitchenDetail = MaxKitchenOrderDetailsService.get({'id': $stateParams.maxKitchenDetailId});
+            $scope.deleteMaxKitchenDetail = function (maxKitchenOrderDetail) {
+                console.log("Max Order Detail :%O", maxKitchenOrderDetail);
+                maxKitchenOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $scope.editableMaxKitchenDetail.orderHeadId
                     }, {'reload': true});
                 });
             };

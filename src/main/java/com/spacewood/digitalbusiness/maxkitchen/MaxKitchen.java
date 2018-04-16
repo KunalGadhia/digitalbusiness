@@ -14,6 +14,7 @@ import java.util.Objects;
 public class MaxKitchen {
     private Integer id;
     private Category category;
+    private String productCode;
     private String description;
     private Double width;
     private Double height;
@@ -37,6 +38,14 @@ public class MaxKitchen {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
     public String getDescription() {
@@ -105,17 +114,18 @@ public class MaxKitchen {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.category);
-        hash = 89 * hash + Objects.hashCode(this.description);
-        hash = 89 * hash + Objects.hashCode(this.width);
-        hash = 89 * hash + Objects.hashCode(this.height);
-        hash = 89 * hash + Objects.hashCode(this.depth);
-        hash = 89 * hash + Objects.hashCode(this.hdfMattPrice);
-        hash = 89 * hash + Objects.hashCode(this.hdfGlossPrice);
-        hash = 89 * hash + Objects.hashCode(this.glassG50AluPrice);
-        hash = 89 * hash + Objects.hashCode(this.glass);
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.category);
+        hash = 67 * hash + Objects.hashCode(this.productCode);
+        hash = 67 * hash + Objects.hashCode(this.description);
+        hash = 67 * hash + Objects.hashCode(this.width);
+        hash = 67 * hash + Objects.hashCode(this.height);
+        hash = 67 * hash + Objects.hashCode(this.depth);
+        hash = 67 * hash + Objects.hashCode(this.hdfMattPrice);
+        hash = 67 * hash + Objects.hashCode(this.hdfGlossPrice);
+        hash = 67 * hash + Objects.hashCode(this.glassG50AluPrice);
+        hash = 67 * hash + Objects.hashCode(this.glass);
         return hash;
     }
 
@@ -131,6 +141,9 @@ public class MaxKitchen {
             return false;
         }
         final MaxKitchen other = (MaxKitchen) obj;
+        if (!Objects.equals(this.productCode, other.productCode)) {
+            return false;
+        }
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
@@ -166,7 +179,7 @@ public class MaxKitchen {
 
     @Override
     public String toString() {
-        return "MaxKitchen{" + "id=" + id + ", category=" + category + ", description=" + description + ", width=" + width + ", height=" + height + ", depth=" + depth + ", hdfMattPrice=" + hdfMattPrice + ", hdfGlossPrice=" + hdfGlossPrice + ", glassG50AluPrice=" + glassG50AluPrice + ", glass=" + glass + '}';
+        return "MaxKitchen{" + "id=" + id + ", category=" + category + ", productCode=" + productCode + ", description=" + description + ", width=" + width + ", height=" + height + ", depth=" + depth + ", hdfMattPrice=" + hdfMattPrice + ", hdfGlossPrice=" + hdfGlossPrice + ", glassG50AluPrice=" + glassG50AluPrice + ", glass=" + glass + '}';
     }
         
 }

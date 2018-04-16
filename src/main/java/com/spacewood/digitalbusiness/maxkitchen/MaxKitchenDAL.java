@@ -26,6 +26,7 @@ public class MaxKitchenDAL {
 
         public static final String ID = "id";
         public static final String CATEGORY = "category";
+        public static final String PRODUCT_CODE = "product_code";
         public static final String DESCRIPTION = "description";
         public static final String WIDTH = "width";
         public static final String HEIGHT = "height";
@@ -48,6 +49,7 @@ public class MaxKitchenDAL {
                 .withTableName(TABLE_NAME)
                 .usingColumns(
                         Columns.CATEGORY,
+                        Columns.PRODUCT_CODE,
                         Columns.DESCRIPTION,
                         Columns.WIDTH,
                         Columns.HEIGHT,
@@ -89,6 +91,7 @@ public class MaxKitchenDAL {
     public MaxKitchen insert(MaxKitchen maxKitchen) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(Columns.CATEGORY, maxKitchen.getCategory().name());
+        parameters.put(Columns.PRODUCT_CODE, maxKitchen.getProductCode());
         parameters.put(Columns.DESCRIPTION, maxKitchen.getDescription());
         parameters.put(Columns.WIDTH, maxKitchen.getWidth());
         parameters.put(Columns.HEIGHT, maxKitchen.getHeight());
@@ -111,6 +114,7 @@ public class MaxKitchenDAL {
     public MaxKitchen update(MaxKitchen maxKitchen) {
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.CATEGORY + " = ?,"
+                + Columns.PRODUCT_CODE + " = ?, "
                 + Columns.DESCRIPTION + " = ?, "
                 + Columns.WIDTH + " = ?,"
                 + Columns.HEIGHT + " = ?,"
@@ -122,6 +126,7 @@ public class MaxKitchenDAL {
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     maxKitchen.getCategory().name(),
+                    maxKitchen.getProductCode(),
                     maxKitchen.getDescription(),
                     maxKitchen.getWidth(),
                     maxKitchen.getHeight(),

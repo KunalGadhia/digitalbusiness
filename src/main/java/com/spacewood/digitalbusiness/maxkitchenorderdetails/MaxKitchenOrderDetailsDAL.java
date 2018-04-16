@@ -26,11 +26,11 @@ public class MaxKitchenOrderDetailsDAL {
         public static final String ID = "id";
         public static final String ORDER_HEAD_ID = "order_head_id";
         public static final String PRODUCT_CODE = "product_code";
-        public static final String DESCRIPTION = "hardware_name";
-        public static final String SHUTTER_FINISH = "hardware_name";
-        public static final String WIDTH = "hardware_name";
-        public static final String HEIGHT = "hardware_name";
-        public static final String DEPTH = "hardware_name";
+        public static final String DESCRIPTION = "description";
+        public static final String SHUTTER_FINISH = "shutter_finish";
+        public static final String WIDTH = "width";
+        public static final String HEIGHT = "height";
+        public static final String DEPTH = "depth";
         public static final String STD_PRICE = "std_price";
         public static final String QUANTITY = "quantity";
         public static final String PRICE = "price";        
