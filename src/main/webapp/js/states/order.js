@@ -186,7 +186,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderDetailsController', function (MaxKitchenOrderDetailsService, MaxKitchenService, HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (DrawerComponentMappingService, ShutterComponentMappingService, MaxKitchenOrderDetailsService, MaxKitchenService, HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             //////////////To Detect Category Of Current Logged In User//////////
             $scope.user = $rootScope.currentUser;
@@ -422,119 +422,99 @@ angular.module("digitalbusiness.states.order", [])
             };
             $scope.openShutter = function () {
                 console.log("Getting Shutter FInish :%O", $scope.editableShutterDetail.finish);
-                if ($scope.editableShutterDetail.finish === "XXA") {
-                    console.log("Membrane Glossy MDF");
-                    $scope.shutterList1 = [];
-                    KitchenComponentService.get({
-                        'id': 27
-                    }, function (shutterObject) {
-                        $scope.shutterList1 = [shutterObject];
+                $scope.shutterList1 = [];
+                ShutterComponentMappingService.findByFinishCode({
+                    'finishCode': $scope.editableShutterDetail.finish
+                }, function (componentList) {
+                    console.log("Component List :%O", componentList);
+                    angular.forEach(componentList.shutters, function (componentId) {
+                        KitchenComponentService.get({
+                            'id': componentId
+                        }, function (shutterObject) {
+                            $scope.shutterList1.push(shutterObject);
+                        });
                     });
-                    $scope.showCarcassSelectionWidget = false;
-                    $scope.showPanelSelectionWidget = false;
-                    $scope.showShutterSelectionWidget = true;
-                    $scope.showDrawerSelectionWidget = false;
-                    $scope.showFillerSelectionWidget = false;
-                    $scope.showPelmetSelectionWidget = false;
-                    $scope.showCorniceSelectionWidget = false;
-                    $scope.showHandleSelectionWidget = false;
-                } else if ($scope.editableShutterDetail.finish === "XXD") {
-                    console.log("Membrane Glossy HDF");
-                    $scope.shutterList1 = [];
-                    KitchenComponentService.get({
-                        'id': 27
-                    }, function (shutterObject) {
-                        $scope.shutterList1 = [shutterObject];
-                    });
-                    $scope.showCarcassSelectionWidget = false;
-                    $scope.showPanelSelectionWidget = false;
-                    $scope.showShutterSelectionWidget = true;
-                    $scope.showDrawerSelectionWidget = false;
-                    $scope.showFillerSelectionWidget = false;
-                    $scope.showPelmetSelectionWidget = false;
-                    $scope.showCorniceSelectionWidget = false;
-                    $scope.showHandleSelectionWidget = false;
-                } else {
-                    $scope.shutterList1 = [];
-                    KitchenComponentService.findByCategory({
-                        'category': 'SHUTTER '
-                    }, function (shutterList) {
-                        $scope.shutterList1 = shutterList;
-                    });
-                    $scope.showCarcassSelectionWidget = false;
-                    $scope.showPanelSelectionWidget = false;
-                    $scope.showShutterSelectionWidget = true;
-                    $scope.showDrawerSelectionWidget = false;
-                    $scope.showFillerSelectionWidget = false;
-                    $scope.showPelmetSelectionWidget = false;
-                    $scope.showCorniceSelectionWidget = false;
-                    $scope.showHandleSelectionWidget = false;
-                }
-
+                });
+                $scope.showCarcassSelectionWidget = false;
+                $scope.showPanelSelectionWidget = false;
+                $scope.showShutterSelectionWidget = true;
+                $scope.showDrawerSelectionWidget = false;
+                $scope.showFillerSelectionWidget = false;
+                $scope.showPelmetSelectionWidget = false;
+                $scope.showCorniceSelectionWidget = false;
+                $scope.showHandleSelectionWidget = false;
             };
             $scope.openDrawer = function () {
                 console.log("Drawer Finish :%O", $scope.editableDrawerDetail.finish);
-                if ($scope.editableDrawerDetail.finish === "XXA") {
-                    console.log("Membrane Glossy MDF");
-                    $scope.drawerList1 = [];
-                    KitchenComponentService.get({
-                        'id': 57
-                    }, function (drawerObject) {
-                        $scope.drawerList1 = [drawerObject];
+                $scope.drawerList1 = [];
+                DrawerComponentMappingService.findByFinishCode({
+                    'finishCode': $scope.editableDrawerDetail.finish
+                }, function (componentList) {
+                    console.log("Component List :%O", componentList);
+                    angular.forEach(componentList.drawers, function (componentId) {
+                        KitchenComponentService.get({
+                            'id': componentId
+                        }, function (drawerObject) {
+                            $scope.drawerList1.push(drawerObject);
+                        });
                     });
-                    $scope.showCarcassSelectionWidget = false;
-                    $scope.showPanelSelectionWidget = false;
-                    $scope.showShutterSelectionWidget = false;
-                    $scope.showDrawerSelectionWidget = true;
-                    $scope.showFillerSelectionWidget = false;
-                    $scope.showPelmetSelectionWidget = false;
-                    $scope.showCorniceSelectionWidget = false;
-                    $scope.showHandleSelectionWidget = false;
-                } else if ($scope.editableDrawerDetail.finish === "XXD") {
-                    console.log("Membrane Glossy HDF");
-                    $scope.drawerList1 = [];
-                    KitchenComponentService.get({
-                        'id': 57
-                    }, function (drawerObject) {
-                        $scope.drawerList1 = [drawerObject];
-                    });
-                    $scope.showCarcassSelectionWidget = false;
-                    $scope.showPanelSelectionWidget = false;
-                    $scope.showShutterSelectionWidget = false;
-                    $scope.showDrawerSelectionWidget = true;
-                    $scope.showFillerSelectionWidget = false;
-                    $scope.showPelmetSelectionWidget = false;
-                    $scope.showCorniceSelectionWidget = false;
-                    $scope.showHandleSelectionWidget = false;
-                } else {
-                    $scope.drawerList1 = [];
-                    KitchenComponentService.findByCategory({
-                        'category': 'DRAWER '
-                    }, function (drawerList) {
-                        $scope.drawerList1 = drawerList;
-                    });
-                    $scope.showCarcassSelectionWidget = false;
-                    $scope.showPanelSelectionWidget = false;
-                    $scope.showShutterSelectionWidget = false;
-                    $scope.showDrawerSelectionWidget = true;
-                    $scope.showFillerSelectionWidget = false;
-                    $scope.showPelmetSelectionWidget = false;
-                    $scope.showCorniceSelectionWidget = false;
-                    $scope.showHandleSelectionWidget = false;
-                }
-//                KitchenComponentService.findByCategory({
-//                    'category': 'DRAWER '
-//                }, function (drawerList) {
-//                    $scope.drawerList1 = drawerList;
-//                });
-//                $scope.showCarcassSelectionWidget = false;
-//                $scope.showPanelSelectionWidget = false;
-//                $scope.showShutterSelectionWidget = false;
-//                $scope.showDrawerSelectionWidget = true;
-//                $scope.showFillerSelectionWidget = false;
-//                $scope.showPelmetSelectionWidget = false;
-//                $scope.showCorniceSelectionWidget = false;
-//                $scope.showHandleSelectionWidget = false;
+                });
+                $scope.showCarcassSelectionWidget = false;
+                $scope.showPanelSelectionWidget = false;
+                $scope.showShutterSelectionWidget = false;
+                $scope.showDrawerSelectionWidget = true;
+                $scope.showFillerSelectionWidget = false;
+                $scope.showPelmetSelectionWidget = false;
+                $scope.showCorniceSelectionWidget = false;
+                $scope.showHandleSelectionWidget = false;
+//                if ($scope.editableDrawerDetail.finish === "XXA") {
+//                    console.log("Membrane Glossy MDF");
+//                    $scope.drawerList1 = [];
+//                    KitchenComponentService.get({
+//                        'id': 57
+//                    }, function (drawerObject) {
+//                        $scope.drawerList1 = [drawerObject];
+//                    });
+//                    $scope.showCarcassSelectionWidget = false;
+//                    $scope.showPanelSelectionWidget = false;
+//                    $scope.showShutterSelectionWidget = false;
+//                    $scope.showDrawerSelectionWidget = true;
+//                    $scope.showFillerSelectionWidget = false;
+//                    $scope.showPelmetSelectionWidget = false;
+//                    $scope.showCorniceSelectionWidget = false;
+//                    $scope.showHandleSelectionWidget = false;
+//                } else if ($scope.editableDrawerDetail.finish === "XXD") {
+//                    console.log("Membrane Glossy HDF");
+//                    $scope.drawerList1 = [];
+//                    KitchenComponentService.get({
+//                        'id': 57
+//                    }, function (drawerObject) {
+//                        $scope.drawerList1 = [drawerObject];
+//                    });
+//                    $scope.showCarcassSelectionWidget = false;
+//                    $scope.showPanelSelectionWidget = false;
+//                    $scope.showShutterSelectionWidget = false;
+//                    $scope.showDrawerSelectionWidget = true;
+//                    $scope.showFillerSelectionWidget = false;
+//                    $scope.showPelmetSelectionWidget = false;
+//                    $scope.showCorniceSelectionWidget = false;
+//                    $scope.showHandleSelectionWidget = false;
+//                } else {
+//                    $scope.drawerList1 = [];
+//                    KitchenComponentService.findByCategory({
+//                        'category': 'DRAWER '
+//                    }, function (drawerList) {
+//                        $scope.drawerList1 = drawerList;
+//                    });
+//                    $scope.showCarcassSelectionWidget = false;
+//                    $scope.showPanelSelectionWidget = false;
+//                    $scope.showShutterSelectionWidget = false;
+//                    $scope.showDrawerSelectionWidget = true;
+//                    $scope.showFillerSelectionWidget = false;
+//                    $scope.showPelmetSelectionWidget = false;
+//                    $scope.showCorniceSelectionWidget = false;
+//                    $scope.showHandleSelectionWidget = false;
+//                }
             };
             KitchenComponentService.findByCategory({
                 'category': 'FILLER'
@@ -1846,7 +1826,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showShutterHandleSelectionWidget = false;
             $scope.showShutterInternalColorSelectionWidget = false;
             $scope.editableShutterDetail.bsm = false;
-            $scope.shutterModelSelection = false;
+            $scope.shutterModelSelection = true;
             $scope.openShutterColorWidget = function () {
                 $scope.showShutterColorSelectionWidget = true;
             };
@@ -2074,7 +2054,7 @@ angular.module("digitalbusiness.states.order", [])
                             });
                         }
 
-                        $scope.shutterModelSelection = true;
+//                        $scope.shutterModelSelection = true;
                     } else {
                         $("#shutterLength").attr({
                             'min': 50,
@@ -2084,7 +2064,7 @@ angular.module("digitalbusiness.states.order", [])
                             'min': 50,
                             'max': 1100
                         });
-                        $scope.shutterModelSelection = false;
+//                        $scope.shutterModelSelection = false;
                         $scope.showGlassStep = false;
                         $scope.editableShutterDetail.component = '';
                         $scope.shutterName = '';
@@ -2216,7 +2196,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showDrawerColorSelectionWidget = false;
             $scope.showDrawerHandleSelectionWidget = false;
             $scope.showDrawerInternalColorSelectionWidget = false;
-            $scope.drawerModelSelection = false;
+            $scope.drawerModelSelection = true;
             $scope.editableDrawerDetail.bsm = false;
             $scope.openInternalDrawerColorWidget = function () {
                 $scope.showDrawerInternalColorSelectionWidget = true;
@@ -2393,7 +2373,7 @@ angular.module("digitalbusiness.states.order", [])
                     if (finishObject.category === "MEMBRANE") {
                         $scope.drawerModelSelection = true;
                     } else {
-                        $scope.drawerModelSelection = false;
+                        $scope.drawerModelSelection = true;
                         $scope.editableDrawerDetail.component = '';
                         $scope.shutterName = '';
                     }
@@ -5460,7 +5440,7 @@ angular.module("digitalbusiness.states.order", [])
                     }, {'reload': true});
                 });
             };
-        })        
+        })
         .controller('MaxKitchenDetailDeleteController', function (MaxKitchenOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
             console.log("What are STate Params Kitchen:%O", $stateParams);
             $scope.editableMaxKitchenDetail = MaxKitchenOrderDetailsService.get({'id': $stateParams.maxKitchenDetailId});
