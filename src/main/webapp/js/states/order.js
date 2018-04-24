@@ -137,6 +137,7 @@ angular.module("digitalbusiness.states.order", [])
                     'id': billingPartyId
                 }, function (billingPartyObject) {
                     console.log("Billing Party Object :%O", billingPartyObject);
+                    $scope.editableOrderHead.projectName = billingPartyObject.dealerName;
                     $scope.editableOrderHead.party = billingPartyObject;
                     $scope.editableOrderHead.party1 = billingPartyObject;
                     $scope.editableOrderHead.employee = EmployeeService.get({
@@ -1826,7 +1827,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showShutterHandleSelectionWidget = false;
             $scope.showShutterInternalColorSelectionWidget = false;
             $scope.editableShutterDetail.bsm = false;
-            $scope.shutterModelSelection = true;
+            $scope.shutterModelSelection = false;
             $scope.openShutterColorWidget = function () {
                 $scope.showShutterColorSelectionWidget = true;
             };
@@ -2054,7 +2055,7 @@ angular.module("digitalbusiness.states.order", [])
                             });
                         }
 
-//                        $scope.shutterModelSelection = true;
+                        $scope.shutterModelSelection = true;
                     } else {
                         $("#shutterLength").attr({
                             'min': 50,
@@ -2064,7 +2065,7 @@ angular.module("digitalbusiness.states.order", [])
                             'min': 50,
                             'max': 1100
                         });
-//                        $scope.shutterModelSelection = false;
+                        $scope.shutterModelSelection = false;
                         $scope.showGlassStep = false;
                         $scope.editableShutterDetail.component = '';
                         $scope.shutterName = '';
@@ -2196,7 +2197,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showDrawerColorSelectionWidget = false;
             $scope.showDrawerHandleSelectionWidget = false;
             $scope.showDrawerInternalColorSelectionWidget = false;
-            $scope.drawerModelSelection = true;
+            $scope.drawerModelSelection = false;
             $scope.editableDrawerDetail.bsm = false;
             $scope.openInternalDrawerColorWidget = function () {
                 $scope.showDrawerInternalColorSelectionWidget = true;
@@ -2373,7 +2374,7 @@ angular.module("digitalbusiness.states.order", [])
                     if (finishObject.category === "MEMBRANE") {
                         $scope.drawerModelSelection = true;
                     } else {
-                        $scope.drawerModelSelection = true;
+                        $scope.drawerModelSelection = false;
                         $scope.editableDrawerDetail.component = '';
                         $scope.shutterName = '';
                     }

@@ -190,18 +190,20 @@ angular.module("digitalbusiness.states.approved_order_report", [])
                                         $scope.corniceDetailsList.$promise.then(function (corniceDetails) {
                                             $scope.handleDetailsList.$promise.then(function (handleDetails) {
                                                 $scope.hardwareDetailsList.$promise.then(function (hardwareDetails) {
-                                                    $scope.maxKitchenDetailsList.$promise.then(function (maxKitchenDetails) {                                                        
+                                                    $scope.maxKitchenDetailsList.$promise.then(function (maxKitchenDetails) {
                                                         orderHeadObject.orderAmount = (carcassOrderPrice + panelOrderPrice + shutterOrderPrice + drawerOrderPrice + fillerOrderPrice + pelmetOrderPrice + corniceOrderPrice + handleOrderPrice + hardwareOrderPrice + maxKitchenOrderPrice);
-                                                        if (orderHeadObject.billingPartyObject.state === "MS") {
+                                                        if (orderHeadObject.billingPartyObject.state === "MS") {                                                            
                                                             orderHeadObject.cgstAmount = Math.round(((orderHeadObject.orderAmount / 100) * 9));
                                                             orderHeadObject.sgstAmount = Math.round(((orderHeadObject.orderAmount / 100) * 9));
                                                             orderHeadObject.igstAmount = 0;
                                                             orderHeadObject.netAmount = (orderHeadObject.orderAmount + orderHeadObject.cgstAmount + orderHeadObject.sgstAmount);
+                                                            console.log("Order Head Object MS:%O",orderHeadObject);
                                                         } else if (orderHeadObject.billingPartyObject.state === "OMS") {
                                                             orderHeadObject.cgstAmount = 0;
                                                             orderHeadObject.sgstAmount = 0;
                                                             orderHeadObject.igstAmount = Math.round(((orderHeadObject.orderAmount / 100) * 18));
                                                             orderHeadObject.netAmount = (orderHeadObject.orderAmount + orderHeadObject.igstAmount);
+                                                            console.log("Order Head Object OMS:%O",orderHeadObject);
                                                         }                                                        
                                                     });
                                                 });

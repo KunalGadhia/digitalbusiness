@@ -20,22 +20,24 @@
         <thead>
             <tr>
                 <th class="text-right">#</th>
+                <th>PO Date</th>
+                <th>Order Number</th>
                 <th>Project Name</th>
                 <th>Billing Party</th>
-                <th>Delivery Party</th>
-                <th>PO Number</th>
-                <th>PO Date</th>                                             
+                <!--<th>Delivery Party</th>-->
+                <th>PO Number</th>                                                             
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="orderHead in orderHeadList">
                 <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+                <td data-title="PO Date">{{ orderHead.poDate | date:"mediumDate"}}</td>
+                <td data-title="Order Number">{{ orderHead.orderNum}}</td>
                 <td data-title="Project Name">{{ orderHead.projectName}}</td>                    
                 <td data-title="Billing Party">{{ orderHead.billingPartyObject.dealerName}}</td>
-                <td data-title="Delivery Party">{{ orderHead.deliveryPartyObject.dealerName}}</td>
-                <td data-title="PO Number">{{ orderHead.poNum}}</td> 
-                <td data-title="PO Date">{{ orderHead.poDate | date:"mediumDate"}}</td>                                
+                <!--<td data-title="Delivery Party">{{ orderHead.deliveryPartyObject.dealerName}}</td>-->
+                <td data-title="PO Number">{{ orderHead.poNum}}</td>                 
                 <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_dealer_order_details({orderHeadId: orderHead.id})"
                        class="btn btn-primary">					

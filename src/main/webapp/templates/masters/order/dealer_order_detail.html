@@ -39,14 +39,18 @@
                     <span class="col-sm-7 text-left" ng-if="orderHead.billType === 'E'">Export Including Nepal</span>
                     <span class="col-sm-7 text-left" ng-if="orderHead.billType === 'X'">SEZ -1/2 (No Tax)</span>
                     <span class="col-sm-7 text-left" ng-if="orderHead.billType === 'C'">CT3</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-6 text-left">Order Number :</label>
+                    <span class="col-sm-6 text-left">{{orderHead.orderNum}}</span>
                 </div>                
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <label class="col-sm-6 text-left">Dealer City :</label>
                     <span class="col-sm-6 text-left">{{party.city}}</span>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
-<!--                    <label class="col-sm-6 text-left">Customer Order No :</label>
-                    <span class="col-sm-6 text-left">{{orderHead.orderId}}</span>-->
+                    <!--                    <label class="col-sm-6 text-left">Customer Order No :</label>
+                                        <span class="col-sm-6 text-left">{{orderHead.orderId}}</span>-->
                 </div>
             </div>
             <div class="row">
@@ -102,7 +106,7 @@
                             <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"><strong> Grain Direction : </strong> {{orderDetails.grainDirection}}</span>
                         </td>
                         <td class="text-left">
-                            <span>Internal Color :{{orderDetails.internalColorObject.colorName}}</span>
+                            <span>Carcass Color :{{orderDetails.internalColorObject.colorName}}</span>
                             <span ng-if="orderDetails.leftColorId !== null">| Left :{{ orderDetails.leftColorObject.colorName}}</span>
                             <span ng-if="orderDetails.rightColorId !== null">| Right : {{ orderDetails.rightColorObject.colorName}}</span>
                             <span ng-if="orderDetails.topColorId !== null">| Top : {{ orderDetails.topColorObject.colorName}}</span>

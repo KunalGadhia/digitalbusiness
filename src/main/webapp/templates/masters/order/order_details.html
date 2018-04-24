@@ -200,7 +200,7 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>Internal Color</label>                        
+                        <label>Carcass Color</label>                        
                         <div class="input-group">
                             <input class="form-control" placeholder="Select Internal Color" ng-model="intColorName" required="" onkeypress="return false;"/>
                             <span class="input-group-btn">
@@ -568,6 +568,7 @@
                         <label>Select Shutter</label>
                         <div class="input-group">
                             <input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" onkeypress="return false;"/>
+                            <!--<input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" readonly=""/>-->
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openShutter()">Select Shutter</button>
                             </span>
@@ -839,6 +840,7 @@
                         <label>Select Drawer</label>
                         <div class="input-group">
                             <input class="form-control" placeholder="Select Drawer" ng-model="drawerName" required="" onkeypress="return false;"/>
+                            <!--<input class="form-control" placeholder="Select Drawer" ng-model="drawerName" required="" readonly=""/>-->
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" ng-click="openDrawer()">Select Drawer</button>
                             </span>
@@ -959,7 +961,7 @@
                     </div>
                     <div ng-if="showDrawerCD2">
                         <label>Handle Type</label>
-                        <select class="form-control" ng-model="editableDrawerDetail.drawerHandleType">
+                        <select class="form-control" ng-model="editableDrawerDetail.drawerHandleType" required="">
                             <option value="">Select Handle Type</option>
                             <option ng-repeat="handlePrice in drawerHandlePriceList" value="{{handlePrice.id}}">{{handlePrice.finish}}</option>
                         </select>
@@ -1591,7 +1593,7 @@
                             <span ng-if="orderDetails.asPerDrawing !== false"><strong> (As Per Drawing) </strong></span>
                         </td>
                         <td class="text-left">
-                            <span>Internal Color :{{orderDetails.internalColorObject.colorName}}</span>
+                            <span>Carcass Color :{{orderDetails.internalColorObject.colorName}}</span>
                             <span ng-if="orderDetails.leftColorId !== null">| Left :{{ orderDetails.leftColorObject.colorName}}</span>
                             <span ng-if="orderDetails.rightColorId !== null">| Right : {{ orderDetails.rightColorObject.colorName}}</span>
                             <span ng-if="orderDetails.topColorId !== null">| Top : {{ orderDetails.topColorObject.colorName}}</span>
@@ -2258,7 +2260,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title col-sm-8">                    
-                    Select Internal Color
+                    Select Carcass Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
                     <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    

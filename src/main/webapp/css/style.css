@@ -2,7 +2,9 @@
     width: 306px;
     height: 230px;
 }
-
+.orderHeadForm .modal-title {
+    line-height: 0 !important;
+}
 /*-- navbar menu --*/
 .panelToggle{
     display: none;
