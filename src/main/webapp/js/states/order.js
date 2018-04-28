@@ -2929,6 +2929,7 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Profile Price :%O", profilePrice);
                             console.log("Shelf Price :%O", shelfPrice);
                             console.log("Hardware Price :%O", hardwarePrice);
+                            orderDetail.profilePrice = profilePrice;
                             var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice + hardwarePrice));
                             orderDetail.unitPrice = finalPrice;
                             console.log("Total Area OSM Left/Right :%O", totalArea);
@@ -2991,6 +2992,7 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Shelf :%O", shelfPrice);
                             console.log("Back Area Price :%O", backAreaPrice);
                             console.log("Hardware Price :%O", hardwarePrice);
+                            orderDetail.profilePrice = profilePrice;
                             var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice + hardwarePrice));
                             orderDetail.unitPrice = finalPrice;
                             console.log("Total ARea OSM TOP/Bottom :%O", totalArea);
@@ -3055,7 +3057,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
                         console.log("Back Panel Price :%O", backAreaPrice);
-                        console.log("Hardware Price :%O", hardwarePrice)
+                        console.log("Hardware Price :%O", hardwarePrice);
+                        orderDetail.profilePrice = profilePrice;
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + backAreaPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("Total Area BSM Left & Right", totalArea);
@@ -3121,6 +3124,7 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
                         console.log("Hardware Price :%O", hardwarePrice);
+                        orderDetail.profilePrice = profilePrice;
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("Three Side Matching Area :%O", totalArea);
@@ -3182,6 +3186,7 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("SHelf Price :%O", shelfPrice);
                         console.log("Hardware Price :%O", hardwarePrice);
+                        orderDetail.profilePrice = profilePrice;
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("All Side Matching Area :%O", totalArea);
@@ -3235,6 +3240,7 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Baisc Price :%O", profilePrice);
                         console.log("SHelf Price :%O", shelfPrice);
                         console.log("Hardware Price :%O", hardwarePrice);
+                        orderDetail.profilePrice = profilePrice;
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + profilePrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("FInal Price Full SIde Matching:%O", orderDetail.unitPrice);
@@ -3271,6 +3277,7 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Standard Price :%O", orderDetail.standardPrice);
                         console.log("Quantity :%O", orderDetail.quantity);
+                        orderDetail.profilePrice = profilePrice;
                         orderDetail.unitPrice = ((orderDetail.standardPrice + profilePrice) * orderDetail.quantity);
 //                        StandardCarcassPriceService.get({
 //                            'id': orderDetail.stdCarcassPriceId
@@ -3363,6 +3370,7 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Profile Price :%O", profilePrice);
                             console.log("Shelf Price :%O", shelfPrice);
                             console.log("Hardware Price :%O", hardwarePrice);
+                            orderDetail.profilePrice = profilePrice;
                             var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice + hardwarePrice));
                             orderDetail.unitPrice = finalPrice;
                             console.log("Total Area OSM Left/Right :%O", totalArea);
@@ -3423,6 +3431,7 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Shelf Price :%O", shelfPrice);
                             console.log("Profile Price :%O", profilePrice);
                             console.log("Hardware Price :%O", hardwarePrice);
+                            orderDetail.profilePrice = profilePrice;
                             var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice + hardwarePrice));
                             orderDetail.unitPrice = finalPrice;
                             console.log("Total ARea OSM TOP/Bottom :%O", totalArea);
@@ -3488,6 +3497,7 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Area Price :%O", shelfPrice);
                         console.log("Hardware Price :%O", hardwarePrice);
+                        orderDetail.profilePrice = profilePrice;
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("Total Area BSM Left & Right", totalArea);
@@ -3552,6 +3562,7 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
                         console.log("Hardware Price :%O", hardwarePrice);
+                        orderDetail.profilePrice = profilePrice;
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + backAreaPrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("Three Side Matching Area :%O", totalArea);
@@ -3612,6 +3623,7 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
                         console.log("Hardware Price :%O", hardwarePrice);
+                        orderDetail.profilePrice = profilePrice;
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + extraAreaPrice + profilePrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("All Side Matching Area :%O", totalArea);
@@ -3665,6 +3677,7 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Baisc Price :%O", profilePrice);
                         console.log("SHelf Price :%O", shelfPrice);
                         console.log("Hardware Price :%O", hardwarePrice);
+                        orderDetail.profilePrice = profilePrice;
                         var finalPrice = (orderDetail.quantity * (basicAreaPrice + profilePrice + shelfPrice + hardwarePrice));
                         orderDetail.unitPrice = finalPrice;
                         console.log("FInal Price Full SIde Matching:%O", orderDetail.unitPrice);
@@ -3727,6 +3740,7 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Profile Price :%O", profilePrice);
                         console.log("Shelf Price :%O", shelfPrice);
                         console.log("Hardware Price :%O", hardwarePrice);
+                        orderDetail.profilePrice = profilePrice;
                         var finalPrice = ((profilePrice + basicAreaPrice + backAreaPrice + shelfPrice + hardwarePrice) * orderDetail.quantity);
                         orderDetail.unitPrice = finalPrice;
                         console.log("Total Area Regular :%O", totalArea);
@@ -4735,7 +4749,7 @@ angular.module("digitalbusiness.states.order", [])
 
         }
         )
-        .controller('ProformaInvoiceDisplayController', function (MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+        .controller('ProformaInvoiceDisplayController', function (CarcassSubtypeService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
             var totalPrice = 0;
             var carcassTotalPrice = 0;
@@ -4785,6 +4799,10 @@ angular.module("digitalbusiness.states.order", [])
                 angular.forEach($scope.carcassDetailsList, function (carcassDetailObject) {
                     $scope.srNo = $scope.srNo + 1;
                     carcassDetailObject.srNo = $scope.srNo;
+                    carcassDetailObject.subTypeObject = CarcassSubtypeService.findByParentTypeSubTypeCode({
+                        'parentType': carcassDetailObject.component,
+                        'subTypeCode': carcassDetailObject.carcassSubType
+                    });
                     carcassDetailObject.rightColorObject = ColorService.get({
                         'id': carcassDetailObject.rightColorId
                     });

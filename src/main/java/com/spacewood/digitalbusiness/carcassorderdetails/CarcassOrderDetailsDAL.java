@@ -52,6 +52,7 @@ public class CarcassOrderDetailsDAL {
         public static final String FINISH_PRICE = "finish_price";
         public static final String SECTION_PROFILE_ID = "section_profile_id";
         public static final String SECTION_PROFILE_PRICE = "section_profile_price";
+        public static final String PROFILE_PRICE = "profile_price";
         public static final String CARCASS_SUB_TYPE = "carcass_sub_type";
         public static final String GRAIN_DIRECTION = "grain_direction";
         public static final String AS_PER_DRAWING = "as_per_drawing";
@@ -105,6 +106,7 @@ public class CarcassOrderDetailsDAL {
                         Columns.FINISH_PRICE,
                         Columns.SECTION_PROFILE_ID,
                         Columns.SECTION_PROFILE_PRICE,
+                        Columns.PROFILE_PRICE,
                         Columns.CARCASS_SUB_TYPE,
                         Columns.GRAIN_DIRECTION,
                         Columns.AS_PER_DRAWING,
@@ -208,6 +210,7 @@ public class CarcassOrderDetailsDAL {
         parameters.put(Columns.FINISH_PRICE, carcassOrderDetails.getFinishPrice());
         parameters.put(Columns.SECTION_PROFILE_ID, carcassOrderDetails.getSectionProfileId());
         parameters.put(Columns.SECTION_PROFILE_PRICE, carcassOrderDetails.getSectionProfilePrice());
+        parameters.put(Columns.PROFILE_PRICE, carcassOrderDetails.getProfilePrice());
         parameters.put(Columns.CARCASS_SUB_TYPE, carcassOrderDetails.getCarcassSubType());
         if (carcassOrderDetails.getGrainDirection() == null) {
             parameters.put(Columns.GRAIN_DIRECTION, carcassOrderDetails.getGrainDirection().NO_GRAIN);
@@ -267,6 +270,7 @@ public class CarcassOrderDetailsDAL {
                 + Columns.FINISH_PRICE + " = ?,"
                 + Columns.SECTION_PROFILE_ID + " = ?,"
                 + Columns.SECTION_PROFILE_PRICE + " = ?,"
+                + Columns.PROFILE_PRICE + " = ?,"
                 + Columns.CARCASS_SUB_TYPE + " = ?,"
                 + Columns.AS_PER_DRAWING + " = ?,"
                 + Columns.GRAIN_DIRECTION + " = ? WHERE " + Columns.ID + " = ?";
@@ -299,6 +303,7 @@ public class CarcassOrderDetailsDAL {
                     carcassOrderDetails.getFinishPrice(),
                     carcassOrderDetails.getSectionProfileId(),
                     carcassOrderDetails.getSectionProfilePrice(),
+                    carcassOrderDetails.getProfilePrice(),
                     carcassOrderDetails.getCarcassSubType(),
                     carcassOrderDetails.getAsPerDrawing(),
                     carcassOrderDetails.getGrainDirection().name(),

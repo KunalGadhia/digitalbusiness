@@ -238,6 +238,7 @@
                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
                                     <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
                                     <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"><strong> Grain Direction : </strong>{{orderDetails.grainDirection}}</span>
+                                    <span><strong> ({{orderDetails.subTypeObject.subType}}) </strong></span>
                                     <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
                                 </span>
                                 <span ng-if="orderDetails.orderFor === 'PANEL'">
