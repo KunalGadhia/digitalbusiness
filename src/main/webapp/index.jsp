@@ -350,6 +350,8 @@
         <script src="${pageContext.request.contextPath}/js/services/hardware_order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/max_kitchen_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/max_kitchen_order_details_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/max_wardrobe_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/max_wardrobe_order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/shutter_component_mapping_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/drawer_component_mapping_service.js"></script>
 

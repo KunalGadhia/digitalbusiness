@@ -187,7 +187,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderDetailsController', function (DrawerComponentMappingService, ShutterComponentMappingService, MaxKitchenOrderDetailsService, MaxKitchenService, HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (MaxWardrobeOrderDetailsService, MaxWardrobeService, DrawerComponentMappingService, ShutterComponentMappingService, MaxKitchenOrderDetailsService, MaxKitchenService, HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             $scope.editableCarcassDetail = {};
             //////////////To Detect Category Of Current Logged In User//////////
             $scope.user = $rootScope.currentUser;
@@ -235,6 +235,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showHandle = false;
             $scope.showHardware = false;
             $scope.showMaxKitchen = false;
+            $scope.showMaxWardrobe = false;
             $scope.selectView = function (view) {
                 console.log("View :" + view);
                 if (view === "CARCASS") {
@@ -248,6 +249,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHandle = false;
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
                 } else if (view === "PANEL") {
                     $scope.showCarcass = false;
                     $scope.showPanel = true;
@@ -259,6 +261,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHandle = false;
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
                 } else if (view === "SHUTTER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -270,6 +273,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHandle = false;
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
                 } else if (view === "DRAWER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -281,6 +285,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHandle = false;
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
                 } else if (view === "FILLER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -292,6 +297,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHandle = false;
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
                 } else if (view === "PELMET") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -303,6 +309,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHandle = false;
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
                 } else if (view === "CORNICE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -314,6 +321,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHandle = false;
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
                 } else if (view === "HANDLE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -325,6 +333,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHandle = true;
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
                 } else if (view === "HARDWARE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -336,6 +345,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHandle = false;
                     $scope.showHardware = true;
                     $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
                 } else if (view === "MAXKITCHEN") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -347,6 +357,19 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHandle = false;
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = true;
+                    $scope.showMaxWardrobe = false;
+                } else if (view === "MAXWARDROBE") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                    $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = true;
                 }
             };
             //////////Select Component Selection View///////////////
@@ -2544,6 +2567,75 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
             /////////////////Max Kitchen Form Functionality End////////////////
+            /////////////////Max Wardrobe Form Functionality////////////////////
+            $scope.editableMaxWardrobeDetail = {};
+            $scope.$watch('editableMaxWardrobeDetail.category', function (category) {
+                console.log("Category :%O", category);
+                MaxWardrobeService.findByCategory({
+                    'category': category
+                }, function (componentList) {
+                    $scope.maxWardrobeComponentList = componentList;
+                });
+            });
+            $scope.$watch('editableMaxWardrobeDetail.componentId', function (componentId) {
+                MaxWardrobeService.get({
+                    'id': componentId
+                }, function (maxWardrobeObject) {
+                    console.log("Max Wardrobe Object :%O", maxWardrobeObject);
+                    $scope.maxWardrobeObject = maxWardrobeObject;
+                    $scope.editableMaxWardrobeDetail.width = maxWardrobeObject.width;
+                    $scope.editableMaxWardrobeDetail.height = maxWardrobeObject.height;
+                    $scope.editableMaxWardrobeDetail.depth = maxWardrobeObject.depth;
+                });
+            });
+            $scope.saveMaxWardrobeDetails = function (maxWardrobeOrderDetails) {
+                maxWardrobeOrderDetails.orderHeadId = $stateParams.orderHeadId;
+                maxWardrobeOrderDetails.productCode = $scope.maxWardrobeObject.productCode;
+                maxWardrobeOrderDetails.description = $scope.maxWardrobeObject.description;
+                if (maxWardrobeOrderDetails.carcass === "PPB") {
+                    maxWardrobeOrderDetails.carcassPrice = $scope.maxWardrobeObject.cpPpbPrice;
+                } else if (maxWardrobeOrderDetails.carcass === "HD_HMR") {
+                    maxWardrobeOrderDetails.carcassPrice = $scope.maxWardrobeObject.cpHdHmrPrice;
+                } else if (maxWardrobeOrderDetails.carcass === "HDF") {
+                    maxWardrobeOrderDetails.carcassPrice = $scope.maxWardrobeObject.cpHdfPrice;
+                } else {
+                    maxWardrobeOrderDetails.carcassPrice = 0;
+                }
+
+                if (maxWardrobeOrderDetails.shutterFinish === "SP_FOILED_MATT") {
+                    maxWardrobeOrderDetails.shutterPrice = $scope.maxWardrobeObject.spFoiledMattPrice;
+                } else if (maxWardrobeOrderDetails.shutterFinish === "SP_FOILED_GLOSSY") {
+                    maxWardrobeOrderDetails.shutterPrice = $scope.maxWardrobeObject.spFoiledGlossyPrice;
+                } else if (maxWardrobeOrderDetails.shutterFinish === "SP_PRELAM_MATT") {
+                    maxWardrobeOrderDetails.shutterPrice = $scope.maxWardrobeObject.spPrelamMattPrice;
+                } else if (maxWardrobeOrderDetails.shutterFinish === "SP_PCPPB") {
+                    maxWardrobeOrderDetails.shutterPrice = $scope.maxWardrobeObject.spPcppbPrice;
+                } else if (maxWardrobeOrderDetails.shutterFinish === "G50_GLASS") {
+                    maxWardrobeOrderDetails.shutterPrice = $scope.maxWardrobeObject.spGlassG50AluPrice;
+                } else if (maxWardrobeOrderDetails.shutterFinish === "SP_PVC_STD") {
+                    maxWardrobeOrderDetails.shutterPrice = $scope.maxWardrobeObject.spPvcMdfStdPrice;
+                } else if (maxWardrobeOrderDetails.shutterFinish === "SP_PVC_DESG") {
+                    maxWardrobeOrderDetails.shutterPrice = $scope.maxWardrobeObject.spPvcMdfDesgPrice;
+                } else if (maxWardrobeOrderDetails.shutterFinish === "SP_PVC_GLOSSY") {
+                    maxWardrobeOrderDetails.shutterPrice = $scope.maxWardrobeObject.spPvcMdfGlossyPrice;
+                } else if (maxWardrobeOrderDetails.shutterFinish === "SP_PVC_PREM") {
+                    maxWardrobeOrderDetails.shutterPrice = $scope.maxWardrobeObject.spPvcMdfPremPrice;
+                } else {
+                    maxWardrobeOrderDetails.shutterPrice = 0;
+                }
+                maxWardrobeOrderDetails.softHingesPrice = $scope.maxWardrobeObject.softHingesPrice;
+                maxWardrobeOrderDetails.price = (maxWardrobeOrderDetails.quantity * (maxWardrobeOrderDetails.carcassPrice + maxWardrobeOrderDetails.shutterPrice + maxWardrobeOrderDetails.softHingesPrice));
+                console.log("Max Wardrobe Order Details :%O", maxWardrobeOrderDetails);
+
+                MaxWardrobeOrderDetailsService.save(maxWardrobeOrderDetails, function () {
+                    console.log("Saved Successfully");
+                    $scope.editableMaxWardrobeDetail = "";
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
+                });
+            };
+            /////////////////Max Wardrobe Form Functionality End////////////////
 
             function closestValue(num, arr) {
                 var curr = arr[0];
@@ -4703,6 +4795,12 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Max Kitchen List :%O", maxKitchenOrderList);
                 $scope.maxKitchenOrderDetailsList = maxKitchenOrderList;
             });
+            $scope.maxWardrobeOrderDetailsList = MaxWardrobeOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (maxWardrobeOrderList) {
+                console.log("Max Wardrobe List :%O", maxWardrobeOrderList);
+                $scope.maxWardrobeOrderDetailsList = maxWardrobeOrderList;
+            });
             $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
             }, function (shutterOrderList) {
@@ -4749,7 +4847,7 @@ angular.module("digitalbusiness.states.order", [])
 
         }
         )
-        .controller('ProformaInvoiceDisplayController', function (CarcassSubtypeService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+        .controller('ProformaInvoiceDisplayController', function (MaxWardrobeOrderDetailsService, MaxWardrobeService, CarcassSubtypeService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
             var totalPrice = 0;
             var carcassTotalPrice = 0;
@@ -4762,6 +4860,7 @@ angular.module("digitalbusiness.states.order", [])
             var handleTotalPrice = 0;
             var hardwareTotalPrice = 0;
             var maxKitchenTotalPrice = 0;
+            var maxWardrobeTotalPrice = 0;
             $scope.componentTotalList = [];
             $scope.mainInvoiceList = [];
             $scope.showCgst = false;
@@ -4995,6 +5094,17 @@ angular.module("digitalbusiness.states.order", [])
                 });
                 $scope.maxKitchenTotalPrice = maxKitchenTotalPrice;
                 $scope.captureTotal($scope.maxKitchenTotalPrice);
+            });
+            $scope.maxWardrobeDetailsList = MaxWardrobeOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (maxWardrobeOrderList) {
+                angular.forEach($scope.maxWardrobeDetailsList, function (maxWardrobeDetailObject) {
+                    totalPrice = totalPrice + maxWardrobeDetailObject.price;
+                    maxWardrobeTotalPrice = maxWardrobeTotalPrice + maxWardrobeDetailObject.price;
+                    $scope.mainInvoiceList.push(maxWardrobeDetailObject);
+                });
+                $scope.maxWardrobeTotalPrice = maxWardrobeTotalPrice;
+                $scope.captureTotal($scope.maxWardrobeTotalPrice);
             });
             $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
@@ -5526,7 +5636,7 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Order Head List :%O", $scope.orderHeadList);
             });
         })
-        .controller('DealerOrderDetailsController', function (DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+        .controller('DealerOrderDetailsController', function (MaxWardrobeOrderDetailsService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             console.log("What are STate Params Pelmet:%O", $stateParams);
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
@@ -5666,6 +5776,22 @@ angular.module("digitalbusiness.states.order", [])
                         'componentCode': handleDetailObject.component
                     });
                 });
+            });
+            $scope.hardwareDetailsList = HardwareOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (hardwareOrderList) {
+            });
+            $scope.maxKitchenOrderDetailsList = MaxKitchenOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (maxKitchenOrderList) {
+                console.log("Max Kitchen List :%O", maxKitchenOrderList);
+                $scope.maxKitchenOrderDetailsList = maxKitchenOrderList;
+            });
+            $scope.maxWardrobeOrderDetailsList = MaxWardrobeOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (maxWardrobeOrderList) {
+                console.log("Max Wardrobe List :%O", maxWardrobeOrderList);
+                $scope.maxWardrobeOrderDetailsList = maxWardrobeOrderList;
             });
             $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId

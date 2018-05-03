@@ -92,7 +92,7 @@
             <div class="btn-group btn-group-lg btn-group-justified">
                 <a ng-click="selectView('HARDWARE')" class="btn btn-primary text-center">HARDWARE</a>
                 <a ng-click="selectView('MAXKITCHEN')" class="btn btn-primary text-center">MAX KITCHEN</a>
-                <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
+                <a ng-click="selectView('MAXWARDROBE')" class="btn btn-primary text-center">MAX WARDROBE</a>
                 <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
             </div>
         </div>        
@@ -1466,7 +1466,7 @@
                     <div class="form-group">
                         <label>Select Category</label>                   
                         <select class="form-control" ng-model="editableMaxKitchenDetail.category" required="">
-                            <option value="">Select Hardware</option>
+                            <option value="">Select Category</option>
                             <option value="BASE_SHELF_UNITS">Base Shelf Units</option>
                             <option value="BASE_GAS_FRAME_UNITS">Base Gas Frame Units</option>
                             <option value="BASE_CORNER_UNITS">Base Corner Units</option>
@@ -1530,6 +1530,120 @@
                         <div class="form-group">
                             <label>Quantity</label>
                             <input class="form-control" ng-model="editableMaxKitchenDetail.quantity" required="">
+                        </div>
+                    </div>
+                </div>                
+            </div>            
+            <!--            <hr style="border-top:  1px solid;">
+                        <div class="row">
+                            <div class="form-group col-sm-4 col-md-4">
+                                <label>Additional Remark (Optional)</label>
+                                <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editableHandleDetail.remark"></textarea>
+                            </div>
+                        </div>-->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fa fa-save"></i>
+                    Add
+                </button>                       				
+            </div>
+        </form>
+    </div>
+    <div class="panel-heading text-center" ng-if="showMaxWardrobe">
+        <div>
+            <h3>Enter Max Wardrobe Order Details</h3>
+        </div>
+        <form role="role" ng-submit="saveMaxWardrobeDetails(editableMaxWardrobeDetail)">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Select Category</label>                   
+                        <select class="form-control" ng-model="editableMaxWardrobeDetail.category" required="">
+                            <option value="">Select Category</option>
+                            <option value="ADD_ON_SHELF">Add On Shelf</option>
+                            <option value="CHEST_OF_DRAWER">Chest Of Drawer</option>
+                            <option value="DRAWER">Drawer</option>
+                            <option value="DRESSER_UNIT">Dresser Unit</option>
+                            <option value="END_PANEL">End Panel</option>
+                            <option value="FILLER">Filler</option>
+                            <option value="GALLERY_SHELF">Gallery Shelf</option>
+                            <option value="HANDLE">Handle</option>
+                            <option value="HANGER_ROD">Hanger Rod</option>
+                            <option value="HINGES">Hinges</option>
+                            <option value="LOFT_C">Loft C</option>
+                            <option value="LOFT_GRID">Loft Grid</option>
+                            <option value="LOFT_END_PANEL">Loft End Panel</option>
+                            <option value="LOFT_SKIRTING">Loft Skirting</option>
+                            <option value="MIRROR_FRAME">Mirror Frame</option>
+                            <option value="SKIRTING">Skirting</option>
+                            <option value="SLIDE">Slide</option>
+                            <option value="SPECIAL_PANEL">Special Panel</option>
+                            <option value="TROUSER_RACK">Trouser Rack</option>
+                            <option value="WARDROBE">Wardrobe</option>
+                        </select>
+                    </div>
+                </div>                
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Component</label>
+                        <select class="form-control" ng-model="editableMaxWardrobeDetail.componentId" required="">
+                            <option value="">Select Component</option>
+                            <option ng-repeat="component in maxWardrobeComponentList" value="{{component.id}}">{{component.description}}</option>
+                        </select>
+                    </div>                                      
+                </div>                
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Carcass</label>
+                        <select class="form-control" ng-model="editableMaxWardrobeDetail.carcass" required="">
+                            <option value="">Select Carcass Material</option>
+                            <option value="PPB" ng-if="maxWardrobeObject.cpPpbPrice !== 0">Partical Board</option>
+                            <option value="HD_HMR" ng-if="maxWardrobeObject.cpHdHmrPrice !== 0">HD HMR</option>
+                            <option value="HDF" ng-if="maxWardrobeObject.cpHdfPrice !== 0">HDF</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Shutter</label>
+                        <select class="form-control" ng-model="editableMaxWardrobeDetail.shutterFinish">
+                            <option value="">Select Shutter Finish</option>
+                            <!--<option value="0">No Shutter Available for this item</option>-->
+                            <option value="SP_FOILED_MATT" ng-if="maxWardrobeObject.spFoiledMattPrice !== 0">Foiled Matt Shutter</option>
+                            <option value="SP_FOILED_GLOSSY" ng-if="maxWardrobeObject.spFoiledGlossyPrice !== 0">Foiled Glossy Shutter</option>
+                            <option value="SP_PRELAM_MATT" ng-if="maxWardrobeObject.spPrelamMattPrice !== 0">Prelam Matt Shutter</option>
+                            <option value="SP_PCPPB" ng-if="maxWardrobeObject.spPcppbPrice !== 0">3 Pc PPB Shutter</option>
+                            <option value="G50_GLASS" ng-if="maxWardrobeObject.spGlassG50AluPrice !== 0">Glass G50 Aluminium Shutter</option>
+                            <option value="SP_PVC_STD" ng-if="maxWardrobeObject.spPvcMdfStdPrice !== 0">PVC MDF Standard Shutter</option>
+                            <option value="SP_PVC_DESG" ng-if="maxWardrobeObject.spPvcMdfDesgPrice !== 0">PVC MDF Designer Shutter</option>
+                            <option value="SP_PVC_GLOSSY" ng-if="maxWardrobeObject.spPvcMdfGlossyPrice !== 0">PVC MDF Glossy Shutter</option>
+                            <option value="SP_PVC_PREM" ng-if="maxWardrobeObject.spPvcMdfPremPrice !== 0">PVC MDF Prelam Shutter</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Width (in mm)</label>
+                            <input class="form-control" ng-model="editableMaxWardrobeDetail.width" readonly="">
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Height (in mm)</label>
+                            <input class="form-control" ng-model="editableMaxWardrobeDetail.height" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Depth (in mm)</label>
+                            <input class="form-control" ng-model="editableMaxWardrobeDetail.depth" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input class="form-control" ng-model="editableMaxWardrobeDetail.quantity" required="">
                         </div>
                     </div>
                 </div>                
@@ -2133,9 +2247,75 @@
                         <td class="text-left">{{ orderDetails.productCode}}</td>
                         <td class="text-left">
                             <span>{{orderDetails.description}}</span>
-                            <span ng-show="orderDetails.shutterFinish === 'HDF_MATT'">& Shutter Finish = HDF Matt Finish</span>
-                            <span ng-show="orderDetails.shutterFinish === 'HDF_GLOSS'">& Shutter Finish = HDF Glossy Finish</span>
-                            <span ng-show="orderDetails.shutterFinish === 'G50_GLASS'">& Shutter Finish = G50 Aluminium Glass Shutter</span>
+                            <span ng-show="orderDetails.shutterFinish === 'HDF_MATT'">& Shutter Finish : HDF Matt Finish</span>
+                            <span ng-show="orderDetails.shutterFinish === 'HDF_GLOSS'">& Shutter Finish : HDF Glossy Finish</span>
+                            <span ng-show="orderDetails.shutterFinish === 'G50_GLASS'">& Shutter Finish : G50 Aluminium Glass Shutter</span>
+                        </td>
+                        <td class="text-left">
+                            <span>N/A</span>                            
+                        </td>
+                        <td>N/A</td>                        
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">N/A</td>                          
+                        <td class="text-left">{{orderDetails.width}}</td>
+                        <td class="text-left">{{orderDetails.height}}</td>
+                        <td class="text-left">{{orderDetails.depth}}</td>
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{ orderDetails.quantity}}</td> 
+                        <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
+                        <td class="text-right">                            
+                            <a data-ui-sref="admin.masters_order_details.max_kitchen_delete({ maxKitchenDetailId: orderDetails.id})"
+                               class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-heading text-center" ng-show="maxWardrobeOrderDetailsList.length > 0">
+        <div>
+            <h3>Max Wardrobe Details List</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Colors</th>
+                        <th>Section Profile</th>
+                        <th>Shelf Count</th>                        
+                        <th>Thickness</th>
+                        <th>Width</th>
+                        <th>Length</th>
+                        <th>Depth</th>
+                        <th>Remark</th>
+                        <th>Quantity</th>
+                        <th>Price (INR)</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetails in maxWardrobeOrderDetailsList">
+                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <td class="text-left">{{ orderDetails.productCode}}</td>
+                        <td class="text-left">
+                            <span>{{orderDetails.description}}</span>
+                            <span ng-show="orderDetails.carcass === 'PPB'">& Carcass : PPB </span>
+                            <span ng-show="orderDetails.carcass === 'HD_HMR'">& Carcass : HD HMR </span>
+                            <span ng-show="orderDetails.carcass === 'HDF'">& Carcass : HDF </span>
+                            <span ng-show="orderDetails.shutterFinish === 'SP_FOILED_MATT'">& Shutter Finish : Foiled Matt Shutter</span>
+                            <span ng-show="orderDetails.shutterFinish === 'SP_FOILED_GLOSSY'">& Shutter Finish : Foiled Glossy Shutter</span>
+                            <span ng-show="orderDetails.shutterFinish === 'SP_PRELAM_MATT'">& Shutter Finish : Prelam Matt Shutter</span>
+                            <span ng-show="orderDetails.shutterFinish === 'SP_PCPPB'">& Shutter Finish : 3 Pc's PPB Shutter</span>
+                            <span ng-show="orderDetails.shutterFinish === 'G50_GLASS'">& Shutter Finish : G50 Aluminium Glass Shutter</span>
+                            <span ng-show="orderDetails.shutterFinish === 'SP_PVC_STD'">& Shutter Finish : PVC MDF Standard Shutter</span>
+                            <span ng-show="orderDetails.shutterFinish === 'SP_PVC_DESG'">& Shutter Finish : PVC MDF Designer Shutter</span>
+                            <span ng-show="orderDetails.shutterFinish === 'SP_PVC_GLOSSY'">& Shutter Finish : PVC MDF Glossy Shutter</span>
+                            <span ng-show="orderDetails.shutterFinish === 'SP_PVC_PREM'">& Shutter Finish : PVC MDF Prelam Shutter</span>
                         </td>
                         <td class="text-left">
                             <span>N/A</span>                            

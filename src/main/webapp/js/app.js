@@ -57,6 +57,8 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.hardware_order_details_service',
     'digitalbusiness.services.max_kitchen',
     'digitalbusiness.services.max_kitchen_order_details_service',
+    'digitalbusiness.services.max_wardrobe',
+    'digitalbusiness.services.max_wardrobe_order_details_service',
     'digitalbusiness.services.shutter_component_mapping_service',
     'digitalbusiness.services.drawer_component_mapping_service',
     //ERP INTEGRATION SERVICE

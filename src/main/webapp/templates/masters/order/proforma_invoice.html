@@ -304,6 +304,21 @@
                                     <span ng-show="orderDetails.shutterFinish === 'HDF_GLOSS'">& Shutter Finish = HDF Glossy Finish</span>
                                     <span ng-show="orderDetails.shutterFinish === 'G50_GLASS'">& Shutter Finish = G50 Aluminium Glass Shutter</span>
                                 </span>
+                                <span ng-if="orderDetails.orderFor === 'MAX_WARDROBE'">
+                                    <span>{{orderDetails.description}}</span>
+                                    <span ng-show="orderDetails.carcass === 'PPB'">& Carcass : PPB </span>
+                                    <span ng-show="orderDetails.carcass === 'HD_HMR'">& Carcass : HD HMR </span>
+                                    <span ng-show="orderDetails.carcass === 'HDF'">& Carcass : HDF </span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_FOILED_MATT'">& Shutter Finish : Foiled Matt Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_FOILED_GLOSSY'">& Shutter Finish : Foiled Glossy Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PRELAM_MATT'">& Shutter Finish : Prelam Matt Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PCPPB'">& Shutter Finish : 3 Pc's PPB Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'G50_GLASS'">& Shutter Finish : G50 Aluminium Glass Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PVC_STD'">& Shutter Finish : PVC MDF Standard Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PVC_DESG'">& Shutter Finish : PVC MDF Designer Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PVC_GLOSSY'">& Shutter Finish : PVC MDF Glossy Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PVC_PREM'">& Shutter Finish : PVC MDF Prelam Shutter</span>
+                                </span>
                                 <!--                                <span ng-if="orderDetails.grainDirection !== undefined">
                                                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
                                                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
@@ -372,7 +387,10 @@
                                 </span> 
                                 <span ng-if="orderDetails.orderFor === 'MAX_KITCHEN'">
                                     <span>N/A</span>                                    
-                                </span> 
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'MAX_WARDROBE'">
+                                    <span>N/A</span>                                    
+                                </span>
 
                             </td>
                             <td>
@@ -425,10 +443,14 @@
                                 <span ng-if="orderDetails.orderFor === 'MAX_KITCHEN'">
                                     {{ orderDetails.height}} mm
                                 </span>
+                                <span ng-if="orderDetails.orderFor === 'MAX_WARDROBE'">
+                                    {{ orderDetails.height}} mm
+                                </span>
                             </td>                            
                             <td class="text-left">
                                 <span ng-if="orderDetails.depth > 0">{{ orderDetails.depth}} mm</span>
                                 <span ng-if="orderDetails.depth === undefined">N/A</span>
+                                <span ng-if="orderDetails.depth === 0">N/A</span>
                             </td> 
                             <td class="text-left">{{ orderDetails.remark}}</td>
                             <td class="text-left">{{ orderDetails.quantity}}</td> 

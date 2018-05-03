@@ -20,7 +20,7 @@ angular.module("digitalbusiness.states.approved_order_report", [])
         .controller('ApprovedOrderFormController', function ($scope, $stateParams, $state, paginationLimit) {
 
         })
-        .controller('ApprovedOrderReportController', function (MaxKitchenOrderDetailsService, HardwareOrderDetailsService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, PartyService, OrderHeadService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('ApprovedOrderReportController', function (MaxWardrobeOrderDetailsService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, PartyService, OrderHeadService, $scope, $stateParams, $state, paginationLimit) {
             var totalPrice = 0;
             var carcassTotalPrice = 0;
             var panelTotalPrice = 0;
@@ -32,6 +32,7 @@ angular.module("digitalbusiness.states.approved_order_report", [])
             var handleTotalPrice = 0;
             var hardwareTotalPrice = 0;
             var maxKitchenTotalPrice = 0;
+            var maxWardrobeTotalPrice = 0;
             $scope.orderReportList = [];
 
             var date = new Date($stateParams.approvalDate).getDate();
@@ -64,28 +65,29 @@ angular.module("digitalbusiness.states.approved_order_report", [])
                     var fillerOrderPrice = 0;
                     var hardwareOrderPrice = 0;
                     var maxKitchenOrderPrice = 0;
+                    var maxWardrobeOrderPrice = 0;
 
                     orderHeadObject.billingPartyObject = PartyService.get({
                         'id': orderHeadObject.billingPartyId
                     });
                     orderHeadObject.deliveryPartyObject = PartyService.get({
                         'id': orderHeadObject.deliveryPartyId
-                    });                    
+                    });
                     /////////////////////Trial Begins//////////////////////////
                     $scope.carcassDetailsList = CarcassOrderDetailsService.findByOrderHeadId({
                         'orderHeadId': orderHeadObject.id
-                    }, function (carcassOrderList) {                        
+                    }, function (carcassOrderList) {
 //                        $scope.carcassTotalPrice = 0;
                         angular.forEach(carcassOrderList, function (carcassDetailObject) {
                             carcassTotalPrice = carcassTotalPrice + carcassDetailObject.price;
                         });
                         $scope.carcassTotalPrice = carcassTotalPrice;
-                        carcassOrderPrice = carcassTotalPrice;                        
+                        carcassOrderPrice = carcassTotalPrice;
 //                        $scope.captureTotal($scope.carcassTotalPrice);
                     });
                     $scope.panelDetailsList = PanelOrderDetailsService.findByOrderHeadId({
                         'orderHeadId': orderHeadObject.id
-                    }, function (panelOrderList) {                        
+                    }, function (panelOrderList) {
                         angular.forEach(panelOrderList, function (panelDetailObject) {
 //                            totalPrice = totalPrice + panelDetailObject.price;
                             panelTotalPrice = panelTotalPrice + panelDetailObject.price;
@@ -160,6 +162,17 @@ angular.module("digitalbusiness.states.approved_order_report", [])
                         maxKitchenOrderPrice = maxKitchenTotalPrice;
 //                        $scope.captureTotal($scope.maxKitchenTotalPrice);
                     });
+                    $scope.maxWardrobeDetailsList = MaxWardrobeOrderDetailsService.findByOrderHeadId({
+                        'orderHeadId': orderHeadObject.id
+                    }, function (maxWardrobeOrderList) {
+                        angular.forEach(maxWardrobeOrderList, function (maxWardrobeDetailObject) {
+//                            totalPrice = totalPrice + maxKitchenDetailObject.price;
+                            maxWardrobeTotalPrice = maxWardrobeTotalPrice + maxWardrobeDetailObject.price;
+                        });
+                        $scope.maxWardrobeTotalPrice = maxKitchenTotalPrice;
+                        maxWardrobeOrderPrice = maxWardrobeTotalPrice;
+//                        $scope.captureTotal($scope.maxKitchenTotalPrice);
+                    });
                     $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
                         'orderHeadId': orderHeadObject.id
                     }, function (shutterOrderList) {
@@ -191,20 +204,22 @@ angular.module("digitalbusiness.states.approved_order_report", [])
                                             $scope.handleDetailsList.$promise.then(function (handleDetails) {
                                                 $scope.hardwareDetailsList.$promise.then(function (hardwareDetails) {
                                                     $scope.maxKitchenDetailsList.$promise.then(function (maxKitchenDetails) {
-                                                        orderHeadObject.orderAmount = (carcassOrderPrice + panelOrderPrice + shutterOrderPrice + drawerOrderPrice + fillerOrderPrice + pelmetOrderPrice + corniceOrderPrice + handleOrderPrice + hardwareOrderPrice + maxKitchenOrderPrice);
-                                                        if (orderHeadObject.billingPartyObject.state === "MS") {                                                            
-                                                            orderHeadObject.cgstAmount = Math.round(((orderHeadObject.orderAmount / 100) * 9));
-                                                            orderHeadObject.sgstAmount = Math.round(((orderHeadObject.orderAmount / 100) * 9));
-                                                            orderHeadObject.igstAmount = 0;
-                                                            orderHeadObject.netAmount = (orderHeadObject.orderAmount + orderHeadObject.cgstAmount + orderHeadObject.sgstAmount);
-                                                            console.log("Order Head Object MS:%O",orderHeadObject);
-                                                        } else if (orderHeadObject.billingPartyObject.state === "OMS") {
-                                                            orderHeadObject.cgstAmount = 0;
-                                                            orderHeadObject.sgstAmount = 0;
-                                                            orderHeadObject.igstAmount = Math.round(((orderHeadObject.orderAmount / 100) * 18));
-                                                            orderHeadObject.netAmount = (orderHeadObject.orderAmount + orderHeadObject.igstAmount);
-                                                            console.log("Order Head Object OMS:%O",orderHeadObject);
-                                                        }                                                        
+                                                        $scope.maxWardrobeDetailsList.$promise.then(function (maxWardrobeDetails) {
+                                                            orderHeadObject.orderAmount = (carcassOrderPrice + panelOrderPrice + shutterOrderPrice + drawerOrderPrice + fillerOrderPrice + pelmetOrderPrice + corniceOrderPrice + handleOrderPrice + hardwareOrderPrice + maxKitchenOrderPrice + maxWardrobeOrderPrice);
+                                                            if (orderHeadObject.billingPartyObject.state === "MS") {
+                                                                orderHeadObject.cgstAmount = Math.round(((orderHeadObject.orderAmount / 100) * 9));
+                                                                orderHeadObject.sgstAmount = Math.round(((orderHeadObject.orderAmount / 100) * 9));
+                                                                orderHeadObject.igstAmount = 0;
+                                                                orderHeadObject.netAmount = (orderHeadObject.orderAmount + orderHeadObject.cgstAmount + orderHeadObject.sgstAmount);
+                                                                console.log("Order Head Object MS:%O", orderHeadObject);
+                                                            } else if (orderHeadObject.billingPartyObject.state === "OMS") {
+                                                                orderHeadObject.cgstAmount = 0;
+                                                                orderHeadObject.sgstAmount = 0;
+                                                                orderHeadObject.igstAmount = Math.round(((orderHeadObject.orderAmount / 100) * 18));
+                                                                orderHeadObject.netAmount = (orderHeadObject.orderAmount + orderHeadObject.igstAmount);
+                                                                console.log("Order Head Object OMS:%O", orderHeadObject);
+                                                            }
+                                                        });
                                                     });
                                                 });
                                             });
