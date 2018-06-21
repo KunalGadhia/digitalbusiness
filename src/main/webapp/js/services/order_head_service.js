@@ -24,11 +24,28 @@ angular.module("digitalbusiness.services.order_head")
                     },
                     'isArray': true
                 },
+                'findByBillingPartyId': {
+                    'method': 'GET',
+                    'url': restRoot + '/order_head/find/by/billingParty',
+                    'params': {
+                        'partyId': '@partyId'
+                    },
+                    'isArray': true
+                },
                 'findByApprovalDate': {
                     'method': 'GET',
                     'url': restRoot + '/order_head/find/approvalDate',
                     'params': {
                         'approvalDate': '@approvalDate'
+                    },
+                    'isArray': true
+                },
+                'findApprovalByDuration': {
+                    'method': 'GET',
+                    'url': restRoot + '/order_head/find/approval/duration',
+                    'params': {
+                        'startDate': '@startDate',
+                        'endDate': '@endDate'
                     },
                     'isArray': true
                 }

@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <label class="col-sm-6 text-left">Customer Ref No :</label>
-                    <span class="col-sm-6 text-left">{{orderHead.orderNum}}</span>
+                    <span class="col-sm-6 text-left">{{orderHead.orderNum}} ({{orderHead.poNum}})</span>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <label class="col-sm-5 text-left">Dealer City :</label>
@@ -91,8 +91,10 @@
             </div>
             <div class="btn-group btn-group-lg btn-group-justified">
                 <a ng-click="selectView('HARDWARE')" class="btn btn-primary text-center">HARDWARE</a>
-                <a ng-click="selectView('MAXKITCHEN')" class="btn btn-primary text-center">MAX KITCHEN</a>
-                <a ng-click="selectView('MAXWARDROBE')" class="btn btn-primary text-center">MAX WARDROBE</a>
+                <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
+<!--                <a ng-click="selectView('MAXKITCHEN')" class="btn btn-primary text-center">MAX KITCHEN</a>-->
+                <!--<a ng-click="selectView('MAXWARDROBE')" class="btn btn-primary text-center">MAX WARDROBE</a>-->
+                <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
                 <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
             </div>
         </div>        
@@ -642,7 +644,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-2" ng-if="shutterModelSelection">
+                <div class="col-sm-2" ng-if="shutterGlassWidget">
                     <div class="form-group">
                         <label>Glass (Optional)</label>
                         <div class="input-group">
@@ -2409,27 +2411,37 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Carcass
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="carcaseList in carcaseList1| groupBy:3">
-                    <div class="col-xs-4 letter-box" ng-repeat="carcase in carcaseList" >
+            <div class="modal-body" style="height:450px;">                
+                <div class="col-sm-6" style="overflow-y: scroll;height: 420px">
+                    <div class="row" ng-repeat="carcass in carcaseList1" >
                         <div>
-                            <image class="text-center" ng-src="./rest/kitchen_component/{{carcase.id}}/attachment" width="150px" height="220px"/>
-                            <br>
-                            <b class="text-center"> {{carcase.component}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectCarcase(carcase.id)">Select Carcass ({{carcase.componentCode}})</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{carcass.component}}</b> &nbsp;
+                                    <button class="next btn-next" ng-click="selectPreCarcass(carcass.id)">View Component</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <div>
+                        <image class="text-center" ng-src="./rest/kitchen_component/{{preCarcass.id}}/attachment" width="250px" height="320px"/>
+                        <br>
+                        <b class="text-center">{{preCarcass.component}}</b>
+                        <br>
+                        <button class="next btn-next" ng-click="selectCarcase(preCarcass.id)">Select Carcass Type</button>
+                    </div>
+                </div>                
             </div>
         </div>        
     </div>
@@ -2438,27 +2450,37 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Carcass Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in sortedColorList1| groupBy:6">
-                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+            <div class="modal-body" style="height: 450px">
+                <div class="col-sm-6" style="overflow-y: scroll;height: 420px">
+                    <div class=row ng-repeat="sortedColor in sortedColorList1| orderBy:'toString()'">                        
                         <div>
-                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
-                            <br>
-                            <b class="text-center"> {{sortedColor.colorName}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectInternalCarcassColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreInternalCarcassColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>                                                      
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <div>
+                        <image class="text-center" ng-src="./rest/color/{{preInternalCarcassColor.id}}/attachment" width="250px" height="250px"/>
+                        <br>
+                        <b class="text-center"> {{preInternalCarcassColor.colorName}}</b>
+                        <br>
+                        <button class="next btn-next" ng-click="selectInternalCarcassColor(preInternalCarcassColor.id, preInternalCarcassColor.colorName, preInternalCarcassColor.colorCode)">Select Color</button>
+                    </div>
+                </div>                
             </div>
         </div>        
     </div>
@@ -2467,27 +2489,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Sides Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="completeColorList in completeColors1| groupBy:6">
-                    <div class="col-xs-2 letter-box" ng-repeat="completeColor in completeColorList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="completeColor in completeColors1">
                         <div>
-                            <image class="text-center" ng-src="./rest/color/{{completeColor.id}}/attachment" width="50px" height="50px"/>
-                            <br>
-                            <b class="text-center"> {{completeColor.colorName}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectSideCarcassColor(completeColor.id, completeColor.colorName, completeColor.colorCode)">Select Color</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{completeColor.colorName}}</b> &nbsp;
+                                    <button class="next btn-next" ng-click="selectPreSideCarcassColor(completeColor.id)">View Color</button>                                    
+                                </li>
+                            </ul>
                         </div>
                         <hr>
-                    </div>
+                    </div>    
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preSideCarcassColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preSideCarcassColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectSideCarcassColor(preSideCarcassColor.id, preSideCarcassColor.colorName, preSideCarcassColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="completeColorList in completeColors1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="completeColor in completeColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{completeColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{completeColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectSideCarcassColor(completeColor.id, completeColor.colorName, completeColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2498,27 +2540,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Panel
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="panelList in panelList1| groupBy:3">
-                    <div class="col-xs-4 letter-box" ng-repeat="panel in panelList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll;height: 420px;">
+                    <div class=row ng-repeat="panel in panelList1">
                         <div>
-                            <image class="text-center" ng-src="./rest/kitchen_component/{{panel.id}}/attachment" width="150px" height="220px"/>
-                            <br>
-                            <b class="text-center"> {{panel.component}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectPanel(panel.id)">Select Panel ({{panel.componentCode}})</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{panel.component}}</b> &nbsp;
+                                    <button class="next btn-next" ng-click="selectPrePanel(panel.id)">View Panel</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6">
+                    <image class="text-center" ng-src="./rest/kitchen_component/{{prePanel.id}}/attachment" width="150px" height="220px"/>
+                    <br>
+                    <b class="text-center"> {{prePanel.component}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectPanel(prePanel.id)">Select Panel ({{prePanel.componentCode}})</button>
+                </div>
+                <!--                <div class=row ng-repeat="panelList in panelList1| groupBy:3">
+                                    <div class="col-xs-4 letter-box" ng-repeat="panel in panelList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/kitchen_component/{{panel.id}}/attachment" width="150px" height="220px"/>
+                                            <br>
+                                            <b class="text-center"> {{panel.component}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectPanel(panel.id)">Select Panel ({{panel.componentCode}})</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2527,27 +2589,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Panel Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in sortedColorList1| groupBy:6">
-                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll;height: 450px;">
+                    <div class=row ng-repeat="sortedColor in sortedColorList1">
                         <div>
-                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
-                            <br>
-                            <b class="text-center"> {{sortedColor.colorName}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectPanelColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b> &nbsp;
+                                    <button class="next btn-next" ng-click="selectPrePanelColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6">
+                    <image class="text-center" ng-src="./rest/color/{{prePanelColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{prePanelColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectPanelColor(prePanelColor.id, prePanelColor.colorName, prePanelColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="sortedColorList in sortedColorList1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectPanelColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2558,27 +2640,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Shutter
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="shutterList in shutterList1| groupBy:3">
-                    <div class="col-xs-4 letter-box" ng-repeat="shutter in shutterList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="shutter in shutterList1">
                         <div>
-                            <image class="text-center" ng-src="./rest/kitchen_component/{{shutter.id}}/attachment" width="150px" height="220px"/>
-                            <br>
-                            <b class="text-center"> {{shutter.component}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectShutter(shutter.id)">Select Shutter({{shutter.componentCode}})</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{shutter.component}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreShutter(shutter.id)">View Shutter</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/kitchen_component/{{preShutter.id}}/attachment" width="170px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preShutter.component}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectShutter(preShutter.id)">Select Shutter</button>
+                </div>
+                <!--                <div class=row ng-repeat="shutterList in shutterList1| groupBy:3">
+                                    <div class="col-xs-4 letter-box" ng-repeat="shutter in shutterList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/kitchen_component/{{shutter.id}}/attachment" width="150px" height="220px"/>
+                                            <br>
+                                            <b class="text-center"> {{shutter.component}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectShutter(shutter.id)">Select Shutter({{shutter.componentCode}})</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2587,26 +2689,39 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom:40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Shutter Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in shutterColors1| groupBy:6">
-                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+            <div class="modal-body" style="height:450px">
+                <!--                <div class=row ng-repeat="sortedColorList in shutterColors1| groupBy:6">-->
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px">
+                    <div class=row ng-repeat="sortedColor in shutterColors1">
+                        <!--<div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >-->
                         <div>
-                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
-                            <br>
-                            <b class="text-center"> {{sortedColor.colorName}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectShutterColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                            <!--                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                                        <br>-->
+                            <!--                            <b class="text-center"> {{sortedColor.colorName}}</b>-->
+                            <ul>
+                                <li><b class="text-center"> {{sortedColor.colorName}}</b> &nbsp;<button class="next btn-next" ng-click="selectPreShutterColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">View Color</button></li>
+                            </ul>
+                            <!--<br>-->
+                            <!--                            <button class="next btn-next" ng-click="selectShutterColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>-->
                         </div>
                         <hr>
+                        <!--</div>-->
                     </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preShutterColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preShutterColor.colorName}}</b>                    
+                    <br>
+                    <button class="next btn-next" ng-click="selectShutterColor(preShutterColor.id, preShutterColor.colorName, preShutterColor.colorCode)">Select Color</button>
                 </div>
             </div>
         </div>        
@@ -2616,27 +2731,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Balancing Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in shutterInternalColorList1| groupBy:6">
-                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="sortedColor in shutterInternalColorList1">
                         <div>
-                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
-                            <br>
-                            <b class="text-center"> {{sortedColor.colorName}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectInternalShutterColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;                            
+                                    <button class="next btn-next" ng-click="selectPreInternalShutterColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
-                    </div>
+                    </div>    
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preInternalShutterColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preInternalShutterColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectInternalShutterColor(preInternalShutterColor.id, preInternalShutterColor.colorName, preInternalShutterColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="sortedColorList in shutterInternalColorList1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectInternalShutterColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2645,27 +2780,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Handle
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="handleList in shutterHandleList1| groupBy:3">
-                    <div class="col-xs-4 letter-box" ng-repeat="handle in handleList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="handle in shutterHandleList1">
                         <div>
-                            <image class="text-center" ng-src="./rest/kitchen_component/{{handle.id}}/attachment" width="150px" height="220px"/>
-                            <br>
-                            <b class="text-center"> {{handle.component}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectShutterHandle(handle.id)">Select Handle({{handle.componentCode}})</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{handle.component}}</b> &nbsp;
+                                    <button class="next btn-next" ng-click="selectPreShutterHandle(handle.id)">View Handle</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
-                    </div>
+                    </div>                    
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/kitchen_component/{{preShutterHandle.id}}/attachment" width="170px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preShutterHandle.component}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectShutterHandle(preShutterHandle.id)">Select Handle({{preShutterHandle.componentCode}})</button>
+                </div>
+                <!--                <div class=row ng-repeat="handleList in shutterHandleList1| groupBy:3">
+                                    <div class="col-xs-4 letter-box" ng-repeat="handle in handleList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/kitchen_component/{{handle.id}}/attachment" width="150px" height="220px"/>
+                                            <br>
+                                            <b class="text-center"> {{handle.component}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectShutterHandle(handle.id)">Select Handle({{handle.componentCode}})</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2676,27 +2831,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Drawer
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="drawerList in drawerList1| groupBy:3">
-                    <div class="col-xs-4 letter-box" ng-repeat="drawer in drawerList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll;height: 420px;">
+                    <div class=row ng-repeat="drawer in drawerList1">
                         <div>
-                            <image class="text-center" ng-src="./rest/kitchen_component/{{drawer.id}}/attachment" width="150px" height="220px"/>
-                            <br>
-                            <b class="text-center"> {{drawer.component}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectDrawer(drawer.id)">Select Drawer({{drawer.componentCode}})</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{drawer.component}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreDrawer(drawer.id)">View Drawer</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/kitchen_component/{{preDrawer.id}}/attachment" width="170px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preDrawer.component}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectDrawer(preDrawer.id)">Select Drawer</button>
+                </div>
+                <!--                <div class=row ng-repeat="drawerList in drawerList1| groupBy:3">
+                                    <div class="col-xs-4 letter-box" ng-repeat="drawer in drawerList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/kitchen_component/{{drawer.id}}/attachment" width="150px" height="220px"/>
+                                            <br>
+                                            <b class="text-center"> {{drawer.component}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectDrawer(drawer.id)">Select Drawer({{drawer.componentCode}})</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2705,27 +2880,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Drawer Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in drawerColors1| groupBy:6">
-                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px">
+                    <div class=row ng-repeat="sortedColor in drawerColors1">
                         <div>
-                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
-                            <br>
-                            <b class="text-center"> {{sortedColor.colorName}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectDrawerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b> &nbsp;
+                                    <button class="next btn-next" ng-click="selectPreDrawerColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preDrawerColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preDrawerColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectDrawerColor(preDrawerColor.id, preDrawerColor.colorName, preDrawerColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="sortedColorList in drawerColors1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectDrawerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2734,27 +2929,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Balancing Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in drawerInternalColorList1| groupBy:6">
-                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="sortedColor in drawerInternalColorList1">
                         <div>
-                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
-                            <br>
-                            <b class="text-center"> {{sortedColor.colorName}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectInternalDrawerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreInternalDrawerColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preInternalDrawerColor.id}}/attachment" width="250px" height="250px"/>                   
+                    <br>
+                    <b class="text-center"> {{preInternalDrawerColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectInternalDrawerColor(preInternalDrawerColor.id, preInternalDrawerColor.colorName, preInternalDrawerColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="sortedColorList in drawerInternalColorList1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectInternalDrawerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2763,27 +2978,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Handle
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="handleList in drawerHandleList1| groupBy:3">
-                    <div class="col-xs-4 letter-box" ng-repeat="handle in handleList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="handle in drawerHandleList1">
                         <div>
-                            <image class="text-center" ng-src="./rest/kitchen_component/{{handle.id}}/attachment" width="150px" height="220px"/>
-                            <br>
-                            <b class="text-center"> {{handle.component}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectDrawerHandle(handle.id)">Select Handle({{handle.componentCode}})</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{handle.component}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreDrawerHandle(handle.id)">View Handle</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/kitchen_component/{{preDrawerHandle.id}}/attachment" width="170px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preDrawerHandle.component}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectDrawerHandle(preDrawerHandle.id)">Select Handle</button>
+                </div>
+                <!--                <div class=row ng-repeat="handleList in drawerHandleList1| groupBy:3">
+                                    <div class="col-xs-4 letter-box" ng-repeat="handle in handleList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/kitchen_component/{{handle.id}}/attachment" width="150px" height="220px"/>
+                                            <br>
+                                            <b class="text-center"> {{handle.component}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectDrawerHandle(handle.id)">Select Handle({{handle.componentCode}})</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2823,27 +3058,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Filler Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in fillerColors1| groupBy:6">
-                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+            <div class="modal-body" style="height: 450px">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="sortedColor in fillerColors1">
                         <div>
-                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
-                            <br>
-                            <b class="text-center"> {{sortedColor.colorName}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectFillerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreFillerColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preFillerColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preFillerColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectFillerColor(preFillerColor.id, preFillerColor.colorName, preFillerColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="sortedColorList in fillerColors1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectFillerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2852,27 +3107,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Balancing Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in fillerInternalColorList1| groupBy:6">
-                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="sortedColor in fillerInternalColorList1">
                         <div>
-                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
-                            <br>
-                            <b class="text-center"> {{sortedColor.colorName}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectInternalFillerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;                            
+                                    <button class="next btn-next" ng-click="selectPreInternalFillerColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preInternalFillerColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preInternalFillerColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectInternalFillerColor(preInternalFillerColor.id, preInternalFillerColor.colorName, preInternalFillerColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="sortedColorList in fillerInternalColorList1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectInternalFillerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2883,27 +3158,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Pelmet
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="pelmetList in pelmetList1| groupBy:3">
-                    <div class="col-xs-4 letter-box" ng-repeat="pelmet in pelmetList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="pelmet in pelmetList1">
                         <div>
-                            <image class="text-center" ng-src="./rest/kitchen_component/{{pelmet.id}}/attachment" width="150px" height="220px"/>
-                            <br>
-                            <b class="text-center"> {{pelmet.component}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectPelmet(pelmet.id)">Select Pelmet({{pelmet.componentCode}})</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{pelmet.component}}</b> &nbsp;                                    
+                                    <button class="next btn-next" ng-click="selectPrePelmet(pelmet.id)">View Pelmet</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/kitchen_component/{{prePelmet.id}}/attachment" width="170px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{prePelmet.component}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectPelmet(prePelmet.id)">Select Pelmet</button>
+                </div>
+                <!--                <div class=row ng-repeat="pelmetList in pelmetList1| groupBy:3">
+                                    <div class="col-xs-4 letter-box" ng-repeat="pelmet in pelmetList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/kitchen_component/{{pelmet.id}}/attachment" width="150px" height="220px"/>
+                                            <br>
+                                            <b class="text-center"> {{pelmet.component}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectPelmet(pelmet.id)">Select Pelmet({{pelmet.componentCode}})</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2912,27 +3207,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Pelmet Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in pelmetColors1| groupBy:6">
-                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="sortedColor in pelmetColors1">
                         <div>
-                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
-                            <br>
-                            <b class="text-center"> {{sortedColor.colorName}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectPelmetColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;                                    
+                                    <button class="next btn-next" ng-click="selectPrePelmetColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{prePelmetColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{prePelmetColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectPelmetColor(prePelmetColor.id, prePelmetColor.colorName, prePelmetColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="sortedColorList in pelmetColors1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectPelmetColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2943,27 +3258,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Cornice
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="corniceList in corniceList1| groupBy:3">
-                    <div class="col-xs-4 letter-box" ng-repeat="cornice in corniceList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="cornice in corniceList1">
                         <div>
-                            <image class="text-center" ng-src="./rest/kitchen_component/{{cornice.id}}/attachment" width="150px" height="220px"/>
-                            <br>
-                            <b class="text-center"> {{cornice.component}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectCornice(cornice.id)">Select Cornice({{cornice.componentCode}})</button>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{cornice.component}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreCornice(cornice.id)">View Cornice</button>
+                                </li>
+                            </ul>                            
                         </div>
                         <hr>
-                    </div>
+                    </div>                    
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/kitchen_component/{{preCornice.id}}/attachment" width="150px" height="220px"/>
+                    <br>
+                    <b class="text-center"> {{preCornice.component}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectCornice(preCornice.id)">Select Cornice</button>
+                </div>
+                <!--                <div class=row ng-repeat="corniceList in corniceList1| groupBy:3">
+                                    <div class="col-xs-4 letter-box" ng-repeat="cornice in corniceList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/kitchen_component/{{cornice.id}}/attachment" width="150px" height="220px"/>
+                                            <br>
+                                            <b class="text-center"> {{cornice.component}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectCornice(cornice.id)">Select Cornice({{cornice.componentCode}})</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -2972,27 +3307,47 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Cornice Color
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="sortedColorList in corniceColors1| groupBy:6">
-                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px">
+                    <div class=row ng-repeat="sortedColor in corniceColors1">
                         <div>
-                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
-                            <br>
-                            <b class="text-center"> {{sortedColor.colorName}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectCorniceColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                            <ul>
+                                <li>                                    
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;                                    
+                                    <button class="next btn-next" ng-click="selectPreCorniceColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preCorniceColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preCorniceColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectCorniceColor(preCorniceColor.id, preCorniceColor.colorName, preCorniceColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="sortedColorList in corniceColors1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectCorniceColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>
@@ -3003,16 +3358,36 @@
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">        
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 40px;">
                 <h3 class="modal-title col-sm-8">                    
                     Select Handle
                 </h3>                
                 <span class="col-sm-4 text-center" style="margin-top: 10px;">
-                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
                 </span>
             </div>
-            <div class="modal-body">
-                <div class=row ng-repeat="handleList in handleList1| groupBy:3">
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="handle in handleList1">
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{handle.component}}</b>&nbsp;                        
+                                    <button class="next btn-next" ng-click="selectPreHandle(handle.id)">View Handle</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/kitchen_component/{{preHandle.id}}/attachment" width="170px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preHandle.component}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectHandle(preHandle.id)">Select Handle</button>
+                </div>
+<!--                <div class=row ng-repeat="handleList in handleList1| groupBy:3">
                     <div class="col-xs-4 letter-box" ng-repeat="handle in handleList" >
                         <div>
                             <image class="text-center" ng-src="./rest/kitchen_component/{{handle.id}}/attachment" width="150px" height="220px"/>
@@ -3023,7 +3398,7 @@
                         </div>
                         <hr>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>        
     </div>

@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/order_head")
 public class OrderHeadRest {
-    
+
     @Autowired
     private OrderHeadDAL orderHeadDAL;
-    
+
     @RequestMapping(method = RequestMethod.GET)
     public List<OrderHead> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
         return orderHeadDAL.findAll(offset);
@@ -35,25 +35,35 @@ public class OrderHeadRest {
     public OrderHead findById(@PathVariable("id") Integer id) throws SQLException {
         return orderHeadDAL.findById(id);
     }
-    
+
     @RequestMapping(method = RequestMethod.POST)
     public OrderHead insert(@RequestBody OrderHead orderHead) {
         return orderHeadDAL.insert(orderHead);
     }
-    
+
     @RequestMapping(value = "/find/orderNum", method = RequestMethod.GET)
     public List findByOrderNumber(@RequestParam("orderNum") String orderNum) throws Exception {
         return orderHeadDAL.findByOrderNumber(orderNum);
     }
-    
-    @RequestMapping(value="/find/initiatedBy", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/find/initiatedBy", method = RequestMethod.GET)
     public List<OrderHead> findOrderGenerationSource(@RequestParam("userId") Integer userId) throws SQLException {
         return orderHeadDAL.findOrderGenerationSource(userId);
     }
-    
-    @RequestMapping(value="/find/approvalDate", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/find/by/billingParty", method = RequestMethod.GET)
+    public List<OrderHead> findByBillingPartyId(@RequestParam("partyId") Integer partyId) throws SQLException {
+        return orderHeadDAL.findByBillingPartyId(partyId);
+    }
+
+    @RequestMapping(value = "/find/approvalDate", method = RequestMethod.GET)
     public List<OrderHead> findByApprovalDate(@RequestParam("approvalDate") String approvalDate) throws SQLException {
         return orderHeadDAL.findByApprovalDate(approvalDate);
+    }
+
+    @RequestMapping(value = "/find/approval/duration", method = RequestMethod.GET)
+    public List<OrderHead> findApprovalByDuration(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws SQLException {
+        return orderHeadDAL.findApprovalByDuration(startDate, endDate);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
@@ -77,5 +87,4 @@ public class OrderHeadRest {
 //    public List<Employee> findByNameLike(@RequestParam("name") String name) {
 //        return orderHeadDAL.findByNameLike(name);
 //    }
-    
 }

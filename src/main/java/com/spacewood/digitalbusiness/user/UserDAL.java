@@ -172,7 +172,7 @@ public class UserDAL {
                 });
                 userConstraint.setParties(parties);
             } catch (IOException ex) {
-                throw new RuntimeException("Error parsing colorsList: '" + partiesList + "' ", ex);
+                throw new RuntimeException("Error parsing partiesList: '" + partiesList + "' ", ex);
             }
             userConstraint.setApproved(rs.getBoolean(Columns.APPROVED));
             return userConstraint;

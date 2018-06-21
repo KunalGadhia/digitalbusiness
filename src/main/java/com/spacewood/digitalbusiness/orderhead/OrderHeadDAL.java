@@ -104,13 +104,23 @@ public class OrderHeadDAL {
     }
 
     public List<OrderHead> findOrderGenerationSource(Integer userId) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_INITIATED_BY + " = ?";
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_INITIATED_BY + " = ? ORDER BY " + Columns.ID + " DESC";
         return jdbcTemplate.query(sqlQuery, new Object[]{userId}, new BeanPropertyRowMapper<>(OrderHead.class));
     }
-    
+
+    public List<OrderHead> findByBillingPartyId(Integer partyId) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.BILLING_PARTY_ID + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{partyId}, new BeanPropertyRowMapper<>(OrderHead.class));
+    }
+
     public List<OrderHead> findByApprovalDate(String approvalDate) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.APPROVAL_DATE + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{approvalDate}, new BeanPropertyRowMapper<>(OrderHead.class));
+    }
+    
+    public List<OrderHead> findApprovalByDuration(String starDate, String endDate) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.APPROVAL_DATE + " >= ? AND "+Columns.APPROVAL_DATE+ " <= ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{starDate, endDate}, new BeanPropertyRowMapper<>(OrderHead.class));
     }
 
 //    public Employee findByName(String name) {       

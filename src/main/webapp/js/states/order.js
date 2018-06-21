@@ -15,6 +15,11 @@ angular.module("digitalbusiness.states.order", [])
                 'templateUrl': templateRoot + '/masters/order/order_history.html',
                 'controller': 'OrderHistoryController'
             });
+            $stateProvider.state('admin.dealers_order_history', {
+                'url': '/dealer_order_history',
+                'templateUrl': templateRoot + '/masters/order/dealer_order_history.html',
+                'controller': 'DealerOrderHistoryController'
+            });
             $stateProvider.state('admin.masters_order_details', {
                 'url': '/:orderHeadId/order_details',
                 'templateUrl': templateRoot + '/masters/order/order_details.html',
@@ -29,6 +34,16 @@ angular.module("digitalbusiness.states.order", [])
                 'url': '/:orderHeadId/proforma_invoice',
                 'templateUrl': templateRoot + '/masters/order/proforma_invoice.html',
                 'controller': 'ProformaInvoiceDisplayController'
+            });
+            $stateProvider.state('admin.order_head_delete', {
+                'url': '/:orderHeadId/order_head/delete',
+                'templateUrl': templateRoot + '/masters/order/order_head_delete.html',
+                'controller': 'OrderHeadDeleteController'
+            });
+            $stateProvider.state('admin.dealer_order_head_delete', {
+                'url': '/:orderHeadId/dealer_order_head/delete',
+                'templateUrl': templateRoot + '/masters/order/order_head_delete.html',
+                'controller': 'DealerOrderHeadDeleteController'
             });
             $stateProvider.state('admin.masters_order_details.carcass_delete', {
                 'url': '/:carcassDetailId/delete',
@@ -84,6 +99,11 @@ angular.module("digitalbusiness.states.order", [])
                 'url': '/:orderHeadId/approve_order',
                 'templateUrl': templateRoot + '/masters/order/order_approve.html',
                 'controller': 'OrderApproveController'
+            });
+            $stateProvider.state('admin.masters_order_history.order_unapprove', {
+                'url': '/:orderHeadId/unapprove_order',
+                'templateUrl': templateRoot + '/masters/order/order_unapprove.html',
+                'controller': 'OrderUnapproveController'
             });
 //            $stateProvider.state('admin.masters_sale_type.delete', {
 //                'url': '/:saleTypeId/delete',
@@ -405,6 +425,19 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showDrawerColorSelectionWidget = false;
                 $scope.showDrawerHandleSelectionWidget = false;
                 $scope.showFillerInternalColorSelectionWidget = false;
+                $scope.preShutterColor = {};
+                $scope.preCarcass = {};
+                $scope.preInternalCarcassColor = {};
+                $scope.preSideCarcassColor = {};
+                $scope.prePanel = {};
+                $scope.prePanelColor = {};
+                $scope.preShutter = {};
+                $scope.preInternalShutterColor = {};
+                $scope.preDrawer = {};
+                $scope.preDrawerColor = {};
+                $scope.preInternalDrawerColor = {};
+                $scope.preFillerColor = {};
+                $scope.prePelmetColor = {};
             };
             $scope.openCarcass = function () {
                 KitchenComponentService.findByCategory({
@@ -619,6 +652,13 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.carcassComponent = kcObject.componentCode;
                 });
             };
+            $scope.selectPreCarcass = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (carcassComponent) {
+                    $scope.preCarcass = carcassComponent;
+                });
+            };
             ////////////Carcass Ends///////////////
             //////////////Panel//////////////
             $scope.editablePanelDetail = {};
@@ -629,6 +669,13 @@ angular.module("digitalbusiness.states.order", [])
                 }, function (kcObject) {
                     $scope.panelName = kcObject.component;
                     $scope.panelComponent = kcObject.componentCode;
+                });
+            };
+            $scope.selectPrePanel = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (panelComponent) {
+                    $scope.prePanel = panelComponent;
                 });
             };
             ////////////Panel Ends///////////////
@@ -643,6 +690,13 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.shutterComponent = kcObject.componentCode;
                 });
             };
+            $scope.selectPreShutter = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (shutterComponent) {
+                    $scope.preShutter = shutterComponent;
+                });
+            };
             ////////////Shutter Ends///////////////
             //////////////Drawer//////////////
             $scope.editableDrawerDetail = {};
@@ -653,6 +707,13 @@ angular.module("digitalbusiness.states.order", [])
                 }, function (kcObject) {
                     $scope.drawerName = kcObject.component;
                     $scope.drawerComponent = kcObject.componentCode;
+                });
+            };
+            $scope.selectPreDrawer = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (drawerComponent) {
+                    $scope.preDrawer = drawerComponent;
                 });
             };
             ////////////Drawer Ends///////////////
@@ -679,6 +740,13 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.pelmetComponent = kcObject.componentCode;
                 });
             };
+            $scope.selectPrePelmet = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (pelmetComponent) {
+                    $scope.prePelmet = pelmetComponent;
+                });
+            };
             ////////////Pelmet Ends///////////////
             //////////////Cornice//////////////
             $scope.editableCorniceDetail = {};
@@ -689,6 +757,13 @@ angular.module("digitalbusiness.states.order", [])
                 }, function (kcObject) {
                     $scope.corniceName = kcObject.component;
                     $scope.corniceComponent = kcObject.componentCode;
+                });
+            };
+            $scope.selectPreCornice = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (corniceComponent) {
+                    $scope.preCornice = corniceComponent;
                 });
             };
             ////////////Cornice Ends///////////////
@@ -703,6 +778,13 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.handleComponent = kcObject.componentCode;
                 });
             };
+            $scope.selectPreHandle = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (handleComponent) {
+                    $scope.preHandle = handleComponent;
+                });
+            };
             $scope.selectShutterHandle = function (componentId) {
                 $scope.closeWidget();
                 KitchenComponentService.get({
@@ -710,6 +792,13 @@ angular.module("digitalbusiness.states.order", [])
                 }, function (kcObject) {
                     $scope.shutterHandleName = kcObject.component;
                     $scope.shutterHandleComponent = kcObject.componentCode;
+                });
+            };
+            $scope.selectPreShutterHandle = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (shutterHandleComponent) {
+                    $scope.preShutterHandle = shutterHandleComponent;
                 });
             };
             ////////////Handle Ends///////////////
@@ -1338,6 +1427,13 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editableCarcassDetail.intColorId = colorId;
                 $scope.intColorName = colorName;
             };
+            $scope.selectPreInternalCarcassColor = function (colorId) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.preInternalCarcassColor = colorObject;
+                });
+            };
             $scope.selectSideCarcassColor = function (colorId, colorName, colorCode) {
                 console.log("Getting Side Name in Select ?? :%O", $scope.sideName);
                 var side = $scope.sideName;
@@ -1368,6 +1464,13 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.bottomColorName = colorName;
                 }
             };
+            $scope.selectPreSideCarcassColor = function (colorId) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.preSideCarcassColor = colorObject;
+                });
+            };
 //            $scope.saveCarcassDetails = function (carcassDetails) {
 //                console.log("This are carcass details :%O", carcassDetails);
 //            };
@@ -1383,6 +1486,13 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editablePanelDetail.colorCode = colorCode;
                 $scope.editablePanelDetail.colorId = colorId;
                 $scope.panelColorName = colorName;
+            };
+            $scope.selectPrePanelColor = function (colorId) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.prePanelColor = colorObject;
+                });
             };
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
@@ -1455,12 +1565,26 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editableFillerDetail.colorId = colorId;
                 $scope.fillerColorName = colorName;
             };
+            $scope.selectPreFillerColor = function (colorId) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.preFillerColor = colorObject;
+                });
+            };
             $scope.selectInternalFillerColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 $scope.closeWidget();
                 $scope.editableFillerDetail.intColorCode = colorCode;
                 $scope.editableFillerDetail.intColorId = colorId;
                 $scope.fillerInternalColorName = colorName;
+            };
+            $scope.selectPreInternalFillerColor = function (colorId) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.preInternalFillerColor = colorObject;
+                });
             };
             $scope.fillerFinishList = [];
 //            $scope.shutterFinishList = FinishPriceService.findAllList();
@@ -1513,6 +1637,7 @@ angular.module("digitalbusiness.states.order", [])
             });
             $scope.$watch('editableFillerDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
+                $scope.editableFillerDetail.thickness = '';
                 $scope.fillerFinishCode = finishName;
                 FillerFinishPriceService.findByFinish({
                     'finish': finishName
@@ -1586,6 +1711,13 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editablePelmetDetail.colorId = colorId;
                 $scope.pelmetColorName = colorName;
             };
+            $scope.selectPrePelmetColor = function (colorId) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.prePelmetColor = colorObject;
+                });
+            };
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderHeadObject) {
@@ -1626,6 +1758,7 @@ angular.module("digitalbusiness.states.order", [])
 //            $scope.showFillerBsm = false;
             $scope.$watch('editablePelmetDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
+                $scope.editablePelmetDetail.thickness = '';
 //                FinishPriceService.findByFinishCode({
 //                    'finishCode': finishName
 //                }, function (finishObject) {
@@ -1678,6 +1811,13 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editableCorniceDetail.colorId = colorId;
                 $scope.corniceColorName = colorName;
             };
+            $scope.selectPreCorniceColor = function (colorId) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.preCorniceColor = colorObject;
+                });
+            };
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderHeadObject) {
@@ -1710,6 +1850,7 @@ angular.module("digitalbusiness.states.order", [])
 //            $scope.showFillerBsm = false;
             $scope.$watch('editableCorniceDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
+                $scope.editableCorniceDetail.thickness = '';
 //                FinishPriceService.findByFinishCode({
 //                    'finishCode': finishName
 //                }, function (finishObject) {
@@ -1851,6 +1992,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showShutterInternalColorSelectionWidget = false;
             $scope.editableShutterDetail.bsm = false;
             $scope.shutterModelSelection = false;
+            $scope.shutterGlassWidget = false;
             $scope.openShutterColorWidget = function () {
                 $scope.showShutterColorSelectionWidget = true;
             };
@@ -1864,6 +2006,15 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editableShutterDetail.intColorId = colorId;
                 console.log("Int COlor :%O", $scope.editableShutterDetail.intColorId);
                 $scope.shutterInternalColorName = colorName;
+            };
+            $scope.selectPreInternalShutterColor = function (colorId, colorName, colorCode) {
+                console.log("Color ID :%O", colorId);
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    console.log("Color Object :%O", colorObject);
+                    $scope.preInternalShutterColor = colorObject;
+                });
             };
             $scope.shutterHandleList1 = [];
             $scope.openShutterHandle = function () {
@@ -1933,6 +2084,15 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editableShutterDetail.colorCode = colorCode;
                 $scope.editableShutterDetail.colorId = colorId;
                 $scope.shutterColorName = colorName;
+            };
+            $scope.selectPreShutterColor = function (colorId, colorName, colorCode) {
+                console.log("Color ID :%O", colorId);
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    console.log("Color Object :%O", colorObject);
+                    $scope.preShutterColor = colorObject;
+                });
             };
             $scope.shutterFinishList = [];
             $scope.$watch('editableShutterDetail.finishCategory', function (finishCategory) {
@@ -2012,6 +2172,7 @@ angular.module("digitalbusiness.states.order", [])
             });
             $scope.$watch('editableShutterDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
+                $scope.editableShutterDetail.thickness = '';
                 if (finishName === "XXW") {
                     $scope.alFinish = true;
                 } else if (finishName === "XXX") {
@@ -2079,7 +2240,8 @@ angular.module("digitalbusiness.states.order", [])
                         }
 
                         $scope.shutterModelSelection = true;
-                    } else {
+                        $scope.shutterGlassWidget = true;
+                    } else if (finishObject.category === "PU") {
                         $("#shutterLength").attr({
                             'min': 50,
                             'max': 2350
@@ -2089,9 +2251,68 @@ angular.module("digitalbusiness.states.order", [])
                             'max': 1100
                         });
                         $scope.shutterModelSelection = false;
+                        $scope.shutterGlassWidget = true;
                         $scope.showGlassStep = false;
                         $scope.editableShutterDetail.component = '';
                         $scope.shutterName = '';
+                    } else {
+
+                        if (finishName === "XXH") {
+                            $("#shutterLength").attr({
+                                'min': 50,
+                                'max': 2350
+                            });
+                            $("#shutterWidth").attr({
+                                'min': 50,
+                                'max': 1100
+                            });
+                            $scope.shutterModelSelection = false;
+                            $scope.shutterGlassWidget = true;
+                            $scope.showGlassStep = false;
+                            $scope.editableShutterDetail.component = '';
+                            $scope.shutterName = '';
+                        } else if (finishName === "XXG") {
+                            $("#shutterLength").attr({
+                                'min': 50,
+                                'max': 2350
+                            });
+                            $("#shutterWidth").attr({
+                                'min': 50,
+                                'max': 1100
+                            });
+                            $scope.shutterModelSelection = false;
+                            $scope.shutterGlassWidget = true;
+                            $scope.showGlassStep = false;
+                            $scope.editableShutterDetail.component = '';
+                            $scope.shutterName = '';
+                        } else {
+                            $("#shutterLength").attr({
+                                'min': 50,
+                                'max': 2350
+                            });
+                            $("#shutterWidth").attr({
+                                'min': 50,
+                                'max': 1100
+                            });
+                            $scope.shutterModelSelection = false;
+                            $scope.shutterGlassWidget = false;
+                            $scope.showGlassStep = false;
+                            $scope.editableShutterDetail.component = '';
+                            $scope.shutterName = '';
+                        }
+//                        $("#shutterLength").attr({
+//                            'min': 50,
+//                            'max': 2350
+//                        });
+//                        $("#shutterWidth").attr({
+//                            'min': 50,
+//                            'max': 1100
+//                        });
+//                        $scope.shutterModelSelection = false;
+//                        $scope.shutterGlassWidget = false;
+//                        $scope.showGlassStep = false;
+//                        $scope.editableShutterDetail.component = '';
+//                        $scope.shutterName = '';
                     }
                 });
                 $scope.showGlassStep = false;
@@ -2233,6 +2454,15 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Int COlor :%O", $scope.editableDrawerDetail.intColorId);
                 $scope.drawerInternalColorName = colorName;
             };
+            $scope.selectPreInternalDrawerColor = function (colorId) {
+                console.log("Color ID :%O", colorId);
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    console.log("Color Object :%O", colorObject);
+                    $scope.preInternalDrawerColor = colorObject;
+                });
+            };
             $scope.openDrawerColorWidget = function () {
                 $scope.showDrawerColorSelectionWidget = true;
             };
@@ -2286,6 +2516,13 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.editableDrawerDetail.handle = kcObject.componentCode;
                 });
             };
+            $scope.selectPreDrawerHandle = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (drawerHandleComponent) {
+                    $scope.preDrawerHandle = drawerHandleComponent;
+                });
+            };
             $scope.selectDrawerColor = function (colorId, colorName, colorCode) {
                 console.log(colorId);
                 console.log("Color Name :%O", colorName);
@@ -2294,6 +2531,15 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editableDrawerDetail.colorId = colorId;
                 $scope.drawerColorName = colorName;
                 console.log("Drawer COlor Name :%O", $scope.drawerColorName);
+            };
+            $scope.selectPreDrawerColor = function (colorId, colorName, colorCode) {
+                console.log("Color ID :%O", colorId);
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    console.log("Color Object :%O", colorObject);
+                    $scope.preDrawerColor = colorObject;
+                });
             };
             $scope.drawerFinishList = [];
             $scope.$watch('editableDrawerDetail.finishCategory', function (finishCategory) {
@@ -2362,6 +2608,7 @@ angular.module("digitalbusiness.states.order", [])
             });
             $scope.$watch('editableDrawerDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
+                $scope.editableDrawerDetail.thickness = '';
                 $scope.drawerHandleList1 = [];
 //                $scope.drawerHandlePriceList = [];
 //                $scope.drawerHandleName = '';
@@ -5220,6 +5467,26 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
+        .controller('OrderHeadDeleteController', function (OrderHeadService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Panel:%O", $stateParams);
+            $scope.editableOrderHead = OrderHeadService.get({'id': $stateParams.orderHeadId});
+            $scope.deleteOrderHead = function (orderHead) {
+                console.log("Order Head :%O", orderHead);
+                orderHead.$delete(function () {
+                    $state.go('admin.masters_order_history', null, {'reload': true});
+                });
+            };
+        })
+        .controller('DealerOrderHeadDeleteController', function (OrderHeadService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Panel:%O", $stateParams);
+            $scope.editableOrderHead = OrderHeadService.get({'id': $stateParams.orderHeadId});
+            $scope.deleteOrderHead = function (orderHead) {
+                console.log("Order Head :%O", orderHead);
+                orderHead.$delete(function () {
+                    $state.go('admin.dealers_order_history', null, {'reload': true});
+                });
+            };
+        })
         .controller('CarcassDetailDeleteController', function (CarcassOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
             console.log("What are STate Params :%O", $stateParams);
             $scope.editableCarcassDetail = CarcassOrderDetailsService.get({'id': $stateParams.carcassDetailId});
@@ -5268,7 +5535,26 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderApproveController', function (MaxKitchenOrderDetailsService, HardwareOrderDetailsService, RateContractDetailService, PartyService, ColorService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, $rootScope, paginationLimit) {
+        .controller('OrderUnapproveController', function (MaxWardrobeOrderDetailsService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, RateContractDetailService, PartyService, ColorService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, $rootScope, paginationLimit) {
+            $scope.orderObject = OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderObject) {
+                $scope.orderObject.billingPartyObject = PartyService.get({
+                    'id': orderObject.billingPartyId
+                });
+                $scope.orderObject.deliveryPartyObject = PartyService.get({
+                    'id': orderObject.deliveryPartyId
+                });
+            });
+            $scope.unapproveOrder = function (orderHead) {
+                orderHead.approvalDate = null;
+                orderHead.approved = false;
+                orderHead.$save(function () {
+                    $state.go('admin.masters_order_history', null, {'reload': true});
+                });
+            };
+        })
+        .controller('OrderApproveController', function (MaxWardrobeOrderDetailsService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, RateContractDetailService, PartyService, ColorService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, $rootScope, paginationLimit) {
             $scope.orderObject = OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderObject) {
@@ -5494,6 +5780,16 @@ angular.module("digitalbusiness.states.order", [])
                                 });
                             });
                             ////////////////////////////////////////////////////////////////////
+                            ////////////////////Max Wardrobe ERP Insertion/////////////////////////////
+                            MaxWardrobeOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (maxWardrobeOrderList) {
+                                angular.forEach(maxWardrobeOrderList, function (maxWardrobeOrderObject) {
+                                    console.log("Final Max Wardrobe Order Detail Before Pushing Into ERP :%O", maxWardrobeOrderObject);
+                                    $scope.erpPush(maxWardrobeOrderObject);
+                                });
+                            });
+                            ////////////////////////////////////////////////////////////////////
 
 //                            $scope.carcassPromise.$promise.then(function (carcassList) {
 //                                $scope.panelPromise.$promise.then(function (panelList) {
@@ -5607,6 +5903,62 @@ angular.module("digitalbusiness.states.order", [])
             };
         })
         .controller('OrderHistoryController', function (PartyService, OrderHeadService, UserService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
+            console.log("What are STate Params Pelmet:%O", $stateParams);
+            $scope.currentUser = $rootScope.currentUser;
+            UserService.findByUsername({
+                'username': $scope.currentUser.username
+            }, function (userObject) {
+                console.log("THis is User Object :%O", userObject);
+                if (userObject.role === "ROLE_ADMIN") {
+                    $scope.adminBackButton = true;
+                    $scope.dealerBackButton = false;
+                } else if (userObject.role === "ROLE_DEALER") {
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
+                }
+                $scope.orderHeadList = OrderHeadService.findOrderGenerationSource({
+                    'userId': userObject.id
+                }, function (orderHeadList) {
+                    console.log("Order Head List :%O", orderHeadList);
+                    angular.forEach(orderHeadList, function (orderHeadObject) {
+                        orderHeadObject.billingPartyObject = PartyService.get({
+                            'id': orderHeadObject.billingPartyId
+                        });
+                        orderHeadObject.deliveryPartyObject = PartyService.get({
+                            'id': orderHeadObject.deliveryPartyId
+                        });
+                    });
+                });
+                console.log("Order Head List :%O", $scope.orderHeadList);
+            });
+            $scope.searchParties = function (partyString) {
+                return PartyService.findByNameLike({
+                    'name': partyString
+                }).$promise;
+            };
+            $scope.setParty = function (party) {
+                $scope.searchPartyId = party.id;
+            };
+            $scope.clearSearch = function () {
+                $state.go('admin.masters_order_history', null, {'reload': true});
+            };
+            $scope.searchByParty = function () {
+                $scope.orderHeadList = [];
+                $scope.orderHeadList = OrderHeadService.findByBillingPartyId({
+                    'partyId': $scope.searchPartyId
+                }, function (orderHeadList) {
+                    angular.forEach(orderHeadList, function (orderHeadObject) {
+                        orderHeadObject.billingPartyObject = PartyService.get({
+                            'id': orderHeadObject.billingPartyId
+                        });
+                        orderHeadObject.deliveryPartyObject = PartyService.get({
+                            'id': orderHeadObject.deliveryPartyId
+                        });
+                    });
+                });
+            };
+        })
+        .controller('DealerOrderHistoryController', function (PartyService, OrderHeadService, UserService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
             console.log("What are STate Params Pelmet:%O", $stateParams);
             $scope.currentUser = $rootScope.currentUser;
             UserService.findByUsername({
