@@ -5091,7 +5091,74 @@ angular.module("digitalbusiness.states.order", [])
                 });
             });
             ///////////////////End//////////////////////////////////////
+            $scope.updateOrderHead = function () {
+                OrderHeadService.get({
+                    'id': $stateParams.orderHeadId
+                }, function (orderHeadObject) {                    
+                    PartyService.get({
+                        'id': orderHeadObject.billingPartyId
+                    }, function (billingPartyObject) {                        
+                        if (billingPartyObject.state === "MS") {                            
+                            var carcassTotal = parseInt($("#carcassTotal").val());
+                            var panelTotal = parseInt($("#panelTotal").val());
+                            var shutterTotal = parseInt($("#shutterTotal").val());
+                            var drawerTotal = parseInt($("#drawerTotal").val());
+                            var fillerTotal = parseInt($("#fillerTotal").val());
+                            var pelmetTotal = parseInt($("#pelmetTotal").val());
+                            var corniceTotal = parseInt($("#corniceTotal").val());
+                            var handleTotal = parseInt($("#handleTotal").val());
+                            var hardwareTotal = parseInt($("#hardwareTotal").val());
 
+                            $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal);
+                            $scope.cgst = (($scope.totalOrderPrice / 100) * 9);
+                            $scope.sgst = (($scope.totalOrderPrice / 100) * 9);
+                            $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.cgst + $scope.sgst));                            
+                            orderHeadObject.orderAmount = $scope.totalOrderPrice;
+                            orderHeadObject.cgstAmount = Math.round($scope.cgst);
+                            orderHeadObject.sgstAmount = Math.round($scope.sgst);
+                            orderHeadObject.igstAmount = 0;
+                            orderHeadObject.netAmount = $scope.netTotalAmount;                            
+                            if ($scope.adminLogin === true) {                                
+                                orderHeadObject.$save(function () {
+                                    $state.go('admin.masters', null, {'reload': true});
+                                });
+                            } else if ($scope.dealerLogin === true) {                                
+                                orderHeadObject.$save(function () {
+                                    $state.go('admin.dealers', null, {'reload': true});
+                                });
+                            }
+
+                        } else if (billingPartyObject.state === "OMS") {                            
+                            var carcassTotal = parseInt($("#carcassTotal").val());
+                            var panelTotal = parseInt($("#panelTotal").val());
+                            var shutterTotal = parseInt($("#shutterTotal").val());
+                            var drawerTotal = parseInt($("#drawerTotal").val());
+                            var fillerTotal = parseInt($("#fillerTotal").val());
+                            var pelmetTotal = parseInt($("#pelmetTotal").val());
+                            var corniceTotal = parseInt($("#corniceTotal").val());
+                            var handleTotal = parseInt($("#handleTotal").val());
+                            var hardwareTotal = parseInt($("#hardwareTotal").val());
+                            $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal);
+                            $scope.igst = (($scope.totalOrderPrice / 100) * 18);
+                            $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.igst));                            
+                            orderHeadObject.orderAmount = $scope.totalOrderPrice;
+                            orderHeadObject.cgstAmount = 0;
+                            orderHeadObject.sgstAmount = 0;
+                            orderHeadObject.igstAmount = Math.round($scope.igst);
+                            orderHeadObject.netAmount = $scope.netTotalAmount;                            
+                            if ($scope.adminLogin === true) {                                
+                                orderHeadObject.$save(function () {
+                                    $state.go('admin.masters', null, {'reload': true});
+                                });
+                            } else if ($scope.dealerLogin === true) {                                
+                                orderHeadObject.$save(function () {
+                                    $state.go('admin.dealers', null, {'reload': true});
+                                });
+                            }
+                        }
+                    });
+                });
+            };
         }
         )
         .controller('ProformaInvoiceDisplayController', function (MaxWardrobeOrderDetailsService, MaxWardrobeService, CarcassSubtypeService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {

@@ -65,6 +65,16 @@ public class OrderHeadRest {
     public List<OrderHead> findApprovalByDuration(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws SQLException {
         return orderHeadDAL.findApprovalByDuration(startDate, endDate);
     }
+    
+    @RequestMapping(value = "/find/unapproval/duration", method = RequestMethod.GET)
+    public List<OrderHead> findUnApprovedOrderByDuration(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws SQLException {
+        return orderHeadDAL.findUnApprovedOrderByDuration(startDate, endDate);
+    }
+    
+    @RequestMapping(value = "/find/party/duration", method = RequestMethod.GET)
+    public List<OrderHead> findOrderByPartyAndDuration(@RequestParam("partyId") Integer partyId, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws SQLException {
+        return orderHeadDAL.findOrderByPartyAndDuration(partyId, startDate, endDate);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public OrderHead update(@RequestBody OrderHead orderHead) {

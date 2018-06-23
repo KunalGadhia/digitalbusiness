@@ -47,6 +47,11 @@ public class OrderHeadDAL {
         public static final String ORC_PER = "orc_per";
         public static final String APPROVAL_DATE = "approval_date";
         public static final String APPROVED = "approved";
+        public static final String ORDER_AMOUNT = "order_amount";
+        public static final String CGST_AMOUNT = "cgst_amount";
+        public static final String SGST_AMOUNT = "sgst_amount";
+        public static final String IGST_AMOUNT = "igst_amount";
+        public static final String NET_AMOUNT = "net_amount";
 
     }
 
@@ -82,7 +87,12 @@ public class OrderHeadDAL {
                         Columns.RATE_CONTRACT,
                         Columns.ORC_PER,
                         Columns.APPROVAL_DATE,
-                        Columns.APPROVED
+                        Columns.APPROVED,
+                        Columns.ORDER_AMOUNT,
+                        Columns.CGST_AMOUNT,
+                        Columns.SGST_AMOUNT,
+                        Columns.IGST_AMOUNT,
+                        Columns.NET_AMOUNT
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -114,13 +124,23 @@ public class OrderHeadDAL {
     }
 
     public List<OrderHead> findByApprovalDate(String approvalDate) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.APPROVAL_DATE + " = ?";
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.APPROVED + " = TRUE AND " + Columns.APPROVAL_DATE + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{approvalDate}, new BeanPropertyRowMapper<>(OrderHead.class));
     }
-    
+
     public List<OrderHead> findApprovalByDuration(String starDate, String endDate) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.APPROVAL_DATE + " >= ? AND "+Columns.APPROVAL_DATE+ " <= ?";
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND approved = true AND " + Columns.APPROVAL_DATE + " >= ? AND " + Columns.APPROVAL_DATE + " <= ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{starDate, endDate}, new BeanPropertyRowMapper<>(OrderHead.class));
+    }
+
+    public List<OrderHead> findUnApprovedOrderByDuration(String starDate, String endDate) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND approved = false AND " + Columns.PO_DATE + " >= ? AND " + Columns.PO_DATE + " <= ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{starDate, endDate}, new BeanPropertyRowMapper<>(OrderHead.class));
+    }
+
+    public List<OrderHead> findOrderByPartyAndDuration(Integer partyId, String starDate, String endDate) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.BILLING_PARTY_ID + " = ? AND " + Columns.PO_DATE + " >= ? AND " + Columns.PO_DATE + " <= ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{partyId, starDate, endDate}, new BeanPropertyRowMapper<>(OrderHead.class));
     }
 
 //    public Employee findByName(String name) {       
@@ -176,6 +196,11 @@ public class OrderHeadDAL {
 
         parameters.put(Columns.ORC_PER, orderHead.getOrcPer());
         parameters.put(Columns.APPROVED, "0");
+        parameters.put(Columns.ORDER_AMOUNT, "0");
+        parameters.put(Columns.CGST_AMOUNT, "0");
+        parameters.put(Columns.SGST_AMOUNT, "0");
+        parameters.put(Columns.IGST_AMOUNT, "0");
+        parameters.put(Columns.NET_AMOUNT, "0");
 
         Number newId = insertOrderHead.executeAndReturnKey(parameters);
         orderHead = findById(newId.intValue());
@@ -210,7 +235,12 @@ public class OrderHeadDAL {
                 + Columns.RATE_CONTRACT + " = ?,"
                 + Columns.ORC_PER + " = ?,"
                 + Columns.APPROVAL_DATE + " = ?,"
-                + Columns.APPROVED + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.APPROVED + " = ?,"
+                + Columns.ORDER_AMOUNT + " = ?,"
+                + Columns.CGST_AMOUNT + " = ?,"
+                + Columns.SGST_AMOUNT + " = ?,"
+                + Columns.IGST_AMOUNT + " = ?,"
+                + Columns.NET_AMOUNT + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     orderHead.getOrderNum(),
@@ -235,6 +265,11 @@ public class OrderHeadDAL {
                     orderHead.getOrcPer(),
                     orderHead.getApprovalDate(),
                     orderHead.getApproved(),
+                    orderHead.getOrderAmount(),
+                    orderHead.getCgstAmount(),
+                    orderHead.getSgstAmount(),
+                    orderHead.getIgstAmount(),
+                    orderHead.getNetAmount(),
                     orderHead.getId()
                 });
         orderHead = findById(orderHead.getId());

@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+    <div class="panel-heading text-center">       
+        <div class="pull-left">            
+            <button class="btn btn-default" 
+                    type="button"
+                    onclick="window.history.back()">
+                Back
+            </button>
+        </div>
+        <div class="pull-right">            
+        </div>
+        <div>
+            <h3>Party Order Report</h3>
+        </div>
+        <form>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Select Party</label>
+                    <input class="form-control"
+                           placeholder="Enter Party Name"
+                           uib-typeahead="party.dealerName as party.dealerName for party in searchParty($viewValue)"
+                           typeahead-on-select="setParty($item)"
+                           typeahead-editable="false"
+                           typeahead-loading="loadingParty" 
+                           typeahead-no-results="noPartyFound"                                       
+                           ng-model="partyName" required=""/>
+                    <p ng-show="noPartyFound" class="help-block text-muted">No Party Found</p>
+                    <p ng-show="loadingParty" class="help-block text-muted">Loading...</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Select Start Date</label>
+                    <input class="form-control" type="date" placeholder="DD-MM-YYYY" ng-model="startDate" required=""/>
+                </div>
+            </div> 
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Select End Date</label>
+                    <input class="form-control" type="date" placeholder="DD-MM-YYYY" ng-model="endDate" min-date='startDate' required=""/>
+                </div>
+            </div> 
+
+            <div class="modal-footer">
+                <a class='btn btn-primary btn-lg' target="_blank" data-ui-sref="party_order_report_display({'partyId': partyId, 'startDate': startDate, 'endDate': endDate})">Fetch Report</a>                
+            </div>
+        </form>
+    </div>
+</div>
+<div data-ui-view=""></div>
+

@@ -43,7 +43,7 @@
                         <i class="fa fa-pencil"></i>
                         Edit Order
                     </a>
-                    
+
                     <a data-ui-sref="admin.masters_order_history.order_approve({orderHeadId: orderHead.id})"
                        class="btn btn-primary" ng-hide="orderHead.approved === true">
                         <i class="fa fa-check"></i>
@@ -53,6 +53,12 @@
                        class="btn btn-primary" ng-hide="orderHead.approved === true">
                         <i class="fa fa-trash"></i>
                         Delete
+                    </a>
+                    <a target="_blank" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
+                        <button class="btn btn-primary" >
+                            <i class="fa fa-print"></i>
+                            Generate Proforma Invoice
+                        </button>
                     </a>
                     <!--                    <a data-ui-sref="admin.masters_party.delete({ partyId: party.id })"
                                            class="btn btn-danger">

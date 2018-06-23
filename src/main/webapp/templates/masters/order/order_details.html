@@ -1,7 +1,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading text-center">
-        <div class="pull-left">
+<!--        <div class="pull-left">
             <a data-ui-sref="admin.masters"
                class="btn btn-default" ng-if="adminLogin">
                 <i class="fa fa-arrow-left"></i>
@@ -12,7 +12,7 @@
                 <i class="fa fa-arrow-left"></i>
                 Back
             </a>
-        </div>
+        </div>-->
         <div class="pull-right">
 
         </div>
@@ -1745,6 +1745,13 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-left ng-hide" colspan="2"><input id="carcassTotal" class="form-control" value="{{carcassDetailsList| total:'price'}}"></td>
+                        <td class="text-right" colspan="12"><strong>Total Order Value for Carcass in INR :</strong></td>
+                        <td class="text-left" colspan="2">&#8377; {{carcassDetailsList| total:'price' | number: 2}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -1804,6 +1811,13 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-left ng-hide" colspan="2"><input id="panelTotal" class="form-control" value="{{panelDetailsList| total:'price'}}"></td>
+                        <td class="text-right" colspan="12"><strong>Total Order Value for Panel in INR :</strong></td>
+                        <td class="text-left" colspan="2">&#8377; {{panelDetailsList| total:'price' | number: 2}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -1872,6 +1886,13 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-left ng-hide" colspan="2"><input id="shutterTotal" class="form-control" value="{{shutterDetailsList| total:'price'}}"></td>
+                        <td class="text-right" colspan="12"><strong>Total Order Value for Shutter in INR :</strong></td>
+                        <td class="text-left" colspan="2">&#8377; {{shutterDetailsList| total:'price' | number: 2}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -1933,6 +1954,13 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-left ng-hide" colspan="2"><input id="drawerTotal" class="form-control" value="{{drawerDetailsList| total:'price'}}"></td>
+                        <td class="text-right" colspan="12"><strong>Total Order Value for Drawer in INR :</strong></td>
+                        <td class="text-left" colspan="2">&#8377; {{drawerDetailsList| total:'price' | number: 2}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -1993,6 +2021,13 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-left ng-hide" colspan="2"><input id="fillerTotal" class="form-control" value="{{fillerDetailsList| total:'price'}}"></td>
+                        <td class="text-right" colspan="12"><strong>Total Order Value for Filler in INR :</strong></td>
+                        <td class="text-left" colspan="2">&#8377; {{fillerDetailsList| total:'price' | number: 2}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -2050,6 +2085,13 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-left ng-hide" colspan="2"><input id="pelmetTotal" class="form-control" value="{{pelmetDetailsList| total:'price'}}"></td>
+                        <td class="text-right" colspan="12"><strong>Total Order Value for Pelmet in INR :</strong></td>
+                        <td class="text-left" colspan="2">&#8377; {{pelmetDetailsList| total:'price' | number: 2}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -2107,6 +2149,13 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-left ng-hide" colspan="2"><input id="corniceTotal" class="form-control" value="{{corniceDetailsList| total:'price'}}"></td>
+                        <td class="text-right" colspan="12"><strong>Total Order Value for Cornice in INR :</strong></td>
+                        <td class="text-left" colspan="2">&#8377; {{corniceDetailsList| total:'price' | number: 2}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -2162,6 +2211,13 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-left ng-hide" colspan="2"><input id="handleTotal" class="form-control" value="{{handleDetailsList| total:'price'}}"></td>
+                        <td class="text-right" colspan="12"><strong>Total Order Value for Handle in INR :</strong></td>
+                        <td class="text-left" colspan="2">&#8377; {{handleDetailsList| total:'price' | number: 2}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -2216,6 +2272,13 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-left ng-hide" colspan="2"><input id="hardwareTotal" class="form-control" value="{{hardwareDetailsList| total:'price'}}"></td>
+                        <td class="text-right" colspan="12"><strong>Total Order Value for Hardware in INR :</strong></td>
+                        <td class="text-left" colspan="2">&#8377; {{hardwareDetailsList| total:'price' | number: 2}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -2390,18 +2453,18 @@
                     Done
                 </button>
             </a>
-            <a data-ui-sref="admin.masters" ng-if="adminLogin">
-                <button class="btn btn-lg btn-primary">
+            <!--<a data-ui-sref="admin.masters" ng-if="adminLogin">-->
+                <button class="btn btn-lg btn-primary" ng-click="updateOrderHead()">
                     <i class="fa fa-check-circle"></i>
                     Done
                 </button>
-            </a>
-            <a target="_blank" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
+            <!--</a>-->
+<!--            <a target="_blank" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
                 <button class="btn btn-lg btn-primary" >
                     <i class="fa fa-print"></i>
                     Generate Proforma Invoice
                 </button>
-            </a>            
+            </a>            -->
         </div>        
     </div>
 </div>

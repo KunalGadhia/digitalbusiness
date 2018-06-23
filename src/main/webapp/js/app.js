@@ -98,6 +98,8 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.hardware',
     'digitalbusiness.states.shutter_component_mapping',
     'digitalbusiness.states.drawer_component_mapping',
+    'digitalbusiness.states.unapproved_order_report',
+    'digitalbusiness.states.party_order_report',
 
     'digitalbusiness.states.auth'
 

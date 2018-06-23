@@ -1,11 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-heading text-center">       
-        <div class="pull-left">
-            <!--            <a data-ui-sref="admin.masters"
-                           class="btn btn-default">
-                            <i class="fa fa-arrow-left"></i>
-                            Back
-                        </a>-->
+        <div class="pull-left">            
             <button class="btn btn-default" 
                     type="button"
                     onclick="window.history.back()">
@@ -15,7 +10,7 @@
         <div class="pull-right">            
         </div>
         <div>
-            <h3>Approved Order Report</h3>
+            <h3>Unapproved Order Report</h3>
         </div>
         <form>
 
@@ -33,7 +28,7 @@
             </div> 
 
             <div class="modal-footer">
-                <a class='btn btn-primary btn-lg' target="_blank" data-ui-sref="approved_order_report_display({'startDate': startDate, 'endDate': endDate})">Fetch Report</a>                
+                <a class='btn btn-primary btn-lg' target="_blank" data-ui-sref="unapproved_order_report_display({'startDate': startDate, 'endDate': endDate})">Fetch Report</a>                
             </div>
         </form>
     </div>
