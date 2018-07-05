@@ -55,6 +55,11 @@ public class OrderHeadRest {
     public List<OrderHead> findByBillingPartyId(@RequestParam("partyId") Integer partyId) throws SQLException {
         return orderHeadDAL.findByBillingPartyId(partyId);
     }
+    
+    @RequestMapping(value = "/find/by/billingParty/offset", method = RequestMethod.GET)
+    public List<OrderHead> findByBillingPartyIdOffset(@RequestParam("partyId") Integer partyId, @RequestParam("offset") Integer offset) throws SQLException {
+        return orderHeadDAL.findByBillingPartyIdOffset(partyId, offset);
+    }
 
     @RequestMapping(value = "/find/approvalDate", method = RequestMethod.GET)
     public List<OrderHead> findByApprovalDate(@RequestParam("approvalDate") String approvalDate) throws SQLException {

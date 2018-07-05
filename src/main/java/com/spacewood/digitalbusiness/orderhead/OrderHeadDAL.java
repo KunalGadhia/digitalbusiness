@@ -119,8 +119,13 @@ public class OrderHeadDAL {
     }
 
     public List<OrderHead> findByBillingPartyId(Integer partyId) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.BILLING_PARTY_ID + " = ?";
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.BILLING_PARTY_ID + " = ? ORDER BY " + Columns.ID + " DESC";
         return jdbcTemplate.query(sqlQuery, new Object[]{partyId}, new BeanPropertyRowMapper<>(OrderHead.class));
+    }
+
+    public List<OrderHead> findByBillingPartyIdOffset(Integer partyId, Integer offset) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.BILLING_PARTY_ID + " = ? ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{partyId, offset}, new BeanPropertyRowMapper<>(OrderHead.class));
     }
 
     public List<OrderHead> findByApprovalDate(String approvalDate) {

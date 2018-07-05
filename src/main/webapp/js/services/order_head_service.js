@@ -32,6 +32,15 @@ angular.module("digitalbusiness.services.order_head")
                     },
                     'isArray': true
                 },
+                'findByBillingPartyIdOffset': {
+                    'method': 'GET',
+                    'url': restRoot + '/order_head/find/by/billingParty/offset',
+                    'params': {
+                        'partyId': '@partyId',
+                        'offset': '@offset'
+                    },
+                    'isArray': true
+                },
                 'findByApprovalDate': {
                     'method': 'GET',
                     'url': restRoot + '/order_head/find/approvalDate',

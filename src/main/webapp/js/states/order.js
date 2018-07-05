@@ -785,15 +785,20 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.preHandle = handleComponent;
                 });
             };
-            $scope.selectShutterHandle = function (componentId) {
-                $scope.closeWidget();
-                KitchenComponentService.get({
-                    'id': componentId
-                }, function (kcObject) {
-                    $scope.shutterHandleName = kcObject.component;
-                    $scope.shutterHandleComponent = kcObject.componentCode;
-                });
-            };
+//            $scope.selectShutterHandle = function (componentId) {
+//
+//                $scope.closeWidget();
+//                KitchenComponentService.get({
+//                    'id': componentId
+//                }, function (kcObject) {
+//                    if (kcObject.component !== null) {
+//                        $("#shutterHandleLength").attr('required', true);
+//                        console.log("Component Not Null and Attr Set");
+//                    }
+//                    $scope.shutterHandleName = kcObject.component;
+//                    $scope.shutterHandleComponent = kcObject.componentCode;
+//                });
+//            };
             $scope.selectPreShutterHandle = function (componentId) {
                 KitchenComponentService.get({
                     'id': componentId
@@ -990,7 +995,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.BSM = true;
                     $scope.TSM = false;
                     $scope.ASM = false;
-                    $scope.FSM = false;
+                    $scope.FSM = true;
 //                    $scope.carcassLeftColor = true;
 //                    $scope.carcassRightColor = true;
 //                    $scope.carcassBackColor = false;
@@ -1031,7 +1036,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.BSM = true;
                     $scope.TSM = true;
                     $scope.ASM = true;
-                    $scope.FSM = false;
+                    $scope.FSM = true;
 //                    $scope.carcassLeftColor = true;
 //                    $scope.carcassRightColor = true;
 //                    $scope.carcassBackColor = false;
@@ -2073,6 +2078,7 @@ angular.module("digitalbusiness.states.order", [])
                 KitchenComponentService.get({
                     'id': componentId
                 }, function (kcObject) {
+                    $("#shutterHandleLength").attr('required', true);
                     $scope.shutterHandleName = kcObject.component;
                     $scope.shutterHandleComponent = kcObject.componentCode;
                     $scope.editableShutterDetail.handle = kcObject.componentCode;
@@ -2511,6 +2517,7 @@ angular.module("digitalbusiness.states.order", [])
                 KitchenComponentService.get({
                     'id': componentId
                 }, function (kcObject) {
+                    $("#drawerHandleLength").attr('required', true);
                     $scope.drawerHandleName = kcObject.component;
                     $scope.drawerHandleComponent = kcObject.componentCode;
                     $scope.editableDrawerDetail.handle = kcObject.componentCode;
@@ -3212,6 +3219,12 @@ angular.module("digitalbusiness.states.order", [])
                     if (orderDetail.sideMatching === "O") {
                         console.log("OSM Carcass");
                         if (orderDetail.sideSelection === "LSM" || orderDetail.sideSelection === "RSM") {
+                            if (orderDetail.sideSelection === "LSM") {
+                                orderDetail.sideVisibility = "L";
+                            } else if (orderDetail.sideSelection === "RSM") {
+                                orderDetail.sideVisibility = "R";
+                            }
+                            console.log("Order Detail Side Visibility OSM LR :%O", orderDetail.sideVisibility);
                             var p1 = (orderDetail.depth * orderDetail.length);
                             var p2 = (2 * (orderDetail.width * orderDetail.depth));
                             var p3 = (orderDetail.width * orderDetail.length);
@@ -3228,9 +3241,17 @@ angular.module("digitalbusiness.states.order", [])
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                             if (orderDetail.shelf === true) {
-                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                if (orderDetail.sectionProfileId !== undefined) {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                } else {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                }
                             } else {
-                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                if (orderDetail.sectionProfileId !== undefined) {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                } else {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                }
                             }
                             orderDetail.productCode = productCode;
                             if (orderDetail.sectionDirection === 'HORIZONTAL') {
@@ -3274,6 +3295,12 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Total Area OSM Left/Right :%O", totalArea);
                             console.log("Total Area OSM Left/Right Price:%O", orderDetail.unitPrice);
                         } else if (orderDetail.sideSelection === "TSM" || orderDetail.sideSelection === "BSM") {
+                            if (orderDetail.sideSelection === "TSM") {
+                                orderDetail.sideVisibility = "T";
+                            } else if (orderDetail.sideSelection === "BSM") {
+                                orderDetail.sideVisibility = "B";
+                            }
+                            console.log("Order Detail Side Visibility OSM TB :%O", orderDetail.sideVisibility);
                             var p1 = (2 * (orderDetail.depth * orderDetail.length));
                             var p2 = (orderDetail.width * orderDetail.depth);
                             var p3 = (orderDetail.width * orderDetail.length);
@@ -3290,9 +3317,18 @@ angular.module("digitalbusiness.states.order", [])
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                             if (orderDetail.shelf === true) {
-                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                console.log("Section Profile Id :%O", orderDetail.sectionProfileId);
+                                if (orderDetail.sectionProfileId !== undefined) {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                } else {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                }
                             } else {
-                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                if (orderDetail.sectionProfileId !== undefined) {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                } else {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                }
                             }
                             orderDetail.productCode = productCode;
                             if (orderDetail.sectionDirection === 'HORIZONTAL') {
@@ -3338,6 +3374,8 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Total Area OSM Top/Bottom Price:%O", orderDetail.unitPrice);
                         }
                     } else if (orderDetail.sideMatching === "B") {
+                        orderDetail.sideVisibility = "Z";
+                        console.log("Order Detail Side Visibility BSM :%O", orderDetail.sideVisibility);
                         console.log("Both Matching Carcass");
                         var p1 = (2 * (orderDetail.width * orderDetail.depth));
                         var p2 = (orderDetail.width * orderDetail.length);
@@ -3355,9 +3393,17 @@ angular.module("digitalbusiness.states.order", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                         if (orderDetail.shelf === true) {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            }
                         } else {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
                         }
 //                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
@@ -3404,6 +3450,12 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Total Price BSM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "T") {
                         console.log("Three Side Matching");
+                        if (orderDetail.sideSelection === "LRTSM") {
+                            orderDetail.sideVisibility = "Y";
+                        } else if (orderDetail.sideSelection === "LRBSM") {
+                            orderDetail.sideVisibility = "W";
+                        }
+                        console.log("Order Detail Side Visibility TSM :%O", orderDetail.sideVisibility);
                         var p1 = (orderDetail.width * orderDetail.depth);
                         var p2 = (orderDetail.width * orderDetail.length);
                         var p3 = (2 * (orderDetail.depth * orderDetail.length));
@@ -3421,9 +3473,17 @@ angular.module("digitalbusiness.states.order", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                         if (orderDetail.shelf === true) {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            }
                         } else {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
                         }
 //                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
@@ -3470,6 +3530,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Total Price TSM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "A") {
                         console.log("All Side Matching");
+                        orderDetail.sideVisibility = "A";
+                        console.log("Side Visibility All Side :" + orderDetail.sideVisibility);
                         var p1 = (orderDetail.width * orderDetail.length);
                         var p2 = (2 * (orderDetail.depth * orderDetail.length));
                         var p3 = (2 * (orderDetail.width * orderDetail.depth));
@@ -3484,9 +3546,17 @@ angular.module("digitalbusiness.states.order", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
 //                        var backAreaPrice = ()
                         if (orderDetail.shelf === true) {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            }
                         } else {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
                         }
 //                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
@@ -3532,6 +3602,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Total Price ASM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "F") {
                         console.log("Full Side Matching");
+                        orderDetail.sideVisibility = "F";
+                        console.log("Side Visibility Full Side :" + orderDetail.sideVisibility);
                         var p1 = (orderDetail.width * orderDetail.length);
                         var p2 = (2 * (orderDetail.depth * orderDetail.length));
                         var p3 = (2 * (orderDetail.width * orderDetail.depth));
@@ -3539,9 +3611,17 @@ angular.module("digitalbusiness.states.order", [])
                         basicSqMt = basicArea / 1000000;
                         var basicAreaPrice = basicSqMt * orderDetail.finishPrice;
                         if (orderDetail.shelf === true) {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            }
                         } else {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
                         }
 //                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
@@ -3585,6 +3665,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("FInal Price Full SIde Matching:%O", orderDetail.unitPrice);
                     } else {
                         console.log("Regular");
+                        orderDetail.sideVisibility = "X";
+                        console.log("No Side Matching :" + orderDetail.sideVisibility);
                         var p1 = (2 * (orderDetail.depth * orderDetail.length));
                         var p2 = (2 * (orderDetail.width * orderDetail.depth));
                         var p3 = (orderDetail.width * orderDetail.length);
@@ -3592,9 +3674,17 @@ angular.module("digitalbusiness.states.order", [])
                         basicSqMt = basicArea / 1000000;
                         totalArea = basicSqMt;
                         if (orderDetail.shelf === true) {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
+                            }
                         } else {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
+                            }
                         }
 //                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXX-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
@@ -3654,6 +3744,12 @@ angular.module("digitalbusiness.states.order", [])
                     if (orderDetail.sideMatching === "O") {
                         console.log("OSM Carcass");
                         if (orderDetail.sideSelection === "LSM" || orderDetail.sideSelection === "RSM") {
+                            if (orderDetail.sideSelection === "LSM") {
+                                orderDetail.sideVisibility = "L";
+                            } else if (orderDetail.sideSelection === "RSM") {
+                                orderDetail.sideVisibility = "R";
+                            }
+                            console.log("Order Detail NST Side Visibility OSM LR :%O", orderDetail.sideVisibility);
                             var p1 = (orderDetail.depth * orderDetail.length);
                             var p2 = (2 * (orderDetail.width * orderDetail.depth));
                             var p3 = (orderDetail.width * orderDetail.length);
@@ -3670,9 +3766,17 @@ angular.module("digitalbusiness.states.order", [])
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                             if (orderDetail.shelf === true) {
-                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                if (orderDetail.sectionProfileId !== undefined) {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                } else {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                }
                             } else {
-                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                if (orderDetail.sectionProfileId !== undefined) {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                } else {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                }
                             }
 //                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                             orderDetail.productCode = productCode;
@@ -3715,6 +3819,12 @@ angular.module("digitalbusiness.states.order", [])
                             console.log("Total Area OSM Left/Right :%O", totalArea);
                             console.log("Total Area OSM Left/Right Price:%O", orderDetail.unitPrice);
                         } else if (orderDetail.sideSelection === "TSM" || orderDetail.sideSelection === "BSM") {
+                            if (orderDetail.sideSelection === "TSM") {
+                                orderDetail.sideVisibility = "T";
+                            } else if (orderDetail.sideSelection === "BSM") {
+                                orderDetail.sideVisibility = "B";
+                            }
+                            console.log("Order Detail NST Side Visibility OSM TB :%O", orderDetail.sideVisibility);
                             var p1 = (2 * (orderDetail.depth * orderDetail.length));
                             var p2 = (orderDetail.width * orderDetail.depth);
                             var p3 = (orderDetail.width * orderDetail.length);
@@ -3731,9 +3841,17 @@ angular.module("digitalbusiness.states.order", [])
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                             if (orderDetail.shelf === true) {
-                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                if (orderDetail.sectionProfileId !== undefined) {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                } else {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                }
                             } else {
-                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                if (orderDetail.sectionProfileId !== undefined) {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                } else {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                                }
                             }
 //                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                             orderDetail.productCode = productCode;
@@ -3778,6 +3896,8 @@ angular.module("digitalbusiness.states.order", [])
                         }
                     } else if (orderDetail.sideMatching === "B") {
                         console.log("Both Matching Carcass");
+                        orderDetail.sideVisibility = "Z";
+                        console.log("NST Both Side Carcass SV:" + orderDetail.sideVisibility);
                         var p1 = (2 * (orderDetail.width * orderDetail.depth));
                         var p2 = (orderDetail.width * orderDetail.length);
                         var p3 = (2 * (orderDetail.depth * orderDetail.length));
@@ -3794,9 +3914,17 @@ angular.module("digitalbusiness.states.order", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                         if (orderDetail.shelf === true) {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            }
                         } else {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
                         }
 //                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
@@ -3843,6 +3971,12 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Total Price BSM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "T") {
                         console.log("Three Side Matching");
+                        if (orderDetail.sideSelection === "LRTSM") {
+                            orderDetail.sideVisibility = "Y";
+                        } else if (orderDetail.sideSelection === "LRBSM") {
+                            orderDetail.sideVisibility = "W";
+                        }
+                        console.log("Order Detail NST Side Visibility TSM :%O", orderDetail.sideVisibility);
                         var p1 = (orderDetail.width * orderDetail.depth);
                         var p2 = (orderDetail.width * orderDetail.length);
                         var p3 = (2 * (orderDetail.depth * orderDetail.length));
@@ -3859,9 +3993,17 @@ angular.module("digitalbusiness.states.order", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                         if (orderDetail.shelf === true) {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            }
                         } else {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
                         }
 //                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
@@ -3908,6 +4050,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Total Price TSM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "A") {
                         console.log("All Side Matching");
+                        orderDetail.sideVisibility = "A";
+                        console.log("NST All Side Carcass SV:" + orderDetail.sideVisibility);
                         var p1 = (orderDetail.width * orderDetail.length);
                         var p2 = (2 * (orderDetail.depth * orderDetail.length));
                         var p3 = (2 * (orderDetail.width * orderDetail.depth));
@@ -3921,9 +4065,17 @@ angular.module("digitalbusiness.states.order", [])
                         var basicAreaPrice = (basicSqMt * orderDetail.backPanelPrice);
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         if (orderDetail.shelf === true) {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            }
                         } else {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
                         }
 //                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
@@ -3969,6 +4121,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("Total Price ASM :%O", orderDetail.unitPrice);
                     } else if (orderDetail.sideMatching === "F") {
                         console.log("Full Side Matching");
+                        orderDetail.sideVisibility = "F";
+                        console.log("NST Full Side Carcass SV:" + orderDetail.sideVisibility);
                         var p1 = (orderDetail.width * orderDetail.length);
                         var p2 = (2 * (orderDetail.depth * orderDetail.length));
                         var p3 = (2 * (orderDetail.width * orderDetail.depth));
@@ -3976,9 +4130,17 @@ angular.module("digitalbusiness.states.order", [])
                         basicSqMt = basicArea / 1000000;
                         var basicAreaPrice = basicSqMt * orderDetail.finishPrice;
                         if (orderDetail.shelf === true) {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            }
                         } else {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
+                            }
                         }
 //                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
@@ -4022,6 +4184,8 @@ angular.module("digitalbusiness.states.order", [])
                         console.log("FInal Price Full SIde Matching:%O", orderDetail.unitPrice);
                     } else {
                         console.log("Regular");
+                        orderDetail.sideVisibility = "X";
+                        console.log("NST No Side Matching :" + orderDetail.sideVisibility);
                         console.log("Order Details :%O", orderDetail);
                         var p1 = (2 * (orderDetail.depth * orderDetail.length));
                         var p2 = (2 * (orderDetail.width * orderDetail.depth));
@@ -4034,9 +4198,17 @@ angular.module("digitalbusiness.states.order", [])
                         shelfSqMt = shelfArea / 1000000;
                         totalArea = basicSqMt;
                         if (orderDetail.shelf === true) {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
+                            }
                         } else {
-                            var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined) {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
+                            } else {
+                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
+                            }
                         }
 //                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXX-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
@@ -4390,6 +4562,8 @@ angular.module("digitalbusiness.states.order", [])
                 } else {
                     if (shutterOrderDetail.bsm === true) {
                         var productCode = "SHUTTERB" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                    } else if (shutterOrderDetail.glass !== undefined) {
+                        var productCode = "SHUTTERG" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                     } else {
                         var productCode = "SHUTTERX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                     }
@@ -5094,11 +5268,11 @@ angular.module("digitalbusiness.states.order", [])
             $scope.updateOrderHead = function () {
                 OrderHeadService.get({
                     'id': $stateParams.orderHeadId
-                }, function (orderHeadObject) {                    
+                }, function (orderHeadObject) {
                     PartyService.get({
                         'id': orderHeadObject.billingPartyId
-                    }, function (billingPartyObject) {                        
-                        if (billingPartyObject.state === "MS") {                            
+                    }, function (billingPartyObject) {
+                        if (billingPartyObject.state === "MS") {
                             var carcassTotal = parseInt($("#carcassTotal").val());
                             var panelTotal = parseInt($("#panelTotal").val());
                             var shutterTotal = parseInt($("#shutterTotal").val());
@@ -5112,23 +5286,23 @@ angular.module("digitalbusiness.states.order", [])
                             $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal);
                             $scope.cgst = (($scope.totalOrderPrice / 100) * 9);
                             $scope.sgst = (($scope.totalOrderPrice / 100) * 9);
-                            $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.cgst + $scope.sgst));                            
+                            $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.cgst + $scope.sgst));
                             orderHeadObject.orderAmount = $scope.totalOrderPrice;
                             orderHeadObject.cgstAmount = Math.round($scope.cgst);
                             orderHeadObject.sgstAmount = Math.round($scope.sgst);
                             orderHeadObject.igstAmount = 0;
-                            orderHeadObject.netAmount = $scope.netTotalAmount;                            
-                            if ($scope.adminLogin === true) {                                
+                            orderHeadObject.netAmount = $scope.netTotalAmount;
+                            if ($scope.adminLogin === true) {
                                 orderHeadObject.$save(function () {
                                     $state.go('admin.masters', null, {'reload': true});
                                 });
-                            } else if ($scope.dealerLogin === true) {                                
+                            } else if ($scope.dealerLogin === true) {
                                 orderHeadObject.$save(function () {
                                     $state.go('admin.dealers', null, {'reload': true});
                                 });
                             }
 
-                        } else if (billingPartyObject.state === "OMS") {                            
+                        } else if (billingPartyObject.state === "OMS") {
                             var carcassTotal = parseInt($("#carcassTotal").val());
                             var panelTotal = parseInt($("#panelTotal").val());
                             var shutterTotal = parseInt($("#shutterTotal").val());
@@ -5140,17 +5314,17 @@ angular.module("digitalbusiness.states.order", [])
                             var hardwareTotal = parseInt($("#hardwareTotal").val());
                             $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal);
                             $scope.igst = (($scope.totalOrderPrice / 100) * 18);
-                            $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.igst));                            
+                            $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.igst));
                             orderHeadObject.orderAmount = $scope.totalOrderPrice;
                             orderHeadObject.cgstAmount = 0;
                             orderHeadObject.sgstAmount = 0;
                             orderHeadObject.igstAmount = Math.round($scope.igst);
-                            orderHeadObject.netAmount = $scope.netTotalAmount;                            
-                            if ($scope.adminLogin === true) {                                
+                            orderHeadObject.netAmount = $scope.netTotalAmount;
+                            if ($scope.adminLogin === true) {
                                 orderHeadObject.$save(function () {
                                     $state.go('admin.masters', null, {'reload': true});
                                 });
-                            } else if ($scope.dealerLogin === true) {                                
+                            } else if ($scope.dealerLogin === true) {
                                 orderHeadObject.$save(function () {
                                     $state.go('admin.dealers', null, {'reload': true});
                                 });
@@ -5680,7 +5854,7 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.newOrderHeadObject.billingPartyObject = angular.copy(orderHead.billingPartyObject);
                 $scope.newOrderHeadObject.deliveryPartyObject = angular.copy(orderHead.deliveryPartyObject);
                 console.log("New Order Head :%O", $scope.newOrderHeadObject);
-                $http.post("http://14.192.18.131:9080/Innocal/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
+                $http.post("http://13.127.7.209:9080/Innocal/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
 //                $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
                         .then(function successCallback(response) {
                             console.log("Successfully POST-ed data :%O", response);
@@ -5870,7 +6044,7 @@ angular.module("digitalbusiness.states.order", [])
                             $scope.erpPush = function (orderDetails) {
                                 console.log("Order Details :%O", orderDetails);
 //                                $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
-                                $http.post("http://14.192.18.131:9080/Innocal/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
+                                $http.post("http://13.127.7.209:9080/Innocal/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
                                     console.log("Carcass Success Response :%O", response);
                                 }, function errorCallback(response) {
                                     console.log("Carcass Error Response :%O", response);
@@ -5969,8 +6143,8 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderHistoryController', function (PartyService, OrderHeadService, UserService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
-            console.log("What are STate Params Pelmet:%O", $stateParams);
+        .controller('OrderHistoryController', function ($window, PartyService, OrderHeadService, UserService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
+            console.log("What are STate Params:%O", $stateParams);
             $scope.currentUser = $rootScope.currentUser;
             UserService.findByUsername({
                 'username': $scope.currentUser.username
@@ -5983,21 +6157,81 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.adminBackButton = false;
                     $scope.dealerBackButton = true;
                 }
-                $scope.orderHeadList = OrderHeadService.findOrderGenerationSource({
-                    'userId': userObject.id
-                }, function (orderHeadList) {
-                    console.log("Order Head List :%O", orderHeadList);
-                    angular.forEach(orderHeadList, function (orderHeadObject) {
+//                $scope.currentOffset = 0;
+//                $scope.mainOrderArray = [];
+//                $scope.nextOrders = OrderHeadService.query({
+//                    'offset': $scope.nextOffset
+//                });
+//                $scope.orderHeadList = OrderHeadService.query({
+//                    'offset': $scope.currentOffset
+//                }, function (orderHeadList) {
+//                    console.log("Order Head List :%O", orderHeadList);
+//                    angular.forEach(orderHeadList, function (orderHeadObject) {
+//                        orderHeadObject.billingPartyObject = PartyService.get({
+//                            'id': orderHeadObject.billingPartyId
+//                        });
+//                        orderHeadObject.deliveryPartyObject = PartyService.get({
+//                            'id': orderHeadObject.deliveryPartyId
+//                        });
+//                        $scope.mainOrderArray.push(orderHeadObject);
+//                    });
+//                });
+//                console.log("Order Head List :%O", $scope.orderHeadList);
+            });
+            $scope.currentOffset = 0;
+            $scope.mainOrderArray = [];
+            $scope.nextOrders = OrderHeadService.query({
+                'offset': $scope.nextOffset
+            });
+//            $scope.orderHeadList = OrderHeadService.query({
+            OrderHeadService.query({
+                'offset': $scope.currentOffset
+            }, function (orderHeadList) {
+                console.log("Order Head List :%O", orderHeadList);
+                angular.forEach(orderHeadList, function (orderHeadObject) {
+                    orderHeadObject.billingPartyObject = PartyService.get({
+                        'id': orderHeadObject.billingPartyId
+                    });
+                    orderHeadObject.deliveryPartyObject = PartyService.get({
+                        'id': orderHeadObject.deliveryPartyId
+                    });
+                    $scope.mainOrderArray.push(orderHeadObject);
+                });
+            });
+            console.log("Order Head List :%O", $scope.orderHeadList);
+            ///////////////////Scrolling Pagination Trial//////////////
+            $scope.orderCall = function (offset) {
+                OrderHeadService.query({
+                    'offset': $scope.currentOffset
+                }, function (orderList) {
+                    angular.forEach(orderList, function (orderHeadObject) {
                         orderHeadObject.billingPartyObject = PartyService.get({
                             'id': orderHeadObject.billingPartyId
                         });
                         orderHeadObject.deliveryPartyObject = PartyService.get({
                             'id': orderHeadObject.deliveryPartyId
                         });
+                        $scope.mainOrderArray.push(orderHeadObject);
                     });
                 });
-                console.log("Order Head List :%O", $scope.orderHeadList);
+            };
+            $scope.enterIntoArray = function (orderHead) {
+                $scope.mainOrderArray.push(orderHead);
+            };
+
+            $scope.nextPage = function () {
+                $scope.currentOffset += paginationLimit;
+                $scope.nextOffset = $scope.currentOffset + 10;
+                $scope.orderCall($scope.currentOffset);
+            };
+
+            angular.element($window).bind('scroll', function (response) {
+                if (this.pageYOffset + this.innerHeight === $(document).height()) {
+                    $scope.nextPage();
+                }
+                ;
             });
+            ///////////////////////////////////////////////////////////
             $scope.searchParties = function (partyString) {
                 return PartyService.findByNameLike({
                     'name': partyString
@@ -6010,8 +6244,8 @@ angular.module("digitalbusiness.states.order", [])
                 $state.go('admin.masters_order_history', null, {'reload': true});
             };
             $scope.searchByParty = function () {
-                $scope.orderHeadList = [];
-                $scope.orderHeadList = OrderHeadService.findByBillingPartyId({
+                $scope.mainOrderArray = [];
+                $scope.mainOrderArray = OrderHeadService.findByBillingPartyId({
                     'partyId': $scope.searchPartyId
                 }, function (orderHeadList) {
                     angular.forEach(orderHeadList, function (orderHeadObject) {

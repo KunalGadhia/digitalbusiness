@@ -733,14 +733,14 @@
                 <div class="col-sm-3">
                     <div ng-if="showShutterCD1">
                         <label>Center Distance</label>
-                        <select class="form-control" ng-model="editableShutterDetail.handleLength">
+                        <select id="shutterHandleLength" class="form-control" ng-model="editableShutterDetail.handleLength">
                             <option value="">Select Center Distance</option>
                             <option ng-repeat="handlePrice in shutterHandlePriceList" value="{{handlePrice.cd}}">{{handlePrice.cd}} mm</option>
                         </select>
                     </div>
                     <div ng-if="showShutterCD2">
                         <label>Handle Type</label>
-                        <select class="form-control" ng-model="editableShutterDetail.shutterHandleType">
+                        <select class="form-control" ng-model="editableShutterDetail.shutterHandleType" required="required">
                             <option value="">Select Handle Type</option>
                             <option ng-repeat="handlePrice in shutterHandlePriceList" value="{{handlePrice.id}}">{{handlePrice.finish}}</option>
                         </select>
@@ -956,7 +956,7 @@
                 <div class="col-sm-3">
                     <div ng-if="showDrawerCD1">
                         <label>Center Distance</label>
-                        <select class="form-control" ng-model="editableDrawerDetail.handleLength">
+                        <select id="drawerHandleLength" class="form-control" ng-model="editableDrawerDetail.handleLength">
                             <option value="">Select Center Distance</option>
                             <option ng-repeat="handlePrice in drawerHandlePriceList" value="{{handlePrice.cd}}">{{handlePrice.cd}} mm</option>
                         </select>
@@ -2447,12 +2447,12 @@
                     </table>
                 </div>-->
         <div class="modal-footer">
-            <a data-ui-sref="admin.dealers" ng-if="dealerLogin">
+<!--            <a data-ui-sref="admin.dealers" ng-if="dealerLogin">
                 <button class="btn btn-lg btn-primary" >
                     <i class="fa fa-check-circle"></i>
                     Done
                 </button>
-            </a>
+            </a>-->
             <!--<a data-ui-sref="admin.masters" ng-if="adminLogin">-->
                 <button class="btn btn-lg btn-primary" ng-click="updateOrderHead()">
                     <i class="fa fa-check-circle"></i>

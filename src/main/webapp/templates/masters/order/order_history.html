@@ -50,8 +50,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="orderHead in orderHeadList">
-                <td data-title="#" class="text-right">{{ currentOffset + $index + 1}}</td>
+            <tr ng-repeat="orderHead in mainOrderArray">
+                <td data-title="#" class="text-right">{{$index + 1}}</td>
                 <td data-title="PO Date">{{ orderHead.poDate | date:"mediumDate"}}</td>
                 <td data-title="Order Number">{{ orderHead.orderNum}}</td>
                 <td data-title="Project Name">{{ orderHead.projectName}}</td>                    
