@@ -2180,17 +2180,29 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("FInish Name :%O", finishName);
                 $scope.editableShutterDetail.thickness = '';
                 if (finishName === "XXW") {
+                    console.log("AL Finish");
                     $scope.alFinish = true;
+                    $scope.hideVentilition = true;
                 } else if (finishName === "XXX") {
+                    console.log("AL Finish");
                     $scope.alFinish = true;
+                    $scope.hideVentilition = true;
                 } else if (finishName === "XXY") {
+                    console.log("AL Finish");
                     $scope.alFinish = true;
+                    $scope.hideVentilition = true;
                 } else if (finishName === "XXZ") {
+                    console.log("AL Finish");
                     $scope.alFinish = true;
+                    $scope.hideVentilition = true;
                 } else if (finishName === "XAA") {
+                    console.log("AL Finish");
                     $scope.alFinish = true;
+                    $scope.hideVentilition = true;
                 } else {
+                    console.log("Normal Finish");
                     $scope.alFinish = false;
+                    $scope.hideVentilition = false;
                 }
                 $scope.shutterHandleList1 = [];
                 $scope.shutterHandleName = '';
@@ -2322,11 +2334,21 @@ angular.module("digitalbusiness.states.order", [])
                     }
                 });
                 $scope.showGlassStep = false;
+//                $scope.hideVentilition = false;
                 $scope.$watch('editableShutterDetail.glass', function (glassType) {
+                    console.log("Glass Type :%O", glassType);
                     if (glassType === "REGULAR_GLASS") {
                         $scope.showGlassStep = true;
-                    } else {
+                        $scope.hideVentilition = true;
+                    } else if (glassType === "MESH_GLASS") {
                         $scope.showGlassStep = false;
+                        $scope.hideVentilition = true;
+                    } else if (glassType === undefined) {
+                        $scope.showGlassStep = false;
+//                        $scope.hideVentilition = false;
+                    } else if (glassType === '') {
+                        $scope.showGlassStep = false;
+                        $scope.hideVentilition = false;
                     }
                 });
                 ColorConstraintService.findByFinishCode({
@@ -4527,46 +4549,208 @@ angular.module("digitalbusiness.states.order", [])
                 }
                 if (shutterOrderDetail.component !== undefined) {
                     console.log("Shutter Order Detail Glass :%O", shutterOrderDetail.glass);
+                    console.log("Shutter Order Detail:%O", shutterOrderDetail);
                     if (shutterOrderDetail.glass !== "NO_GLASS") {
                         if (shutterOrderDetail.glass === undefined) {
                             console.log("Without Glass");
+                            console.log("11111111111111111111111");
                             if (shutterOrderDetail.bsm === true) {
                                 console.log("Without Glass with BSM");
-                                var productCode = shutterOrderDetail.component + "BX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                                if (shutterOrderDetail.hingePosition !== undefined) {
+                                    shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                                } else if (shutterOrderDetail.hingePosition === undefined) {
+                                    shutterOrderDetail.hingeCd = "X";
+                                }
+                                if (shutterOrderDetail.jali === true) {
+                                    shutterOrderDetail.glassCd = "V";
+                                } else if (shutterOrderDetail.jali === false) {
+                                    shutterOrderDetail.glassCd = "X";
+                                } else if (shutterOrderDetail.jali === undefined) {
+                                    shutterOrderDetail.glassCd = "X";
+                                }
+                                if (shutterOrderDetail.handle !== null) {
+                                    shutterOrderDetail.handleCd = "H";
+                                } else {
+                                    shutterOrderDetail.handleCd = "X";
+                                }
+                                var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                             } else {
-                                console.log("Without without BSM");
-                                var productCode = shutterOrderDetail.component + "XX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                                console.log("Without Glass without BSM");
+                                if (shutterOrderDetail.hingePosition !== undefined) {
+                                    shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                                } else if (shutterOrderDetail.hingePosition === undefined) {
+                                    shutterOrderDetail.hingeCd = "X";
+                                }
+                                if (shutterOrderDetail.jali === true) {
+                                    shutterOrderDetail.glassCd = "V";
+                                } else if (shutterOrderDetail.jali === false) {
+                                    shutterOrderDetail.glassCd = "X";
+                                } else if (shutterOrderDetail.jali === undefined) {
+                                    shutterOrderDetail.glassCd = "X";
+                                }
+                                if (shutterOrderDetail.handle !== null) {
+                                    shutterOrderDetail.handleCd = "H";
+                                } else {
+                                    shutterOrderDetail.handleCd = "X";
+                                }
+                                var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "X" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                             }
                         } else {
                             console.log("With Glass");
+                            console.log("22222222222222222222");
                             if (shutterOrderDetail.bsm === true) {
                                 console.log("Glass with BSM");
-                                var productCode = shutterOrderDetail.component + "BG" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                                if (shutterOrderDetail.hingePosition !== undefined) {
+                                    shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                                } else if (shutterOrderDetail.hingePosition === undefined) {
+                                    shutterOrderDetail.hingeCd = "X";
+                                }
+                                if (shutterOrderDetail.glass === "REGULAR_GLASS") {
+                                    shutterOrderDetail.glassCd = "G";
+                                } else if (shutterOrderDetail.glass === "MESH_GLASS") {
+                                    shutterOrderDetail.glassCd = "M";
+                                }
+                                if (shutterOrderDetail.handle !== null) {
+                                    shutterOrderDetail.handleCd = "H";
+                                } else {
+                                    shutterOrderDetail.handleCd = "X";
+                                }
+                                var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                             } else {
                                 console.log("Glass without BSM");
-                                var productCode = shutterOrderDetail.component + "XG" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                                if (shutterOrderDetail.hingePosition !== undefined) {
+                                    shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                                } else if (shutterOrderDetail.hingePosition === undefined) {
+                                    shutterOrderDetail.hingeCd = "X";
+                                }
+                                if (shutterOrderDetail.glass === "REGULAR_GLASS") {
+                                    shutterOrderDetail.glassCd = "G";
+                                } else if (shutterOrderDetail.glass === "MESH_GLASS") {
+                                    shutterOrderDetail.glassCd = "M";
+                                }
+                                if (shutterOrderDetail.handle !== null) {
+                                    shutterOrderDetail.handleCd = "H";
+                                } else {
+                                    shutterOrderDetail.handleCd = "X";
+                                }
+                                var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "X" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                             }
                         }
+                    }
+//                    else {
+//                        console.log("Without Glass");
+//                        if (shutterOrderDetail.bsm === true) {
+//                            console.log("Without Glass with BSM");
+//                            var productCode = shutterOrderDetail.component + "BX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+//                        } else {
+//                            console.log("Without without BSM");
+//                            var productCode = shutterOrderDetail.component + "XX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+//                        }
+//                    }
+                } else if (shutterOrderDetail.material === undefined) {
+                    if (shutterOrderDetail.hingePosition !== undefined) {
+                        shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                    } else if (shutterOrderDetail.hingePosition === undefined) {
+                        shutterOrderDetail.hingeCd = "X";
+                    }
+                    if (shutterOrderDetail.handle !== null) {
+                        shutterOrderDetail.handleCd = "H";
                     } else {
-                        console.log("Without Glass");
+                        shutterOrderDetail.handleCd = "X";
+                    }
+                    shutterOrderDetail.glassCd = "X";
+                    var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "XX" + Math.round(shutterOrderDetail.thickness) + "XX" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                } else {
+                    if (shutterOrderDetail.glass === undefined) {
+                        console.log("W/O Glass");
                         if (shutterOrderDetail.bsm === true) {
-                            console.log("Without Glass with BSM");
-                            var productCode = shutterOrderDetail.component + "BX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            console.log("With BSM");
+                            if (shutterOrderDetail.hingePosition !== undefined) {
+                                shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                            } else if (shutterOrderDetail.hingePosition === undefined) {
+                                shutterOrderDetail.hingeCd = "X";
+                            }
+                            if (shutterOrderDetail.jali === true) {
+                                shutterOrderDetail.glassCd = "V";
+                            } else if (shutterOrderDetail.jali === false) {
+                                shutterOrderDetail.glassCd = "X";
+                            } else if (shutterOrderDetail.jali === undefined) {
+                                shutterOrderDetail.glassCd = "X";
+                            }
+                            if (shutterOrderDetail.handle !== null) {
+                                shutterOrderDetail.handleCd = "H";
+                            } else {
+                                shutterOrderDetail.handleCd = "X";
+                            }
+                            var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                         } else {
-                            console.log("Without without BSM");
-                            var productCode = shutterOrderDetail.component + "XX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            console.log("Without BSM");
+                            if (shutterOrderDetail.hingePosition !== undefined) {
+                                shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                            } else if (shutterOrderDetail.hingePosition === undefined) {
+                                shutterOrderDetail.hingeCd = "X";
+                            }
+                            if (shutterOrderDetail.jali === true) {
+                                shutterOrderDetail.glassCd = "V";
+                            } else if (shutterOrderDetail.jali === false) {
+                                shutterOrderDetail.glassCd = "X";
+                            } else if (shutterOrderDetail.jali === undefined) {
+                                shutterOrderDetail.glassCd = "X";
+                            }
+                            if (shutterOrderDetail.handle !== null) {
+                                shutterOrderDetail.handleCd = "H";
+                            } else {
+                                shutterOrderDetail.handleCd = "X";
+                            }
+                            var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "X" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        }
+                    } else {
+                        console.log("Glass");
+                        if (shutterOrderDetail.bsm === true) {
+                            console.log("With BSM");
+                            if (shutterOrderDetail.hingePosition !== undefined) {
+                                shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                            } else if (shutterOrderDetail.hingePosition === undefined) {
+                                shutterOrderDetail.hingeCd = "X";
+                            }
+                            if (shutterOrderDetail.glass === "REGULAR_GLASS") {
+                                shutterOrderDetail.glassCd = "G";
+                            } else if (shutterOrderDetail.glass === "MESH_GLASS") {
+                                shutterOrderDetail.glassCd = "M";
+                            }
+                            if (shutterOrderDetail.handle !== null) {
+                                shutterOrderDetail.handleCd = "H";
+                            } else {
+                                shutterOrderDetail.handleCd = "X";
+                            }
+                            var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        } else {
+                            console.log("Without BSM");
+                            if (shutterOrderDetail.hingePosition !== undefined) {
+                                shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                            } else if (shutterOrderDetail.hingePosition === undefined) {
+                                shutterOrderDetail.hingeCd = "X";
+                            }
+                            if (shutterOrderDetail.glass === "REGULAR_GLASS") {
+                                shutterOrderDetail.glassCd = "G";
+                            } else if (shutterOrderDetail.glass === "MESH_GLASS") {
+                                shutterOrderDetail.glassCd = "M";
+                            }
+                            if (shutterOrderDetail.handle !== null) {
+                                shutterOrderDetail.handleCd = "H";
+                            } else {
+                                shutterOrderDetail.handleCd = "X";
+                            }
+                            var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "X" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                         }
                     }
-                } else if (shutterOrderDetail.material === undefined) {
-                    var productCode = "SHUTTERX" + Math.round(shutterOrderDetail.thickness) + "XXX" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
-                } else {
-                    if (shutterOrderDetail.bsm === true) {
-                        var productCode = "SHUTTERB" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
-                    } else if (shutterOrderDetail.glass !== undefined) {
-                        var productCode = "SHUTTERG" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
-                    } else {
-                        var productCode = "SHUTTERX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
-                    }
+//                    if (shutterOrderDetail.bsm === true) {
+//                        var productCode = "SHUTTERB" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+//                    } else if (shutterOrderDetail.glass !== undefined) {
+//                        var productCode = "SHUTTERG" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+//                    } else {
+//                        var productCode = "SHUTTERX" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "X" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+//                    }
                 }
                 var shutterArea = (shutterOrderDetail.length * shutterOrderDetail.width);
                 var shutterAreaSqMt = (shutterArea / 1000000);

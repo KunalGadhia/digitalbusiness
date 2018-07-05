@@ -638,9 +638,9 @@
                         <label>Hinge Position</label>
                         <select class="form-control" ng-model="editableShutterDetail.hingePosition">
                             <option value="">Select Hinge Position</option>
-                            <option value="LH">LH</option>
-                            <option value="RH">RH</option>
-                            <option value="LH_AND_RH">LH & RH</option>
+                            <option value="L">LH</option>
+                            <option value="R">RH</option>
+                            <option value="Z">LH & RH</option>
                         </select>
                     </div>
                 </div>
@@ -664,7 +664,7 @@
                         <input type="checkbox" class="form-control" ng-model="editableShutterDetail.step">
                     </div>
                 </div>
-                <div class="col-sm-2" ng-hide="alFinish">
+                <div class="col-sm-2" ng-hide="hideVentilition">
                     <div class="form-group">
                         <label>Ventilated Grill (Optional)</label>
                         <input type="checkbox" class="form-control" ng-model="editableShutterDetail.jali">
