@@ -107,8 +107,8 @@ public class OrderHeadDAL {
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{id}, new BeanPropertyRowMapper<>(OrderHead.class));
     }
 
-    public List findByOrderNumber(String orderNum) {
-        String sqlQuery = "SELECT " + Columns.ORDER_NUM + " FROM " + TABLE_NAME + " WHERE " + Columns.ORDER_NUM + " LIKE ?";
+    public List<OrderHead> findByOrderNumber(String orderNum) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + Columns.ORDER_NUM + " LIKE ?";
         String stringEntry = orderNum + "%";
         return jdbcTemplate.query(sqlQuery, new Object[]{stringEntry}, new BeanPropertyRowMapper<>(OrderHead.class));
     }

@@ -42,7 +42,7 @@ public class OrderHeadRest {
     }
 
     @RequestMapping(value = "/find/orderNum", method = RequestMethod.GET)
-    public List findByOrderNumber(@RequestParam("orderNum") String orderNum) throws Exception {
+    public List<OrderHead> findByOrderNumber(@RequestParam("orderNum") String orderNum) throws SQLException {
         return orderHeadDAL.findByOrderNumber(orderNum);
     }
 
@@ -55,7 +55,7 @@ public class OrderHeadRest {
     public List<OrderHead> findByBillingPartyId(@RequestParam("partyId") Integer partyId) throws SQLException {
         return orderHeadDAL.findByBillingPartyId(partyId);
     }
-    
+
     @RequestMapping(value = "/find/by/billingParty/offset", method = RequestMethod.GET)
     public List<OrderHead> findByBillingPartyIdOffset(@RequestParam("partyId") Integer partyId, @RequestParam("offset") Integer offset) throws SQLException {
         return orderHeadDAL.findByBillingPartyIdOffset(partyId, offset);
@@ -70,12 +70,12 @@ public class OrderHeadRest {
     public List<OrderHead> findApprovalByDuration(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws SQLException {
         return orderHeadDAL.findApprovalByDuration(startDate, endDate);
     }
-    
+
     @RequestMapping(value = "/find/unapproval/duration", method = RequestMethod.GET)
     public List<OrderHead> findUnApprovedOrderByDuration(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws SQLException {
         return orderHeadDAL.findUnApprovedOrderByDuration(startDate, endDate);
     }
-    
+
     @RequestMapping(value = "/find/party/duration", method = RequestMethod.GET)
     public List<OrderHead> findOrderByPartyAndDuration(@RequestParam("partyId") Integer partyId, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws SQLException {
         return orderHeadDAL.findOrderByPartyAndDuration(partyId, startDate, endDate);

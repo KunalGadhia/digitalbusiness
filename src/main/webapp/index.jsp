@@ -80,16 +80,16 @@
         <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet">
         <!--<link href="file:///C:/Users/webdesign/Desktop/DigitalizationSP/Style/font-awesome.min.css" rel="stylesheet">-->
-<!--        <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-        <link rel="dns-prefetch" href="//s.w.org">
-        <link rel="stylesheet" id="contact-form-7-group-css" href="https://spacewood.in/wp-content/plugins/bwp-minify/min/?f=wp-content/plugins/contact-form-7/includes/css/styles.css,wp-content/plugins/wp-store-locator/css/styles.css" type="text/css" media="all">
-        <link rel="https://api.w.org/" href="https://spacewood.in/wp-json/">
-        <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://spacewood.in/xmlrpc.php?rsd">
-        <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://spacewood.in/wp-includes/wlwmanifest.xml">
-        <link rel="shortlink" href="https://spacewood.in/">
-        <link rel="alternate" type="application/json+oembed" href="https://spacewood.in/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fspacewood.in%2F">
-        <link rel="alternate" type="text/xml+oembed" href="https://spacewood.in/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fspacewood.in%2F&amp;format=xml">-->
+        <!--        <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+                <link rel="dns-prefetch" href="//s.w.org">
+                <link rel="stylesheet" id="contact-form-7-group-css" href="https://spacewood.in/wp-content/plugins/bwp-minify/min/?f=wp-content/plugins/contact-form-7/includes/css/styles.css,wp-content/plugins/wp-store-locator/css/styles.css" type="text/css" media="all">
+                <link rel="https://api.w.org/" href="https://spacewood.in/wp-json/">
+                <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://spacewood.in/xmlrpc.php?rsd">
+                <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://spacewood.in/wp-includes/wlwmanifest.xml">
+                <link rel="shortlink" href="https://spacewood.in/">
+                <link rel="alternate" type="application/json+oembed" href="https://spacewood.in/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fspacewood.in%2F">
+                <link rel="alternate" type="text/xml+oembed" href="https://spacewood.in/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fspacewood.in%2F&amp;format=xml">-->
 
         <!-- Internal CSS -->
         <style type="text/css">
@@ -223,21 +223,21 @@
         </style>
 
         <!-- Internal JS Files -->
-<!--        <script>
-            (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-            ga('create', 'UA-41214428-1', 'auto');
-            ga('send', 'pageview');
-        </script>-->
+        <!--        <script>
+                    (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+                    ga('create', 'UA-41214428-1', 'auto');
+                    ga('send', 'pageview');
+                </script>-->
 
         <script type="application/ld+json">
             {"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/spacewood.in\/","name":"Modular Kitchens, Wardrobes, Living Room, Bedroom Interior Designers - Spacewood.in - Spacewood","potentialAction":{"@type":"SearchAction","target":"https:\/\/spacewood.in\/?s={search_term_string}","query-input":"required name=search_term_string"}}
@@ -248,12 +248,12 @@
         <!--<script href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
         <script href="${pageContext.request.contextPath}/js/scrollbar.min.js"></script>
         <script href="${pageContext.request.contextPath}/js/emojisetting.js"></script>
-<!--        <script src="https://spacewood.in/wp-includes/js/twemoji.js?ver=4.8.2" type="text/javascript" defer=""></script>
-        <script src="https://spacewood.in/wp-includes/js/wp-emoji.js?ver=4.8.2" type="text/javascript" defer=""></script>-->
-<!--        <script type="text/javascript" src="https://spacewood.in/wp-includes/js/jquery/jquery.js?ver=1.12.4"></script>
-        <script type="text/javascript" src="https://spacewood.in/wp-includes/js/jquery/jquery-migrate.js?ver=1.4.1"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>-->
+        <!--        <script src="https://spacewood.in/wp-includes/js/twemoji.js?ver=4.8.2" type="text/javascript" defer=""></script>
+                <script src="https://spacewood.in/wp-includes/js/wp-emoji.js?ver=4.8.2" type="text/javascript" defer=""></script>-->
+        <!--        <script type="text/javascript" src="https://spacewood.in/wp-includes/js/jquery/jquery.js?ver=1.12.4"></script>
+                <script type="text/javascript" src="https://spacewood.in/wp-includes/js/jquery/jquery-migrate.js?ver=1.4.1"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>-->
 
         <!-- Icons & Images -->
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/icons/spacew.ico">
@@ -310,6 +310,7 @@
         <script src="${pageContext.request.contextPath}/js/states/drawer_component_mapping.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/unapproved_order_report.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/party_order_report.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/order_report.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>

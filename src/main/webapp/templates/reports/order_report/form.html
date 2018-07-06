@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+    <div class="panel-heading text-center">       
+        <div class="pull-left">            
+            <button class="btn btn-default" 
+                    type="button"
+                    onclick="window.history.back()">
+                Back
+            </button>
+        </div>
+        <div class="pull-right">            
+        </div>
+        <div>
+            <h3>Order Report By OC Number</h3>
+        </div>
+        <form>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Select OC Number</label>
+                    <input class="form-control"
+                           placeholder="Enter OC Number"
+                           uib-typeahead="order.orderNum as order.orderNum for order in searchOrder($viewValue)"
+                           typeahead-on-select="setOrder($item)"
+                           typeahead-editable="false"
+                           typeahead-loading="loadingOrder" 
+                           typeahead-no-results="noOrderFound"                                       
+                           ng-model="orderNum" required=""/>
+                    <p ng-show="noOrderFound" class="help-block text-muted">No Order Found</p>
+                    <p ng-show="loadingOrder" class="help-block text-muted">Loading...</p>
+                </div>
+            </div>            
+
+            <div class="modal-footer">
+                <a class='btn btn-primary btn-lg' target="_blank" data-ui-sref="order_report_display({'orderHeadId': orderId})">Fetch Report</a>
+            </div>
+        </form>
+    </div>
+</div>
+<div data-ui-view=""></div>
+

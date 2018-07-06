@@ -100,6 +100,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.drawer_component_mapping',
     'digitalbusiness.states.unapproved_order_report',
     'digitalbusiness.states.party_order_report',
+    'digitalbusiness.states.order_report',
 
     'digitalbusiness.states.auth'
 

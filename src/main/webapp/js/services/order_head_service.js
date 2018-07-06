@@ -67,6 +67,14 @@ angular.module("digitalbusiness.services.order_head")
                     },
                     'isArray': true
                 },
+                'findByOrderNumber': {
+                    'method': 'GET',
+                    'url': restRoot + '/order_head/find/orderNum',
+                    'params': {
+                        'orderNum': '@orderNum'                        
+                    },
+                    'isArray': true
+                },
                 'findOrderByPartyAndDuration': {
                     'method': 'GET',
                     'url': restRoot + '/order_head/find/party/duration',
