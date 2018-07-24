@@ -1,18 +1,18 @@
 
 <div class="panel panel-default">
     <div class="panel-heading text-center">
-<!--        <div class="pull-left">
-            <a data-ui-sref="admin.masters"
-               class="btn btn-default" ng-if="adminLogin">
-                <i class="fa fa-arrow-left"></i>
-                Back
-            </a>
-            <a data-ui-sref="admin.dealers"
-               class="btn btn-default" ng-if="dealerLogin">
-                <i class="fa fa-arrow-left"></i>
-                Back
-            </a>
-        </div>-->
+        <!--        <div class="pull-left">
+                    <a data-ui-sref="admin.masters"
+                       class="btn btn-default" ng-if="adminLogin">
+                        <i class="fa fa-arrow-left"></i>
+                        Back
+                    </a>
+                    <a data-ui-sref="admin.dealers"
+                       class="btn btn-default" ng-if="dealerLogin">
+                        <i class="fa fa-arrow-left"></i>
+                        Back
+                    </a>
+                </div>-->
         <div class="pull-right">
 
         </div>
@@ -92,7 +92,7 @@
             <div class="btn-group btn-group-lg btn-group-justified">
                 <a ng-click="selectView('HARDWARE')" class="btn btn-primary text-center">HARDWARE</a>
                 <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
-<!--                <a ng-click="selectView('MAXKITCHEN')" class="btn btn-primary text-center">MAX KITCHEN</a>-->
+                <!--                <a ng-click="selectView('MAXKITCHEN')" class="btn btn-primary text-center">MAX KITCHEN</a>-->
                 <!--<a ng-click="selectView('MAXWARDROBE')" class="btn btn-primary text-center">MAX WARDROBE</a>-->
                 <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
                 <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
@@ -628,7 +628,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>Height</label>
-                        <input id="shutterLength" type="number" class="form-control" placeholder="Enter Height" min="50" max="2350" ng-model="editableShutterDetail.length" required="">
+                        <input id="shutterLength" type="number" class="form-control" placeholder="Enter Height" min="50" max="2400" ng-model="editableShutterDetail.length" required="">
                     </div>
                 </div>                
             </div>
@@ -1730,7 +1730,7 @@
                         <td class="text-left">{{ orderDetails.width}} mm</td>
                         <td class="text-left">{{ orderDetails.length}} mm</td>
                         <td class="text-left">{{ orderDetails.depth}} mm</td> 
-                        <td class="text-left">{{ orderDetails.remark}} mm</td> 
+                        <td class="text-left">{{ orderDetails.remark}}</td> 
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">
@@ -1860,7 +1860,11 @@
                             <span ng-if="orderDetails.step === true"><strong>& Glass Step</strong></span>
                             <span ng-if="orderDetails.jali === true"><strong>& Ventilated Grill</strong></span>
                             <span ng-if="orderDetails.grain !== 'NO_GRAIN'"><strong> Grain Direction : </strong> {{orderDetails.grain}}</span>
-                            <span ng-if="orderDetails.hingePosition !== 'NO_HINGE'"> <strong> Hinge Position : </strong>{{orderDetails.hingePosition}}</span>
+                            <span ng-if="orderDetails.hingePosition !== 'NO_HINGE'"> 
+                                <span ng-if="orderDetails.hingePosition === 'L'"><strong> Hinge Position : </strong>LH</span>
+                                <span ng-if="orderDetails.hingePosition === 'R'"><strong> Hinge Position : </strong>RH</span>
+                                <span ng-if="orderDetails.hingePosition === 'Z'"><strong> Hinge Position : </strong>LH AND RH</span>
+                            </span>
                             <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
                             <span ng-if="orderDetails.straightener !== 0"><strong>{{orderDetails.straightener}} Straightener</strong></span>
                             <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
@@ -2447,24 +2451,24 @@
                     </table>
                 </div>-->
         <div class="modal-footer">
-<!--            <a data-ui-sref="admin.dealers" ng-if="dealerLogin">
-                <button class="btn btn-lg btn-primary" >
-                    <i class="fa fa-check-circle"></i>
-                    Done
-                </button>
-            </a>-->
+            <!--            <a data-ui-sref="admin.dealers" ng-if="dealerLogin">
+                            <button class="btn btn-lg btn-primary" >
+                                <i class="fa fa-check-circle"></i>
+                                Done
+                            </button>
+                        </a>-->
             <!--<a data-ui-sref="admin.masters" ng-if="adminLogin">-->
-                <button class="btn btn-lg btn-primary" ng-click="updateOrderHead()">
-                    <i class="fa fa-check-circle"></i>
-                    Done
-                </button>
+            <button class="btn btn-lg btn-primary" ng-click="updateOrderHead()">
+                <i class="fa fa-check-circle"></i>
+                Done
+            </button>
             <!--</a>-->
-<!--            <a target="_blank" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
-                <button class="btn btn-lg btn-primary" >
-                    <i class="fa fa-print"></i>
-                    Generate Proforma Invoice
-                </button>
-            </a>            -->
+            <!--            <a target="_blank" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
+                            <button class="btn btn-lg btn-primary" >
+                                <i class="fa fa-print"></i>
+                                Generate Proforma Invoice
+                            </button>
+                        </a>            -->
         </div>        
     </div>
 </div>
@@ -3450,18 +3454,18 @@
                     <br>
                     <button class="next btn-next" ng-click="selectHandle(preHandle.id)">Select Handle</button>
                 </div>
-<!--                <div class=row ng-repeat="handleList in handleList1| groupBy:3">
-                    <div class="col-xs-4 letter-box" ng-repeat="handle in handleList" >
-                        <div>
-                            <image class="text-center" ng-src="./rest/kitchen_component/{{handle.id}}/attachment" width="150px" height="220px"/>
-                            <br>
-                            <b class="text-center"> {{handle.component}}</b>
-                            <br>
-                            <button class="next btn-next" ng-click="selectHandle(handle.id)">Select Handle({{handle.componentCode}})</button>
-                        </div>
-                        <hr>
-                    </div>
-                </div>-->
+                <!--                <div class=row ng-repeat="handleList in handleList1| groupBy:3">
+                                    <div class="col-xs-4 letter-box" ng-repeat="handle in handleList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/kitchen_component/{{handle.id}}/attachment" width="150px" height="220px"/>
+                                            <br>
+                                            <b class="text-center"> {{handle.component}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectHandle(handle.id)">Select Handle({{handle.componentCode}})</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
             </div>
         </div>        
     </div>

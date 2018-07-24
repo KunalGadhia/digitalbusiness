@@ -44,6 +44,7 @@ public class PartyDAL {
         public static final String STATE = "state";
         public static final String MARKETING_HEAD_ID = "marketing_head_id";
         public static final String RATE_CONTRACT_ID = "rate_contract_id";
+        public static final String PAYMENT_TERMS = "payment_terms";
 
     }
 
@@ -75,7 +76,8 @@ public class PartyDAL {
                         Columns.GST_NUMBER,
                         Columns.STATE,
                         Columns.MARKETING_HEAD_ID,
-                        Columns.RATE_CONTRACT_ID
+                        Columns.RATE_CONTRACT_ID,
+                        Columns.PAYMENT_TERMS
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -122,6 +124,7 @@ public class PartyDAL {
         parameters.put(Columns.STATE, party.getState());
         parameters.put(Columns.MARKETING_HEAD_ID, party.getMarketingHeadId());
         parameters.put(Columns.RATE_CONTRACT_ID, party.getRateContractId());
+        parameters.put(Columns.PAYMENT_TERMS, party.getPaymentTerms());
 
         Number newId = insertParty.executeAndReturnKey(parameters);
         party = findById(newId.intValue());
@@ -152,7 +155,8 @@ public class PartyDAL {
                 + Columns.GST_NUMBER + " = ?,"
                 + Columns.STATE + " = ?,"
                 + Columns.MARKETING_HEAD_ID + " = ?,"
-                + Columns.RATE_CONTRACT_ID + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.RATE_CONTRACT_ID + " = ?,"
+                + Columns.PAYMENT_TERMS + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     party.getDealerCode(),
@@ -174,6 +178,7 @@ public class PartyDAL {
                     party.getState(),
                     party.getMarketingHeadId(),
                     party.getRateContractId(),
+                    party.getPaymentTerms(),
                     party.getId()
                 });
         party = findById(party.getId());

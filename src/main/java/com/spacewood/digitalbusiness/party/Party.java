@@ -32,6 +32,7 @@ public class Party {
     private String state;
     private Integer marketingHeadId;
     private Integer rateContractId;
+    private String paymentTerms;
 
     public Integer getId() {
         return id;
@@ -185,28 +186,37 @@ public class Party {
         this.rateContractId = rateContractId;
     }
 
+    public String getPaymentTerms() {
+        return paymentTerms;
+    }
+
+    public void setPaymentTerms(String paymentTerms) {
+        this.paymentTerms = paymentTerms;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.dealerCode);
-        hash = 79 * hash + Objects.hashCode(this.dealerName);
-        hash = 79 * hash + Objects.hashCode(this.glCode);
-        hash = 79 * hash + Objects.hashCode(this.contactPerson);
-        hash = 79 * hash + Objects.hashCode(this.billingAdd1);
-        hash = 79 * hash + Objects.hashCode(this.billingAdd2);
-        hash = 79 * hash + Objects.hashCode(this.billingAdd3);
-        hash = 79 * hash + Objects.hashCode(this.billingAdd4);
-        hash = 79 * hash + Objects.hashCode(this.billingEmail);
-        hash = 79 * hash + Objects.hashCode(this.city);
-        hash = 79 * hash + Objects.hashCode(this.billingFax);
-        hash = 79 * hash + Objects.hashCode(this.billBoardTel);
-        hash = 79 * hash + Objects.hashCode(this.directTelNo);
-        hash = 79 * hash + Objects.hashCode(this.panNumber);
-        hash = 79 * hash + Objects.hashCode(this.gstNumber);
-        hash = 79 * hash + Objects.hashCode(this.state);
-        hash = 79 * hash + Objects.hashCode(this.marketingHeadId);
-        hash = 79 * hash + Objects.hashCode(this.rateContractId);
+        int hash = 3;
+        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 23 * hash + Objects.hashCode(this.dealerCode);
+        hash = 23 * hash + Objects.hashCode(this.dealerName);
+        hash = 23 * hash + Objects.hashCode(this.glCode);
+        hash = 23 * hash + Objects.hashCode(this.contactPerson);
+        hash = 23 * hash + Objects.hashCode(this.billingAdd1);
+        hash = 23 * hash + Objects.hashCode(this.billingAdd2);
+        hash = 23 * hash + Objects.hashCode(this.billingAdd3);
+        hash = 23 * hash + Objects.hashCode(this.billingAdd4);
+        hash = 23 * hash + Objects.hashCode(this.billingEmail);
+        hash = 23 * hash + Objects.hashCode(this.city);
+        hash = 23 * hash + Objects.hashCode(this.billingFax);
+        hash = 23 * hash + Objects.hashCode(this.billBoardTel);
+        hash = 23 * hash + Objects.hashCode(this.directTelNo);
+        hash = 23 * hash + Objects.hashCode(this.panNumber);
+        hash = 23 * hash + Objects.hashCode(this.gstNumber);
+        hash = 23 * hash + Objects.hashCode(this.state);
+        hash = 23 * hash + Objects.hashCode(this.marketingHeadId);
+        hash = 23 * hash + Objects.hashCode(this.rateContractId);
+        hash = 23 * hash + Objects.hashCode(this.paymentTerms);
         return hash;
     }
 
@@ -270,6 +280,9 @@ public class Party {
         if (!Objects.equals(this.state, other.state)) {
             return false;
         }
+        if (!Objects.equals(this.paymentTerms, other.paymentTerms)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -284,7 +297,7 @@ public class Party {
 
     @Override
     public String toString() {
-        return "Party{" + "id=" + id + ", dealerCode=" + dealerCode + ", dealerName=" + dealerName + ", glCode=" + glCode + ", contactPerson=" + contactPerson + ", billingAdd1=" + billingAdd1 + ", billingAdd2=" + billingAdd2 + ", billingAdd3=" + billingAdd3 + ", billingAdd4=" + billingAdd4 + ", billingEmail=" + billingEmail + ", city=" + city + ", billingFax=" + billingFax + ", billBoardTel=" + billBoardTel + ", directTelNo=" + directTelNo + ", panNumber=" + panNumber + ", gstNumber=" + gstNumber + ", state=" + state + ", marketingHeadId=" + marketingHeadId + ", rateContractId=" + rateContractId + '}';
+        return "Party{" + "id=" + id + ", dealerCode=" + dealerCode + ", dealerName=" + dealerName + ", glCode=" + glCode + ", contactPerson=" + contactPerson + ", billingAdd1=" + billingAdd1 + ", billingAdd2=" + billingAdd2 + ", billingAdd3=" + billingAdd3 + ", billingAdd4=" + billingAdd4 + ", billingEmail=" + billingEmail + ", city=" + city + ", billingFax=" + billingFax + ", billBoardTel=" + billBoardTel + ", directTelNo=" + directTelNo + ", panNumber=" + panNumber + ", gstNumber=" + gstNumber + ", state=" + state + ", marketingHeadId=" + marketingHeadId + ", rateContractId=" + rateContractId + ", paymentTerms=" + paymentTerms + '}';
     }
     
 }

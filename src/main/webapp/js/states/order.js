@@ -208,6 +208,9 @@ angular.module("digitalbusiness.states.order", [])
             };
         })
         .controller('OrderDetailsController', function (MaxWardrobeOrderDetailsService, MaxWardrobeService, DrawerComponentMappingService, ShutterComponentMappingService, MaxKitchenOrderDetailsService, MaxKitchenService, HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+            window.onpopstate = function (e) {
+                window.history.forward(1);
+            };
             $scope.editableCarcassDetail = {};
             //////////////To Detect Category Of Current Logged In User//////////
             $scope.user = $rootScope.currentUser;
@@ -2240,7 +2243,7 @@ angular.module("digitalbusiness.states.order", [])
                         if ($scope.editableShutterDetail.material === "MF") {
                             $("#shutterLength").attr({
                                 'min': 50,
-                                'max': 2350
+                                'max': 2400
                             });
                             $("#shutterWidth").attr({
                                 'min': 50,
@@ -2249,7 +2252,7 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             $("#shutterLength").attr({
                                 'min': 50,
-                                'max': 2350
+                                'max': 2400
                             });
                             $("#shutterWidth").attr({
                                 'min': 50,
@@ -2262,7 +2265,7 @@ angular.module("digitalbusiness.states.order", [])
                     } else if (finishObject.category === "PU") {
                         $("#shutterLength").attr({
                             'min': 50,
-                            'max': 2350
+                            'max': 2400
                         });
                         $("#shutterWidth").attr({
                             'min': 50,
@@ -2278,7 +2281,7 @@ angular.module("digitalbusiness.states.order", [])
                         if (finishName === "XXH") {
                             $("#shutterLength").attr({
                                 'min': 50,
-                                'max': 2350
+                                'max': 2400
                             });
                             $("#shutterWidth").attr({
                                 'min': 50,
@@ -2292,7 +2295,7 @@ angular.module("digitalbusiness.states.order", [])
                         } else if (finishName === "XXG") {
                             $("#shutterLength").attr({
                                 'min': 50,
-                                'max': 2350
+                                'max': 2400
                             });
                             $("#shutterWidth").attr({
                                 'min': 50,
@@ -2306,7 +2309,7 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             $("#shutterLength").attr({
                                 'min': 50,
-                                'max': 2350
+                                'max': 2400
                             });
                             $("#shutterWidth").attr({
                                 'min': 50,

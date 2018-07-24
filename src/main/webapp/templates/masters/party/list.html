@@ -61,6 +61,7 @@
                 <th>PAN Number</th>
                 <!--<th>CST Number</th>-->
                 <th>GST Number</th>
+                <th>Payment Terms</th>
                 <th>Marketing Head</th>                
                 <th class="text-right">Actions</th>
             </tr>
@@ -81,6 +82,7 @@
                 <td data-title="PAN Number">{{ party.panNumber}}</td>
                 <!--<td>{{ party.cstNumber}}</td>-->
                 <td data-title="GST Number">{{ party.gstNumber}}</td>
+                <td data-title="Payment Terms">{{ party.paymentTerms}}</td>
                 <td data-title="Marketing Head">{{ party.employeeObject.empName}}</td>
                 <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_party.edit({ partyId: party.id })"

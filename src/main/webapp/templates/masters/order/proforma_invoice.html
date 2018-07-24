@@ -257,7 +257,11 @@
                                     <span ng-if="orderDetails.step === true"><strong>& Glass Step</strong></span>
                                     <span ng-if="orderDetails.jali === true"><strong>& Ventilated Grill</strong></span>
                                     <span ng-if="orderDetails.grain !== 'NO_GRAIN'"><strong> Grain Direction : </strong> {{orderDetails.grain}}</span>
-                                    <span ng-if="orderDetails.hingePosition !== 'NO_HINGE'"> <strong> Hinge Position : </strong>{{orderDetails.hingePosition}}</span>
+                                    <span ng-if="orderDetails.hingePosition !== 'NO_HINGE'"> 
+                                        <span ng-if="orderDetails.hingePosition === 'L'"><strong> Hinge Position : </strong>LH</span>
+                                        <span ng-if="orderDetails.hingePosition === 'R'"><strong> Hinge Position : </strong>RH</span>
+                                        <span ng-if="orderDetails.hingePosition === 'Z'"><strong> Hinge Position : </strong>LH AND RH</span>
+                                    </span>
                                     <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
                                     <span ng-if="orderDetails.straightener !== 0"><strong>{{orderDetails.straightener}} Straightener</strong></span>
                                     <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
@@ -543,10 +547,10 @@
                     <span class="col-md-2  col-xs-2 text-left">7. Prices Validity Period :</span>
                     <span class="col-md-10  col-xs-10 text-left">As per Prevailing Rate Agreement</span>
                 </div>
-                <!--                <div class="row" style="margin-left: 30px">
-                                    <span class="col-md-2  col-xs-2 text-left">8. Payment Terms :</span>
-                                    <span class="col-md-10  col-xs-10 text-left">Credit Period 30 Days</span>
-                                </div>-->
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">8. Payment Terms :</span>
+                    <span class="col-md-10  col-xs-10 text-left">{{party.paymentTerms}}</span>
+                </div>
                 <br>
                 <div class="row">
                     <strong style="margin-left: 30px">Our Bank Details (Applicable in case of direct deposits) :</strong>
