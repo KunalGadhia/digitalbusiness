@@ -247,6 +247,38 @@ angular.module("digitalbusiness.states.order", [])
                 var date = new Date(factDespDate);
                 $scope.factDespDate = date;
             });
+            /////////Select Parent View///////
+            $scope.showKitchenComponent = false;
+            $scope.showMaxSeries = false;
+            $scope.showUltimaSeries = false;
+            $scope.showInfinitySeries = false;
+            $scope.selectParentView = function (parentView) {
+                if (parentView === "KITCHEN_COMPONENTS") {
+                    console.log("Kitchen Component");
+                    $scope.showKitchenComponent = true;
+                    $scope.showMaxSeries = false;
+                    $scope.showUltimaSeries = false;
+                    $scope.showInfinitySeries = false;
+                } else if (parentView === "MAX_SERIES") {
+                    console.log("Max Series");
+                    $scope.showKitchenComponent = false;
+                    $scope.showMaxSeries = true;
+                    $scope.showUltimaSeries = false;
+                    $scope.showInfinitySeries = false;
+                } else if (parentView === "ULTIMA_SERIES") {
+                    console.log("Ultima Series");
+                    $scope.showKitchenComponent = false;
+                    $scope.showMaxSeries = false;
+                    $scope.showUltimaSeries = true;
+                    $scope.showInfinitySeries = false;
+                } else if (parentView === "INFINITY_SERIES") {
+                    console.log("Infinity Series");
+                    $scope.showKitchenComponent = false;
+                    $scope.showMaxSeries = false;
+                    $scope.showUltimaSeries = false;
+                    $scope.showInfinitySeries = true;
+                }
+            };
             /////////Select View//////////
             $scope.showCarcass = false;
             $scope.showPanel = false;
@@ -259,6 +291,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showHardware = false;
             $scope.showMaxKitchen = false;
             $scope.showMaxWardrobe = false;
+            $scope.showMaxBeds = false;
             $scope.selectView = function (view) {
                 console.log("View :" + view);
                 if (view === "CARCASS") {
@@ -273,6 +306,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
                 } else if (view === "PANEL") {
                     $scope.showCarcass = false;
                     $scope.showPanel = true;
@@ -285,6 +319,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
                 } else if (view === "SHUTTER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -297,6 +332,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
                 } else if (view === "DRAWER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -309,6 +345,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
                 } else if (view === "FILLER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -321,6 +358,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
                 } else if (view === "PELMET") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -333,6 +371,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
                 } else if (view === "CORNICE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -345,6 +384,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
                 } else if (view === "HANDLE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -357,6 +397,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
                 } else if (view === "HARDWARE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -369,6 +410,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHardware = true;
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
                 } else if (view === "MAXKITCHEN") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -381,6 +423,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = true;
                     $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
                 } else if (view === "MAXWARDROBE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -393,6 +436,20 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showHardware = false;
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = true;
+                    $scope.showMaxBeds = false;
+                } else if (view === "MAXBEDS") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                    $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = true;
                 }
             };
             //////////Select Component Selection View///////////////

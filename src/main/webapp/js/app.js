@@ -61,6 +61,8 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.max_wardrobe_order_details_service',
     'digitalbusiness.services.shutter_component_mapping_service',
     'digitalbusiness.services.drawer_component_mapping_service',
+    //New Offerings V2
+    'digitalbusiness.services.max_beds',
     //ERP INTEGRATION SERVICE
     'digitalbusiness.services.erp_integration',
 

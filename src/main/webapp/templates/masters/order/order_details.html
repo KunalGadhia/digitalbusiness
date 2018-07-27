@@ -74,6 +74,21 @@
 <div class="panel panel-default">
     <div class="panel-heading text-center">
         <div>
+            <h3>Select Category</h3>
+        </div>
+        <div class="modal-body">
+            <div class="btn-group btn-group-lg btn-group-justified">
+                <a ng-click="selectParentView('KITCHEN_COMPONENTS')" class="btn btn-primary text-center">KITCHEN COMPONENTS</a>
+                <a ng-click="selectParentView('MAX_SERIES')" class="btn btn-primary text-center">MAX SERIES</a>
+                <a ng-click="selectParentView('ULTIMA_SERIES')" class="btn btn-primary text-center">ULTIMA SERIES</a>
+                <a ng-click="selectParentView('INFINITY_SERIES')" class="btn btn-primary text-center">INFINITY SERIES</a>
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="panel panel-default" ng-if="showKitchenComponent">
+    <div class="panel-heading text-center">
+        <div>
             <h3>Select Component</h3>
         </div>
         <div class="modal-body">
@@ -92,7 +107,7 @@
             <div class="btn-group btn-group-lg btn-group-justified">
                 <a ng-click="selectView('HARDWARE')" class="btn btn-primary text-center">HARDWARE</a>
                 <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
-                <!--                <a ng-click="selectView('MAXKITCHEN')" class="btn btn-primary text-center">MAX KITCHEN</a>-->
+                <!--<a ng-click="selectView('MAXKITCHEN')" class="btn btn-primary text-center">MAX KITCHEN</a>-->
                 <!--<a ng-click="selectView('MAXWARDROBE')" class="btn btn-primary text-center">MAX WARDROBE</a>-->
                 <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
                 <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
@@ -1458,212 +1473,214 @@
             </div>
         </form>
     </div>
-    <div class="panel-heading text-center" ng-if="showMaxKitchen">
+
+</div>
+<div class="panel panel-default" ng-if="showMaxSeries">
+    <div class="panel-heading text-center">
         <div>
-            <h3>Enter Max Kitchen Order Details</h3>
+            <h3>Select Offerings</h3>
         </div>
-        <form role="role" ng-submit="saveMaxKitchenDetails(editableMaxKitchenDetail)">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Select Category</label>                   
-                        <select class="form-control" ng-model="editableMaxKitchenDetail.category" required="">
-                            <option value="">Select Category</option>
-                            <option value="BASE_SHELF_UNITS">Base Shelf Units</option>
-                            <option value="BASE_GAS_FRAME_UNITS">Base Gas Frame Units</option>
-                            <option value="BASE_CORNER_UNITS">Base Corner Units</option>
-                            <option value="BASE_SINK_UNITS">Base Sink Units</option>
-                            <option value="BASE_PULLOUT_DRAWER">Base-Pullout & Drawer Units</option>
-                            <option value="TALL_UNIT_ACCESSORIES">Tall Accessories & Shelf Units</option>
-                            <option value="WALL_SHELF_UNITS">Wall Shelf Units</option>
-                            <option value="WALL_AQGD_UNITS">Wall Aquaguard Units</option>
-                            <option value="WALL_GLASS_UNITS">Wall Glass Shutter Units</option>
-                            <option value="WALL_CORNER_UNITS">Wall Corner Units</option>
-                            <option value="WALL_LIFTUP_UNITS">Wall Top Opening(Lift Up) Units</option>
-                            <option value="WALL_ROLLUP_UNITS">Wall Roll Up Units</option>
-                            <option value="OPEN_SHELF_UNITS">Open Shelves Units</option>
-                            <option value="FILLER_END_PANEL">Filler & End Panels</option>
-                            <option value="VALANCE">Valance (Chimney Cover)</option>
-                            <option value="HANDLE">Max Handle</option>
-                            <option value="PVC_SKIRTING_ACCESSORIES">PVC Skirting & Add On Accessories</option>
-                        </select>
-                    </div>
-                </div>                
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Component</label>
-                        <select class="form-control" ng-model="editableMaxKitchenDetail.componentId" required="">
-                            <option value="">Select Component</option>
-                            <option ng-repeat="component in componentList" value="{{component.id}}">{{component.description}}</option>
-                        </select>
-                    </div>                                      
-                </div>                
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Shutter Finish</label>
-                        <select class="form-control" ng-model="editableMaxKitchenDetail.shutterFinish" required="">
-                            <option value="">Select Finish</option>
-                            <option value="HDF_MATT" ng-if="maxKitchenObject.glass === false">HDF Matt Finish</option>
-                            <option value="HDF_GLOSS" ng-if="maxKitchenObject.glass === false">HDF Gloss Finish</option>
-                            <option value="G50_GLASS" ng-if="maxKitchenObject.glass === true">G-50 Aluminium Glass Shutter</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">                    
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Width (in mm)</label>
-                            <input class="form-control" ng-model="editableMaxKitchenDetail.width" readonly="">
-                        </div>                        
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Height (in mm)</label>
-                            <input class="form-control" ng-model="editableMaxKitchenDetail.height" readonly="">
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Depth (in mm)</label>
-                            <input class="form-control" ng-model="editableMaxKitchenDetail.depth" readonly="">
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Quantity</label>
-                            <input class="form-control" ng-model="editableMaxKitchenDetail.quantity" required="">
-                        </div>
-                    </div>
-                </div>                
-            </div>            
-            <!--            <hr style="border-top:  1px solid;">
-                        <div class="row">
-                            <div class="form-group col-sm-4 col-md-4">
-                                <label>Additional Remark (Optional)</label>
-                                <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editableHandleDetail.remark"></textarea>
-                            </div>
-                        </div>-->
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-lg btn-primary">
-                    <i class="fa fa-save"></i>
-                    Add
-                </button>                       				
+        <div class="modal-body">
+            <div class="btn-group btn-group-lg btn-group-justified">
+                <a ng-click="selectView('MAXKITCHEN')" class="btn btn-primary text-center">MAX KITCHEN</a>
+                <a ng-click="selectView('MAXWARDROBE')" class="btn btn-primary text-center">MAX WARDROBE</a>
+                <a ng-click="selectView('MAXBEDS')" class="btn btn-primary text-center">MAX BEDS</a>
+                <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
             </div>
-        </form>
-    </div>
-    <div class="panel-heading text-center" ng-if="showMaxWardrobe">
-        <div>
-            <h3>Enter Max Wardrobe Order Details</h3>
+        </div>    
+        <div class="panel-heading text-center" ng-if="showMaxKitchen">
+            <div>
+                <h3>Enter Max Kitchen Order Details</h3>
+            </div>
+            <form role="role" ng-submit="saveMaxKitchenDetails(editableMaxKitchenDetail)">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Select Category</label>                   
+                            <select class="form-control" ng-model="editableMaxKitchenDetail.category" required="">
+                                <option value="">Select Category</option>
+                                <option value="BASE_SHELF_UNITS">Base Shelf Units</option>
+                                <option value="BASE_GAS_FRAME_UNITS">Base Gas Frame Units</option>
+                                <option value="BASE_CORNER_UNITS">Base Corner Units</option>
+                                <option value="BASE_SINK_UNITS">Base Sink Units</option>
+                                <option value="BASE_PULLOUT_DRAWER">Base-Pullout & Drawer Units</option>
+                                <option value="TALL_UNIT_ACCESSORIES">Tall Accessories & Shelf Units</option>
+                                <option value="WALL_SHELF_UNITS">Wall Shelf Units</option>
+                                <option value="WALL_AQGD_UNITS">Wall Aquaguard Units</option>
+                                <option value="WALL_GLASS_UNITS">Wall Glass Shutter Units</option>
+                                <option value="WALL_CORNER_UNITS">Wall Corner Units</option>
+                                <option value="WALL_LIFTUP_UNITS">Wall Top Opening(Lift Up) Units</option>
+                                <option value="WALL_ROLLUP_UNITS">Wall Roll Up Units</option>
+                                <option value="OPEN_SHELF_UNITS">Open Shelves Units</option>
+                                <option value="FILLER_END_PANEL">Filler & End Panels</option>
+                                <option value="VALANCE">Valance (Chimney Cover)</option>
+                                <option value="HANDLE">Max Handle</option>
+                                <option value="PVC_SKIRTING_ACCESSORIES">PVC Skirting & Add On Accessories</option>
+                            </select>
+                        </div>
+                    </div>                
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Component</label>
+                            <select class="form-control" ng-model="editableMaxKitchenDetail.componentId" required="">
+                                <option value="">Select Component</option>
+                                <option ng-repeat="component in componentList" value="{{component.id}}">{{component.description}}</option>
+                            </select>
+                        </div>                                      
+                    </div>                
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Shutter Finish</label>
+                            <select class="form-control" ng-model="editableMaxKitchenDetail.shutterFinish" required="">
+                                <option value="">Select Finish</option>
+                                <option value="HDF_MATT" ng-if="maxKitchenObject.glass === false">HDF Matt Finish</option>
+                                <option value="HDF_GLOSS" ng-if="maxKitchenObject.glass === false">HDF Gloss Finish</option>
+                                <option value="G50_GLASS" ng-if="maxKitchenObject.glass === true">G-50 Aluminium Glass Shutter</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                    
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Width (in mm)</label>
+                                <input class="form-control" ng-model="editableMaxKitchenDetail.width" readonly="">
+                            </div>                        
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Height (in mm)</label>
+                                <input class="form-control" ng-model="editableMaxKitchenDetail.height" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Depth (in mm)</label>
+                                <input class="form-control" ng-model="editableMaxKitchenDetail.depth" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input class="form-control" ng-model="editableMaxKitchenDetail.quantity" required="">
+                            </div>
+                        </div>
+                    </div>                
+                </div>                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        <i class="fa fa-save"></i>
+                        Add
+                    </button>                       				
+                </div>
+            </form>
         </div>
-        <form role="role" ng-submit="saveMaxWardrobeDetails(editableMaxWardrobeDetail)">
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>Select Category</label>                   
-                        <select class="form-control" ng-model="editableMaxWardrobeDetail.category" required="">
-                            <option value="">Select Category</option>
-                            <option value="ADD_ON_SHELF">Add On Shelf</option>
-                            <option value="CHEST_OF_DRAWER">Chest Of Drawer</option>
-                            <option value="DRAWER">Drawer</option>
-                            <option value="DRESSER_UNIT">Dresser Unit</option>
-                            <option value="END_PANEL">End Panel</option>
-                            <option value="FILLER">Filler</option>
-                            <option value="GALLERY_SHELF">Gallery Shelf</option>
-                            <option value="HANDLE">Handle</option>
-                            <option value="HANGER_ROD">Hanger Rod</option>
-                            <option value="HINGES">Hinges</option>
-                            <option value="LOFT_C">Loft C</option>
-                            <option value="LOFT_GRID">Loft Grid</option>
-                            <option value="LOFT_END_PANEL">Loft End Panel</option>
-                            <option value="LOFT_SKIRTING">Loft Skirting</option>
-                            <option value="MIRROR_FRAME">Mirror Frame</option>
-                            <option value="SKIRTING">Skirting</option>
-                            <option value="SLIDE">Slide</option>
-                            <option value="SPECIAL_PANEL">Special Panel</option>
-                            <option value="TROUSER_RACK">Trouser Rack</option>
-                            <option value="WARDROBE">Wardrobe</option>
-                        </select>
-                    </div>
-                </div>                
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>Component</label>
-                        <select class="form-control" ng-model="editableMaxWardrobeDetail.componentId" required="">
-                            <option value="">Select Component</option>
-                            <option ng-repeat="component in maxWardrobeComponentList" value="{{component.id}}">{{component.description}}</option>
-                        </select>
-                    </div>                                      
-                </div>                
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>Carcass</label>
-                        <select class="form-control" ng-model="editableMaxWardrobeDetail.carcass" required="">
-                            <option value="">Select Carcass Material</option>
-                            <option value="PPB" ng-if="maxWardrobeObject.cpPpbPrice !== 0">Partical Board</option>
-                            <option value="HD_HMR" ng-if="maxWardrobeObject.cpHdHmrPrice !== 0">HD HMR</option>
-                            <option value="HDF" ng-if="maxWardrobeObject.cpHdfPrice !== 0">HDF</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label>Shutter</label>
-                        <select class="form-control" ng-model="editableMaxWardrobeDetail.shutterFinish">
-                            <option value="">Select Shutter Finish</option>
-                            <!--<option value="0">No Shutter Available for this item</option>-->
-                            <option value="SP_FOILED_MATT" ng-if="maxWardrobeObject.spFoiledMattPrice !== 0">Foiled Matt Shutter</option>
-                            <option value="SP_FOILED_GLOSSY" ng-if="maxWardrobeObject.spFoiledGlossyPrice !== 0">Foiled Glossy Shutter</option>
-                            <option value="SP_PRELAM_MATT" ng-if="maxWardrobeObject.spPrelamMattPrice !== 0">Prelam Matt Shutter</option>
-                            <option value="SP_PCPPB" ng-if="maxWardrobeObject.spPcppbPrice !== 0">3 Pc PPB Shutter</option>
-                            <option value="G50_GLASS" ng-if="maxWardrobeObject.spGlassG50AluPrice !== 0">Glass G50 Aluminium Shutter</option>
-                            <option value="SP_PVC_STD" ng-if="maxWardrobeObject.spPvcMdfStdPrice !== 0">PVC MDF Standard Shutter</option>
-                            <option value="SP_PVC_DESG" ng-if="maxWardrobeObject.spPvcMdfDesgPrice !== 0">PVC MDF Designer Shutter</option>
-                            <option value="SP_PVC_GLOSSY" ng-if="maxWardrobeObject.spPvcMdfGlossyPrice !== 0">PVC MDF Glossy Shutter</option>
-                            <option value="SP_PVC_PREM" ng-if="maxWardrobeObject.spPvcMdfPremPrice !== 0">PVC MDF Prelam Shutter</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">                    
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Width (in mm)</label>
-                            <input class="form-control" ng-model="editableMaxWardrobeDetail.width" readonly="">
-                        </div>                        
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Height (in mm)</label>
-                            <input class="form-control" ng-model="editableMaxWardrobeDetail.height" readonly="">
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Depth (in mm)</label>
-                            <input class="form-control" ng-model="editableMaxWardrobeDetail.depth" readonly="">
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Quantity</label>
-                            <input class="form-control" ng-model="editableMaxWardrobeDetail.quantity" required="">
-                        </div>
-                    </div>
-                </div>                
-            </div>            
-            <!--            <hr style="border-top:  1px solid;">
-                        <div class="row">
-                            <div class="form-group col-sm-4 col-md-4">
-                                <label>Additional Remark (Optional)</label>
-                                <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editableHandleDetail.remark"></textarea>
-                            </div>
-                        </div>-->
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-lg btn-primary">
-                    <i class="fa fa-save"></i>
-                    Add
-                </button>                       				
+        <div class="panel-heading text-center" ng-if="showMaxWardrobe">
+            <div>
+                <h3>Enter Max Wardrobe Order Details</h3>
             </div>
-        </form>
+            <form role="role" ng-submit="saveMaxWardrobeDetails(editableMaxWardrobeDetail)">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Select Category</label>                   
+                            <select class="form-control" ng-model="editableMaxWardrobeDetail.category" required="">
+                                <option value="">Select Category</option>
+                                <option value="ADD_ON_SHELF">Add On Shelf</option>
+                                <option value="CHEST_OF_DRAWER">Chest Of Drawer</option>
+                                <option value="DRAWER">Drawer</option>
+                                <option value="DRESSER_UNIT">Dresser Unit</option>
+                                <option value="END_PANEL">End Panel</option>
+                                <option value="FILLER">Filler</option>
+                                <option value="GALLERY_SHELF">Gallery Shelf</option>
+                                <option value="HANDLE">Handle</option>
+                                <option value="HANGER_ROD">Hanger Rod</option>
+                                <option value="HINGES">Hinges</option>
+                                <option value="LOFT_C">Loft C</option>
+                                <option value="LOFT_GRID">Loft Grid</option>
+                                <option value="LOFT_END_PANEL">Loft End Panel</option>
+                                <option value="LOFT_SKIRTING">Loft Skirting</option>
+                                <option value="MIRROR_FRAME">Mirror Frame</option>
+                                <option value="SKIRTING">Skirting</option>
+                                <option value="SLIDE">Slide</option>
+                                <option value="SPECIAL_PANEL">Special Panel</option>
+                                <option value="TROUSER_RACK">Trouser Rack</option>
+                                <option value="WARDROBE">Wardrobe</option>
+                            </select>
+                        </div>
+                    </div>                
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Component</label>
+                            <select class="form-control" ng-model="editableMaxWardrobeDetail.componentId" required="">
+                                <option value="">Select Component</option>
+                                <option ng-repeat="component in maxWardrobeComponentList" value="{{component.id}}">{{component.description}}</option>
+                            </select>
+                        </div>                                      
+                    </div>                
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Carcass</label>
+                            <select class="form-control" ng-model="editableMaxWardrobeDetail.carcass" required="">
+                                <option value="">Select Carcass Material</option>
+                                <option value="PPB" ng-if="maxWardrobeObject.cpPpbPrice !== 0">Partical Board</option>
+                                <option value="HD_HMR" ng-if="maxWardrobeObject.cpHdHmrPrice !== 0">HD HMR</option>
+                                <option value="HDF" ng-if="maxWardrobeObject.cpHdfPrice !== 0">HDF</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Shutter</label>
+                            <select class="form-control" ng-model="editableMaxWardrobeDetail.shutterFinish">
+                                <option value="">Select Shutter Finish</option>
+                                <!--<option value="0">No Shutter Available for this item</option>-->
+                                <option value="SP_FOILED_MATT" ng-if="maxWardrobeObject.spFoiledMattPrice !== 0">Foiled Matt Shutter</option>
+                                <option value="SP_FOILED_GLOSSY" ng-if="maxWardrobeObject.spFoiledGlossyPrice !== 0">Foiled Glossy Shutter</option>
+                                <option value="SP_PRELAM_MATT" ng-if="maxWardrobeObject.spPrelamMattPrice !== 0">Prelam Matt Shutter</option>
+                                <option value="SP_PCPPB" ng-if="maxWardrobeObject.spPcppbPrice !== 0">3 Pc PPB Shutter</option>
+                                <option value="G50_GLASS" ng-if="maxWardrobeObject.spGlassG50AluPrice !== 0">Glass G50 Aluminium Shutter</option>
+                                <option value="SP_PVC_STD" ng-if="maxWardrobeObject.spPvcMdfStdPrice !== 0">PVC MDF Standard Shutter</option>
+                                <option value="SP_PVC_DESG" ng-if="maxWardrobeObject.spPvcMdfDesgPrice !== 0">PVC MDF Designer Shutter</option>
+                                <option value="SP_PVC_GLOSSY" ng-if="maxWardrobeObject.spPvcMdfGlossyPrice !== 0">PVC MDF Glossy Shutter</option>
+                                <option value="SP_PVC_PREM" ng-if="maxWardrobeObject.spPvcMdfPremPrice !== 0">PVC MDF Prelam Shutter</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                    
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Width (in mm)</label>
+                                <input class="form-control" ng-model="editableMaxWardrobeDetail.width" readonly="">
+                            </div>                        
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Height (in mm)</label>
+                                <input class="form-control" ng-model="editableMaxWardrobeDetail.height" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Depth (in mm)</label>
+                                <input class="form-control" ng-model="editableMaxWardrobeDetail.depth" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input class="form-control" ng-model="editableMaxWardrobeDetail.quantity" required="">
+                            </div>
+                        </div>
+                    </div>                
+                </div>                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        <i class="fa fa-save"></i>
+                        Add
+                    </button>                       				
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
