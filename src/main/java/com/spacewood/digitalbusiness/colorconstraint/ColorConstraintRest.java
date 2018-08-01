@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/color_constraint")
 public class ColorConstraintRest {
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -38,7 +39,7 @@ public class ColorConstraintRest {
 //        return location;
 //    }
     @RequestMapping(method = RequestMethod.GET)
-    public List<ColorConstraint> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) {      
+    public List<ColorConstraint> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) {
         return colorConstraintDAL.findAll(offset);
     }
 
@@ -58,7 +59,6 @@ public class ColorConstraintRest {
 //        logger.info("exportExcelData EXCEL DATA {}");
 //        return locationservice.exportExcel();
 //    }
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ColorConstraint findById(@PathVariable("id") Integer id) throws SQLException {
         return colorConstraintDAL.findById(id);
@@ -70,17 +70,22 @@ public class ColorConstraintRest {
             @RequestParam("materialCode") String materialCode) {
         return colorConstraintDAL.findByMaterialCode(materialCode);
     }
-    
+
     @RequestMapping(value = "/find/finish_code", method = RequestMethod.GET)
     public ColorConstraint findByFinishCode(
             @RequestParam("finishCode") String finishCode) {
         return colorConstraintDAL.findByFinishCode(finishCode);
     }
-    
+
     @RequestMapping(value = "/find/component", method = RequestMethod.GET)
     public ColorConstraint findByComponent(
             @RequestParam("component") String component) {
         return colorConstraintDAL.findByComponent(component);
+    }
+
+    @RequestMapping(value = "/find/component/material_code", method = RequestMethod.GET)
+    public ColorConstraint findByComponentMaterialCode(@RequestParam("component") String component, @RequestParam("materialCode") String materialCode) {
+        return colorConstraintDAL.findByComponentMaterialCode(component, materialCode);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -99,5 +104,5 @@ public class ColorConstraintRest {
     public void delete(@PathVariable("id") Integer id) throws Exception {
         colorConstraintDAL.delete(id);
     }
-    
+
 }

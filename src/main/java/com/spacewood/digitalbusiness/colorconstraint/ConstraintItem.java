@@ -9,7 +9,10 @@ package com.spacewood.digitalbusiness.colorconstraint;
  *
  * @author webdesign
  */
-public enum ConstraintItem {
+public enum ConstraintItem {  
+    MAX_BEDS,
+    INFINITY_WARDROBE,
+    ULTIMA_WARDROBE,
     CARCASE,
     PANEL,
     SHUTTER,

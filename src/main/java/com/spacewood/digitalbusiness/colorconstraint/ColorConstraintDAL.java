@@ -97,6 +97,11 @@ public class ColorConstraintDAL {
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{component}, colorRowMapper);
     }
 
+    public ColorConstraint findByComponentMaterialCode(String component, String materialCode) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.COMPONENT + " = ? AND " + Columns.MATERIAL_CODE + " = ?";
+        return jdbcTemplate.queryForObject(sqlQuery, new Object[]{component, materialCode}, colorRowMapper);
+    }
+
     public ColorConstraint insert(ColorConstraint colorConstraint) throws JsonProcessingException {
         logger.info("location object in DAL line95 {}", colorConstraint);
         Map<String, Object> parameters = new HashMap<>();

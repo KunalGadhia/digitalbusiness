@@ -19,6 +19,9 @@
                                     <option value="">Select Component</option>
                                     <option value="CARCASE">Carcass</option>
                                     <option value="SHUTTER">Shutter</option>
+                                    <option value="INFINITY_WARDROBE">Infinity Wardrobe</option>
+                                    <option value="ULTIMA_WARDROBE">Ultima Wardrobe</option>
+                                    <option value="MAX_BEDS">Max Beds</option>
                                     <option value="MEMBRANE_GLOSSY_MDF">Membrane Glossy MDF</option>
                                     <option value="MEMBRANE_DESIGNER_MDF">Membrane Designer MDF</option>
                                     <option value="MEMBRANE_STANDARD_MDF">Membrane Standard MDF</option>
@@ -49,6 +52,7 @@
                                 <select class="form-control" ng-model="editableColorConstraint.materialCode">
                                     <option value="">Select Material Code</option>
                                     <option ng-repeat="material in rawMaterialList" value="{{material.materialCode}}">{{material.material}}</option>
+                                    <option value="HM">HMR</option>
                                 </select>
                             </div>
                         </div>

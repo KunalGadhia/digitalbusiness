@@ -95,6 +95,11 @@ angular.module("digitalbusiness.states.order", [])
                 'templateUrl': templateRoot + '/masters/order/drawer_detail_delete.html',
                 'controller': 'DrawerDetailDeleteController'
             });
+            $stateProvider.state('admin.masters_order_details.infinity_wardrobe_delete', {
+                'url': '/:infinityWardrobeDetailId/infinty_wardrobe/delete',
+                'templateUrl': templateRoot + '/masters/order/infinity_wardrobe_detail_delete.html',
+                'controller': 'InfinityWardrobeDetailDeleteController'
+            });
             $stateProvider.state('admin.masters_order_history.order_approve', {
                 'url': '/:orderHeadId/approve_order',
                 'templateUrl': templateRoot + '/masters/order/order_approve.html',
@@ -207,8 +212,9 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderDetailsController', function (MaxWardrobeOrderDetailsService, MaxWardrobeService, DrawerComponentMappingService, ShutterComponentMappingService, MaxKitchenOrderDetailsService, MaxKitchenService, HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
+        .controller('OrderDetailsController', function (InfinityWardrobeOrderDetailsService, UltimaWardrobeOrderDetailsService, UltimaWardrobeService, InfinityWardrobeService, MaxWardrobeOrderDetailsService, MaxWardrobeService, DrawerComponentMappingService, ShutterComponentMappingService, MaxKitchenOrderDetailsService, MaxKitchenService, HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             window.onpopstate = function (e) {
+                console.log("Detecting Back Click");
                 window.history.forward(1);
             };
             $scope.editableCarcassDetail = {};
@@ -292,6 +298,8 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showMaxKitchen = false;
             $scope.showMaxWardrobe = false;
             $scope.showMaxBeds = false;
+            $scope.showUltimaWardrobe = false;
+            $scope.showInfinityWardrobe = false;
             $scope.selectView = function (view) {
                 console.log("View :" + view);
                 if (view === "CARCASS") {
@@ -307,6 +315,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
                 } else if (view === "PANEL") {
                     $scope.showCarcass = false;
                     $scope.showPanel = true;
@@ -320,6 +330,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
                 } else if (view === "SHUTTER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -333,6 +345,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
                 } else if (view === "DRAWER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -346,6 +360,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
                 } else if (view === "FILLER") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -359,6 +375,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
                 } else if (view === "PELMET") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -372,6 +390,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
                 } else if (view === "CORNICE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -385,6 +405,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
                 } else if (view === "HANDLE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -398,6 +420,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
                 } else if (view === "HARDWARE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -411,6 +435,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
                 } else if (view === "MAXKITCHEN") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -424,6 +450,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = true;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
                 } else if (view === "MAXWARDROBE") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -437,6 +465,8 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = true;
                     $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
                 } else if (view === "MAXBEDS") {
                     $scope.showCarcass = false;
                     $scope.showPanel = false;
@@ -450,6 +480,38 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = true;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = false;
+                } else if (view === "ULTIMAWARDROBE") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                    $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = true;
+                    $scope.showInfinityWardrobe = false;
+                } else if (view === "INFINITYWARDROBE") {
+                    $scope.showCarcass = false;
+                    $scope.showPanel = false;
+                    $scope.showShutter = false;
+                    $scope.showDrawer = false;
+                    $scope.showFiller = false;
+                    $scope.showPelmet = false;
+                    $scope.showCornice = false;
+                    $scope.showHandle = false;
+                    $scope.showHardware = false;
+                    $scope.showMaxKitchen = false;
+                    $scope.showMaxWardrobe = false;
+                    $scope.showMaxBeds = false;
+                    $scope.showUltimaWardrobe = false;
+                    $scope.showInfinityWardrobe = true;
                 }
             };
             //////////Select Component Selection View///////////////
@@ -463,6 +525,10 @@ angular.module("digitalbusiness.states.order", [])
             $scope.showHandleSelectionWidget = false;
             $scope.showShutterHandleSelectionWidget = false;
             $scope.showPanelColorSelectionWidget = false;
+            $scope.showInfinityCarcassColorSelectionWidget = false;
+            $scope.showInfinityShutterColorSelectionWidget = false;
+            $scope.showUltimaCarcassColorSelectionWidget = false;
+            $scope.showUltimaShutterColorSelectionWidget = false;
             $scope.closeWidget = function () {
                 $scope.showDrawerInternalColorSelectionWidget = false;
                 $scope.showShutterInternalColorSelectionWidget = false;
@@ -485,6 +551,10 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.showDrawerColorSelectionWidget = false;
                 $scope.showDrawerHandleSelectionWidget = false;
                 $scope.showFillerInternalColorSelectionWidget = false;
+                $scope.showInfinityCarcassColorSelectionWidget = false;
+                $scope.showInfinityShutterColorSelectionWidget = false;
+                $scope.showUltimaCarcassColorSelectionWidget = false;
+                $scope.showUltimaShutterColorSelectionWidget = false;
                 $scope.preShutterColor = {};
                 $scope.preCarcass = {};
                 $scope.preInternalCarcassColor = {};
@@ -498,6 +568,10 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.preInternalDrawerColor = {};
                 $scope.preFillerColor = {};
                 $scope.prePelmetColor = {};
+                $scope.preInfinityCarcassColor = {};
+                $scope.preInfinityShutterColor = {};
+                $scope.preUltimaCarcassColor = {};
+                $scope.preUltimaShutterColor = {};
             };
             $scope.openCarcass = function () {
                 KitchenComponentService.findByCategory({
@@ -1416,7 +1490,8 @@ angular.module("digitalbusiness.states.order", [])
 //                $scope.editableCarcassDetail.stdMaterialObject = material;
                 $scope.intColorName = "";
                 $scope.editableCarcassDetail.intColorId = "";
-                ColorConstraintService.findByMaterialCode({
+                ColorConstraintService.findByComponentMaterialCode({
+                    'component': 'CARCASE',
                     'materialCode': material
                 }, function (sortedColor) {
                     console.log("Sorted COlor :%O", sortedColor);
@@ -1572,7 +1647,8 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Material :%O", material);
                 $scope.panelColorName = "";
                 $scope.editablePanelDetail.colorId = "";
-                ColorConstraintService.findByMaterialCode({
+                ColorConstraintService.findByComponentMaterialCode({
+                    'component': 'CARCASE',
                     'materialCode': material
                 }, function (sortedColor) {
                     console.log("Sorted COlor :%O", sortedColor);
@@ -1668,7 +1744,8 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Side Material :%O", material);
                 $scope.fillerInternalColorName = "";
                 $scope.editableFillerDetail.intColorId = "";
-                ColorConstraintService.findByMaterialCode({
+                ColorConstraintService.findByComponentMaterialCode({
+                    'material': 'CARCASE',
                     'materialCode': material
                 }, function (sortedColor) {
                     console.log("Sorted COlor :%O", sortedColor);
@@ -2214,7 +2291,8 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Side Material :%O", material);
                 $scope.shutterInternalColorName = "";
                 $scope.editableShutterDetail.intColorId = "";
-                ColorConstraintService.findByMaterialCode({
+                ColorConstraintService.findByComponentMaterialCode({
+                    'component': 'CARCASE',
                     'materialCode': material
                 }, function (sortedColor) {
                     console.log("Sorted COlor :%O", sortedColor);
@@ -2673,7 +2751,8 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Side Material :%O", material);
                 $scope.shutterInternalColorName = "";
                 $scope.editableDrawerDetail.intColorId = "";
-                ColorConstraintService.findByMaterialCode({
+                ColorConstraintService.findByComponentMaterialCode({
+                    'component': 'CARCASE',
                     'materialCode': material
                 }, function (sortedColor) {
                     console.log("Sorted COlor :%O", sortedColor);
@@ -2972,6 +3051,322 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
             /////////////////Max Wardrobe Form Functionality End////////////////
+            /////////////////Infinity Wardrobe Form Functionality Starts////////
+            $scope.editableInfinityWardrobeDetail = {};
+            $scope.$watch('editableInfinityWardrobeDetail.category', function (category) {
+                console.log("Category :%O", category);
+                if (category === "WARDROBE") {
+                    $scope.editableInfinityWardrobeDetail.component = "IW";
+                } else if (category === "LOFT_UNIT") {
+                    $scope.editableInfinityWardrobeDetail.component = "IL";
+                } else if (category === "CHEST_OF_DRAWER") {
+                    $scope.editableInfinityWardrobeDetail.component = "IC";
+                } else if (category === "GALLERY_SHELF") {
+                    $scope.editableInfinityWardrobeDetail.component = "IG";
+                } else if (category === "TROUSER_RACK") {
+                    $scope.editableInfinityWardrobeDetail.component = "IT";
+                } else if (category === "FILLER") {
+                    $scope.editableInfinityWardrobeDetail.component = "IF";
+                } else if (category === "END_PANEL") {
+                    $scope.editableInfinityWardrobeDetail.component = "IE";
+                }
+                InfinityWardrobeService.findByCategory({
+                    'category': category
+                }, function (componentList) {
+                    $scope.infinityWardrobeComponentList = componentList;
+                });
+            });
+            $scope.$watch('editableInfinityWardrobeDetail.componentId', function (componentId) {
+                console.log("Component ID :%O", componentId);
+                InfinityWardrobeService.get({
+                    'id': componentId
+                }, function (component) {
+                    $scope.infinityWardrobeObject = component;
+                    $scope.editableInfinityWardrobeDetail.componentDescription = component.description;
+                    $scope.editableInfinityWardrobeDetail.width = component.width;
+                    $scope.editableInfinityWardrobeDetail.depth = component.depth;
+                    $scope.editableInfinityWardrobeDetail.height = component.height;
+                });
+            });
+            $scope.$watch('editableInfinityWardrobeDetail.carcass', function (carcass) {
+                console.log("Carcass :" + carcass);
+                $scope.editableInfinityWardrobeDetail.carcassMaterial = carcass;
+                ColorConstraintService.findByComponentMaterialCode({
+                    'component': 'INFINITY_WARDROBE',
+                    'materialCode': carcass
+                }, function (sortedColorObject) {
+                    console.log("Sorted COlor :%O", sortedColorObject);
+                    $scope.infinityCarcassColors1 = [];
+                    angular.forEach(sortedColorObject.colors, function (colorId) {
+                        ColorService.get({
+                            'id': colorId
+                        }, function (colorObject) {
+                            $scope.infinityCarcassColors1.push(colorObject);
+                        });
+                    });
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $scope.infinityCarcassColors1 = [];
+                    } else if (response.status === 404) {
+                        $scope.infinityCarcassColors1 = [];
+                    } else if (response.status === 400) {
+                        $scope.infinityCarcassColors1 = [];
+                    }
+                });
+                if (carcass === "PB") {
+                    $scope.editableInfinityWardrobeDetail.carcassPrice = $scope.infinityWardrobeObject.cpPpb;
+                } else if (carcass === "MF") {
+                    $scope.editableInfinityWardrobeDetail.carcassPrice = $scope.infinityWardrobeObject.cpMf;
+                } else if (carcass === "HM") {
+                    $scope.editableInfinityWardrobeDetail.carcassPrice = $scope.infinityWardrobeObject.cpHmr;
+                } else if (carcass === "HF") {
+                    $scope.editableInfinityWardrobeDetail.carcassPrice = $scope.infinityWardrobeObject.cpHf;
+                } else {
+                    $scope.editableInfinityWardrobeDetail.carcassPrice = 0;
+                }
+            });
+            $scope.$watch('editableInfinityWardrobeDetail.shutterFinish', function (shutterFinish) {
+                $scope.editableInfinityWardrobeDetail.shutterFinish = shutterFinish;
+                $scope.editableInfinityWardrobeDetail.shutterFinishObject = FinishPriceService.findByFinishCode({
+                    'finishCode': shutterFinish
+                });
+                ColorConstraintService.findByFinishCode({
+                    'finishCode': shutterFinish
+                }, function (sortedColorObject) {
+                    console.log("Sorted COlor :%O", sortedColorObject);
+                    $scope.infinityShutterColors1 = [];
+                    angular.forEach(sortedColorObject.colors, function (colorId) {
+                        ColorService.get({
+                            'id': colorId
+                        }, function (colorObject) {
+                            $scope.infinityShutterColors1.push(colorObject);
+                        });
+                    });
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $scope.infinityShutterColors1 = [];
+                    } else if (response.status === 404) {
+                        $scope.infinityShutterColors1 = [];
+                    } else if (response.status === 400) {
+                        $scope.infinityShutterColors1 = [];
+                    }
+                });
+
+                if (shutterFinish === "XXC") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spMfSt;
+                } else if (shutterFinish === "XXB") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spMfDes;
+                } else if (shutterFinish === "XXA") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spMfGlReg;
+                } else if (shutterFinish === "XAH") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spMfGlossPrem;
+                } else if (shutterFinish === "XXI") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spHplMatt;
+                } else if (shutterFinish === "XXH") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spPlyHplGloss;
+                } else if (shutterFinish === "XXG") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spPlyHplMr;
+                } else if (shutterFinish === "XXN") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spMfPolymer;
+                } else if (shutterFinish === "XXL") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spPlyAcrStd;
+                } else if (shutterFinish === "XXM") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spPlyAcrPrem;
+                } else if (shutterFinish === "XXJ") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spHdfAcrStd;
+                } else if (shutterFinish === "XXK") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spHdfAcrPrem;
+                } else if (shutterFinish === "XXS") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spMfPuSolid;
+                } else if (shutterFinish === "XXT") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spMfPuMetallic;
+                } else if (shutterFinish === "XXO") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spHmrSolid;
+                } else if (shutterFinish === "XXP") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spHmrMetallic;
+                } else if (shutterFinish === "XXQ") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spPlyPuSolid;
+                } else if (shutterFinish === "XXP") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spPlyPuMetallic;
+                } else if (shutterFinish === "XAI") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spPrePbEdgeb;
+                } else if (shutterFinish === "XAJ") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spPreMfEdgeb;
+                } else if (shutterFinish === "XAK") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spPreHmrEdgeb;
+                } else if (shutterFinish === "XXF") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spHmrStd;
+                } else if (shutterFinish === "XXE") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spHmrDesg;
+                } else if (shutterFinish === "XXD") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spHmrGlossReg;
+                } else if (shutterFinish === "XAL") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spHmrGlossPremium;
+                } else if (shutterFinish === "XAM") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spG55AcidFrosted;
+                } else if (shutterFinish === "XAN") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spGloriaStd;
+                } else if (shutterFinish === "XAO") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spGloriaDesg;
+                } else if (shutterFinish === "XAP") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spGloriaGlossReg;
+                } else if (shutterFinish === "XAQ") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spGloriaGlossPremium;
+                } else if (shutterFinish === "XAR") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spGloriaPuMetallic;
+                } else if (shutterFinish === "XAS") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spVenettaMfPuSolid;
+                } else if (shutterFinish === "XAT") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spVenettaMfPuMetallic;
+                } else if (shutterFinish === "XAU") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spHfAcrGlass;
+                } else if (shutterFinish === "XAV") {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = $scope.infinityWardrobeObject.spGloriaPuSolid;
+                } else {
+                    $scope.editableInfinityWardrobeDetail.shutterPrice = 0;
+                }
+            });
+            $scope.$watch('editableInfinityWardrobeDetail.hinge', function (hinge) {
+                $scope.editableInfinityWardrobeDetail.hinge = hinge;
+                if (hinge === "HS") {
+                    $scope.editableInfinityWardrobeDetail.hingePrice = $scope.infinityWardrobeObject.hingeSoftClose;
+                } else if (hinge === "HB") {
+                    $scope.editableInfinityWardrobeDetail.hingePrice = $scope.infinityWardrobeObject.hingeBlumSoftClose;
+                } else if (hinge === "HD") {
+                    $scope.editableInfinityWardrobeDetail.hingePrice = $scope.infinityWardrobeObject.hingeDeg155;
+                } else {
+                    $scope.editableInfinityWardrobeDetail.hingePrice = 0;
+                }
+            });
+            $scope.openInfinityCarcassColorWidget = function () {
+                $scope.showInfinityCarcassColorSelectionWidget = true;
+            };
+            $scope.openInfinityShutterColorWidget = function () {
+                $scope.showInfinityShutterColorSelectionWidget = true;
+            };
+            $scope.selectInfinityCarcassColor = function (colorId, colorName, colorCode) {
+                console.log(colorId);
+                $scope.closeWidget();
+                $scope.editableInfinityWardrobeDetail.carcassColorName = colorName;
+                $scope.editableInfinityWardrobeDetail.carcassColorCode = colorCode;
+                $scope.editableInfinityWardrobeDetail.carcassColorId = colorId;
+                $scope.infinityCarcassColorName = colorName;
+            };
+            $scope.selectInfinityShutterColor = function (colorId, colorName, colorCode) {
+                console.log(colorId);
+                $scope.closeWidget();
+                $scope.editableInfinityWardrobeDetail.shutterColorName = colorName;
+                $scope.editableInfinityWardrobeDetail.shutterColorCode = colorCode;
+                $scope.editableInfinityWardrobeDetail.shutterColorId = colorId;
+                $scope.infinityShutterColorName = colorName;
+            };
+            $scope.selectPreInfinityCarcassColor = function (colorId, colorName, colorCode) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.preInfinityCarcassColor = colorObject;
+                });
+            };
+            $scope.selectPreInfinityShutterColor = function (colorId, colorName, colorCode) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.preInfinityShutterColor = colorObject;
+                });
+            };
+            $scope.saveInfinityWardrobeDetails = function (infinityWardrobeDetails) {
+                var h1;
+                var w1;
+                var d1;
+                var lengthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    h1 = genNum;
+                };
+                var widthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    w1 = genNum;
+                };
+                var depthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    d1 = genNum;
+                };
+                if (infinityWardrobeDetails.height < 1000) {
+                    if (infinityWardrobeDetails.height < 100) {
+                        lengthLessThan100(infinityWardrobeDetails.height);
+                    } else {
+                        h1 = 0 + infinityWardrobeDetails.height.toString();
+                    }
+                } else {
+                    h1 = infinityWardrobeDetails.height.toString();
+                }
+                if (infinityWardrobeDetails.width < 1000) {
+                    if (infinityWardrobeDetails.width < 100) {
+                        widthLessThan100(infinityWardrobeDetails.width);
+                    } else {
+                        w1 = 0 + infinityWardrobeDetails.width.toString();
+                    }
+                } else {
+                    w1 = infinityWardrobeDetails.width.toString();
+                }
+                if (infinityWardrobeDetails.depth < 1000) {
+                    if (infinityWardrobeDetails.depth < 100) {
+                        depthLessThan100(infinityWardrobeDetails.depth);
+                    } else {
+                        d1 = 0 + infinityWardrobeDetails.depth.toString();
+                    }
+                } else {
+                    d1 = infinityWardrobeDetails.depth.toString();
+                }
+                infinityWardrobeDetails.orderHeadId = $stateParams.orderHeadId;
+                infinityWardrobeDetails.orderFor = "INFINITY_WARDROBE";
+                infinityWardrobeDetails.price = Math.round((infinityWardrobeDetails.carcassPrice + infinityWardrobeDetails.shutterPrice + infinityWardrobeDetails.hingePrice));
+                if (infinityWardrobeDetails.hinge === undefined & infinityWardrobeDetails.shutterFinish === undefined) {
+                    console.log("Without Hinge ,Without Finish");
+                    infinityWardrobeDetails.productCode = infinityWardrobeDetails.component + "" + infinityWardrobeDetails.carcassMaterial + "XXXXXXXXXXX" + "-" + h1 + "" + w1 + "" + d1 + "00";
+                    infinityWardrobeDetails.description = (infinityWardrobeDetails.componentDescription + " And Carcass Material :" + infinityWardrobeDetails.carcass);
+                } else if (infinityWardrobeDetails.hinge === undefined & infinityWardrobeDetails.shutterFinish !== undefined) {
+                    console.log("Without Hinge ,With Finish");
+                    infinityWardrobeDetails.productCode = infinityWardrobeDetails.component + "" + infinityWardrobeDetails.carcassMaterial + "XX" + infinityWardrobeDetails.shutterFinish + "XXXXXX" + "-" + h1 + "" + w1 + "" + d1 + "00";
+                    infinityWardrobeDetails.description = (infinityWardrobeDetails.componentDescription + " And Carcass Material :" + infinityWardrobeDetails.carcass + ", Shutter Finish :" + infinityWardrobeDetails.shutterFinishObject.finishName);
+                } else if (infinityWardrobeDetails.hinge !== undefined & infinityWardrobeDetails.shutterFinish === undefined) {
+                    console.log("With Hinge ,Without Finish");
+                    if (infinityWardrobeDetails.hinge === "HS") {
+                        infinityWardrobeDetails.hingeName = "Soft Close Hinge";
+                    } else if (infinityWardrobeDetails.hinge === "HB") {
+                        infinityWardrobeDetails.hingeName = "Blum Soft Close Hinge";
+                    } else if (infinityWardrobeDetails.hinge === "HD") {
+                        infinityWardrobeDetails.hingeName = "155 Degree Hinge";
+                    }
+                    infinityWardrobeDetails.productCode = infinityWardrobeDetails.component + "" + infinityWardrobeDetails.carcassMaterial + "" + infinityWardrobeDetails.hinge + "XXXXXXXXX" + "-" + h1 + "" + w1 + "" + d1 + "00";
+                    infinityWardrobeDetails.description = (infinityWardrobeDetails.componentDescription + " And Carcass Material :" + infinityWardrobeDetails.carcass + " with " + infinityWardrobeDetails.hingeName);
+                } else if (infinityWardrobeDetails.hinge !== undefined & infinityWardrobeDetails.shutterFinish !== undefined) {
+                    console.log("With Hinge ,With Finish");
+                    if (infinityWardrobeDetails.hinge === "HS") {
+                        infinityWardrobeDetails.hingeName = "Soft Close Hinge";
+                    } else if (infinityWardrobeDetails.hinge === "HB") {
+                        infinityWardrobeDetails.hingeName = "Blum Soft Close Hinge";
+                    } else if (infinityWardrobeDetails.hinge === "HD") {
+                        infinityWardrobeDetails.hingeName = "155 Degree Hinge";
+                    }
+                    infinityWardrobeDetails.productCode = infinityWardrobeDetails.component + "" + infinityWardrobeDetails.carcassMaterial + "" + infinityWardrobeDetails.hinge + "" + infinityWardrobeDetails.shutterFinish + "XXXXXX" + "-" + h1 + "" + w1 + "" + d1 + "00";
+                    infinityWardrobeDetails.description = (infinityWardrobeDetails.componentDescription + " And Carcass Material :" + infinityWardrobeDetails.carcass + ", Shutter Finish :" + infinityWardrobeDetails.shutterFinishObject.finishName + " with " + infinityWardrobeDetails.hingeName);
+                }
+                console.log("InfinityWardrobeDetails :%O", infinityWardrobeDetails);
+                $scope.finalSaveInfinityWardrobe(infinityWardrobeDetails);
+            };
+            $scope.finalSaveInfinityWardrobe = function (infinityWardrobeDetails) {
+                console.log("InfinityWardrobe Final Details :%O", infinityWardrobeDetails);
+                InfinityWardrobeOrderDetailsService.save(infinityWardrobeDetails, function () {
+                    $scope.editableInfinityWardrobeDetail = "";
+                    $scope.infinityCarcassColorName = "";
+                    $scope.infinityShutterColorName = "";
+//                    $scope.refreshList();
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
+                });
+            };
+            ////////////////Infinity Wardrobe Form Functionality Ends///////////
 
             function closestValue(num, arr) {
                 var curr = arr[0];
@@ -5466,6 +5861,9 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Max Wardrobe List :%O", maxWardrobeOrderList);
                 $scope.maxWardrobeOrderDetailsList = maxWardrobeOrderList;
             });
+            $scope.infinityWardrobeOrderDetailList = InfinityWardrobeOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            });
             $scope.shutterDetailsList = ShutterOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
             }, function (shutterOrderList) {
@@ -5526,8 +5924,9 @@ angular.module("digitalbusiness.states.order", [])
                             var corniceTotal = parseInt($("#corniceTotal").val());
                             var handleTotal = parseInt($("#handleTotal").val());
                             var hardwareTotal = parseInt($("#hardwareTotal").val());
+                            var infinityWardrobeTotal = parseInt($("#infinityWardrobeTotal").val());
 
-                            $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal);
+                            $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal + infinityWardrobeTotal);
                             $scope.cgst = (($scope.totalOrderPrice / 100) * 9);
                             $scope.sgst = (($scope.totalOrderPrice / 100) * 9);
                             $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.cgst + $scope.sgst));
@@ -5556,7 +5955,8 @@ angular.module("digitalbusiness.states.order", [])
                             var corniceTotal = parseInt($("#corniceTotal").val());
                             var handleTotal = parseInt($("#handleTotal").val());
                             var hardwareTotal = parseInt($("#hardwareTotal").val());
-                            $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal);
+                            var infinityWardrobeTotal = parseInt($("$infinityWardrobeTotal").val());
+                            $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal + infinityWardrobeTotal);
                             $scope.igst = (($scope.totalOrderPrice / 100) * 18);
                             $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.igst));
                             orderHeadObject.orderAmount = $scope.totalOrderPrice;
@@ -5579,7 +5979,7 @@ angular.module("digitalbusiness.states.order", [])
             };
         }
         )
-        .controller('ProformaInvoiceDisplayController', function (MaxWardrobeOrderDetailsService, MaxWardrobeService, CarcassSubtypeService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+        .controller('ProformaInvoiceDisplayController', function (InfinityWardrobeOrderDetailsService, UltimaWardrobeOrderDetailsService, UltimaWardrobeService, InfinityWardrobeService, MaxWardrobeOrderDetailsService, MaxWardrobeService, CarcassSubtypeService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             $scope.currentDate = new Date();
             var totalPrice = 0;
             var carcassTotalPrice = 0;
@@ -5593,6 +5993,7 @@ angular.module("digitalbusiness.states.order", [])
             var hardwareTotalPrice = 0;
             var maxKitchenTotalPrice = 0;
             var maxWardrobeTotalPrice = 0;
+            var infinityWardrobeTotalPrice = 0;
             $scope.componentTotalList = [];
             $scope.mainInvoiceList = [];
             $scope.showCgst = false;
@@ -5894,6 +6295,19 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Drawer total Price :%O" + $scope.drawerTotalPrice);
                 $scope.captureTotal($scope.drawerTotalPrice);
             });
+            ///////////////////////New Offerings/////////////////
+            $scope.infinityWardrobeOrderDetailList = InfinityWardrobeOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function () {
+                angular.forEach($scope.infinityWardrobeOrderDetailList, function (infinityWardrobeDetailObject) {
+                    totalPrice = totalPrice + infinityWardrobeDetailObject.price;
+                    infinityWardrobeTotalPrice = infinityWardrobeTotalPrice + infinityWardrobeDetailObject.price;
+                    $scope.mainInvoiceList.push(infinityWardrobeDetailObject);
+                });
+                $scope.infinityWardrobeTotalPrice = infinityWardrobeTotalPrice;
+                $scope.captureTotal($scope.infinityWardrobeTotalPrice);
+            });
+            /////////////////////////////////////////////////////
 //            console.log("Final Price After Adding Everything :%O", totalPrice);
 //            CarcassOrderDetailsService.findPriceByOrderHeadId({
 //                'orderHeadId': $stateParams.orderHeadId
@@ -6039,7 +6453,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('OrderApproveController', function (MaxWardrobeOrderDetailsService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, RateContractDetailService, PartyService, ColorService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, $rootScope, paginationLimit) {
+        .controller('OrderApproveController', function (InfinityWardrobeOrderDetailsService, MaxWardrobeOrderDetailsService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, RateContractDetailService, PartyService, ColorService, HandleOrderDetailsService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, PanelOrderDetailsService, CarcassOrderDetailsService, ErpIntegrationService, OrderHeadService, $http, $scope, $stateParams, $state, $rootScope, paginationLimit) {
             $scope.orderObject = OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderObject) {
@@ -6275,6 +6689,16 @@ angular.module("digitalbusiness.states.order", [])
                                 });
                             });
                             ////////////////////////////////////////////////////////////////////
+                            ////////////////////Infinity Wardrobe ERP Insertion/////////////////////////////
+                            InfinityWardrobeOrderDetailsService.findByOrderHeadId({
+                                'orderHeadId': $stateParams.orderHeadId
+                            }, function (infinityWardrobeOrderList) {
+                                angular.forEach(infinityWardrobeOrderList, function (infinityWardrobeOrderObject) {
+                                    console.log("Final Infinity Wardrobe Order Detail Before Pushing Into ERP :%O", infinityWardrobeOrderObject);
+                                    $scope.erpPush(infinityWardrobeOrderObject);
+                                });
+                            });
+                            ////////////////////////////////////////////////////////////////////
 
 //                            $scope.carcassPromise.$promise.then(function (carcassList) {
 //                                $scope.panelPromise.$promise.then(function (panelList) {
@@ -6383,6 +6807,18 @@ angular.module("digitalbusiness.states.order", [])
                 drawerOrderDetail.$delete(function () {
                     $state.go('admin.masters_order_details', {
                         'orderHeadId': $scope.editableDrawerDetail.orderHeadId
+                    }, {'reload': true});
+                });
+            };
+        })
+        .controller('InfinityWardrobeDetailDeleteController', function (InfinityWardrobeOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Pelmet:%O", $stateParams);
+            $scope.editableInfinityWardrobeDetail = InfinityWardrobeOrderDetailsService.get({'id': $stateParams.infinityWardrobeDetailId});
+            $scope.deleteInfinityWardrobeDetail = function (infinityOrderDetail) {
+                console.log("Infinity Wardrobe Order Detail :%O", infinityOrderDetail);
+                infinityOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_details', {
+                        'orderHeadId': $scope.editableInfinityWardrobeDetail.orderHeadId
                     }, {'reload': true});
                 });
             };

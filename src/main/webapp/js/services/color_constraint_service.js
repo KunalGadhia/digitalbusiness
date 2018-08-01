@@ -16,24 +16,33 @@ angular.module("digitalbusiness.services.color_constraint")
                 'findByMaterialCode': {
                     'method': 'GET',
                     'url': restRoot + '/color_constraint/find/material_code',
-                    'params':{
-                      'materialCode': '@materialCode' 
+                    'params': {
+                        'materialCode': '@materialCode'
                     },
                     'isArray': false
                 },
                 'findByFinishCode': {
                     'method': 'GET',
                     'url': restRoot + '/color_constraint/find/finish_code',
-                    'params':{
-                      'finishCode': '@finishCode' 
+                    'params': {
+                        'finishCode': '@finishCode'
                     },
                     'isArray': false
                 },
                 'findByComponent': {
                     'method': 'GET',
                     'url': restRoot + '/color_constraint/find/component',
-                    'params':{
-                      'component': '@component' 
+                    'params': {
+                        'component': '@component'
+                    },
+                    'isArray': false
+                },
+                'findByComponentMaterialCode': {
+                    'method': 'GET',
+                    'url': restRoot + '/color_constraint/find/component/material_code',
+                    'params': {
+                        'component': '@component',
+                        'materialCode': '@materialCode'
                     },
                     'isArray': false
                 }

@@ -37,7 +37,7 @@ public class InfinityWardrobe {
     private Double spHdfAcrStd;
     private Double spHdfAcrPrem;
     private Double spMfPuSolid;
-    private Double spMfPuMetalic;
+    private Double spMfPuMetallic;
     private Double spHmrSolid;
     private Double spHmrMetallic;
     private Double spPlyPuSolid;
@@ -255,12 +255,12 @@ public class InfinityWardrobe {
         this.spMfPuSolid = spMfPuSolid;
     }
 
-    public Double getSpMfPuMetalic() {
-        return spMfPuMetalic;
+    public Double getSpMfPuMetallic() {
+        return spMfPuMetallic;
     }
 
-    public void setSpMfPuMetalic(Double spMfPuMetalic) {
-        this.spMfPuMetalic = spMfPuMetalic;
+    public void setSpMfPuMetallic(Double spMfPuMetallic) {
+        this.spMfPuMetallic = spMfPuMetallic;
     }
 
     public Double getSpHmrSolid() {
@@ -457,56 +457,56 @@ public class InfinityWardrobe {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.productCode);
-        hash = 89 * hash + Objects.hashCode(this.category);
-        hash = 89 * hash + Objects.hashCode(this.description);
-        hash = 89 * hash + Objects.hashCode(this.width);
-        hash = 89 * hash + Objects.hashCode(this.depth);
-        hash = 89 * hash + Objects.hashCode(this.height);
-        hash = 89 * hash + Objects.hashCode(this.cpPpb);
-        hash = 89 * hash + Objects.hashCode(this.cpMf);
-        hash = 89 * hash + Objects.hashCode(this.cpHmr);
-        hash = 89 * hash + Objects.hashCode(this.cpHf);
-        hash = 89 * hash + Objects.hashCode(this.spMfSt);
-        hash = 89 * hash + Objects.hashCode(this.spMfDes);
-        hash = 89 * hash + Objects.hashCode(this.spMfGlReg);
-        hash = 89 * hash + Objects.hashCode(this.spMfGlossPrem);
-        hash = 89 * hash + Objects.hashCode(this.spHplMatt);
-        hash = 89 * hash + Objects.hashCode(this.spPlyHplGloss);
-        hash = 89 * hash + Objects.hashCode(this.spPlyHplMr);
-        hash = 89 * hash + Objects.hashCode(this.spMfPolymer);
-        hash = 89 * hash + Objects.hashCode(this.spPlyAcrStd);
-        hash = 89 * hash + Objects.hashCode(this.spPlyAcrPrem);
-        hash = 89 * hash + Objects.hashCode(this.spHdfAcrStd);
-        hash = 89 * hash + Objects.hashCode(this.spHdfAcrPrem);
-        hash = 89 * hash + Objects.hashCode(this.spMfPuSolid);
-        hash = 89 * hash + Objects.hashCode(this.spMfPuMetalic);
-        hash = 89 * hash + Objects.hashCode(this.spHmrSolid);
-        hash = 89 * hash + Objects.hashCode(this.spHmrMetallic);
-        hash = 89 * hash + Objects.hashCode(this.spPlyPuSolid);
-        hash = 89 * hash + Objects.hashCode(this.spPlyPuMetallic);
-        hash = 89 * hash + Objects.hashCode(this.spPrePbEdgeb);
-        hash = 89 * hash + Objects.hashCode(this.spPreMfEdgeb);
-        hash = 89 * hash + Objects.hashCode(this.spPreHmrEdgeb);
-        hash = 89 * hash + Objects.hashCode(this.spHmrStd);
-        hash = 89 * hash + Objects.hashCode(this.spHmrDesg);
-        hash = 89 * hash + Objects.hashCode(this.spHmrGlossReg);
-        hash = 89 * hash + Objects.hashCode(this.spHmrGlossPremium);
-        hash = 89 * hash + Objects.hashCode(this.spG55AcidFrosted);
-        hash = 89 * hash + Objects.hashCode(this.spGloriaStd);
-        hash = 89 * hash + Objects.hashCode(this.spGloriaDesg);
-        hash = 89 * hash + Objects.hashCode(this.spGloriaGlossReg);
-        hash = 89 * hash + Objects.hashCode(this.spGloriaGlossPremium);
-        hash = 89 * hash + Objects.hashCode(this.spGloriaPuSolid);
-        hash = 89 * hash + Objects.hashCode(this.spGloriaPuMetallic);
-        hash = 89 * hash + Objects.hashCode(this.spVenettaMfPuSolid);
-        hash = 89 * hash + Objects.hashCode(this.spVenettaMfPuMetallic);
-        hash = 89 * hash + Objects.hashCode(this.spHfAcrGlass);
-        hash = 89 * hash + Objects.hashCode(this.hingeSoftClose);
-        hash = 89 * hash + Objects.hashCode(this.hingeBlumSoftClose);
-        hash = 89 * hash + Objects.hashCode(this.hingeDeg155);
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.productCode);
+        hash = 59 * hash + Objects.hashCode(this.category);
+        hash = 59 * hash + Objects.hashCode(this.description);
+        hash = 59 * hash + Objects.hashCode(this.width);
+        hash = 59 * hash + Objects.hashCode(this.depth);
+        hash = 59 * hash + Objects.hashCode(this.height);
+        hash = 59 * hash + Objects.hashCode(this.cpPpb);
+        hash = 59 * hash + Objects.hashCode(this.cpMf);
+        hash = 59 * hash + Objects.hashCode(this.cpHmr);
+        hash = 59 * hash + Objects.hashCode(this.cpHf);
+        hash = 59 * hash + Objects.hashCode(this.spMfSt);
+        hash = 59 * hash + Objects.hashCode(this.spMfDes);
+        hash = 59 * hash + Objects.hashCode(this.spMfGlReg);
+        hash = 59 * hash + Objects.hashCode(this.spMfGlossPrem);
+        hash = 59 * hash + Objects.hashCode(this.spHplMatt);
+        hash = 59 * hash + Objects.hashCode(this.spPlyHplGloss);
+        hash = 59 * hash + Objects.hashCode(this.spPlyHplMr);
+        hash = 59 * hash + Objects.hashCode(this.spMfPolymer);
+        hash = 59 * hash + Objects.hashCode(this.spPlyAcrStd);
+        hash = 59 * hash + Objects.hashCode(this.spPlyAcrPrem);
+        hash = 59 * hash + Objects.hashCode(this.spHdfAcrStd);
+        hash = 59 * hash + Objects.hashCode(this.spHdfAcrPrem);
+        hash = 59 * hash + Objects.hashCode(this.spMfPuSolid);
+        hash = 59 * hash + Objects.hashCode(this.spMfPuMetallic);
+        hash = 59 * hash + Objects.hashCode(this.spHmrSolid);
+        hash = 59 * hash + Objects.hashCode(this.spHmrMetallic);
+        hash = 59 * hash + Objects.hashCode(this.spPlyPuSolid);
+        hash = 59 * hash + Objects.hashCode(this.spPlyPuMetallic);
+        hash = 59 * hash + Objects.hashCode(this.spPrePbEdgeb);
+        hash = 59 * hash + Objects.hashCode(this.spPreMfEdgeb);
+        hash = 59 * hash + Objects.hashCode(this.spPreHmrEdgeb);
+        hash = 59 * hash + Objects.hashCode(this.spHmrStd);
+        hash = 59 * hash + Objects.hashCode(this.spHmrDesg);
+        hash = 59 * hash + Objects.hashCode(this.spHmrGlossReg);
+        hash = 59 * hash + Objects.hashCode(this.spHmrGlossPremium);
+        hash = 59 * hash + Objects.hashCode(this.spG55AcidFrosted);
+        hash = 59 * hash + Objects.hashCode(this.spGloriaStd);
+        hash = 59 * hash + Objects.hashCode(this.spGloriaDesg);
+        hash = 59 * hash + Objects.hashCode(this.spGloriaGlossReg);
+        hash = 59 * hash + Objects.hashCode(this.spGloriaGlossPremium);
+        hash = 59 * hash + Objects.hashCode(this.spGloriaPuSolid);
+        hash = 59 * hash + Objects.hashCode(this.spGloriaPuMetallic);
+        hash = 59 * hash + Objects.hashCode(this.spVenettaMfPuSolid);
+        hash = 59 * hash + Objects.hashCode(this.spVenettaMfPuMetallic);
+        hash = 59 * hash + Objects.hashCode(this.spHfAcrGlass);
+        hash = 59 * hash + Objects.hashCode(this.hingeSoftClose);
+        hash = 59 * hash + Objects.hashCode(this.hingeBlumSoftClose);
+        hash = 59 * hash + Objects.hashCode(this.hingeDeg155);
         return hash;
     }
 
@@ -594,7 +594,7 @@ public class InfinityWardrobe {
         if (!Objects.equals(this.spMfPuSolid, other.spMfPuSolid)) {
             return false;
         }
-        if (!Objects.equals(this.spMfPuMetalic, other.spMfPuMetalic)) {
+        if (!Objects.equals(this.spMfPuMetallic, other.spMfPuMetallic)) {
             return false;
         }
         if (!Objects.equals(this.spHmrSolid, other.spHmrSolid)) {
@@ -674,7 +674,7 @@ public class InfinityWardrobe {
 
     @Override
     public String toString() {
-        return "InfinityWardrobe{" + "id=" + id + ", productCode=" + productCode + ", category=" + category + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", cpPpb=" + cpPpb + ", cpMf=" + cpMf + ", cpHmr=" + cpHmr + ", cpHf=" + cpHf + ", spMfSt=" + spMfSt + ", spMfDes=" + spMfDes + ", spMfGlReg=" + spMfGlReg + ", spMfGlossPrem=" + spMfGlossPrem + ", spHplMatt=" + spHplMatt + ", spPlyHplGloss=" + spPlyHplGloss + ", spPlyHplMr=" + spPlyHplMr + ", spMfPolymer=" + spMfPolymer + ", spPlyAcrStd=" + spPlyAcrStd + ", spPlyAcrPrem=" + spPlyAcrPrem + ", spHdfAcrStd=" + spHdfAcrStd + ", spHdfAcrPrem=" + spHdfAcrPrem + ", spMfPuSolid=" + spMfPuSolid + ", spMfPuMetalic=" + spMfPuMetalic + ", spHmrSolid=" + spHmrSolid + ", spHmrMetallic=" + spHmrMetallic + ", spPlyPuSolid=" + spPlyPuSolid + ", spPlyPuMetallic=" + spPlyPuMetallic + ", spPrePbEdgeb=" + spPrePbEdgeb + ", spPreMfEdgeb=" + spPreMfEdgeb + ", spPreHmrEdgeb=" + spPreHmrEdgeb + ", spHmrStd=" + spHmrStd + ", spHmrDesg=" + spHmrDesg + ", spHmrGlossReg=" + spHmrGlossReg + ", spHmrGlossPremium=" + spHmrGlossPremium + ", spG55AcidFrosted=" + spG55AcidFrosted + ", spGloriaStd=" + spGloriaStd + ", spGloriaDesg=" + spGloriaDesg + ", spGloriaGlossReg=" + spGloriaGlossReg + ", spGloriaGlossPremium=" + spGloriaGlossPremium + ", spGloriaPuSolid=" + spGloriaPuSolid + ", spGloriaPuMetallic=" + spGloriaPuMetallic + ", spVenettaMfPuSolid=" + spVenettaMfPuSolid + ", spVenettaMfPuMetallic=" + spVenettaMfPuMetallic + ", spHfAcrGlass=" + spHfAcrGlass + ", hingeSoftClose=" + hingeSoftClose + ", hingeBlumSoftClose=" + hingeBlumSoftClose + ", hingeDeg155=" + hingeDeg155 + '}';
+        return "InfinityWardrobe{" + "id=" + id + ", productCode=" + productCode + ", category=" + category + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", cpPpb=" + cpPpb + ", cpMf=" + cpMf + ", cpHmr=" + cpHmr + ", cpHf=" + cpHf + ", spMfSt=" + spMfSt + ", spMfDes=" + spMfDes + ", spMfGlReg=" + spMfGlReg + ", spMfGlossPrem=" + spMfGlossPrem + ", spHplMatt=" + spHplMatt + ", spPlyHplGloss=" + spPlyHplGloss + ", spPlyHplMr=" + spPlyHplMr + ", spMfPolymer=" + spMfPolymer + ", spPlyAcrStd=" + spPlyAcrStd + ", spPlyAcrPrem=" + spPlyAcrPrem + ", spHdfAcrStd=" + spHdfAcrStd + ", spHdfAcrPrem=" + spHdfAcrPrem + ", spMfPuSolid=" + spMfPuSolid + ", spMfPuMetallic=" + spMfPuMetallic + ", spHmrSolid=" + spHmrSolid + ", spHmrMetallic=" + spHmrMetallic + ", spPlyPuSolid=" + spPlyPuSolid + ", spPlyPuMetallic=" + spPlyPuMetallic + ", spPrePbEdgeb=" + spPrePbEdgeb + ", spPreMfEdgeb=" + spPreMfEdgeb + ", spPreHmrEdgeb=" + spPreHmrEdgeb + ", spHmrStd=" + spHmrStd + ", spHmrDesg=" + spHmrDesg + ", spHmrGlossReg=" + spHmrGlossReg + ", spHmrGlossPremium=" + spHmrGlossPremium + ", spG55AcidFrosted=" + spG55AcidFrosted + ", spGloriaStd=" + spGloriaStd + ", spGloriaDesg=" + spGloriaDesg + ", spGloriaGlossReg=" + spGloriaGlossReg + ", spGloriaGlossPremium=" + spGloriaGlossPremium + ", spGloriaPuSolid=" + spGloriaPuSolid + ", spGloriaPuMetallic=" + spGloriaPuMetallic + ", spVenettaMfPuSolid=" + spVenettaMfPuSolid + ", spVenettaMfPuMetallic=" + spVenettaMfPuMetallic + ", spHfAcrGlass=" + spHfAcrGlass + ", hingeSoftClose=" + hingeSoftClose + ", hingeBlumSoftClose=" + hingeBlumSoftClose + ", hingeDeg155=" + hingeDeg155 + '}';
     }
-
+    
 }

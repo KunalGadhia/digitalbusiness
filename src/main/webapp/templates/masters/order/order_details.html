@@ -1683,6 +1683,303 @@
         </div>
     </div>
 </div>
+<div class="panel panel-default" ng-if="showUltimaSeries">
+    <div class="panel-heading text-center">
+        <div>
+            <h3>Select Offerings</h3>
+        </div>
+        <div class="modal-body">
+            <div class="btn-group btn-group-lg btn-group-justified">
+                <a ng-click="selectView('ULTIMAWARDROBE')" class="btn btn-primary text-center">Ultima Wardrobe</a>
+                <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
+                <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
+                <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
+            </div>
+        </div>    
+
+        <div class="panel-heading text-center" ng-if="showUltimaWardrobe">
+            <div>
+                <h3>Enter Ultima Wardrobe Order Details</h3>
+            </div>
+            <form role="role" ng-submit="saveUltimaWardrobeDetails(editableMaxWardrobeDetail)">
+                <!--                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Select Category</label>                   
+                                            <select class="form-control" ng-model="editableMaxWardrobeDetail.category" required="">
+                                                <option value="">Select Category</option>
+                                                <option value="ADD_ON_SHELF">Add On Shelf</option>
+                                                <option value="CHEST_OF_DRAWER">Chest Of Drawer</option>
+                                                <option value="DRAWER">Drawer</option>
+                                                <option value="DRESSER_UNIT">Dresser Unit</option>
+                                                <option value="END_PANEL">End Panel</option>
+                                                <option value="FILLER">Filler</option>
+                                                <option value="GALLERY_SHELF">Gallery Shelf</option>
+                                                <option value="HANDLE">Handle</option>
+                                                <option value="HANGER_ROD">Hanger Rod</option>
+                                                <option value="HINGES">Hinges</option>
+                                                <option value="LOFT_C">Loft C</option>
+                                                <option value="LOFT_GRID">Loft Grid</option>
+                                                <option value="LOFT_END_PANEL">Loft End Panel</option>
+                                                <option value="LOFT_SKIRTING">Loft Skirting</option>
+                                                <option value="MIRROR_FRAME">Mirror Frame</option>
+                                                <option value="SKIRTING">Skirting</option>
+                                                <option value="SLIDE">Slide</option>
+                                                <option value="SPECIAL_PANEL">Special Panel</option>
+                                                <option value="TROUSER_RACK">Trouser Rack</option>
+                                                <option value="WARDROBE">Wardrobe</option>
+                                            </select>
+                                        </div>
+                                    </div>                
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Component</label>
+                                            <select class="form-control" ng-model="editableMaxWardrobeDetail.componentId" required="">
+                                                <option value="">Select Component</option>
+                                                <option ng-repeat="component in maxWardrobeComponentList" value="{{component.id}}">{{component.description}}</option>
+                                            </select>
+                                        </div>                                      
+                                    </div>                
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Carcass</label>
+                                            <select class="form-control" ng-model="editableMaxWardrobeDetail.carcass" required="">
+                                                <option value="">Select Carcass Material</option>
+                                                <option value="PPB" ng-if="maxWardrobeObject.cpPpbPrice !== 0">Partical Board</option>
+                                                <option value="HD_HMR" ng-if="maxWardrobeObject.cpHdHmrPrice !== 0">HD HMR</option>
+                                                <option value="HDF" ng-if="maxWardrobeObject.cpHdfPrice !== 0">HDF</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Shutter</label>
+                                            <select class="form-control" ng-model="editableMaxWardrobeDetail.shutterFinish">
+                                                <option value="">Select Shutter Finish</option>
+                                                <option value="0">No Shutter Available for this item</option>
+                                                <option value="SP_FOILED_MATT" ng-if="maxWardrobeObject.spFoiledMattPrice !== 0">Foiled Matt Shutter</option>
+                                                <option value="SP_FOILED_GLOSSY" ng-if="maxWardrobeObject.spFoiledGlossyPrice !== 0">Foiled Glossy Shutter</option>
+                                                <option value="SP_PRELAM_MATT" ng-if="maxWardrobeObject.spPrelamMattPrice !== 0">Prelam Matt Shutter</option>
+                                                <option value="SP_PCPPB" ng-if="maxWardrobeObject.spPcppbPrice !== 0">3 Pc PPB Shutter</option>
+                                                <option value="G50_GLASS" ng-if="maxWardrobeObject.spGlassG50AluPrice !== 0">Glass G50 Aluminium Shutter</option>
+                                                <option value="SP_PVC_STD" ng-if="maxWardrobeObject.spPvcMdfStdPrice !== 0">PVC MDF Standard Shutter</option>
+                                                <option value="SP_PVC_DESG" ng-if="maxWardrobeObject.spPvcMdfDesgPrice !== 0">PVC MDF Designer Shutter</option>
+                                                <option value="SP_PVC_GLOSSY" ng-if="maxWardrobeObject.spPvcMdfGlossyPrice !== 0">PVC MDF Glossy Shutter</option>
+                                                <option value="SP_PVC_PREM" ng-if="maxWardrobeObject.spPvcMdfPremPrice !== 0">PVC MDF Prelam Shutter</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">                    
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Width (in mm)</label>
+                                                <input class="form-control" ng-model="editableMaxWardrobeDetail.width" readonly="">
+                                            </div>                        
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Height (in mm)</label>
+                                                <input class="form-control" ng-model="editableMaxWardrobeDetail.height" readonly="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Depth (in mm)</label>
+                                                <input class="form-control" ng-model="editableMaxWardrobeDetail.depth" readonly="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Quantity</label>
+                                                <input class="form-control" ng-model="editableMaxWardrobeDetail.quantity" required="">
+                                            </div>
+                                        </div>
+                                    </div>                
+                                </div>                
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-lg btn-primary">
+                                        <i class="fa fa-save"></i>
+                                        Add
+                                    </button>                       				
+                                </div>-->
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default" ng-if="showInfinitySeries">
+    <div class="panel-heading text-center">
+        <div>
+            <h3>Select Offerings</h3>
+        </div>
+        <div class="modal-body">
+            <div class="btn-group btn-group-lg btn-group-justified">
+                <a ng-click="selectView('INFINITYWARDROBE')" class="btn btn-primary text-center">Infinity Wardrobe</a>
+                <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
+                <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
+                <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
+            </div>
+        </div>    
+
+        <div class="panel-heading text-center" ng-if="showInfinityWardrobe">
+            <div>
+                <h3>Enter Infinity Wardrobe Order Details</h3>
+            </div>
+            <form role="role" ng-submit="saveInfinityWardrobeDetails(editableInfinityWardrobeDetail)">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Select Category</label>                   
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetail.category" required="">
+                                <option value="">Select Category</option>
+                                <option value="WARDROBE">Wardrobe</option>
+                                <option value="LOFT_UNIT">Loft Unit</option>
+                                <option value="CHEST_OF_DRAWER">Chest Of Drawer</option>
+                                <option value="GALLERY_SHELF">Gallery Shelf</option>
+                                <option value="TROUSER_RACK">Trouser Rack</option>
+                                <option value="FILLER">Filler</option>
+                                <option value="END_PANEL">End Panel</option>                               
+                            </select>
+                        </div>
+                    </div>                
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Component</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetail.componentId" required="">
+                                <option value="">Select Component</option>
+                                <option ng-repeat="component in infinityWardrobeComponentList" value="{{component.id}}">{{component.description}}</option>
+                            </select>
+                        </div>                                      
+                    </div>                
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Carcass</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetail.carcass" required="">
+                                <option value="">Select Carcass Material</option>
+                                <option value="PB" ng-if="infinityWardrobeObject.cpPpb !== 0">Partical Board</option>
+                                <option value="MF" ng-if="infinityWardrobeObject.cpMf !== 0">MDF</option>
+                                <option value="HM" ng-if="infinityWardrobeObject.cpHmr !== 0">HMR</option>
+                                <option value="HF" ng-if="infinityWardrobeObject.cpHf !== 0">HDF</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Carcass Color</label>                    
+                            <div class="input-group">
+                                <input class="form-control" placeholder="Select Carcass Color" ng-model="infinityCarcassColorName" required="" onkeypress="return false;" readonly=""/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" ng-click="openInfinityCarcassColorWidget()">Select Color</button>
+                                </span>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Shutter</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetail.shutterFinish">
+                                <option value="">Select Shutter Finish</option>
+                                <option value="0">No Shutter Available for this item</option>
+                                <option value="XXC" ng-if="infinityWardrobeObject.spMfSt !== 0">Membrane Standard</option>
+                                <option value="XXB" ng-if="infinityWardrobeObject.spMfDes !== 0">Membrane Designer</option>
+                                <option value="XXA" ng-if="infinityWardrobeObject.spMfGlReg !== 0">Membrane Glossy Regular</option>
+                                <option value="XAH" ng-if="infinityWardrobeObject.spMfGlossPrem !== 0">Membrane Glossy Premium</option>
+                                <option value="XXI" ng-if="infinityWardrobeObject.spHplMatt !== 0">HPL Matt</option>
+                                <option value="XXH" ng-if="infinityWardrobeObject.spPlyHplGloss !== 0">HPL Ply Gloss</option>
+                                <option value="XXG" ng-if="infinityWardrobeObject.spPlyHplMr !== 0">HPL Ply MR</option>
+                                <option value="XXN" ng-if="infinityWardrobeObject.spMfPolymer !== 0">MDF Polymer</option>
+                                <option value="XXL" ng-if="infinityWardrobeObject.spPlyAcrStd !== 0">Ply Acrylic Standard</option>
+                                <option value="XXM" ng-if="infinityWardrobeObject.spPlyAcrPrem !== 0">Ply Acrylic Premium</option>
+                                <option value="XXJ" ng-if="infinityWardrobeObject.spHdfAcrStd !== 0">HDF Acrylic Standard</option>
+                                <option value="XXK" ng-if="infinityWardrobeObject.spHdfAcrPrem !== 0">HDF Acrylic Premium</option>
+                                <option value="XXS" ng-if="infinityWardrobeObject.spMfPuSolid !== 0">MDF PU Solid</option>
+                                <option value="XXT" ng-if="infinityWardrobeObject.spMfPuMetallic !== 0">MDF PU Metallic</option>
+                                <option value="XXO" ng-if="infinityWardrobeObject.spHmrSolid !== 0">HMR Solid</option>
+                                <option value="XXP" ng-if="infinityWardrobeObject.spHmrMetallic !== 0">HMR Metallic</option>
+                                <option value="XXQ" ng-if="infinityWardrobeObject.spPlyPuSolid !== 0">Ply PU Solid</option>
+                                <option value="XXP" ng-if="infinityWardrobeObject.spPlyPuMetallic !== 0">Ply PU Metallic</option>
+                                <option value="XAI" ng-if="infinityWardrobeObject.spPrePbEdgeb !== 0">Prelam PB Edgebinded</option>
+                                <option value="XAJ" ng-if="infinityWardrobeObject.spPreMfEdgeb !== 0">Prelam MDF Edgebinded</option>
+                                <option value="XAK" ng-if="infinityWardrobeObject.spPreHmrEdgeb !== 0">Prelam HMR Edgebinded</option>
+                                <option value="XXF" ng-if="infinityWardrobeObject.spHmrStd !== 0">HMR Standard</option>
+                                <option value="XXE" ng-if="infinityWardrobeObject.spHmrDesg !== 0">HMR Designer</option>
+                                <option value="XXD" ng-if="infinityWardrobeObject.spHmrGlossReg !== 0">HMR Glossy Regular</option>
+                                <option value="XAL" ng-if="infinityWardrobeObject.spHmrGlossPremium !== 0">HMR Glossy Premium</option>
+                                <option value="XAM" ng-if="infinityWardrobeObject.spG55AcidFrosted !== 0">G55 Acid Frosted</option>
+                                <option value="XAN" ng-if="infinityWardrobeObject.spGloriaStd !== 0">Gloria Standard</option>
+                                <option value="XAO" ng-if="infinityWardrobeObject.spGloriaDesg !== 0">Gloria Designer</option>
+                                <option value="XAP" ng-if="infinityWardrobeObject.spGloriaGlossReg !== 0">Gloria Glossy Regular</option>
+                                <option value="XAQ" ng-if="infinityWardrobeObject.spGloriaGlossPremium !== 0">Gloria Glossy Premium</option>
+                                <option value="XAV" ng-if="infinityWardrobeObject.spGloriaPuSolid !== 0">Gloria PU Solid</option>
+                                <option value="XAR" ng-if="infinityWardrobeObject.spGloriaPuMetallic !== 0">Gloria PU Metallic</option>
+                                <option value="XAS" ng-if="infinityWardrobeObject.spVenettaMfPuSolid !== 0">Venetta MDF PU Solid</option>
+                                <option value="XAT" ng-if="infinityWardrobeObject.spVenettaMfPuMetallic !== 0">Venetta MDF PU Metallic</option>
+                                <option value="XAU" ng-if="infinityWardrobeObject.spHfAcrGlass !== 0">HDF Acrylic Glass</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Shutter Color</label>                    
+                            <div class="input-group">
+                                <input class="form-control" placeholder="Select Shutter Color" ng-model="infinityShutterColorName" required="" onkeypress="return false;" readonly=""/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" ng-click="openInfinityShutterColorWidget()">Select Color</button>
+                                </span>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Hinge</label>                            
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetail.hinge">
+                                <option value="HS">Hinge Soft Close</option>
+                                <option value="HB">Hinge Blum Soft Close</option>
+                                <option value="HD">Hinge 155 Degree</option>
+                            </select>                            
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Width (in mm)</label>
+                            <input class="form-control" ng-model="editableInfinityWardrobeDetail.width" readonly="">
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Depth (in mm)</label>
+                            <input class="form-control" ng-model="editableInfinityWardrobeDetail.depth" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Height (in mm)</label>
+                            <input class="form-control" ng-model="editableInfinityWardrobeDetail.height" readonly="">
+                        </div>
+                    </div>                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" min="1" class="form-control" ng-model="editableInfinityWardrobeDetail.quantity" required="">
+                        </div>
+                    </div>
+                </div>                
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        <i class="fa fa-save"></i>
+                        Add
+                    </button>                       				
+                </div>
+            </form>
+        </div>  
+    </div>
+</div>
+<!--</div>-->
 
 <!--//////////////Order List View//////////////////////////-->
 <div class="panel panel-default">
@@ -2423,6 +2720,68 @@
                         </td>
                     </tr>
                 </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-heading text-center" ng-show="infinityWardrobeOrderDetailList.length > 0">
+        <div>
+            <h3>Infinity Wardrobe Details List</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Colors</th>
+                        <th>Section Profile</th>
+                        <th>Shelf Count</th>                        
+                        <th>Thickness</th>
+                        <th>Width</th>
+                        <th>Length</th>
+                        <th>Depth</th>
+                        <th>Remark</th>
+                        <th>Quantity</th>
+                        <th>Price (INR)</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetails in infinityWardrobeOrderDetailList">
+                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <td class="text-left">{{ orderDetails.productCode}}</td>
+                        <td class="text-left">
+                            <span>{{orderDetails.description}}</span>                            
+                        </td>
+                        <td class="text-left">
+                            <span><strong>Carcass Color :</strong> {{orderDetails.carcassColorName}}</span>
+                            <span ng-if="orderDetails.shutterColorName !== null">& <strong>Shutter Color :</strong> {{orderDetails.shutterColorName}}</span>
+                        </td>
+                        <td>N/A</td>                        
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">N/A</td>                          
+                        <td class="text-left">{{orderDetails.width}} mm</td>
+                        <td class="text-left">{{orderDetails.height}} mm</td>
+                        <td class="text-left">{{orderDetails.depth}} mm</td>
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{ orderDetails.quantity}}</td> 
+                        <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
+                        <td class="text-right">                            
+                            <a data-ui-sref="admin.masters_order_details.infinity_wardrobe_delete({ infinityWardrobeDetailId: orderDetails.id})"
+                               class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-left ng-hide" colspan="2"><input id="infinityWardrobeTotal" class="form-control" value="{{infinityWardrobeOrderDetailList| total:'price'}}"></td>
+                        <td class="text-right" colspan="12"><strong>Total Order Value for Infinity Wardrobe in INR :</strong></td>
+                        <td class="text-left" colspan="2">&#8377; {{infinityWardrobeOrderDetailList| total:'price' | number: 2}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -3488,4 +3847,74 @@
     </div>
 </div>
 <!--/////////////Filler Selection Panel Ends/////////////////-->
+<!-- Infinity Wardrobes Selection Panel Starts -->
+<div class="modal modal-digitalbusiness" ng-if="showInfinityCarcassColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom:40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Carcass Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height:450px">                
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px">
+                    <div class=row ng-repeat="sortedColor in infinityCarcassColors1">                        
+                        <div>                            
+                            <ul>
+                                <li><b class="text-center"> {{sortedColor.colorName}}</b> &nbsp;<button class="next btn-next" ng-click="selectPreInfinityCarcassColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">View Color</button></li>
+                            </ul>
+                        </div>
+                        <hr>                        
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preInfinityCarcassColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preInfinityCarcassColor.colorName}}</b>                    
+                    <br>
+                    <button class="next btn-next" ng-click="selectInfinityCarcassColor(preInfinityCarcassColor.id, preInfinityCarcassColor.colorName, preInfinityCarcassColor.colorCode)">Select Color</button>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showInfinityShutterColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom:40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Shutter Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height:450px">                
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px">
+                    <div class=row ng-repeat="sortedColor in infinityShutterColors1">                        
+                        <div>                            
+                            <ul>
+                                <li><b class="text-center"> {{sortedColor.colorName}}</b> &nbsp;<button class="next btn-next" ng-click="selectPreInfinityShutterColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">View Color</button></li>
+                            </ul>
+                        </div>
+                        <hr>                        
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preInfinityShutterColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preInfinityShutterColor.colorName}}</b>                    
+                    <br>
+                    <button class="next btn-next" ng-click="selectInfinityShutterColor(preInfinityShutterColor.id, preInfinityShutterColor.colorName, preInfinityShutterColor.colorCode)">Select Color</button>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<!-- Infinity Wardrobes Selection Panel Ends -->
 <div data-ui-view=""></div>

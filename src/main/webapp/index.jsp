@@ -358,7 +358,10 @@
         <script src="${pageContext.request.contextPath}/js/services/shutter_component_mapping_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/drawer_component_mapping_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/max_beds_service.js"></script>
-
+        <script src="${pageContext.request.contextPath}/js/services/infinity_wardrobe_order_details_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/ultima_wardrobe_order_details_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/infinity_wardrobe_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/ultima_wardrobe_service.js"></script>        
     </head>
     <body style="font-family: 'Roboto', sans-serif;">
         <div data-ui-view></div>

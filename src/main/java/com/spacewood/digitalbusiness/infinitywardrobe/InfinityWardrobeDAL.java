@@ -21,11 +21,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class InfinityWardrobeDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
         public static final String PRODUCT_CODE = "product_code";
-        public static final String CATEGORY = "category";        
+        public static final String CATEGORY = "category";
         public static final String DESCRIPTION = "description";
         public static final String WIDTH = "width";
         public static final String DEPTH = "depth";
@@ -72,8 +73,7 @@ public class InfinityWardrobeDAL {
         public static final String HINGE_SOFT_CLOSE = "hinge_soft_close";
         public static final String HINGE_BLUM_SOFT_CLOSE = "hinge_blum_soft_close";
         public static final String HINGE_DEG155 = "hinge_deg155";
-        
-        
+
     }
 
     public static final String TABLE_NAME = "infinity_wardrobe_master";
@@ -88,11 +88,11 @@ public class InfinityWardrobeDAL {
                 .withTableName(TABLE_NAME)
                 .usingColumns(
                         Columns.PRODUCT_CODE,
-                        Columns.CATEGORY,                        
+                        Columns.CATEGORY,
                         Columns.DESCRIPTION,
                         Columns.WIDTH,
                         Columns.DEPTH,
-                        Columns.HEIGHT,                        
+                        Columns.HEIGHT,
                         Columns.CP_PPB,
                         Columns.CP_MF,
                         Columns.CP_HMR,
@@ -135,7 +135,6 @@ public class InfinityWardrobeDAL {
                         Columns.HINGE_SOFT_CLOSE,
                         Columns.HINGE_BLUM_SOFT_CLOSE,
                         Columns.HINGE_DEG155
-                        
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -144,7 +143,7 @@ public class InfinityWardrobeDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(InfinityWardrobe.class));
     }
-    
+
     public List<InfinityWardrobe> findByCategory(String category) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{category}, new BeanPropertyRowMapper<>(InfinityWardrobe.class));
@@ -191,7 +190,7 @@ public class InfinityWardrobeDAL {
         parameters.put(Columns.SP_HDF_ACR_STD, infinityWardrobe.getSpHdfAcrStd());
         parameters.put(Columns.SP_HDF_ACR_PREM, infinityWardrobe.getSpHdfAcrPrem());
         parameters.put(Columns.SP_MF_PU_SOLID, infinityWardrobe.getSpMfPuSolid());
-        parameters.put(Columns.SP_MF_PU_METALLIC, infinityWardrobe.getSpMfPuMetalic());
+        parameters.put(Columns.SP_MF_PU_METALLIC, infinityWardrobe.getSpMfPuMetallic());
         parameters.put(Columns.SP_HMR_SOLID, infinityWardrobe.getSpHmrSolid());
         parameters.put(Columns.SP_HMR_METALLIC, infinityWardrobe.getSpHmrMetallic());
         parameters.put(Columns.SP_PLY_PU_SOLID, infinityWardrobe.getSpPlyPuSolid());
@@ -216,7 +215,6 @@ public class InfinityWardrobeDAL {
         parameters.put(Columns.HINGE_SOFT_CLOSE, infinityWardrobe.getHingeSoftClose());
         parameters.put(Columns.HINGE_BLUM_SOFT_CLOSE, infinityWardrobe.getHingeBlumSoftClose());
         parameters.put(Columns.HINGE_DEG155, infinityWardrobe.getHingeDeg155());
-        
 
         Number newId = insertInfinityWardrobe.executeAndReturnKey(parameters);
         infinityWardrobe = findById(newId.intValue());
@@ -231,12 +229,12 @@ public class InfinityWardrobeDAL {
     public InfinityWardrobe update(InfinityWardrobe infinityWardrobe) {
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.PRODUCT_CODE + " = ?,"
-                + Columns.CATEGORY + " = ?,"                
+                + Columns.CATEGORY + " = ?,"
                 + Columns.DESCRIPTION + " = ?, "
                 + Columns.WIDTH + " = ?,"
                 + Columns.DEPTH + " = ?,"
-                + Columns.HEIGHT + " = ?,"                
-                + Columns.CP_PPB + " = ?,"                
+                + Columns.HEIGHT + " = ?,"
+                + Columns.CP_PPB + " = ?,"
                 + Columns.CP_MF + " = ?,"
                 + Columns.CP_HMR + " = ?,"
                 + Columns.CP_HF + " = ?,"
@@ -281,11 +279,11 @@ public class InfinityWardrobeDAL {
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     infinityWardrobe.getProductCode(),
-                    infinityWardrobe.getCategory().name(),                    
+                    infinityWardrobe.getCategory().name(),
                     infinityWardrobe.getDescription(),
                     infinityWardrobe.getWidth(),
                     infinityWardrobe.getDepth(),
-                    infinityWardrobe.getHeight(),                    
+                    infinityWardrobe.getHeight(),
                     infinityWardrobe.getCpPpb(),
                     infinityWardrobe.getCpMf(),
                     infinityWardrobe.getCpHmr(),
@@ -303,7 +301,7 @@ public class InfinityWardrobeDAL {
                     infinityWardrobe.getSpHdfAcrStd(),
                     infinityWardrobe.getSpHdfAcrPrem(),
                     infinityWardrobe.getSpMfPuSolid(),
-                    infinityWardrobe.getSpMfPuMetalic(),
+                    infinityWardrobe.getSpMfPuMetallic(),
                     infinityWardrobe.getSpHmrSolid(),
                     infinityWardrobe.getSpHmrMetallic(),
                     infinityWardrobe.getSpPlyPuSolid(),

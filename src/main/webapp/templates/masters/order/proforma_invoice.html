@@ -323,6 +323,9 @@
                                     <span ng-show="orderDetails.shutterFinish === 'SP_PVC_GLOSSY'">& Shutter Finish : PVC MDF Glossy Shutter</span>
                                     <span ng-show="orderDetails.shutterFinish === 'SP_PVC_PREM'">& Shutter Finish : PVC MDF Prelam Shutter</span>
                                 </span>
+                                <span ng-if="orderDetails.orderFor === 'INFINITY_WARDROBE'">
+                                    <span>{{orderDetails.description}}</span>                                    
+                                </span>
                                 <!--                                <span ng-if="orderDetails.grainDirection !== undefined">
                                                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
                                                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
@@ -395,6 +398,10 @@
                                 <span ng-if="orderDetails.orderFor === 'MAX_WARDROBE'">
                                     <span>N/A</span>                                    
                                 </span>
+                                <span ng-if="orderDetails.orderFor === 'INFINITY_WARDROBE'">
+                                    <span><strong>Carcass Color :</strong> {{orderDetails.carcassColorName}}</span>
+                                    <span ng-if="orderDetails.shutterColorName !== null">& <strong>Shutter Color :</strong> {{orderDetails.shutterColorName}}</span>                                  
+                                </span>
 
                             </td>
                             <td>
@@ -448,6 +455,9 @@
                                     {{ orderDetails.height}} mm
                                 </span>
                                 <span ng-if="orderDetails.orderFor === 'MAX_WARDROBE'">
+                                    {{ orderDetails.height}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'INFINITY_WARDROBE'">
                                     {{ orderDetails.height}} mm
                                 </span>
                             </td>                            

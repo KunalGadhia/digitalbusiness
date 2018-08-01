@@ -16,6 +16,7 @@ public class UltimaWardrobeOrderDetails {
     private Integer orderHeadId;
     private String productCode;
     private String component;
+    private String description;
     private String carcassMaterial;
     private String shutterFinish;
     private String handle;
@@ -64,6 +65,14 @@ public class UltimaWardrobeOrderDetails {
 
     public void setComponent(String component) {
         this.component = component;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCarcassMaterial() {
@@ -204,28 +213,29 @@ public class UltimaWardrobeOrderDetails {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.id);
-        hash = 23 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 23 * hash + Objects.hashCode(this.productCode);
-        hash = 23 * hash + Objects.hashCode(this.component);
-        hash = 23 * hash + Objects.hashCode(this.carcassMaterial);
-        hash = 23 * hash + Objects.hashCode(this.shutterFinish);
-        hash = 23 * hash + Objects.hashCode(this.handle);
-        hash = 23 * hash + Objects.hashCode(this.width);
-        hash = 23 * hash + Objects.hashCode(this.depth);
-        hash = 23 * hash + Objects.hashCode(this.height);
-        hash = 23 * hash + Objects.hashCode(this.quantity);
-        hash = 23 * hash + Objects.hashCode(this.carcassPrice);
-        hash = 23 * hash + Objects.hashCode(this.shutterPrice);
-        hash = 23 * hash + Objects.hashCode(this.handlePrice);
-        hash = 23 * hash + Objects.hashCode(this.price);
-        hash = 23 * hash + Objects.hashCode(this.carcassColorId);
-        hash = 23 * hash + Objects.hashCode(this.shutterColorId);
-        hash = 23 * hash + Objects.hashCode(this.carcassColorCode);
-        hash = 23 * hash + Objects.hashCode(this.shutterColorCode);
-        hash = 23 * hash + Objects.hashCode(this.remark);
-        hash = 23 * hash + Objects.hashCode(this.orderFor);
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 59 * hash + Objects.hashCode(this.productCode);
+        hash = 59 * hash + Objects.hashCode(this.component);
+        hash = 59 * hash + Objects.hashCode(this.description);
+        hash = 59 * hash + Objects.hashCode(this.carcassMaterial);
+        hash = 59 * hash + Objects.hashCode(this.shutterFinish);
+        hash = 59 * hash + Objects.hashCode(this.handle);
+        hash = 59 * hash + Objects.hashCode(this.width);
+        hash = 59 * hash + Objects.hashCode(this.depth);
+        hash = 59 * hash + Objects.hashCode(this.height);
+        hash = 59 * hash + Objects.hashCode(this.quantity);
+        hash = 59 * hash + Objects.hashCode(this.carcassPrice);
+        hash = 59 * hash + Objects.hashCode(this.shutterPrice);
+        hash = 59 * hash + Objects.hashCode(this.handlePrice);
+        hash = 59 * hash + Objects.hashCode(this.price);
+        hash = 59 * hash + Objects.hashCode(this.carcassColorId);
+        hash = 59 * hash + Objects.hashCode(this.shutterColorId);
+        hash = 59 * hash + Objects.hashCode(this.carcassColorCode);
+        hash = 59 * hash + Objects.hashCode(this.shutterColorCode);
+        hash = 59 * hash + Objects.hashCode(this.remark);
+        hash = 59 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -245,6 +255,9 @@ public class UltimaWardrobeOrderDetails {
             return false;
         }
         if (!Objects.equals(this.component, other.component)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
             return false;
         }
         if (!Objects.equals(this.carcassMaterial, other.carcassMaterial)) {
@@ -309,7 +322,7 @@ public class UltimaWardrobeOrderDetails {
 
     @Override
     public String toString() {
-        return "UltimaWardrobeOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", productCode=" + productCode + ", component=" + component + ", carcassMaterial=" + carcassMaterial + ", shutterFinish=" + shutterFinish + ", handle=" + handle + ", width=" + width + ", depth=" + depth + ", height=" + height + ", quantity=" + quantity + ", carcassPrice=" + carcassPrice + ", shutterPrice=" + shutterPrice + ", handlePrice=" + handlePrice + ", price=" + price + ", carcassColorId=" + carcassColorId + ", shutterColorId=" + shutterColorId + ", carcassColorCode=" + carcassColorCode + ", shutterColorCode=" + shutterColorCode + ", remark=" + remark + ", orderFor=" + orderFor + '}';
-    }
+        return "UltimaWardrobeOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", productCode=" + productCode + ", component=" + component + ", description=" + description + ", carcassMaterial=" + carcassMaterial + ", shutterFinish=" + shutterFinish + ", handle=" + handle + ", width=" + width + ", depth=" + depth + ", height=" + height + ", quantity=" + quantity + ", carcassPrice=" + carcassPrice + ", shutterPrice=" + shutterPrice + ", handlePrice=" + handlePrice + ", price=" + price + ", carcassColorId=" + carcassColorId + ", shutterColorId=" + shutterColorId + ", carcassColorCode=" + carcassColorCode + ", shutterColorCode=" + shutterColorCode + ", remark=" + remark + ", orderFor=" + orderFor + '}';
+    }   
         
 }
