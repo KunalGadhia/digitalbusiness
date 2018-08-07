@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class HardwareOrderDetailsDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
@@ -29,7 +30,8 @@ public class HardwareOrderDetailsDAL {
         public static final String HARDWARE_NAME = "hardware_name";
         public static final String STD_PRICE = "std_price";
         public static final String QUANTITY = "quantity";
-        public static final String PRICE = "price";        
+        public static final String PRICE = "price";
+        public static final String DISPLAY_DISCOUNT = "display_discount";
         public static final String ORDER_FOR = "order_for";
 
     }
@@ -50,7 +52,8 @@ public class HardwareOrderDetailsDAL {
                         Columns.HARDWARE_NAME,
                         Columns.STD_PRICE,
                         Columns.QUANTITY,
-                        Columns.PRICE,                        
+                        Columns.PRICE,
+                        Columns.DISPLAY_DISCOUNT,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -74,7 +77,7 @@ public class HardwareOrderDetailsDAL {
     public List<HardwareOrderDetails> findByOrderHeadId(Integer orderHeadId) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_HEAD_ID + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{orderHeadId}, new BeanPropertyRowMapper<>(HardwareOrderDetails.class));
-    }    
+    }
 
     public HardwareOrderDetails insert(HardwareOrderDetails hardwareOrderDetails) {
         System.out.println("Insert Order Detail :" + hardwareOrderDetails);
@@ -84,7 +87,8 @@ public class HardwareOrderDetailsDAL {
         parameters.put(Columns.HARDWARE_NAME, hardwareOrderDetails.getHardwareName());
         parameters.put(Columns.STD_PRICE, hardwareOrderDetails.getStdPrice());
         parameters.put(Columns.QUANTITY, hardwareOrderDetails.getQuantity());
-        parameters.put(Columns.PRICE, Math.round(hardwareOrderDetails.getPrice()));        
+        parameters.put(Columns.PRICE, Math.round(hardwareOrderDetails.getPrice()));
+        parameters.put(Columns.DISPLAY_DISCOUNT, hardwareOrderDetails.getDisplayDiscount());
         parameters.put(Columns.ORDER_FOR, "HARDWARE");
 
         Number newId = insertHardwareOrderDetail.executeAndReturnKey(parameters);
@@ -103,7 +107,7 @@ public class HardwareOrderDetailsDAL {
                 + Columns.PRODUCT_CODE + " = ?, "
                 + Columns.HARDWARE_NAME + " = ?,"
                 + Columns.STD_PRICE + " = ?,"
-                + Columns.QUANTITY + " = ?,"                
+                + Columns.QUANTITY + " = ?,"
                 + Columns.PRICE + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
@@ -112,7 +116,7 @@ public class HardwareOrderDetailsDAL {
                     hardwareOrderDetails.getHardwareName(),
                     hardwareOrderDetails.getStdPrice(),
                     hardwareOrderDetails.getQuantity(),
-                    hardwareOrderDetails.getPrice(),                    
+                    hardwareOrderDetails.getPrice(),
                     hardwareOrderDetails.getId()
                 });
         hardwareOrderDetails = findById(hardwareOrderDetails.getId());

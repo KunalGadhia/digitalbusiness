@@ -1,0 +1,275 @@
+<div class="panel panel-default">
+    <div class="panel-heading text-center">       
+        <div class="pull-left">
+            <button class="btn btn-default" 
+                    type="button"
+                    onclick="window.history.back()">
+                Back
+            </button>
+        </div>
+        <div class="pull-right">            
+        </div>
+        <div>
+            <h3>Display Order Entry</h3>
+        </div>
+        <form role="role" ng-submit="saveOrderHead(editableOrderHead)">            
+            <div class="modal-body orderHeadForm">
+                <div class="modal-body row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="modal-header">
+                            <h4 class="modal-title pull-left">                        
+                                Billing Party Details
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Party Code</label>                                       
+                                        <input class="form-control"
+                                               placeholder="Enter Party Name"
+                                               uib-typeahead="party.id as party.dealerName for party in searchParty($viewValue)"
+                                               typeahead-on-select="setParty($item)"
+                                               typeahead-editable="false"
+                                               typeahead-loading="loadingParty" 
+                                               typeahead-no-results="noPartyFound"                                       
+                                               ng-model="editableOrderHead.party.dealerCode" required="" ng-if="adminPartyTypeAhead"/>
+                                        <p ng-show="noPartyFound" class="help-block text-muted">No Parties Found</p>
+                                        <p ng-show="loadingParty" class="help-block text-muted">Loading...</p>
+                                        <select class="form-control" ng-model="editableOrderHead.billingPartyId" required="" ng-if="dealerPartyDropdown">
+                                            <option value="">Select billing Party</option>
+                                            <option ng-repeat="party in dealerPartyList" value="{{party.id}}">{{party.dealerName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-6">Party Name</label>                                        
+                                        <input class="form-control" placeholder="Party Name" ng-model="editableOrderHead.party.dealerName" readonly="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="text-left">Party Address :</label>
+                                    <br>
+                                    <span class="text-left" ng-if="editableOrderHead.billingAdd1 != ''">
+                                        {{editableOrderHead.party.billingAdd1}}, {{editableOrderHead.party.billingAdd2}}
+                                    </span>                     
+                                    <br>
+                                    <span class="text-left">{{editableOrderHead.party.billingEmail}}</span>
+                                    <br>
+                                    <span>{{editableOrderHead.party.billBoardTel}} / {{editableOrderHead.party.directTelNo}}</span>
+                                    <hr>
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col-sm-6">                                  
+                                    <label class="col-sm-5 text-left">PAN No :</label>
+                                    <span class="col-sm-7 text-left">{{editableOrderHead.party.panNumber}}</span> 
+                                </div>
+                                <div class="col-sm-6">                                    
+                                    <label class="col-sm-5 text-left">GST No :</label>
+                                    <span class="col-sm-7 text-left">{{editableOrderHead.party.gstNumber}}</span> 
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="modal-header">
+                            <h4 class="modal-title pull-left">                        
+                                Delivery Party Details
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Party Code</label>
+                                        <input class="form-control"
+                                               placeholder="Enter Party Name"
+                                               uib-typeahead="party.id as party.dealerName for party in searchParty($viewValue)"
+                                               typeahead-on-select="setParty1($item)"
+                                               typeahead-editable="false"
+                                               typeahead-loading="loadingParty1" 
+                                               typeahead-no-results="noParty1Found"                                       
+                                               ng-model="editableOrderHead.party1.dealerCode" required="" ng-if="adminPartyTypeAhead"/>
+                                        <p ng-show="noParty1Found" class="help-block text-muted">No Parties Found</p>
+                                        <p ng-show="loadingParty1" class="help-block text-muted">Loading...</p>                      
+                                        <select class="form-control" ng-model="editableOrderHead.deliveryPartyId" required="" ng-if="dealerPartyDropdown">
+                                            <option value="">Select Delivery Party</option>
+                                            <option ng-repeat="party in dealerPartyList" value="{{party.id}}">{{party.dealerName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Party Name</label>
+                                        <input class="form-control" placeholder="Party Name" ng-model="editableOrderHead.party1.dealerName" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Address 1</label>
+                                        <input class="form-control" placeholder="Address 1" ng-model="editableOrderHead.party1.billingAdd1" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Address 2</label>
+                                        <input class="form-control" placeholder="Address 2" ng-model="editableOrderHead.party1.billingAdd2" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Address 3</label>
+                                        <input class="form-control" placeholder="Address 3" ng-model="editableOrderHead.party1.billingAdd3" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Address 4</label>
+                                        <input class="form-control" placeholder="Address 4" ng-model="editableOrderHead.party1.billingAdd4" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Party Email</label>
+                                        <input class="form-control" placeholder="Party Email" ng-model="editableOrderHead.party1.billingEmail" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Postal Code</label>
+                                        <input class="form-control" placeholder="Postal Code" ng-model="editableOrderHead.postalCode" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">                                
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Direct Telephone Number</label>
+                                        <input class="form-control" placeholder="Billing Fax" ng-model="editableOrderHead.party1.directTelNo"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Telephone Number</label>
+                                        <input class="form-control" placeholder="Bill Board Telephone" ng-model="editableOrderHead.party1.billBoardTel"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Fax Number</label>
+                                        <input class="form-control" placeholder="FAX Number" ng-model="editableOrderHead.party1.billingFax"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input class="form-control" placeholder="City" ng-model="editableOrderHead.party1.city"/>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body orderHeadForm">
+                <div class="modal-body row">
+                    <div class="modal-header">
+                        <h4 class="modal-title pull-left">                        
+                            Commercial Details
+                        </h4>
+                    </div>                    
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Bill Type</label>                                
+                                <select class="form-control" ng-model="editableOrderHead.billType">
+                                    <option value="">Select Bill Type</option>
+                                    <option value="D">DIRECT SALES</option>                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Order Sub Type</label>                                
+                                <select class="form-control" ng-model="editableOrderHead.orderSubType">
+                                    <option value="">Select Order Sub Type</option>                                    
+                                    <option value="D">DISPLAY</option>
+                                    <!--                                    <option value="D">DISPLAY</option>
+                                                                        <option value="R">REPLACEMENT</option>
+                                                                        <option value="S">STOCK</option>
+                                                                        <option value="C">COMMERCIAL</option>
+                                                                        <option value="F">FOC</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Project Name</label>
+                                <input type="text" class="form-control" placeholder="Project Name" ng-model="editableOrderHead.projectName" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>PO Number</label>
+                                <input type="text" class="form-control" placeholder="Purchase Order Number" ng-model="editableOrderHead.poNum" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Order Initiated By</label>
+                                <input type="text" class="form-control" placeholder="Order Initiated By" ng-model="editableOrderHead.user.username" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>PO Date</label>
+                                <input class="form-control" type="date" placeholder="DD-MM-YYYY" ng-model="editableOrderHead.poDate"/>                                
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>PO Value</label>
+                                <input class="form-control" type="number" placeholder="To be Filled after PI is Approved" ng-model="editableOrderHead.poValue" readonly=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Marketing Head</label>
+                                <input class="form-control" placeholder="Assigned Marketing Head" ng-model="editableOrderHead.employee.empName" readonly="">                                
+                            </div>
+                        </div>
+
+                    </div>                    
+                </div>                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-primary">
+                    <i class="fa fa-save"></i>
+                    Save
+                </button>
+                <button type="button"
+                        onclick="window.history.back()"
+                        class="btn btn-link" >
+                    cancel
+                </button>				
+            </div>
+        </form>
+    </div>
+</div>
+<div data-ui-view=""></div>
+

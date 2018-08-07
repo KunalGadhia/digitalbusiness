@@ -48,6 +48,7 @@ public class InfinityWardrobeOrderDetailsDAL {
         public static final String CARCASS_COLOR_NAME = "carcass_color_name";
         public static final String SHUTTER_COLOR_NAME = "shutter_color_name";
         public static final String REMARK = "remark";
+        public static final String DISPLAY_DISCOUNT = "display_discount";
         public static final String ORDER_FOR = "order_for";
     }
 
@@ -84,6 +85,7 @@ public class InfinityWardrobeOrderDetailsDAL {
                         Columns.CARCASS_COLOR_NAME,
                         Columns.SHUTTER_COLOR_NAME,
                         Columns.REMARK,
+                        Columns.DISPLAY_DISCOUNT,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -139,6 +141,7 @@ public class InfinityWardrobeOrderDetailsDAL {
         parameters.put(Columns.CARCASS_COLOR_NAME, infinityWardrobeOrderDetails.getCarcassColorName());
         parameters.put(Columns.SHUTTER_COLOR_NAME, infinityWardrobeOrderDetails.getShutterColorName());
         parameters.put(Columns.REMARK, infinityWardrobeOrderDetails.getRemark());
+        parameters.put(Columns.DISPLAY_DISCOUNT, infinityWardrobeOrderDetails.getDisplayDiscount());
         parameters.put(Columns.ORDER_FOR, infinityWardrobeOrderDetails.getOrderFor());
 
         Number newId = insertInfinityWardrobeOrderDetail.executeAndReturnKey(parameters);
@@ -175,6 +178,7 @@ public class InfinityWardrobeOrderDetailsDAL {
                 + Columns.CARCASS_COLOR_NAME + " = ?,"
                 + Columns.SHUTTER_COLOR_NAME + " = ?,"
                 + Columns.REMARK + " = ?,"
+                + Columns.DISPLAY_DISCOUNT + " = ?,"
                 + Columns.ORDER_FOR + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
@@ -200,6 +204,7 @@ public class InfinityWardrobeOrderDetailsDAL {
                     infinityWardrobeOrderDetails.getCarcassColorName(),
                     infinityWardrobeOrderDetails.getShutterColorName(),
                     infinityWardrobeOrderDetails.getRemark(),
+                    infinityWardrobeOrderDetails.getDisplayDiscount(),
                     infinityWardrobeOrderDetails.getOrderFor(),
                     infinityWardrobeOrderDetails.getId()
                 });

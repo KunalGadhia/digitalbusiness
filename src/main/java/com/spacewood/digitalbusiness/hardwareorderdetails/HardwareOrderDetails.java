@@ -19,6 +19,7 @@ public class HardwareOrderDetails {
     private Double stdPrice;
     private Integer quantity;
     private Double price;
+    private Double displayDiscount;
     private String orderFor;
 
     public Integer getId() {
@@ -77,6 +78,14 @@ public class HardwareOrderDetails {
         this.price = price;
     }
 
+    public Double getDisplayDiscount() {
+        return displayDiscount;
+    }
+
+    public void setDisplayDiscount(Double displayDiscount) {
+        this.displayDiscount = displayDiscount;
+    }
+
     public String getOrderFor() {
         return orderFor;
     }
@@ -87,15 +96,16 @@ public class HardwareOrderDetails {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 53 * hash + Objects.hashCode(this.productCode);
-        hash = 53 * hash + Objects.hashCode(this.hardwareName);
-        hash = 53 * hash + Objects.hashCode(this.stdPrice);
-        hash = 53 * hash + Objects.hashCode(this.quantity);
-        hash = 53 * hash + Objects.hashCode(this.price);
-        hash = 53 * hash + Objects.hashCode(this.orderFor);
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 97 * hash + Objects.hashCode(this.productCode);
+        hash = 97 * hash + Objects.hashCode(this.hardwareName);
+        hash = 97 * hash + Objects.hashCode(this.stdPrice);
+        hash = 97 * hash + Objects.hashCode(this.quantity);
+        hash = 97 * hash + Objects.hashCode(this.price);
+        hash = 97 * hash + Objects.hashCode(this.displayDiscount);
+        hash = 97 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -135,11 +145,15 @@ public class HardwareOrderDetails {
         if (!Objects.equals(this.price, other.price)) {
             return false;
         }
+        if (!Objects.equals(this.displayDiscount, other.displayDiscount)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "HardwareOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", productCode=" + productCode + ", hardwareName=" + hardwareName + ", stdPrice=" + stdPrice + ", quantity=" + quantity + ", price=" + price + ", orderFor=" + orderFor + '}';
-    }           
+        return "HardwareOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", productCode=" + productCode + ", hardwareName=" + hardwareName + ", stdPrice=" + stdPrice + ", quantity=" + quantity + ", price=" + price + ", displayDiscount=" + displayDiscount + ", orderFor=" + orderFor + '}';
+    }
+    
 }

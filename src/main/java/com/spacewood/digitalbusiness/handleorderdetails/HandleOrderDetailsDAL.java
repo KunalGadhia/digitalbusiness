@@ -33,6 +33,7 @@ public class HandleOrderDetailsDAL {
         public static final String PRICE = "price";
         public static final String FINISH = "finish";
         public static final String REMARK = "remark";
+        public static final String DISPLAY_DISCOUNT = "display_discount";
         public static final String ORDER_FOR = "order_for";
 
     }
@@ -56,6 +57,7 @@ public class HandleOrderDetailsDAL {
                         Columns.PRICE,
                         Columns.FINISH,
                         Columns.REMARK,
+                        Columns.DISPLAY_DISCOUNT,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -97,6 +99,7 @@ public class HandleOrderDetailsDAL {
         parameters.put(Columns.PRICE, Math.round(handleOrderDetails.getPrice()));
         parameters.put(Columns.FINISH, handleOrderDetails.getFinish());
         parameters.put(Columns.REMARK, handleOrderDetails.getRemark());
+        parameters.put(Columns.DISPLAY_DISCOUNT, handleOrderDetails.getDisplayDiscount());
         parameters.put(Columns.ORDER_FOR, "HANDLE");
 
         Number newId = insertHandleOrderDetail.executeAndReturnKey(parameters);

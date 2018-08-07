@@ -44,7 +44,10 @@ public class UltimaWardrobeOrderDetailsDAL {
         public static final String SHUTTER_COLOR_ID = "shutter_color_id";
         public static final String CARCASS_COLOR_CODE = "carcass_color_code";
         public static final String SHUTTER_COLOR_CODE = "shutter_color_code";
+        public static final String CARCASS_COLOR_NAME = "carcass_color_name";
+        public static final String SHUTTER_COLOR_NAME = "shutter_color_name";
         public static final String REMARK = "remark";
+        public static final String DISPLAY_DISCOUNT = "display_discount";
         public static final String ORDER_FOR = "order_for";
     }
 
@@ -77,8 +80,11 @@ public class UltimaWardrobeOrderDetailsDAL {
                         Columns.CARCASS_COLOR_ID,
                         Columns.SHUTTER_COLOR_ID,
                         Columns.CARCASS_COLOR_CODE,
-                        Columns.SHUTTER_COLOR_ID,
+                        Columns.SHUTTER_COLOR_CODE,
+                        Columns.CARCASS_COLOR_NAME,
+                        Columns.SHUTTER_COLOR_NAME,
                         Columns.REMARK,
+                        Columns.DISPLAY_DISCOUNT,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -131,7 +137,10 @@ public class UltimaWardrobeOrderDetailsDAL {
         parameters.put(Columns.SHUTTER_COLOR_ID, ultimaWardrobeOrderDetails.getShutterColorId());
         parameters.put(Columns.CARCASS_COLOR_CODE, ultimaWardrobeOrderDetails.getCarcassColorCode());
         parameters.put(Columns.SHUTTER_COLOR_CODE, ultimaWardrobeOrderDetails.getShutterColorCode());
+        parameters.put(Columns.CARCASS_COLOR_NAME, ultimaWardrobeOrderDetails.getCarcassColorName());
+        parameters.put(Columns.SHUTTER_COLOR_NAME, ultimaWardrobeOrderDetails.getShutterColorName());
         parameters.put(Columns.REMARK, ultimaWardrobeOrderDetails.getRemark());
+        parameters.put(Columns.DISPLAY_DISCOUNT, ultimaWardrobeOrderDetails.getDisplayDiscount());
         parameters.put(Columns.ORDER_FOR, ultimaWardrobeOrderDetails.getOrderFor());
 
         Number newId = insertUltimaWardrobeOrderDetail.executeAndReturnKey(parameters);
@@ -165,7 +174,10 @@ public class UltimaWardrobeOrderDetailsDAL {
                 + Columns.SHUTTER_COLOR_ID + " = ?,"
                 + Columns.CARCASS_COLOR_CODE + " = ?,"
                 + Columns.SHUTTER_COLOR_CODE + " = ?,"
+                + Columns.CARCASS_COLOR_NAME + " = ?,"
+                + Columns.SHUTTER_COLOR_NAME + " = ?,"
                 + Columns.REMARK + " = ?,"
+                + Columns.DISPLAY_DISCOUNT + " = ?,"
                 + Columns.ORDER_FOR + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
@@ -188,7 +200,10 @@ public class UltimaWardrobeOrderDetailsDAL {
                     ultimaWardrobeOrderDetails.getShutterColorId(),
                     ultimaWardrobeOrderDetails.getCarcassColorCode(),
                     ultimaWardrobeOrderDetails.getShutterColorCode(),
+                    ultimaWardrobeOrderDetails.getCarcassColorName(),
+                    ultimaWardrobeOrderDetails.getShutterColorName(),
                     ultimaWardrobeOrderDetails.getRemark(),
+                    ultimaWardrobeOrderDetails.getDisplayDiscount(),
                     ultimaWardrobeOrderDetails.getOrderFor(),
                     ultimaWardrobeOrderDetails.getId()
                 });

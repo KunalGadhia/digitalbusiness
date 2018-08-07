@@ -27,6 +27,7 @@ public class MaxWardrobeOrderDetails {
     private Integer quantity;
     private Double price;
     private String remark;
+    private Double displayDiscount;
     private String orderFor;
 
     public Integer getId() {
@@ -149,6 +150,14 @@ public class MaxWardrobeOrderDetails {
         this.remark = remark;
     }
 
+    public Double getDisplayDiscount() {
+        return displayDiscount;
+    }
+
+    public void setDisplayDiscount(Double displayDiscount) {
+        this.displayDiscount = displayDiscount;
+    }
+
     public String getOrderFor() {
         return orderFor;
     }
@@ -159,23 +168,24 @@ public class MaxWardrobeOrderDetails {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.id);
-        hash = 23 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 23 * hash + Objects.hashCode(this.productCode);
-        hash = 23 * hash + Objects.hashCode(this.description);
-        hash = 23 * hash + Objects.hashCode(this.carcass);
-        hash = 23 * hash + Objects.hashCode(this.shutterFinish);
-        hash = 23 * hash + Objects.hashCode(this.carcassPrice);
-        hash = 23 * hash + Objects.hashCode(this.shutterPrice);
-        hash = 23 * hash + Objects.hashCode(this.softHingesPrice);
-        hash = 23 * hash + Objects.hashCode(this.width);
-        hash = 23 * hash + Objects.hashCode(this.height);
-        hash = 23 * hash + Objects.hashCode(this.depth);
-        hash = 23 * hash + Objects.hashCode(this.quantity);
-        hash = 23 * hash + Objects.hashCode(this.price);
-        hash = 23 * hash + Objects.hashCode(this.remark);
-        hash = 23 * hash + Objects.hashCode(this.orderFor);
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 37 * hash + Objects.hashCode(this.productCode);
+        hash = 37 * hash + Objects.hashCode(this.description);
+        hash = 37 * hash + Objects.hashCode(this.carcass);
+        hash = 37 * hash + Objects.hashCode(this.shutterFinish);
+        hash = 37 * hash + Objects.hashCode(this.carcassPrice);
+        hash = 37 * hash + Objects.hashCode(this.shutterPrice);
+        hash = 37 * hash + Objects.hashCode(this.softHingesPrice);
+        hash = 37 * hash + Objects.hashCode(this.width);
+        hash = 37 * hash + Objects.hashCode(this.height);
+        hash = 37 * hash + Objects.hashCode(this.depth);
+        hash = 37 * hash + Objects.hashCode(this.quantity);
+        hash = 37 * hash + Objects.hashCode(this.price);
+        hash = 37 * hash + Objects.hashCode(this.remark);
+        hash = 37 * hash + Objects.hashCode(this.displayDiscount);
+        hash = 37 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -239,12 +249,16 @@ public class MaxWardrobeOrderDetails {
         if (!Objects.equals(this.price, other.price)) {
             return false;
         }
+        if (!Objects.equals(this.displayDiscount, other.displayDiscount)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "MaxWardrobeOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", productCode=" + productCode + ", description=" + description + ", carcass=" + carcass + ", shutterFinish=" + shutterFinish + ", carcassPrice=" + carcassPrice + ", shutterPrice=" + shutterPrice + ", softHingesPrice=" + softHingesPrice + ", width=" + width + ", height=" + height + ", depth=" + depth + ", quantity=" + quantity + ", price=" + price + ", remark=" + remark + ", orderFor=" + orderFor + '}';
+        return "MaxWardrobeOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", productCode=" + productCode + ", description=" + description + ", carcass=" + carcass + ", shutterFinish=" + shutterFinish + ", carcassPrice=" + carcassPrice + ", shutterPrice=" + shutterPrice + ", softHingesPrice=" + softHingesPrice + ", width=" + width + ", height=" + height + ", depth=" + depth + ", quantity=" + quantity + ", price=" + price + ", remark=" + remark + ", displayDiscount=" + displayDiscount + ", orderFor=" + orderFor + '}';
     }
+
         
 }

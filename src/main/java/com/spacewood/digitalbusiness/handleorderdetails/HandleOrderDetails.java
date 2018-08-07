@@ -21,6 +21,7 @@ public class HandleOrderDetails {
     private Double price;
     private String finish;
     private String remark;
+    private Double displayDiscount;
     private String orderFor;
 
     public Integer getId() {
@@ -95,6 +96,14 @@ public class HandleOrderDetails {
         this.remark = remark;
     }
 
+    public Double getDisplayDiscount() {
+        return displayDiscount;
+    }
+
+    public void setDisplayDiscount(Double displayDiscount) {
+        this.displayDiscount = displayDiscount;
+    }
+
     public String getOrderFor() {
         return orderFor;
     }
@@ -105,17 +114,18 @@ public class HandleOrderDetails {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 19 * hash + Objects.hashCode(this.id);
-        hash = 19 * hash + Objects.hashCode(this.productCode);
-        hash = 19 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 19 * hash + Objects.hashCode(this.component);
-        hash = 19 * hash + Objects.hashCode(this.length);
-        hash = 19 * hash + Objects.hashCode(this.quantity);
-        hash = 19 * hash + Objects.hashCode(this.price);
-        hash = 19 * hash + Objects.hashCode(this.finish);
-        hash = 19 * hash + Objects.hashCode(this.remark);
-        hash = 19 * hash + Objects.hashCode(this.orderFor);
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.productCode);
+        hash = 97 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 97 * hash + Objects.hashCode(this.component);
+        hash = 97 * hash + Objects.hashCode(this.length);
+        hash = 97 * hash + Objects.hashCode(this.quantity);
+        hash = 97 * hash + Objects.hashCode(this.price);
+        hash = 97 * hash + Objects.hashCode(this.finish);
+        hash = 97 * hash + Objects.hashCode(this.remark);
+        hash = 97 * hash + Objects.hashCode(this.displayDiscount);
+        hash = 97 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -161,12 +171,15 @@ public class HandleOrderDetails {
         if (!Objects.equals(this.price, other.price)) {
             return false;
         }
+        if (!Objects.equals(this.displayDiscount, other.displayDiscount)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "HandleOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", orderHeadId=" + orderHeadId + ", component=" + component + ", length=" + length + ", quantity=" + quantity + ", price=" + price + ", finish=" + finish + ", remark=" + remark + ", orderFor=" + orderFor + '}';
+        return "HandleOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", orderHeadId=" + orderHeadId + ", component=" + component + ", length=" + length + ", quantity=" + quantity + ", price=" + price + ", finish=" + finish + ", remark=" + remark + ", displayDiscount=" + displayDiscount + ", orderFor=" + orderFor + '}';
     }
         
 }

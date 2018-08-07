@@ -47,6 +47,7 @@ public class FillerOrderDetailsDAL {
         public static final String ORDER_FOR = "order_for";
         public static final String INT_COLOR_CODE = "int_color_code";
         public static final String COLOR_CODE = "color_code";
+        public static final String DISPLAY_DISCOUNT = "display_discount";
         public static final String DISCOUNT_PER = "discount_per";
 
     }
@@ -83,6 +84,7 @@ public class FillerOrderDetailsDAL {
                         Columns.ORDER_FOR,
                         Columns.INT_COLOR_CODE,
                         Columns.COLOR_CODE,
+                        Columns.DISPLAY_DISCOUNT,
                         Columns.DISCOUNT_PER
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -149,6 +151,7 @@ public class FillerOrderDetailsDAL {
         parameters.put(Columns.ORDER_FOR, "FILLER");
         parameters.put(Columns.INT_COLOR_CODE, fillerOrderDetails.getIntColorCode());
         parameters.put(Columns.COLOR_CODE, fillerOrderDetails.getColorCode());
+        parameters.put(Columns.DISPLAY_DISCOUNT, fillerOrderDetails.getDisplayDiscount());
         parameters.put(Columns.DISCOUNT_PER, fillerOrderDetails.getDiscountPer());
         Number newId = insertFillerOrderDetail.executeAndReturnKey(parameters);
         fillerOrderDetails = findById(newId.intValue());

@@ -628,6 +628,104 @@
                 </tbody>
             </table>
         </div>
-    </div>    
+    </div>
+
+    <div class="panel-heading text-center" ng-show="infinityWardrobeOrderDetailsList.length > 0">
+        <div>
+            <h3>Infinity Wardrobe Details List</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Colors</th>
+                        <th>Section Profile</th>
+                        <th>Shelf Count</th>                        
+                        <th>Thickness</th>
+                        <th>Width</th>
+                        <th>Length</th>
+                        <th>Depth</th>
+                        <th>Remark</th>
+                        <th>Quantity</th>
+                        <th>Price (INR)</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetails in infinityWardrobeOrderDetailsList">
+                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <td class="text-left">{{ orderDetails.productCode}}</td>
+                        <td class="text-left">
+                            <span>{{orderDetails.description}}</span>                            
+                        </td>
+                        <td class="text-left">
+                            <span><strong>Carcass Color :</strong> {{orderDetails.carcassColorName}}</span>
+                            <span ng-if="orderDetails.shutterColorName !== null">& <strong>Shutter Color :</strong> {{orderDetails.shutterColorName}}</span>
+                        </td>
+                        <td>N/A</td>                        
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">N/A</td>                          
+                        <td class="text-left">{{orderDetails.width}} mm</td>
+                        <td class="text-left">{{orderDetails.height}} mm</td>
+                        <td class="text-left">{{orderDetails.depth}} mm</td>
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{ orderDetails.quantity}}</td> 
+                        <td class="text-left">&#8377;{{ orderDetails.price}}</td>                         
+                    </tr>
+                </tbody>                
+            </table>
+        </div>
+    </div>
+    
+    <div class="panel-heading text-center" ng-show="ultimaWardrobeOrderDetailsList.length > 0">
+        <div>
+            <h3>Ultima Wardrobe Details List</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Colors</th>
+                        <th>Section Profile</th>
+                        <th>Shelf Count</th>                        
+                        <th>Thickness</th>
+                        <th>Width</th>
+                        <th>Length</th>
+                        <th>Depth</th>
+                        <th>Remark</th>
+                        <th>Quantity</th>
+                        <th>Price (INR)</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetails in ultimaWardrobeOrderDetailsList">
+                        <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                        <td class="text-left">{{ orderDetails.productCode}}</td>
+                        <td class="text-left">
+                            <span>{{orderDetails.description}}</span>                            
+                        </td>
+                        <td class="text-left">
+                            <span><strong>Carcass Color :</strong> {{orderDetails.carcassColorName}}</span>
+                            <span ng-if="orderDetails.shutterColorName !== null">& <strong>Shutter Color :</strong> {{orderDetails.shutterColorName}}</span>
+                        </td>
+                        <td>N/A</td>                        
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">N/A</td>                          
+                        <td class="text-left">{{orderDetails.width}} mm</td>
+                        <td class="text-left">{{orderDetails.height}} mm</td>
+                        <td class="text-left">{{orderDetails.depth}} mm</td>
+                        <td class="text-left">N/A</td>
+                        <td class="text-left">{{ orderDetails.quantity}}</td> 
+                        <td class="text-left">&#8377;{{ orderDetails.price}}</td>                         
+                    </tr>
+                </tbody>                
+            </table>
+        </div>
+    </div>
 </div>
 <div data-ui-view=""></div>

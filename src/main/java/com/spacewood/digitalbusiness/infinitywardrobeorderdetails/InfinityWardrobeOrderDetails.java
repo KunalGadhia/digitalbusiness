@@ -36,6 +36,7 @@ public class InfinityWardrobeOrderDetails {
     private String shutterColorName;
     private String carcassColorName;    
     private String remark;
+    private Double displayDiscount;
     private String orderFor;
 
     public Integer getId() {
@@ -222,6 +223,14 @@ public class InfinityWardrobeOrderDetails {
         this.remark = remark;
     }
 
+    public Double getDisplayDiscount() {
+        return displayDiscount;
+    }
+
+    public void setDisplayDiscount(Double displayDiscount) {
+        this.displayDiscount = displayDiscount;
+    }
+
     public String getOrderFor() {
         return orderFor;
     }
@@ -232,31 +241,32 @@ public class InfinityWardrobeOrderDetails {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 97 * hash + Objects.hashCode(this.productCode);
-        hash = 97 * hash + Objects.hashCode(this.component);
-        hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + Objects.hashCode(this.carcassMaterial);
-        hash = 97 * hash + Objects.hashCode(this.shutterFinish);
-        hash = 97 * hash + Objects.hashCode(this.hinge);
-        hash = 97 * hash + Objects.hashCode(this.width);
-        hash = 97 * hash + Objects.hashCode(this.depth);
-        hash = 97 * hash + Objects.hashCode(this.height);
-        hash = 97 * hash + Objects.hashCode(this.quantity);
-        hash = 97 * hash + Objects.hashCode(this.carcassPrice);
-        hash = 97 * hash + Objects.hashCode(this.shutterPrice);
-        hash = 97 * hash + Objects.hashCode(this.hingePrice);
-        hash = 97 * hash + Objects.hashCode(this.price);
-        hash = 97 * hash + Objects.hashCode(this.carcassColorId);
-        hash = 97 * hash + Objects.hashCode(this.shutterColorId);
-        hash = 97 * hash + Objects.hashCode(this.carcassColorCode);
-        hash = 97 * hash + Objects.hashCode(this.shutterColorCode);
-        hash = 97 * hash + Objects.hashCode(this.shutterColorName);
-        hash = 97 * hash + Objects.hashCode(this.carcassColorName);
-        hash = 97 * hash + Objects.hashCode(this.remark);
-        hash = 97 * hash + Objects.hashCode(this.orderFor);
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 71 * hash + Objects.hashCode(this.productCode);
+        hash = 71 * hash + Objects.hashCode(this.component);
+        hash = 71 * hash + Objects.hashCode(this.description);
+        hash = 71 * hash + Objects.hashCode(this.carcassMaterial);
+        hash = 71 * hash + Objects.hashCode(this.shutterFinish);
+        hash = 71 * hash + Objects.hashCode(this.hinge);
+        hash = 71 * hash + Objects.hashCode(this.width);
+        hash = 71 * hash + Objects.hashCode(this.depth);
+        hash = 71 * hash + Objects.hashCode(this.height);
+        hash = 71 * hash + Objects.hashCode(this.quantity);
+        hash = 71 * hash + Objects.hashCode(this.carcassPrice);
+        hash = 71 * hash + Objects.hashCode(this.shutterPrice);
+        hash = 71 * hash + Objects.hashCode(this.hingePrice);
+        hash = 71 * hash + Objects.hashCode(this.price);
+        hash = 71 * hash + Objects.hashCode(this.carcassColorId);
+        hash = 71 * hash + Objects.hashCode(this.shutterColorId);
+        hash = 71 * hash + Objects.hashCode(this.carcassColorCode);
+        hash = 71 * hash + Objects.hashCode(this.shutterColorCode);
+        hash = 71 * hash + Objects.hashCode(this.shutterColorName);
+        hash = 71 * hash + Objects.hashCode(this.carcassColorName);
+        hash = 71 * hash + Objects.hashCode(this.remark);
+        hash = 71 * hash + Objects.hashCode(this.displayDiscount);
+        hash = 71 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -344,12 +354,15 @@ public class InfinityWardrobeOrderDetails {
         if (!Objects.equals(this.shutterColorId, other.shutterColorId)) {
             return false;
         }
+        if (!Objects.equals(this.displayDiscount, other.displayDiscount)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "InfinityWardrobeOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", productCode=" + productCode + ", component=" + component + ", description=" + description + ", carcassMaterial=" + carcassMaterial + ", shutterFinish=" + shutterFinish + ", hinge=" + hinge + ", width=" + width + ", depth=" + depth + ", height=" + height + ", quantity=" + quantity + ", carcassPrice=" + carcassPrice + ", shutterPrice=" + shutterPrice + ", hingePrice=" + hingePrice + ", price=" + price + ", carcassColorId=" + carcassColorId + ", shutterColorId=" + shutterColorId + ", carcassColorCode=" + carcassColorCode + ", shutterColorCode=" + shutterColorCode + ", shutterColorName=" + shutterColorName + ", carcassColorName=" + carcassColorName + ", remark=" + remark + ", orderFor=" + orderFor + '}';
-    }
+        return "InfinityWardrobeOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", productCode=" + productCode + ", component=" + component + ", description=" + description + ", carcassMaterial=" + carcassMaterial + ", shutterFinish=" + shutterFinish + ", hinge=" + hinge + ", width=" + width + ", depth=" + depth + ", height=" + height + ", quantity=" + quantity + ", carcassPrice=" + carcassPrice + ", shutterPrice=" + shutterPrice + ", hingePrice=" + hingePrice + ", price=" + price + ", carcassColorId=" + carcassColorId + ", shutterColorId=" + shutterColorId + ", carcassColorCode=" + carcassColorCode + ", shutterColorCode=" + shutterColorCode + ", shutterColorName=" + shutterColorName + ", carcassColorName=" + carcassColorName + ", remark=" + remark + ", displayDiscount=" + displayDiscount + ", orderFor=" + orderFor + '}';
+    }        
     
 }

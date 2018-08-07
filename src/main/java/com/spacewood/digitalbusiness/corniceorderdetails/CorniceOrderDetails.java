@@ -29,6 +29,7 @@ public class CorniceOrderDetails {
     private String remark;
     private String orderFor;
     private String colorCode;
+    private Double displayDiscount;
     private Double discountPer;
 
     public Integer getId() {
@@ -159,6 +160,14 @@ public class CorniceOrderDetails {
         this.colorCode = colorCode;
     }
 
+    public Double getDisplayDiscount() {
+        return displayDiscount;
+    }
+
+    public void setDisplayDiscount(Double displayDiscount) {
+        this.displayDiscount = displayDiscount;
+    }
+
     public Double getDiscountPer() {
         return discountPer;
     }
@@ -169,24 +178,25 @@ public class CorniceOrderDetails {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.productCode);
-        hash = 37 * hash + Objects.hashCode(this.material);
-        hash = 37 * hash + Objects.hashCode(this.orderHeadId);
-        hash = 37 * hash + Objects.hashCode(this.component);
-        hash = 37 * hash + Objects.hashCode(this.width);
-        hash = 37 * hash + Objects.hashCode(this.length);
-        hash = 37 * hash + Objects.hashCode(this.thickness);
-        hash = 37 * hash + Objects.hashCode(this.quantity);
-        hash = 37 * hash + Objects.hashCode(this.colorId);
-        hash = 37 * hash + Objects.hashCode(this.price);
-        hash = 37 * hash + Objects.hashCode(this.finishPrice);
-        hash = 37 * hash + Objects.hashCode(this.finish);
-        hash = 37 * hash + Objects.hashCode(this.remark);
-        hash = 37 * hash + Objects.hashCode(this.orderFor);
-        hash = 37 * hash + Objects.hashCode(this.colorCode);
-        hash = 37 * hash + Objects.hashCode(this.discountPer);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.productCode);
+        hash = 97 * hash + Objects.hashCode(this.material);
+        hash = 97 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 97 * hash + Objects.hashCode(this.component);
+        hash = 97 * hash + Objects.hashCode(this.width);
+        hash = 97 * hash + Objects.hashCode(this.length);
+        hash = 97 * hash + Objects.hashCode(this.thickness);
+        hash = 97 * hash + Objects.hashCode(this.quantity);
+        hash = 97 * hash + Objects.hashCode(this.colorId);
+        hash = 97 * hash + Objects.hashCode(this.price);
+        hash = 97 * hash + Objects.hashCode(this.finishPrice);
+        hash = 97 * hash + Objects.hashCode(this.finish);
+        hash = 97 * hash + Objects.hashCode(this.remark);
+        hash = 97 * hash + Objects.hashCode(this.orderFor);
+        hash = 97 * hash + Objects.hashCode(this.colorCode);
+        hash = 97 * hash + Objects.hashCode(this.displayDiscount);
+        hash = 97 * hash + Objects.hashCode(this.discountPer);
         return hash;
     }
 
@@ -250,6 +260,9 @@ public class CorniceOrderDetails {
         if (!Objects.equals(this.finishPrice, other.finishPrice)) {
             return false;
         }
+        if (!Objects.equals(this.displayDiscount, other.displayDiscount)) {
+            return false;
+        }
         if (!Objects.equals(this.discountPer, other.discountPer)) {
             return false;
         }
@@ -258,7 +271,7 @@ public class CorniceOrderDetails {
 
     @Override
     public String toString() {
-        return "CorniceOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", finishPrice=" + finishPrice + ", finish=" + finish + ", remark=" + remark + ", orderFor=" + orderFor + ", colorCode=" + colorCode + ", discountPer=" + discountPer + '}';
+        return "CorniceOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", material=" + material + ", orderHeadId=" + orderHeadId + ", component=" + component + ", width=" + width + ", length=" + length + ", thickness=" + thickness + ", quantity=" + quantity + ", colorId=" + colorId + ", price=" + price + ", finishPrice=" + finishPrice + ", finish=" + finish + ", remark=" + remark + ", orderFor=" + orderFor + ", colorCode=" + colorCode + ", displayDiscount=" + displayDiscount + ", discountPer=" + discountPer + '}';
     }
     
 }

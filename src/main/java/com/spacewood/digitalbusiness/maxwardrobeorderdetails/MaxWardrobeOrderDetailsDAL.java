@@ -39,6 +39,7 @@ public class MaxWardrobeOrderDetailsDAL {
         public static final String QUANTITY = "quantity";        
         public static final String PRICE = "price";
         public static final String REMARK = "remark";
+        public static final String DISPLAY_DISCOUNT = "display_discount";
         public static final String ORDER_FOR = "order_for";
 
     }
@@ -68,6 +69,7 @@ public class MaxWardrobeOrderDetailsDAL {
                         Columns.QUANTITY,
                         Columns.PRICE,
                         Columns.REMARK,
+                        Columns.DISPLAY_DISCOUNT,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -110,6 +112,7 @@ public class MaxWardrobeOrderDetailsDAL {
         parameters.put(Columns.QUANTITY, maxWardrobeOrderDetails.getQuantity());
         parameters.put(Columns.PRICE, Math.round(maxWardrobeOrderDetails.getPrice()));
         parameters.put(Columns.REMARK, maxWardrobeOrderDetails.getRemark());
+        parameters.put(Columns.DISPLAY_DISCOUNT, maxWardrobeOrderDetails.getDisplayDiscount());
         parameters.put(Columns.ORDER_FOR, "MAX_WARDROBE");
 
         Number newId = insertMaxWardrobeOrderDetail.executeAndReturnKey(parameters);

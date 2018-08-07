@@ -40,6 +40,7 @@ public class PanelOrderDetailsDAL {
         public static final String REMARK = "remark";
         public static final String ORDER_FOR = "order_for";
         public static final String COLOR_CODE = "color_code";
+        public static final String DISPLAY_DISCOUNT = "display_discount";
         public static final String DISCOUNT_PER = "discount_per";
 
     }
@@ -70,6 +71,7 @@ public class PanelOrderDetailsDAL {
                         Columns.REMARK,
                         Columns.ORDER_FOR,
                         Columns.COLOR_CODE,
+                        Columns.DISPLAY_DISCOUNT,
                         Columns.DISCOUNT_PER
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -122,6 +124,7 @@ public class PanelOrderDetailsDAL {
         parameters.put(Columns.REMARK, panelOrderDetails.getRemark());
         parameters.put(Columns.ORDER_FOR, "PANEL");
         parameters.put(Columns.COLOR_CODE, panelOrderDetails.getColorCode());
+        parameters.put(Columns.DISPLAY_DISCOUNT, panelOrderDetails.getDisplayDiscount());
         parameters.put(Columns.DISCOUNT_PER, panelOrderDetails.getDiscountPer());
 
         Number newId = insertPanelOrderDetail.executeAndReturnKey(parameters);

@@ -64,6 +64,7 @@ public class CarcassOrderDetailsDAL {
         public static final String BACK_COLOR_CODE = "back_color_code";
         public static final String TOP_COLOR_CODE = "top_color_code";
         public static final String BOTTOM_COLOR_CODE = "bottom_color_code";
+        public static final String DISPLAY_DISCOUNT = "display_discount";
         public static final String DISCOUNT_PER = "discount_per";
 
     }
@@ -118,6 +119,7 @@ public class CarcassOrderDetailsDAL {
                         Columns.BACK_COLOR_CODE,
                         Columns.TOP_COLOR_CODE,
                         Columns.BOTTOM_COLOR_CODE,
+                        Columns.DISPLAY_DISCOUNT,
                         Columns.DISCOUNT_PER
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -230,6 +232,7 @@ public class CarcassOrderDetailsDAL {
         parameters.put(Columns.BACK_COLOR_CODE, carcassOrderDetails.getBackColorCode());
         parameters.put(Columns.TOP_COLOR_CODE, carcassOrderDetails.getTopColorCode());
         parameters.put(Columns.BOTTOM_COLOR_CODE, carcassOrderDetails.getBottomColorCode());
+        parameters.put(Columns.DISPLAY_DISCOUNT, carcassOrderDetails.getDisplayDiscount());
         parameters.put(Columns.DISCOUNT_PER, carcassOrderDetails.getDiscountPer());
         Number newId = insertCarcassOrderDetail.executeAndReturnKey(parameters);
         carcassOrderDetails = findById(newId.intValue());

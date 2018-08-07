@@ -21,11 +21,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class MaxKitchenOrderDetailsDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
         public static final String ORDER_HEAD_ID = "order_head_id";
         public static final String PRODUCT_CODE = "product_code";
+        public static final String COMPONENT = "component";
         public static final String DESCRIPTION = "description";
         public static final String SHUTTER_FINISH = "shutter_finish";
         public static final String WIDTH = "width";
@@ -33,7 +35,13 @@ public class MaxKitchenOrderDetailsDAL {
         public static final String DEPTH = "depth";
         public static final String STD_PRICE = "std_price";
         public static final String QUANTITY = "quantity";
-        public static final String PRICE = "price";        
+        public static final String SHUTTER_PRICE = "shutter_price";
+        public static final String PRICE = "price";
+        public static final String SHUTTER_COLOR_ID = "shutter_color_id";
+        public static final String SHUTTER_COLOR_CODE = "shutter_color_code";
+        public static final String SHUTTER_COLOR_NAME = "shutter_color_name";
+        public static final String REMARK = "remark";
+        public static final String DISPLAY_DISCOUNT = "display_discount";
         public static final String ORDER_FOR = "order_for";
 
     }
@@ -51,6 +59,7 @@ public class MaxKitchenOrderDetailsDAL {
                 .usingColumns(
                         Columns.ORDER_HEAD_ID,
                         Columns.PRODUCT_CODE,
+                        Columns.COMPONENT,
                         Columns.DESCRIPTION,
                         Columns.SHUTTER_FINISH,
                         Columns.WIDTH,
@@ -58,7 +67,13 @@ public class MaxKitchenOrderDetailsDAL {
                         Columns.DEPTH,
                         Columns.STD_PRICE,
                         Columns.QUANTITY,
-                        Columns.PRICE,                        
+                        Columns.SHUTTER_PRICE,
+                        Columns.PRICE,
+                        Columns.SHUTTER_COLOR_ID,
+                        Columns.SHUTTER_COLOR_CODE,
+                        Columns.SHUTTER_COLOR_NAME,
+                        Columns.REMARK,
+                        Columns.DISPLAY_DISCOUNT,
                         Columns.ORDER_FOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
@@ -82,13 +97,14 @@ public class MaxKitchenOrderDetailsDAL {
     public List<MaxKitchenOrderDetails> findByOrderHeadId(Integer orderHeadId) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_HEAD_ID + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{orderHeadId}, new BeanPropertyRowMapper<>(MaxKitchenOrderDetails.class));
-    }    
+    }
 
     public MaxKitchenOrderDetails insert(MaxKitchenOrderDetails maxKitchenOrderDetails) {
         System.out.println("Insert Order Detail :" + maxKitchenOrderDetails);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(Columns.ORDER_HEAD_ID, maxKitchenOrderDetails.getOrderHeadId());
         parameters.put(Columns.PRODUCT_CODE, maxKitchenOrderDetails.getProductCode());
+        parameters.put(Columns.COMPONENT, maxKitchenOrderDetails.getComponent());
         parameters.put(Columns.DESCRIPTION, maxKitchenOrderDetails.getDescription());
         parameters.put(Columns.SHUTTER_FINISH, maxKitchenOrderDetails.getShutterFinish());
         parameters.put(Columns.WIDTH, maxKitchenOrderDetails.getWidth());
@@ -96,7 +112,13 @@ public class MaxKitchenOrderDetailsDAL {
         parameters.put(Columns.DEPTH, maxKitchenOrderDetails.getDepth());
         parameters.put(Columns.STD_PRICE, maxKitchenOrderDetails.getStdPrice());
         parameters.put(Columns.QUANTITY, maxKitchenOrderDetails.getQuantity());
-        parameters.put(Columns.PRICE, Math.round(maxKitchenOrderDetails.getPrice()));        
+        parameters.put(Columns.SHUTTER_PRICE, Math.round(maxKitchenOrderDetails.getShutterPrice()));
+        parameters.put(Columns.PRICE, Math.round(maxKitchenOrderDetails.getPrice()));
+        parameters.put(Columns.SHUTTER_COLOR_ID, maxKitchenOrderDetails.getShutterColorId());
+        parameters.put(Columns.SHUTTER_COLOR_CODE, maxKitchenOrderDetails.getShutterColorCode());
+        parameters.put(Columns.SHUTTER_COLOR_NAME, maxKitchenOrderDetails.getShutterColorName());
+        parameters.put(Columns.REMARK, maxKitchenOrderDetails.getRemark());
+        parameters.put(Columns.DISPLAY_DISCOUNT, maxKitchenOrderDetails.getDisplayDiscount());
         parameters.put(Columns.ORDER_FOR, "MAX_KITCHEN");
 
         Number newId = insertMaxKitchenOrderDetail.executeAndReturnKey(parameters);
@@ -119,7 +141,7 @@ public class MaxKitchenOrderDetailsDAL {
                 + Columns.HEIGHT + " = ?,"
                 + Columns.DEPTH + " = ?,"
                 + Columns.STD_PRICE + " = ?,"
-                + Columns.QUANTITY + " = ?,"                
+                + Columns.QUANTITY + " = ?,"
                 + Columns.PRICE + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
@@ -132,7 +154,7 @@ public class MaxKitchenOrderDetailsDAL {
                     maxKitchenOrderDetails.getDepth(),
                     maxKitchenOrderDetails.getStdPrice(),
                     maxKitchenOrderDetails.getQuantity(),
-                    maxKitchenOrderDetails.getPrice(),                    
+                    maxKitchenOrderDetails.getPrice(),
                     maxKitchenOrderDetails.getId()
                 });
         maxKitchenOrderDetails = findById(maxKitchenOrderDetails.getId());
