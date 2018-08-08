@@ -67,6 +67,13 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.infinity_wardrobe_order_details_service',
     'digitalbusiness.services.infinity_wardrobe',
     'digitalbusiness.services.ultima_wardrobe',
+    'digitalbusiness.services.infinity_wardrobe_mrp',
+    'digitalbusiness.services.max_wardrobe_mrp',
+    'digitalbusiness.services.max_kitchen_mrp',
+    'digitalbusiness.services.order_head_mrp',
+    'digitalbusiness.services.infinity_wardrobe_mrp_order_details_service',
+    'digitalbusiness.services.max_wardrobe_mrp_order_details_service',
+    'digitalbusiness.services.max_kitchen_mrp_order_details_service',
     //ERP INTEGRATION SERVICE
     'digitalbusiness.services.erp_integration',
 
