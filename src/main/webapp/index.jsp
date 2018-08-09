@@ -311,6 +311,7 @@
         <script src="${pageContext.request.contextPath}/js/states/unapproved_order_report.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/party_order_report.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/order_report.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/order_mrp.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>

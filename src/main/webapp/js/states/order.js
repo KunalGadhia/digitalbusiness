@@ -9,7 +9,7 @@ angular.module("digitalbusiness.states.order", [])
                 'url': '/order_master',
                 'templateUrl': templateRoot + '/masters/order/order_head.html',
                 'controller': 'OrderHeadController'
-            });
+            });            
             $stateProvider.state('admin.masters_display_order', {
                 'url': '/display_order_master',
                 'templateUrl': templateRoot + '/masters/order/display_order_head.html',

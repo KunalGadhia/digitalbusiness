@@ -1,0 +1,625 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading text-center">        
+        <div class="pull-right">
+        </div>
+        <div>
+            <h3>Order Head</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Party Name :</label>
+                    <span class="col-sm-7 text-left">{{orderMrpHead.partyName}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-6 text-left">Project Name :</label>
+                    <span class="col-sm-6 text-left">{{orderMrpHead.partyName}}</span>
+                </div>                
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Party City :</label>
+                    <span class="col-sm-7 text-left">{{orderMrpHead.partyCity}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Party Email :</label>
+                    <span class="col-sm-7 text-left">{{orderMrpHead.partyEmail}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Contact Details :</label>
+                    <span class="col-sm-7 text-left">{{orderMrpHead.partyMobileNo}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Address :</label>
+                    <span class="col-sm-7 text-left">{{orderMrpHead.address1}},{{orderMrpHead.address1}},{{orderMrpHead.address1}},{{orderMrpHead.address1}},{{orderMrpHead.partyCity}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Order Date :</label>
+                    <span class="col-sm-7 text-left">{{orderMrpHead.poDate| date:"mediumDate"}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-6 text-left">Factory Desp DT :</label>
+                    <span class="col-sm-6 text-left">{{factDespDate| date:"mediumDate"}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <label class="col-sm-5 text-left">Customer Desp DT:</label>
+                    <span class="col-sm-7 text-left">{{factDespDate| date:"mediumDate"}}</span>
+                </div>
+            </div>
+        </div>        
+    </div>   
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading text-center">
+        <div>
+            <h3>Select Category</h3>
+        </div>
+        <div class="modal-body">
+            <div class="btn-group btn-group-lg btn-group-justified">
+                <a ng-click="selectParentView('INFINITY_WARDROBE')" class="btn btn-primary text-center">Infinity Wardrobe</a>
+                <a ng-click="selectParentView('MAX_WARDROBE')" class="btn btn-primary text-center">MAX Wardrobe</a>
+                <a ng-click="selectParentView('MAX_KITCHEN')" class="btn btn-primary text-center">MAX Kitchen</a>
+                <a ng-click="selectParentView('')" class="btn btn-primary text-center" disabled=""></a>
+            </div>
+        </div>
+        <div class="panel-heading text-center" ng-if="showInfinityWardrobeMrp">
+            <div>
+                <h3>Enter Infinity Wardrobe Order Details</h3>
+            </div>
+            <form role="role" ng-submit="saveInfinityWardrobeMrpDetails(editableInfinityWardrobeDetailMrp)">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Select Category</label>                   
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetailMrp.category" required="">
+                                <option value="">Select Category</option>
+                                <option value="WARDROBE_SHELF">Wardrobe With Shelf</option>
+                                <option value="WARDROBE_SHELF_ROD">Wardrobe With Shelf & Hanger Rod</option>
+                                <option value="TROUSER_RACK">Trouser Rack</option>
+                                <option value="PENTAGONAL_CORNER_WARDROBE">Pentagonal Corner Wardrobe</option>
+                                <option value="PENTAGONAL_CORNER_LOFT">Pentagonal Corner LOFT</option>
+                                <option value="LSHAPE_CORNER_WARDROBE">L Shape Corner Wardrobe</option>
+                                <option value="LSHAPE_CORNER_LOFT">L Shape Corner LOFT</option>
+                                <option value="LOFT_UNIT">Loft Unit</option>
+                                <option value="GALLERY_SHELF">Gallery Shelf</option>  
+                                <option value="CHEST_OF_DRAWER">Chest Of Drawer</option>                                                              
+                                <option value="FILLER">Filler</option>
+                                <option value="END_PANEL">End Panel</option>                               
+                            </select>
+                        </div>
+                    </div>                
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Component</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetailMrp.componentId" required="">
+                                <option value="">Select Component</option>
+                                <option ng-repeat="component in infinityWardrobeMrpComponentList" value="{{component.id}}">({{component.productCode}}) - {{component.description}} (W:{{component.width}} x D:{{component.depth}} x H:{{component.height}})</option>
+                            </select>
+                        </div>                                      
+                    </div>                
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Carcass</label>
+                            <input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.carcass" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Carcass Color</label>                                                
+                            <input class="form-control" placeholder="Enter Carcass Color" ng-model="editableInfinityWardrobeDetailMrp.carcassColor" required=""/>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Shutter Category</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetailMrp.shutterCategory">
+                                <option value="">Select Shutter Finish</option>                                
+                                <option value="P1" ng-if="infinityWardrobeMrpObject.price1 !== 0">P1</option>
+                                <option value="P2" ng-if="infinityWardrobeMrpObject.price2 !== 0">P2</option>
+                                <option value="P3" ng-if="infinityWardrobeMrpObject.price3 !== 0">P3</option>
+                                <option value="P4" ng-if="infinityWardrobeMrpObject.price4 !== 0">P4</option>
+                                <option value="P5" ng-if="infinityWardrobeMrpObject.price5 !== 0">P5</option>
+                                <option value="P6" ng-if="infinityWardrobeMrpObject.price6 !== 0">P6</option>
+                                <option value="P7" ng-if="infinityWardrobeMrpObject.price7 !== 0">P7</option>
+                                <option value="P8" ng-if="infinityWardrobeMrpObject.price8 !== 0">P8</option>
+                                <option value="P9" ng-if="infinityWardrobeMrpObject.price9 !== 0">P9</option>
+                                <option value="P10" ng-if="infinityWardrobeMrpObject.price10 !== 0">P10</option>                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Shutter</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetailMrp.shutter">
+                                <option value="">Select Shutter Finish</option>                                
+                                <option value="18MM MELAMINE FINISH CHIP BOARD SHUTTER WITH MATCHING PVC EDGE BANDING" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P1'">18MM MELAMINE FINISH CHIP BOARD SHUTTER WITH MATCHING PVC EDGE BANDING</option>
+                                <option value="18MM MELAMINE FINISH MDF SHUTTER WITH MATCHING PVC EDGE BANDING" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P1'">18MM MELAMINE FINISH MDF SHUTTER WITH MATCHING PVC EDGE BANDING</option>
+                                <option value="18MM MELAMINE FINISH HD HMR SHUTTER WITH MATCHING PVC EDGE BANDING" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P1'">18MM MELAMINE FINISH HD HMR SHUTTER WITH MATCHING PVC EDGE BANDING</option>
+                                <option value="18MM STANDARD RANGE PVC MEMBRANE FOIL MDF SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P1'">18MM STANDARD RANGE PVC MEMBRANE FOIL MDF SHUTTERS</option>
+                                <option value="18MM STANDARD RANGE PVC MEMBRANE FOIL SUPERTUFF-HD HMR SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P2'">18MM STANDARD RANGE PVC MEMBRANE FOIL SUPERTUFF-HD HMR SHUTTERS</option>
+                                <option value="22MM STANDARD RANGE PVC MEMBRANE FOIL GLORIA SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P2'">22MM STANDARD RANGE PVC MEMBRANE FOIL GLORIA SHUTTERS</option>
+                                <option value="18MM HPL MATT FINISH WR PLY SHUTTERS WITH 2MM MATCHING PVC EDGE BAND" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P2'">18MM HPL MATT FINISH WR PLY SHUTTERS WITH 2MM MATCHING PVC EDGE BAND</option>
+                                <option value="18MM DESIGNER RANGE PVC MEMBRANE FOIL MDF SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P2'">18MM DESIGNER RANGE PVC MEMBRANE FOIL MDF SHUTTERS</option>
+                                <option value="18MM HPL GLOSSY FINISH WR PLY SHUTTERS WITH 2MM MATCHING PVC EDGE BAND" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P2'">18MM HPL GLOSSY FINISH WR PLY SHUTTERS WITH 2MM MATCHING PVC EDGE BAND</option>
+                                <option value="18MM GLOSSY - REGULAR RANGE PVC MEMBRANE FOIL MDF SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P2'">18MM GLOSSY - REGULAR RANGE PVC MEMBRANE FOIL MDF SHUTTERS</option>
+                                <option value="18MM DESIGNER RANGE PVC MEMBRANE FOIL SUPERTUFF-HD HMR SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P3'">18MM DESIGNER RANGE PVC MEMBRANE FOIL SUPERTUFF-HD HMR SHUTTERS</option>
+                                <option value="22MM DESIGNER RANGE PVC MEMBRANE FOIL GLORIA SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P3'">22MM DESIGNER RANGE PVC MEMBRANE FOIL GLORIA SHUTTERS</option>
+                                <option value="18MM HPL MR-GRADE FINISH WR PLY SHUTTERS WITH 2MM MATCHING PVC EDGE BAND" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P3'">18MM HPL MR-GRADE FINISH WR PLY SHUTTERS WITH 2MM MATCHING PVC EDGE BAND</option>
+                                <option value="18MM GLOSSY - REGULAR RANGE PVC MEMBRANE FOIL SUPERTUFF-HD HMR SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P3'">18MM GLOSSY - REGULAR RANGE PVC MEMBRANE FOIL SUPERTUFF-HD HMR SHUTTERS</option>
+                                <option value="22MM PROFILE WRAPPED JUPITER SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P3'">22MM PROFILE WRAPPED JUPITER SHUTTERS</option>
+                                <option value="22MM GLOSSY - REGULAR RANGE PVC MEMBRANE FOIL GLORIA SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P3'">22MM GLOSSY - REGULAR RANGE PVC MEMBRANE FOIL GLORIA SHUTTERS</option>
+                                <option value="ALUMINIUM ACID FROSTED GLASS SHUTTER G-55" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P4'">ALUMINIUM ACID FROSTED GLASS SHUTTER G-55</option>
+                                <option value="18MM GLOSSY - PREMIUM RANGE PVC MEMBRANE FOIL MDF SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P4'">18MM GLOSSY - PREMIUM RANGE PVC MEMBRANE FOIL MDF SHUTTERS</option>
+                                <option value="18MM P. U. SOLID PAINTED - MDF SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P4'">18MM P. U. SOLID PAINTED - MDF SHUTTERS</option>
+                                <option value="18MM GLOSSY - PREMIUM RANGE PVC MEMBRANE FOIL SUPERTUFF-HD HMR SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P4'">18MM GLOSSY - PREMIUM RANGE PVC MEMBRANE FOIL SUPERTUFF-HD HMR SHUTTERS</option>
+                                <option value="22MM GLOSSY - PREMIUM RANGE PVC MEMBRANE FOIL GLORIA SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P4'">22MM GLOSSY - PREMIUM RANGE PVC MEMBRANE FOIL GLORIA SHUTTERS</option>
+                                <option value="18MM ITALIAN IMPORTED HIGH GLOSS POLYMER MDF SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P5'">18MM ITALIAN IMPORTED HIGH GLOSS POLYMER MDF SHUTTERS</option>
+                                <option value="18MM P. U. SOLID PAINTED - HD HMR SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P5'">18MM P. U. SOLID PAINTED - HD HMR SHUTTERS</option>
+                                <option value="18MM P. U. METALLIC PAINTED - MDF SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P5'">18MM P. U. METALLIC PAINTED - MDF SHUTTERS</option>
+                                <option value="18MM P. U. SOLID PAINTED - PLY SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P5'">18MM P. U. SOLID PAINTED - PLY SHUTTERS</option>
+                                <option value="18MM P. U. METALLIC PAINTED - HD HMR SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P6'">18MM P. U. METALLIC PAINTED - HD HMR SHUTTERS</option>
+                                <option value="18MM ORIENT ACRYLIC SOLID HDF SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P6'">18MM ORIENT ACRYLIC SOLID HDF SHUTTERS</option>
+                                <option value="22MM P. U. SOLID PAINTED - MDF GLORIA SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P6'">22MM P. U. SOLID PAINTED - MDF GLORIA SHUTTERS</option>
+                                <option value="25MM P. U. SOLID PAINTED - MDF VENETTA SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P6'">25MM P. U. SOLID PAINTED - MDF VENETTA SHUTTERS</option>
+                                <option value="18MM P. U. METALLIC PAINTED - PLY SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P6'">18MM P. U. METALLIC PAINTED - PLY SHUTTERS</option>
+                                <option value="22MM P. U. METALLIC PAINTED - MDF GLORIA SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P6'">22MM P. U. METALLIC PAINTED - MDF GLORIA SHUTTERS</option>
+                                <option value="18MM ORIENT ACRYLIC WOOD GRAIN HDF SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P7'">18MM ORIENT ACRYLIC WOOD GRAIN HDF SHUTTERS</option>
+                                <option value="18MM ITALIAN IMPORTED HIGH GLOSS MILANO - ACRYLIC STANDARD PLY SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P7'">18MM ITALIAN IMPORTED HIGH GLOSS MILANO - ACRYLIC STANDARD PLY SHUTTERS</option>
+                                <option value="22MM P. U. SOLID PAINTED - JUPITER SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P8'">22MM P. U. SOLID PAINTED - JUPITER SHUTTERS</option>
+                                <option value="22MM P. U. METALLIC PAINTED - JUPITER SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P8'">22MM P. U. METALLIC PAINTED - JUPITER SHUTTERS</option>
+                                <option value="18MM ITALIAN IMPORTED HIGH GLOSS MILANO - ACRYLIC PREMIUM PLY SHUTTERS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P9'">18MM ITALIAN IMPORTED HIGH GLOSS MILANO - ACRYLIC PREMIUM PLY SHUTTERS</option>
+                                <option value="18MM HDF ACRYLIC GLASS" ng-if="editableInfinityWardrobeDetailMrp.shutterCategory === 'P10'">18MM HDF ACRYLIC GLASS</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Shutter Color</label>                                                
+                            <input class="form-control" placeholder="Select Shutter Color" ng-model="editableInfinityWardrobeDetailMrp.shutterColor"/>
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Hinge</label>                            
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetailMrp.hingesCode">
+                                <option value="">Select Hinge</option>
+                                <option value="HS" ng-if="infinityWardrobeMrpObject.softCloseHinges !== 0">Hinge Soft Close</option>
+                                <option value="HB" ng-if="infinityWardrobeMrpObject.blumSoftClose !== 0">Hinge Blum Soft Close</option>
+                                <option value="HD" ng-if="infinityWardrobeMrpObject.degree155 !== 0">Hinge 155 Degree</option>
+                            </select>                            
+                        </div>                        
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Handle Category</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetailMrp.handleCategory" >
+                                <option value="">Select Handle Category</option>
+                                <option value="H1" ng-if="infinityWardrobeMrpObject.priceh1 !== 0">H1</option>
+                                <option value="H2" ng-if="infinityWardrobeMrpObject.priceh2 !== 0">H2</option>
+                                <option value="H3" ng-if="infinityWardrobeMrpObject.priceh3 !== 0">H3</option>
+                                <option value="H4" ng-if="infinityWardrobeMrpObject.priceh4 !== 0">H4</option>
+                                <option value="H5" ng-if="infinityWardrobeMrpObject.priceh5 !== 0">H5</option>
+                            </select>
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Handle</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetailMrp.handle" >
+                                <option value="">Select Handle</option>
+                                <option value="HANDLE - SAAS - 6 INCH" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H1'">HANDLE - SAAS - 6 INCH</option>
+                                <option value="HANDLE - SAAS - 8 INCH" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H1'">HANDLE - SAAS - 8 INCH</option>
+                                <option value="HANDLE - H - 90" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H1'">HANDLE - H - 90</option>
+                                <option value="HANDLE - H - 268 - 192 C.D." ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H1'">HANDLE - H - 268 - 192 C.D.</option>
+                                <option value="HANDLE - H - 36 - 190 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H2'">HANDLE - H - 36 - 190 C.D.</option>
+                                <option value="HANDLE - H - 268 - 320 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H2'">HANDLE - H - 268 - 320 C.D.</option>
+                                <option value="HANDLE - H - 75 - 192 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H2'">HANDLE - H - 75 - 192 C.D</option>
+                                <option value="HANDLE - H - 17 - 224 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H2'">HANDLE - H - 17 - 224 C.D</option>
+                                <option value="HANDLE - H - 100 - 320 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H2'">HANDLE - H - 100 - 320 C.D</option>
+                                <option value="HANDLE - H - 75 - 256 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H2'">HANDLE - H - 75 - 256 C.D</option>
+                                <option value="HANDLE - H - 75 - 320 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H3'">HANDLE - H - 75 - 320 C.D</option>
+                                <option value="HANDLE - H - 31 - 320 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H3'">HANDLE - H - 31 - 320 C.D</option>
+                                <option value="HANDLE - H - 20 - 256 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H3'">HANDLE - H - 20 - 256 C.D</option>
+                                <option value="HANDLE - H - 31 - 228 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H3'">HANDLE - H - 31 - 228 C.D</option>
+                                <option value="HANDLE - H - 100 - 1149 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H4'">HANDLE - H - 100 - 1149 C.D</option>
+                                <option value="HANDLE - H - 20 - 320 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H4'">HANDLE - H - 20 - 320 C.D</option>
+                                <option value="HANDLE - H - 33 - 597 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H4'">HANDLE - H - 33 - 597 C.D</option>
+                                <option value="HANDLE - H - 31 - 500 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H4'">HANDLE - H - 31 - 500 C.D</option>
+                                <option value="HANDLE - H - 17 - 320 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H4'">HANDLE - H - 17 - 320 C.D</option>
+                                <option value="HANDLE - H - 33 - 897 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H5'">HANDLE - H - 33 - 897 C.D</option>
+                                <option value="HANDLE - H - 31 - 800 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H5'">HANDLE - H - 31 - 800 C.D</option>
+                                <option value="HANDLE - H - 31 - 1300 C.D" ng-if="editableInfinityWardrobeDetailMrp.handleCategory === 'H5'">HANDLE - H - 31 - 1300 C.D</option>
+                            </select>
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Width (in mm)</label>
+                            <input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.width" readonly="">
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Depth (in mm)</label>
+                            <input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.depth" readonly="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Height (in mm)</label>
+                            <input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.height" readonly="">
+                        </div>
+                    </div>                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" min="1" class="form-control" ng-model="editableInfinityWardrobeDetailMrp.quantity" required="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Remark</label>
+                            <textarea rows="2" class="form-control" ng-model="editableInfinityWardrobeDetailMrp.remark"></textarea>
+                        </div>
+                    </div>                    
+                </div>                
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        <i class="fa fa-save"></i>
+                        Add
+                    </button>                       				
+                </div>
+            </form>
+        </div>
+        <div class="panel-heading text-center" ng-if="showMaxWardrobeMrp">
+            <div>
+                <h3>Enter Max Wardrobe Order Details</h3>
+            </div>
+            <form role="role" ng-submit="saveMaxWardrobeMrpDetails(editableMaxWardrobeDetailMrp)">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Select Category</label>                   
+                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.category" required="">
+                                <option value="">Select Category</option>
+                                <option value="WARDROBE">Wardrobe</option>                                
+                                <option value="TROUSER_RACK">Trouser Rack</option>
+                                <option value="SPECIAL_PANEL">Special Panel</option>
+                                <option value="SLIDE">Slide</option>
+                                <option value="SKIRTING">Skirting</option>
+                                <option value="MIRROR_FRAME">Mirror Frame</option>
+                                <option value="LOFTC_FRAME">Loft C Unit</option>
+                                <option value="LOFT_SKIRTING">Loft Skirting</option>
+                                <option value="LOFT_GRID_SINGLE_BOTTOM">Loft Grid Single Bottom</option>
+                                <option value="LOFT_GRID_DOUBLE_BOTTOM">Loft Grid Double Bottom</option>
+                                <option value="LOFT_GRID_LSHAPE">Loft Grid L Shape</option>
+                                <option value="LOFT_END_PANEL">Loft End Panel</option>
+                                <option value="HINGES">Hinges</option>
+                                <option value="HANGER_ROD">Hanger Rod</option>
+                                <option value="GALLERY_SHELF">Gallery Shelf</option>  
+                                <option value="FILLER">Filler</option>
+                                <option value="END_PANEL">End Panel</option>
+                                <option value="DRAWER_UNIT">Drawer Unit</option>
+                                <option value="DRAWER">Drawer</option>
+                                <option value="CHEST_OF_DRAWER">Chest Of Drawer</option>
+                                <option value="ADD_ON_SHELF">Add On Shelf</option>
+                            </select>
+                        </div>
+                    </div>                
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Component</label>
+                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.componentId" required="">
+                                <option value="">Select Component</option>
+                                <option ng-repeat="component in maxWardrobeMrpComponentList" value="{{component.id}}">({{component.productCode}}) - {{component.description}} (W:{{component.width}} x D:{{component.depth}} x H:{{component.height}})</option>
+                            </select>
+                        </div>                                      
+                    </div>                
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Carcass</label>
+                            <input class="form-control" ng-model="editableMaxWardrobeDetailMrp.carcass" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Carcass Color</label>                                                
+                            <input class="form-control" placeholder="Enter Carcass Color" ng-model="editableMaxWardrobeDetailMrp.carcassColor" required=""/>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Shutter Category</label>
+                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.shutterCategory">
+                                <option value="">Select Shutter Finish</option>                                
+                                <option value="P1" ng-if="maxWardrobeMrpObject.price1 !== 0">P1</option>
+                                <option value="P2" ng-if="maxWardrobeMrpObject.price2 !== 0">P2</option>
+                                <option value="P3" ng-if="maxWardrobeMrpObject.price3 !== 0">P3</option>
+                                <option value="P4" ng-if="maxWardrobeMrpObject.price4 !== 0">P4</option>                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Shutter</label>
+                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.shutter">
+                                <option value="">Select Shutter Finish</option>                                
+                                <option value="PRELAM MATRIX (PARTICLE BOARD)" ng-if="editableMaxWardrobeDetailMrp.shutterCategory === 'P1'">PRELAM MATRIX (PARTICLE BOARD)</option>
+                                <option value="3 PIECE - (PARTICLE BOARD)" ng-if="editableMaxWardrobeDetailMrp.shutterCategory === 'P1'">3 PIECE - (PARTICLE BOARD)</option>
+                                <option value="PVC MEMBRANE STANDARD (MDF)" ng-if="editableMaxWardrobeDetailMrp.shutterCategory === 'P2'">PVC MEMBRANE STANDARD (MDF)</option>
+                                <option value="PVC MEMBRANE DESG (MDF)" ng-if="editableMaxWardrobeDetailMrp.shutterCategory === 'P3'">PVC MEMBRANE DESG (MDF)</option>
+                                <option value="PVC MEMBRANE REGULAR GLOSSY (MDF)" ng-if="editableMaxWardrobeDetailMrp.shutterCategory === 'P3'">PVC MEMBRANE REGULAR GLOSSY (MDF)</option>
+                                <option value="PVC MEMBRANE PREMIUM GLOSSY (MDF)" ng-if="editableMaxWardrobeDetailMrp.shutterCategory === 'P4'">PVC MEMBRANE PREMIUM GLOSSY (MDF)</option>
+                                <option value="G - 55 ALU. GLASS" ng-if="editableMaxWardrobeDetailMrp.shutterCategory === 'P4'">G - 55 ALU. GLASS</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Shutter Color</label>                                                
+                            <input class="form-control" placeholder="Select Shutter Color" ng-model="editableMaxWardrobeDetailMrp.shutterColor"/>
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Hinge</label>                            
+                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.hingesCode">
+                                <option value="">Select Hinge</option>
+                                <option value="HS" ng-if="maxWardrobeMrpObject.softCloseHinges !== 0">Hinge Soft Close</option>                                
+                            </select>                            
+                        </div>                        
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Handle Category</label>
+                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.handleCategory" >
+                                <option value="">Select Handle Category</option>
+                                <option value="H1" ng-if="maxWardrobeMrpObject.priceh1 !== 0">H1</option>
+                                <option value="H2" ng-if="maxWardrobeMrpObject.priceh2 !== 0">H2</option>
+                                <option value="H3" ng-if="maxWardrobeMrpObject.priceh3 !== 0">H3</option>
+                                <option value="H4" ng-if="maxWardrobeMrpObject.priceh4 !== 0">H4</option>                                
+                            </select>
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Handle</label>
+                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.handle" >
+                                <option value="">Select Handle</option>
+                                <option value="HANDLE - F - 188 - 128 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H1'">HANDLE - F - 188 - 128 CD</option>
+                                <option value="HANDLE - F - 188 - 160 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H1'">HANDLE - F - 188 - 160 CD</option>
+                                <option value="HANDLE - F - 188 - 224 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H1'">HANDLE - F - 188 - 224 CD</option>
+                                <option value="HANDLE - H - 17 - 224 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H2'">HANDLE - H - 17 - 224 CD</option>
+                                <option value="HANDLE - H - 100 - 320 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H2'">HANDLE - H - 100 - 320 CD</option>
+                                <option value="HANDLE - H - 233 - 192 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H2'">HANDLE - H - 233 - 192 CD</option>
+                                <option value="HANDLE - H - 233 - 320 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H2'">HANDLE - H - 233 - 320 CD</option>
+                                <option value="HANDLE - H - 17 - 320 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H3'">HANDLE - H - 17 - 320 CD</option>
+                                <option value="HANDLE - H - 100 - 1149 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H3'">HANDLE - H - 100 - 1149 CD</option>
+                                <option value="HANDLE - H - 233 - 779 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H3'">HANDLE - H - 233 - 779 CD</option>
+                                <option value="HANDLE - H - 233 - 1279 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H4'">HANDLE - H - 233 - 1279 CD</option>
+                            </select>
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Width (in mm)</label>
+                            <input class="form-control" ng-model="editableMaxWardrobeDetailMrp.width" readonly="">
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Depth (in mm)</label>
+                            <input class="form-control" ng-model="editableMaxWardrobeDetailMrp.depth" readonly="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Height (in mm)</label>
+                            <input class="form-control" ng-model="editableMaxWardrobeDetailMrp.height" readonly="">
+                        </div>
+                    </div>                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" min="1" class="form-control" ng-model="editableMaxWardrobeDetailMrp.quantity" required="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Remark</label>
+                            <textarea rows="2" class="form-control" ng-model="editableMaxWardrobeDetailMrp.remark"></textarea>
+                        </div>
+                    </div>                    
+                </div>                
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        <i class="fa fa-save"></i>
+                        Add
+                    </button>                       				
+                </div>
+            </form>
+        </div>
+        <div class="panel-heading text-center" ng-if="showMaxKitchenMrp">
+            <div>
+                <h3>Enter Infinity Wardrobe Order Details</h3>
+            </div>
+            <form role="role" ng-submit="saveInfinityWardrobeDetails(editableInfinityWardrobeDetail)">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Select Category</label>                   
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetail.category" required="">
+                                <option value="">Select Category</option>
+                                <option value="WARDROBE">Wardrobe</option>
+                                <option value="LOFT_UNIT">Loft Unit</option>
+                                <option value="CHEST_OF_DRAWER">Chest Of Drawer</option>
+                                <option value="GALLERY_SHELF">Gallery Shelf</option>
+                                <option value="TROUSER_RACK">Trouser Rack</option>
+                                <option value="FILLER">Filler</option>
+                                <option value="END_PANEL">End Panel</option>                               
+                            </select>
+                        </div>
+                    </div>                
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Component</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetail.componentId" required="">
+                                <option value="">Select Component</option>
+                                <option ng-repeat="component in infinityWardrobeComponentList" value="{{component.id}}">({{component.productCode}}) - {{component.description}}</option>
+                            </select>
+                        </div>                                      
+                    </div>                
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Carcass</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetail.carcass" required="">
+                                <option value="">Select Carcass Material</option>
+                                <option value="PB" ng-if="infinityWardrobeObject.cpPpb !== 0">Partical Board</option>
+                                <option value="MF" ng-if="infinityWardrobeObject.cpMf !== 0">MDF</option>
+                                <option value="HM" ng-if="infinityWardrobeObject.cpHmr !== 0">HMR</option>
+                                <option value="HF" ng-if="infinityWardrobeObject.cpHf !== 0">HDF</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Carcass Color</label>                    
+                            <div class="input-group">
+                                <input class="form-control" placeholder="Select Carcass Color" ng-model="infinityCarcassColorName" required="" onkeypress="return false;" readonly=""/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" ng-click="openInfinityCarcassColorWidget()">Select Color</button>
+                                </span>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Shutter</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetail.shutterFinish">
+                                <option value="">Select Shutter Finish</option>
+                                <option value="0">No Shutter Available for this item</option>
+                                <option value="XXC" ng-if="infinityWardrobeObject.spMfSt !== 0">Membrane Standard</option>
+                                <option value="XXB" ng-if="infinityWardrobeObject.spMfDes !== 0">Membrane Designer</option>
+                                <option value="XXA" ng-if="infinityWardrobeObject.spMfGlReg !== 0">Membrane Glossy Regular</option>
+                                <option value="XAH" ng-if="infinityWardrobeObject.spMfGlossPrem !== 0">Membrane Glossy Premium</option>
+                                <option value="XXI" ng-if="infinityWardrobeObject.spHplMatt !== 0">HPL Matt</option>
+                                <option value="XXH" ng-if="infinityWardrobeObject.spPlyHplGloss !== 0">HPL Ply Gloss</option>
+                                <option value="XXG" ng-if="infinityWardrobeObject.spPlyHplMr !== 0">HPL Ply MR</option>
+                                <option value="XXN" ng-if="infinityWardrobeObject.spMfPolymer !== 0">MDF Polymer</option>
+                                <option value="XXL" ng-if="infinityWardrobeObject.spPlyAcrStd !== 0">Ply Acrylic Standard</option>
+                                <option value="XXM" ng-if="infinityWardrobeObject.spPlyAcrPrem !== 0">Ply Acrylic Premium</option>
+                                <option value="XXJ" ng-if="infinityWardrobeObject.spHdfAcrStd !== 0">HDF Acrylic Standard</option>
+                                <option value="XXK" ng-if="infinityWardrobeObject.spHdfAcrPrem !== 0">HDF Acrylic Premium</option>
+                                <option value="XXS" ng-if="infinityWardrobeObject.spMfPuSolid !== 0">MDF PU Solid</option>
+                                <option value="XXT" ng-if="infinityWardrobeObject.spMfPuMetallic !== 0">MDF PU Metallic</option>
+                                <option value="XXO" ng-if="infinityWardrobeObject.spHmrSolid !== 0">HMR Solid</option>
+                                <option value="XXP" ng-if="infinityWardrobeObject.spHmrMetallic !== 0">HMR Metallic</option>
+                                <option value="XXQ" ng-if="infinityWardrobeObject.spPlyPuSolid !== 0">Ply PU Solid</option>
+                                <option value="XXP" ng-if="infinityWardrobeObject.spPlyPuMetallic !== 0">Ply PU Metallic</option>
+                                <option value="XAI" ng-if="infinityWardrobeObject.spPrePbEdgeb !== 0">Prelam PB Edgebinded</option>
+                                <option value="XAJ" ng-if="infinityWardrobeObject.spPreMfEdgeb !== 0">Prelam MDF Edgebinded</option>
+                                <option value="XAK" ng-if="infinityWardrobeObject.spPreHmrEdgeb !== 0">Prelam HMR Edgebinded</option>
+                                <option value="XXF" ng-if="infinityWardrobeObject.spHmrStd !== 0">HMR Standard</option>
+                                <option value="XXE" ng-if="infinityWardrobeObject.spHmrDesg !== 0">HMR Designer</option>
+                                <option value="XXD" ng-if="infinityWardrobeObject.spHmrGlossReg !== 0">HMR Glossy Regular</option>
+                                <option value="XAL" ng-if="infinityWardrobeObject.spHmrGlossPremium !== 0">HMR Glossy Premium</option>
+                                <option value="XAM" ng-if="infinityWardrobeObject.spG55AcidFrosted !== 0">G55 Acid Frosted</option>
+                                <option value="XAN" ng-if="infinityWardrobeObject.spGloriaStd !== 0">Gloria Standard</option>
+                                <option value="XAO" ng-if="infinityWardrobeObject.spGloriaDesg !== 0">Gloria Designer</option>
+                                <option value="XAP" ng-if="infinityWardrobeObject.spGloriaGlossReg !== 0">Gloria Glossy Regular</option>
+                                <option value="XAQ" ng-if="infinityWardrobeObject.spGloriaGlossPremium !== 0">Gloria Glossy Premium</option>
+                                <option value="XAV" ng-if="infinityWardrobeObject.spGloriaPuSolid !== 0">Gloria PU Solid</option>
+                                <option value="XAR" ng-if="infinityWardrobeObject.spGloriaPuMetallic !== 0">Gloria PU Metallic</option>
+                                <option value="XAS" ng-if="infinityWardrobeObject.spVenettaMfPuSolid !== 0">Venetta MDF PU Solid</option>
+                                <option value="XAT" ng-if="infinityWardrobeObject.spVenettaMfPuMetallic !== 0">Venetta MDF PU Metallic</option>
+                                <option value="XAU" ng-if="infinityWardrobeObject.spHfAcrGlass !== 0">HDF Acrylic Glass</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Shutter Color</label>                    
+                            <div class="input-group">
+                                <input class="form-control" placeholder="Select Shutter Color" ng-model="infinityShutterColorName" required="" onkeypress="return false;" readonly=""/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" ng-click="openInfinityShutterColorWidget()">Select Color</button>
+                                </span>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Hinge</label>                            
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetail.hinge">
+                                <option value="">Select Hinge</option>
+                                <option value="HS" ng-if="infinityWardrobeObject.hingeSoftClose !== 0">Hinge Soft Close</option>
+                                <option value="HB" ng-if="infinityWardrobeObject.hingeBlumSoftClose !== 0">Hinge Blum Soft Close</option>
+                                <option value="HD" ng-if="infinityWardrobeObject.hingeDeg155 !== 0">Hinge 155 Degree</option>
+                            </select>                            
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Width (in mm)</label>
+                            <input class="form-control" ng-model="editableInfinityWardrobeDetail.width" readonly="">
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Depth (in mm)</label>
+                            <input class="form-control" ng-model="editableInfinityWardrobeDetail.depth" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Height (in mm)</label>
+                            <input class="form-control" ng-model="editableInfinityWardrobeDetail.height" readonly="">
+                        </div>
+                    </div>                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" min="1" class="form-control" ng-model="editableInfinityWardrobeDetail.quantity" required="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3" ng-if="orderHead.orderSubType === 'D'">                        
+                        <div class="form-group">
+                            <label>Display Discount (In %)</label>
+                            <input type="number" min="0" class="form-control" placeholder="Add Display Discount" ng-model="editableInfinityWardrobeDetail.displayDiscount" required="required"/>
+                        </div>
+                    </div>
+                </div>                
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        <i class="fa fa-save"></i>
+                        Add
+                    </button>                       				
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div data-ui-view=""></div>

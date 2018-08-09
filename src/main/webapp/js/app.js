@@ -114,6 +114,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.unapproved_order_report',
     'digitalbusiness.states.party_order_report',
     'digitalbusiness.states.order_report',
+    'digitalbusiness.states.order_mrp',
 
     'digitalbusiness.states.auth'
 

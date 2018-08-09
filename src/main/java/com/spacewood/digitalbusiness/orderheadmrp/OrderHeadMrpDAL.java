@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.orderheadmrp;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,7 +129,7 @@ public class OrderHeadMrpDAL {
         parameters.put(Columns.PARTY_MOBILE_NO, orderHeadMrp.getPartyMobileNo());
         parameters.put(Columns.PARTY_TELEPHONE_NO, orderHeadMrp.getPartyTelephoneNo());
         parameters.put(Columns.PARTY_CITY, orderHeadMrp.getProjectName());
-        parameters.put(Columns.PO_DATE, orderHeadMrp.getPoDate());
+        parameters.put(Columns.PO_DATE, new Date());
         parameters.put(Columns.ORDER_INITIATED_BY, orderHeadMrp.getOrderInitiatedBy());
         parameters.put(Columns.ORDER_AMOUNT, "0");
         parameters.put(Columns.CGST_AMOUNT, "0");
