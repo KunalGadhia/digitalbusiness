@@ -1,16 +1,50 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveManufacturer(editableManufacturer)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Manufacturer Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Manufacturer Code</label>
+                                <input class="form-control" placeholder="Manufacturer Code" ng-model="editableManufacturer.manufacturerCode" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Manufacturer Name</label>
+                                <input class="form-control" placeholder="Manufacturer Name" ng-model="editableManufacturer.manufacturerName" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="editableManufacturer.repeatCode">
+                        <div class="col-sm-6">
+                            <span class="text-danger">Found Records For Above Entered Name</span>
+                        </div>
+                        <div class="col-sm-6 text-danger">                            
+                        </div>
+                    </div>                    
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableManufacturer.repeatCode">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
