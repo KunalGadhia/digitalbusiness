@@ -312,6 +312,10 @@
         <script src="${pageContext.request.contextPath}/js/states/party_order_report.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/order_report.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/order_mrp.js"></script>
+        <!-- New Offerings-->
+        <script src="${pageContext.request.contextPath}/js/states/manufacturer.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/manufacturer_category.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/dealer_sku.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>
@@ -373,6 +377,7 @@
         <script src="${pageContext.request.contextPath}/js/services/manufacturer_category_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/manufacturer_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/dealer_sku_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/dealer_sku_order_details_service.js"></script>
     </head>
     <body style="font-family: 'Roboto', sans-serif;">
         <div data-ui-view></div>

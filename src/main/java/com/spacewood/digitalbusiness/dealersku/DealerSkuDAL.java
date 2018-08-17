@@ -114,13 +114,13 @@ public class DealerSkuDAL {
         parameters.put(Columns.PRODUCT_DESCRIPTION, dealerSku.getProductDescription());
         parameters.put(Columns.MANUFACTURER_CODE, dealerSku.getManufacturerCode());
         parameters.put(Columns.MANUFACTURER_CATEGORY_CODE, dealerSku.getManufacturerCategoryCode());
-        parameters.put(Columns.WIDTH, dealerSku.getManufacturerCode());
-        parameters.put(Columns.DEPTH, dealerSku.getManufacturerCode());
-        parameters.put(Columns.HEIGHT, dealerSku.getManufacturerCode());
-        parameters.put(Columns.COLOR, dealerSku.getManufacturerCode());
-        parameters.put(Columns.SP_PRICE, dealerSku.getManufacturerCode());
-        parameters.put(Columns.PRICE, dealerSku.getManufacturerCode());
-        parameters.put(Columns.IMAGE, dealerSku.getManufacturerCode());
+        parameters.put(Columns.WIDTH, dealerSku.getWidth());
+        parameters.put(Columns.DEPTH, dealerSku.getDepth());
+        parameters.put(Columns.HEIGHT, dealerSku.getHeight());
+        parameters.put(Columns.COLOR, dealerSku.getColor());
+        parameters.put(Columns.SP_PRICE, dealerSku.getSpPrice());
+        parameters.put(Columns.PRICE, dealerSku.getPrice());
+//        parameters.put(Columns.IMAGE, dealerSku.getImage());
         parameters.put(Columns.CREATED_BY, dealerSku.getCreatedBy());
         Number newId = insertDealerSku.executeAndReturnKey(parameters);
         dealerSku = findById(newId.intValue());
@@ -144,16 +144,14 @@ public class DealerSkuDAL {
                 + Columns.HEIGHT + " = ?, "
                 + Columns.COLOR + " = ?, "
                 + Columns.SP_PRICE + " = ?, "
-                + Columns.PRICE + " = ?, "
-                + Columns.PRICE + " = ?, "
+                + Columns.PRICE + " = ?, "               
                 + Columns.CREATED_BY + " = ?, "
                 + Columns.IMAGE + " = '" + path + "' WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     dealerSku.getProductCode(),
                     dealerSku.getProductDescription(),
-                    dealerSku.getManufacturerCode(),
-                    dealerSku.getManufacturerCode(),
+                    dealerSku.getManufacturerCode(),                    
                     dealerSku.getManufacturerCategoryCode(),
                     dealerSku.getWidth(),
                     dealerSku.getDepth(),

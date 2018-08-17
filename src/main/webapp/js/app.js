@@ -77,6 +77,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.manufacturer_category',
     'digitalbusiness.services.manufacturer',
     'digitalbusiness.services.dealer_sku',
+    'digitalbusiness.services.dealer_sku_order_details',
     //ERP INTEGRATION SERVICE
     'digitalbusiness.services.erp_integration',
 
@@ -118,6 +119,9 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.party_order_report',
     'digitalbusiness.states.order_report',
     'digitalbusiness.states.order_mrp',
+    'digitalbusiness.states.manufacturer',
+    'digitalbusiness.states.manufacturer_category',
+    'digitalbusiness.states.dealer_sku',
 
     'digitalbusiness.states.auth'
 
