@@ -370,6 +370,9 @@
         <script src="${pageContext.request.contextPath}/js/services/infinity_wardrobe_mrp_order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/max_wardrobe_mrp_order_details_service.js"></script>
         <script src="${pageContext.request.contextPath}/js/services/max_kitchen_mrp_order_details_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/manufacturer_category_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/manufacturer_service.js"></script>
+        <script src="${pageContext.request.contextPath}/js/services/dealer_sku_service.js"></script>
     </head>
     <body style="font-family: 'Roboto', sans-serif;">
         <div data-ui-view></div>
