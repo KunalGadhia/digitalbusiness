@@ -228,6 +228,47 @@ INSERT INTO `cornice_order_details` VALUES (1,43,47,'COR-CR2X25MFXXXA-0095065025
 UNLOCK TABLES;
 
 --
+-- Table structure for table `dealer_sku_master`
+--
+
+DROP TABLE IF EXISTS `dealer_sku_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dealer_sku_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_code` varchar(100) NOT NULL,
+  `product_description` varchar(600) NOT NULL,
+  `manufacturer_code` varchar(200) NOT NULL COMMENT 'REF manufacturer_master.manufacturer_code',
+  `manufacturer_category_code` varchar(200) NOT NULL,
+  `width` double DEFAULT '0',
+  `depth` double DEFAULT '0',
+  `height` double DEFAULT '0',
+  `color` varchar(200) DEFAULT NULL,
+  `sp_price` double DEFAULT '0',
+  `price` double NOT NULL,
+  `image` varchar(500) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL COMMENT 'REF user.id',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `dealer_sku_master_manufacturer_code_fk` (`manufacturer_code`),
+  KEY `dealer_sku_master_manufacturer_category_code_fk` (`manufacturer_category_code`),
+  KEY `dealer_sku_master_created_by_fk` (`created_by`),
+  CONSTRAINT `dealer_sku_master_created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `dealer_sku_master_manufacturer_category_code_fk` FOREIGN KEY (`manufacturer_category_code`) REFERENCES `manufacturer_category_master` (`category_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `dealer_sku_master_manufacturer_code_fk` FOREIGN KEY (`manufacturer_code`) REFERENCES `manufacturer_master` (`manufacturer_code`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dealer_sku_master`
+--
+
+LOCK TABLES `dealer_sku_master` WRITE;
+/*!40000 ALTER TABLE `dealer_sku_master` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dealer_sku_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `department_master`
 --
 
@@ -882,6 +923,38 @@ INSERT INTO `kitchen_component_master` VALUES (1,'Wall Carcass','WC','CARCASS','
 UNLOCK TABLES;
 
 --
+-- Table structure for table `manufacturer_category_master`
+--
+
+DROP TABLE IF EXISTS `manufacturer_category_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `manufacturer_category_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(200) NOT NULL,
+  `category_code` varchar(200) NOT NULL,
+  `manufacturer_code` varchar(200) NOT NULL COMMENT 'REF manufacturer_master.manufacturer_code',
+  `created_by` int(11) DEFAULT NULL COMMENT 'REF user.id',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `category_code_UNIQUE` (`category_code`),
+  KEY `manufacturer_category_master_manufacturer_code_fk` (`manufacturer_code`),
+  KEY `manufacturer_category_master_created_by_fk` (`created_by`),
+  CONSTRAINT `manufacturer_category_master_created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
+  CONSTRAINT `manufacturer_category_master_manufacturer_code_fk` FOREIGN KEY (`manufacturer_code`) REFERENCES `manufacturer_master` (`manufacturer_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `manufacturer_category_master`
+--
+
+LOCK TABLES `manufacturer_category_master` WRITE;
+/*!40000 ALTER TABLE `manufacturer_category_master` DISABLE KEYS */;
+/*!40000 ALTER TABLE `manufacturer_category_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `manufacturer_master`
 --
 
@@ -895,9 +968,10 @@ CREATE TABLE `manufacturer_master` (
   `created_by` int(11) DEFAULT NULL COMMENT 'REF user.id',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `manufacturer_code_UNIQUE` (`manufacturer_code`),
   KEY `manufacturer_master_created_by_fk` (`created_by`),
   CONSTRAINT `manufacturer_master_created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -906,6 +980,7 @@ CREATE TABLE `manufacturer_master` (
 
 LOCK TABLES `manufacturer_master` WRITE;
 /*!40000 ALTER TABLE `manufacturer_master` DISABLE KEYS */;
+INSERT INTO `manufacturer_master` VALUES (1,'HFL','Hafle',1,0),(2,'A','A',1,0),(3,'B','B',1,0),(4,'C','C',1,0),(5,'D','D',1,0),(6,'E','E',1,0),(7,'F','F',1,0),(8,'G','G',1,0),(9,'H','H',1,0),(10,'I','I',1,0),(11,'J','J',1,0),(12,'K','K',1,0),(13,'L','L',1,0),(14,'M','M',1,0),(15,'N','N',1,0),(16,'O','O',1,0),(17,'P','P',1,0),(18,'Q','Q',1,0),(19,'R','R',1,0),(20,'S','S',1,0),(21,'T','T',1,0),(22,'U','U',1,0),(23,'V','V',1,0),(24,'W','W',1,0),(25,'X','X',1,0),(26,'Y','Y',1,0),(27,'Z','Z',1,0),(28,'ABC','ABC',1,1);
 /*!40000 ALTER TABLE `manufacturer_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2178,4 +2253,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-16 17:43:07
+-- Dump completed on 2018-08-17 18:31:20

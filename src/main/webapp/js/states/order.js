@@ -7449,26 +7449,6 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.adminBackButton = false;
                     $scope.dealerBackButton = true;
                 }
-//                $scope.currentOffset = 0;
-//                $scope.mainOrderArray = [];
-//                $scope.nextOrders = OrderHeadService.query({
-//                    'offset': $scope.nextOffset
-//                });
-//                $scope.orderHeadList = OrderHeadService.query({
-//                    'offset': $scope.currentOffset
-//                }, function (orderHeadList) {
-//                    console.log("Order Head List :%O", orderHeadList);
-//                    angular.forEach(orderHeadList, function (orderHeadObject) {
-//                        orderHeadObject.billingPartyObject = PartyService.get({
-//                            'id': orderHeadObject.billingPartyId
-//                        });
-//                        orderHeadObject.deliveryPartyObject = PartyService.get({
-//                            'id': orderHeadObject.deliveryPartyId
-//                        });
-//                        $scope.mainOrderArray.push(orderHeadObject);
-//                    });
-//                });
-//                console.log("Order Head List :%O", $scope.orderHeadList);
             });
             $scope.currentOffset = 0;
             $scope.mainOrderArray = [];
