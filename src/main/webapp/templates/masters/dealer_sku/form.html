@@ -1,16 +1,117 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveDealerSku(editableDealerSku)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        SKU Entry Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Product Code</label>
+                                <input class="form-control" placeholder="Product Code" ng-model="editableDealerSku.productCode" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Product Description</label>
+                                <input class="form-control" placeholder="Category Name" ng-model="editableDealerSku.productDescription" required=""/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Manufacturer / Make</label>
+                                <input class="form-control"
+                                       placeholder="Enter Manufacturer Name"
+                                       uib-typeahead="manufacturerCode.manufacturerName as manufacturerCode.manufacturerName for manufacturerCode in searchManufacturerCode($viewValue)"
+                                       typeahead-on-select="setManufacturerCode($item)"
+                                       typeahead-editable="false"
+                                       typeahead-loading="loadingManufacturerCode" 
+                                       typeahead-no-results="noManufacturerCodeFound"                                       
+                                       ng-model="editableDealerSku.manufacturer.manufacturerName" required=""/>
+                                <p ng-show="noManufacturerCodeFound" class="help-block text-muted">No Manufacturer Found</p>
+                                <p ng-show="loadingManufacturerCode" class="help-block text-muted">Loading...</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Manufacturer Category Code</label>
+                                <input class="form-control"
+                                       placeholder="Enter Manufacturer Category Name"
+                                       uib-typeahead="manufacturerCategoryCode.categoryName as manufacturerCategoryCode.categoryName for manufacturerCategoryCode in searchManufacturerCategoryCode($viewValue)"
+                                       typeahead-on-select="setManufacturerCategoryCode($item)"
+                                       typeahead-editable="false"
+                                       typeahead-loading="loadingManufacturerCategoryCode" 
+                                       typeahead-no-results="noManufacturerCategoryCodeFound"                                       
+                                       ng-model="editableDealerSku.manufacturerCategory.categoryName" required=""/>
+                                <p ng-show="noManufacturerCategoryCodeFound" class="help-block text-muted">No Manufacturer Category Found</p>
+                                <p ng-show="loadingManufacturercategoryCode" class="help-block text-muted">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Width</label>
+                                <input type="number" min="0" class="form-control" placeholder="Width" ng-model="editableDealerSku.width" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Depth</label>
+                                <input type="number" min="0" class="form-control" placeholder="Depth" ng-model="editableDealerSku.depth" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Height</label>
+                                <input type="number" min="0" class="form-control" placeholder="Height" ng-model="editableDealerSku.height" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Color / Finish</label>
+                                <input class="form-control" placeholder="Color Name / Finish Name" ng-model="editableDealerSku.color" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Spacewood Price</label>
+                                <input type="number" min="0" class="form-control" placeholder="Spacewood Price" ng-model="editableDealerSku.spPrice" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input type="number" min="0" class="form-control" placeholder="Price" ng-model="editableDealerSku.price" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableManufacturerCategory.repeatCode">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

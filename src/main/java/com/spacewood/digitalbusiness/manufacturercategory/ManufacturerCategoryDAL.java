@@ -31,7 +31,7 @@ public class ManufacturerCategoryDAL {
         
     }
 
-    public static final String TABLE_NAME = "manufacturer_categoy_master";
+    public static final String TABLE_NAME = "manufacturer_category_master";
 
     private final SimpleJdbcInsert insertManufacturerCategory;
     private final JdbcTemplate jdbcTemplate;

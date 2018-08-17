@@ -26,7 +26,7 @@ public class DealerSkuDAL {
 
         public static final String ID = "id";
         public static final String PRODUCT_CODE = "product_code";
-        public static final String PRODUCT_DESCRIPTION = "category_code";
+        public static final String PRODUCT_DESCRIPTION = "product_description";
         public static final String MANUFACTURER_CODE = "manufacturer_code";
         public static final String MANUFACTURER_CATEGORY_CODE = "manufacturer_category_code";
         public static final String WIDTH = "width";
@@ -120,7 +120,7 @@ public class DealerSkuDAL {
         parameters.put(Columns.COLOR, dealerSku.getColor());
         parameters.put(Columns.SP_PRICE, dealerSku.getSpPrice());
         parameters.put(Columns.PRICE, dealerSku.getPrice());
-//        parameters.put(Columns.IMAGE, dealerSku.getImage());
+        parameters.put(Columns.IMAGE, "Default.jpg");
         parameters.put(Columns.CREATED_BY, dealerSku.getCreatedBy());
         Number newId = insertDealerSku.executeAndReturnKey(parameters);
         dealerSku = findById(newId.intValue());

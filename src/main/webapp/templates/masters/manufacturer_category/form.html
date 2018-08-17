@@ -1,39 +1,58 @@
 <div class="modal modal-digitalbusiness">
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog">
-        <form role="form" ng-submit="saveManufacturer(editableManufacturer)">
+        <form role="form" ng-submit="saveManufacturerCateogry(editableManufacturerCategory)">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">
                         <i class="fa fa-user"></i>
-                        Manufacturer Form
+                        Manufacturer Category Form
                     </h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Manufacturer Code</label>
-                                <input class="form-control" placeholder="Manufacturer Code" ng-model="editableManufacturer.manufacturerCode" required=""/>
+                                <label>Category Code</label>
+                                <input class="form-control" placeholder="Category Code" ng-model="editableManufacturerCategory.categoryCode" required=""/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Manufacturer Name</label>
-                                <input class="form-control" placeholder="Manufacturer Name" ng-model="editableManufacturer.manufacturerName" required=""/>
+                                <label>Category Name</label>
+                                <input class="form-control" placeholder="Category Name" ng-model="editableManufacturerCategory.categoryName" required=""/>
                             </div>
                         </div>
                     </div>
-                    <div class="row" ng-show="editableManufacturer.repeatCode">
+                    <div class="row" ng-show="editableManufacturerCategory.repeatCode">
                         <div class="col-sm-6">
                             <span class="text-danger">Found Records For Above Entered Name</span>
                         </div>
                         <div class="col-sm-6 text-danger">                            
                         </div>
                     </div>                    
-
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Manufacturer Code</label>
+                                <input class="form-control"
+                                       placeholder="Enter Manufacturer Code"
+                                       uib-typeahead="manufacturerCode.manufacturerName as manufacturerCode.manufacturerName for manufacturerCode in searchManufacturerCode($viewValue)"
+                                       typeahead-on-select="setManufacturerCode($item)"
+                                       typeahead-editable="false"
+                                       typeahead-loading="loadingManufacturerCode" 
+                                       typeahead-no-results="noManufacturerCodeFound"                                       
+                                       ng-model="editableManufacturerCategory.manufacturer.manufacturerName" required=""/>
+                                <p ng-show="noManufacturerCodeFound" class="help-block text-muted">No Manufacturer Category Found</p>
+                                <p ng-show="loadingManufacturerCode" class="help-block text-muted">Loading...</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            
+                        </div>
+                    </div>
                     <div class="modal-footer">
-                        <button class="btn btn-lg btn-primary" ng-disabled="editableManufacturer.repeatCode">
+                        <button class="btn btn-lg btn-primary" ng-disabled="editableManufacturerCategory.repeatCode">
                             <i class="fa fa-save"></i>
                             Save
                         </button>

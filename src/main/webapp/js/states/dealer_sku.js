@@ -27,171 +27,168 @@ angular.module("digitalbusiness.states.dealer_sku", [])
             });
         })
 
-        .controller('DealerSkuListController', function (PartyService, EmployeeService, $scope, $stateParams, $state, paginationLimit) {
-//            if (
-//                    $stateParams.offset === undefined ||
-//                    isNaN($stateParams.offset) ||
-//                    new Number($stateParams.offset) < 0)
-//            {
-//                $scope.currentOffset = 0;
-//            } else {
-//                $scope.currentOffset = new Number($stateParams.offset);
-//            }
-//
-//            $scope.nextOffset = $scope.currentOffset + 10;
-//
-//            $scope.nextParty = PartyService.query({
-//                'offset': $scope.nextOffset
-//            });
-//
-//            $scope.parties = PartyService.query({
-//                'offset': $scope.currentOffset
-//            }, function (s) {
-//                angular.forEach($scope.parties, function (partyObject) {
-//                    partyObject.employeeObject = EmployeeService.get({
-//                        'id': partyObject.marketingHeadId
-//                    });
-//                });
-//            });
-//
-//            $scope.nextPage = function () {
-//                $scope.currentOffset += paginationLimit;
-//                $state.go(".", {'offset': $scope.currentOffset}, {'reload': true});
-//            };
-//            $scope.previousPage = function () {
-//                if ($scope.currentOffset <= 0) {
-//                    return;
-//                }
-//                $scope.currentOffset -= paginationLimit;
-//                $state.go(".", {'offset': $scope.currentOffset}, {'reload': true});
-//            };
-//
-//            $scope.searchParty = function (searchTerm) {
-//                return PartyService.findByNameLike({
-//                    'name': searchTerm
-//                }).$promise;
-//            };
-//
-//            $scope.setParty = function (party) {
-//                $scope.searchPartyId = party.id;
-//            };
-//
-//            $scope.searchPartyName = function () {
-//                $scope.parties = [];
-//                PartyService.get({
-//                    'id': $scope.searchPartyId
-//                }, function (partyObject) {
-//                    $scope.parties.push(partyObject);
-//                });
-//            };
-//
-//            $scope.clearSearch = function () {
-//                $scope.searchPartyId = '';
-//                $scope.partyObject = {};
-//                $scope.parties = PartyService.query({
-//                    'offset': $scope.currentOffset
-//                }, function (partyList) {
-//                    angular.forEach($scope.parties, function (partyObject) {
-//                        partyObject.employeeObject = EmployeeService.get({
-//                            'id': partyObject.marketingHeadId
-//                        });
-//                    });
-//                });
-//            };
+        .controller('DealerSkuListController', function ($window, DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $rootScope, $scope, $stateParams, $state, paginationLimit) {
+            $scope.currentUser = $rootScope.currentUser;
+            UserService.findByUsername({
+                'username': $scope.currentUser.username
+            }, function (userObject) {
+                console.log("THis is User Object :%O", userObject);
+                if (userObject.role === "ROLE_ADMIN") {
+                    $scope.adminBackButton = true;
+                    $scope.dealerBackButton = false;
+                } else if (userObject.role === "ROLE_DEALER") {
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
+                }
+            });
+            $scope.currentOffset = 0;
+            $scope.mainDealerSkuArray = [];
+            $scope.nextDealerSkus = DealerSkuService.query({
+                'offset': $scope.nextOffset
+            });
 
-        })
-        .controller('DealerSkuAddController', function (RateContractService, EmployeeService, PartyService, $scope, $stateParams, $state, paginationLimit) {
+            DealerSkuService.query({
+                'offset': $scope.currentOffset
+            }, function (dealerSkuList) {
+                angular.forEach(dealerSkuList, function (dealerSkuObject) {
+                    dealerSkuObject.userObject = UserService.get({
+                        'id': dealerSkuObject.createdBy
+                    });
+                    dealerSkuObject.manufacturerObject = ManufacturerService.findByManufacturerCode({
+                        'manufacturerCode': dealerSkuObject.manufacturerCode
+                    });
+                    dealerSkuObject.manufacturerCategoryObject = ManufacturerCategoryService.findByCategoryCode({
+                        'categoryCode': dealerSkuObject.manufacturerCategoryCode
+                    });
+                    $scope.mainDealerSkuArray.push(dealerSkuObject);
+                });
+            });
+            $scope.dealerSkuCall = function (offset) {
+                console.log("Offset :%O", offset);
+                DealerSkuService.query({
+                    'offset': $scope.currentOffset
+                }, function (dealerSkuList) {
+                    angular.forEach(dealerSkuList, function (dealerSkuObject) {
+                        dealerSkuObject.userObject = UserService.get({
+                            'id': dealerSkuObject.createdBy
+                        });
+                        dealerSkuObject.manufacturerObject = ManufacturerService.findByManufacturerCode({
+                            'manufacturerCode': dealerSkuObject.manufacturerCode
+                        });
+                        dealerSkuObject.manufacturerCategoryObject = ManufacturerCategoryService.findByCategoryCode({
+                            'categoryCode': dealerSkuObject.manufacturerCategoryCode
+                        });
+                        $scope.mainDealerSkuArray.push(dealerSkuObject);
+                    });
+                });
+            };
+            $scope.enterIntoArray = function (dealerSku) {
+                $scope.mainDealerSkuArray.push(dealerSku);
+            };
+            $scope.nextPage = function () {
+                $scope.currentOffset += paginationLimit;
+                $scope.nextOffset = $scope.currentOffset + 10;
+                $scope.dealerSkuCall($scope.currentOffset);
+            };
 
-//            $scope.editableParty = {};
-//
-//            $scope.saveParty = function (party) {
-//                console.log("user", party);
-//                PartyService.save(party, function () {
-//                    $state.go('admin.masters_party', null, {'reload': true});
-//                });
-//            };
-//
-//            $scope.setEmployee = function (employee) {
-//                $scope.editableParty.marketingHeadId = employee.id;
-//            };
-//            $scope.searchEmployee = function (searchTerm) {
-//                return EmployeeService.findByNameLike({
-//                    'name': searchTerm
-//                }).$promise;
-//            };
-//
-//            $scope.setRateContract = function (rateContract) {
-//                $scope.editableParty.rateContractId = rateContract.id;
-//            };
-//            $scope.searchRateContract = function (searchTerm) {
-//                console.log("Rate COntract :%O", searchTerm);
-//                return RateContractService.findByContractNameLike({
-//                    'contractName': searchTerm
-//                }).$promise;
-//            };
-//
-//            $scope.$watch('editableParty.dealerName', function (name) {
-//                console.log("Name :" + name);
-//                PartyService.findByName({'name': name}).$promise.catch(function (response) {
-//                    if (response.status === 500) {
-//                        $scope.editableParty.repeatName = false;
-//                    } else if (response.status === 404) {
-//                        $scope.editableParty.repeatName = false;
-//                    } else if (response.status === 400) {
-//                        $scope.editableParty.repeatName = false;
-//                    }
-//                }).then(function (party) {
-//                    if (party.username !== null) {
-//                        $scope.editableParty.repeatName = true;
-//                    }
-//                    ;
-//                });
-//            });
+            angular.element($window).bind('scroll', function (response) {
+                if (this.pageYOffset + this.innerHeight === $(document).height()) {
+                    $scope.nextPage();
+                }
+                ;
+            });
         })
-        .controller('DealerSkuEditController', function (RateContractService, EmployeeService, PartyService, $scope, $stateParams, $state, paginationLimit) {
-//            PartyService.get({'id': $stateParams.partyId});
-//            PartyService.get({
-//                'id': $stateParams.partyId
-//            }, function (partyData) {
-////                partyData.empMobileNumber = parseInt(partyData.empMobileNumber);
-//                partyData.employee = EmployeeService.get({
-//                    'id': partyData.marketingHeadId
-//                });
-//                partyData.rateContract = RateContractService.get({
-//                    'id': partyData.rateContractId
-//                });
-//                $scope.editableParty = partyData;
-//            });
-//            $scope.setEmployee = function (employee) {
-//                $scope.editableParty.marketingHeadId = employee.id;
-//            };
-//            $scope.searchEmployee = function (searchTerm) {
-//                return EmployeeService.findByNameLike({
-//                    'name': searchTerm
-//                }).$promise;
-//            };
-//            $scope.setRateContract = function (rateContract) {
-//                $scope.editableParty.rateContractId = rateContract.id;
-//            };
-//            $scope.searchRateContract = function (searchTerm) {
-//                return RateContractService.findByContractNameLike({
-//                    'contractName': searchTerm
-//                }).$promise;
-//            };
-//            $scope.saveParty = function (party) {
-//                party.$save(function () {
-//                    $state.go('admin.masters_party', null, {'reload': true});
-//                });
-//            };
+        .controller('DealerSkuAddController', function ($rootScope, DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {
+            $scope.currentUser = $rootScope.currentUser;
+            UserService.findByUsername({
+                'username': $scope.currentUser.username
+            }, function (userObject) {
+                $scope.userObject = userObject;
+                console.log("THis is User Object :%O", userObject);
+                if (userObject.role === "ROLE_ADMIN") {
+                    $scope.adminBackButton = true;
+                    $scope.dealerBackButton = false;
+                } else if (userObject.role === "ROLE_DEALER") {
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
+                }
+            });
+            $scope.editableDealerSku = {};
+
+            $scope.setManufacturerCode = function (manufacturer) {
+                $scope.editableDealerSku.manufacturerCode = manufacturer.manufacturerCode;
+            };
+
+            $scope.searchManufacturerCode = function (searchTerm) {
+                return ManufacturerService.findByManufacturerNameLike({
+                    'manufacturerName': searchTerm
+                }).$promise;
+            };
+
+            $scope.setManufacturerCategoryCode = function (manufacturerCategory) {
+                $scope.editableDealerSku.manufacturerCategoryCode = manufacturerCategory.categoryCode;
+            };
+
+            $scope.searchManufacturerCategoryCode = function (searchTerm) {
+                return ManufacturerCategoryService.findByManufacturerCategoryLike({
+                    'manufacturerCategory': searchTerm
+                }).$promise;
+            };
+
+            $scope.saveDealerSku = function (editableDealerSku) {
+                editableDealerSku.createdBy = $scope.userObject.id;
+                DealerSkuService.save(editableDealerSku, function () {
+                    $state.go('admin.masters_dealer_sku', null, {'reload': true});
+                });
+            };
         })
-        .controller('DealerSkuDeleteController', function (PartyService, $scope, $stateParams, $state, paginationLimit) {
-//            $scope.editableParty = PartyService.get({'id': $stateParams.partyId});
-//            $scope.deleteParty = function (party) {
-//                console.log("Employee :%O", party);
-//                party.$delete(function () {
-//                    $state.go('admin.masters_party', null, {'reload': true});
-//                });
-//            };
+        .controller('DealerSkuEditController', function (DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {
+            $scope.editableDealerSku = DealerSkuService.get({
+                'id': $stateParams.dealerSkuId
+            }, function (dealerSkuObject) {
+                dealerSkuObject.manufacturer = ManufacturerService.findByManufacturerCode({
+                    'manufacturerCode': dealerSkuObject.manufacturerCode
+                });
+                dealerSkuObject.manufacturerCategory = ManufacturerCategoryService.findByCategoryCode({
+                    'categoryCode': dealerSkuObject.manufacturerCategoryCode
+                });
+            });
+
+            $scope.setManufacturerCode = function (manufacturer) {
+                $scope.editableDealerSku.manufacturerCode = manufacturer.manufacturerCode;
+            };
+
+            $scope.searchManufacturerCode = function (searchTerm) {
+                return ManufacturerService.findByManufacturerNameLike({
+                    'manufacturerName': searchTerm
+                }).$promise;
+            };
+
+            $scope.setManufacturerCategoryCode = function (manufacturerCategory) {
+                $scope.editableDealerSku.manufacturerCategoryCode = manufacturerCategory.categoryCode;
+            };
+
+            $scope.searchManufacturerCategoryCode = function (searchTerm) {
+                return ManufacturerCategoryService.findByManufacturerCategoryLike({
+                    'manufacturerCategory': searchTerm
+                }).$promise;
+            };
+
+            $scope.saveDealerSku = function (editableDealerSku) {
+                -editableDealerSku.$save(function () {
+                    $state.go('admin.masters_dealer_sku', null, {'reload': true});
+                });
+            };
+        })
+        .controller('DealerSkuDeleteController', function (DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {
+            $scope.editableDealerSku = DealerSkuService.get({
+                'id': $stateParams.dealerSkuId
+            });
+            $scope.deleteDealerSku = function (dealerSku) {
+                dealerSku.$delete(function () {
+                    $state.go('admin.masters_dealer_sku', null, {'reload': true});
+                });
+            };
         });
 
 

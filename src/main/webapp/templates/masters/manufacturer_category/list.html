@@ -11,14 +11,14 @@
             </a>            
         </div>
         <div class="pull-right">
-            <a data-ui-sref="admin.masters_manufacturer.add"
+            <a data-ui-sref="admin.masters_manufacturer_category.add"
                class="btn btn-default">
                 <i class="fa fa-plus"></i>
-                Add Manufacturer
+                Add Manufacturer Category
             </a>
         </div>
         <div>
-            <h4>Manufacturers Master</h4>
+            <h4>Manufacturer Category Master</h4>
         </div>
     </div>
 
@@ -27,21 +27,23 @@
             <tr>
                 <th class="text-right">#</th>
                 <th>Category Code</th>
-                <th>Category Name</th>                                                                            
+                <th>Category Name</th>
+                <th>Manufacturer</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="manufacturer in mainManufacturerArray">
+            <tr ng-repeat="manufacturerCategory in mainManufacturerCategoryArray">
                 <td data-title="#" class="text-right">{{$index + 1}}</td>                
-                <td data-title="Manufacturer Code">{{ manufacturer.manufacturerCode}}</td>
-                <td data-title="Manufacturer Name">{{ manufacturer.manufacturerName}}</td>                                    
+                <td data-title="Manufacturer Category Code">{{ manufacturerCategory.categoryCode}}</td>
+                <td data-title="Manufacturer Category Name">{{ manufacturerCategory.categoryName}}</td>
+                <td data-title="Manufacturer Code">{{ manufacturerCategory.manufacturerObject.manufacturerName}}</td>
                 <td data-title="Actions" class="text-right">
-                    <a data-ui-sref="admin.masters_manufacturer.edit({ manufacturerId: manufacturer.id })"
+                    <a data-ui-sref="admin.masters_manufacturer_category.edit({ manufacturerCategoryId: manufacturerCategory.id })"
                        class="btn btn-primary">					
                         <i class="fa fa-pencil"></i>
                     </a>
-                    <a data-ui-sref="admin.masters_manufacturer.delete({ manufacturerId: manufacturer.id })"
+                    <a data-ui-sref="admin.masters_manufacturer_category.delete({ manufacturerCategoryId: manufacturerCategory.id })"
                        class="btn btn-danger" ng-hide="dealerBackButton">
                         <i class="fa fa-trash"></i>
                     </a>
