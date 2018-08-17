@@ -38,10 +38,12 @@ public class AttachmentUtils {
 
     private static final String KITCHEN_COMPONENT_ATTACHMENT_DIR_NAME = "kitchern_component";
     private static final String COLOR_ATTACHMENT_DIR_NAME = "color_component";
+    private static final String DEALER_SKU_ATTACHMENT_DIR_NAME = "dealer_sku_component";
 
     public static enum AttachmentType {
         KITCHEN_COMPONENT,
-        COLOR
+        COLOR,
+        DEALER_SKU
     }
 
     public File getAttachmentRootDirectory() {
@@ -72,6 +74,11 @@ public class AttachmentUtils {
                 attachmentDir = new File(getAttachmentRootDirectory(), COLOR_ATTACHMENT_DIR_NAME);
                 logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
                 break;
+                
+            case DEALER_SKU:
+                attachmentDir = new File(getAttachmentRootDirectory(), DEALER_SKU_ATTACHMENT_DIR_NAME);
+                logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
+                break;    
 
             default:
                 throw new IOException("Could not determine location to store attachment of type: " + attachmentType);
