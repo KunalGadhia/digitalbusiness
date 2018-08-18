@@ -32,12 +32,12 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/dealer_sku")
 public class DealerSkuRest {
-    
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    
+
     @Autowired
     private DealerSkuDAL dealerSkuDAL;
-    
+
     @Autowired
     private DealerSkuService dealerSkuService;
 
@@ -71,11 +71,16 @@ public class DealerSkuRest {
         return dealerSkuDAL.findByManufacturerCode(manufacturerCode);
     }
 
+    @RequestMapping(value = "/find/manufacturer/manufacturer_category/user", method = RequestMethod.GET)
+    public List<DealerSku> findByManufacturerManufacturerCategoryUser(@RequestParam("manufacturer") String manufacturer, @RequestParam("manufacturerCategory") String manufacturerCategory, @RequestParam("createdBy") Integer createdBy) throws Exception {
+        return dealerSkuDAL.findByManufacturerManufacturerCategoryUser(manufacturer, manufacturerCategory, createdBy);
+    }
+
     @RequestMapping(value = "/find/category_code", method = RequestMethod.GET)
     public List<DealerSku> findByCategoryCode(@RequestParam("categoryCode") String categoryCode) throws Exception {
         return dealerSkuDAL.findByCategoryCode(categoryCode);
     }
-    
+
     @RequestMapping(value = "/find/product_code", method = RequestMethod.GET)
     public List<DealerSku> findByProductCode(@RequestParam("productCode") String productCode) throws Exception {
         return dealerSkuDAL.findByProductCode(productCode);
@@ -95,7 +100,7 @@ public class DealerSkuRest {
     public List<DealerSku> findAllList() {
         return dealerSkuDAL.findAllList();
     }
-    
+
     @RequestMapping(value = "/{id}/attachment", method = RequestMethod.POST)
     public DealerSku uploadAttachment(
             @PathVariable Integer id,

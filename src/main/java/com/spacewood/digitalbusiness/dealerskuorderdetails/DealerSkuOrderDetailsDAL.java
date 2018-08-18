@@ -28,6 +28,7 @@ public class DealerSkuOrderDetailsDAL {
     public static final class Columns {
 
         public static final String ID = "id";
+        public static final String ORDER_HEAD_ID = "order_head_id";
         public static final String PRODUCT_CODE = "product_code";
         public static final String MODULE_CODE = "module_code";
         public static final String MANUFACTURER = "manufacturer";
@@ -36,9 +37,9 @@ public class DealerSkuOrderDetailsDAL {
         public static final String WIDTH = "width";
         public static final String DEPTH = "depth";
         public static final String HEIGHT = "height";
-        public static final String PRICE = "price";
-        public static final String QUANTITY = "price";
         public static final String COLOR = "color";
+        public static final String QUANTITY = "quantity";        
+        public static final String PRICE = "price";        
         public static final String REMARK = "remark";
         public static final String ORDER_FOR = "order_for";
 
@@ -54,7 +55,8 @@ public class DealerSkuOrderDetailsDAL {
         jdbcTemplate = new JdbcTemplate(dataSource);
         insertDealerSkuOrderDetails = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName(TABLE_NAME)
-                .usingColumns(
+                .usingColumns(                        
+                        Columns.ORDER_HEAD_ID,
                         Columns.PRODUCT_CODE,
                         Columns.MODULE_CODE,
                         Columns.MANUFACTURER,
@@ -63,9 +65,9 @@ public class DealerSkuOrderDetailsDAL {
                         Columns.WIDTH,
                         Columns.DEPTH,
                         Columns.HEIGHT,
-                        Columns.PRICE,
-                        Columns.QUANTITY,
                         Columns.COLOR,
+                        Columns.QUANTITY,                        
+                        Columns.PRICE,                        
                         Columns.REMARK,
                         Columns.ORDER_FOR
                 )
@@ -91,9 +93,15 @@ public class DealerSkuOrderDetailsDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.PRODUCT_CODE + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{productCode}, new BeanPropertyRowMapper<>(DealerSkuOrderDetails.class));
     }
+    
+    public List<DealerSkuOrderDetails> findByOrderHeadId(Integer orderHeadId) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ORDER_HEAD_ID + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{orderHeadId}, new BeanPropertyRowMapper<>(DealerSkuOrderDetails.class));
+    }
 
     public DealerSkuOrderDetails insert(DealerSkuOrderDetails dealerSkuOrderDetails) {
         Map<String, Object> parameters = new HashMap<>();
+        parameters.put(Columns.ORDER_HEAD_ID, dealerSkuOrderDetails.getOrderHeadId());
         parameters.put(Columns.PRODUCT_CODE, dealerSkuOrderDetails.getProductCode());
         parameters.put(Columns.MODULE_CODE, dealerSkuOrderDetails.getModuleCode());
         parameters.put(Columns.MANUFACTURER, dealerSkuOrderDetails.getManufacturer());
@@ -102,9 +110,9 @@ public class DealerSkuOrderDetailsDAL {
         parameters.put(Columns.WIDTH, dealerSkuOrderDetails.getWidth());
         parameters.put(Columns.DEPTH, dealerSkuOrderDetails.getDepth());
         parameters.put(Columns.HEIGHT, dealerSkuOrderDetails.getHeight());
-        parameters.put(Columns.PRICE, dealerSkuOrderDetails.getPrice());
-        parameters.put(Columns.QUANTITY, dealerSkuOrderDetails.getQuantity());
         parameters.put(Columns.COLOR, dealerSkuOrderDetails.getColor());
+        parameters.put(Columns.QUANTITY, dealerSkuOrderDetails.getQuantity());        
+        parameters.put(Columns.PRICE, dealerSkuOrderDetails.getPrice());        
         parameters.put(Columns.REMARK, dealerSkuOrderDetails.getRemark());
         parameters.put(Columns.ORDER_FOR, dealerSkuOrderDetails.getOrderFor());
 

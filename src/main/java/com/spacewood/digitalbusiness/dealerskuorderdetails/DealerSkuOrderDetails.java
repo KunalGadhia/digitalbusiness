@@ -14,6 +14,7 @@ import java.util.Objects;
 public class DealerSkuOrderDetails {
 
     private Integer id;
+    private Integer orderHeadId;
     private String productCode;
     private String moduleCode;
     private String manufacturer;
@@ -22,9 +23,9 @@ public class DealerSkuOrderDetails {
     private double width;
     private double depth;
     private double height;
-    private double price;
-    private Integer quantity;
     private String color;
+    private Integer quantity;
+    private double price;
     private String remark;
     private String orderFor;
 
@@ -34,6 +35,14 @@ public class DealerSkuOrderDetails {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getOrderHeadId() {
+        return orderHeadId;
+    }
+
+    public void setOrderHeadId(Integer orderHeadId) {
+        this.orderHeadId = orderHeadId;
     }
 
     public String getProductCode() {
@@ -100,12 +109,12 @@ public class DealerSkuOrderDetails {
         this.height = height;
     }
 
-    public double getPrice() {
-        return price;
+    public String getColor() {
+        return color;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public Integer getQuantity() {
@@ -116,12 +125,12 @@ public class DealerSkuOrderDetails {
         this.quantity = quantity;
     }
 
-    public String getColor() {
-        return color;
+    public double getPrice() {
+        return price;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getRemark() {
@@ -141,27 +150,23 @@ public class DealerSkuOrderDetails {
     }
 
     @Override
-    public String toString() {
-        return "DealerSkuOrderDetails{" + "id=" + id + ", productCode=" + productCode + ", moduleCode=" + moduleCode + ", manufacturer=" + manufacturer + ", manufacturerCategory=" + manufacturerCategory + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", price=" + price + ", quantity=" + quantity + ", color=" + color + ", remark=" + remark + ", orderFor=" + orderFor + '}';
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.productCode);
-        hash = 97 * hash + Objects.hashCode(this.moduleCode);
-        hash = 97 * hash + Objects.hashCode(this.manufacturer);
-        hash = 97 * hash + Objects.hashCode(this.manufacturerCategory);
-        hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.width) ^ (Double.doubleToLongBits(this.width) >>> 32));
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.depth) ^ (Double.doubleToLongBits(this.depth) >>> 32));
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.height) ^ (Double.doubleToLongBits(this.height) >>> 32));
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
-        hash = 97 * hash + Objects.hashCode(this.quantity);
-        hash = 97 * hash + Objects.hashCode(this.color);
-        hash = 97 * hash + Objects.hashCode(this.remark);
-        hash = 97 * hash + Objects.hashCode(this.orderFor);
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.orderHeadId);
+        hash = 79 * hash + Objects.hashCode(this.productCode);
+        hash = 79 * hash + Objects.hashCode(this.moduleCode);
+        hash = 79 * hash + Objects.hashCode(this.manufacturer);
+        hash = 79 * hash + Objects.hashCode(this.manufacturerCategory);
+        hash = 79 * hash + Objects.hashCode(this.description);
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.width) ^ (Double.doubleToLongBits(this.width) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.depth) ^ (Double.doubleToLongBits(this.depth) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.height) ^ (Double.doubleToLongBits(this.height) >>> 32));
+        hash = 79 * hash + Objects.hashCode(this.color);
+        hash = 79 * hash + Objects.hashCode(this.quantity);
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
+        hash = 79 * hash + Objects.hashCode(this.remark);
+        hash = 79 * hash + Objects.hashCode(this.orderFor);
         return hash;
     }
 
@@ -216,10 +221,18 @@ public class DealerSkuOrderDetails {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
+        if (!Objects.equals(this.orderHeadId, other.orderHeadId)) {
+            return false;
+        }
         if (!Objects.equals(this.quantity, other.quantity)) {
             return false;
         }
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "DealerSkuOrderDetails{" + "id=" + id + ", orderHeadId=" + orderHeadId + ", productCode=" + productCode + ", moduleCode=" + moduleCode + ", manufacturer=" + manufacturer + ", manufacturerCategory=" + manufacturerCategory + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", color=" + color + ", quantity=" + quantity + ", price=" + price + ", remark=" + remark + ", orderFor=" + orderFor + '}';
+    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 }

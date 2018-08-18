@@ -92,6 +92,11 @@ public class DealerSkuDAL {
         return jdbcTemplate.query(sqlQuery, new Object[]{manufacturerCode}, new BeanPropertyRowMapper<>(DealerSku.class));
     }
 
+    public List<DealerSku> findByManufacturerManufacturerCategoryUser(String manufacturer, String manufacturerCategory, Integer createdBy) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.MANUFACTURER_CODE + " = ? AND " + Columns.MANUFACTURER_CATEGORY_CODE + " = ? AND " + Columns.CREATED_BY + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{manufacturer, manufacturerCategory, createdBy}, new BeanPropertyRowMapper<>(DealerSku.class));
+    }
+
     public List<DealerSku> findByProductCode(String productCode) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.PRODUCT_CODE + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{productCode}, new BeanPropertyRowMapper<>(DealerSku.class));
@@ -144,14 +149,14 @@ public class DealerSkuDAL {
                 + Columns.HEIGHT + " = ?, "
                 + Columns.COLOR + " = ?, "
                 + Columns.SP_PRICE + " = ?, "
-                + Columns.PRICE + " = ?, "               
+                + Columns.PRICE + " = ?, "
                 + Columns.CREATED_BY + " = ?, "
                 + Columns.IMAGE + " = '" + path + "' WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     dealerSku.getProductCode(),
                     dealerSku.getProductDescription(),
-                    dealerSku.getManufacturerCode(),                    
+                    dealerSku.getManufacturerCode(),
                     dealerSku.getManufacturerCategoryCode(),
                     dealerSku.getWidth(),
                     dealerSku.getDepth(),

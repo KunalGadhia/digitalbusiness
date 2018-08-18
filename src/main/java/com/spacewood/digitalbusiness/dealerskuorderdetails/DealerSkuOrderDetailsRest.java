@@ -59,6 +59,11 @@ public class DealerSkuOrderDetailsRest {
     public List<DealerSkuOrderDetails> findByProductCode(@RequestParam("productCode") String productCode) throws Exception {
         return dealerSkuOrderDetailsDAL.findByProductCode(productCode);
     }
+    
+    @RequestMapping(value = "/find/order_head_id", method = RequestMethod.GET)
+    public List<DealerSkuOrderDetails> findByOrderHeadId(@RequestParam("orderHeadId") Integer orderHeadId) throws Exception {
+        return dealerSkuOrderDetailsDAL.findByOrderHeadId(orderHeadId);
+    }
 
     @RequestMapping(value = "/find_all_list", method = RequestMethod.GET)
     public List<DealerSkuOrderDetails> findAllList() {

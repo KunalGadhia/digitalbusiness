@@ -21,6 +21,16 @@ angular.module("digitalbusiness.services.dealer_sku")
                     },
                     'isArray': true
                 },
+                'findByManufacturerAndManufacturerCategoryByUser': {
+                    'method': 'GET',
+                    'url': restRoot + '/dealer_sku/find/manufacturer/manufacturer_category/user',
+                    'params': {
+                        'manufacturer': '@manufacturer',
+                        'manufacturerCategory': '@manufacturerCategory',
+                        'createdBy': '@createdBy'
+                    },
+                    'isArray': true
+                },
                 'findByCategoryCode': {
                     'method': 'GET',
                     'url': restRoot + '/dealer_sku/find/category_code',

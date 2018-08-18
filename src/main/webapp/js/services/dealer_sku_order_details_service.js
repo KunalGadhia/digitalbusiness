@@ -21,6 +21,14 @@ angular.module("digitalbusiness.services.dealer_sku_order_details")
                         'productCode': '@productCode'
                     },
                     'isArray': true
+                },
+                'findByOrderHeadId': {
+                    'method': 'GET',
+                    'url': restRoot + '/dealer_sku_order_details/find/order_head_id',
+                    'params': {
+                        'orderHeadId': '@orderHeadId'
+                    },
+                    'isArray': true
                 }
             });
         });
