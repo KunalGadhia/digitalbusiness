@@ -128,7 +128,7 @@ public class OrderHeadMrpDAL {
         parameters.put(Columns.POSTAL_CODE, orderHeadMrp.getPostalCode());
         parameters.put(Columns.PARTY_MOBILE_NO, orderHeadMrp.getPartyMobileNo());
         parameters.put(Columns.PARTY_TELEPHONE_NO, orderHeadMrp.getPartyTelephoneNo());
-        parameters.put(Columns.PARTY_CITY, orderHeadMrp.getProjectName());
+        parameters.put(Columns.PARTY_CITY, orderHeadMrp.getPartyCity());
         parameters.put(Columns.PO_DATE, new Date());
         parameters.put(Columns.ORDER_INITIATED_BY, orderHeadMrp.getOrderInitiatedBy());
         parameters.put(Columns.ORDER_AMOUNT, "0");

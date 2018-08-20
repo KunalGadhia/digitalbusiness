@@ -31,6 +31,41 @@ angular.module("digitalbusiness.services.max_wardrobe")
                         'description': '@description'
                     },
                     'isArray': false
+                },
+                'findByCategoryDimensions': {
+                    'method': 'GET',
+                    'url': restRoot + '/max_wardrobe/find/category/dimensions',
+                    'params': {
+                        'category': '@category',
+                        'width': '@width',
+                        'depth': '@depth',
+                        'height': '@height'
+                    },
+                    'isArray': true
+                },
+                'findDistinctWidth': {
+                    'method': 'GET',
+                    'url': restRoot + '/max_wardrobe/find/distinct/width',
+                    'params':{
+                      'category': '@category'  
+                    },
+                    'isArray': true
+                },
+                'findDistinctDepth': {
+                    'method': 'GET',
+                    'url': restRoot + '/max_wardrobe/find/distinct/depth',
+                    'params':{
+                      'category': '@category'  
+                    },
+                    'isArray': true
+                },
+                'findDistinctHeight': {
+                    'method': 'GET',
+                    'url': restRoot + '/max_wardrobe/find/distinct/height',
+                    'params':{
+                      'category': '@category'  
+                    },
+                    'isArray': true
                 }
             });
         });

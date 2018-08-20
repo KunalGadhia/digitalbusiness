@@ -21,11 +21,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class InfinityWardrobeMrpDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
         public static final String CATEGORY = "category";
-        public static final String PRODUCT_CODE = "product_code";        
+        public static final String PRODUCT_CODE = "product_code";
         public static final String DESCRIPTION = "description";
         public static final String WIDTH = "width";
         public static final String DEPTH = "depth";
@@ -62,7 +63,7 @@ public class InfinityWardrobeMrpDAL {
         jdbcTemplate = new JdbcTemplate(dataSource);
         insertInfinityWardrobeMrp = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName(TABLE_NAME)
-                .usingColumns(                        
+                .usingColumns(
                         Columns.CATEGORY,
                         Columns.PRODUCT_CODE,
                         Columns.DESCRIPTION,
@@ -102,6 +103,26 @@ public class InfinityWardrobeMrpDAL {
         return jdbcTemplate.query(sqlQuery, new Object[]{category}, new BeanPropertyRowMapper<>(InfinityWardrobeMrp.class));
     }
 
+    public List<InfinityWardrobeMrp> findByCategoryDimensions(String category, Double width, Double depth, Double height) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? AND " + Columns.WIDTH + " = ? AND " + Columns.DEPTH + " = ? AND " + Columns.HEIGHT + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{category, width, depth, height}, new BeanPropertyRowMapper<>(InfinityWardrobeMrp.class));
+    }
+
+    public List<Double> findDistinctWidth(String category) {
+        String sqlQuery = "SELECT distinct(width) FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? ORDER BY width DESC";
+        return jdbcTemplate.queryForList(sqlQuery, new Object[]{category}, Double.class);
+    }
+
+    public List<Double> findDistinctDepth(String category) {
+        String sqlQuery = "SELECT distinct(depth) FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? ORDER BY depth DESC";
+        return jdbcTemplate.queryForList(sqlQuery, new Object[]{category}, Double.class);
+    }
+
+    public List<Double> findDistinctHeight(String category) {
+        String sqlQuery = "SELECT distinct(height) FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? ORDER BY height DESC";
+        return jdbcTemplate.queryForList(sqlQuery, new Object[]{category}, Double.class);
+    }
+
     public InfinityWardrobeMrp findById(Integer id) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ID + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{id}, new BeanPropertyRowMapper<>(InfinityWardrobeMrp.class));
@@ -121,7 +142,7 @@ public class InfinityWardrobeMrpDAL {
     public InfinityWardrobeMrp insert(InfinityWardrobeMrp infinityWardrobeMrp) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(Columns.CATEGORY, infinityWardrobeMrp.getCategory().name());
-        parameters.put(Columns.PRODUCT_CODE, infinityWardrobeMrp.getProductCode());        
+        parameters.put(Columns.PRODUCT_CODE, infinityWardrobeMrp.getProductCode());
         parameters.put(Columns.DESCRIPTION, infinityWardrobeMrp.getDescription());
         parameters.put(Columns.WIDTH, infinityWardrobeMrp.getWidth());
         parameters.put(Columns.DEPTH, infinityWardrobeMrp.getDepth());
@@ -144,7 +165,7 @@ public class InfinityWardrobeMrpDAL {
         parameters.put(Columns.PRICEH2, infinityWardrobeMrp.getPriceh2());
         parameters.put(Columns.PRICEH3, infinityWardrobeMrp.getPriceh3());
         parameters.put(Columns.PRICEH4, infinityWardrobeMrp.getPriceh4());
-        parameters.put(Columns.PRICEH5, infinityWardrobeMrp.getPriceh5());        
+        parameters.put(Columns.PRICEH5, infinityWardrobeMrp.getPriceh5());
 
         Number newId = insertInfinityWardrobeMrp.executeAndReturnKey(parameters);
         infinityWardrobeMrp = findById(newId.intValue());
@@ -180,7 +201,7 @@ public class InfinityWardrobeMrpDAL {
                 + Columns.PRICEH1 + " = ?,"
                 + Columns.PRICEH2 + " = ?,"
                 + Columns.PRICEH3 + " = ?,"
-                + Columns.PRICEH4 + " = ?,"                
+                + Columns.PRICEH4 + " = ?,"
                 + Columns.PRICEH5 + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{

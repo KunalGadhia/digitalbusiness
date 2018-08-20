@@ -85,6 +85,26 @@ public class MaxWardrobeMrpDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{category}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
     }
+    
+    public List<MaxWardrobeMrp> findByCategoryDimensions(String category, Double width, Double depth, Double height) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? AND " + Columns.WIDTH + " = ? AND " + Columns.DEPTH + " = ? AND " + Columns.HEIGHT + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{category, width, depth, height}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
+    }
+    
+    public List<Double> findDistinctWidth(String category) {
+        String sqlQuery = "SELECT distinct(width) FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? ORDER BY width DESC";
+        return jdbcTemplate.queryForList(sqlQuery, new Object[]{category}, Double.class);
+    }
+
+    public List<Double> findDistinctDepth(String category) {
+        String sqlQuery = "SELECT distinct(depth) FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? ORDER BY depth DESC";
+        return jdbcTemplate.queryForList(sqlQuery, new Object[]{category}, Double.class);
+    }
+
+    public List<Double> findDistinctHeight(String category) {
+        String sqlQuery = "SELECT distinct(height) FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? ORDER BY height DESC";
+        return jdbcTemplate.queryForList(sqlQuery, new Object[]{category}, Double.class);
+    }
 
     public MaxWardrobeMrp findById(Integer id) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ID + " = ?";

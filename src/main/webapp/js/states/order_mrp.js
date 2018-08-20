@@ -91,21 +91,32 @@ angular.module("digitalbusiness.states.order_mrp", [])
             $scope.editableInfinityWardrobeDetailMrp = {};
             $scope.editableInfinityWardrobeDetailMrp.carcass = "Supertuff HDF";
             $scope.$watch('editableInfinityWardrobeDetailMrp.category', function (category) {
-                console.log("Cateogry :" + category);
-                InfinityWardrobeMrpService.findByCategory({
+
+                $scope.InfinityWardrobeWidthList = InfinityWardrobeMrpService.findDistinctWidth({
                     'category': category
+                });
+                $scope.InfinityWardrobeDepthList = InfinityWardrobeMrpService.findDistinctDepth({
+                    'category': category
+                });
+                $scope.InfinityWardrobeHeightList = InfinityWardrobeMrpService.findDistinctHeight({
+                    'category': category
+                });
+            });
+            $scope.$watch('editableInfinityWardrobeDetailMrp.height', function (height) {
+                InfinityWardrobeMrpService.findByCategoryDimensions({
+                    'category': $scope.editableInfinityWardrobeDetailMrp.category,
+                    'width': $scope.editableInfinityWardrobeDetailMrp.width,
+                    'depth': $scope.editableInfinityWardrobeDetailMrp.depth,
+                    'height': height
                 }, function (infinityWardrobeComponentList) {
+                    console.log("Infinity Wardrobe List :%O", infinityWardrobeComponentList);
                     $scope.infinityWardrobeMrpComponentList = infinityWardrobeComponentList;
                 });
             });
             $scope.$watch('editableInfinityWardrobeDetailMrp.componentId', function (componentId) {
                 $scope.infinityWardrobeMrpObject = InfinityWardrobeMrpService.get({
                     'id': componentId
-                }, function (infinityWardrobeMrpObject) {
-                    console.log("HAHAHA :%O", infinityWardrobeMrpObject);
-                    $scope.editableInfinityWardrobeDetailMrp.width = infinityWardrobeMrpObject.width;
-                    $scope.editableInfinityWardrobeDetailMrp.depth = infinityWardrobeMrpObject.depth;
-                    $scope.editableInfinityWardrobeDetailMrp.height = infinityWardrobeMrpObject.height;
+                }, function (infinityWardrobeMrpObject) {                    
                     $scope.editableInfinityWardrobeDetailMrp.carcassPrice = infinityWardrobeMrpObject.carcassPrice;
                     $scope.editableInfinityWardrobeDetailMrp.productCode = infinityWardrobeMrpObject.productCode;
                     $scope.editableInfinityWardrobeDetailMrp.description = infinityWardrobeMrpObject.description;
@@ -183,9 +194,29 @@ angular.module("digitalbusiness.states.order_mrp", [])
             $scope.editableMaxWardrobeDetailMrp.carcass = "Supertuff HDF";
             $scope.$watch('editableMaxWardrobeDetailMrp.category', function (category) {
                 console.log("Cateogry :" + category);
-                MaxWardrobeMrpService.findByCategory({
+//                MaxWardrobeMrpService.findByCategory({
+//                    'category': category
+//                }, function (maxWardrobeComponentList) {
+//                    $scope.maxWardrobeMrpComponentList = maxWardrobeComponentList;
+//                });
+                $scope.maxWardrobeWidthList = MaxWardrobeMrpService.findDistinctWidth({
                     'category': category
+                });
+                $scope.maxWardrobeDepthList = MaxWardrobeMrpService.findDistinctDepth({
+                    'category': category
+                });
+                $scope.maxWardrobeHeightList = MaxWardrobeMrpService.findDistinctHeight({
+                    'category': category
+                });
+            });
+            $scope.$watch('editableMaxWardrobeDetailMrp.height', function (height) {
+                MaxWardrobeMrpService.findByCategoryDimensions({
+                    'category': $scope.editableMaxWardrobeDetailMrp.category,
+                    'width': $scope.editableMaxWardrobeDetailMrp.width,
+                    'depth': $scope.editableMaxWardrobeDetailMrp.depth,
+                    'height': height
                 }, function (maxWardrobeComponentList) {
+                    console.log("Max Wardrobe List :%O", maxWardrobeComponentList);
                     $scope.maxWardrobeMrpComponentList = maxWardrobeComponentList;
                 });
             });
@@ -193,9 +224,9 @@ angular.module("digitalbusiness.states.order_mrp", [])
                 $scope.maxWardrobeMrpObject = MaxWardrobeMrpService.get({
                     'id': componentId
                 }, function (maxWardrobeMrpObject) {
-                    $scope.editableMaxWardrobeDetailMrp.width = maxWardrobeMrpObject.width;
-                    $scope.editableMaxWardrobeDetailMrp.depth = maxWardrobeMrpObject.depth;
-                    $scope.editableMaxWardrobeDetailMrp.height = maxWardrobeMrpObject.height;
+//                    $scope.editableMaxWardrobeDetailMrp.width = maxWardrobeMrpObject.width;
+//                    $scope.editableMaxWardrobeDetailMrp.depth = maxWardrobeMrpObject.depth;
+//                    $scope.editableMaxWardrobeDetailMrp.height = maxWardrobeMrpObject.height;
                     $scope.editableMaxWardrobeDetailMrp.carcassPrice = maxWardrobeMrpObject.carcassPrice;
                     $scope.editableMaxWardrobeDetailMrp.productCode = maxWardrobeMrpObject.productCode;
                     $scope.editableMaxWardrobeDetailMrp.description = maxWardrobeMrpObject.description;
@@ -336,7 +367,7 @@ angular.module("digitalbusiness.states.order_mrp", [])
                 });
             };
         })
-        .controller('InfinityWardrobeOrderMrpDetailsDeleteController', function (MaxWardrobeMrpService, InfinityWardrobeMrpOrderDetailsService,DealerSkuOrderDetailsService, OrderHeadMrpService, $rootScope, UserService, PartyService, EmployeeService, $scope, $stateParams, $state, paginationLimit) {
+        .controller('InfinityWardrobeOrderMrpDetailsDeleteController', function (MaxWardrobeMrpService, InfinityWardrobeMrpOrderDetailsService, DealerSkuOrderDetailsService, OrderHeadMrpService, $rootScope, UserService, PartyService, EmployeeService, $scope, $stateParams, $state, paginationLimit) {
             $scope.editableInfinityWardrobeDetailMrp = InfinityWardrobeMrpOrderDetailsService.get({
                 'id': $stateParams.infinityWardrobeDetailId
             });

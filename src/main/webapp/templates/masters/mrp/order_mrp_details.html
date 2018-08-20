@@ -27,8 +27,8 @@
                     <span class="col-sm-7 text-left">{{orderMrpHead.partyEmail}}</span>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <label class="col-sm-5 text-left">Contact Details :</label>
-                    <span class="col-sm-7 text-left">{{orderMrpHead.partyMobileNo}}</span>
+                    <label class="col-sm-6 text-left">Contact Details :</label>
+                    <span class="col-sm-6 text-left">{{orderMrpHead.partyMobileNo}}</span>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <label class="col-sm-5 text-left">Address :</label>
@@ -90,7 +90,39 @@
                                 <option value="END_PANEL">End Panel</option>                               
                             </select>
                         </div>
-                    </div>                
+                    </div> 
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Width (in mm)</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetailMrp.width" required="">
+                                <option value="">Select Width</option>
+                                <option ng-repeat="width in InfinityWardrobeWidthList" value="{{width}}">{{width}} mm</option>
+                            </select>
+    <!--<input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.width" readonly="">-->
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Depth (in mm)</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetailMrp.depth" required="">
+                                <option value="">Select Depth</option>
+                                <option ng-repeat="depth in InfinityWardrobeDepthList" value="{{depth}}">{{depth}} mm</option>
+                            </select>
+    <!--<input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.depth" readonly="">-->
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Height (in mm)</label>
+                            <select class="form-control" ng-model="editableInfinityWardrobeDetailMrp.height" required="">
+                                <option value="">Select Height</option>
+                                <option ng-repeat="height in InfinityWardrobeHeightList" value="{{height}}">{{height}} mm</option>
+                            </select>
+                <!--<input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.height" readonly="">-->
+                        </div>
+                    </div>                      
+                </div>
+                <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Component</label>
@@ -112,8 +144,6 @@
                             <input class="form-control" placeholder="Enter Carcass Color" ng-model="editableInfinityWardrobeDetailMrp.carcassColor" required=""/>
                         </div>                        
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Shutter Category</label>
@@ -132,6 +162,9 @@
                             </select>
                         </div>
                     </div>
+
+                </div>
+                <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Shutter</label>
@@ -194,8 +227,6 @@
                             </select>                            
                         </div>                        
                     </div>                    
-                </div>
-                <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Handle Category</label>
@@ -208,7 +239,9 @@
                                 <option value="H5" ng-if="infinityWardrobeMrpObject.priceh5 !== 0">H5</option>
                             </select>
                         </div>                        
-                    </div>
+                    </div>                                        
+                </div>
+                <div class="row">                    
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Handle</label>
@@ -239,26 +272,6 @@
                             </select>
                         </div>                        
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Width (in mm)</label>
-                            <input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.width" readonly="">
-                        </div>                        
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Depth (in mm)</label>
-                            <input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.depth" readonly="">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">                    
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Height (in mm)</label>
-                            <input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.height" readonly="">
-                        </div>
-                    </div>                    
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Quantity</label>
@@ -315,7 +328,39 @@
                                 <option value="ADD_ON_SHELF">Add On Shelf</option>
                             </select>
                         </div>
-                    </div>                
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Width (in mm)</label>
+                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.width">
+                                <option value="">Select Width</option>
+                                <option ng-repeat="width in maxWardrobeWidthList" value="{{width}}">{{width}} mm</option>
+                            </select>
+                            <!--<input class="form-control" ng-model="editableMaxWardrobeDetailMrp.width" readonly="">-->
+                        </div>                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Depth (in mm)</label>
+                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.depth">
+                                <option value="">Select Depth</option>
+                                <option ng-repeat="depth in maxWardrobeDepthList" value="{{depth}}">{{depth}} mm</option>
+                            </select>
+                            <!--<input class="form-control" ng-model="editableMaxWardrobeDetailMrp.depth" readonly="">-->
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Height (in mm)</label>
+                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.height">
+                                <option value="">Select Depth</option>
+                                <option ng-repeat="height in maxWardrobeHeightList" value="{{height}}">{{height}} mm</option>
+                            </select>
+                            <!--<input class="form-control" ng-model="editableMaxWardrobeDetailMrp.height" readonly="">-->
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Component</label>
@@ -337,8 +382,6 @@
                             <input class="form-control" placeholder="Enter Carcass Color" ng-model="editableMaxWardrobeDetailMrp.carcassColor" required=""/>
                         </div>                        
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Shutter Category</label>
@@ -350,7 +393,9 @@
                                 <option value="P4" ng-if="maxWardrobeMrpObject.price4 !== 0">P4</option>                                
                             </select>
                         </div>
-                    </div>
+                    </div>                    
+                </div>
+                <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Shutter</label>
@@ -381,8 +426,6 @@
                             </select>                            
                         </div>                        
                     </div>                    
-                </div>
-                <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Handle Category</label>
@@ -394,7 +437,9 @@
                                 <option value="H4" ng-if="maxWardrobeMrpObject.priceh4 !== 0">H4</option>                                
                             </select>
                         </div>                        
-                    </div>
+                    </div>                    
+                </div>
+                <div class="row">                    
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Handle</label>
@@ -413,27 +458,7 @@
                                 <option value="HANDLE - H - 233 - 1279 CD" ng-if="editableMaxWardrobeDetailMrp.handleCategory === 'H4'">HANDLE - H - 233 - 1279 CD</option>
                             </select>
                         </div>                        
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Width (in mm)</label>
-                            <input class="form-control" ng-model="editableMaxWardrobeDetailMrp.width" readonly="">
-                        </div>                        
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Depth (in mm)</label>
-                            <input class="form-control" ng-model="editableMaxWardrobeDetailMrp.depth" readonly="">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">                    
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Height (in mm)</label>
-                            <input class="form-control" ng-model="editableMaxWardrobeDetailMrp.height" readonly="">
-                        </div>
-                    </div>                    
+                    </div>                                  
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Quantity</label>

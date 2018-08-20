@@ -34,6 +34,26 @@ public class InfinityWardrobeRest {
     public List<InfinityWardrobe> findByCategory(@RequestParam("category") String category) throws SQLException {
         return infinityWardrobeDAL.findByCategory(category);
     }
+    
+    @RequestMapping(value="/find/category/dimensions", method = RequestMethod.GET)
+    public List<InfinityWardrobe> findByCategoryDimensions(@RequestParam("category") String category, @RequestParam("width") Double width, @RequestParam("depth") Double depth, @RequestParam("height") Double height) throws SQLException {
+        return infinityWardrobeDAL.findByCategoryDimensions(category, width, depth, height);
+    }
+    
+    @RequestMapping(value = "/find/distinct/width", method = RequestMethod.GET)
+    public List<Double> findDistinctWidth(String category) throws Exception {
+        return infinityWardrobeDAL.findDistinctWidth(category);
+    }
+    
+    @RequestMapping(value = "/find/distinct/depth", method = RequestMethod.GET)
+    public List<Double> findDistinctDepth(String category) throws Exception {
+        return infinityWardrobeDAL.findDistinctDepth(category);
+    }
+    
+    @RequestMapping(value = "/find/distinct/height", method = RequestMethod.GET)
+    public List<Double> findDistinctHeight(String category) throws Exception {
+        return infinityWardrobeDAL.findDistinctHeight(category);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public InfinityWardrobe findById(@PathVariable("id") Integer id) throws SQLException {

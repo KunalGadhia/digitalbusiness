@@ -34,6 +34,11 @@ public class InfinityWardrobeMrpRest {
     public List<InfinityWardrobeMrp> findByCategory(@RequestParam("category") String category) throws SQLException {
         return infinityWardrobeMrpDAL.findByCategory(category);
     }
+    
+    @RequestMapping(value="/find/category/dimensions", method = RequestMethod.GET)
+    public List<InfinityWardrobeMrp> findByCategoryDimensions(@RequestParam("category") String category, @RequestParam("width") Double width, @RequestParam("depth") Double depth, @RequestParam("height") Double height) throws SQLException {
+        return infinityWardrobeMrpDAL.findByCategoryDimensions(category, width, depth, height);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public InfinityWardrobeMrp findById(@PathVariable("id") Integer id) throws SQLException {
@@ -54,6 +59,21 @@ public class InfinityWardrobeMrpRest {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Integer id) throws Exception {
         infinityWardrobeMrpDAL.delete(id);
+    }
+    
+    @RequestMapping(value = "/find/distinct/width", method = RequestMethod.GET)
+    public List<Double> findDistinctWidth(String category) throws Exception {
+        return infinityWardrobeMrpDAL.findDistinctWidth(category);
+    }
+    
+    @RequestMapping(value = "/find/distinct/depth", method = RequestMethod.GET)
+    public List<Double> findDistinctDepth(String category) throws Exception {
+        return infinityWardrobeMrpDAL.findDistinctDepth(category);
+    }
+    
+    @RequestMapping(value = "/find/distinct/height", method = RequestMethod.GET)
+    public List<Double> findDistinctHeight(String category) throws Exception {
+        return infinityWardrobeMrpDAL.findDistinctHeight(category);
     }
 
     @RequestMapping(value = "/find/description", method = RequestMethod.GET)

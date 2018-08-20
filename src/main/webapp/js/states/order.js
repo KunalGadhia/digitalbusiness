@@ -9,7 +9,7 @@ angular.module("digitalbusiness.states.order", [])
                 'url': '/order_master',
                 'templateUrl': templateRoot + '/masters/order/order_head.html',
                 'controller': 'OrderHeadController'
-            });            
+            });
             $stateProvider.state('admin.masters_display_order', {
                 'url': '/display_order_master',
                 'templateUrl': templateRoot + '/masters/order/display_order_head.html',
@@ -3118,8 +3118,8 @@ angular.module("digitalbusiness.states.order", [])
             });
             $scope.$watch('editableMaxKitchenDetail.shutterFinish', function (shutterFinish) {
                 FinishPriceService.findByFinishCode({
-                   'finishCode':shutterFinish 
-                }, function(finishObject){
+                    'finishCode': shutterFinish
+                }, function (finishObject) {
                     $scope.editableMaxKitchenDetail.shutterFinishName = finishObject.finishName;
                 });
                 ColorConstraintService.findByFinishCode({
@@ -3164,7 +3164,7 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.editableMaxKitchenDetail.shutterColorCode = colorCode;
                 $scope.editableMaxKitchenDetail.shutterColorId = colorId;
                 $scope.maxKitchenShutterColorName = colorName;
-            };            
+            };
             $scope.selectPreMaxKitchenShutterColor = function (colorId, colorName, colorCode) {
                 ColorService.get({
                     'id': colorId
@@ -3216,8 +3216,8 @@ angular.module("digitalbusiness.states.order", [])
                     d1 = maxKitchenOrderDetails.depth.toString();
                 }
                 maxKitchenOrderDetails.orderHeadId = $stateParams.orderHeadId;
-                maxKitchenOrderDetails.productCode = maxKitchenOrderDetails.component+""+maxKitchenOrderDetails.shutterFinish+"XXXXXXXXXX-" + h1 + "" + w1 + "" + d1 + "00";
-                maxKitchenOrderDetails.description = $scope.maxKitchenObject.description+" & with Shutter Finish "+maxKitchenOrderDetails.shutterFinishName;
+                maxKitchenOrderDetails.productCode = maxKitchenOrderDetails.component + "" + maxKitchenOrderDetails.shutterFinish + "XXXXXXXXXX-" + h1 + "" + w1 + "" + d1 + "00";
+                maxKitchenOrderDetails.description = $scope.maxKitchenObject.description + " & with Shutter Finish " + maxKitchenOrderDetails.shutterFinishName;
 //                if (maxKitchenOrderDetails.shutterFinish === "XBE") {                    
 //                    maxKitchenOrderDetails.stdPrice = $scope.maxKitchenObject.hdfMattPrice;
 //                    maxKitchenOrderDetails.preliminaryDealerprice = (maxKitchenOrderDetails.quantity * $scope.maxKitchenObject.hdfMattPrice);
@@ -3256,10 +3256,31 @@ angular.module("digitalbusiness.states.order", [])
             $scope.editableMaxWardrobeDetail = {};
             $scope.$watch('editableMaxWardrobeDetail.category', function (category) {
                 console.log("Category :%O", category);
-                MaxWardrobeService.findByCategory({
+//                MaxWardrobeService.findByCategory({
+//                    'category': category
+//                }, function (componentList) {
+//                    $scope.maxWardrobeComponentList = componentList;
+//                });
+
+                $scope.maxWardrobeWidthList = MaxWardrobeService.findDistinctWidth({
                     'category': category
-                }, function (componentList) {
-                    $scope.maxWardrobeComponentList = componentList;
+                });
+                $scope.maxWardrobeDepthList = MaxWardrobeService.findDistinctDepth({
+                    'category': category
+                });
+                $scope.maxWardrobeHeightList = MaxWardrobeService.findDistinctHeight({
+                    'category': category
+                });
+            });
+            $scope.$watch('editableMaxWardrobeDetail.height', function (height) {
+                MaxWardrobeService.findByCategoryDimensions({
+                    'category': $scope.editableMaxWardrobeDetail.category,
+                    'width': $scope.editableMaxWardrobeDetail.width,
+                    'depth': $scope.editableMaxWardrobeDetail.depth,
+                    'height': height
+                }, function (maxWardrobeComponentList) {
+                    console.log("Max Wardrobe List :%O", maxWardrobeComponentList);
+                    $scope.maxWardrobeComponentList = maxWardrobeComponentList;
                 });
             });
             $scope.$watch('editableMaxWardrobeDetail.componentId', function (componentId) {
@@ -3268,12 +3289,13 @@ angular.module("digitalbusiness.states.order", [])
                 }, function (maxWardrobeObject) {
                     console.log("Max Wardrobe Object :%O", maxWardrobeObject);
                     $scope.maxWardrobeObject = maxWardrobeObject;
-                    $scope.editableMaxWardrobeDetail.width = maxWardrobeObject.width;
-                    $scope.editableMaxWardrobeDetail.height = maxWardrobeObject.height;
-                    $scope.editableMaxWardrobeDetail.depth = maxWardrobeObject.depth;
+//                    $scope.editableMaxWardrobeDetail.width = maxWardrobeObject.width;
+//                    $scope.editableMaxWardrobeDetail.height = maxWardrobeObject.height;
+//                    $scope.editableMaxWardrobeDetail.depth = maxWardrobeObject.depth;
                 });
             });
             $scope.saveMaxWardrobeDetails = function (maxWardrobeOrderDetails) {
+                console.log("Coming to save function :%O", maxWardrobeOrderDetails);
                 maxWardrobeOrderDetails.orderHeadId = $stateParams.orderHeadId;
                 maxWardrobeOrderDetails.productCode = $scope.maxWardrobeObject.productCode;
                 maxWardrobeOrderDetails.description = $scope.maxWardrobeObject.description;
@@ -3353,10 +3375,30 @@ angular.module("digitalbusiness.states.order", [])
                 } else if (category === "END_PANEL") {
                     $scope.editableInfinityWardrobeDetail.component = "IE";
                 }
-                InfinityWardrobeService.findByCategory({
+//                InfinityWardrobeService.findByCategory({
+//                    'category': category
+//                }, function (componentList) {
+//                    $scope.infinityWardrobeComponentList = componentList;
+//                });
+                $scope.infinityWardrobeWidthList = InfinityWardrobeService.findDistinctWidth({
                     'category': category
-                }, function (componentList) {
-                    $scope.infinityWardrobeComponentList = componentList;
+                });
+                $scope.infinityWardrobeDepthList = InfinityWardrobeService.findDistinctDepth({
+                    'category': category
+                });
+                $scope.infinityWardrobeHeightList = InfinityWardrobeService.findDistinctHeight({
+                    'category': category
+                });
+            });
+            $scope.$watch('editableInfinityWardrobeDetail.height', function (height) {
+                InfinityWardrobeService.findByCategoryDimensions({
+                    'category': $scope.editableInfinityWardrobeDetail.category,
+                    'width': $scope.editableInfinityWardrobeDetail.width,
+                    'depth': $scope.editableInfinityWardrobeDetail.depth,
+                    'height': height
+                }, function (infinityWardrobeComponentList) {
+                    console.log("Infinity Wardrobe List :%O", infinityWardrobeComponentList);
+                    $scope.infinityWardrobeComponentList = infinityWardrobeComponentList;
                 });
             });
             $scope.$watch('editableInfinityWardrobeDetail.componentId', function (componentId) {
@@ -3366,9 +3408,9 @@ angular.module("digitalbusiness.states.order", [])
                 }, function (component) {
                     $scope.infinityWardrobeObject = component;
                     $scope.editableInfinityWardrobeDetail.componentDescription = component.description;
-                    $scope.editableInfinityWardrobeDetail.width = component.width;
-                    $scope.editableInfinityWardrobeDetail.depth = component.depth;
-                    $scope.editableInfinityWardrobeDetail.height = component.height;
+//                    $scope.editableInfinityWardrobeDetail.width = component.width;
+//                    $scope.editableInfinityWardrobeDetail.depth = component.depth;
+//                    $scope.editableInfinityWardrobeDetail.height = component.height;
                 });
             });
             $scope.$watch('editableInfinityWardrobeDetail.carcass', function (carcass) {
