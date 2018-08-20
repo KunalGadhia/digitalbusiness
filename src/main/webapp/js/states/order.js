@@ -320,7 +320,11 @@ angular.module("digitalbusiness.states.order", [])
         .controller('OrderDetailsController', function (InfinityWardrobeOrderDetailsService, UltimaWardrobeOrderDetailsService, UltimaWardrobeService, InfinityWardrobeService, MaxWardrobeOrderDetailsService, MaxWardrobeService, DrawerComponentMappingService, ShutterComponentMappingService, MaxKitchenOrderDetailsService, MaxKitchenService, HardwareOrderDetailsService, HardwarePriceService, RateContractDetailService, RateContractService, DrawerHandleMappingService, FillerFinishPriceService, DrawerOrderDetailsService, ShutterHandleMappingService, ShutterOrderDetailsService, ShutterFinishPriceService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, PanelMaterialThicknessService, RawMaterialService, CarcassSubtypeService, SectionProfileService, FinishPriceService, CarcassOrderDetailsService, ColorService, ColorConstraintService, StandardCarcassPriceService, StandardCarcassDimensionService, OrderDetailsService, OrderHeadService, SaleTypeService, SegmentService, PartyService, UserService, EmployeeService, $scope, $stateParams, $rootScope, $state, KitchenComponentService) {
             window.onpopstate = function (e) {
                 console.log("Detecting Back Click");
+//                window.onbeforeunload = function () {
+//                    return "Your work will be lost.";
+//                };
                 window.history.forward(1);
+//                $scope.updateOrderHead();
             };
             $scope.editableCarcassDetail = {};
             //////////////To Detect Category Of Current Logged In User//////////
