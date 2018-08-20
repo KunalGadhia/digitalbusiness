@@ -21,11 +21,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class MaxWardrobeMrpDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
         public static final String CATEGORY = "category";
-        public static final String PRODUCT_CODE = "product_code";        
+        public static final String PRODUCT_CODE = "product_code";
         public static final String DESCRIPTION = "description";
         public static final String WIDTH = "width";
         public static final String DEPTH = "depth";
@@ -34,13 +35,14 @@ public class MaxWardrobeMrpDAL {
         public static final String PRICE1 = "price1";
         public static final String PRICE2 = "price2";
         public static final String PRICE3 = "price3";
-        public static final String PRICE4 = "price4";        
-        public static final String SOFT_CLOSE_HINGES = "soft_close_hinges";        
+        public static final String PRICE4 = "price4";
+        public static final String SOFT_CLOSE_HINGES = "soft_close_hinges";
         public static final String PRICEH1 = "priceh1";
         public static final String PRICEH2 = "priceh2";
         public static final String PRICEH3 = "priceh3";
         public static final String PRICEH4 = "priceh4";
         public static final String PRICEH5 = "priceh5";
+        public static final String IMAGE = "image";
 
     }
 
@@ -65,8 +67,8 @@ public class MaxWardrobeMrpDAL {
                         Columns.PRICE1,
                         Columns.PRICE2,
                         Columns.PRICE3,
-                        Columns.PRICE4,                        
-                        Columns.SOFT_CLOSE_HINGES,                        
+                        Columns.PRICE4,
+                        Columns.SOFT_CLOSE_HINGES,
                         Columns.PRICEH1,
                         Columns.PRICEH2,
                         Columns.PRICEH3,
@@ -85,12 +87,12 @@ public class MaxWardrobeMrpDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{category}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
     }
-    
+
     public List<MaxWardrobeMrp> findByCategoryDimensions(String category, Double width, Double depth, Double height) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? AND " + Columns.WIDTH + " = ? AND " + Columns.DEPTH + " = ? AND " + Columns.HEIGHT + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{category, width, depth, height}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
     }
-    
+
     public List<Double> findDistinctWidth(String category) {
         String sqlQuery = "SELECT distinct(width) FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? ORDER BY width DESC";
         return jdbcTemplate.queryForList(sqlQuery, new Object[]{category}, Double.class);
@@ -125,7 +127,7 @@ public class MaxWardrobeMrpDAL {
     public MaxWardrobeMrp insert(MaxWardrobeMrp maxWardrobeMrp) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(Columns.CATEGORY, maxWardrobeMrp.getCategory().name());
-        parameters.put(Columns.PRODUCT_CODE, maxWardrobeMrp.getProductCode());        
+        parameters.put(Columns.PRODUCT_CODE, maxWardrobeMrp.getProductCode());
         parameters.put(Columns.DESCRIPTION, maxWardrobeMrp.getDescription());
         parameters.put(Columns.WIDTH, maxWardrobeMrp.getWidth());
         parameters.put(Columns.DEPTH, maxWardrobeMrp.getDepth());
@@ -134,13 +136,13 @@ public class MaxWardrobeMrpDAL {
         parameters.put(Columns.PRICE1, maxWardrobeMrp.getPrice1());
         parameters.put(Columns.PRICE2, maxWardrobeMrp.getPrice2());
         parameters.put(Columns.PRICE3, maxWardrobeMrp.getPrice3());
-        parameters.put(Columns.PRICE4, maxWardrobeMrp.getPrice4());        
-        parameters.put(Columns.SOFT_CLOSE_HINGES, maxWardrobeMrp.getSoftCloseHinges());        
+        parameters.put(Columns.PRICE4, maxWardrobeMrp.getPrice4());
+        parameters.put(Columns.SOFT_CLOSE_HINGES, maxWardrobeMrp.getSoftCloseHinges());
         parameters.put(Columns.PRICEH1, maxWardrobeMrp.getPriceh1());
         parameters.put(Columns.PRICEH2, maxWardrobeMrp.getPriceh2());
         parameters.put(Columns.PRICEH3, maxWardrobeMrp.getPriceh3());
         parameters.put(Columns.PRICEH4, maxWardrobeMrp.getPriceh4());
-        parameters.put(Columns.PRICEH5, maxWardrobeMrp.getPriceh5());        
+        parameters.put(Columns.PRICEH5, maxWardrobeMrp.getPriceh5());
 
         Number newId = insertMaxWardrobeMrp.executeAndReturnKey(parameters);
         maxWardrobeMrp = findById(newId.intValue());
@@ -153,6 +155,7 @@ public class MaxWardrobeMrpDAL {
     }
 
     public MaxWardrobeMrp update(MaxWardrobeMrp maxWardrobeMrp) {
+        String path = maxWardrobeMrp.getImage().get(0).toString().replace("\\", "\\\\");
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.PRODUCT_CODE + " = ?,"
                 + Columns.CATEGORY + " = ?,"
@@ -163,13 +166,14 @@ public class MaxWardrobeMrpDAL {
                 + Columns.PRICE1 + " = ?,"
                 + Columns.PRICE2 + " = ?,"
                 + Columns.PRICE3 + " = ?,"
-                + Columns.PRICE4 + " = ?,"                
-                + Columns.SOFT_CLOSE_HINGES + " = ?,"                
+                + Columns.PRICE4 + " = ?,"
+                + Columns.SOFT_CLOSE_HINGES + " = ?,"
                 + Columns.PRICEH1 + " = ?,"
                 + Columns.PRICEH2 + " = ?,"
                 + Columns.PRICEH3 + " = ?,"
-                + Columns.PRICEH4 + " = ?,"                
-                + Columns.PRICEH5 + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.PRICEH4 + " = ?,"
+                + Columns.PRICEH5 + " = ?,"
+                + Columns.IMAGE + " = '" + path + "' WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     maxWardrobeMrp.getProductCode(),
@@ -182,13 +186,13 @@ public class MaxWardrobeMrpDAL {
                     maxWardrobeMrp.getPrice1(),
                     maxWardrobeMrp.getPrice2(),
                     maxWardrobeMrp.getPrice3(),
-                    maxWardrobeMrp.getPrice4(),                    
-                    maxWardrobeMrp.getSoftCloseHinges(),                    
+                    maxWardrobeMrp.getPrice4(),
+                    maxWardrobeMrp.getSoftCloseHinges(),
                     maxWardrobeMrp.getPriceh1(),
                     maxWardrobeMrp.getPriceh2(),
                     maxWardrobeMrp.getPriceh3(),
                     maxWardrobeMrp.getPriceh4(),
-                    maxWardrobeMrp.getPriceh5(),
+                    maxWardrobeMrp.getPriceh5(),                    
                     maxWardrobeMrp.getId()
                 });
         maxWardrobeMrp = findById(maxWardrobeMrp.getId());

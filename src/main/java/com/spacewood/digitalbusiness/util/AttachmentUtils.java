@@ -39,11 +39,19 @@ public class AttachmentUtils {
     private static final String KITCHEN_COMPONENT_ATTACHMENT_DIR_NAME = "kitchern_component";
     private static final String COLOR_ATTACHMENT_DIR_NAME = "color_component";
     private static final String DEALER_SKU_ATTACHMENT_DIR_NAME = "dealer_sku_component";
+    private static final String INFINITY_WARDROBE_ATTACHMENT_DIR_NAME = "infinity_wardrobe";
+    private static final String INFINITY_WARDROBE_MRP_ATTACHMENT_DIR_NAME = "infinity_wardrobe_mrp";
+    private static final String MAX_WARDROBE_ATTACHMENT_DIR_NAME = "max_wardrobe";
+    private static final String MAX_WARDROBE_MRP_ATTACHMENT_DIR_NAME = "max_wardrobe_mrp";
 
     public static enum AttachmentType {
         KITCHEN_COMPONENT,
         COLOR,
-        DEALER_SKU
+        DEALER_SKU,
+        INFINITY_WARDROBE,
+        INFINITY_WARDROBE_MRP,
+        MAX_WARDROBE,
+        MAX_WARDROBE_MRP
     }
 
     public File getAttachmentRootDirectory() {
@@ -74,11 +82,31 @@ public class AttachmentUtils {
                 attachmentDir = new File(getAttachmentRootDirectory(), COLOR_ATTACHMENT_DIR_NAME);
                 logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
                 break;
-                
+
             case DEALER_SKU:
                 attachmentDir = new File(getAttachmentRootDirectory(), DEALER_SKU_ATTACHMENT_DIR_NAME);
                 logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
-                break;    
+                break;
+
+            case INFINITY_WARDROBE:
+                attachmentDir = new File(getAttachmentRootDirectory(), INFINITY_WARDROBE_ATTACHMENT_DIR_NAME);
+                logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
+                break;
+
+            case INFINITY_WARDROBE_MRP:
+                attachmentDir = new File(getAttachmentRootDirectory(), INFINITY_WARDROBE_MRP_ATTACHMENT_DIR_NAME);
+                logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
+                break;
+                
+                case MAX_WARDROBE:
+                attachmentDir = new File(getAttachmentRootDirectory(), MAX_WARDROBE_ATTACHMENT_DIR_NAME);
+                logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
+                break;
+                
+                case MAX_WARDROBE_MRP:
+                attachmentDir = new File(getAttachmentRootDirectory(), MAX_WARDROBE_MRP_ATTACHMENT_DIR_NAME);
+                logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
+                break;
 
             default:
                 throw new IOException("Could not determine location to store attachment of type: " + attachmentType);

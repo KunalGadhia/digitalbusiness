@@ -50,6 +50,7 @@ public class InfinityWardrobeMrpDAL {
         public static final String PRICEH3 = "priceh3";
         public static final String PRICEH4 = "priceh4";
         public static final String PRICEH5 = "priceh5";
+        public static final String IMAGE = "image";
 
     }
 
@@ -178,6 +179,7 @@ public class InfinityWardrobeMrpDAL {
     }
 
     public InfinityWardrobeMrp update(InfinityWardrobeMrp infinityWardrobeMrp) {
+        String path = infinityWardrobeMrp.getImage().get(0).toString().replace("\\", "\\\\");
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.PRODUCT_CODE + " = ?,"
                 + Columns.CATEGORY + " = ?,"
@@ -202,7 +204,8 @@ public class InfinityWardrobeMrpDAL {
                 + Columns.PRICEH2 + " = ?,"
                 + Columns.PRICEH3 + " = ?,"
                 + Columns.PRICEH4 + " = ?,"
-                + Columns.PRICEH5 + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.PRICEH5 + " = ?,"
+                + Columns.IMAGE + " = '" + path + "' WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     infinityWardrobeMrp.getProductCode(),

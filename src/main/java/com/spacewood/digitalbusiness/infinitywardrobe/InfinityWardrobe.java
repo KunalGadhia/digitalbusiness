@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.infinitywardrobe;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -62,6 +63,7 @@ public class InfinityWardrobe {
     private Double hingeSoftClose;
     private Double hingeBlumSoftClose;
     private Double hingeDeg155;
+    private List<String> image;
 
     public Integer getId() {
         return id;
@@ -455,9 +457,17 @@ public class InfinityWardrobe {
         this.hingeDeg155 = hingeDeg155;
     }
 
+    public List<String> getImage() {
+        return image;
+    }
+
+    public void setImage(List<String> image) {
+        this.image = image;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 5;
         hash = 59 * hash + Objects.hashCode(this.id);
         hash = 59 * hash + Objects.hashCode(this.productCode);
         hash = 59 * hash + Objects.hashCode(this.category);
@@ -507,6 +517,7 @@ public class InfinityWardrobe {
         hash = 59 * hash + Objects.hashCode(this.hingeSoftClose);
         hash = 59 * hash + Objects.hashCode(this.hingeBlumSoftClose);
         hash = 59 * hash + Objects.hashCode(this.hingeDeg155);
+        hash = 59 * hash + Objects.hashCode(this.image);
         return hash;
     }
 
@@ -669,12 +680,16 @@ public class InfinityWardrobe {
         if (!Objects.equals(this.hingeDeg155, other.hingeDeg155)) {
             return false;
         }
+        if (!Objects.equals(this.image, other.image)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "InfinityWardrobe{" + "id=" + id + ", productCode=" + productCode + ", category=" + category + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", cpPpb=" + cpPpb + ", cpMf=" + cpMf + ", cpHmr=" + cpHmr + ", cpHf=" + cpHf + ", spMfSt=" + spMfSt + ", spMfDes=" + spMfDes + ", spMfGlReg=" + spMfGlReg + ", spMfGlossPrem=" + spMfGlossPrem + ", spHplMatt=" + spHplMatt + ", spPlyHplGloss=" + spPlyHplGloss + ", spPlyHplMr=" + spPlyHplMr + ", spMfPolymer=" + spMfPolymer + ", spPlyAcrStd=" + spPlyAcrStd + ", spPlyAcrPrem=" + spPlyAcrPrem + ", spHdfAcrStd=" + spHdfAcrStd + ", spHdfAcrPrem=" + spHdfAcrPrem + ", spMfPuSolid=" + spMfPuSolid + ", spMfPuMetallic=" + spMfPuMetallic + ", spHmrSolid=" + spHmrSolid + ", spHmrMetallic=" + spHmrMetallic + ", spPlyPuSolid=" + spPlyPuSolid + ", spPlyPuMetallic=" + spPlyPuMetallic + ", spPrePbEdgeb=" + spPrePbEdgeb + ", spPreMfEdgeb=" + spPreMfEdgeb + ", spPreHmrEdgeb=" + spPreHmrEdgeb + ", spHmrStd=" + spHmrStd + ", spHmrDesg=" + spHmrDesg + ", spHmrGlossReg=" + spHmrGlossReg + ", spHmrGlossPremium=" + spHmrGlossPremium + ", spG55AcidFrosted=" + spG55AcidFrosted + ", spGloriaStd=" + spGloriaStd + ", spGloriaDesg=" + spGloriaDesg + ", spGloriaGlossReg=" + spGloriaGlossReg + ", spGloriaGlossPremium=" + spGloriaGlossPremium + ", spGloriaPuSolid=" + spGloriaPuSolid + ", spGloriaPuMetallic=" + spGloriaPuMetallic + ", spVenettaMfPuSolid=" + spVenettaMfPuSolid + ", spVenettaMfPuMetallic=" + spVenettaMfPuMetallic + ", spHfAcrGlass=" + spHfAcrGlass + ", hingeSoftClose=" + hingeSoftClose + ", hingeBlumSoftClose=" + hingeBlumSoftClose + ", hingeDeg155=" + hingeDeg155 + '}';
+        return "InfinityWardrobe{" + "id=" + id + ", productCode=" + productCode + ", category=" + category + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", cpPpb=" + cpPpb + ", cpMf=" + cpMf + ", cpHmr=" + cpHmr + ", cpHf=" + cpHf + ", spMfSt=" + spMfSt + ", spMfDes=" + spMfDes + ", spMfGlReg=" + spMfGlReg + ", spMfGlossPrem=" + spMfGlossPrem + ", spHplMatt=" + spHplMatt + ", spPlyHplGloss=" + spPlyHplGloss + ", spPlyHplMr=" + spPlyHplMr + ", spMfPolymer=" + spMfPolymer + ", spPlyAcrStd=" + spPlyAcrStd + ", spPlyAcrPrem=" + spPlyAcrPrem + ", spHdfAcrStd=" + spHdfAcrStd + ", spHdfAcrPrem=" + spHdfAcrPrem + ", spMfPuSolid=" + spMfPuSolid + ", spMfPuMetallic=" + spMfPuMetallic + ", spHmrSolid=" + spHmrSolid + ", spHmrMetallic=" + spHmrMetallic + ", spPlyPuSolid=" + spPlyPuSolid + ", spPlyPuMetallic=" + spPlyPuMetallic + ", spPrePbEdgeb=" + spPrePbEdgeb + ", spPreMfEdgeb=" + spPreMfEdgeb + ", spPreHmrEdgeb=" + spPreHmrEdgeb + ", spHmrStd=" + spHmrStd + ", spHmrDesg=" + spHmrDesg + ", spHmrGlossReg=" + spHmrGlossReg + ", spHmrGlossPremium=" + spHmrGlossPremium + ", spG55AcidFrosted=" + spG55AcidFrosted + ", spGloriaStd=" + spGloriaStd + ", spGloriaDesg=" + spGloriaDesg + ", spGloriaGlossReg=" + spGloriaGlossReg + ", spGloriaGlossPremium=" + spGloriaGlossPremium + ", spGloriaPuSolid=" + spGloriaPuSolid + ", spGloriaPuMetallic=" + spGloriaPuMetallic + ", spVenettaMfPuSolid=" + spVenettaMfPuSolid + ", spVenettaMfPuMetallic=" + spVenettaMfPuMetallic + ", spHfAcrGlass=" + spHfAcrGlass + ", hingeSoftClose=" + hingeSoftClose + ", hingeBlumSoftClose=" + hingeBlumSoftClose + ", hingeDeg155=" + hingeDeg155 + ", image=" + image + '}';
     }
+
     
 }

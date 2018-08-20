@@ -73,6 +73,7 @@ public class InfinityWardrobeDAL {
         public static final String HINGE_SOFT_CLOSE = "hinge_soft_close";
         public static final String HINGE_BLUM_SOFT_CLOSE = "hinge_blum_soft_close";
         public static final String HINGE_DEG155 = "hinge_deg155";
+        public static final String IMAGE = "image";
 
     }
 
@@ -148,7 +149,7 @@ public class InfinityWardrobeDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{category}, new BeanPropertyRowMapper<>(InfinityWardrobe.class));
     }
-    
+
     public List<InfinityWardrobe> findByCategoryDimensions(String category, Double width, Double depth, Double height) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? AND " + Columns.WIDTH + " = ? AND " + Columns.DEPTH + " = ? AND " + Columns.HEIGHT + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{category, width, depth, height}, new BeanPropertyRowMapper<>(InfinityWardrobe.class));
@@ -247,6 +248,7 @@ public class InfinityWardrobeDAL {
     }
 
     public InfinityWardrobe update(InfinityWardrobe infinityWardrobe) {
+        String path = infinityWardrobe.getImage().get(0).toString().replace("\\", "\\\\");
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.PRODUCT_CODE + " = ?,"
                 + Columns.CATEGORY + " = ?,"
@@ -295,7 +297,8 @@ public class InfinityWardrobeDAL {
                 + Columns.SP_HF_ACR_GLASS + " = ?,"
                 + Columns.HINGE_SOFT_CLOSE + " = ?,"
                 + Columns.HINGE_BLUM_SOFT_CLOSE + " = ?,"
-                + Columns.HINGE_DEG155 + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.HINGE_DEG155 + " = ?,"
+                + Columns.IMAGE + " = '" + path + "' WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     infinityWardrobe.getProductCode(),

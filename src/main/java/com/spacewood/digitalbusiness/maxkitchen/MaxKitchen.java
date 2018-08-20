@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.maxkitchen;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -23,6 +24,7 @@ public class MaxKitchen {
     private Double hdfGlossPrice;
     private Double glassG50AluPrice;
     private Boolean glass;
+    private List<String> image;
 
     public Integer getId() {
         return id;
@@ -112,20 +114,29 @@ public class MaxKitchen {
         this.glass = glass;
     }
 
+    public List<String> getImage() {
+        return image;
+    }
+
+    public void setImage(List<String> image) {
+        this.image = image;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        hash = 67 * hash + Objects.hashCode(this.category);
-        hash = 67 * hash + Objects.hashCode(this.productCode);
-        hash = 67 * hash + Objects.hashCode(this.description);
-        hash = 67 * hash + Objects.hashCode(this.width);
-        hash = 67 * hash + Objects.hashCode(this.height);
-        hash = 67 * hash + Objects.hashCode(this.depth);
-        hash = 67 * hash + Objects.hashCode(this.hdfMattPrice);
-        hash = 67 * hash + Objects.hashCode(this.hdfGlossPrice);
-        hash = 67 * hash + Objects.hashCode(this.glassG50AluPrice);
-        hash = 67 * hash + Objects.hashCode(this.glass);
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.category);
+        hash = 53 * hash + Objects.hashCode(this.productCode);
+        hash = 53 * hash + Objects.hashCode(this.description);
+        hash = 53 * hash + Objects.hashCode(this.width);
+        hash = 53 * hash + Objects.hashCode(this.height);
+        hash = 53 * hash + Objects.hashCode(this.depth);
+        hash = 53 * hash + Objects.hashCode(this.hdfMattPrice);
+        hash = 53 * hash + Objects.hashCode(this.hdfGlossPrice);
+        hash = 53 * hash + Objects.hashCode(this.glassG50AluPrice);
+        hash = 53 * hash + Objects.hashCode(this.glass);
+        hash = 53 * hash + Objects.hashCode(this.image);
         return hash;
     }
 
@@ -174,12 +185,16 @@ public class MaxKitchen {
         if (!Objects.equals(this.glass, other.glass)) {
             return false;
         }
+        if (!Objects.equals(this.image, other.image)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "MaxKitchen{" + "id=" + id + ", category=" + category + ", productCode=" + productCode + ", description=" + description + ", width=" + width + ", height=" + height + ", depth=" + depth + ", hdfMattPrice=" + hdfMattPrice + ", hdfGlossPrice=" + hdfGlossPrice + ", glassG50AluPrice=" + glassG50AluPrice + ", glass=" + glass + '}';
+        return "MaxKitchen{" + "id=" + id + ", category=" + category + ", productCode=" + productCode + ", description=" + description + ", width=" + width + ", height=" + height + ", depth=" + depth + ", hdfMattPrice=" + hdfMattPrice + ", hdfGlossPrice=" + hdfGlossPrice + ", glassG50AluPrice=" + glassG50AluPrice + ", glass=" + glass + ", image=" + image + '}';
     }
+
         
 }

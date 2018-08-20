@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.infinitywardrobemrp;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -39,6 +40,7 @@ public class InfinityWardrobeMrp {
     private Double priceh3;
     private Double priceh4;
     private Double priceh5;
+    private List<String> image;
 
     public Integer getId() {
         return id;
@@ -248,35 +250,44 @@ public class InfinityWardrobeMrp {
         this.priceh5 = priceh5;
     }
 
+    public List<String> getImage() {
+        return image;
+    }
+
+    public void setImage(List<String> image) {
+        this.image = image;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.id);
-        hash = 23 * hash + Objects.hashCode(this.category);
-        hash = 23 * hash + Objects.hashCode(this.productCode);
-        hash = 23 * hash + Objects.hashCode(this.description);
-        hash = 23 * hash + Objects.hashCode(this.width);
-        hash = 23 * hash + Objects.hashCode(this.depth);
-        hash = 23 * hash + Objects.hashCode(this.height);
-        hash = 23 * hash + Objects.hashCode(this.carcassPrice);
-        hash = 23 * hash + Objects.hashCode(this.price1);
-        hash = 23 * hash + Objects.hashCode(this.price2);
-        hash = 23 * hash + Objects.hashCode(this.price3);
-        hash = 23 * hash + Objects.hashCode(this.price4);
-        hash = 23 * hash + Objects.hashCode(this.price5);
-        hash = 23 * hash + Objects.hashCode(this.price6);
-        hash = 23 * hash + Objects.hashCode(this.price7);
-        hash = 23 * hash + Objects.hashCode(this.price8);
-        hash = 23 * hash + Objects.hashCode(this.price9);
-        hash = 23 * hash + Objects.hashCode(this.price10);
-        hash = 23 * hash + Objects.hashCode(this.softCloseHinges);
-        hash = 23 * hash + Objects.hashCode(this.blumSoftClose);
-        hash = 23 * hash + Objects.hashCode(this.degree155);
-        hash = 23 * hash + Objects.hashCode(this.priceh1);
-        hash = 23 * hash + Objects.hashCode(this.priceh2);
-        hash = 23 * hash + Objects.hashCode(this.priceh3);
-        hash = 23 * hash + Objects.hashCode(this.priceh4);
-        hash = 23 * hash + Objects.hashCode(this.priceh5);
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.category);
+        hash = 59 * hash + Objects.hashCode(this.productCode);
+        hash = 59 * hash + Objects.hashCode(this.description);
+        hash = 59 * hash + Objects.hashCode(this.width);
+        hash = 59 * hash + Objects.hashCode(this.depth);
+        hash = 59 * hash + Objects.hashCode(this.height);
+        hash = 59 * hash + Objects.hashCode(this.carcassPrice);
+        hash = 59 * hash + Objects.hashCode(this.price1);
+        hash = 59 * hash + Objects.hashCode(this.price2);
+        hash = 59 * hash + Objects.hashCode(this.price3);
+        hash = 59 * hash + Objects.hashCode(this.price4);
+        hash = 59 * hash + Objects.hashCode(this.price5);
+        hash = 59 * hash + Objects.hashCode(this.price6);
+        hash = 59 * hash + Objects.hashCode(this.price7);
+        hash = 59 * hash + Objects.hashCode(this.price8);
+        hash = 59 * hash + Objects.hashCode(this.price9);
+        hash = 59 * hash + Objects.hashCode(this.price10);
+        hash = 59 * hash + Objects.hashCode(this.softCloseHinges);
+        hash = 59 * hash + Objects.hashCode(this.blumSoftClose);
+        hash = 59 * hash + Objects.hashCode(this.degree155);
+        hash = 59 * hash + Objects.hashCode(this.priceh1);
+        hash = 59 * hash + Objects.hashCode(this.priceh2);
+        hash = 59 * hash + Objects.hashCode(this.priceh3);
+        hash = 59 * hash + Objects.hashCode(this.priceh4);
+        hash = 59 * hash + Objects.hashCode(this.priceh5);
+        hash = 59 * hash + Objects.hashCode(this.image);
         return hash;
     }
 
@@ -370,12 +381,15 @@ public class InfinityWardrobeMrp {
         if (!Objects.equals(this.priceh5, other.priceh5)) {
             return false;
         }
+        if (!Objects.equals(this.image, other.image)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "InfinityWardrobeMrp{" + "id=" + id + ", category=" + category + ", productCode=" + productCode + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", carcassPrice=" + carcassPrice + ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3 + ", price4=" + price4 + ", price5=" + price5 + ", price6=" + price6 + ", price7=" + price7 + ", price8=" + price8 + ", price9=" + price9 + ", price10=" + price10 + ", softCloseHinges=" + softCloseHinges + ", blumSoftClose=" + blumSoftClose + ", degree155=" + degree155 + ", priceh1=" + priceh1 + ", priceh2=" + priceh2 + ", priceh3=" + priceh3 + ", priceh4=" + priceh4 + ", priceh5=" + priceh5 + '}';
-    }
+        return "InfinityWardrobeMrp{" + "id=" + id + ", category=" + category + ", productCode=" + productCode + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", carcassPrice=" + carcassPrice + ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3 + ", price4=" + price4 + ", price5=" + price5 + ", price6=" + price6 + ", price7=" + price7 + ", price8=" + price8 + ", price9=" + price9 + ", price10=" + price10 + ", softCloseHinges=" + softCloseHinges + ", blumSoftClose=" + blumSoftClose + ", degree155=" + degree155 + ", priceh1=" + priceh1 + ", priceh2=" + priceh2 + ", priceh3=" + priceh3 + ", priceh4=" + priceh4 + ", priceh5=" + priceh5 + ", image=" + image + '}';
+    }    
      
 }

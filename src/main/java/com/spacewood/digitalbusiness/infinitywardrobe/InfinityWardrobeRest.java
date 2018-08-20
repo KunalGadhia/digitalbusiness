@@ -5,15 +5,25 @@
  */
 package com.spacewood.digitalbusiness.infinitywardrobe;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -22,8 +32,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/infinity_wardrobe")
 public class InfinityWardrobeRest {
+    
+     private final Logger logger = LoggerFactory.getLogger(getClass());
+    
     @Autowired
     private InfinityWardrobeDAL infinityWardrobeDAL;
+    
+    @Autowired
+    private InfinityWardrobeService infinityWardrobeService;
     
     @RequestMapping(method = RequestMethod.GET)
     public List<InfinityWardrobe> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
@@ -84,5 +100,23 @@ public class InfinityWardrobeRest {
     @RequestMapping(value = "/find/description_like", method = RequestMethod.GET)
     public List<InfinityWardrobe> findByDescriptionLike(@RequestParam("description") String description) {
         return infinityWardrobeDAL.findByDescriptionLike(description);
+    }
+    
+    @RequestMapping(value = "/{id}/attachment", method = RequestMethod.POST)
+    public InfinityWardrobe uploadAttachment(
+            @PathVariable Integer id,
+            @RequestParam MultipartFile attachment
+    ) throws IOException {
+        System.out.println("MULTIPART ATTACHMENT LOGGER+++++++++++++++++" + attachment.getName());
+        return infinityWardrobeService.insertAttachments(id, attachment);
+    }
+
+    @RequestMapping(value = "/{id}/attachment", method = RequestMethod.GET)
+    public void getAttachment(@PathVariable Integer id, HttpServletResponse response) throws IOException {
+        File photoFile = infinityWardrobeService.getPhoto(id);
+        response.setContentType(Files.probeContentType(Paths.get(photoFile.getAbsolutePath())));
+        response.setContentLengthLong(photoFile.length());
+        logger.debug("filename: {}, size: {}", photoFile.getAbsoluteFile(), photoFile.length());
+        FileCopyUtils.copy(new FileInputStream(photoFile), response.getOutputStream());
     }
 }

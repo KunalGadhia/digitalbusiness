@@ -7,7 +7,11 @@ package com.spacewood.digitalbusiness.util;
 
 import com.spacewood.digitalbusiness.color.Color;
 import com.spacewood.digitalbusiness.dealersku.DealerSku;
+import com.spacewood.digitalbusiness.infinitywardrobe.InfinityWardrobe;
+import com.spacewood.digitalbusiness.infinitywardrobemrp.InfinityWardrobeMrp;
 import com.spacewood.digitalbusiness.kitchencomponent.KitchenComponent;
+import com.spacewood.digitalbusiness.maxwardrobe.MaxWardrobe;
+import com.spacewood.digitalbusiness.maxwardrobemrp.MaxWardrobeMrp;
 import com.spacewood.digitalbusiness.util.AttachmentUtils.AttachmentType;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -90,10 +94,10 @@ public class PhotoUtils {
 
     public File setDealerSkuPhoto(
             InputStream inputStream,
-            Color color)
+            DealerSku dealerSku)
             throws IOException {
 
-        File photoFile = getColorPhoto(color);
+        File photoFile = getDealerSkuPhoto(dealerSku);
         FileCopyUtils.copy(inputStream, new FileOutputStream(photoFile));
         return photoFile;
     }
@@ -101,5 +105,98 @@ public class PhotoUtils {
     public File getDealerSkuPhotoFile(DealerSku dealerSku) throws IOException {
         File dealerSkuDir = attachmentUtils.getDirectoryByAttachmentTypeAndEntityId(AttachmentType.DEALER_SKU, dealerSku.getId(), true);
         return new File(dealerSkuDir, PHOTO_FILE_NAME);
+    }
+    ////////////////////////////////////////////////////////////
+    public File getInfinityWardrobePhoto(InfinityWardrobe infinityWardrobe) throws FileNotFoundException, IOException {
+        if (infinityWardrobe.getImage() != null) {
+            PHOTO_FILE_NAME = infinityWardrobe.getImage().get(0).toString();
+        }
+        File photoFile = getInfinityWardrobePhotoFile(infinityWardrobe);
+        return photoFile;
+    }
+
+    public File setInfinityWardrobePhoto(
+            InputStream inputStream,
+            InfinityWardrobe infinityWardrobe)
+            throws IOException {
+
+        File photoFile = getInfinityWardrobePhoto(infinityWardrobe);
+        FileCopyUtils.copy(inputStream, new FileOutputStream(photoFile));
+        return photoFile;
+    }
+
+    public File getInfinityWardrobePhotoFile(InfinityWardrobe infinityWardrobe) throws IOException {
+        File infinityWardrobeDir = attachmentUtils.getDirectoryByAttachmentTypeAndEntityId(AttachmentType.INFINITY_WARDROBE, infinityWardrobe.getId(), true);
+        return new File(infinityWardrobeDir, PHOTO_FILE_NAME);
+    }
+    ////////////////////////////////////////////////////////////
+    public File getInfinityWardrobeMrpPhoto(InfinityWardrobeMrp infinityWardrobeMrp) throws FileNotFoundException, IOException {
+        if (infinityWardrobeMrp.getImage() != null) {
+            PHOTO_FILE_NAME = infinityWardrobeMrp.getImage().get(0).toString();
+        }
+        File photoFile = getInfinityWardrobeMrpPhotoFile(infinityWardrobeMrp);
+        return photoFile;
+    }
+
+    public File setInfinityWardrobeMrpPhoto(
+            InputStream inputStream,
+            InfinityWardrobeMrp infinityWardrobeMrp)
+            throws IOException {
+
+        File photoFile = getInfinityWardrobeMrpPhoto(infinityWardrobeMrp);
+        FileCopyUtils.copy(inputStream, new FileOutputStream(photoFile));
+        return photoFile;
+    }
+
+    public File getInfinityWardrobeMrpPhotoFile(InfinityWardrobeMrp infinityWardrobeMrp) throws IOException {
+        File infinityWardrobeMrpDir = attachmentUtils.getDirectoryByAttachmentTypeAndEntityId(AttachmentType.INFINITY_WARDROBE_MRP, infinityWardrobeMrp.getId(), true);
+        return new File(infinityWardrobeMrpDir, PHOTO_FILE_NAME);
+    }
+    /////////////////////////////////////////////////////////////
+    
+    public File getMaxWardrobePhoto(MaxWardrobe maxWardrobe) throws FileNotFoundException, IOException {
+        if (maxWardrobe.getImage() != null) {
+            PHOTO_FILE_NAME = maxWardrobe.getImage().get(0).toString();
+        }
+        File photoFile = getMaxWardrobePhotoFile(maxWardrobe);
+        return photoFile;
+    }
+
+    public File setMaxWardrobePhoto(
+            InputStream inputStream,
+            MaxWardrobe maxWardrobe)
+            throws IOException {
+
+        File photoFile = getMaxWardrobePhoto(maxWardrobe);
+        FileCopyUtils.copy(inputStream, new FileOutputStream(photoFile));
+        return photoFile;
+    }
+
+    public File getMaxWardrobePhotoFile(MaxWardrobe maxWardrobe) throws IOException {
+        File maxWardrobeDir = attachmentUtils.getDirectoryByAttachmentTypeAndEntityId(AttachmentType.MAX_WARDROBE, maxWardrobe.getId(), true);
+        return new File(maxWardrobeDir, PHOTO_FILE_NAME);
+    }
+    ////////////////////////////////////////////////////////////
+    public File getMaxWardrobeMrpPhoto(MaxWardrobeMrp maxWardrobeMrp) throws FileNotFoundException, IOException {
+        if (maxWardrobeMrp.getImage() != null) {
+            PHOTO_FILE_NAME = maxWardrobeMrp.getImage().get(0).toString();
+        }
+        File photoFile = getMaxWardrobeMrpPhotoFile(maxWardrobeMrp);
+        return photoFile;
+    }
+
+    public File setMaxWardrobeMrpPhoto(
+            InputStream inputStream,
+            MaxWardrobeMrp maxWardrobeMrp)
+            throws IOException {
+
+        File photoFile = getMaxWardrobeMrpPhoto(maxWardrobeMrp);
+        FileCopyUtils.copy(inputStream, new FileOutputStream(photoFile));
+        return photoFile;
+    }
+
+    public File getMaxWardrobeMrpPhotoFile(MaxWardrobeMrp maxWardrobeMrp) throws IOException {
+        File maxWardrobeMrpDir = attachmentUtils.getDirectoryByAttachmentTypeAndEntityId(AttachmentType.MAX_WARDROBE_MRP, maxWardrobeMrp.getId(), true);
+        return new File(maxWardrobeMrpDir, PHOTO_FILE_NAME);
     }
 }

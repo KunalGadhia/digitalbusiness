@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.maxwardrobe;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,6 +33,7 @@ public class MaxWardrobe {
     private Double spPvcMdfGlossyPrice;
     private Double spPvcMdfPremPrice;
     private Double softHingesPrice;
+    private List<String> image;
 
     public Integer getId() {
         return id;
@@ -193,29 +195,38 @@ public class MaxWardrobe {
         this.softHingesPrice = softHingesPrice;
     }
 
+    public List<String> getImage() {
+        return image;
+    }
+
+    public void setImage(List<String> image) {
+        this.image = image;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.category);
-        hash = 97 * hash + Objects.hashCode(this.productCode);
-        hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + Objects.hashCode(this.width);
-        hash = 97 * hash + Objects.hashCode(this.height);
-        hash = 97 * hash + Objects.hashCode(this.depth);
-        hash = 97 * hash + Objects.hashCode(this.cpPpbPrice);
-        hash = 97 * hash + Objects.hashCode(this.cpHdHmrPrice);
-        hash = 97 * hash + Objects.hashCode(this.cpHdfPrice);
-        hash = 97 * hash + Objects.hashCode(this.spFoiledMattPrice);
-        hash = 97 * hash + Objects.hashCode(this.spFoiledGlossyPrice);
-        hash = 97 * hash + Objects.hashCode(this.spPrelamMattPrice);
-        hash = 97 * hash + Objects.hashCode(this.spPcppbPrice);
-        hash = 97 * hash + Objects.hashCode(this.spGlassG50AluPrice);
-        hash = 97 * hash + Objects.hashCode(this.spPvcMdfStdPrice);
-        hash = 97 * hash + Objects.hashCode(this.spPvcMdfDesgPrice);
-        hash = 97 * hash + Objects.hashCode(this.spPvcMdfGlossyPrice);
-        hash = 97 * hash + Objects.hashCode(this.spPvcMdfPremPrice);
-        hash = 97 * hash + Objects.hashCode(this.softHingesPrice);
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.category);
+        hash = 29 * hash + Objects.hashCode(this.productCode);
+        hash = 29 * hash + Objects.hashCode(this.description);
+        hash = 29 * hash + Objects.hashCode(this.width);
+        hash = 29 * hash + Objects.hashCode(this.height);
+        hash = 29 * hash + Objects.hashCode(this.depth);
+        hash = 29 * hash + Objects.hashCode(this.cpPpbPrice);
+        hash = 29 * hash + Objects.hashCode(this.cpHdHmrPrice);
+        hash = 29 * hash + Objects.hashCode(this.cpHdfPrice);
+        hash = 29 * hash + Objects.hashCode(this.spFoiledMattPrice);
+        hash = 29 * hash + Objects.hashCode(this.spFoiledGlossyPrice);
+        hash = 29 * hash + Objects.hashCode(this.spPrelamMattPrice);
+        hash = 29 * hash + Objects.hashCode(this.spPcppbPrice);
+        hash = 29 * hash + Objects.hashCode(this.spGlassG50AluPrice);
+        hash = 29 * hash + Objects.hashCode(this.spPvcMdfStdPrice);
+        hash = 29 * hash + Objects.hashCode(this.spPvcMdfDesgPrice);
+        hash = 29 * hash + Objects.hashCode(this.spPvcMdfGlossyPrice);
+        hash = 29 * hash + Objects.hashCode(this.spPvcMdfPremPrice);
+        hash = 29 * hash + Objects.hashCode(this.softHingesPrice);
+        hash = 29 * hash + Objects.hashCode(this.image);
         return hash;
     }
 
@@ -291,12 +302,15 @@ public class MaxWardrobe {
         if (!Objects.equals(this.softHingesPrice, other.softHingesPrice)) {
             return false;
         }
+        if (!Objects.equals(this.image, other.image)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "MaxWardrobe{" + "id=" + id + ", category=" + category + ", productCode=" + productCode + ", description=" + description + ", width=" + width + ", height=" + height + ", depth=" + depth + ", cpPpbPrice=" + cpPpbPrice + ", cpHdHmrPrice=" + cpHdHmrPrice + ", cpHdfPrice=" + cpHdfPrice + ", spFoiledMattPrice=" + spFoiledMattPrice + ", spFoiledGlossyPrice=" + spFoiledGlossyPrice + ", spPrelamMattPrice=" + spPrelamMattPrice + ", spPcppbPrice=" + spPcppbPrice + ", spGlassG50AluPrice=" + spGlassG50AluPrice + ", spPvcMdfStdPrice=" + spPvcMdfStdPrice + ", spPvcMdfDesgPrice=" + spPvcMdfDesgPrice + ", spPvcMdfGlossyPrice=" + spPvcMdfGlossyPrice + ", spPvcMdfPremPrice=" + spPvcMdfPremPrice + ", softHingesPrice=" + softHingesPrice + '}';
+        return "MaxWardrobe{" + "id=" + id + ", category=" + category + ", productCode=" + productCode + ", description=" + description + ", width=" + width + ", height=" + height + ", depth=" + depth + ", cpPpbPrice=" + cpPpbPrice + ", cpHdHmrPrice=" + cpHdHmrPrice + ", cpHdfPrice=" + cpHdfPrice + ", spFoiledMattPrice=" + spFoiledMattPrice + ", spFoiledGlossyPrice=" + spFoiledGlossyPrice + ", spPrelamMattPrice=" + spPrelamMattPrice + ", spPcppbPrice=" + spPcppbPrice + ", spGlassG50AluPrice=" + spGlassG50AluPrice + ", spPvcMdfStdPrice=" + spPvcMdfStdPrice + ", spPvcMdfDesgPrice=" + spPvcMdfDesgPrice + ", spPvcMdfGlossyPrice=" + spPvcMdfGlossyPrice + ", spPvcMdfPremPrice=" + spPvcMdfPremPrice + ", softHingesPrice=" + softHingesPrice + ", image=" + image + '}';
     }
                         
 }

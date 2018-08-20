@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.maxwardrobemrp;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -30,6 +31,7 @@ public class MaxWardrobeMrp {
     private Double priceh3;
     private Double priceh4;
     private Double priceh5;
+    private List<String> image;
 
     public Integer getId() {
         return id;
@@ -175,27 +177,36 @@ public class MaxWardrobeMrp {
         this.priceh5 = priceh5;
     }
 
+    public List<String> getImage() {
+        return image;
+    }
+
+    public void setImage(List<String> image) {
+        this.image = image;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 19 * hash + Objects.hashCode(this.id);
-        hash = 19 * hash + Objects.hashCode(this.category);
-        hash = 19 * hash + Objects.hashCode(this.productCode);
-        hash = 19 * hash + Objects.hashCode(this.description);
-        hash = 19 * hash + Objects.hashCode(this.width);
-        hash = 19 * hash + Objects.hashCode(this.depth);
-        hash = 19 * hash + Objects.hashCode(this.height);
-        hash = 19 * hash + Objects.hashCode(this.carcassPrice);
-        hash = 19 * hash + Objects.hashCode(this.price1);
-        hash = 19 * hash + Objects.hashCode(this.price2);
-        hash = 19 * hash + Objects.hashCode(this.price3);
-        hash = 19 * hash + Objects.hashCode(this.price4);
-        hash = 19 * hash + Objects.hashCode(this.softCloseHinges);
-        hash = 19 * hash + Objects.hashCode(this.priceh1);
-        hash = 19 * hash + Objects.hashCode(this.priceh2);
-        hash = 19 * hash + Objects.hashCode(this.priceh3);
-        hash = 19 * hash + Objects.hashCode(this.priceh4);
-        hash = 19 * hash + Objects.hashCode(this.priceh5);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.category);
+        hash = 97 * hash + Objects.hashCode(this.productCode);
+        hash = 97 * hash + Objects.hashCode(this.description);
+        hash = 97 * hash + Objects.hashCode(this.width);
+        hash = 97 * hash + Objects.hashCode(this.depth);
+        hash = 97 * hash + Objects.hashCode(this.height);
+        hash = 97 * hash + Objects.hashCode(this.carcassPrice);
+        hash = 97 * hash + Objects.hashCode(this.price1);
+        hash = 97 * hash + Objects.hashCode(this.price2);
+        hash = 97 * hash + Objects.hashCode(this.price3);
+        hash = 97 * hash + Objects.hashCode(this.price4);
+        hash = 97 * hash + Objects.hashCode(this.softCloseHinges);
+        hash = 97 * hash + Objects.hashCode(this.priceh1);
+        hash = 97 * hash + Objects.hashCode(this.priceh2);
+        hash = 97 * hash + Objects.hashCode(this.priceh3);
+        hash = 97 * hash + Objects.hashCode(this.priceh4);
+        hash = 97 * hash + Objects.hashCode(this.priceh5);
+        hash = 97 * hash + Objects.hashCode(this.image);
         return hash;
     }
 
@@ -265,13 +276,16 @@ public class MaxWardrobeMrp {
         if (!Objects.equals(this.priceh5, other.priceh5)) {
             return false;
         }
+        if (!Objects.equals(this.image, other.image)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "MaxWardrobeMrp{" + "id=" + id + ", category=" + category + ", productCode=" + productCode + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", carcassPrice=" + carcassPrice + ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3 + ", price4=" + price4 + ", softCloseHinges=" + softCloseHinges + ", priceh1=" + priceh1 + ", priceh2=" + priceh2 + ", priceh3=" + priceh3 + ", priceh4=" + priceh4 + ", priceh5=" + priceh5 + '}';
+        return "MaxWardrobeMrp{" + "id=" + id + ", category=" + category + ", productCode=" + productCode + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", carcassPrice=" + carcassPrice + ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3 + ", price4=" + price4 + ", softCloseHinges=" + softCloseHinges + ", priceh1=" + priceh1 + ", priceh2=" + priceh2 + ", priceh3=" + priceh3 + ", priceh4=" + priceh4 + ", priceh5=" + priceh5 + ", image=" + image + '}';
     }
-    
+
     
 }

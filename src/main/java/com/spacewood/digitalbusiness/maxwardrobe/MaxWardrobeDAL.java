@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class MaxWardrobeDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
@@ -43,6 +44,7 @@ public class MaxWardrobeDAL {
         public static final String SP_PVC_MDF_GLOSSY_PRICE = "sp_pvc_mdf_glossy_price";
         public static final String SP_PVC_MDF_PREM_PRICE = "sp_pvc_mdf_prem_price";
         public static final String SOFT_HINGES_PRICE = "soft_hinges_price";
+        public static final String IMAGE = "image";
     }
 
     public static final String TABLE_NAME = "max_wardrobe_master";
@@ -75,7 +77,6 @@ public class MaxWardrobeDAL {
                         Columns.SP_PVC_MDF_GLOSSY_PRICE,
                         Columns.SP_PVC_MDF_PREM_PRICE,
                         Columns.SOFT_HINGES_PRICE
-                                
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -84,12 +85,12 @@ public class MaxWardrobeDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(MaxWardrobe.class));
     }
-    
+
     public List<MaxWardrobe> findByCategory(String category) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{category}, new BeanPropertyRowMapper<>(MaxWardrobe.class));
     }
-    
+
     public List<MaxWardrobe> findByCategoryDimensions(String category, Double width, Double depth, Double height) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? AND " + Columns.WIDTH + " = ? AND " + Columns.DEPTH + " = ? AND " + Columns.HEIGHT + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{category, width, depth, height}, new BeanPropertyRowMapper<>(MaxWardrobe.class));
@@ -159,6 +160,7 @@ public class MaxWardrobeDAL {
     }
 
     public MaxWardrobe update(MaxWardrobe maxWardrobe) {
+        String path = maxWardrobe.getImage().get(0).toString().replace("\\", "\\\\");
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.CATEGORY + " = ?,"
                 + Columns.PRODUCT_CODE + " = ?, "
@@ -178,7 +180,8 @@ public class MaxWardrobeDAL {
                 + Columns.SP_PVC_MDF_DESG_PRICE + " = ?,"
                 + Columns.SP_PVC_MDF_GLOSSY_PRICE + " = ?,"
                 + Columns.SP_PVC_MDF_PREM_PRICE + " = ?,"
-                + Columns.SOFT_HINGES_PRICE + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.SOFT_HINGES_PRICE + " = ?,"
+                + Columns.IMAGE + " = '" + path + "' WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     maxWardrobe.getCategory().name(),
