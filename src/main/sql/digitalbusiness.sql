@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.21, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.22, for Linux (x86_64)
 --
 -- Host: localhost    Database: digitalbusiness
 -- ------------------------------------------------------
--- Server version	5.7.21-log
+-- Server version	5.7.22-0ubuntu18.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -256,7 +256,7 @@ CREATE TABLE `dealer_sku_master` (
   CONSTRAINT `dealer_sku_master_created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `dealer_sku_master_manufacturer_category_code_fk` FOREIGN KEY (`manufacturer_category_code`) REFERENCES `manufacturer_category_master` (`category_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `dealer_sku_master_manufacturer_code_fk` FOREIGN KEY (`manufacturer_code`) REFERENCES `manufacturer_master` (`manufacturer_code`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,7 +265,48 @@ CREATE TABLE `dealer_sku_master` (
 
 LOCK TABLES `dealer_sku_master` WRITE;
 /*!40000 ALTER TABLE `dealer_sku_master` DISABLE KEYS */;
+INSERT INTO `dealer_sku_master` VALUES (1,'H:30:500','Wire Basket 300 x 200','HFL','H',300,200,50,'Wood Finish',1200,1542,'Default.jpg',1,0),(2,'H8yib','Mesh Basket','HFL','A',300,200,50,'Stainless Steel',1420,1521,'Default.jpg',1,1),(3,'WB','Hafle Wire Basket','HFL','HFL-WB',300,300,300,'Glass',2456,2910,'Default.jpg',1,0),(4,'H:100:210','Hafle Tower Unit with Mini Fridge','HFL','HFL-TW',450,300,1200,'Woodgrain',1200,2100,'Default.jpg',1,0),(5,'Sp:25:67','Hafle Lights','HFL','Sp-HF',0,0,0,'Yellow',1200,1350,'Default.jpg',1,0),(6,'Sp:25:67','Hafle Hue Lights','HFL','Sp-HF',0,0,0,'Multicolor',NULL,1300,'Default.jpg',1,0);
 /*!40000 ALTER TABLE `dealer_sku_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dealer_sku_order_details`
+--
+
+DROP TABLE IF EXISTS `dealer_sku_order_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dealer_sku_order_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_head_id` int(11) DEFAULT NULL COMMENT 'REF order_head.id',
+  `product_code` varchar(200) NOT NULL,
+  `module_code` varchar(200) DEFAULT NULL,
+  `manufacturer` varchar(200) NOT NULL,
+  `manufacturer_category` varchar(200) NOT NULL,
+  `description` varchar(900) NOT NULL,
+  `width` double DEFAULT '0',
+  `depth` double DEFAULT '0',
+  `height` double DEFAULT '0',
+  `color` varchar(500) DEFAULT NULL,
+  `quantity` int(11) NOT NULL DEFAULT '0',
+  `price` double NOT NULL DEFAULT '0',
+  `remark` varchar(900) DEFAULT NULL,
+  `order_for` varchar(200) NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `dealer_sku_order_details_order_head_id_fk` (`order_head_id`),
+  CONSTRAINT `dealer_sku_order_details_order_head_id_fk` FOREIGN KEY (`order_head_id`) REFERENCES `order_head` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dealer_sku_order_details`
+--
+
+LOCK TABLES `dealer_sku_order_details` WRITE;
+/*!40000 ALTER TABLE `dealer_sku_order_details` DISABLE KEYS */;
+INSERT INTO `dealer_sku_order_details` VALUES (1,5,'HFLHFL-WBWB','WB','HFL','HFL-WB','Hafle Wire Basket & Color / Finish : (Glass)',300,300,300,'Glass',2,5820,NULL,'DEALER_SKU',0),(2,5,'HFLHFL-WBWB','WB','HFL','HFL-WB','Hafle Wire Basket & Color / Finish : (Glass)',300,300,300,'Glass',1,2910,NULL,'DEALER_SKU',1),(3,6,'HFLHFL-TWH:100:210','H:100:210','HFL','HFL-TW','Hafle Tower Unit with Mini Fridge & Color / Finish : (Woodgrain)',450,300,1200,'Woodgrain',1,2100,NULL,'DEALER_SKU',0),(4,6,'HFLSp-HFSp:25:67','Sp:25:67','HFL','Sp-HF','Hafle Lights & Color / Finish : (Yellow)',0,0,0,'Yellow',1,1350,NULL,'DEALER_SKU',0),(5,6,'HFLSp-HFSp:25:67','Sp:25:67','HFL','Sp-HF','Hafle Hue Lights & Color / Finish : (Multicolor)',0,0,0,'Multicolor',1,1300,NULL,'DEALER_SKU',0);
+/*!40000 ALTER TABLE `dealer_sku_order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -827,7 +868,7 @@ CREATE TABLE `infinity_wardrobe_mrp_order_details` (
   PRIMARY KEY (`id`),
   KEY `infinity_wardrobe_mrp_order_details_order_head_id_fk` (`order_head_id`),
   CONSTRAINT `infinity_wardrobe_mrp_order_details_order_head_id_fk` FOREIGN KEY (`order_head_id`) REFERENCES `order_head_mrp` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -836,7 +877,7 @@ CREATE TABLE `infinity_wardrobe_mrp_order_details` (
 
 LOCK TABLES `infinity_wardrobe_mrp_order_details` WRITE;
 /*!40000 ALTER TABLE `infinity_wardrobe_mrp_order_details` DISABLE KEYS */;
-INSERT INTO `infinity_wardrobe_mrp_order_details` VALUES (1,3,'LOFT - 005','L SHAPE CORNER LOFT UNIT WITHOUT SHELF','Supertuff HDF',15920,'18MM HPL MATT FINISH WR PLY SHUTTERS WITH 2MM MATCHING PVC EDGE BAND',3570,'155 Degree Hinges',2318,'HANDLE - H - 17 - 224 C.D','1232.0',1010,585,900,'CSP','White',1,23040,'Trial',0);
+INSERT INTO `infinity_wardrobe_mrp_order_details` VALUES (1,3,'LOFT - 005','L SHAPE CORNER LOFT UNIT WITHOUT SHELF','Supertuff HDF',15920,'18MM HPL MATT FINISH WR PLY SHUTTERS WITH 2MM MATCHING PVC EDGE BAND',3570,'155 Degree Hinges',2318,'HANDLE - H - 17 - 224 C.D','1232.0',1010,585,900,'CSP','White',1,23040,'Trial',0),(2,5,'HW-1950-004','WARDROBE WITH 1 SHELF','Supertuff HDF',18743,'18MM DESIGNER RANGE PVC MEMBRANE FOIL MDF SHUTTERS',12778,'Soft Close Hinges',983,'HANDLE - H - 17 - 224 C.D','1232.0',1000,585,1950,'Abstract White','Green',1,33736,NULL,0),(3,5,'HW-1950-003','WARDROBE WITH 1 INTERNAL SMALL DRAWER 2 SHELVES & 1 HANGER ROD','Supertuff HDF',19676,'18MM MELAMINE FINISH MDF SHUTTER WITH MATCHING PVC EDGE BANDING',5211,'Blum Soft Close Hinges',1855,'HANDLE - H - 20 - 256 C.D','845.0',600,585,1950,'Caspani','Yellow',1,27587,NULL,0),(4,5,'HW-1950-003','WARDROBE WITH 1 INTERNAL SMALL DRAWER 2 SHELVES & 1 HANGER ROD','Supertuff HDF',27409,NULL,0,NULL,0,NULL,'0.0',1000,585,1950,'HAHAHA',NULL,1,27409,NULL,1),(5,6,'HW-1950-001','WARDROBE WITH 5 SHELVES','Supertuff HDF',16439,'18MM HPL GLOSSY FINISH WR PLY SHUTTERS WITH 2MM MATCHING PVC EDGE BAND',6539,'Blum Soft Close Hinges',1855,'HANDLE - H - 31 - 320 C.D','845.0',500,585,1950,'Yellow','White',1,25678,NULL,0);
 /*!40000 ALTER TABLE `infinity_wardrobe_mrp_order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -942,7 +983,7 @@ CREATE TABLE `manufacturer_category_master` (
   KEY `manufacturer_category_master_created_by_fk` (`created_by`),
   CONSTRAINT `manufacturer_category_master_created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
   CONSTRAINT `manufacturer_category_master_manufacturer_code_fk` FOREIGN KEY (`manufacturer_code`) REFERENCES `manufacturer_master` (`manufacturer_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -951,6 +992,7 @@ CREATE TABLE `manufacturer_category_master` (
 
 LOCK TABLES `manufacturer_category_master` WRITE;
 /*!40000 ALTER TABLE `manufacturer_category_master` DISABLE KEYS */;
+INSERT INTO `manufacturer_category_master` VALUES (1,'A','A','A',1,0),(2,'B','B','B',1,0),(3,'C','C','C',1,0),(4,'D','D','D',1,0),(5,'E','E','E',1,0),(6,'F','F','F',1,0),(8,'G','G','G',1,0),(9,'H','H','HFL',1,0),(10,'I','I','I',1,0),(11,'J','J','J',1,0),(12,'K','K','K',1,0),(13,'L','L','L',1,0),(14,'M','M','M',1,1),(15,'Hafle Wire Baskets','HFL-WB','HFL',1,0),(16,'Hafle Tower Unit','HFL-TW','HFL',1,0),(17,'Spacewood - Hafle','Sp-HF','HFL',1,0),(18,'Spacewood Hettich','SP-HT','HET',1,0);
 /*!40000 ALTER TABLE `manufacturer_category_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -980,7 +1022,7 @@ CREATE TABLE `manufacturer_master` (
 
 LOCK TABLES `manufacturer_master` WRITE;
 /*!40000 ALTER TABLE `manufacturer_master` DISABLE KEYS */;
-INSERT INTO `manufacturer_master` VALUES (1,'HFL','Hafle',1,0),(2,'A','A',1,0),(3,'B','B',1,0),(4,'C','C',1,0),(5,'D','D',1,0),(6,'E','E',1,0),(7,'F','F',1,0),(8,'G','G',1,0),(9,'H','H',1,0),(10,'I','I',1,0),(11,'J','J',1,0),(12,'K','K',1,0),(13,'L','L',1,0),(14,'M','M',1,0),(15,'N','N',1,0),(16,'O','O',1,0),(17,'P','P',1,0),(18,'Q','Q',1,0),(19,'R','R',1,0),(20,'S','S',1,0),(21,'T','T',1,0),(22,'U','U',1,0),(23,'V','V',1,0),(24,'W','W',1,0),(25,'X','X',1,0),(26,'Y','Y',1,0),(27,'Z','Z',1,0),(28,'ABC','ABC',1,1);
+INSERT INTO `manufacturer_master` VALUES (1,'HFL','Hafle',1,0),(2,'A','A',1,0),(3,'B','B',1,0),(4,'C','C',1,0),(5,'D','D',1,0),(6,'E','E',1,0),(7,'F','F',1,0),(8,'G','G',1,0),(9,'H','H',1,0),(10,'I','I',1,0),(11,'J','J',1,0),(12,'K','K',1,0),(13,'L','L',1,0),(14,'M','M',1,0),(15,'N','N',1,0),(16,'O','O',1,0),(17,'P','P',1,0),(18,'Q','Q',1,0),(19,'R','R',1,0),(20,'S','S',1,0),(21,'T','T',1,0),(22,'U','U',1,0),(23,'V','V',1,0),(24,'W','W',1,0),(25,'X','X',1,0),(26,'Y','Y',1,0),(27,'HET','Hettich',1,0),(28,'ABC','ABC',1,1);
 /*!40000 ALTER TABLE `manufacturer_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1295,7 +1337,7 @@ CREATE TABLE `max_wardrobe_mrp_order_details` (
   PRIMARY KEY (`id`),
   KEY `max_wardrobe_mrp_order_details_order_head_id_fk` (`order_head_id`),
   CONSTRAINT `max_wardrobe_mrp_order_details_order_head_id_fk` FOREIGN KEY (`order_head_id`) REFERENCES `order_head_mrp` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1304,7 +1346,7 @@ CREATE TABLE `max_wardrobe_mrp_order_details` (
 
 LOCK TABLES `max_wardrobe_mrp_order_details` WRITE;
 /*!40000 ALTER TABLE `max_wardrobe_mrp_order_details` DISABLE KEYS */;
-INSERT INTO `max_wardrobe_mrp_order_details` VALUES (1,3,'M1D195-03','1 - DOOR OPENABLE WARDROBE - 1950 HEIGHT - M2D195-03','Supertuff HDF',10303,'PVC MEMBRANE STANDARD (MDF)',4951,'Soft Close Hinges',491,'HANDLE - H - 233 - 192 CD','686.0',600,585,1950,'White','Grey',1,16431,'Trial',0);
+INSERT INTO `max_wardrobe_mrp_order_details` VALUES (1,3,'M1D195-03','1 - DOOR OPENABLE WARDROBE - 1950 HEIGHT - M2D195-03','Supertuff HDF',10303,'PVC MEMBRANE STANDARD (MDF)',4951,'Soft Close Hinges',491,'HANDLE - H - 233 - 192 CD','686.0',600,585,1950,'White','Grey',1,16431,'Trial',0),(2,5,'M2D195-02','2 - DOOR OPENABLE WARDROBE - 1950 HEIGHT - M2D195-02','Supertuff HDF',15499,'PVC MEMBRANE STANDARD (MDF)',6613,'Soft Close Hinges',984,'HANDLE - H - 233 - 779 CD','1898.0',800,585,1950,'Brown','Grey',1,24994,'Hello',0),(3,5,'FL - 04','LOFT SKIRTING - FL - 04 - 59 X 2400','Supertuff HDF',0,NULL,0,NULL,0,NULL,'0.0',59,0,2400,'Magento',NULL,1,0,NULL,1),(4,5,'FL - 01','FILLER - 100 X 2100 - FL - 01','Supertuff HDF',0,NULL,0,NULL,0,NULL,'0.0',100,0,2100,'Wenge',NULL,1,0,NULL,1);
 /*!40000 ALTER TABLE `max_wardrobe_mrp_order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1500,7 +1542,7 @@ CREATE TABLE `order_head_mrp` (
   PRIMARY KEY (`id`),
   KEY `order_head_mrp_order_initiated_by_fk` (`order_initiated_by`),
   CONSTRAINT `order_head_mrp_order_initiated_by_fk` FOREIGN KEY (`order_initiated_by`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1509,7 +1551,7 @@ CREATE TABLE `order_head_mrp` (
 
 LOCK TABLES `order_head_mrp` WRITE;
 /*!40000 ALTER TABLE `order_head_mrp` DISABLE KEYS */;
-INSERT INTO `order_head_mrp` VALUES (1,'RI1','Kunal Gadhia','HEllo','A','B','C','D','kunal@amn.com','440100',8946872,564896,'HEllo',NULL,NULL,NULL,1,0,0,0,0,0,0),(2,'RI2','Kunal Gadhia','KG1','ABC','DEF','GHI','JKL','kunal@mns.com','444444',48976985,NULL,'KG1','2018-08-09 13:45:00',NULL,NULL,1,0,0,0,0,0,0),(3,'RI3','Kunal','jbb','nkjnkj','nkjnkjnkj','nkjnkjnkj','nkjkj','kk@gmail.com','bvvbjhb',46465146,165651531,'jbb','2018-08-09 14:41:02',NULL,NULL,1,0,0,0,0,0,0),(4,'RI4','Kunal','ABC','kjnkjn','kjnkjn','kjnkjnjkn','kjnjkn','ancb@skdjfnv.com','kjnfkjnb',564654165,0,'ABC','2018-08-16 13:49:21',NULL,NULL,1,0,0,0,0,0,0);
+INSERT INTO `order_head_mrp` VALUES (1,'RI1','Kunal Gadhia','HEllo','A','B','C','D','kunal@amn.com','440100',8946872,564896,'HEllo',NULL,NULL,NULL,1,0,0,0,0,0,0),(2,'RI2','Kunal Gadhia','KG1','ABC','DEF','GHI','JKL','kunal@mns.com','444444',48976985,NULL,'KG1','2018-08-09 13:45:00',NULL,NULL,1,0,0,0,0,0,0),(3,'RI3','Kunal','jbb','nkjnkj','nkjnkjnkj','nkjnkjnkj','nkjkj','kk@gmail.com','bvvbjhb',46465146,165651531,'jbb','2018-08-09 14:41:02',NULL,NULL,1,0,0,0,0,0,0),(4,'RI4','Kunal','ABC','kjnkjn','kjnkjn','kjnkjnjkn','kjnjkn','ancb@skdjfnv.com','kjnfkjnb',564654165,0,'ABC','2018-08-16 13:49:21',NULL,NULL,1,0,0,0,0,0,0),(5,'RI5','Kunal','Kunal Kitchen','Plot No 24','Sursangam Apts, New Verma Layout','Ambazari','Nagpur','kunal@gmail.com','440033',976613611,5264589,'Kunal Kitchen','2018-08-18 10:32:17',NULL,NULL,1,0,0,0,0,0,0),(6,'RI6','Kunal','Kunal\'s Kitchen','Plot No 24','New Verma Layout','Ambazari',NULL,'abc@gmail.com','440033',457896896,2239155,'Kunal\'s Kitchen','2018-08-19 12:46:40',NULL,NULL,1,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `order_head_mrp` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2253,4 +2295,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-17 18:31:20
+-- Dump completed on 2018-08-20 12:31:24
