@@ -33,7 +33,7 @@ public class InfinityWardrobeDAL {
         public static final String HEIGHT = "height";
         public static final String CP_PPB = "cp_ppb";
         public static final String CP_MF = "cp_mf";
-        public static final String CP_HMR = "sp_hmr";
+        public static final String CP_HMR = "cp_hmr";
         public static final String CP_HF = "cp_hf";
         public static final String SP_MF_ST = "sp_mf_st";
         public static final String SP_MF_DES = "sp_mf_des";

@@ -163,6 +163,7 @@ public class MaxWardrobeMrpDAL {
                 + Columns.WIDTH + " = ?,"
                 + Columns.DEPTH + " = ?,"
                 + Columns.HEIGHT + " = ?,"
+                + Columns.CARCASS_PRICE + " = ?,"
                 + Columns.PRICE1 + " = ?,"
                 + Columns.PRICE2 + " = ?,"
                 + Columns.PRICE3 + " = ?,"
@@ -192,7 +193,7 @@ public class MaxWardrobeMrpDAL {
                     maxWardrobeMrp.getPriceh2(),
                     maxWardrobeMrp.getPriceh3(),
                     maxWardrobeMrp.getPriceh4(),
-                    maxWardrobeMrp.getPriceh5(),                    
+                    maxWardrobeMrp.getPriceh5(),
                     maxWardrobeMrp.getId()
                 });
         maxWardrobeMrp = findById(maxWardrobeMrp.getId());
