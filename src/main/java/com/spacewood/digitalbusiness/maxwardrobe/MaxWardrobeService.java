@@ -44,7 +44,7 @@ public class MaxWardrobeService {
         File outputFile = attachmentUtils.storeAttachmentByAttachmentTypeAndEntityId(
                 attachmentMultipartFile.getOriginalFilename(),
                 attachmentMultipartFile.getInputStream(),
-                AttachmentUtils.AttachmentType.INFINITY_WARDROBE,
+                AttachmentUtils.AttachmentType.MAX_WARDROBE,
                 maxWardrobe.getId(),
                 isView
         );

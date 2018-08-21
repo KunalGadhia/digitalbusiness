@@ -316,6 +316,13 @@
         <script src="${pageContext.request.contextPath}/js/states/manufacturer.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/manufacturer_category.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/dealer_sku.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/max_wardrobe.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/max_wardrobe_mrp.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/max_kitchen.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/max_kitchen_mrp.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/infinity_wardrobe.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/infinity_wardrobe_mrp.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/ultima_wardrobe.js"></script>
 
         <!--Services-->
         <script src="${pageContext.request.contextPath}/js/services/user_service.js"></script>

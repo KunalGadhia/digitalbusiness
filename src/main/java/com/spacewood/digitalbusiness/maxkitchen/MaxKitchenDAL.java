@@ -35,6 +35,7 @@ public class MaxKitchenDAL {
         public static final String HDF_GLOSS_PRICE = "hdf_gloss_price";
         public static final String GLASS_G50_ALU_PRICE = "glass_g50_alu_price";
         public static final String GLASS = "glass";
+        public static final String IMAGE = "image";
     }
 
     public static final String TABLE_NAME = "max_kitchen_master";
@@ -66,7 +67,7 @@ public class MaxKitchenDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(MaxKitchen.class));
     }
-    
+
     public List<MaxKitchen> findByCategory(String category) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{category}, new BeanPropertyRowMapper<>(MaxKitchen.class));
@@ -112,6 +113,7 @@ public class MaxKitchenDAL {
     }
 
     public MaxKitchen update(MaxKitchen maxKitchen) {
+        String path = maxKitchen.getImage().get(0).toString().replace("\\", "\\\\");
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.CATEGORY + " = ?,"
                 + Columns.PRODUCT_CODE + " = ?, "
@@ -122,7 +124,8 @@ public class MaxKitchenDAL {
                 + Columns.HDF_MATT_PRICE + " = ?,"
                 + Columns.HDF_GLOSS_PRICE + " = ?,"
                 + Columns.GLASS_G50_ALU_PRICE + " = ?,"
-                + Columns.GLASS + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.GLASS + " = ?,"
+                + Columns.IMAGE + " = '" + path + "' WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     maxKitchen.getCategory().name(),

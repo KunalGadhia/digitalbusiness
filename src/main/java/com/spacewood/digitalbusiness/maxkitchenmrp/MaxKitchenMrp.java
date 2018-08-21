@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.maxkitchenmrp;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -29,6 +30,7 @@ public class MaxKitchenMrp {
     private Double priceh3;
     private Double priceh4;
     private Double priceh5;
+    private List<String> image;
 
     public Integer getId() {
         return id;
@@ -166,26 +168,35 @@ public class MaxKitchenMrp {
         this.priceh5 = priceh5;
     }
 
+    public List<String> getImage() {
+        return image;
+    }
+
+    public void setImage(List<String> image) {
+        this.image = image;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.category);
-        hash = 79 * hash + Objects.hashCode(this.productCode);
-        hash = 79 * hash + Objects.hashCode(this.description);
-        hash = 79 * hash + Objects.hashCode(this.width);
-        hash = 79 * hash + Objects.hashCode(this.depth);
-        hash = 79 * hash + Objects.hashCode(this.height);
-        hash = 79 * hash + Objects.hashCode(this.carcassPrice);
-        hash = 79 * hash + Objects.hashCode(this.price1);
-        hash = 79 * hash + Objects.hashCode(this.price2);
-        hash = 79 * hash + Objects.hashCode(this.softCloseHinges);
-        hash = 79 * hash + Objects.hashCode(this.accessories);
-        hash = 79 * hash + Objects.hashCode(this.priceh1);
-        hash = 79 * hash + Objects.hashCode(this.priceh2);
-        hash = 79 * hash + Objects.hashCode(this.priceh3);
-        hash = 79 * hash + Objects.hashCode(this.priceh4);
-        hash = 79 * hash + Objects.hashCode(this.priceh5);
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 23 * hash + Objects.hashCode(this.category);
+        hash = 23 * hash + Objects.hashCode(this.productCode);
+        hash = 23 * hash + Objects.hashCode(this.description);
+        hash = 23 * hash + Objects.hashCode(this.width);
+        hash = 23 * hash + Objects.hashCode(this.depth);
+        hash = 23 * hash + Objects.hashCode(this.height);
+        hash = 23 * hash + Objects.hashCode(this.carcassPrice);
+        hash = 23 * hash + Objects.hashCode(this.price1);
+        hash = 23 * hash + Objects.hashCode(this.price2);
+        hash = 23 * hash + Objects.hashCode(this.softCloseHinges);
+        hash = 23 * hash + Objects.hashCode(this.accessories);
+        hash = 23 * hash + Objects.hashCode(this.priceh1);
+        hash = 23 * hash + Objects.hashCode(this.priceh2);
+        hash = 23 * hash + Objects.hashCode(this.priceh3);
+        hash = 23 * hash + Objects.hashCode(this.priceh4);
+        hash = 23 * hash + Objects.hashCode(this.priceh5);
+        hash = 23 * hash + Objects.hashCode(this.image);
         return hash;
     }
 
@@ -252,12 +263,15 @@ public class MaxKitchenMrp {
         if (!Objects.equals(this.priceh5, other.priceh5)) {
             return false;
         }
+        if (!Objects.equals(this.image, other.image)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "MaxKitchenMrp{" + "id=" + id + ", category=" + category + ", productCode=" + productCode + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", carcassPrice=" + carcassPrice + ", price1=" + price1 + ", price2=" + price2 + ", softCloseHinges=" + softCloseHinges + ", accessories=" + accessories + ", priceh1=" + priceh1 + ", priceh2=" + priceh2 + ", priceh3=" + priceh3 + ", priceh4=" + priceh4 + ", priceh5=" + priceh5 + '}';
+        return "MaxKitchenMrp{" + "id=" + id + ", category=" + category + ", productCode=" + productCode + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", carcassPrice=" + carcassPrice + ", price1=" + price1 + ", price2=" + price2 + ", softCloseHinges=" + softCloseHinges + ", accessories=" + accessories + ", priceh1=" + priceh1 + ", priceh2=" + priceh2 + ", priceh3=" + priceh3 + ", priceh4=" + priceh4 + ", priceh5=" + priceh5 + ", image=" + image + '}';
     }
         
 }

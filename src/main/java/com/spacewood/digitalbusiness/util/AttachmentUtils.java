@@ -43,6 +43,9 @@ public class AttachmentUtils {
     private static final String INFINITY_WARDROBE_MRP_ATTACHMENT_DIR_NAME = "infinity_wardrobe_mrp";
     private static final String MAX_WARDROBE_ATTACHMENT_DIR_NAME = "max_wardrobe";
     private static final String MAX_WARDROBE_MRP_ATTACHMENT_DIR_NAME = "max_wardrobe_mrp";
+    private static final String MAX_KITCHEN_ATTACHMENT_DIR_NAME = "max_kitchen";
+    private static final String MAX_KITCHEN_MRP_ATTACHMENT_DIR_NAME = "max_kitchen_mrp";
+    private static final String ULTIMA_WARDROBE_ATTACHMENT_DIR_NAME = "ultima_wardrobe";
 
     public static enum AttachmentType {
         KITCHEN_COMPONENT,
@@ -51,7 +54,10 @@ public class AttachmentUtils {
         INFINITY_WARDROBE,
         INFINITY_WARDROBE_MRP,
         MAX_WARDROBE,
-        MAX_WARDROBE_MRP
+        MAX_WARDROBE_MRP,
+        MAX_KITCHEN,
+        MAX_KITCHEN_MRP,
+        ULTIMA_WARDROBE
     }
 
     public File getAttachmentRootDirectory() {
@@ -97,14 +103,29 @@ public class AttachmentUtils {
                 attachmentDir = new File(getAttachmentRootDirectory(), INFINITY_WARDROBE_MRP_ATTACHMENT_DIR_NAME);
                 logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
                 break;
-                
-                case MAX_WARDROBE:
+
+            case MAX_WARDROBE:
                 attachmentDir = new File(getAttachmentRootDirectory(), MAX_WARDROBE_ATTACHMENT_DIR_NAME);
                 logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
                 break;
-                
-                case MAX_WARDROBE_MRP:
+
+            case MAX_WARDROBE_MRP:
                 attachmentDir = new File(getAttachmentRootDirectory(), MAX_WARDROBE_MRP_ATTACHMENT_DIR_NAME);
+                logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
+                break;
+
+            case MAX_KITCHEN:
+                attachmentDir = new File(getAttachmentRootDirectory(), MAX_KITCHEN_ATTACHMENT_DIR_NAME);
+                logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
+                break;
+
+            case MAX_KITCHEN_MRP:
+                attachmentDir = new File(getAttachmentRootDirectory(), MAX_KITCHEN_MRP_ATTACHMENT_DIR_NAME);
+                logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
+                break;
+
+            case ULTIMA_WARDROBE:
+                attachmentDir = new File(getAttachmentRootDirectory(), ULTIMA_WARDROBE_ATTACHMENT_DIR_NAME);
                 logger.info("ATTACHMENT_BY_TYPE" + attachmentType);
                 break;
 

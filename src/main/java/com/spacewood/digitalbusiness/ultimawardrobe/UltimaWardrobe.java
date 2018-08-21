@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.ultimawardrobe;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -34,6 +35,7 @@ public class UltimaWardrobe {
     private Double hanF6023Cd320;
     private Double hanF188Cd224;
     private Double hanH17Cd320;
+    private List<String> image;
 
     public Integer getId() {
         return id;
@@ -211,31 +213,40 @@ public class UltimaWardrobe {
         this.hanH17Cd320 = hanH17Cd320;
     }
 
+    public List<String> getImage() {
+        return image;
+    }
+
+    public void setImage(List<String> image) {
+        this.image = image;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.category);
-        hash = 79 * hash + Objects.hashCode(this.description);
-        hash = 79 * hash + Objects.hashCode(this.width);
-        hash = 79 * hash + Objects.hashCode(this.depth);
-        hash = 79 * hash + Objects.hashCode(this.height);
-        hash = 79 * hash + Objects.hashCode(this.cpPpb);
-        hash = 79 * hash + Objects.hashCode(this.cpMdf);
-        hash = 79 * hash + Objects.hashCode(this.cpHdf);
-        hash = 79 * hash + Objects.hashCode(this.spPvcMem);
-        hash = 79 * hash + Objects.hashCode(this.spPc3Melamine);
-        hash = 79 * hash + Objects.hashCode(this.spPvcMemrouted);
-        hash = 79 * hash + Objects.hashCode(this.spPvcHgmem);
-        hash = 79 * hash + Objects.hashCode(this.spAlG55);
-        hash = 79 * hash + Objects.hashCode(this.spPvcMatmem);
-        hash = 79 * hash + Objects.hashCode(this.spPvcMatglass);
-        hash = 79 * hash + Objects.hashCode(this.spPvcGlossGlass);
-        hash = 79 * hash + Objects.hashCode(this.hanH100Cd320);
-        hash = 79 * hash + Objects.hashCode(this.hanH268Cd336);
-        hash = 79 * hash + Objects.hashCode(this.hanF6023Cd320);
-        hash = 79 * hash + Objects.hashCode(this.hanF188Cd224);
-        hash = 79 * hash + Objects.hashCode(this.hanH17Cd320);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.category);
+        hash = 47 * hash + Objects.hashCode(this.description);
+        hash = 47 * hash + Objects.hashCode(this.width);
+        hash = 47 * hash + Objects.hashCode(this.depth);
+        hash = 47 * hash + Objects.hashCode(this.height);
+        hash = 47 * hash + Objects.hashCode(this.cpPpb);
+        hash = 47 * hash + Objects.hashCode(this.cpMdf);
+        hash = 47 * hash + Objects.hashCode(this.cpHdf);
+        hash = 47 * hash + Objects.hashCode(this.spPvcMem);
+        hash = 47 * hash + Objects.hashCode(this.spPc3Melamine);
+        hash = 47 * hash + Objects.hashCode(this.spPvcMemrouted);
+        hash = 47 * hash + Objects.hashCode(this.spPvcHgmem);
+        hash = 47 * hash + Objects.hashCode(this.spAlG55);
+        hash = 47 * hash + Objects.hashCode(this.spPvcMatmem);
+        hash = 47 * hash + Objects.hashCode(this.spPvcMatglass);
+        hash = 47 * hash + Objects.hashCode(this.spPvcGlossGlass);
+        hash = 47 * hash + Objects.hashCode(this.hanH100Cd320);
+        hash = 47 * hash + Objects.hashCode(this.hanH268Cd336);
+        hash = 47 * hash + Objects.hashCode(this.hanF6023Cd320);
+        hash = 47 * hash + Objects.hashCode(this.hanF188Cd224);
+        hash = 47 * hash + Objects.hashCode(this.hanH17Cd320);
+        hash = 47 * hash + Objects.hashCode(this.image);
         return hash;
     }
 
@@ -317,12 +328,15 @@ public class UltimaWardrobe {
         if (!Objects.equals(this.hanH17Cd320, other.hanH17Cd320)) {
             return false;
         }
+        if (!Objects.equals(this.image, other.image)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "UltimaWardrobe{" + "id=" + id + ", category=" + category + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", cpPpb=" + cpPpb + ", cpMdf=" + cpMdf + ", cpHdf=" + cpHdf + ", spPvcMem=" + spPvcMem + ", spPc3Melamine=" + spPc3Melamine + ", spPvcMemrouted=" + spPvcMemrouted + ", spPvcHgmem=" + spPvcHgmem + ", spAlG55=" + spAlG55 + ", spPvcMatmem=" + spPvcMatmem + ", spPvcMatglass=" + spPvcMatglass + ", spPvcGlossGlass=" + spPvcGlossGlass + ", hanH100Cd320=" + hanH100Cd320 + ", hanH268Cd336=" + hanH268Cd336 + ", hanF6023Cd320=" + hanF6023Cd320 + ", hanF188Cd224=" + hanF188Cd224 + ", hanH17Cd320=" + hanH17Cd320 + '}';
+        return "UltimaWardrobe{" + "id=" + id + ", category=" + category + ", description=" + description + ", width=" + width + ", depth=" + depth + ", height=" + height + ", cpPpb=" + cpPpb + ", cpMdf=" + cpMdf + ", cpHdf=" + cpHdf + ", spPvcMem=" + spPvcMem + ", spPc3Melamine=" + spPc3Melamine + ", spPvcMemrouted=" + spPvcMemrouted + ", spPvcHgmem=" + spPvcHgmem + ", spAlG55=" + spAlG55 + ", spPvcMatmem=" + spPvcMatmem + ", spPvcMatglass=" + spPvcMatglass + ", spPvcGlossGlass=" + spPvcGlossGlass + ", hanH100Cd320=" + hanH100Cd320 + ", hanH268Cd336=" + hanH268Cd336 + ", hanF6023Cd320=" + hanF6023Cd320 + ", hanF188Cd224=" + hanF188Cd224 + ", hanH17Cd320=" + hanH17Cd320 + ", image=" + image + '}';
     }
     
 }

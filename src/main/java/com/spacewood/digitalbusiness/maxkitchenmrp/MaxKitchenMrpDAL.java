@@ -21,25 +21,27 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class MaxKitchenMrpDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
         public static final String CATEGORY = "category";
-        public static final String PRODUCT_CODE = "product_code";        
+        public static final String PRODUCT_CODE = "product_code";
         public static final String DESCRIPTION = "description";
         public static final String WIDTH = "width";
         public static final String DEPTH = "depth";
         public static final String HEIGHT = "height";
         public static final String CARCASS_PRICE = "carcass_price";
         public static final String PRICE1 = "price1";
-        public static final String PRICE2 = "price2";        
+        public static final String PRICE2 = "price2";
         public static final String SOFT_CLOSE_HINGES = "soft_close_hinges";
-        public static final String ACCESSORIES = "accessories";        
+        public static final String ACCESSORIES = "accessories";
         public static final String PRICEH1 = "priceh1";
         public static final String PRICEH2 = "priceh2";
         public static final String PRICEH3 = "priceh3";
         public static final String PRICEH4 = "priceh4";
         public static final String PRICEH5 = "priceh5";
+        public static final String IMAGE = "image";
 
     }
 
@@ -62,9 +64,9 @@ public class MaxKitchenMrpDAL {
                         Columns.HEIGHT,
                         Columns.CARCASS_PRICE,
                         Columns.PRICE1,
-                        Columns.PRICE2,                        
+                        Columns.PRICE2,
                         Columns.SOFT_CLOSE_HINGES,
-                        Columns.ACCESSORIES,                        
+                        Columns.ACCESSORIES,
                         Columns.PRICEH1,
                         Columns.PRICEH2,
                         Columns.PRICEH3,
@@ -103,21 +105,21 @@ public class MaxKitchenMrpDAL {
     public MaxKitchenMrp insert(MaxKitchenMrp maxKitchenMrp) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(Columns.CATEGORY, maxKitchenMrp.getCategory().name());
-        parameters.put(Columns.PRODUCT_CODE, maxKitchenMrp.getProductCode());        
+        parameters.put(Columns.PRODUCT_CODE, maxKitchenMrp.getProductCode());
         parameters.put(Columns.DESCRIPTION, maxKitchenMrp.getDescription());
         parameters.put(Columns.WIDTH, maxKitchenMrp.getWidth());
         parameters.put(Columns.DEPTH, maxKitchenMrp.getDepth());
         parameters.put(Columns.HEIGHT, maxKitchenMrp.getHeight());
         parameters.put(Columns.CARCASS_PRICE, maxKitchenMrp.getCarcassPrice());
         parameters.put(Columns.PRICE1, maxKitchenMrp.getPrice1());
-        parameters.put(Columns.PRICE2, maxKitchenMrp.getPrice2());        
+        parameters.put(Columns.PRICE2, maxKitchenMrp.getPrice2());
         parameters.put(Columns.SOFT_CLOSE_HINGES, maxKitchenMrp.getSoftCloseHinges());
-        parameters.put(Columns.ACCESSORIES, maxKitchenMrp.getAccessories());        
+        parameters.put(Columns.ACCESSORIES, maxKitchenMrp.getAccessories());
         parameters.put(Columns.PRICEH1, maxKitchenMrp.getPriceh1());
         parameters.put(Columns.PRICEH2, maxKitchenMrp.getPriceh2());
         parameters.put(Columns.PRICEH3, maxKitchenMrp.getPriceh3());
         parameters.put(Columns.PRICEH4, maxKitchenMrp.getPriceh4());
-        parameters.put(Columns.PRICEH5, maxKitchenMrp.getPriceh5());        
+        parameters.put(Columns.PRICEH5, maxKitchenMrp.getPriceh5());
 
         Number newId = insertMaxKitchenMrp.executeAndReturnKey(parameters);
         maxKitchenMrp = findById(newId.intValue());
@@ -130,6 +132,7 @@ public class MaxKitchenMrpDAL {
     }
 
     public MaxKitchenMrp update(MaxKitchenMrp maxKitchenMrp) {
+        String path = maxKitchenMrp.getImage().get(0).toString().replace("\\", "\\\\");
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.PRODUCT_CODE + " = ?,"
                 + Columns.CATEGORY + " = ?,"
@@ -138,14 +141,15 @@ public class MaxKitchenMrpDAL {
                 + Columns.DEPTH + " = ?,"
                 + Columns.HEIGHT + " = ?,"
                 + Columns.PRICE1 + " = ?,"
-                + Columns.PRICE2 + " = ?,"                
+                + Columns.PRICE2 + " = ?,"
                 + Columns.SOFT_CLOSE_HINGES + " = ?,"
-                + Columns.ACCESSORIES + " = ?,"                
+                + Columns.ACCESSORIES + " = ?,"
                 + Columns.PRICEH1 + " = ?,"
                 + Columns.PRICEH2 + " = ?,"
                 + Columns.PRICEH3 + " = ?,"
-                + Columns.PRICEH4 + " = ?,"                
-                + Columns.PRICEH5 + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.PRICEH4 + " = ?,"
+                + Columns.PRICEH5 + " = ?,"
+                + Columns.IMAGE + " = '" + path + "' WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     maxKitchenMrp.getProductCode(),
@@ -156,9 +160,9 @@ public class MaxKitchenMrpDAL {
                     maxKitchenMrp.getHeight(),
                     maxKitchenMrp.getCarcassPrice(),
                     maxKitchenMrp.getPrice1(),
-                    maxKitchenMrp.getPrice2(),                    
+                    maxKitchenMrp.getPrice2(),
                     maxKitchenMrp.getSoftCloseHinges(),
-                    maxKitchenMrp.getAccessories(),                    
+                    maxKitchenMrp.getAccessories(),
                     maxKitchenMrp.getPriceh1(),
                     maxKitchenMrp.getPriceh2(),
                     maxKitchenMrp.getPriceh3(),

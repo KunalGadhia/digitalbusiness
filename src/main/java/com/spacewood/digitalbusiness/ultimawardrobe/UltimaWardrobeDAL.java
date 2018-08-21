@@ -21,10 +21,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UltimaWardrobeDAL {
+
     public static final class Columns {
 
         public static final String ID = "id";
-        public static final String CATEGORY = "category";        
+        public static final String CATEGORY = "category";
         public static final String DESCRIPTION = "description";
         public static final String WIDTH = "width";
         public static final String DEPTH = "depth";
@@ -45,7 +46,8 @@ public class UltimaWardrobeDAL {
         public static final String HAN_F6023_CD320 = "han_f6023_cd320";
         public static final String HAN_F188_CD224 = "han_f188_cd224";
         public static final String HAN_H17_CD320 = "han_h17_cd320";
-        
+        public static final String IMAGE = "image";
+
     }
 
     public static final String TABLE_NAME = "ultima_wardrobe";
@@ -59,11 +61,11 @@ public class UltimaWardrobeDAL {
         insertUltimaWardrobe = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName(TABLE_NAME)
                 .usingColumns(
-                        Columns.CATEGORY,                        
+                        Columns.CATEGORY,
                         Columns.DESCRIPTION,
                         Columns.WIDTH,
                         Columns.DEPTH,
-                        Columns.HEIGHT,                        
+                        Columns.HEIGHT,
                         Columns.CP_PPB,
                         Columns.CP_MDF,
                         Columns.CP_HDF,
@@ -88,7 +90,7 @@ public class UltimaWardrobeDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(UltimaWardrobe.class));
     }
-    
+
     public List<UltimaWardrobe> findByCategory(String category) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{category}, new BeanPropertyRowMapper<>(UltimaWardrobe.class));
@@ -112,7 +114,7 @@ public class UltimaWardrobeDAL {
 
     public UltimaWardrobe insert(UltimaWardrobe ultimaWardrobe) {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put(Columns.CATEGORY, ultimaWardrobe.getCategory().name());        
+        parameters.put(Columns.CATEGORY, ultimaWardrobe.getCategory().name());
         parameters.put(Columns.DESCRIPTION, ultimaWardrobe.getDescription());
         parameters.put(Columns.WIDTH, ultimaWardrobe.getWidth());
         parameters.put(Columns.DEPTH, ultimaWardrobe.getDepth());
@@ -132,7 +134,7 @@ public class UltimaWardrobeDAL {
         parameters.put(Columns.HAN_H268_CD336, ultimaWardrobe.getHanH268Cd336());
         parameters.put(Columns.HAN_F6023_CD320, ultimaWardrobe.getHanF6023Cd320());
         parameters.put(Columns.HAN_F188_CD224, ultimaWardrobe.getHanF188Cd224());
-        parameters.put(Columns.HAN_H17_CD320, ultimaWardrobe.getHanH17Cd320());                
+        parameters.put(Columns.HAN_H17_CD320, ultimaWardrobe.getHanH17Cd320());
 
         Number newId = insertUltimaWardrobe.executeAndReturnKey(parameters);
         ultimaWardrobe = findById(newId.intValue());
@@ -145,12 +147,13 @@ public class UltimaWardrobeDAL {
     }
 
     public UltimaWardrobe update(UltimaWardrobe ultimaWardrobe) {
+        String path = ultimaWardrobe.getImage().get(0).toString().replace("\\", "\\\\");
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
-                + Columns.CATEGORY + " = ?,"                
+                + Columns.CATEGORY + " = ?,"
                 + Columns.DESCRIPTION + " = ?, "
                 + Columns.WIDTH + " = ?,"
                 + Columns.DEPTH + " = ?,"
-                + Columns.HEIGHT + " = ?,"                
+                + Columns.HEIGHT + " = ?,"
                 + Columns.CP_PPB + " = ?,"
                 + Columns.CP_MDF + " = ?,"
                 + Columns.CP_HDF + " = ?,"
@@ -166,14 +169,15 @@ public class UltimaWardrobeDAL {
                 + Columns.HAN_H268_CD336 + " = ?,"
                 + Columns.HAN_F6023_CD320 + " = ?,"
                 + Columns.HAN_F188_CD224 + " = ?,"
-                + Columns.HAN_H17_CD320 + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.HAN_H17_CD320 + " = ?,"
+                + Columns.IMAGE + " = '" + path + "' WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
-                    ultimaWardrobe.getCategory().name(),                    
+                    ultimaWardrobe.getCategory().name(),
                     ultimaWardrobe.getDescription(),
                     ultimaWardrobe.getWidth(),
                     ultimaWardrobe.getDepth(),
-                    ultimaWardrobe.getHeight(),                    
+                    ultimaWardrobe.getHeight(),
                     ultimaWardrobe.getCpPpb(),
                     ultimaWardrobe.getCpMdf(),
                     ultimaWardrobe.getCpHdf(),

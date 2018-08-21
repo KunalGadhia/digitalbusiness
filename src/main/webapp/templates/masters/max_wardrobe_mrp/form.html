@@ -1,0 +1,214 @@
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="saveParty(editableParty)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa fa-user"></i>
+                        Party Form
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Party Code</label>
+                                <input class="form-control" placeholder="Dealer Code" ng-model="editableParty.dealerCode" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Dealer Name</label>
+                                <input class="form-control" placeholder="Dealer Name" ng-model="editableParty.dealerName" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="editableParty.repeatName">
+                        <div class="col-sm-6">
+
+                        </div>
+                        <div class="col-sm-6 text-danger">
+                            Found Records For Above Entered Name
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>GL Code</label>
+                                <input type="text" class="form-control" placeholder="GL Code" ng-model="editableParty.glCode" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Contact Person</label>
+                                <input type="text" class="form-control" placeholder="Contact Person" ng-model="editableParty.contactPerson"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Billing Address 1</label>
+                                <input type="text"  class="form-control" placeholder="Billing Address 1" ng-model="editableParty.billingAdd1" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Billing Address 2</label>
+                                <input type="text"  class="form-control" placeholder="Billing Address 2" ng-model="editableParty.billingAdd2"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Billing Address 3</label>
+                                <input type="text"  class="form-control" placeholder="Billing Address 3" ng-model="editableParty.billingAdd3"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Billing Address 4</label>
+                                <input type="text"  class="form-control" placeholder="Billing Address 4" ng-model="editableParty.billingAdd4"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Billing Email</label>
+                                <input type="email" class="form-control" placeholder="Billing Email ID" ng-model="editableParty.billingEmail" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text"  class="form-control" placeholder="Enter City" ng-model="editableParty.city" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Billing Fax</label>
+                                <input type="text" class="form-control" placeholder="Billing Fax" ng-model="editableParty.billingFax" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Bill Board Telephone</label>
+                                <input type="text"  class="form-control" placeholder="Bill Board Telephone Number" ng-model="editableParty.billBoardTel" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Direct Telephone Number</label>
+                                <input type="text" class="form-control" placeholder="Direct Telephone Number" ng-model="editableParty.directTelNo" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Pan Number</label>
+                                <input type="text"  class="form-control" placeholder="PAN Number" ng-model="editableParty.panNumber" required=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--                        <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>CST Number</label>
+                                                        <input type="text" class="form-control" placeholder="CST Number" ng-model="editableParty.cstNumber" required=""/>
+                                                    </div>
+                                                </div>-->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>GST Number</label>
+                                <input type="text"  class="form-control" placeholder="GST Number" ng-model="editableParty.gstNumber" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>State</label>
+                                <select class="form-control" ng-model="editableParty.state">
+                                    <option value="">Select State</option>
+                                    <option value="MS">Within Maharashtra</option>
+                                    <option value="OMS">Other Than Maharashtra</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Marketing Head</label>
+                                <input class="form-control"
+                                       placeholder="Enter Marketing Head"
+                                       uib-typeahead="employee.empName as employee.empName for employee in searchEmployee($viewValue)"
+                                       typeahead-on-select="setEmployee($item)"
+                                       typeahead-editable="false"
+                                       typeahead-loading="loadingEmployee" 
+                                       typeahead-no-results="noEmployeeFound"                                       
+                                       ng-model="editableParty.employee.empName" required=""/>
+                                <p ng-show="noEmployeeFound" class="help-block text-muted">No Employees Found</p>
+                                <p ng-show="loadingEmployee" class="help-block text-muted">Loading...</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Rate Contract</label>
+                                <input class="form-control"
+                                       placeholder="Enter Rate Contract"
+                                       uib-typeahead="rateContract.contractName as rateContract.contractName for rateContract in searchRateContract($viewValue)"
+                                       typeahead-on-select="setRateContract($item)"
+                                       typeahead-editable="false"
+                                       typeahead-loading="loadingRateContract" 
+                                       typeahead-no-results="noRateContractFound"                                       
+                                       ng-model="editableParty.rateContract.contractName" required=""/>
+                                <p ng-show="noRateContractFound" class="help-block text-muted">No Rate Contract Found</p>
+                                <p ng-show="loadingRateContract" class="help-block text-muted">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Payment Terms</label>                                
+                                <input type="text"  class="form-control" placeholder="Payment Terms" ng-model="editableParty.paymentTerms"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <!--                            <div class="form-group">
+                                                            <label>Rate Contract</label>
+                                                            <input class="form-control"
+                                                                   placeholder="Enter Rate Contract"
+                                                                   uib-typeahead="rateContract.contractName as rateContract.contractName for rateContract in searchRateContract($viewValue)"
+                                                                   typeahead-on-select="setRateContract($item)"
+                                                                   typeahead-editable="false"
+                                                                   typeahead-loading="loadingRateContract" 
+                                                                   typeahead-no-results="noRateContractFound"                                       
+                                                                   ng-model="editableParty.rateContract.contractName" required=""/>
+                                                            <p ng-show="noRateContractFound" class="help-block text-muted">No Rate Contract Found</p>
+                                                            <p ng-show="loadingRateContract" class="help-block text-muted">Loading...</p>
+                                                        </div>-->
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg btn-primary">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button"
+                                onclick="window.history.back()"
+                                class="btn btn-link" >
+                            cancel
+                        </button>				
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

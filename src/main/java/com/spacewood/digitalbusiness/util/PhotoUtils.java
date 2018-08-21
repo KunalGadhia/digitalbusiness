@@ -10,8 +10,11 @@ import com.spacewood.digitalbusiness.dealersku.DealerSku;
 import com.spacewood.digitalbusiness.infinitywardrobe.InfinityWardrobe;
 import com.spacewood.digitalbusiness.infinitywardrobemrp.InfinityWardrobeMrp;
 import com.spacewood.digitalbusiness.kitchencomponent.KitchenComponent;
+import com.spacewood.digitalbusiness.maxkitchen.MaxKitchen;
+import com.spacewood.digitalbusiness.maxkitchenmrp.MaxKitchenMrp;
 import com.spacewood.digitalbusiness.maxwardrobe.MaxWardrobe;
 import com.spacewood.digitalbusiness.maxwardrobemrp.MaxWardrobeMrp;
+import com.spacewood.digitalbusiness.ultimawardrobe.UltimaWardrobe;
 import com.spacewood.digitalbusiness.util.AttachmentUtils.AttachmentType;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -198,5 +201,76 @@ public class PhotoUtils {
     public File getMaxWardrobeMrpPhotoFile(MaxWardrobeMrp maxWardrobeMrp) throws IOException {
         File maxWardrobeMrpDir = attachmentUtils.getDirectoryByAttachmentTypeAndEntityId(AttachmentType.MAX_WARDROBE_MRP, maxWardrobeMrp.getId(), true);
         return new File(maxWardrobeMrpDir, PHOTO_FILE_NAME);
+    }
+    /////////////////////////////////////////////////////////////
+    
+    public File getMaxKitchenPhoto(MaxKitchen maxKitchen) throws FileNotFoundException, IOException {
+        if (maxKitchen.getImage() != null) {
+            PHOTO_FILE_NAME = maxKitchen.getImage().get(0).toString();
+        }
+        File photoFile = getMaxKitchenPhotoFile(maxKitchen);
+        return photoFile;
+    }
+
+    public File setMaxKitchenPhoto(
+            InputStream inputStream,
+            MaxKitchen maxKitchen)
+            throws IOException {
+
+        File photoFile = getMaxKitchenPhoto(maxKitchen);
+        FileCopyUtils.copy(inputStream, new FileOutputStream(photoFile));
+        return photoFile;
+    }
+
+    public File getMaxKitchenPhotoFile(MaxKitchen maxKitchen) throws IOException {
+        File maxKitchenDir = attachmentUtils.getDirectoryByAttachmentTypeAndEntityId(AttachmentType.MAX_KITCHEN, maxKitchen.getId(), true);
+        return new File(maxKitchenDir, PHOTO_FILE_NAME);
+    }
+    ////////////////////////////////////////////////////////////
+    public File getMaxKitchenMrpPhoto(MaxKitchenMrp maxKitchenMrp) throws FileNotFoundException, IOException {
+        if (maxKitchenMrp.getImage() != null) {
+            PHOTO_FILE_NAME = maxKitchenMrp.getImage().get(0).toString();
+        }
+        File photoFile = getMaxKitchenMrpPhotoFile(maxKitchenMrp);
+        return photoFile;
+    }
+
+    public File setMaxKitchenMrpPhoto(
+            InputStream inputStream,
+            MaxKitchenMrp maxKitchenMrp)
+            throws IOException {
+
+        File photoFile = getMaxKitchenMrpPhoto(maxKitchenMrp);
+        FileCopyUtils.copy(inputStream, new FileOutputStream(photoFile));
+        return photoFile;
+    }
+
+    public File getMaxKitchenMrpPhotoFile(MaxKitchenMrp maxKitchenMrp) throws IOException {
+        File maxKitchenDir = attachmentUtils.getDirectoryByAttachmentTypeAndEntityId(AttachmentType.MAX_KITCHEN_MRP, maxKitchenMrp.getId(), true);
+        return new File(maxKitchenDir, PHOTO_FILE_NAME);
+    }
+    
+    ////////////////////////////////////////////////////////////
+    public File getUltimaWardrobePhoto(UltimaWardrobe ultimaWardrobe) throws FileNotFoundException, IOException {
+        if (ultimaWardrobe.getImage() != null) {
+            PHOTO_FILE_NAME = ultimaWardrobe.getImage().get(0).toString();
+        }
+        File photoFile = getUltimaWardrobePhotoFile(ultimaWardrobe);
+        return photoFile;
+    }
+
+    public File setUltimaWardrobePhoto(
+            InputStream inputStream,
+            UltimaWardrobe ultimaWardrobe)
+            throws IOException {
+
+        File photoFile = getUltimaWardrobePhoto(ultimaWardrobe);
+        FileCopyUtils.copy(inputStream, new FileOutputStream(photoFile));
+        return photoFile;
+    }
+
+    public File getUltimaWardrobePhotoFile(UltimaWardrobe ultimaWardrobe) throws IOException {
+        File ultimaWardrobeDir = attachmentUtils.getDirectoryByAttachmentTypeAndEntityId(AttachmentType.ULTIMA_WARDROBE, ultimaWardrobe.getId(), true);
+        return new File(ultimaWardrobeDir, PHOTO_FILE_NAME);
     }
 }

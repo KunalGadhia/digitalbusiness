@@ -1,0 +1,107 @@
+<div class="panel panel-default" style="overflow-x:  auto;">
+    <div class="panel-heading text-center">
+        <div class="pull-left">
+            <a data-ui-sref="admin.masters"
+               class="btn btn-default">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </a>
+        </div>
+        <div class="pull-right">
+            <a data-ui-sref="admin.masters_party.add"
+               class="btn btn-default">
+                <i class="fa fa-plus"></i>
+                Add Max Wardrobe
+            </a>
+        </div>
+        <div>
+            <h4>Max Wardrobe Master</h4>
+        </div>
+    </div>    
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="text-right">#</th>
+                <th>Category</th>
+                <th>Product Code</th>
+                <th>Description</th>
+                <th>Width</th>
+                <th>Depth</th>                
+                <th>Height</th>
+                <th>Carcass Price PPB</th>
+                <th>Carcass Price HD HMR</th>
+                <th>Carcass Price HDF</th>
+                <th>Foiled Matt Finish</th>
+                <th>Foiled Glossy Finish</th>
+                <th>Prelam Matt Finish</th>
+                <th>3 Piece PPB</th>
+                <th>Glass G50 Alu.</th>
+                <th>PVC MDF Std</th>
+                <th>PVC MDF Desg</th>
+                <th>PVC MDF Glossy</th>
+                <th>PVC MDF Premium</th>
+                <th>Hinges Price</th>
+                <th class="text-right">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="maxWardrobe in mainMaxWardrobeArray">
+                <td data-title="#" class="text-right">{{$index + 1}}</td>
+                <td data-title="Category">{{ maxWardrobe.category}}</td>   
+                <td data-title="Product Code">{{ maxWardrobe.productCode}}</td>  
+                <td data-title="Description">{{ maxWardrobe.description}}</td>
+                <td data-title="Width">{{ maxWardrobe.width}}</td>
+                <td data-title="Depth">{{ maxWardrobe.depth}}</td>
+                <td data-title="Height">{{ maxWardrobe.height}}</td>
+                <td data-title="Carcass Price PPB">&#8377; {{ maxWardrobe.cpPpbPrice}}</td>
+                <td data-title="Carcass Price HD HMR">&#8377; {{ maxWardrobe.cpHdHmrPrice}}</td>
+                <td data-title="Carcass Price HDF">&#8377; {{ maxWardrobe.cpHdfPrice}}</td>
+                <td data-title="Foiled Matt Finish Price">&#8377; {{ maxWardrobe.spFoiledMattPrice}}</td>
+                <td data-title="Foiled Glossy Finish Price">&#8377; {{ maxWardrobe.spFoiledGlossyPrice}}</td>
+                <td data-title="Prelam Matt Finish Price">&#8377; {{ maxWardrobe.spPrelamMattPrice}}</td>
+                <td data-title="3 Piece PPB Price">&#8377; {{ maxWardrobe.spPcppbPrice}}</td>
+                <td data-title="Glass G50 Aluminium Finish Price">&#8377; {{ maxWardrobe.spGlassG50AluPrice}}</td>
+                <td data-title="PVC MDF Std Finish Price">&#8377; {{ maxWardrobe.spPvcMdfStdPrice}}</td>
+                <td data-title="PVC MDF Desg Finish Price">&#8377; {{ maxWardrobe.spPvcMdfDesgPrice}}</td>
+                <td data-title="PVC MDF Glossy Finish Price">&#8377; {{ maxWardrobe.spPvcMdfGlossyPrice}}</td>
+                <td data-title="PVC MDF Premium Finish Price">&#8377; {{ maxWardrobe.spPvcMdfPremPrice}}</td>
+                <td data-title="Soft Hingess Price">&#8377; {{ maxWardrobe.softHingesPrice}}</td>
+                <td data-title="Actions" class="text-right">
+                    <a data-ui-sref="admin.masters_max_wardrobe.photo({ maxWardrobeId: maxWardrobe.id })"
+                       class="btn btn-primary">					
+                        <i class="fa fa-upload"></i>
+                    </a>
+                    <a data-ui-sref="admin.masters_max_wardrobe.edit({ maxWardrobeId: maxWardrobe.id })"
+                       class="btn btn-primary">					
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a data-ui-sref="admin.masters_max_wardrobe.delete({ maxWardrobeId: maxWardrobe.id })"
+                       class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<!--    <nav class="panel-footer">
+        <ul class="pager">
+            <li>
+                <button ng-click="previousPage()" 
+                        ng-disabled="{{ currentOffset == 0}}" 
+                        class="btn btn-default" >
+                    <i class="fa fa-arrow-left"></i>
+                    Previous
+                </button>
+            </li>
+            <li>
+                <button ng-click="nextPage()"
+                        ng-disabled="parties.length < 10 || nextParty.length === 0"
+                        class="btn btn-default">
+                    Next 
+                    <i class="fa fa-arrow-right"></i>
+                </button>
+            </li>
+        </ul>
+    </nav>
+</div>-->
+<div data-ui-view=""></div>

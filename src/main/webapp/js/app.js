@@ -122,7 +122,14 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.manufacturer',
     'digitalbusiness.states.manufacturer_category',
     'digitalbusiness.states.dealer_sku',
-
+    ////New Offerings///////////
+    'digitalbusiness.states.max_wardrobe',
+    'digitalbusiness.states.max_wardrobe_mrp',
+    'digitalbusiness.states.max_kitchen',
+    'digitalbusiness.states.max_kitchen_mrp',
+    'digitalbusiness.states.infinity_wardrobe',
+    'digitalbusiness.states.infinity_wardrobe_mrp',    
+    'digitalbusiness.states.ultima_wardrobe',
     'digitalbusiness.states.auth'
 
 ])
