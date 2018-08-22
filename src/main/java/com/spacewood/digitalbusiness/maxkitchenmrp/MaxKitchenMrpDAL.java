@@ -140,6 +140,7 @@ public class MaxKitchenMrpDAL {
                 + Columns.WIDTH + " = ?,"
                 + Columns.DEPTH + " = ?,"
                 + Columns.HEIGHT + " = ?,"
+                + Columns.CARCASS_PRICE + " = ?,"
                 + Columns.PRICE1 + " = ?,"
                 + Columns.PRICE2 + " = ?,"
                 + Columns.SOFT_CLOSE_HINGES + " = ?,"

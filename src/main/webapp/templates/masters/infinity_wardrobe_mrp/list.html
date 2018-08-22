@@ -1,16 +1,65 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<div class="panel panel-default" style="overflow-x:  auto;">
+    <div class="panel-heading text-center">
+        <div class="pull-left">
+            <a data-ui-sref="admin.masters"
+               class="btn btn-default">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </a>
+        </div>
+        <div class="pull-right">
+            <a data-ui-sref="admin.masters_party.add"
+               class="btn btn-default">
+                <i class="fa fa-plus"></i>
+                Add Infinity Wardrobe MRP
+            </a>
+        </div>
+        <div>
+            <h4>Infinity Wardrobe MRP Master</h4>
+        </div>
+    </div>    
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="text-right">#</th>
+                <th>Category</th>
+                <th>Product Code</th>
+                <th>Description</th>
+                <th>Width</th>
+                <th>Depth</th>                
+                <th>Height</th>
+                <th>Image Available</th>
+                <th class="text-right">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="infinityWardrobe in mainInfinityWardrobeMrpArray">
+                <td data-title="#" class="text-right">{{ $index + 1}}</td>
+                <td data-title="Category">{{ infinityWardrobe.category}}</td>   
+                <td data-title="Product Code">{{ infinityWardrobe.productCode}}</td>  
+                <td data-title="Description">{{ infinityWardrobe.description}}</td>
+                <td data-title="Width">{{ infinityWardrobe.width}} mm</td>
+                <td data-title="Depth">{{ infinityWardrobe.depth}} mm</td>
+                <td data-title="Height">{{ infinityWardrobe.height}} mm</td>                
+                <td>
+                    <span ng-if="infinityWardrobe.image === null || infinityWardrobe.image === 'Default.jpg'"><label class="label label-danger">Not Available</label></span> 
+                    <span ng-if="infinityWardrobe.image !== null"><label class="label label-success">Available</label></span> 
+                </td>
+                <td data-title="Actions" class="text-right">
+                    <a data-ui-sref="admin.masters_infinity_wardrobe_mrp.photo({ infinityWardrobeMrpId: infinityWardrobe.id })"
+                       class="btn btn-primary">					
+                        <i class="fa fa-upload"></i>
+                    </a>
+                    <a data-ui-sref="admin.masters_infinity_wardrobe_mrp.edit({ infinityWardrobeMrpId: infinityWardrobe.id })"
+                       class="btn btn-primary">					
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a data-ui-sref="admin.masters_infinity_wardrobe_mrp.delete({ infinityWardrobeMrpId: infinityWardrobe.id })"
+                       class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<div data-ui-view=""></div>

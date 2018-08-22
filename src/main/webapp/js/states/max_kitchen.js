@@ -25,9 +25,65 @@ angular.module("digitalbusiness.states.max_kitchen", [])
                 'templateUrl': templateRoot + '/masters/max_kitchen/delete.html',
                 'controller': 'MaxkitchenDeleteController'
             });
+            $stateProvider.state('admin.masters_max_kitchen.photo', {
+                'url': '/:maxKitchenId/photo',
+                'templateUrl': templateRoot + '/masters/max_kitchen/photo.html',
+                'controller': 'MaxKitchenPhotoController'
+            });
         })
+        .controller('MaxKitchenPhotoController', function (MaxKitchenService, restRoot, FileUploader, $scope, $stateParams, $state) {
+            $scope.enableSaveButton = true;
+            MaxKitchenService.get({
+                'id': $stateParams.maxKitchenId
+            }, function (maxKitchen) {
+                $scope.maxKitchenObject = maxKitchen;
+            });
+            $scope.goBack = function () {
+                $state.go('admin.masters_max_kitchen', null, {'reload': true});
+            };
+            var uploader = $scope.fileUploader = new FileUploader({
+                url: restRoot + '/max_kitchen/' + $stateParams.maxKitchenId + '/attachment',
+                autoUpload: true,
+                alias: 'attachment'
+            });
+            uploader.onBeforeUploadItem = function (item) {
+                $scope.uploadInProgress = true;
+                $scope.uploadSuccess = false;
+                console.log("before upload item:", item);
+                console.log("uploader", uploader);
+            };
+            uploader.onErrorItem = function (fileItem, response, status, headers) {
+                $scope.uploadFailed = true;
+                $scope.uploadInProgress = false;
+                $scope.uploadSuccess = false;
+//                    $state.go('.', {}, {'reload': true});
+                console.log("upload error");
+//                $scope.refreshRawMarketPrice();
+            };
+            uploader.onCompleteItem = function (fileItem, response, status, headers) {
+                if (status === 200) {
+                    $state.go('admin.masters_max_kitchen.photo', {
+                        'maxKitchenId': $stateParams.maxKitchenId
+                    }, {'reload': true});
+                    $scope.uploadInProgress = false;
+                    $scope.uploadFailed = false;
+                    $scope.uploadSuccess = true;
+                    $scope.enableSaveButton = false;
+                } else if (status === 500)
+                {
+                    $scope.uploadInProgress = false;
+                    $scope.uploadFailed = false;
+//                    $scope.uploadWarning = true;
+                } else {
+                    $scope.uploadInProgress = false;
+                    $scope.uploadFailed = true;
+                }
 
-        .controller('MaxKitchenListController', function (MaxKitchenService, $window, DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $rootScope, $scope, $stateParams, $state, paginationLimit) {            
+                console.log("upload completion", response);
+            };
+
+        })
+        .controller('MaxKitchenListController', function (MaxKitchenService, $window, DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $rootScope, $scope, $stateParams, $state, paginationLimit) {
             $scope.currentOffset = 0;
             $scope.mainMaxKitchenArray = [];
             $scope.nextMaxKitchens = MaxKitchenService.query({
@@ -36,6 +92,10 @@ angular.module("digitalbusiness.states.max_kitchen", [])
 
             MaxKitchenService.query({
                 'offset': $scope.currentOffset
+            }, function (maxKitchenList) {
+                angular.forEach(maxKitchenList, function (maxKitchenObject) {
+                    $scope.mainMaxKitchenArray.push(maxKitchenObject);
+                });
             });
             $scope.maxKitchenCall = function (offset) {
                 console.log("Offset :%O", offset);
@@ -63,7 +123,7 @@ angular.module("digitalbusiness.states.max_kitchen", [])
                 ;
             });
         })
-        .controller('MaxKitchenAddController', function ($rootScope, DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {            
+        .controller('MaxKitchenAddController', function ($rootScope, DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {
 
 //            $scope.saveDealerSku = function (editableDealerSku) {
 //                editableDealerSku.createdBy = $scope.userObject.id;
@@ -72,7 +132,7 @@ angular.module("digitalbusiness.states.max_kitchen", [])
 //                });
 //            };
         })
-        .controller('MaxKitchenEditController', function (DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {            
+        .controller('MaxKitchenEditController', function (DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {
 
 //            $scope.saveDealerSku = function (editableDealerSku) {
 //                -editableDealerSku.$save(function () {

@@ -187,6 +187,7 @@ public class InfinityWardrobeMrpDAL {
                 + Columns.WIDTH + " = ?,"
                 + Columns.DEPTH + " = ?,"
                 + Columns.HEIGHT + " = ?,"
+                + Columns.CARCASS_PRICE + " = ?,"
                 + Columns.PRICE1 + " = ?,"
                 + Columns.PRICE2 + " = ?,"
                 + Columns.PRICE3 + " = ?,"
