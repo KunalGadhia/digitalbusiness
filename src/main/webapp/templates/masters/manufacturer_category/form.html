@@ -42,13 +42,29 @@
                                        typeahead-editable="false"
                                        typeahead-loading="loadingManufacturerCode" 
                                        typeahead-no-results="noManufacturerCodeFound"                                       
-                                       ng-model="editableManufacturerCategory.manufacturer.manufacturerName" required=""/>
+                                       ng-model="manufacturerName"/>
                                 <p ng-show="noManufacturerCodeFound" class="help-block text-muted">No Manufacturer Category Found</p>
                                 <p ng-show="loadingManufacturerCode" class="help-block text-muted">Loading...</p>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul ng-repeat="manufacturer in manufacturerDisplay" class="left_margin">
+                                <li class="col-md-8">
+                                    {{manufacturer.manufacturerName}} 
+                                </li>
+                                <li class="col-md-4 list-unstyled">
+                                    <button type="button" ng-click="removeManufacturers(manufacturer)" class="btn btn-link top_padding">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">                            
                         </div>
                     </div>
                     <div class="modal-footer">

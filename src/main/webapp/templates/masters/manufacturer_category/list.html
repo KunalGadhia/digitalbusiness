@@ -28,7 +28,7 @@
                 <th class="text-right">#</th>
                 <th>Category Code</th>
                 <th>Category Name</th>
-                <th>Manufacturer</th>
+                <th>Manufacturers</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
@@ -37,7 +37,13 @@
                 <td data-title="#" class="text-right">{{$index + 1}}</td>                
                 <td data-title="Manufacturer Category Code">{{ manufacturerCategory.categoryCode}}</td>
                 <td data-title="Manufacturer Category Name">{{ manufacturerCategory.categoryName}}</td>
-                <td data-title="Manufacturer Code">{{ manufacturerCategory.manufacturerObject.manufacturerName}}</td>
+                <td data-title="Manufacturers">
+                    <ul>
+                        <li ng-repeat="manufacturer in manufacturerCategory.manufacturerObjects">
+                            {{manufacturer.manufacturerName}}
+                        </li>
+                    </ul>
+                </td>
                 <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_manufacturer_category.edit({ manufacturerCategoryId: manufacturerCategory.id })"
                        class="btn btn-primary">					

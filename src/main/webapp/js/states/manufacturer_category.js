@@ -55,9 +55,17 @@ angular.module("digitalbusiness.states.manufacturer_category", [])
                     manufacturerCategoryObject.userObject = UserService.get({
                         'id': manufacturerCategoryObject.createdBy
                     });
-                    manufacturerCategoryObject.manufacturerObject = ManufacturerService.findByManufacturerCode({
-                        'manufacturerCode': manufacturerCategoryObject.manufacturerCode
+                    manufacturerCategoryObject.manufacturerObjects = [];
+                    angular.forEach(manufacturerCategoryObject.manufacturers, function (manufacturerId) {
+                        manufacturerCategoryObject.manufacturerObjects.push(
+                                ManufacturerService.get({
+                                    'id': manufacturerId
+                                })
+                                );
                     });
+//                    manufacturerCategoryObject.manufacturerObject = ManufacturerService.findByManufacturerCode({
+//                        'manufacturerCode': manufacturerCategoryObject.manufacturerCode
+//                    });
                     $scope.mainManufacturerCategoryArray.push(manufacturerCategoryObject);
                 });
             });
@@ -70,9 +78,17 @@ angular.module("digitalbusiness.states.manufacturer_category", [])
                         manufacturerCategoryObject.userObject = UserService.get({
                             'id': manufacturerCategoryObject.createdBy
                         });
-                        manufacturerCategoryObject.manufacturerObject = ManufacturerService.findByManufacturerCode({
-                            'manufacturerCode': manufacturerCategoryObject.manufacturerCode
+                        manufacturerCategoryObject.manufacturerObjects = [];
+                        angular.forEach(manufacturerCategoryObject.manufacturers, function (manufacturerId) {
+                            manufacturerCategoryObject.manufacturerObjects.push(
+                                    ManufacturerService.get({
+                                        'id': manufacturerId
+                                    })
+                                    );
                         });
+//                        manufacturerCategoryObject.manufacturerObject = ManufacturerService.findByManufacturerCode({
+//                            'manufacturerCode': manufacturerCategoryObject.manufacturerCode
+//                        });
                         $scope.mainManufacturerCategoryArray.push(manufacturerCategoryObject);
                     });
                 });
@@ -113,7 +129,8 @@ angular.module("digitalbusiness.states.manufacturer_category", [])
                 }
             });
             $scope.editableManufacturerCategory = {};
-
+            $scope.manufacturerDisplay = [];
+            $scope.editableManufacturerCategory.manufacturers = [];
             $scope.$watch('editableManufacturerCategory.categoryCode', function (categoryCode) {
                 ManufacturerCategoryService.findByCategoryCode({
                     'categoryCode': categoryCode
@@ -132,14 +149,25 @@ angular.module("digitalbusiness.states.manufacturer_category", [])
                     ;
                 });
             });
+            $scope.searchManufacturerCode = function (manufacturerString) {
+                return ManufacturerService.findByManufacturerNameLike({
+                    'manufacturerName': manufacturerString
+                }).$promise;
+            };
 
             $scope.setManufacturerCode = function (manufacturer) {
-                $scope.editableManufacturerCategory.manufacturerCode = manufacturer.manufacturerCode;
+                $scope.manufacturerDisplay.push(manufacturer);
+                $scope.manufacturerName = "";
+                $scope.editableManufacturerCategory.manufacturers.push(manufacturer.id);
             };
-            $scope.searchManufacturerCode = function (searchTerm) {
-                return ManufacturerService.findByManufacturerNameLike({
-                    'manufacturerName': searchTerm
-                }).$promise;
+
+            $scope.removeManufacturers = function (manufacturers) {
+                var index = $scope.manufacturerDisplay.indexOf(manufacturers);
+                var index1 = $scope.editableManufacturerCategory.manufacturers.indexOf(manufacturers.id);
+                $scope.manufacturerDisplay.splice(index, 1);
+                $scope.editableManufacturerCategory.manufacturers.splice(index1, 1);
+                console.log("Updated Type Display :%O", $scope.manufacturerDisplay);
+                console.log("Updated %O", $scope.editableManufacturerCategory.manufacturers);
             };
 
             $scope.saveManufacturerCateogry = function (editableManufacturerCategory) {
@@ -152,23 +180,53 @@ angular.module("digitalbusiness.states.manufacturer_category", [])
 
         })
         .controller('ManufacturerCategoryEditController', function (ManufacturerService, UserService, $rootScope, ManufacturerCategoryService, RateContractService, EmployeeService, PartyService, $scope, $stateParams, $state, paginationLimit) {
-            $scope.editableManufacturerCategory = ManufacturerCategoryService.get({
+            $scope.manufacturerDisplay = [];
+            $scope.editableManufacturerCategory = {};
+            ManufacturerCategoryService.get({
                 'id': $stateParams.manufacturerCategoryId
-            }, function (manufacturerCategory) {
-                console.log("Manufacturer Category :%O", manufacturerCategory);
-                manufacturerCategory.manufacturer = ManufacturerService.findByManufacturerCode({
-                    'manufacturerCode': manufacturerCategory.manufacturerCode
+            }, function (manufacturerCategoryObject) {
+                console.log("Manufacturer Category :%O", manufacturerCategoryObject);
+                $scope.editableManufacturerCategory = manufacturerCategoryObject;
+                angular.forEach(manufacturerCategoryObject.manufacturers, function (manufacturer) {
+                    $scope.manufacturerDisplay.push(
+                            ManufacturerService.get({
+                                'id': manufacturer
+                            })
+                            );
                 });
+//                manufacturerCategory.manufacturer = ManufacturerService.findByManufacturerCode({
+//                    'manufacturerCode': manufacturerCategory.manufacturerCode
+//                });
             });
-
-            $scope.setManufacturerCode = function (manufacturer) {
-                $scope.editableManufacturerCategory.manufacturerCode = manufacturer.manufacturerCode;
-            };
-            $scope.searchManufacturerCode = function (searchTerm) {
+            $scope.searchManufacturerCode = function (manufacturerString) {
                 return ManufacturerService.findByManufacturerNameLike({
-                    'manufacturerName': searchTerm
+                    'manufacturerName': manufacturerString
                 }).$promise;
             };
+
+            $scope.setManufacturerCode = function (manufacturer) {
+                $scope.manufacturerDisplay.push(manufacturer);
+                $scope.manufacturerName = "";
+                $scope.editableManufacturerCategory.manufacturers.push(manufacturer.id);
+            };
+
+            $scope.removeManufacturers = function (manufacturers) {
+                var index = $scope.manufacturerDisplay.indexOf(manufacturers);
+                var index1 = $scope.editableManufacturerCategory.manufacturers.indexOf(manufacturers.id);
+                $scope.manufacturerDisplay.splice(index, 1);
+                $scope.editableManufacturerCategory.manufacturers.splice(index1, 1);
+                console.log("Updated Type Display :%O", $scope.manufacturerDisplay);
+                console.log("Updated %O", $scope.editableManufacturerCategory.manufacturers);
+            };
+
+//            $scope.setManufacturerCode = function (manufacturer) {
+//                $scope.editableManufacturerCategory.manufacturerCode = manufacturer.manufacturerCode;
+//            };
+//            $scope.searchManufacturerCode = function (searchTerm) {
+//                return ManufacturerService.findByManufacturerNameLike({
+//                    'manufacturerName': searchTerm
+//                }).$promise;
+//            };
 
             $scope.saveManufacturerCateogry = function (editableManufacturerCategory) {
                 editableManufacturerCategory.$save(function () {
@@ -181,7 +239,7 @@ angular.module("digitalbusiness.states.manufacturer_category", [])
             $scope.editableManufacturerCategory = ManufacturerCategoryService.get({
                 'id': $stateParams.manufacturerCategoryId
             });
-            $scope.deleteManufacturerCategory = function (manufacturerCategory) {                
+            $scope.deleteManufacturerCategory = function (manufacturerCategory) {
                 manufacturerCategory.$delete(function () {
                     $state.go('admin.masters_manufacturer_category', null, {'reload': true});
                 });

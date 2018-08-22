@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.manufacturercategory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +37,12 @@ public class ManufacturerCategoryRest {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ManufacturerCategory insert(@RequestBody ManufacturerCategory manufacturerCategory) {
+    public ManufacturerCategory insert(@RequestBody ManufacturerCategory manufacturerCategory) throws JsonProcessingException {
         return manufacturerCategoryDAL.insert(manufacturerCategory);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public ManufacturerCategory update(@RequestBody ManufacturerCategory manufacturerCategory) {
+    public ManufacturerCategory update(@RequestBody ManufacturerCategory manufacturerCategory) throws JsonProcessingException {
         return manufacturerCategoryDAL.update(manufacturerCategory);
     }
 
@@ -50,10 +51,10 @@ public class ManufacturerCategoryRest {
         manufacturerCategoryDAL.delete(id);
     }
 
-    @RequestMapping(value = "/find/manufacturer_code", method = RequestMethod.GET)
-    public List<ManufacturerCategory> findByManufacturerCode(@RequestParam("manufacturerCode") String manufacturerCode) throws Exception {
-        return manufacturerCategoryDAL.findByManufacturerCode(manufacturerCode);
-    }
+//    @RequestMapping(value = "/find/manufacturer_code", method = RequestMethod.GET)
+//    public List<ManufacturerCategory> findByManufacturerCode(@RequestParam("manufacturerCode") String manufacturerCode) throws Exception {
+//        return manufacturerCategoryDAL.findByManufacturerCode(manufacturerCode);
+//    }
     
     @RequestMapping(value = "/find/category_code", method = RequestMethod.GET)
     public ManufacturerCategory findByCategoryCode(@RequestParam("categoryCode") String categoryCode) throws Exception {

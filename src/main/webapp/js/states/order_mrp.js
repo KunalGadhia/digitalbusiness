@@ -116,7 +116,7 @@ angular.module("digitalbusiness.states.order_mrp", [])
             $scope.$watch('editableInfinityWardrobeDetailMrp.componentId', function (componentId) {
                 $scope.infinityWardrobeMrpObject = InfinityWardrobeMrpService.get({
                     'id': componentId
-                }, function (infinityWardrobeMrpObject) {                    
+                }, function (infinityWardrobeMrpObject) {
                     $scope.editableInfinityWardrobeDetailMrp.carcassPrice = infinityWardrobeMrpObject.carcassPrice;
                     $scope.editableInfinityWardrobeDetailMrp.productCode = infinityWardrobeMrpObject.productCode;
                     $scope.editableInfinityWardrobeDetailMrp.description = infinityWardrobeMrpObject.description;
@@ -287,30 +287,42 @@ angular.module("digitalbusiness.states.order_mrp", [])
             }, function (userObject) {
                 $scope.userObject = userObject;
                 if (userObject.role === "ROLE_ADMIN") {
-                    $scope.adminBackButton = true;
-                    $scope.dealerBackButton = false;
+                    $scope.adminLogin = true;
+                    $scope.dealerLogin = false;
                 } else if (userObject.role === "ROLE_DEALER") {
-                    $scope.adminBackButton = false;
-                    $scope.dealerBackButton = true;
+                    $scope.adminLogin = false;
+                    $scope.dealerLogin = true;
                 }
             });
-            $scope.manufacturerList = ManufacturerService.findAllList();
+//            $scope.manufacturerList = ManufacturerService.findAllList();
+            $scope.manufacturerCategoryList = ManufacturerCategoryService.findAllList();
 
             $scope.$watch('editableDealerComponent.manufacturer', function (manufacturerCode) {
-                $scope.editableDealerComponent.manufacturerCode = manufacturerCode;
-                console.log("Manufacturer Code :%O", manufacturerCode);
-                $scope.manufacturerCategoryList = ManufacturerCategoryService.findByManufacturerCode({
-                    'manufacturerCode': manufacturerCode
-                });
-            });
-
-            $scope.$watch('editableDealerComponent.manufacturerCategory', function (manufacturerCategory) {
-                console.log("Manufacturer Category :%O", manufacturerCategory);
                 $scope.dealerSkuList = DealerSkuService.findByManufacturerAndManufacturerCategoryByUser({
-                    'manufacturer': $scope.editableDealerComponent.manufacturerCode,
-                    'manufacturerCategory': manufacturerCategory,
+                    'manufacturer': manufacturerCode,
+                    'manufacturerCategory': $scope.editableDealerComponent.manufacturerCategory,
                     'createdBy': $scope.userObject.id
                 });
+            });
+            $scope.manufacturerList = [];
+            $scope.$watch('editableDealerComponent.manufacturerCategory', function (manufacturerCategory) {
+                console.log("Manufacturer Category :%O", manufacturerCategory);
+                ManufacturerCategoryService.findByCategoryCode({
+                    'categoryCode': manufacturerCategory
+                }, function (manufacturerCategoryObject) {
+                    angular.forEach(manufacturerCategoryObject.manufacturers, function (manufacturerId) {
+                        ManufacturerService.get({
+                            'id': manufacturerId
+                        }, function (manufacturerObject) {
+                            $scope.manufacturerList.push(manufacturerObject);
+                        });
+                    });
+                });
+//                $scope.dealerSkuList = DealerSkuService.findByManufacturerAndManufacturerCategoryByUser({
+//                    'manufacturer': $scope.editableDealerComponent.manufacturerCode,
+//                    'manufacturerCategory': manufacturerCategory,
+//                    'createdBy': $scope.userObject.id
+//                });
             });
 
             $scope.$watch('editableDealerComponent.product', function (dealerSkuId) {

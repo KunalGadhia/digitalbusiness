@@ -5,6 +5,7 @@
  */
 package com.spacewood.digitalbusiness.manufacturercategory;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,9 +15,9 @@ import java.util.Objects;
 public class ManufacturerCategory {
     private Integer id;
     private String categoryName;
-    private String categoryCode;
-    private String manufacturerCode;
+    private String categoryCode;    
     private Integer createdBy;
+    private List<Integer> manufacturers;
 
     public Integer getId() {
         return id;
@@ -42,14 +43,6 @@ public class ManufacturerCategory {
         this.categoryCode = categoryCode;
     }
 
-    public String getManufacturerCode() {
-        return manufacturerCode;
-    }
-
-    public void setManufacturerCode(String manufacturerCode) {
-        this.manufacturerCode = manufacturerCode;
-    }
-
     public Integer getCreatedBy() {
         return createdBy;
     }
@@ -58,14 +51,22 @@ public class ManufacturerCategory {
         this.createdBy = createdBy;
     }
 
+    public List<Integer> getManufacturers() {
+        return manufacturers;
+    }
+
+    public void setManufacturers(List<Integer> manufacturers) {
+        this.manufacturers = manufacturers;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 83 * hash + Objects.hashCode(this.id);
-        hash = 83 * hash + Objects.hashCode(this.categoryName);
-        hash = 83 * hash + Objects.hashCode(this.categoryCode);
-        hash = 83 * hash + Objects.hashCode(this.manufacturerCode);
-        hash = 83 * hash + Objects.hashCode(this.createdBy);
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.categoryName);
+        hash = 29 * hash + Objects.hashCode(this.categoryCode);
+        hash = 29 * hash + Objects.hashCode(this.createdBy);
+        hash = 29 * hash + Objects.hashCode(this.manufacturers);
         return hash;
     }
 
@@ -87,13 +88,13 @@ public class ManufacturerCategory {
         if (!Objects.equals(this.categoryCode, other.categoryCode)) {
             return false;
         }
-        if (!Objects.equals(this.manufacturerCode, other.manufacturerCode)) {
-            return false;
-        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (!Objects.equals(this.createdBy, other.createdBy)) {
+            return false;
+        }
+        if (!Objects.equals(this.manufacturers, other.manufacturers)) {
             return false;
         }
         return true;
@@ -101,7 +102,7 @@ public class ManufacturerCategory {
 
     @Override
     public String toString() {
-        return "ManufacturerCategory{" + "id=" + id + ", categoryName=" + categoryName + ", categoryCode=" + categoryCode + ", manufacturerCode=" + manufacturerCode + ", createdBy=" + createdBy + '}';
+        return "ManufacturerCategory{" + "id=" + id + ", categoryName=" + categoryName + ", categoryCode=" + categoryCode + ", createdBy=" + createdBy + ", manufacturers=" + manufacturers + '}';
     }
-        
+            
 }

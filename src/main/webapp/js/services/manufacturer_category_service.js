@@ -12,15 +12,7 @@ angular.module("digitalbusiness.services.manufacturer_category")
                     'method': 'GET',
                     'url': restRoot + '/manufacturer_category/find_all_list',
                     'isArray': true
-                },
-                'findByManufacturerCode': {
-                    'method': 'GET',
-                    'url': restRoot + '/manufacturer_category/find/manufacturer_code',
-                    'params': {
-                        'manufacturerCode': '@manufacturerCode'
-                    },
-                    'isArray': true
-                },
+                },                
                 'findByCategoryCode': {
                     'method': 'GET',
                     'url': restRoot + '/manufacturer_category/find/category_code',

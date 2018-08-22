@@ -98,7 +98,7 @@
                                 <option value="">Select Width</option>
                                 <option ng-repeat="width in InfinityWardrobeWidthList" value="{{width}}">{{width}} mm</option>
                             </select>
-    <!--<input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.width" readonly="">-->
+                            <!--<input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.width" readonly="">-->
                         </div>                        
                     </div>
                     <div class="col-sm-3">
@@ -108,7 +108,7 @@
                                 <option value="">Select Depth</option>
                                 <option ng-repeat="depth in InfinityWardrobeDepthList" value="{{depth}}">{{depth}} mm</option>
                             </select>
-    <!--<input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.depth" readonly="">-->
+                            <!--<input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.depth" readonly="">-->
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -118,7 +118,7 @@
                                 <option value="">Select Height</option>
                                 <option ng-repeat="height in InfinityWardrobeHeightList" value="{{height}}">{{height}} mm</option>
                             </select>
-                <!--<input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.height" readonly="">-->
+                            <!--<input class="form-control" ng-model="editableInfinityWardrobeDetailMrp.height" readonly="">-->
                         </div>
                     </div>                      
                 </div>
@@ -648,17 +648,8 @@
             <div>
                 <h3>Select From Your Offerings</h3>
             </div>
-            <form role="role" ng-submit="saveDealerComponents(editableDealerComponent)">
+            <form role="role" ng-submit="saveDealerComponents(editableDealerComponent)">                
                 <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Select Manufacturer / Make</label>                   
-                            <select class="form-control" ng-model="editableDealerComponent.manufacturer" required="">
-                                <option value="">Select Manufacturer / Make</option>
-                                <option ng-repeat="manufacturer in manufacturerList" value="{{manufacturer.manufacturerCode}}">{{manufacturer.manufacturerName}}</option>
-                            </select>
-                        </div>
-                    </div>                
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Manufacturer Category</label>
@@ -667,7 +658,16 @@
                                 <option ng-repeat="manufacturerCategory in manufacturerCategoryList" value="{{manufacturerCategory.categoryCode}}">{{manufacturerCategory.categoryName}}</option>
                             </select>
                         </div>                                      
-                    </div>                
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Select Manufacturer / Make</label>                   
+                            <select class="form-control" ng-model="editableDealerComponent.manufacturer" required="">
+                                <option value="">Select Manufacturer / Make</option>
+                                <option ng-repeat="manufacturer in manufacturerList" value="{{manufacturer.manufacturerCode}}">{{manufacturer.manufacturerName}}</option>
+                            </select>
+                        </div>
+                    </div>                                    
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Select Product</label>
@@ -904,7 +904,11 @@
                     </button>
                 </a>-->
     <!--<a data-ui-sref="admin.masters" ng-if="adminLogin">-->
-    <a class="btn btn-lg btn-primary" data-ui-sref="admin.masters">
+    <a class="btn btn-lg btn-primary" data-ui-sref="admin.masters" ng-if="adminLogin">
+        <i class="fa fa-check-circle"></i>
+        Done
+    </a>
+    <a class="btn btn-lg btn-primary" data-ui-sref="admin.dealers" ng-if="dealerLogin">
         <i class="fa fa-check-circle"></i>
         Done
     </a>    
