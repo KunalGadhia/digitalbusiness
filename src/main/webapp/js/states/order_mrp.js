@@ -30,6 +30,16 @@ angular.module("digitalbusiness.states.order_mrp", [])
                 'templateUrl': templateRoot + '/masters/mrp/max_wardrobe_mrp_delete.html',
                 'controller': 'MaxWardrobeOrderMrpDetailsDeleteController'
             });
+            $stateProvider.state('mrp_proforma_invoice_display', {
+                'url': '/:orderHeadId/mrp/proforma_invoice',
+                'templateUrl': templateRoot + '/masters/mrp/proforma_invoice_mrp.html',
+                'controller': 'MrpProformaInvoiceDisplayController'
+            });
+            $stateProvider.state('mrp_customer_proforma_invoice_display', {
+                'url': '/:orderHeadId/mrp/customer_proforma_invoice',
+                'templateUrl': templateRoot + '/masters/mrp/customer_proforma_invoice_mrp.html',
+                'controller': 'MrpCustomerProformaInvoiceDisplayController'
+            });
         })
 
         .controller('OrderMrpHeadController', function (OrderHeadMrpService, $rootScope, UserService, PartyService, EmployeeService, $scope, $stateParams, $state, paginationLimit) {
@@ -210,15 +220,15 @@ angular.module("digitalbusiness.states.order_mrp", [])
                 });
             });
             $scope.$watch('editableMaxWardrobeDetailMrp.height', function (height) {
-                MaxWardrobeMrpService.findByCategoryDimensions({
-                    'category': $scope.editableMaxWardrobeDetailMrp.category,
-                    'width': $scope.editableMaxWardrobeDetailMrp.width,
-                    'depth': $scope.editableMaxWardrobeDetailMrp.depth,
-                    'height': height
-                }, function (maxWardrobeComponentList) {
-                    console.log("Max Wardrobe List :%O", maxWardrobeComponentList);
-                    $scope.maxWardrobeMrpComponentList = maxWardrobeComponentList;
-                });
+//                MaxWardrobeMrpService.findByCategoryDimensions({
+//                    'category': $scope.editableMaxWardrobeDetailMrp.category,
+//                    'width': $scope.editableMaxWardrobeDetailMrp.width,
+//                    'depth': $scope.editableMaxWardrobeDetailMrp.depth,
+//                    'height': height
+//                }, function (maxWardrobeComponentList) {
+//                    console.log("Max Wardrobe List :%O", maxWardrobeComponentList);
+//                    $scope.maxWardrobeMrpComponentList = maxWardrobeComponentList;
+//                });
             });
             $scope.$watch('editableMaxWardrobeDetailMrp.componentId', function (componentId) {
                 $scope.maxWardrobeMrpObject = MaxWardrobeMrpService.get({
@@ -228,6 +238,7 @@ angular.module("digitalbusiness.states.order_mrp", [])
 //                    $scope.editableMaxWardrobeDetailMrp.depth = maxWardrobeMrpObject.depth;
 //                    $scope.editableMaxWardrobeDetailMrp.height = maxWardrobeMrpObject.height;
                     $scope.editableMaxWardrobeDetailMrp.carcassPrice = maxWardrobeMrpObject.carcassPrice;
+                    $scope.editableMaxWardrobeDetailMrp.carcassColor = "Caspani";
                     $scope.editableMaxWardrobeDetailMrp.productCode = maxWardrobeMrpObject.productCode;
                     $scope.editableMaxWardrobeDetailMrp.description = maxWardrobeMrpObject.description;
                 });
@@ -235,12 +246,16 @@ angular.module("digitalbusiness.states.order_mrp", [])
             $scope.$watch('editableMaxWardrobeDetailMrp.shutterCategory', function (shutterCategory) {
                 if (shutterCategory === "P1") {
                     $scope.editableMaxWardrobeDetailMrp.shutterPrice = $scope.maxWardrobeMrpObject.price1;
+                    $scope.editableMaxWardrobeDetailMrp.shutterColor = "Natural Wenge";
                 } else if (shutterCategory === "P2") {
                     $scope.editableMaxWardrobeDetailMrp.shutterPrice = $scope.maxWardrobeMrpObject.price2;
+                    $scope.editableMaxWardrobeDetailMrp.shutterColor = "Natural Wenge";
                 } else if (shutterCategory === "P3") {
                     $scope.editableMaxWardrobeDetailMrp.shutterPrice = $scope.maxWardrobeMrpObject.price3;
+                    $scope.editableMaxWardrobeDetailMrp.shutterColor = "Natural Wenge";
                 } else if (shutterCategory === "P4") {
                     $scope.editableMaxWardrobeDetailMrp.shutterPrice = $scope.maxWardrobeMrpObject.price4;
+                    $scope.editableMaxWardrobeDetailMrp.shutterColor = "Natural Wenge";
                 } else {
                     $scope.editableMaxWardrobeDetailMrp.shutterPrice = 0;
                 }
@@ -366,8 +381,244 @@ angular.module("digitalbusiness.states.order_mrp", [])
             }, function (dealerSkuMrpOrdersList) {
                 console.log("Dealer SKU MRP Order List :%O", dealerSkuMrpOrdersList);
             });
-
+            //////////////////////Selection Widget Functionality///////////////////////
+            $scope.showMaxWardrobeSelectionWidget = false;
+            $scope.closeWidget = function () {
+                $scope.showMaxWardrobeSelectionWidget = false;
+                $scope.preMaxWardrobe = {};
+            };
+            $scope.openMaxWardrobe = function () {
+                $scope.maxWardrobeList1 = [];
+                console.log("Width :%O", $scope.editableMaxWardrobeDetailMrp.width);
+                if ($scope.editableMaxWardrobeDetailMrp.width === undefined & $scope.editableMaxWardrobeDetailMrp.depth === undefined & $scope.editableMaxWardrobeDetailMrp.height === undefined) {
+                    console.log("Everything Blank");
+                    alert("Select Atleast Any One Dimension Attribute like Width, Depth Or Height");
+                } else if ($scope.editableMaxWardrobeDetailMrp.width !== undefined & $scope.editableMaxWardrobeDetailMrp.depth === undefined & $scope.editableMaxWardrobeDetailMrp.height === undefined) {
+                    console.log("By Width");
+                    MaxWardrobeMrpService.findByCategoryDimensionsWidth({
+                        'category': $scope.editableMaxWardrobeDetailMrp.category,
+                        'width': $scope.editableMaxWardrobeDetailMrp.width
+                    }, function (maxWardrobeComponentList) {
+                        console.log("Max Wardrobe List :%O", maxWardrobeComponentList);
+                        $scope.maxWardrobeMrpComponentList = maxWardrobeComponentList;
+                        angular.forEach(maxWardrobeComponentList, function (maxWardrobeComponent) {
+                            $scope.maxWardrobeList1.push(maxWardrobeComponent);
+                        });
+                        $scope.showMaxWardrobeSelectionWidget = true;
+                    });
+                } else if ($scope.editableMaxWardrobeDetailMrp.width === undefined & $scope.editableMaxWardrobeDetailMrp.depth !== undefined & $scope.editableMaxWardrobeDetailMrp.height === undefined) {
+                    console.log("By Depth");
+                    MaxWardrobeMrpService.findByCategoryDimensionsDepth({
+                        'category': $scope.editableMaxWardrobeDetailMrp.category,
+                        'depth': $scope.editableMaxWardrobeDetailMrp.depth
+                    }, function (maxWardrobeComponentList) {
+                        console.log("Max Wardrobe List :%O", maxWardrobeComponentList);
+                        $scope.maxWardrobeMrpComponentList = maxWardrobeComponentList;
+                        angular.forEach(maxWardrobeComponentList, function (maxWardrobeComponent) {
+                            $scope.maxWardrobeList1.push(maxWardrobeComponent);
+                        });
+                        $scope.showMaxWardrobeSelectionWidget = true;
+                    });
+                } else if ($scope.editableMaxWardrobeDetailMrp.width === undefined & $scope.editableMaxWardrobeDetailMrp.depth === undefined & $scope.editableMaxWardrobeDetailMrp.height !== undefined) {
+                    console.log("By Height");
+                    MaxWardrobeMrpService.findByCategoryDimensionsHeight({
+                        'category': $scope.editableMaxWardrobeDetailMrp.category,
+                        'height': $scope.editableMaxWardrobeDetailMrp.height
+                    }, function (maxWardrobeComponentList) {
+                        console.log("Max Wardrobe List :%O", maxWardrobeComponentList);
+                        $scope.maxWardrobeMrpComponentList = maxWardrobeComponentList;
+                        angular.forEach(maxWardrobeComponentList, function (maxWardrobeComponent) {
+                            $scope.maxWardrobeList1.push(maxWardrobeComponent);
+                        });
+                        $scope.showMaxWardrobeSelectionWidget = true;
+                    });
+                } else if ($scope.editableMaxWardrobeDetailMrp.width === undefined & $scope.editableMaxWardrobeDetailMrp.depth !== undefined & $scope.editableMaxWardrobeDetailMrp.height !== undefined) {
+                    console.log("By Depth Height");
+                    MaxWardrobeMrpService.findByCategoryDimensionsDepthHeight({
+                        'category': $scope.editableMaxWardrobeDetailMrp.category,
+                        'depth': $scope.editableMaxWardrobeDetailMrp.depth,
+                        'height': $scope.editableMaxWardrobeDetailMrp.height
+                    }, function (maxWardrobeComponentList) {
+                        console.log("Max Wardrobe List :%O", maxWardrobeComponentList);
+                        $scope.maxWardrobeMrpComponentList = maxWardrobeComponentList;
+                        angular.forEach(maxWardrobeComponentList, function (maxWardrobeComponent) {
+                            $scope.maxWardrobeList1.push(maxWardrobeComponent);
+                        });
+                        $scope.showMaxWardrobeSelectionWidget = true;
+                    });
+                } else if ($scope.editableMaxWardrobeDetailMrp.width !== undefined & $scope.editableMaxWardrobeDetailMrp.depth === undefined & $scope.editableMaxWardrobeDetailMrp.height !== undefined) {
+                    console.log("By Width Height");
+                    MaxWardrobeMrpService.findByCategoryDimensionsWidthHeight({
+                        'category': $scope.editableMaxWardrobeDetailMrp.category,
+                        'width': $scope.editableMaxWardrobeDetailMrp.width,
+                        'height': $scope.editableMaxWardrobeDetailMrp.height
+                    }, function (maxWardrobeComponentList) {
+                        console.log("Max Wardrobe List :%O", maxWardrobeComponentList);
+                        $scope.maxWardrobeMrpComponentList = maxWardrobeComponentList;
+                        angular.forEach(maxWardrobeComponentList, function (maxWardrobeComponent) {
+                            $scope.maxWardrobeList1.push(maxWardrobeComponent);
+                        });
+                        $scope.showMaxWardrobeSelectionWidget = true;
+                    });
+                } else if ($scope.editableMaxWardrobeDetailMrp.width !== undefined & $scope.editableMaxWardrobeDetailMrp.depth !== undefined & $scope.editableMaxWardrobeDetailMrp.height === undefined) {
+                    console.log("By Width Depth");
+                    MaxWardrobeMrpService.findByCategoryDimensionsWidthDepth({
+                        'category': $scope.editableMaxWardrobeDetailMrp.category,
+                        'width': $scope.editableMaxWardrobeDetailMrp.width,
+                        'depth': $scope.editableMaxWardrobeDetailMrp.depth
+                    }, function (maxWardrobeComponentList) {
+                        console.log("Max Wardrobe List :%O", maxWardrobeComponentList);
+                        $scope.maxWardrobeMrpComponentList = maxWardrobeComponentList;
+                        angular.forEach(maxWardrobeComponentList, function (maxWardrobeComponent) {
+                            $scope.maxWardrobeList1.push(maxWardrobeComponent);
+                        });
+                        $scope.showMaxWardrobeSelectionWidget = true;
+                    });
+                } else {
+                    console.log("By Everything");
+                    MaxWardrobeMrpService.findByCategoryDimensions({
+                        'category': $scope.editableMaxWardrobeDetailMrp.category,
+                        'width': $scope.editableMaxWardrobeDetailMrp.width,
+                        'depth': $scope.editableMaxWardrobeDetailMrp.depth,
+                        'height': $scope.editableMaxWardrobeDetailMrp.height
+                    }, function (maxWardrobeComponentList) {
+                        console.log("Max Wardrobe List :%O", maxWardrobeComponentList);
+                        $scope.maxWardrobeMrpComponentList = maxWardrobeComponentList;
+                        angular.forEach(maxWardrobeComponentList, function (maxWardrobeComponent) {
+                            $scope.maxWardrobeList1.push(maxWardrobeComponent);
+                        });
+                        $scope.showMaxWardrobeSelectionWidget = true;
+                    });
+                }
+            };
+            $scope.selectMaxWardrobe = function (componentId) {
+                $scope.closeWidget();
+                MaxWardrobeMrpService.get({
+                    'id': componentId
+                }, function (maxWardrobeObject) {
+                    $scope.componentName = maxWardrobeObject.description;
+                    console.log("Width :"+maxWardrobeObject.width);
+                    console.log("Depth :"+maxWardrobeObject.depth);
+                    console.log("Height :"+maxWardrobeObject.height);
+                    $scope.editableMaxWardrobeDetailMrp.width = maxWardrobeObject.width.toString();
+                    $scope.editableMaxWardrobeDetailMrp.depth = maxWardrobeObject.depth.toString();
+                    $scope.editableMaxWardrobeDetailMrp.height = maxWardrobeObject.height.toString();
+                    $scope.editableMaxWardrobeDetailMrp.componentId = componentId;
+//                    $scope.shutterComponent = maxWardrobeObject.componentCode;
+                });
+            };
+            $scope.selectPreMaxWardrobe = function (componentId) {
+                MaxWardrobeMrpService.get({
+                    'id': componentId
+                }, function (maxWardrobeComponent) {
+                    $scope.preMaxWardrobe = maxWardrobeComponent;
+                });
+            };
             /////////////////////////////////////////////////////////////////
+        })
+        .controller('MrpProformaInvoiceDisplayController', function (MaxWardrobeMrpOrderDetailsService, MaxWardrobeMrpService, OrderHeadService, DealerSkuOrderDetailsService, OrderHeadMrpService, $rootScope, UserService, PartyService, EmployeeService, $scope, $stateParams, $state, paginationLimit) {
+            $scope.currentDate = new Date();
+            var totalPrice = 0;
+            var maxWardrobeMrpPrice = 0;
+            $scope.mainInvoiceList = [];
+            $scope.showCgst = false;
+            $scope.showIgst = false;
+            $scope.gstObject = {};
+            if ($scope.mainInvoiceList.length === 0) {
+                console.log("Initial Length 0");
+                $scope.srNo = 0;
+            }
+
+            OrderHeadMrpService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                $scope.orderMrpHead = orderHeadObject;
+                var a = new Date(orderHeadObject.poDate);
+                var factDespDate = moment(a).add(12, 'days');
+                var date = new Date(factDespDate);
+                $scope.factDespDate = date;
+            });
+
+            $scope.maxWardrobeMrpOrderDetailsList = MaxWardrobeMrpOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (maxWardrobeMrpOrdersList) {
+                console.log("Max Wardrobe MRP Order List :%O", maxWardrobeMrpOrdersList);
+                angular.forEach($scope.maxWardrobeMrpOrderDetailsList, function (maxWardrobeMrpObject) {
+                    totalPrice = totalPrice + maxWardrobeMrpObject.price;
+                    maxWardrobeMrpPrice = maxWardrobeMrpPrice + maxWardrobeMrpObject.price;
+                    $scope.mainInvoiceList.push(maxWardrobeMrpObject);
+                });
+                $scope.otherMaxWardrobeMrpTotalPrice = maxWardrobeMrpPrice;
+                $scope.captureTotal($scope.otherMaxWardrobeMrpTotalPrice);
+            });
+
+            ///////////////////////////////////////////
+            $scope.getTotal = 0;
+            var totalArr = [];
+            $scope.captureTotal = function (total) {
+                console.log("Total :%O", total);
+                totalArr.push(total);
+                angular.forEach(totalArr, function (price) {
+                });
+                $scope.getTotal = $scope.getTotal + total;
+                console.log("THIS IS IT " + $scope.getTotal);
+                $scope.orderTotal = $scope.getTotal;
+                console.log("$scope.orderHead :%O", $scope.orderHead);
+                $scope.netAmount = Math.round(($scope.orderTotal + ($scope.orderTotal * 0.18)));
+
+            };
+        })
+        .controller('MrpCustomerProformaInvoiceDisplayController', function (MaxWardrobeMrpOrderDetailsService, MaxWardrobeMrpService, DealerSkuOrderDetailsService, OrderHeadMrpService, $rootScope, UserService, PartyService, EmployeeService, $scope, $stateParams, $state, paginationLimit) {
+            $scope.currentDate = new Date();
+            var totalPrice = 0;
+            var maxWardrobeMrpPrice = 0;
+            $scope.mainInvoiceList = [];
+            $scope.showCgst = false;
+            $scope.showIgst = false;
+            $scope.gstObject = {};
+            if ($scope.mainInvoiceList.length === 0) {
+                console.log("Initial Length 0");
+                $scope.srNo = 0;
+            }
+
+            OrderHeadMrpService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                $scope.orderMrpHead = orderHeadObject;
+                var a = new Date(orderHeadObject.poDate);
+                var factDespDate = moment(a).add(12, 'days');
+                var date = new Date(factDespDate);
+                $scope.factDespDate = date;
+            });
+
+            $scope.maxWardrobeMrpOrderDetailsList = MaxWardrobeMrpOrderDetailsService.findByOrderHeadId({
+                'orderHeadId': $stateParams.orderHeadId
+            }, function (maxWardrobeMrpOrdersList) {
+                console.log("Max Wardrobe MRP Order List :%O", maxWardrobeMrpOrdersList);
+                angular.forEach($scope.maxWardrobeMrpOrderDetailsList, function (maxWardrobeMrpObject) {
+                    totalPrice = totalPrice + maxWardrobeMrpObject.price;
+                    maxWardrobeMrpPrice = maxWardrobeMrpPrice + maxWardrobeMrpObject.price;
+                    $scope.mainInvoiceList.push(maxWardrobeMrpObject);
+                });
+                $scope.otherMaxWardrobeMrpTotalPrice = maxWardrobeMrpPrice;
+                $scope.captureTotal($scope.otherMaxWardrobeMrpTotalPrice);
+            });
+
+            ///////////////////////////////////////////
+            $scope.getTotal = 0;
+            var totalArr = [];
+            $scope.captureTotal = function (total) {
+                console.log("Total :%O", total);
+                totalArr.push(total);
+                angular.forEach(totalArr, function (price) {
+                });
+                $scope.getTotal = $scope.getTotal + total;
+                console.log("THIS IS IT " + $scope.getTotal);
+                $scope.orderTotal = $scope.getTotal;
+                console.log("$scope.orderHead :%O", $scope.orderHead);
+                $scope.netAmount = Math.round(($scope.orderTotal + ($scope.orderTotal * 0.18)));
+
+            };
         })
         .controller('SkuOrderMrpDetailsDeleteController', function (DealerSkuOrderDetailsService, OrderHeadMrpService, $rootScope, UserService, PartyService, EmployeeService, $scope, $stateParams, $state, paginationLimit) {
             $scope.editableDealerComponent = DealerSkuOrderDetailsService.get({
@@ -375,7 +626,7 @@ angular.module("digitalbusiness.states.order_mrp", [])
             });
             $scope.deleteDealerSku = function (dealerSku) {
                 dealerSku.$delete(function () {
-                    $state.go('admin.masters_order_mrp_details', {'orderHeadId': dealerSku.orderHeadId}, {'reload': true});
+                    $state.go('admin.masters_order_details', {'orderHeadId': dealerSku.orderHeadId}, {'reload': true});
                 });
             };
         })

@@ -16,6 +16,7 @@ public enum Category {
     SLIDE,
     SKIRTING,
     MIRROR_FRAME,
+    DRESSER_UNIT,
     LOFTC_FRAME,
     LOFT_SKIRTING,
     LOFT_GRID_SINGLE_BOTTOM,

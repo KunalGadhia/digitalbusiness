@@ -5,7 +5,7 @@
                 <i class="fa fa-arrow-left"></i>
                 Back
             </a>
-            <a data-ui-sref="admin.masters" class="btn btn-default" ng-if="dealerBackButton">
+            <a data-ui-sref="admin.dealers_master" class="btn btn-default" ng-if="dealerBackButton">
                 <i class="fa fa-arrow-left"></i>
                 Back
             </a>            
@@ -34,7 +34,7 @@
                 <th>Depth</th>
                 <th>Height</th>
                 <th>Color</th>
-                <th>Spacewood Price</th>
+                <!--<th>Spacewood Price</th>-->
                 <th>Price</th>
                 <th class="text-center">Actions</th>
             </tr>
@@ -50,7 +50,7 @@
                 <td data-title="Depth">{{ dealerSku.depth}} mm</td>
                 <td data-title="Height">{{ dealerSku.height}} mm </td>
                 <td data-title="Color / Finish">{{ dealerSku.color}}</td>
-                <td data-title="Spacewood price">{{ dealerSku.spPrice}}</td>
+                <!--<td data-title="Spacewood price">{{ dealerSku.spPrice}}</td>-->
                 <td data-title="Price">{{ dealerSku.price}}</td>                
                 <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_dealer_sku.edit({ dealerSkuId: dealerSku.id })"

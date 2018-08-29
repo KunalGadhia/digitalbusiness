@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,6 +24,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DealerSkuDAL {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    
     public static final class Columns {
 
         public static final String ID = "id";
@@ -70,6 +74,12 @@ public class DealerSkuDAL {
     public List<DealerSku> findAll(Integer offset) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(DealerSku.class));
+    }
+    
+    public List<DealerSku> findByCreator(Integer userId, Integer offset) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND "+Columns.CREATED_BY+" = ? ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
+        logger.debug("Dealer SQL Query "+sqlQuery);
+        return jdbcTemplate.query(sqlQuery, new Object[]{userId, offset}, new BeanPropertyRowMapper<>(DealerSku.class));
     }
 
     public List<DealerSku> findAllList() {

@@ -56,6 +56,36 @@ public class MaxWardrobeMrpRest {
         return maxWardrobeMrpDAL.findByCategoryDimensions(category, width, depth, height);
     }
     
+    @RequestMapping(value="/find/category/dimensions/width", method = RequestMethod.GET)
+    public List<MaxWardrobeMrp> findByCategoryDimensionsWidth(@RequestParam("category") String category, @RequestParam("width") Double width) throws SQLException {
+        return maxWardrobeMrpDAL.findByCategoryDimensionsWidth(category, width);
+    }
+    
+    @RequestMapping(value="/find/category/dimensions/depth", method = RequestMethod.GET)
+    public List<MaxWardrobeMrp> findByCategoryDimensionsDepth(@RequestParam("category") String category, @RequestParam("depth") Double depth) throws SQLException {
+        return maxWardrobeMrpDAL.findByCategoryDimensionsDepth(category, depth);
+    }
+    
+    @RequestMapping(value="/find/category/dimensions/depth/height", method = RequestMethod.GET)
+    public List<MaxWardrobeMrp> findByCategoryDimensionsDepthHeight(@RequestParam("category") String category, @RequestParam("depth") Double depth, @RequestParam("height") Double height) throws SQLException {
+        return maxWardrobeMrpDAL.findByCategoryDimensionsDepthHeight(category, depth, height);
+    }
+    
+    @RequestMapping(value="/find/category/dimensions/width/height", method = RequestMethod.GET)
+    public List<MaxWardrobeMrp> findByCategoryDimensionsWidthHeight(@RequestParam("category") String category, @RequestParam("width") Double width, @RequestParam("height") Double height) throws SQLException {
+        return maxWardrobeMrpDAL.findByCategoryDimensionsWidthHeight(category, width, height);
+    }
+    
+    @RequestMapping(value="/find/category/dimensions/width/depth", method = RequestMethod.GET)
+    public List<MaxWardrobeMrp> findByCategoryDimensionsWidthDepth(@RequestParam("category") String category, @RequestParam("width") Double width, @RequestParam("depth") Double depth) throws SQLException {
+        return maxWardrobeMrpDAL.findByCategoryDimensionsWidthDepth(category, width, depth);
+    }
+    
+    @RequestMapping(value="/find/category/dimensions/height", method = RequestMethod.GET)
+    public List<MaxWardrobeMrp> findByCategoryDimensionsHeight(@RequestParam("category") String category, @RequestParam("height") Double height) throws SQLException {
+        return maxWardrobeMrpDAL.findByCategoryDimensionsHeight(category, height);
+    }
+    
     @RequestMapping(value = "/find/distinct/width", method = RequestMethod.GET)
     public List<Double> findDistinctWidth(String category) throws Exception {
         return maxWardrobeMrpDAL.findDistinctWidth(category);

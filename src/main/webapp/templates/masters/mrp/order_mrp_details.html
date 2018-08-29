@@ -59,10 +59,13 @@
         </div>
         <div class="modal-body">
             <div class="btn-group btn-group-lg btn-group-justified">
-                <a ng-click="selectParentView('INFINITY_WARDROBE')" class="btn btn-primary text-center">Infinity Wardrobe</a>
+                <!--<a ng-click="selectParentView('INFINITY_WARDROBE')" class="btn btn-primary text-center">Infinity Wardrobe</a>-->                
                 <a ng-click="selectParentView('MAX_WARDROBE')" class="btn btn-primary text-center">MAX Wardrobe</a>
-                <a ng-click="selectParentView('MAX_KITCHEN')" class="btn btn-primary text-center">MAX Kitchen</a>
-                <a ng-click="selectParentView('DEALER_COMPONENTS')" class="btn btn-primary text-center">Dealer Components</a>
+                <a ng-click="selectParentView('')" class="btn btn-primary text-center">Infinity Wardrobe</a>
+                <a ng-click="selectParentView('')" class="btn btn-primary text-center" disabled=""></a>
+                <a ng-click="selectParentView('')" class="btn btn-primary text-center" disabled=""></a>
+                <!--                <a ng-click="selectParentView('MAX_KITCHEN')" class="btn btn-primary text-center">MAX Kitchen</a>
+                                <a ng-click="selectParentView('DEALER_COMPONENTS')" class="btn btn-primary text-center">Dealer Components</a>-->
             </div>
         </div>
         <div class="panel-heading text-center" ng-if="showInfinityWardrobeMrp">
@@ -322,7 +325,7 @@
                                 <option value="GALLERY_SHELF">Gallery Shelf</option>  
                                 <option value="FILLER">Filler</option>
                                 <option value="END_PANEL">End Panel</option>
-                                <option value="DRAWER_UNIT">Drawer Unit</option>
+                                <option value="DRESSER_UNIT">Dresser Unit</option>
                                 <option value="DRAWER">Drawer</option>
                                 <option value="CHEST_OF_DRAWER">Chest Of Drawer</option>
                                 <option value="ADD_ON_SHELF">Add On Shelf</option>
@@ -353,7 +356,7 @@
                         <div class="form-group">
                             <label>Height (in mm)</label>
                             <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.height">
-                                <option value="">Select Depth</option>
+                                <option value="">Select Height</option>
                                 <option ng-repeat="height in maxWardrobeHeightList" value="{{height}}">{{height}} mm</option>
                             </select>
                             <!--<input class="form-control" ng-model="editableMaxWardrobeDetailMrp.height" readonly="">-->
@@ -364,10 +367,17 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Component</label>
-                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.componentId" required="">
-                                <option value="">Select Component</option>
-                                <option ng-repeat="component in maxWardrobeMrpComponentList" value="{{component.id}}">({{component.productCode}}) - {{component.description}} (W:{{component.width}} x D:{{component.depth}} x H:{{component.height}})</option>
-                            </select>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="Select Wardrobe Component" ng-model="componentName" required="" onkeypress="return false;"/>
+                                <!--<input class="form-control" placeholder="Select Shutter" ng-model="shutterName" required="" readonly=""/>-->
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" ng-click="openMaxWardrobe()">Select Max Wardrobe</button>
+                                </span>
+                            </div>
+                            <!--                            <select class="form-control" ng-model="editableMaxWardrobeDetailMrp.componentId" required="">
+                                                            <option value="">Select Component</option>
+                                                            <option ng-repeat="component in maxWardrobeMrpComponentList" value="{{component.id}}">({{component.productCode}}) - {{component.description}} (W:{{component.width}} x D:{{component.depth}} x H:{{component.height}})</option>
+                                                        </select>-->
                         </div>                                      
                     </div>                
                     <div class="col-sm-3">
@@ -804,7 +814,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="orderDetails in maxWardrobeMrpOrders">
-                    <td class="text-right">{{ currentOffset + $index + 1}}</td>
+                    <td class="text-right">{{$index + 1}}</td>
                     <td class="text-left">{{ orderDetails.productCode}}</td>
                     <td class="text-left">
                         <span>{{orderDetails.description}}</span>
@@ -841,7 +851,7 @@
     </div>
 </div>
 
-<div class="panel-heading text-center" ng-show="dealerSkuMrpOrders.length > 0">
+<!--<div class="panel-heading text-center" ng-show="dealerSkuMrpOrders.length > 0">
     <div>
         <h3>Dealer SKU Details List</h3>
     </div>
@@ -895,7 +905,7 @@
             </tfoot>
         </table>
     </div>
-</div>
+</div>-->
 <div class="modal-footer">
     <!--            <a data-ui-sref="admin.dealers" ng-if="dealerLogin">
                     <button class="btn btn-lg btn-primary" >
@@ -913,4 +923,43 @@
         Done
     </a>    
 </div>
+<!-- Max Wardrobe Selection Panel Starts -->
+<div class="modal modal-digitalbusiness" ng-if="showMaxWardrobeSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Max Wardrobe
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="maxWardrobe in maxWardrobeList1">
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{maxWardrobe.description}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreMaxWardrobe(maxWardrobe.id)">View Wardrobe</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/max_wardrobe_mrp/{{preMaxWardrobe.id}}/attachment" width="250px" height="350px"/>
+                    <br>
+                    <b class="text-center"> {{preMaxWardrobe.description}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectMaxWardrobe(preMaxWardrobe.id)">Select Wardrobe</button>
+                </div>               
+            </div>
+        </div>        
+    </div>
+</div>
+<!-- Max Kitchen Selection Panel Ends -->
 <div data-ui-view=""></div>

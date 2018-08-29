@@ -330,6 +330,9 @@
                                 <span ng-if="orderDetails.orderFor === 'ULTIMA_WARDROBE'">
                                     <span>{{orderDetails.description}}</span>                                    
                                 </span>
+                                <span ng-if="orderDetails.orderFor === 'DEALER_SKU'">
+                                    <span>{{orderDetails.description}}</span>                                    
+                                </span>
                                 <!--                                <span ng-if="orderDetails.grainDirection !== undefined">
                                                                     <span>{{orderDetails.kitchenComponentObject.component}}</span>
                                                                     <span>in {{orderDetails.rawMaterialObject.material}}</span>
@@ -410,6 +413,9 @@
                                     <span><strong>Carcass Color :</strong> {{orderDetails.carcassColorName}}</span>
                                     <span ng-if="orderDetails.shutterColorName !== null">& <strong>Shutter Color :</strong> {{orderDetails.shutterColorName}}</span>                                  
                                 </span>
+                                <span ng-if="orderDetails.orderFor === 'DEALER_SKU'">
+                                    <span>{{orderDetails.color}}</span>
+                                </span>
                             </td>
                             <td>
                                 <span ng-if="orderDetails.sectionProfileId !== null">{{orderDetails.sectionProfileObject.name}}</span>
@@ -468,6 +474,9 @@
                                     {{ orderDetails.height}} mm
                                 </span>
                                 <span ng-if="orderDetails.orderFor === 'ULTIMA_WARDROBE'">
+                                    {{ orderDetails.height}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'DEALER_SKU'">
                                     {{ orderDetails.height}} mm
                                 </span>
                             </td>                            

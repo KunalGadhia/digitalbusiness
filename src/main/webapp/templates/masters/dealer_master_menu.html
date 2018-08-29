@@ -4,39 +4,45 @@
             Notifications :
         </button>
     </span>    -->
-<marquee class="col-sm-12 col-md-12 col-lg-12 alert alert-info">
-    <span style="font-family: Impact; font-size: 12pt">Welcome To INNOCAL, {{notificationUserObject.nameOfCompany}}!!</span>
-    <span style="font-family: Impact; font-size: 12pt" ng-repeat="notification in notificationList">&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;{{notification.notification}}</span>
-</marquee>    
+<div>
+    <div class="col-sm-1 alert-info" style="height: 54px">
+        <button class="col-sm-12 btn btn-primary" style="margin-top: 10px" data-ui-sref="admin.dealers"><i class="fa fa-arrow-left"></i>&nbsp; Back</button>
+    </div>
+    <div class="col-sm-11" style="padding: 0px">
+        <marquee class="col-sm-12 col-md-12 col-lg-12 alert alert-info">
+            <span style="font-family: Impact; font-size: 12pt">Welcome To INNOCAL, {{notificationUserObject.nameOfCompany}}!!</span>
+            <span style="font-family: Impact; font-size: 12pt" ng-repeat="notification in notificationList">&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;{{notification.notification}}</span>
+        </marquee>
+    </div>    
+</div>    
 <!--</div>-->
 <div class="panel panel-default">
-<!--    <div class="modal-header text-center">
+    <div class="modal-header text-center">
         <h3 class="col-md-12 col-lg-12 col-xs-12">
-            Transaction Menu
+            Masters Menu
         </h3>           
-    </div>-->
+    </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-4" style="height: 360px;border-right: 1px solid;">                
-                <a data-ui-sref-active="active" data-ui-sref="admin.dealers_master">
+                <a data-ui-sref-active="active" data-ui-sref="admin.masters_manufacturer">
                     <div class="container col-sm-12 col-md-12 col-xs-12">                            
-                        <img src="images/icons_svg/shop.svg" class="image">                            
+                        <img src="images/icons_svg/factory.svg" class="image">                            
                         <div class="overlay">
                             <div class="text">
-                                <h2>MRP Masters</h2>
+                                <h2>Manufacturer Master</h2>
                             </div>
                         </div>
                     </div>                                                
                 </a>                
             </div>
             <div class="col-md-4 col-sm-4 col-xs-4" style="height: 360px;border-left: 1px solid;border-right: 1px solid;">                
-                <!--<a data-ui-sref-active="active" data-ui-sref="admin.masters_order">-->
-                <a data-ui-sref-active="active" data-ui-sref="admin.dealers_transaction">                    
+                <a data-ui-sref-active="active" data-ui-sref="admin.masters_manufacturer_category">
                     <div class="container col-sm-12 col-md-12 col-xs-12">                            
-                        <img src="images/icons_svg/bank_product.svg" class="image">                            
+                        <img src="images/icons_svg/maintenance.svg" class="image">                            
                         <div class="overlay">
                             <div class="text">
-                                <h2>Order Entry Transaction</h2>
+                                <h2>Manufacturer Category</h2>
                             </div>
                         </div>
                     </div>                                                
@@ -44,12 +50,12 @@
             </div> 
             <div class="col-md-4 col-sm-4 col-xs-4" style="height: 360px;border-left: 1px solid;">
                 <div class="form-group text-center">
-                    <a data-ui-sref-active="active" data-ui-sref="admin.dealers_transaction_history">
+                    <a data-ui-sref-active="active" data-ui-sref="admin.masters_dealer_sku">
                         <div class="container col-sm-12 col-md-12 col-xs-12">                            
-                            <img src="images/icons_svg/history.svg" class="image">                            
+                            <img src="images/icons_svg/cart.svg" class="image">                            
                             <div class="overlay">
                                 <div class="text">
-                                    <h2>Order History</h2> 
+                                    <h2>Dealer SKU Master</h2> 
                                 </div>
                             </div>
                         </div>    

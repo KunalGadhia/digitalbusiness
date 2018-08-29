@@ -21,6 +21,15 @@ angular.module("digitalbusiness.services.dealer_sku")
                     },
                     'isArray': true
                 },
+                'findByCreator': {
+                    'method': 'GET',
+                    'url': restRoot + '/dealer_sku/find/creator',
+                    'params': {
+                        'offset': '@offset',
+                        'userId': '@userId'
+                    },
+                    'isArray': true
+                },
                 'findByManufacturerAndManufacturerCategoryByUser': {
                     'method': 'GET',
                     'url': restRoot + '/dealer_sku/find/manufacturer/manufacturer_category/user',

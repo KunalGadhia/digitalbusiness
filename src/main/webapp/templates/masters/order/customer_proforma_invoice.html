@@ -98,7 +98,7 @@
                             <th>MRP (INR)</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         <tr ng-repeat="orderDetails in mainInvoiceList">
                             <td data-title="" class="text-right">{{$index + 1}}</td>
@@ -200,7 +200,10 @@
                                 <span ng-if="orderDetails.orderFor === 'ULTIMA_WARDROBE'">
                                     <span>{{orderDetails.description}}</span>                                    
                                 </span>
-                    
+                                <span ng-if="orderDetails.orderFor === 'DEALER_SKU'">
+                                    <span>{{orderDetails.description}}</span>                                    
+                                </span>
+
                             </td>
                             <td class="text-left">
                                 <span ng-if="orderDetails.orderFor === 'CARCASS'">
@@ -253,6 +256,9 @@
                                 <span ng-if="orderDetails.orderFor === 'ULTIMA_WARDROBE'">
                                     <span><strong>Carcass Color :</strong> {{orderDetails.carcassColorName}}</span>
                                     <span ng-if="orderDetails.shutterColorName !== null">& <strong>Shutter Color :</strong> {{orderDetails.shutterColorName}}</span>                                  
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'DEALER_SKU'">
+                                    <span>{{orderDetails.color}}</span>
                                 </span>
                             </td>
                             <td>
@@ -313,6 +319,9 @@
                                 <span ng-if="orderDetails.orderFor === 'ULTIMA_WARDROBE'">
                                     {{ orderDetails.height}} mm
                                 </span>
+                                <span ng-if="orderDetails.orderFor === 'DEALER_SKU'">
+                                    {{ orderDetails.height}} mm
+                                </span>
                             </td>                            
                             <td class="text-left">
                                 <span ng-if="orderDetails.depth > 0">{{ orderDetails.depth}} mm</span>
@@ -326,19 +335,19 @@
                         </tr>
                     </tbody>
                     <!---- Trial Ends------------>
-                    
+
                 </table>
                 <hr style="border-top: 2px solid">
                 <div class="row">
                     <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Total Quantity :</strong></div>
                     <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>{{ mainInvoiceList | total:'quantity'}}</strong></div>
                 </div>
-<!--                <hr style="border-top: 2px solid">
-                <div class="row">
-                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong></strong></div>
-                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>DP</strong></div>
-                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>MRP</strong></div>
-                </div>-->
+                <!--                <hr style="border-top: 2px solid">
+                                <div class="row">
+                                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong></strong></div>
+                                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>DP</strong></div>
+                                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>MRP</strong></div>
+                                </div>-->
                 <hr style="border-top: 2px solid">
                 <div class="row">
                     <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Order Amount :</strong></div>                    

@@ -79,13 +79,43 @@ public class MaxWardrobeMrpDAL {
     }
 
     public List<MaxWardrobeMrp> findAll(Integer offset) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " ASC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
     }
 
     public List<MaxWardrobeMrp> findByCategory(String category) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{category}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
+    }
+
+    public List<MaxWardrobeMrp> findByCategoryDimensionsWidth(String category, Double width) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? AND " + Columns.WIDTH + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{category, width}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
+    }
+
+    public List<MaxWardrobeMrp> findByCategoryDimensionsDepth(String category, Double depth) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? AND " + Columns.DEPTH + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{category, depth}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
+    }
+
+    public List<MaxWardrobeMrp> findByCategoryDimensionsHeight(String category, Double height) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? AND " + Columns.HEIGHT + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{category, height}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
+    }
+
+    public List<MaxWardrobeMrp> findByCategoryDimensionsDepthHeight(String category, Double depth, Double height) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? AND " + Columns.DEPTH + " = ? AND " + Columns.HEIGHT + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{category, depth, height}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
+    }
+
+    public List<MaxWardrobeMrp> findByCategoryDimensionsWidthHeight(String category, Double width, Double height) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? AND " + Columns.WIDTH + " = ? AND " + Columns.HEIGHT + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{category, width, height}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
+    }
+
+    public List<MaxWardrobeMrp> findByCategoryDimensionsWidthDepth(String category, Double width, Double depth) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY + " = ? AND " + Columns.WIDTH + " = ? AND " + Columns.DEPTH + " = ?";
+        return jdbcTemplate.query(sqlQuery, new Object[]{category, width, depth}, new BeanPropertyRowMapper<>(MaxWardrobeMrp.class));
     }
 
     public List<MaxWardrobeMrp> findByCategoryDimensions(String category, Double width, Double depth, Double height) {

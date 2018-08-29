@@ -28,6 +28,7 @@
                 <th>Width</th>
                 <th>Depth</th>                
                 <th>Height</th>
+                <th>Image Available</th>
 <!--                <th>Carcass Price PPB</th>
                 <th>Carcass Price HD HMR</th>
                 <th>Carcass Price HDF</th>
@@ -53,6 +54,10 @@
                 <td data-title="Width">{{ maxWardrobe.width}}</td>
                 <td data-title="Depth">{{ maxWardrobe.depth}}</td>
                 <td data-title="Height">{{ maxWardrobe.height}}</td>
+                <td>
+                    <span ng-if="maxWardrobe.image === null || maxWardrobe.image === 'Default.jpg'"><label class="label label-danger">Not Available</label></span> 
+                    <span ng-if="maxWardrobe.image !== null"><label class="label label-success">Available</label></span> 
+                </td>
 <!--                <td data-title="Carcass Price PPB">&#8377; {{ maxWardrobe.cpPpbPrice}}</td>
                 <td data-title="Carcass Price HD HMR">&#8377; {{ maxWardrobe.cpHdHmrPrice}}</td>
                 <td data-title="Carcass Price HDF">&#8377; {{ maxWardrobe.cpHdfPrice}}</td>

@@ -5,17 +5,25 @@
  */
 package com.spacewood.digitalbusiness.ultimawardrobe;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -30,8 +38,8 @@ public class UltimaWardrobeRest {
     @Autowired
     private UltimaWardrobeDAL ultimaWardrobeDAL;
     
-//    @Autowired
-//    private UltimaWardrobeService ultimaWardrobeService;
+    @Autowired
+    private UltimaWardrobeService ultimaWardrobeService;
         
     
     @RequestMapping(method = RequestMethod.GET)
@@ -75,22 +83,22 @@ public class UltimaWardrobeRest {
         return ultimaWardrobeDAL.findByDescriptionLike(description);
     }
     
-//    @RequestMapping(value = "/{id}/attachment", method = RequestMethod.POST)
-//    public UltimaWardrobe uploadAttachment(
-//            @PathVariable Integer id,
-//            @RequestParam MultipartFile attachment
-//    ) throws IOException {
-//        System.out.println("MULTIPART ATTACHMENT LOGGER+++++++++++++++++" + attachment.getName());
-//        return ultimaWardrobeService.insertAttachments(id, attachment);
-//    }
-//
-//    @RequestMapping(value = "/{id}/attachment", method = RequestMethod.GET)
-//    public void getAttachment(@PathVariable Integer id, HttpServletResponse response) throws IOException {
-//        File photoFile = ultimaWardrobeService.getPhoto(id);
-//        response.setContentType(Files.probeContentType(Paths.get(photoFile.getAbsolutePath())));
-//        response.setContentLengthLong(photoFile.length());
-//        logger.debug("filename: {}, size: {}", photoFile.getAbsoluteFile(), photoFile.length());
-//        FileCopyUtils.copy(new FileInputStream(photoFile), response.getOutputStream());
-//    }
+    @RequestMapping(value = "/{id}/attachment", method = RequestMethod.POST)
+    public UltimaWardrobe uploadAttachment(
+            @PathVariable Integer id,
+            @RequestParam MultipartFile attachment
+    ) throws IOException {
+        System.out.println("MULTIPART ATTACHMENT LOGGER+++++++++++++++++" + attachment.getName());
+        return ultimaWardrobeService.insertAttachments(id, attachment);
+    }
+
+    @RequestMapping(value = "/{id}/attachment", method = RequestMethod.GET)
+    public void getAttachment(@PathVariable Integer id, HttpServletResponse response) throws IOException {
+        File photoFile = ultimaWardrobeService.getPhoto(id);
+        response.setContentType(Files.probeContentType(Paths.get(photoFile.getAbsolutePath())));
+        response.setContentLengthLong(photoFile.length());
+        logger.debug("filename: {}, size: {}", photoFile.getAbsoluteFile(), photoFile.length());
+        FileCopyUtils.copy(new FileInputStream(photoFile), response.getOutputStream());
+    }
     
 }

@@ -25,9 +25,65 @@ angular.module("digitalbusiness.states.ultima_wardrobe", [])
                 'templateUrl': templateRoot + '/masters/ultima_wardrobe/delete.html',
                 'controller': 'UltimaWardrobeDeleteController'
             });
+            $stateProvider.state('admin.masters_ultima_wardrobe.photo', {
+                'url': '/:ultimaWardrobeId/photo',
+                'templateUrl': templateRoot + '/masters/ultima_wardrobe/photo.html',
+                'controller': 'UltimaWardrobePhotoController'
+            });
         })
+        .controller('UltimaWardrobePhotoController', function (UltimaWardrobeService, restRoot, FileUploader, $scope, $stateParams, $state) {
+            $scope.enableSaveButton = true;
+            UltimaWardrobeService.get({
+                'id': $stateParams.ultimaWardrobeId
+            }, function (ultimaWardrobe) {
+                $scope.ultimaWardrobeObject = ultimaWardrobe;
+            });
+            $scope.goBack = function () {
+                $state.go('admin.masters_ultima_wardrobe', null, {'reload': true});
+            };
+            var uploader = $scope.fileUploader = new FileUploader({
+                url: restRoot + '/ultima_wardrobe/' + $stateParams.ultimaWardrobeId + '/attachment',
+                autoUpload: true,
+                alias: 'attachment'
+            });
+            uploader.onBeforeUploadItem = function (item) {
+                $scope.uploadInProgress = true;
+                $scope.uploadSuccess = false;
+                console.log("before upload item:", item);
+                console.log("uploader", uploader);
+            };
+            uploader.onErrorItem = function (fileItem, response, status, headers) {
+                $scope.uploadFailed = true;
+                $scope.uploadInProgress = false;
+                $scope.uploadSuccess = false;
+//                    $state.go('.', {}, {'reload': true});
+                console.log("upload error");
+//                $scope.refreshRawMarketPrice();
+            };
+            uploader.onCompleteItem = function (fileItem, response, status, headers) {
+                if (status === 200) {
+                    $state.go('admin.masters_ultima_wardrobe.photo', {
+                        'ultimaWardrobeId': $stateParams.ultimaWardrobeId
+                    }, {'reload': true});
+                    $scope.uploadInProgress = false;
+                    $scope.uploadFailed = false;
+                    $scope.uploadSuccess = true;
+                    $scope.enableSaveButton = false;
+                } else if (status === 500)
+                {
+                    $scope.uploadInProgress = false;
+                    $scope.uploadFailed = false;
+//                    $scope.uploadWarning = true;
+                } else {
+                    $scope.uploadInProgress = false;
+                    $scope.uploadFailed = true;
+                }
 
-        .controller('UltimaWardrobeListController', function (UltimaWardrobeService, $window, DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $rootScope, $scope, $stateParams, $state, paginationLimit) {            
+                console.log("upload completion", response);
+            };
+
+        })
+        .controller('UltimaWardrobeListController', function (UltimaWardrobeService, $window, DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $rootScope, $scope, $stateParams, $state, paginationLimit) {
             $scope.currentOffset = 0;
             $scope.mainUltimaWardrobeArray = [];
             $scope.nextUltimaWardrobes = UltimaWardrobeService.query({
@@ -36,6 +92,10 @@ angular.module("digitalbusiness.states.ultima_wardrobe", [])
 
             UltimaWardrobeService.query({
                 'offset': $scope.currentOffset
+            }, function (ultimaWardrobeList) {
+                angular.forEach(ultimaWardrobeList, function (ultimaWardrobeObject) {
+                    $scope.mainUltimaWardrobeArray.push(ultimaWardrobeObject);
+                });
             });
             $scope.ultimaWardrobeCall = function (offset) {
                 console.log("Offset :%O", offset);
@@ -43,7 +103,7 @@ angular.module("digitalbusiness.states.ultima_wardrobe", [])
                     'offset': $scope.currentOffset
                 }, function (ultimaWardrobeList) {
                     angular.forEach(ultimaWardrobeList, function (ultimaWardrobeObject) {
-                        
+
                         $scope.mainUltimaWardrobeArray.push(ultimaWardrobeObject);
                     });
                 });
@@ -64,7 +124,7 @@ angular.module("digitalbusiness.states.ultima_wardrobe", [])
                 ;
             });
         })
-        .controller('UltimaWardrobeAddController', function ($rootScope, DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {            
+        .controller('UltimaWardrobeAddController', function ($rootScope, DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {
 
 //            $scope.saveDealerSku = function (editableDealerSku) {
 //                editableDealerSku.createdBy = $scope.userObject.id;
@@ -73,7 +133,7 @@ angular.module("digitalbusiness.states.ultima_wardrobe", [])
 //                });
 //            };
         })
-        .controller('UltimnaWardrobeEditController', function (DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {            
+        .controller('UltimnaWardrobeEditController', function (DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {
 
 //            $scope.saveDealerSku = function (editableDealerSku) {
 //                -editableDealerSku.$save(function () {

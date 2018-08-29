@@ -27,7 +27,8 @@
                 <th>Description</th>
                 <th>Width</th>
                 <th>Depth</th>                
-                <th>Height</th>                
+                <th>Height</th> 
+                <th>Image Available</th>
                 <th class="text-right">Actions</th>
             </tr>
         </thead>
@@ -39,7 +40,11 @@
                 <td data-title="Description">{{ maxWardrobe.description}}</td>
                 <td data-title="Width">{{ maxWardrobe.width}} mm</td>
                 <td data-title="Depth">{{ maxWardrobe.depth}} mm</td>
-                <td data-title="Height">{{ maxWardrobe.height}} mm</td>                
+                <td data-title="Height">{{ maxWardrobe.height}} mm</td>
+                <td>
+                    <span ng-if="maxWardrobe.image === null || maxWardrobe.image === 'Default.jpg'"><label class="label label-danger">Not Available</label></span> 
+                    <span ng-if="maxWardrobe.image !== null"><label class="label label-success">Available</label></span> 
+                </td>                
                 <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_max_wardrobe_mrp.photo({ maxWardrobeMrpId: maxWardrobe.id })"
                        class="btn btn-primary">					
@@ -57,25 +62,25 @@
             </tr>
         </tbody>
     </table>
-<!--    <nav class="panel-footer">
-        <ul class="pager">
-            <li>
-                <button ng-click="previousPage()" 
-                        ng-disabled="{{ currentOffset == 0}}" 
-                        class="btn btn-default" >
-                    <i class="fa fa-arrow-left"></i>
-                    Previous
-                </button>
-            </li>
-            <li>
-                <button ng-click="nextPage()"
-                        ng-disabled="parties.length < 10 || nextParty.length === 0"
-                        class="btn btn-default">
-                    Next 
-                    <i class="fa fa-arrow-right"></i>
-                </button>
-            </li>
-        </ul>
-    </nav>
-</div>-->
-<div data-ui-view=""></div>
+    <!--    <nav class="panel-footer">
+            <ul class="pager">
+                <li>
+                    <button ng-click="previousPage()" 
+                            ng-disabled="{{ currentOffset == 0}}" 
+                            class="btn btn-default" >
+                        <i class="fa fa-arrow-left"></i>
+                        Previous
+                    </button>
+                </li>
+                <li>
+                    <button ng-click="nextPage()"
+                            ng-disabled="parties.length < 10 || nextParty.length === 0"
+                            class="btn btn-default">
+                        Next 
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>-->
+    <div data-ui-view=""></div>

@@ -45,6 +45,11 @@ public class DealerSkuRest {
     public List<DealerSku> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
         return dealerSkuDAL.findAll(offset);
     }
+    
+    @RequestMapping(value = "/find/creator",method = RequestMethod.GET)
+    public List<DealerSku> findByCreator(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset, @RequestParam(value="userId") Integer userId) throws SQLException {
+        return dealerSkuDAL.findByCreator(offset, userId);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public DealerSku findById(@PathVariable("id") Integer id) throws SQLException {

@@ -32,6 +32,7 @@ angular.module("digitalbusiness.states.dealer_sku", [])
             UserService.findByUsername({
                 'username': $scope.currentUser.username
             }, function (userObject) {
+                $scope.userObject = userObject;
                 console.log("THis is User Object :%O", userObject);
                 if (userObject.role === "ROLE_ADMIN") {
                     $scope.adminBackButton = true;
@@ -45,10 +46,12 @@ angular.module("digitalbusiness.states.dealer_sku", [])
             $scope.mainDealerSkuArray = [];
             $scope.nextDealerSkus = DealerSkuService.query({
                 'offset': $scope.nextOffset
+//                    'userId': $scope.userObject.id
             });
 
             DealerSkuService.query({
                 'offset': $scope.currentOffset
+//                    'userId': $scope.userObject.id
             }, function (dealerSkuList) {
                 angular.forEach(dealerSkuList, function (dealerSkuObject) {
                     dealerSkuObject.userObject = UserService.get({
@@ -67,6 +70,7 @@ angular.module("digitalbusiness.states.dealer_sku", [])
                 console.log("Offset :%O", offset);
                 DealerSkuService.query({
                     'offset': $scope.currentOffset
+//                    'userId': $scope.userObject.id
                 }, function (dealerSkuList) {
                     angular.forEach(dealerSkuList, function (dealerSkuObject) {
                         dealerSkuObject.userObject = UserService.get({
@@ -99,6 +103,7 @@ angular.module("digitalbusiness.states.dealer_sku", [])
             });
         })
         .controller('DealerSkuAddController', function ($rootScope, DealerSkuService, ManufacturerService, ManufacturerCategoryService, UserService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("Add SKU");
             $scope.currentUser = $rootScope.currentUser;
             UserService.findByUsername({
                 'username': $scope.currentUser.username

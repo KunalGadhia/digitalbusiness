@@ -33,34 +33,34 @@
                 <!--<td data-title="Delivery Party">{{ orderHead.deliveryPartyObject.dealerName}}</td>-->
                 <td data-title="PO Number">{{ orderHead.poNum}}</td>                 
                 <td data-title="Actions" class="text-right">
-                    <a data-ui-sref="admin.masters_dealer_order_details({orderHeadId: orderHead.id})"
-                       class="btn btn-primary">					
-                        <i class="fa fa-info-circle"></i>
-                        Order Details
-                    </a>
-                    <a data-ui-sref="admin.masters_order_details({orderHeadId: orderHead.id})"
+                    <!--                    <a data-ui-sref="admin.masters_dealer_order_details({orderHeadId: orderHead.id})"
+                                           class="btn btn-primary">					
+                                            <i class="fa fa-info-circle"></i>
+                                            Order Details
+                                        </a>-->
+                    <a data-ui-sref="admin.masters_order_mrp_details({orderHeadId: orderHead.id})"
                        class="btn btn-primary" ng-hide="orderHead.approved === true">
                         <i class="fa fa-pencil"></i>
                         Edit Order
                     </a>
 
-                    <a data-ui-sref="admin.masters_order_history.order_approve({orderHeadId: orderHead.id})"
-                       class="btn btn-primary" ng-hide="orderHead.approved === true">
-                        <i class="fa fa-check"></i>
-                        Approve
-                    </a>
-                    <a data-ui-sref="admin.dealer_order_head_delete({orderHeadId: orderHead.id})"
-                       class="btn btn-primary" ng-hide="orderHead.approved === true">
-                        <i class="fa fa-trash"></i>
-                        Delete
-                    </a>
-                    <a target="_blank" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
+                    <!--                    <a data-ui-sref="admin.masters_order_history.order_approve({orderHeadId: orderHead.id})"
+                                           class="btn btn-primary" ng-hide="orderHead.approved === true">
+                                            <i class="fa fa-check"></i>
+                                            Approve
+                                        </a>
+                                        <a data-ui-sref="admin.dealer_order_head_delete({orderHeadId: orderHead.id})"
+                                           class="btn btn-primary" ng-hide="orderHead.approved === true">
+                                            <i class="fa fa-trash"></i>
+                                            Delete
+                                        </a>-->
+                    <a target="_blank" data-ui-sref="mrp_proforma_invoice_display({ orderHeadId : orderHead.id})">
                         <button class="btn btn-primary" >
                             <i class="fa fa-print"></i>
                             Generate DP Quote
                         </button>
                     </a>
-                    <a target="_blank" data-ui-sref="customer_proforma_invoice_display({ orderHeadId : orderHead.id})">
+                    <a target="_blank" data-ui-sref="mrp_customer_proforma_invoice_display({ orderHeadId : orderHead.id})">
                         <button class="btn btn-primary" >
                             <i class="fa fa-print"></i>
                             Generate Customer Proforma Invoice

@@ -14,11 +14,26 @@ angular.module("digitalbusiness.states.admin", [])
                 'url': '/masters',
                 'templateUrl': templateRoot + '/masters/menu.html',
                 'controller': 'AdminMasterMenu'
-            });
+            });            
             $stateProvider.state('admin.dealers', {
                 'url': '/dealers',
                 'templateUrl': templateRoot + '/masters/dealer_menu.html',
+                'controller': 'DealerMenu'
+            });
+            $stateProvider.state('admin.dealers_master', {
+                'url': '/dealer_masters',
+                'templateUrl': templateRoot + '/masters/dealer_master_menu.html',
                 'controller': 'DealerMasterMenu'
+            });
+            $stateProvider.state('admin.dealers_transaction', {
+                'url': '/dealer_transaction',
+                'templateUrl': templateRoot + '/masters/dealer_transaction_menu.html',
+                'controller': 'DealerTransactionMenu'
+            });
+            $stateProvider.state('admin.dealers_transaction_history', {
+                'url': '/dealer_history_mrp',
+                'templateUrl': templateRoot + '/masters/dealer_history_menu.html',
+                'controller': 'DealerHistoryTransactionMenu'
             });
             $stateProvider.state('admin.logout', {
                 'url': '/logout',
@@ -40,8 +55,17 @@ angular.module("digitalbusiness.states.admin", [])
         .controller('AdminMasterMenu', function ($scope, UserService, NotificationService) {
             console.log("In Admin Master Menu");
         })
+        .controller('DealerMenu', function ($scope, UserService, NotificationService) {
+            console.log("In Dealer Menu");
+        })
         .controller('DealerMasterMenu', function ($scope, UserService, NotificationService) {
             console.log("In Dealer Menu");
+        })
+        .controller('DealerTransactionMenu', function ($scope, UserService, NotificationService) {
+            console.log("In Dealer Transaction Menu");
+        })
+        .controller('DealerHistoryTransactionMenu', function ($scope, UserService, NotificationService) {
+            console.log("In Dealer History Transaction Menu");
         })
         .controller('LogoutController', function (UserService, $scope, $state) {
             console.log("Coming to logout Controller??");
