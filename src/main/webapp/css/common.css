@@ -2187,3 +2187,11 @@ and open the template in the editor.
 
 
 }
+
+.orSpanArea{
+    position: absolute;
+    right: -10px;
+    top: 32px;
+    font-weight: 600;
+    font-size: 14px;
+}

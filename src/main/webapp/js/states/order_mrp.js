@@ -201,6 +201,7 @@ angular.module("digitalbusiness.states.order_mrp", [])
             /////////////////Infinity Wardrobe Funtionality Ends///////////////////
             /////////////////Max Wardrobe Funtionality ///////////////////
             $scope.editableMaxWardrobeDetailMrp = {};
+            $scope.showOr = true;
             $scope.editableMaxWardrobeDetailMrp.carcass = "Supertuff HDF";
             $scope.$watch('editableMaxWardrobeDetailMrp.category', function (category) {
                 console.log("Cateogry :" + category);
@@ -500,6 +501,7 @@ angular.module("digitalbusiness.states.order_mrp", [])
                     console.log("Width :"+maxWardrobeObject.width);
                     console.log("Depth :"+maxWardrobeObject.depth);
                     console.log("Height :"+maxWardrobeObject.height);
+                    $scope.showOr = false;
                     $scope.editableMaxWardrobeDetailMrp.width = maxWardrobeObject.width.toString();
                     $scope.editableMaxWardrobeDetailMrp.depth = maxWardrobeObject.depth.toString();
                     $scope.editableMaxWardrobeDetailMrp.height = maxWardrobeObject.height.toString();

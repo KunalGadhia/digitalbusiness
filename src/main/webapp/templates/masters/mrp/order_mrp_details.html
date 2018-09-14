@@ -339,8 +339,9 @@
                                 <option value="">Select Width</option>
                                 <option ng-repeat="width in maxWardrobeWidthList" value="{{width}}">{{width}} mm</option>
                             </select>
+                            <span ng-if="showOr" class="orSpanArea">OR</span>
                             <!--<input class="form-control" ng-model="editableMaxWardrobeDetailMrp.width" readonly="">-->
-                        </div>                        
+                        </div>                               
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -349,6 +350,7 @@
                                 <option value="">Select Depth</option>
                                 <option ng-repeat="depth in maxWardrobeDepthList" value="{{depth}}">{{depth}} mm</option>
                             </select>
+                            <span ng-if="showOr" class="orSpanArea">OR</span>
                             <!--<input class="form-control" ng-model="editableMaxWardrobeDetailMrp.depth" readonly="">-->
                         </div>
                     </div>
