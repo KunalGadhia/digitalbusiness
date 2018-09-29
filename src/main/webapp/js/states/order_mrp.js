@@ -308,6 +308,12 @@ angular.module("digitalbusiness.states.order_mrp", [])
                 } else if (userObject.role === "ROLE_DEALER") {
                     $scope.adminLogin = false;
                     $scope.dealerLogin = true;
+                } else if (userObject.role === "ROLE_DEALER_PRO") {
+                    $scope.adminLogin = false;
+                    $scope.dealerLogin = true;
+                } else if (userObject.role === "ROLE_DEALER_STAFF") {
+                    $scope.adminLogin = false;
+                    $scope.dealerLogin = true;
                 }
             });
 //            $scope.manufacturerList = ManufacturerService.findAllList();
@@ -498,9 +504,9 @@ angular.module("digitalbusiness.states.order_mrp", [])
                     'id': componentId
                 }, function (maxWardrobeObject) {
                     $scope.componentName = maxWardrobeObject.description;
-                    console.log("Width :"+maxWardrobeObject.width);
-                    console.log("Depth :"+maxWardrobeObject.depth);
-                    console.log("Height :"+maxWardrobeObject.height);
+                    console.log("Width :" + maxWardrobeObject.width);
+                    console.log("Depth :" + maxWardrobeObject.depth);
+                    console.log("Height :" + maxWardrobeObject.height);
                     $scope.showOr = false;
                     $scope.editableMaxWardrobeDetailMrp.width = maxWardrobeObject.width.toString();
                     $scope.editableMaxWardrobeDetailMrp.depth = maxWardrobeObject.depth.toString();
@@ -519,6 +525,24 @@ angular.module("digitalbusiness.states.order_mrp", [])
             /////////////////////////////////////////////////////////////////
         })
         .controller('MrpProformaInvoiceDisplayController', function (MaxWardrobeMrpOrderDetailsService, MaxWardrobeMrpService, OrderHeadService, DealerSkuOrderDetailsService, OrderHeadMrpService, $rootScope, UserService, PartyService, EmployeeService, $scope, $stateParams, $state, paginationLimit) {
+            $scope.currentUser = $rootScope.currentUser;
+            $scope.showMrpFeature = false;
+            UserService.findByUsername({
+                'username': $scope.currentUser.username
+            }, function (userObject) {
+                console.log("THis is User Object :%O", userObject);
+                if (userObject.role === "ROLE_ADMIN") {
+                    $scope.showMrpFeature = true;
+                } else if (userObject.role === "ROLE_DEALER") {
+                    $scope.showMrpFeature = false;
+                } else if (userObject.role === "ROLE_DEALER_PRO") {
+                    console.log("Pro Dealer");
+                    $scope.showMrpFeature = true;
+                } else if (userObject.role === "ROLE_DEALER_STAFF") {
+                    console.log("Regular Dealer Staff");
+                    $scope.showMrpFeature = true;
+                }
+            });
             $scope.currentDate = new Date();
             var totalPrice = 0;
             var maxWardrobeMrpPrice = 0;

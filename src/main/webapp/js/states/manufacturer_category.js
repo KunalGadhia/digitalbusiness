@@ -40,6 +40,12 @@ angular.module("digitalbusiness.states.manufacturer_category", [])
                 } else if (userObject.role === "ROLE_DEALER") {
                     $scope.adminBackButton = false;
                     $scope.dealerBackButton = true;
+                } else if (userObject.role === "ROLE_DEALER_PRO") {
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
+                } else if (userObject.role === "ROLE_DEALER_STAFF") {
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
                 }
             });
             $scope.currentOffset = 0;
@@ -124,6 +130,12 @@ angular.module("digitalbusiness.states.manufacturer_category", [])
                     $scope.adminBackButton = true;
                     $scope.dealerBackButton = false;
                 } else if (userObject.role === "ROLE_DEALER") {
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
+                } else if (userObject.role === "ROLE_DEALER_PRO") {
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
+                } else if (userObject.role === "ROLE_DEALER_STAFF") {
                     $scope.adminBackButton = false;
                     $scope.dealerBackButton = true;
                 }

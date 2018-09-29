@@ -337,15 +337,26 @@ angular.module("digitalbusiness.states.order", [])
             $scope.user = $rootScope.currentUser;
             $scope.adminLogin = false;
             $scope.dealerLogin = false;
+            $scope.showMrpFeature = false;
             UserService.findByUsername({
                 'username': $scope.user.username
             }, function (userObject) {
                 if (userObject.role === "ROLE_ADMIN") {
                     $scope.adminLogin = true;
                     $scope.dealerLogin = false;
-                } else {
+                    $scope.showMrpFeature = true;
+                } else if(userObject.role === "ROLE_DEALER") {
                     $scope.adminLogin = false;
                     $scope.dealerLogin = true;
+                    $scope.showMrpFeature = false;
+                } else if(userObject.role === "ROLE_DEALER_PRO") {
+                    $scope.adminLogin = false;
+                    $scope.dealerLogin = true;
+                    $scope.showMrpFeature = true;
+                } else if(userObject.role === "ROLE_DEALER_STAFF") {
+                    $scope.adminLogin = false;
+                    $scope.dealerLogin = true;
+                    $scope.showMrpFeature = true;
                 }
             });
             ///////////////////////////////////////
@@ -6846,7 +6857,25 @@ angular.module("digitalbusiness.states.order", [])
             };
         }
         )
-        .controller('ProformaInvoiceDisplayController', function (DealerSkuOrderDetailsService, InfinityWardrobeOrderDetailsService, UltimaWardrobeOrderDetailsService, UltimaWardrobeService, InfinityWardrobeService, MaxWardrobeOrderDetailsService, MaxWardrobeService, CarcassSubtypeService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+        .controller('ProformaInvoiceDisplayController', function ($rootScope, UserService, DealerSkuOrderDetailsService, InfinityWardrobeOrderDetailsService, UltimaWardrobeOrderDetailsService, UltimaWardrobeService, InfinityWardrobeService, MaxWardrobeOrderDetailsService, MaxWardrobeService, CarcassSubtypeService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+            $scope.currentUser = $rootScope.currentUser;
+            $scope.showMrpFeature = false;
+            UserService.findByUsername({
+                'username': $scope.currentUser.username
+            }, function (userObject) {
+                console.log("THis is User Object :%O", userObject);
+                if (userObject.role === "ROLE_ADMIN") {
+                    $scope.showMrpFeature = true;
+                } else if (userObject.role === "ROLE_DEALER") {
+                    $scope.showMrpFeature = false;
+                } else if (userObject.role === "ROLE_DEALER_PRO") {
+                    console.log("Pro Dealer");
+                    $scope.showMrpFeature = true;
+                } else if (userObject.role === "ROLE_DEALER_STAFF") {
+                    console.log("Regular Dealer Staff");
+                    $scope.showMrpFeature = true;
+                }
+            });
             $scope.currentDate = new Date();
             var totalPrice = 0;
             var carcassTotalPrice = 0;
@@ -8102,6 +8131,7 @@ angular.module("digitalbusiness.states.order", [])
         .controller('DealerOrderHistoryController', function (PartyService, OrderHeadService, UserService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
             console.log("What are STate Params Pelmet:%O", $stateParams);
             $scope.currentUser = $rootScope.currentUser;
+            $scope.showMrpFeature = false;
             UserService.findByUsername({
                 'username': $scope.currentUser.username
             }, function (userObject) {
@@ -8109,9 +8139,21 @@ angular.module("digitalbusiness.states.order", [])
                 if (userObject.role === "ROLE_ADMIN") {
                     $scope.adminBackButton = true;
                     $scope.dealerBackButton = false;
+                    $scope.showMrpFeature = false;
                 } else if (userObject.role === "ROLE_DEALER") {
                     $scope.adminBackButton = false;
                     $scope.dealerBackButton = true;
+                    $scope.showMrpFeature = false;
+                } else if (userObject.role === "ROLE_DEALER_PRO") {
+                    console.log("Pro Dealer");
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
+                    $scope.showMrpFeature = true;
+                } else if (userObject.role === "ROLE_DEALER_STAFF") {
+                    console.log("Regular Dealer Staff");
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
+                    $scope.showMrpFeature = true;
                 }
                 $scope.orderHeadList = OrderHeadService.findOrderGenerationSource({
                     'userId': userObject.id
@@ -8132,6 +8174,7 @@ angular.module("digitalbusiness.states.order", [])
         .controller('DealerOrderMrpHistoryController', function (PartyService, OrderHeadMrpService, UserService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
             console.log("What are STate Params Pelmet:%O", $stateParams);
             $scope.currentUser = $rootScope.currentUser;
+            $scope.showMrpFeature = false;
             UserService.findByUsername({
                 'username': $scope.currentUser.username
             }, function (userObject) {
@@ -8139,9 +8182,21 @@ angular.module("digitalbusiness.states.order", [])
                 if (userObject.role === "ROLE_ADMIN") {
                     $scope.adminBackButton = true;
                     $scope.dealerBackButton = false;
+                    $scope.showMrpFeature = true;
                 } else if (userObject.role === "ROLE_DEALER") {
                     $scope.adminBackButton = false;
                     $scope.dealerBackButton = true;
+                    $scope.showMrpFeature = false;
+                } else if (userObject.role === "ROLE_DEALER_PRO") {
+                    console.log("Pro Dealer");
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
+                    $scope.showMrpFeature = true;
+                } else if (userObject.role === "ROLE_DEALER_STAFF") {
+                    console.log("Regular Dealer Staff");
+                    $scope.adminBackButton = false;
+                    $scope.dealerBackButton = true;
+                    $scope.showMrpFeature = true;
                 }
                 $scope.orderHeadList = OrderHeadMrpService.findOrderGenerationSource({
                     'userId': userObject.id

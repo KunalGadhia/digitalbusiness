@@ -11,5 +11,7 @@ package com.spacewood.digitalbusiness.user;
  */
 public enum Role {
     ROLE_ADMIN,
-    ROLE_DEALER
+    ROLE_DEALER,
+    ROLE_DEALER_PRO,
+    ROLE_DEALER_STAFF,
 }

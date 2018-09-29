@@ -109,7 +109,8 @@
             </div>
             <div class="btn-group btn-group-lg btn-group-justified">
                 <a ng-click="selectView('HARDWARE')" class="btn btn-primary text-center">SPACEWOOD HARDWARE</a>
-                <a ng-click="selectView('OTHER_HARDWARE')" class="btn btn-primary text-center">OTHER H/W & ACC</a>
+                <a ng-if="showMrpFeature" ng-click="selectView('OTHER_HARDWARE')" class="btn btn-primary text-center">OTHER H/W & ACC</a>
+                <a ng-hide="showMrpFeature" ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>
                 <!--<a ng-click="selectView('MAXKITCHEN')" class="btn btn-primary text-center">MAX KITCHEN</a>-->
                 <!--<a ng-click="selectView('MAXWARDROBE')" class="btn btn-primary text-center">MAX WARDROBE</a>-->
                 <a ng-click="selectView('')" class="btn btn-primary text-center" disabled=""></a>

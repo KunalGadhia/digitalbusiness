@@ -14,7 +14,7 @@ angular.module("digitalbusiness.states.admin", [])
                 'url': '/masters',
                 'templateUrl': templateRoot + '/masters/menu.html',
                 'controller': 'AdminMasterMenu'
-            });            
+            });
             $stateProvider.state('admin.dealers', {
                 'url': '/dealers',
                 'templateUrl': templateRoot + '/masters/dealer_menu.html',
@@ -55,11 +55,29 @@ angular.module("digitalbusiness.states.admin", [])
         .controller('AdminMasterMenu', function ($scope, UserService, NotificationService) {
             console.log("In Admin Master Menu");
         })
-        .controller('DealerMenu', function ($scope, UserService, NotificationService) {
+        .controller('DealerMenu', function ($scope, $rootScope, UserService, NotificationService) {
             console.log("In Dealer Menu");
+            $scope.showMasters = false;
+            $scope.user = $rootScope.currentUser;
+            UserService.findByUsername({
+                'username': $scope.user.username
+            }, function (userObject) {
+                console.log("User Object :%O", userObject);
+                if (userObject.role === "ROLE_DEALER") {
+                    console.log("Regular Dealer");
+                    $scope.showMasters = false;
+                } else if (userObject.role === "ROLE_DEALER_PRO") {
+                    console.log("Pro Dealer");
+                    $scope.showMasters = true;
+                } else if (userObject.role === "ROLE_DEALER_STAFF") {
+                    console.log("Regular Dealer Staff");
+                    $scope.showMasters = true;
+                }
+            });
+
         })
         .controller('DealerMasterMenu', function ($scope, UserService, NotificationService) {
-            console.log("In Dealer Menu");
+            console.log("In Dealer Master Menu");
         })
         .controller('DealerTransactionMenu', function ($scope, UserService, NotificationService) {
             console.log("In Dealer Transaction Menu");

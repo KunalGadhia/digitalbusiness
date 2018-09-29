@@ -86,7 +86,7 @@
                             <th>Remark</th>
                             <th>Quantity</th>
                             <th>Price (INR)</th>
-                            <th>MRP (INR)</th>
+                            <th ng-if="showMrpFeature">MRP (INR)</th>
                         </tr>
                     </thead>                    
                     <tbody>
@@ -109,7 +109,7 @@
                             <td class="text-left"><span>{{ orderDetails.remark}}</span><span ng-if="orderDetails.remark === null">N/A</span></td>
                             <td class="text-left">{{ orderDetails.quantity}}</td> 
                             <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
-                            <td class="text-left">&#8377;{{orderDetails.price * 2.5}}</td>
+                            <td ng-if="showMrpFeature" class="text-left">&#8377;{{orderDetails.price * 2.5}}</td>
                         </tr>
                     </tbody>                    
                 </table>
@@ -118,17 +118,21 @@
                     <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Total Quantity :</strong></div>
                     <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>{{ mainInvoiceList | total:'quantity'}}</strong></div>
                 </div>
-                <hr style="border-top: 2px solid">
-                <div class="row">
+                <hr ng-if="showMrpFeature" style="border-top: 2px solid">
+                <div ng-if="showMrpFeature" class="row">
                     <div class="col-md-10 col-lg-10 col-sm-10 text-right"><strong></strong></div>
                     <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>DP</strong></div>
                     <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>MRP</strong></div>
                 </div>
                 <hr style="border-top: 2px solid">
-                <div class="row">
+                <div ng-if="showMrpFeature" class="row">
                     <div class="col-md-10 col-lg-10 col-sm-10 text-right"><strong>Order Amount :</strong></div>
                     <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ mainInvoiceList | total:'price'}}</strong></div>
                     <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (mainInvoiceList | total:'price') * 2.5}}</strong></div>
+                </div>
+                <div ng-hide="showMrpFeature" class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Order Amount :</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ mainInvoiceList | total:'price'}}</strong></div>                    
                 </div>
 <!--                <div class="row" ng-if="showIgst">
                     <div class="col-md-10 col-lg-10 col-sm-10 text-right"><strong>IGST (18%) :</strong></div>
@@ -146,10 +150,15 @@
                     <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{cgst * 2.5}}</strong></div>
                 </div>-->
                 <hr style="border-top: 2px solid">
-                <div class="row">
+                <div ng-if="showMrpFeature" class="row">
                     <div class="col-md-10 col-lg-10 col-sm-10 text-right"><strong>Net Amount :</strong></div>
                     <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{netAmount}}</strong></div>
                     <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{netAmount * 2.5}}</strong></div>
+                </div>
+                <div ng-hide="showMrpFeature" class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Net Amount :</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{netAmount}}</strong></div>
+                    <!--<div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{netAmount * 2.5}}</strong></div>-->
                 </div>
                 <hr style="border-top: 2px solid">
                 <div class="row">
