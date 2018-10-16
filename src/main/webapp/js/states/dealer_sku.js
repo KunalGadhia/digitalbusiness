@@ -6,7 +6,7 @@
 angular.module("digitalbusiness.states.dealer_sku", [])
         .config(function ($stateProvider, templateRoot) {
             $stateProvider.state('admin.masters_dealer_sku', {
-                'url': '/dealer_sku_master?offset',
+                'url': '/:userId/dealer_sku_master?offset',
                 'templateUrl': templateRoot + '/masters/dealer_sku/list.html',
                 'controller': 'DealerSkuListController'
             });
@@ -50,14 +50,14 @@ angular.module("digitalbusiness.states.dealer_sku", [])
             });
             $scope.currentOffset = 0;
             $scope.mainDealerSkuArray = [];
-            $scope.nextDealerSkus = DealerSkuService.query({
-                'offset': $scope.nextOffset
-//                    'userId': $scope.userObject.id
+            $scope.nextDealerSkus = DealerSkuService.findByCreator({
+                'offset': $scope.nextOffset,
+                'userId': $stateParams.userId
             });
 
-            DealerSkuService.query({
-                'offset': $scope.currentOffset
-//                    'userId': $scope.userObject.id
+            DealerSkuService.findByCreator({
+                'offset': $scope.currentOffset,
+                'userId': $stateParams.userId
             }, function (dealerSkuList) {
                 angular.forEach(dealerSkuList, function (dealerSkuObject) {
                     dealerSkuObject.userObject = UserService.get({
@@ -74,9 +74,9 @@ angular.module("digitalbusiness.states.dealer_sku", [])
             });
             $scope.dealerSkuCall = function (offset) {
                 console.log("Offset :%O", offset);
-                DealerSkuService.query({
-                    'offset': $scope.currentOffset
-//                    'userId': $scope.userObject.id
+                DealerSkuService.findByCreator({
+                    'offset': $scope.currentOffset,
+                    'userId': $stateParams.userId
                 }, function (dealerSkuList) {
                     angular.forEach(dealerSkuList, function (dealerSkuObject) {
                         dealerSkuObject.userObject = UserService.get({

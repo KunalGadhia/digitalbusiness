@@ -25,7 +25,7 @@ import org.springframework.stereotype.Repository;
 public class DealerSkuDAL {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    
+
     public static final class Columns {
 
         public static final String ID = "id";
@@ -75,10 +75,9 @@ public class DealerSkuDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(DealerSku.class));
     }
-    
+
     public List<DealerSku> findByCreator(Integer userId, Integer offset) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND "+Columns.CREATED_BY+" = ? ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
-        logger.debug("Dealer SQL Query "+sqlQuery);
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CREATED_BY + " = ? ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";        
         return jdbcTemplate.query(sqlQuery, new Object[]{userId, offset}, new BeanPropertyRowMapper<>(DealerSku.class));
     }
 

@@ -25,6 +25,7 @@
                 <th>Component</th>
                 <th>Component Code</th>
                 <th>Category</th>
+                <!--<th>Image Name</th>-->
                 <th>Image</th>                
                 <th class="text-right">Actions</th>
             </tr>
@@ -35,7 +36,9 @@
                 <td data-title="Component">{{ kitchenComponent.component}}</td>   
                 <td data-title="Component Code">{{ kitchenComponent.componentCode}}</td>  
                 <td data-title="Category">{{ kitchenComponent.category}}</td>
-                <td data-title="Image"><image ng-src="./rest/kitchen_component/{{kitchenComponent.id}}/attachment" width="150px" height="220px"/></td>                
+                <!--<td data-title="Img Name">{{ kitchenComponent.imageName}}</td>-->
+                <td data-title="Image"><image ng-src="./rest/kitchen_component/{{kitchenComponent.id}}/attachment" width="150px" height="220px"/></td>
+                <!--<td data-title="Image"><img src="file:///D:/digitalbusiness/kitchern_component/84/H380.jpg" width="150px" height="220px"/></td>-->
                 <!--<td><image ng-src="{{kitchenComponent.imagePath}}" width="150px" height="220px"/></td>-->                
                 <td data-title="Actions" class="text-right">
                     <a data-ui-sref="admin.masters_kitchen_component.edit({ kitchenComponentId: kitchenComponent.id })"

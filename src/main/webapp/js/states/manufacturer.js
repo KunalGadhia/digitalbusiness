@@ -6,7 +6,7 @@
 angular.module("digitalbusiness.states.manufacturer", [])
         .config(function ($stateProvider, templateRoot) {
             $stateProvider.state('admin.masters_manufacturer', {
-                'url': '/manufacturer_master?offset',
+                'url': '/:userId/manufacturer_master?offset',
                 'templateUrl': templateRoot + '/masters/manufacturer/list.html',
                 'controller': 'ManufacturerListController'
             });
@@ -49,12 +49,14 @@ angular.module("digitalbusiness.states.manufacturer", [])
             });
             $scope.currentOffset = 0;
             $scope.mainManufacturerArray = [];
-            $scope.nextManufacturers = ManufacturerService.query({
-                'offset': $scope.nextOffset
+            $scope.nextManufacturers = ManufacturerService.findByCreator({
+                'offset': $scope.nextOffset,
+                'userId': $stateParams.userId
             });
 
-            ManufacturerService.query({
-                'offset': $scope.currentOffset
+            ManufacturerService.findByCreator({
+                'offset': $scope.currentOffset,
+                'userId': $stateParams.userId
             }, function (manufacturerList) {
                 angular.forEach(manufacturerList, function (manufacturerObject) {
                     manufacturerObject.userObject = UserService.get({
@@ -65,8 +67,9 @@ angular.module("digitalbusiness.states.manufacturer", [])
             });
             $scope.manufacturerCall = function (offset) {
                 console.log("Offset :%O", offset);
-                ManufacturerService.query({
-                    'offset': $scope.currentOffset
+                ManufacturerService.findByCreator({
+                    'offset': $scope.currentOffset,
+                    'userId': $stateParams.userId
                 }, function (manufacturerList) {
                     angular.forEach(manufacturerList, function (manufacturerObject) {
                         manufacturerObject.userObject = UserService.get({
@@ -150,7 +153,7 @@ angular.module("digitalbusiness.states.manufacturer", [])
                 'id': $stateParams.manufacturerId
             });
 
-            $scope.saveManufacturer = function (editableManufacturer) {                
+            $scope.saveManufacturer = function (editableManufacturer) {
                 editableManufacturer.$save(function () {
                     $state.go('admin.masters_manufacturer', null, {'reload': true});
                 });

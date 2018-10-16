@@ -52,6 +52,11 @@ public class ManufacturerDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(Manufacturer.class));
     }
+    
+    public List<Manufacturer> findByCreator(Integer userId, Integer offset) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CREATED_BY + " = ? ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";        
+        return jdbcTemplate.query(sqlQuery, new Object[]{userId, offset}, new BeanPropertyRowMapper<>(Manufacturer.class));
+    }
 
     public List<Manufacturer> findAllList() {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE";

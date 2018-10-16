@@ -76,8 +76,14 @@ angular.module("digitalbusiness.states.admin", [])
             });
 
         })
-        .controller('DealerMasterMenu', function ($scope, UserService, NotificationService) {
+        .controller('DealerMasterMenu', function ($rootScope, $scope, UserService, NotificationService) {
             console.log("In Dealer Master Menu");
+            $scope.user = $rootScope.currentUser;
+            UserService.findByUsername({
+                'username': $scope.user.username
+            }, function (userObject) {
+                $scope.userId = userObject.id;
+            });
         })
         .controller('DealerTransactionMenu', function ($scope, UserService, NotificationService) {
             console.log("In Dealer Transaction Menu");

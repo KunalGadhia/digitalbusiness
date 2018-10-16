@@ -6,7 +6,7 @@
 angular.module("digitalbusiness.states.manufacturer_category", [])
         .config(function ($stateProvider, templateRoot) {
             $stateProvider.state('admin.masters_manufacturer_category', {
-                'url': '/manufacturer_category_master?offset',
+                'url': '/:userId/manufacturer_category_master?offset',
                 'templateUrl': templateRoot + '/masters/manufacturer_category/list.html',
                 'controller': 'ManufacturerCategoryListController'
             });
@@ -50,12 +50,14 @@ angular.module("digitalbusiness.states.manufacturer_category", [])
             });
             $scope.currentOffset = 0;
             $scope.mainManufacturerCategoryArray = [];
-            $scope.nextManufacturerCategories = ManufacturerCategoryService.query({
-                'offset': $scope.nextOffset
+            $scope.nextManufacturerCategories = ManufacturerCategoryService.findByCreator({
+                'offset': $scope.nextOffset,
+                'userId': $stateParams.userId
             });
 
-            ManufacturerCategoryService.query({
-                'offset': $scope.currentOffset
+            ManufacturerCategoryService.findByCreator({
+                'offset': $scope.currentOffset,
+                'userId': $stateParams.userId
             }, function (manufacturerCategoryList) {
                 angular.forEach(manufacturerCategoryList, function (manufacturerCategoryObject) {
                     manufacturerCategoryObject.userObject = UserService.get({
@@ -77,8 +79,9 @@ angular.module("digitalbusiness.states.manufacturer_category", [])
             });
             $scope.manufacturerCategoryCall = function (offset) {
                 console.log("Offset :%O", offset);
-                ManufacturerCategoryService.query({
-                    'offset': $scope.currentOffset
+                ManufacturerCategoryService.findByCreator({
+                    'offset': $scope.currentOffset,
+                    'userId': $stateParams.userId
                 }, function (manufacturerCategoryList) {
                     angular.forEach(manufacturerCategoryList, function (manufacturerCategoryObject) {
                         manufacturerCategoryObject.userObject = UserService.get({

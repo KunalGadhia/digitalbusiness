@@ -53,7 +53,8 @@ public class ManufacturerCategoryDAL {
                 .usingColumns(
                         Columns.CATEGORY_NAME,
                         Columns.CATEGORY_CODE,
-                        Columns.MANUFACTURERS, Columns.CREATED_BY
+                        Columns.MANUFACTURERS,
+                        Columns.CREATED_BY
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -61,6 +62,14 @@ public class ManufacturerCategoryDAL {
     public List<ManufacturerCategory> findAll(Integer offset) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, manufacturerCategoryRowMapper);
+    }
+
+    public List<ManufacturerCategory> findByCreator(Integer userId, Integer offset) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CREATED_BY + " = ? ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
+        System.out.println(" Mf Cat Query " + sqlQuery);
+        System.out.println("User Id " + userId);
+        System.out.println("Offset " + offset);
+        return jdbcTemplate.query(sqlQuery, new Object[]{userId, offset}, manufacturerCategoryRowMapper);
     }
 
     public List<ManufacturerCategory> findAllList() {
@@ -121,7 +130,7 @@ public class ManufacturerCategoryDAL {
         manufacturerCategory = findById(manufacturerCategory.getId());
         return manufacturerCategory;
     }
-    
+
     private final RowMapper<ManufacturerCategory> manufacturerCategoryRowMapper = new RowMapper<ManufacturerCategory>() {
 
         @Override
@@ -130,7 +139,7 @@ public class ManufacturerCategoryDAL {
             manufacturerCategoryMappingConstraint.setId(rs.getInt(Columns.ID));
             manufacturerCategoryMappingConstraint.setCategoryName(rs.getString(Columns.CATEGORY_NAME));
             manufacturerCategoryMappingConstraint.setCategoryCode(rs.getString(Columns.CATEGORY_CODE));
-            
+
             String manufacturersList = rs.getString(Columns.MANUFACTURERS);
             try {
                 ObjectMapper mapper = new ObjectMapper();
@@ -139,7 +148,8 @@ public class ManufacturerCategoryDAL {
                 manufacturerCategoryMappingConstraint.setManufacturers(manufacturers);
             } catch (IOException ex) {
                 throw new RuntimeException("Error parsing handlesList: '" + manufacturersList + "' ", ex);
-            }            
+            }
+            manufacturerCategoryMappingConstraint.setCreatedBy(rs.getInt(Columns.CREATED_BY));
             return manufacturerCategoryMappingConstraint;
         }
 
