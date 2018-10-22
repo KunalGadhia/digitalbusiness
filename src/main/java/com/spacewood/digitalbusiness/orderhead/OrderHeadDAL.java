@@ -62,7 +62,11 @@ public class OrderHeadDAL {
         public static final String DELIVERY_PARTY_DIRECT_TEL_NO = "delivery_party_direct_tel_no";
         public static final String DELIVERY_PARTY_BILL_BOARD_TEL = "delivery_party_bill_board_tel";
         public static final String DELIVERY_PARTY_FAX = "delivery_party_fax";
-        public static final String DELIVERY_PARTY_CITY = "delivery_party_city";        
+        public static final String DELIVERY_PARTY_CITY = "delivery_party_city";
+        public static final String TRANSPORTATION_CHARGES = "transportation_charges";
+        public static final String LOADING_UNLOADING_CHARGES = "loading_unloading_charges";
+        public static final String INSTALLATION_CHARGES = "installation_charges";
+        public static final String OTHER_CHARGES = "other_charges";
 
     }
 
@@ -114,7 +118,11 @@ public class OrderHeadDAL {
                         Columns.DELIVERY_PARTY_DIRECT_TEL_NO,
                         Columns.DELIVERY_PARTY_BILL_BOARD_TEL,
                         Columns.DELIVERY_PARTY_FAX,
-                        Columns.DELIVERY_PARTY_CITY
+                        Columns.DELIVERY_PARTY_CITY,
+                        Columns.TRANSPORTATION_CHARGES,
+                        Columns.LOADING_UNLOADING_CHARGES,
+                        Columns.INSTALLATION_CHARGES,
+                        Columns.OTHER_CHARGES
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -238,7 +246,11 @@ public class OrderHeadDAL {
         parameters.put(Columns.DELIVERY_PARTY_DIRECT_TEL_NO, orderHead.getDeliveryPartyDirectTelNo());
         parameters.put(Columns.DELIVERY_PARTY_BILL_BOARD_TEL, orderHead.getDeliveryPartyBillBoardTel());
         parameters.put(Columns.DELIVERY_PARTY_FAX, orderHead.getDeliveryPartyFax());
-        parameters.put(Columns.DELIVERY_PARTY_CITY, orderHead.getDeliveryPartyCity());        
+        parameters.put(Columns.DELIVERY_PARTY_CITY, orderHead.getDeliveryPartyCity());
+        parameters.put(Columns.TRANSPORTATION_CHARGES, orderHead.getTransportationCharges());
+        parameters.put(Columns.LOADING_UNLOADING_CHARGES, orderHead.getLoadingUnloadingCharges());
+        parameters.put(Columns.INSTALLATION_CHARGES, orderHead.getInstallationCharges());
+        parameters.put(Columns.OTHER_CHARGES, orderHead.getOtherCharges());
 
         Number newId = insertOrderHead.executeAndReturnKey(parameters);
         orderHead = findById(newId.intValue());
@@ -289,7 +301,11 @@ public class OrderHeadDAL {
                 + Columns.DELIVERY_PARTY_DIRECT_TEL_NO + " = ?,"
                 + Columns.DELIVERY_PARTY_BILL_BOARD_TEL + " = ?,"
                 + Columns.DELIVERY_PARTY_FAX + " = ?,"
-                + Columns.DELIVERY_PARTY_CITY + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.DELIVERY_PARTY_CITY + " = ?,"
+                + Columns.TRANSPORTATION_CHARGES + " = ?,"
+                + Columns.LOADING_UNLOADING_CHARGES + " = ?,"
+                + Columns.INSTALLATION_CHARGES + " = ?,"                
+                + Columns.OTHER_CHARGES + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     orderHead.getOrderNum(),
@@ -321,15 +337,19 @@ public class OrderHeadDAL {
                     orderHead.getNetAmount(),
                     orderHead.getDeliveryPartyName(),
                     orderHead.getDeliveryPartyAddress1(),
-                    orderHead.getDeliveryPartyAddress1(),
-                    orderHead.getNetAmount(),
-                    orderHead.getNetAmount(),
-                    orderHead.getNetAmount(),
-                    orderHead.getNetAmount(),
-                    orderHead.getNetAmount(),
-                    orderHead.getNetAmount(),
-                    orderHead.getNetAmount(),
-                    orderHead.getNetAmount(),
+                    orderHead.getDeliveryPartyAddress2(),
+                    orderHead.getDeliveryPartyAddress3(),
+                    orderHead.getDeliveryPartyAddress4(),
+                    orderHead.getDeliveryPartyEmail(),
+                    orderHead.getDeliveryPartyPostalCode(),
+                    orderHead.getDeliveryPartyDirectTelNo(),
+                    orderHead.getDeliveryPartyBillBoardTel(),
+                    orderHead.getDeliveryPartyFax(),
+                    orderHead.getDeliveryPartyCity(),
+                    orderHead.getTransportationCharges(),
+                    orderHead.getLoadingUnloadingCharges(),
+                    orderHead.getInstallationCharges(),
+                    orderHead.getOtherCharges(),
                     orderHead.getId()
                 });
         orderHead = findById(orderHead.getId());

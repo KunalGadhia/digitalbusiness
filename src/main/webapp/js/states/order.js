@@ -185,6 +185,16 @@ angular.module("digitalbusiness.states.order", [])
 //                    $scope.editableOrderHead.projectName = billingPartyObject.dealerName;
                     $scope.editableOrderHead.party = billingPartyObject;
                     $scope.editableOrderHead.party1 = billingPartyObject;
+                    $scope.editableOrderHead.deliveryPartyName = billingPartyObject.dealerName;
+                    $scope.editableOrderHead.deliveryPartyAddress1 = billingPartyObject.billingAdd1;
+                    $scope.editableOrderHead.deliveryPartyAddress2 = billingPartyObject.billingAdd2;
+                    $scope.editableOrderHead.deliveryPartyAddress3 = billingPartyObject.billingAdd3;
+                    $scope.editableOrderHead.deliveryPartyAddress4 = billingPartyObject.billingAdd4;
+                    $scope.editableOrderHead.deliveryPartyEmail = billingPartyObject.billingEmail;                    
+                    $scope.editableOrderHead.deliveryPartyDirectTelNo = billingPartyObject.directTelNo;
+                    $scope.editableOrderHead.deliveryPartyBillBoardTel = billingPartyObject.billBoardTel;
+                    $scope.editableOrderHead.deliveryPartyFax = billingPartyObject.billingFax;
+                    $scope.editableOrderHead.deliveryPartyCity = billingPartyObject.city;
                     $scope.editableOrderHead.employee = EmployeeService.get({
                         'id': billingPartyObject.marketingHeadId
                     }, function (employee) {
@@ -6781,7 +6791,7 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("Dealer SKU MRP Order List :%O", dealerSkuMrpOrdersList);
             });
             ///////////////////End//////////////////////////////////////
-            $scope.updateOrderHead = function () {
+            $scope.updateOrderHead = function (editableOrderHead) {
                 OrderHeadService.get({
                     'id': $stateParams.orderHeadId
                 }, function (orderHeadObject) {
@@ -6802,7 +6812,7 @@ angular.module("digitalbusiness.states.order", [])
                             var ultimaWardrobeTotal = parseInt($("#ultimaWardrobeTotal").val());
                             var maxKitchenTotal = parseInt($("#maxKitchenTotal").val());
 
-                            $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal + infinityWardrobeTotal + ultimaWardrobeTotal + maxKitchenTotal);
+                            $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal + infinityWardrobeTotal + ultimaWardrobeTotal + maxKitchenTotal + editableOrderHead.transportationCharges + editableOrderHead.loadingUnloadingCharges + editableOrderHead.installationCharges + editableOrderHead.otherCharges);
                             $scope.cgst = (($scope.totalOrderPrice / 100) * 9);
                             $scope.sgst = (($scope.totalOrderPrice / 100) * 9);
                             $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.cgst + $scope.sgst));
@@ -6811,6 +6821,10 @@ angular.module("digitalbusiness.states.order", [])
                             orderHeadObject.sgstAmount = Math.round($scope.sgst);
                             orderHeadObject.igstAmount = 0;
                             orderHeadObject.netAmount = $scope.netTotalAmount;
+                            orderHeadObject.transportationCharges = editableOrderHead.transportationCharges;
+                            orderHeadObject.loadingUnloadingCharges = editableOrderHead.loadingUnloadingCharges;
+                            orderHeadObject.installationCharges = editableOrderHead.installationCharges;
+                            orderHeadObject.otherCharges = editableOrderHead.otherCharges;
                             if ($scope.adminLogin === true) {
                                 orderHeadObject.$save(function () {
                                     $state.go('admin.masters', null, {'reload': true});
