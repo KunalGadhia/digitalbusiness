@@ -52,6 +52,17 @@ public class OrderHeadDAL {
         public static final String SGST_AMOUNT = "sgst_amount";
         public static final String IGST_AMOUNT = "igst_amount";
         public static final String NET_AMOUNT = "net_amount";
+        public static final String DELIVERY_PARTY_NAME = "delivery_party_name";
+        public static final String DELIVERY_PARTY_ADDRESS1 = "delivery_party_address1";
+        public static final String DELIVERY_PARTY_ADDRESS2 = "delivery_party_address2";
+        public static final String DELIVERY_PARTY_ADDRESS3 = "delivery_party_address3";
+        public static final String DELIVERY_PARTY_ADDRESS4 = "delivery_party_address4";
+        public static final String DELIVERY_PARTY_EMAIL = "delivery_party_email";
+        public static final String DELIVERY_PARTY_POSTAL_CODE = "delivery_party_postal_code";
+        public static final String DELIVERY_PARTY_DIRECT_TEL_NO = "delivery_party_direct_tel_no";
+        public static final String DELIVERY_PARTY_BILL_BOARD_TEL = "delivery_party_bill_board_tel";
+        public static final String DELIVERY_PARTY_FAX = "delivery_party_fax";
+        public static final String DELIVERY_PARTY_CITY = "delivery_party_city";        
 
     }
 
@@ -92,7 +103,18 @@ public class OrderHeadDAL {
                         Columns.CGST_AMOUNT,
                         Columns.SGST_AMOUNT,
                         Columns.IGST_AMOUNT,
-                        Columns.NET_AMOUNT
+                        Columns.NET_AMOUNT,
+                        Columns.DELIVERY_PARTY_NAME,
+                        Columns.DELIVERY_PARTY_ADDRESS1,
+                        Columns.DELIVERY_PARTY_ADDRESS2,
+                        Columns.DELIVERY_PARTY_ADDRESS3,
+                        Columns.DELIVERY_PARTY_ADDRESS4,
+                        Columns.DELIVERY_PARTY_EMAIL,
+                        Columns.DELIVERY_PARTY_POSTAL_CODE,
+                        Columns.DELIVERY_PARTY_DIRECT_TEL_NO,
+                        Columns.DELIVERY_PARTY_BILL_BOARD_TEL,
+                        Columns.DELIVERY_PARTY_FAX,
+                        Columns.DELIVERY_PARTY_CITY
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -206,6 +228,17 @@ public class OrderHeadDAL {
         parameters.put(Columns.SGST_AMOUNT, "0");
         parameters.put(Columns.IGST_AMOUNT, "0");
         parameters.put(Columns.NET_AMOUNT, "0");
+        parameters.put(Columns.DELIVERY_PARTY_NAME, orderHead.getDeliveryPartyName());
+        parameters.put(Columns.DELIVERY_PARTY_ADDRESS1, orderHead.getDeliveryPartyAddress1());
+        parameters.put(Columns.DELIVERY_PARTY_ADDRESS2, orderHead.getDeliveryPartyAddress2());
+        parameters.put(Columns.DELIVERY_PARTY_ADDRESS3, orderHead.getDeliveryPartyAddress3());
+        parameters.put(Columns.DELIVERY_PARTY_ADDRESS4, orderHead.getDeliveryPartyAddress4());
+        parameters.put(Columns.DELIVERY_PARTY_EMAIL, orderHead.getDeliveryPartyEmail());
+        parameters.put(Columns.DELIVERY_PARTY_POSTAL_CODE, orderHead.getDeliveryPartyPostalCode());
+        parameters.put(Columns.DELIVERY_PARTY_DIRECT_TEL_NO, orderHead.getDeliveryPartyDirectTelNo());
+        parameters.put(Columns.DELIVERY_PARTY_BILL_BOARD_TEL, orderHead.getDeliveryPartyBillBoardTel());
+        parameters.put(Columns.DELIVERY_PARTY_FAX, orderHead.getDeliveryPartyFax());
+        parameters.put(Columns.DELIVERY_PARTY_CITY, orderHead.getDeliveryPartyCity());        
 
         Number newId = insertOrderHead.executeAndReturnKey(parameters);
         orderHead = findById(newId.intValue());
@@ -245,7 +278,18 @@ public class OrderHeadDAL {
                 + Columns.CGST_AMOUNT + " = ?,"
                 + Columns.SGST_AMOUNT + " = ?,"
                 + Columns.IGST_AMOUNT + " = ?,"
-                + Columns.NET_AMOUNT + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.NET_AMOUNT + " = ?,"
+                + Columns.DELIVERY_PARTY_NAME + " = ?,"
+                + Columns.DELIVERY_PARTY_ADDRESS1 + " = ?,"
+                + Columns.DELIVERY_PARTY_ADDRESS2 + " = ?,"
+                + Columns.DELIVERY_PARTY_ADDRESS3 + " = ?,"
+                + Columns.DELIVERY_PARTY_ADDRESS4 + " = ?,"
+                + Columns.DELIVERY_PARTY_EMAIL + " = ?,"
+                + Columns.DELIVERY_PARTY_POSTAL_CODE + " = ?,"
+                + Columns.DELIVERY_PARTY_DIRECT_TEL_NO + " = ?,"
+                + Columns.DELIVERY_PARTY_BILL_BOARD_TEL + " = ?,"
+                + Columns.DELIVERY_PARTY_FAX + " = ?,"
+                + Columns.DELIVERY_PARTY_CITY + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     orderHead.getOrderNum(),
@@ -274,6 +318,17 @@ public class OrderHeadDAL {
                     orderHead.getCgstAmount(),
                     orderHead.getSgstAmount(),
                     orderHead.getIgstAmount(),
+                    orderHead.getNetAmount(),
+                    orderHead.getDeliveryPartyName(),
+                    orderHead.getDeliveryPartyAddress1(),
+                    orderHead.getDeliveryPartyAddress1(),
+                    orderHead.getNetAmount(),
+                    orderHead.getNetAmount(),
+                    orderHead.getNetAmount(),
+                    orderHead.getNetAmount(),
+                    orderHead.getNetAmount(),
+                    orderHead.getNetAmount(),
+                    orderHead.getNetAmount(),
                     orderHead.getNetAmount(),
                     orderHead.getId()
                 });
