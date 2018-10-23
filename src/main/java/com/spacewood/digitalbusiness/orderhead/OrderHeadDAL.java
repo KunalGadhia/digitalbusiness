@@ -67,6 +67,9 @@ public class OrderHeadDAL {
         public static final String LOADING_UNLOADING_CHARGES = "loading_unloading_charges";
         public static final String INSTALLATION_CHARGES = "installation_charges";
         public static final String OTHER_CHARGES = "other_charges";
+        public static final String DISCOUNT = "discount";
+        public static final String MRP_RAMPUP_PERCENTAGE = "mrp_rampup_percentage";
+        public static final String MRP_RAMPUP_FACTOR = "mrp_rampup_factor";
 
     }
 
@@ -122,7 +125,10 @@ public class OrderHeadDAL {
                         Columns.TRANSPORTATION_CHARGES,
                         Columns.LOADING_UNLOADING_CHARGES,
                         Columns.INSTALLATION_CHARGES,
-                        Columns.OTHER_CHARGES
+                        Columns.OTHER_CHARGES,
+                        Columns.DISCOUNT,
+                        Columns.MRP_RAMPUP_PERCENTAGE,
+                        Columns.MRP_RAMPUP_FACTOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -251,6 +257,9 @@ public class OrderHeadDAL {
         parameters.put(Columns.LOADING_UNLOADING_CHARGES, orderHead.getLoadingUnloadingCharges());
         parameters.put(Columns.INSTALLATION_CHARGES, orderHead.getInstallationCharges());
         parameters.put(Columns.OTHER_CHARGES, orderHead.getOtherCharges());
+        parameters.put(Columns.DISCOUNT, orderHead.getDiscount());
+        parameters.put(Columns.MRP_RAMPUP_PERCENTAGE, orderHead.getMrpRampupPercentage());
+        parameters.put(Columns.MRP_RAMPUP_FACTOR, orderHead.getMrpRampupFactor());
 
         Number newId = insertOrderHead.executeAndReturnKey(parameters);
         orderHead = findById(newId.intValue());
@@ -304,8 +313,11 @@ public class OrderHeadDAL {
                 + Columns.DELIVERY_PARTY_CITY + " = ?,"
                 + Columns.TRANSPORTATION_CHARGES + " = ?,"
                 + Columns.LOADING_UNLOADING_CHARGES + " = ?,"
-                + Columns.INSTALLATION_CHARGES + " = ?,"                
-                + Columns.OTHER_CHARGES + " = ? WHERE " + Columns.ID + " = ?";
+                + Columns.INSTALLATION_CHARGES + " = ?,"
+                + Columns.OTHER_CHARGES + " = ?,"
+                + Columns.DISCOUNT + " = ?,"
+                + Columns.MRP_RAMPUP_PERCENTAGE + " = ?,"
+                + Columns.MRP_RAMPUP_FACTOR + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     orderHead.getOrderNum(),
@@ -350,6 +362,9 @@ public class OrderHeadDAL {
                     orderHead.getLoadingUnloadingCharges(),
                     orderHead.getInstallationCharges(),
                     orderHead.getOtherCharges(),
+                    orderHead.getDiscount(),
+                    orderHead.getMrpRampupPercentage(),
+                    orderHead.getMrpRampupFactor(),
                     orderHead.getId()
                 });
         orderHead = findById(orderHead.getId());

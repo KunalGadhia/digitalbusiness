@@ -56,6 +56,9 @@ public class OrderHead {
     private Double loadingUnloadingCharges;
     private Double installationCharges;
     private Double otherCharges;
+    private Double discount;
+    private Double mrpRampupPercentage;
+    private Double mrpRampupFactor;
 
     public Integer getId() {
         return id;
@@ -401,52 +404,79 @@ public class OrderHead {
         this.otherCharges = otherCharges;
     }
 
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Double getMrpRampupPercentage() {
+        return mrpRampupPercentage;
+    }
+
+    public void setMrpRampupPercentage(Double mrpRampupPercentage) {
+        this.mrpRampupPercentage = mrpRampupPercentage;
+    }
+
+    public Double getMrpRampupFactor() {
+        return mrpRampupFactor;
+    }
+
+    public void setMrpRampupFactor(Double mrpRampupFactor) {
+        this.mrpRampupFactor = mrpRampupFactor;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.orderNum);
-        hash = 89 * hash + Objects.hashCode(this.segment);
-        hash = 89 * hash + Objects.hashCode(this.saleType);
-        hash = 89 * hash + Objects.hashCode(this.entryType);
-        hash = 89 * hash + Objects.hashCode(this.orderType);
-        hash = 89 * hash + Objects.hashCode(this.billingPartyId);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyId);
-        hash = 89 * hash + Objects.hashCode(this.postalCode);
-        hash = 89 * hash + Objects.hashCode(this.billType);
-        hash = 89 * hash + Objects.hashCode(this.orderSubType);
-        hash = 89 * hash + Objects.hashCode(this.projectName);
-        hash = 89 * hash + Objects.hashCode(this.poNum);
-        hash = 89 * hash + Objects.hashCode(this.orderId);
-        hash = 89 * hash + Objects.hashCode(this.poDate);
-        hash = 89 * hash + Objects.hashCode(this.poValue);
-        hash = 89 * hash + Objects.hashCode(this.marketingHead);
-        hash = 89 * hash + Objects.hashCode(this.orderInitiatedBy);
-        hash = 89 * hash + Objects.hashCode(this.rateApplicability);
-        hash = 89 * hash + Objects.hashCode(this.rateContract);
-        hash = 89 * hash + Objects.hashCode(this.orcPer);
-        hash = 89 * hash + Objects.hashCode(this.approved);
-        hash = 89 * hash + Objects.hashCode(this.approvalDate);
-        hash = 89 * hash + Objects.hashCode(this.orderAmount);
-        hash = 89 * hash + Objects.hashCode(this.cgstAmount);
-        hash = 89 * hash + Objects.hashCode(this.sgstAmount);
-        hash = 89 * hash + Objects.hashCode(this.igstAmount);
-        hash = 89 * hash + Objects.hashCode(this.netAmount);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyName);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyAddress1);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyAddress2);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyAddress3);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyAddress4);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyEmail);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyPostalCode);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyDirectTelNo);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyBillBoardTel);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyFax);
-        hash = 89 * hash + Objects.hashCode(this.deliveryPartyCity);
-        hash = 89 * hash + Objects.hashCode(this.transportationCharges);
-        hash = 89 * hash + Objects.hashCode(this.loadingUnloadingCharges);
-        hash = 89 * hash + Objects.hashCode(this.installationCharges);
-        hash = 89 * hash + Objects.hashCode(this.otherCharges);
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.orderNum);
+        hash = 37 * hash + Objects.hashCode(this.segment);
+        hash = 37 * hash + Objects.hashCode(this.saleType);
+        hash = 37 * hash + Objects.hashCode(this.entryType);
+        hash = 37 * hash + Objects.hashCode(this.orderType);
+        hash = 37 * hash + Objects.hashCode(this.billingPartyId);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyId);
+        hash = 37 * hash + Objects.hashCode(this.postalCode);
+        hash = 37 * hash + Objects.hashCode(this.billType);
+        hash = 37 * hash + Objects.hashCode(this.orderSubType);
+        hash = 37 * hash + Objects.hashCode(this.projectName);
+        hash = 37 * hash + Objects.hashCode(this.poNum);
+        hash = 37 * hash + Objects.hashCode(this.orderId);
+        hash = 37 * hash + Objects.hashCode(this.poDate);
+        hash = 37 * hash + Objects.hashCode(this.poValue);
+        hash = 37 * hash + Objects.hashCode(this.marketingHead);
+        hash = 37 * hash + Objects.hashCode(this.orderInitiatedBy);
+        hash = 37 * hash + Objects.hashCode(this.rateApplicability);
+        hash = 37 * hash + Objects.hashCode(this.rateContract);
+        hash = 37 * hash + Objects.hashCode(this.orcPer);
+        hash = 37 * hash + Objects.hashCode(this.approved);
+        hash = 37 * hash + Objects.hashCode(this.approvalDate);
+        hash = 37 * hash + Objects.hashCode(this.orderAmount);
+        hash = 37 * hash + Objects.hashCode(this.cgstAmount);
+        hash = 37 * hash + Objects.hashCode(this.sgstAmount);
+        hash = 37 * hash + Objects.hashCode(this.igstAmount);
+        hash = 37 * hash + Objects.hashCode(this.netAmount);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyName);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyAddress1);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyAddress2);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyAddress3);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyAddress4);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyEmail);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyPostalCode);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyDirectTelNo);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyBillBoardTel);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyFax);
+        hash = 37 * hash + Objects.hashCode(this.deliveryPartyCity);
+        hash = 37 * hash + Objects.hashCode(this.transportationCharges);
+        hash = 37 * hash + Objects.hashCode(this.loadingUnloadingCharges);
+        hash = 37 * hash + Objects.hashCode(this.installationCharges);
+        hash = 37 * hash + Objects.hashCode(this.otherCharges);
+        hash = 37 * hash + Objects.hashCode(this.discount);
+        hash = 37 * hash + Objects.hashCode(this.mrpRampupPercentage);
+        hash = 37 * hash + Objects.hashCode(this.mrpRampupFactor);
         return hash;
     }
 
@@ -591,13 +621,21 @@ public class OrderHead {
         if (!Objects.equals(this.otherCharges, other.otherCharges)) {
             return false;
         }
+        if (!Objects.equals(this.discount, other.discount)) {
+            return false;
+        }
+        if (!Objects.equals(this.mrpRampupPercentage, other.mrpRampupPercentage)) {
+            return false;
+        }
+        if (!Objects.equals(this.mrpRampupFactor, other.mrpRampupFactor)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "OrderHead{" + "id=" + id + ", orderNum=" + orderNum + ", segment=" + segment + ", saleType=" + saleType + ", entryType=" + entryType + ", orderType=" + orderType + ", billingPartyId=" + billingPartyId + ", deliveryPartyId=" + deliveryPartyId + ", postalCode=" + postalCode + ", billType=" + billType + ", orderSubType=" + orderSubType + ", projectName=" + projectName + ", poNum=" + poNum + ", orderId=" + orderId + ", poDate=" + poDate + ", poValue=" + poValue + ", marketingHead=" + marketingHead + ", orderInitiatedBy=" + orderInitiatedBy + ", rateApplicability=" + rateApplicability + ", rateContract=" + rateContract + ", orcPer=" + orcPer + ", approved=" + approved + ", approvalDate=" + approvalDate + ", orderAmount=" + orderAmount + ", cgstAmount=" + cgstAmount + ", sgstAmount=" + sgstAmount + ", igstAmount=" + igstAmount + ", netAmount=" + netAmount + ", deliveryPartyName=" + deliveryPartyName + ", deliveryPartyAddress1=" + deliveryPartyAddress1 + ", deliveryPartyAddress2=" + deliveryPartyAddress2 + ", deliveryPartyAddress3=" + deliveryPartyAddress3 + ", deliveryPartyAddress4=" + deliveryPartyAddress4 + ", deliveryPartyEmail=" + deliveryPartyEmail + ", deliveryPartyPostalCode=" + deliveryPartyPostalCode + ", deliveryPartyDirectTelNo=" + deliveryPartyDirectTelNo + ", deliveryPartyBillBoardTel=" + deliveryPartyBillBoardTel + ", deliveryPartyFax=" + deliveryPartyFax + ", deliveryPartyCity=" + deliveryPartyCity + ", transportationCharges=" + transportationCharges + ", loadingUnloadingCharges=" + loadingUnloadingCharges + ", installationCharges=" + installationCharges + ", otherCharges=" + otherCharges + '}';
+        return "OrderHead{" + "id=" + id + ", orderNum=" + orderNum + ", segment=" + segment + ", saleType=" + saleType + ", entryType=" + entryType + ", orderType=" + orderType + ", billingPartyId=" + billingPartyId + ", deliveryPartyId=" + deliveryPartyId + ", postalCode=" + postalCode + ", billType=" + billType + ", orderSubType=" + orderSubType + ", projectName=" + projectName + ", poNum=" + poNum + ", orderId=" + orderId + ", poDate=" + poDate + ", poValue=" + poValue + ", marketingHead=" + marketingHead + ", orderInitiatedBy=" + orderInitiatedBy + ", rateApplicability=" + rateApplicability + ", rateContract=" + rateContract + ", orcPer=" + orcPer + ", approved=" + approved + ", approvalDate=" + approvalDate + ", orderAmount=" + orderAmount + ", cgstAmount=" + cgstAmount + ", sgstAmount=" + sgstAmount + ", igstAmount=" + igstAmount + ", netAmount=" + netAmount + ", deliveryPartyName=" + deliveryPartyName + ", deliveryPartyAddress1=" + deliveryPartyAddress1 + ", deliveryPartyAddress2=" + deliveryPartyAddress2 + ", deliveryPartyAddress3=" + deliveryPartyAddress3 + ", deliveryPartyAddress4=" + deliveryPartyAddress4 + ", deliveryPartyEmail=" + deliveryPartyEmail + ", deliveryPartyPostalCode=" + deliveryPartyPostalCode + ", deliveryPartyDirectTelNo=" + deliveryPartyDirectTelNo + ", deliveryPartyBillBoardTel=" + deliveryPartyBillBoardTel + ", deliveryPartyFax=" + deliveryPartyFax + ", deliveryPartyCity=" + deliveryPartyCity + ", transportationCharges=" + transportationCharges + ", loadingUnloadingCharges=" + loadingUnloadingCharges + ", installationCharges=" + installationCharges + ", otherCharges=" + otherCharges + ", discount=" + discount + ", mrpRampupPercentage=" + mrpRampupPercentage + ", mrpRampupFactor=" + mrpRampupFactor + '}';
     }
-
     
 }

@@ -190,7 +190,7 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.editableOrderHead.deliveryPartyAddress2 = billingPartyObject.billingAdd2;
                     $scope.editableOrderHead.deliveryPartyAddress3 = billingPartyObject.billingAdd3;
                     $scope.editableOrderHead.deliveryPartyAddress4 = billingPartyObject.billingAdd4;
-                    $scope.editableOrderHead.deliveryPartyEmail = billingPartyObject.billingEmail;                    
+                    $scope.editableOrderHead.deliveryPartyEmail = billingPartyObject.billingEmail;
                     $scope.editableOrderHead.deliveryPartyDirectTelNo = billingPartyObject.directTelNo;
                     $scope.editableOrderHead.deliveryPartyBillBoardTel = billingPartyObject.billBoardTel;
                     $scope.editableOrderHead.deliveryPartyFax = billingPartyObject.billingFax;
@@ -355,15 +355,15 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.adminLogin = true;
                     $scope.dealerLogin = false;
                     $scope.showMrpFeature = true;
-                } else if(userObject.role === "ROLE_DEALER") {
+                } else if (userObject.role === "ROLE_DEALER") {
                     $scope.adminLogin = false;
                     $scope.dealerLogin = true;
                     $scope.showMrpFeature = false;
-                } else if(userObject.role === "ROLE_DEALER_PRO") {
+                } else if (userObject.role === "ROLE_DEALER_PRO") {
                     $scope.adminLogin = false;
                     $scope.dealerLogin = true;
                     $scope.showMrpFeature = true;
-                } else if(userObject.role === "ROLE_DEALER_STAFF") {
+                } else if (userObject.role === "ROLE_DEALER_STAFF") {
                     $scope.adminLogin = false;
                     $scope.dealerLogin = true;
                     $scope.showMrpFeature = true;
@@ -6811,8 +6811,8 @@ angular.module("digitalbusiness.states.order", [])
                             var infinityWardrobeTotal = parseInt($("#infinityWardrobeTotal").val());
                             var ultimaWardrobeTotal = parseInt($("#ultimaWardrobeTotal").val());
                             var maxKitchenTotal = parseInt($("#maxKitchenTotal").val());
-
-                            $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal + infinityWardrobeTotal + ultimaWardrobeTotal + maxKitchenTotal + editableOrderHead.transportationCharges + editableOrderHead.loadingUnloadingCharges + editableOrderHead.installationCharges + editableOrderHead.otherCharges);
+                            $scope.discountPrice = ((carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal + infinityWardrobeTotal + ultimaWardrobeTotal + maxKitchenTotal + editableOrderHead.transportationCharges + editableOrderHead.loadingUnloadingCharges + editableOrderHead.installationCharges + editableOrderHead.otherCharges) * (editableOrderHead.discount / 100));
+                            $scope.totalOrderPrice = ((carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal + infinityWardrobeTotal + ultimaWardrobeTotal + maxKitchenTotal + editableOrderHead.transportationCharges + editableOrderHead.loadingUnloadingCharges + editableOrderHead.installationCharges + editableOrderHead.otherCharges) - ($scope.discountPrice));
                             $scope.cgst = (($scope.totalOrderPrice / 100) * 9);
                             $scope.sgst = (($scope.totalOrderPrice / 100) * 9);
                             $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.cgst + $scope.sgst));
@@ -6825,6 +6825,9 @@ angular.module("digitalbusiness.states.order", [])
                             orderHeadObject.loadingUnloadingCharges = editableOrderHead.loadingUnloadingCharges;
                             orderHeadObject.installationCharges = editableOrderHead.installationCharges;
                             orderHeadObject.otherCharges = editableOrderHead.otherCharges;
+                            orderHeadObject.discount = editableOrderHead.discount;
+                            orderHeadObject.mrpRampupPercentage = editableOrderHead.mrpRampupPercentage;
+                            orderHeadObject.mrpRampupFactor = (editableOrderHead.mrpRampupPercentage / 100);
                             if ($scope.adminLogin === true) {
                                 orderHeadObject.$save(function () {
                                     $state.go('admin.masters', null, {'reload': true});
@@ -6847,8 +6850,10 @@ angular.module("digitalbusiness.states.order", [])
                             var hardwareTotal = parseInt($("#hardwareTotal").val());
                             var infinityWardrobeTotal = parseInt($("#infinityWardrobeTotal").val());
                             var ultimaWardrobeTotal = parseInt($("#ultimaWardrobeTotal").val());
+                            var maxKitchenTotal = parseInt($("#maxKitchenTotal").val());
+                            $scope.discountPrice = ((carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal + infinityWardrobeTotal + ultimaWardrobeTotal + maxKitchenTotal + editableOrderHead.transportationCharges + editableOrderHead.loadingUnloadingCharges + editableOrderHead.installationCharges + editableOrderHead.otherCharges) * (editableOrderHead.discount / 100));
 
-                            $scope.totalOrderPrice = (carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal + infinityWardrobeTotal + ultimaWardrobeTotal);
+                            $scope.totalOrderPrice = ((carcassTotal + panelTotal + shutterTotal + drawerTotal + fillerTotal + pelmetTotal + corniceTotal + handleTotal + hardwareTotal + infinityWardrobeTotal + ultimaWardrobeTotal + maxKitchenTotal + editableOrderHead.transportationCharges + editableOrderHead.loadingUnloadingCharges + editableOrderHead.installationCharges + editableOrderHead.otherCharges) - ($scope.discountPrice));
                             $scope.igst = (($scope.totalOrderPrice / 100) * 18);
                             $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.igst));
                             orderHeadObject.orderAmount = $scope.totalOrderPrice;
@@ -6856,6 +6861,14 @@ angular.module("digitalbusiness.states.order", [])
                             orderHeadObject.sgstAmount = 0;
                             orderHeadObject.igstAmount = Math.round($scope.igst);
                             orderHeadObject.netAmount = $scope.netTotalAmount;
+                            orderHeadObject.transportationCharges = editableOrderHead.transportationCharges;
+                            orderHeadObject.loadingUnloadingCharges = editableOrderHead.loadingUnloadingCharges;
+                            orderHeadObject.installationCharges = editableOrderHead.installationCharges;
+                            orderHeadObject.otherCharges = editableOrderHead.otherCharges;
+                            orderHeadObject.discount = editableOrderHead.discount;
+                            orderHeadObject.mrpRampupPercentage = editableOrderHead.mrpRampupPercentage;
+                            orderHeadObject.mrpRampupFactor = (editableOrderHead.mrpRampupPercentage / 100);
+
                             if ($scope.adminLogin === true) {
                                 orderHeadObject.$save(function () {
                                     $state.go('admin.masters', null, {'reload': true});
@@ -7255,7 +7268,11 @@ angular.module("digitalbusiness.states.order", [])
                 });
                 $scope.getTotal = $scope.getTotal + total;
                 console.log("THIS IS IT " + $scope.getTotal);
-                $scope.orderTotal = $scope.getTotal;
+                $scope.discountCharges = Math.round(((($scope.getTotal + $scope.orderHead.transportationCharges + $scope.orderHead.loadingUnloadingCharges + $scope.orderHead.installationCharges + $scope.orderHead.otherCharges) / 100) * $scope.orderHead.discount));
+                console.log("Discount Charges :" + $scope.discountCharges);
+                $scope.orderValueWithoutDiscount = Math.round(($scope.getTotal + $scope.orderHead.transportationCharges + $scope.orderHead.loadingUnloadingCharges + $scope.orderHead.installationCharges + $scope.orderHead.otherCharges));                
+                $scope.orderTotal = (($scope.getTotal + $scope.orderHead.transportationCharges + $scope.orderHead.loadingUnloadingCharges + $scope.orderHead.installationCharges + $scope.orderHead.otherCharges) - $scope.discountCharges);
+                console.log("Order Total :%O" + $scope.orderTotal);
                 console.log("$scope.orderHead :%O", $scope.orderHead);
                 PartyService.get({
                     'id': $scope.orderHead.billingPartyId
@@ -7270,7 +7287,7 @@ angular.module("digitalbusiness.states.order", [])
                         $scope.showIgst = false;
                         console.log("Net AMount MS:%O" + $scope.netAmount);
                     } else if (partyObject.state === "OMS") {
-                        console.log("Other State Party Apply IGST");
+                        console.log("Other State Party Apply IGST");                        
                         $scope.igst = Math.round((($scope.orderTotal / 100) * 18));
                         $scope.netAmount = Math.round(($scope.orderTotal + $scope.igst));
                         $scope.showCgst = false;
@@ -7647,7 +7664,9 @@ angular.module("digitalbusiness.states.order", [])
                 });
                 $scope.getTotal = $scope.getTotal + total;
                 console.log("THIS IS IT " + $scope.getTotal);
-                $scope.orderTotal = $scope.getTotal;
+                $scope.discountCharges = Math.round(((($scope.getTotal + $scope.orderHead.transportationCharges + $scope.orderHead.loadingUnloadingCharges + $scope.orderHead.installationCharges + $scope.orderHead.otherCharges) / 100) * $scope.orderHead.discount));
+                $scope.orderValueWithoutDiscount = Math.round(($scope.getTotal + $scope.orderHead.transportationCharges + $scope.orderHead.loadingUnloadingCharges + $scope.orderHead.installationCharges + $scope.orderHead.otherCharges));
+                $scope.orderTotal = (($scope.getTotal + $scope.orderHead.transportationCharges + $scope.orderHead.loadingUnloadingCharges + $scope.orderHead.installationCharges + $scope.orderHead.otherCharges) - $scope.discountCharges);
                 console.log("$scope.orderHead :%O", $scope.orderHead);
                 PartyService.get({
                     'id': $scope.orderHead.billingPartyId

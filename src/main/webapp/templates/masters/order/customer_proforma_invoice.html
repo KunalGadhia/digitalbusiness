@@ -331,7 +331,7 @@
                             <td class="text-left">{{ orderDetails.remark}}</td>
                             <td class="text-left">{{ orderDetails.quantity}}</td> 
                             <!--<td class="text-left">&#8377;{{orderDetails.price}}</td>-->
-                            <td class="text-left">&#8377;{{orderDetails.price * 2.5}}</td>
+                            <td class="text-left">&#8377;{{(orderDetails.price * orderHead.mrpRampupFactor) + orderDetails.price}}</td>
                         </tr>
                     </tbody>
                     <!---- Trial Ends------------>
@@ -350,25 +350,55 @@
                                 </div>-->
                 <hr style="border-top: 2px solid">
                 <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Ordered Component Value :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ ((mainInvoiceList | total:'price') * orderHead.mrpRampupFactor) + (mainInvoiceList | total:'price')}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Transportation Charges :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderHead.transportationCharges * orderHead.mrpRampupFactor) + orderHead.transportationCharges}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Loading / Unloading Charges :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderHead.loadingUnloadingCharges * orderHead.mrpRampupFactor) + orderHead.loadingUnloadingCharges}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Installation Charges :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderHead.installationCharges * orderHead.mrpRampupFactor) + orderHead.installationCharges}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Other Charges :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderHead.otherCharges * orderHead.mrpRampupFactor) + orderHead.otherCharges}}</strong></div>
+                </div>
+                <hr style="border-top: 2px solid">
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Sub Total :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderValueWithoutDiscount * orderHead.mrpRampupFactor) + orderValueWithoutDiscount}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Discount ({{orderHead.discount}} %) :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (discountCharges * orderHead.mrpRampupFactor) + discountCharges}}</strong></div>
+                </div>
+                <hr style="border-top: 2px solid">
+                <div class="row">
                     <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Order Amount :</strong></div>                    
-                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (mainInvoiceList | total:'price') * 2.5}}</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderTotal * orderHead.mrpRampupFactor) + orderTotal}}</strong></div>
                 </div>
                 <div class="row" ng-if="showIgst">
                     <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>IGST (18%) :</strong></div>                    
-                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{igst * 2.5}}</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{(igst * orderHead.mrpRampupFactor) + igst}}</strong></div>
                 </div>
                 <div class="row" ng-if="showCgst">
                     <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>SGST (9%) :</strong></div>                    
-                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{sgst * 2.5}}</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{(sgst * orderHead.mrpRampupFactor) + sgst}}</strong></div>
                 </div>
                 <div class="row" ng-if="showCgst">
                     <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>CGST (9%) :</strong></div>                    
-                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{cgst * 2.5}}</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{(cgst * orderHead.mrpRampupFactor) + cgst}}</strong></div>
                 </div>
                 <hr style="border-top: 2px solid">
                 <div class="row">
                     <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Net Amount :</strong></div>                    
-                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{netAmount * 2.5}}</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{(netAmount * orderHead.mrpRampupFactor) + netAmount}}</strong></div>
                 </div>
                 <hr style="border-top: 2px solid">
                 <div class="row">
