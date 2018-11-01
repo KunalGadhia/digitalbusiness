@@ -1855,7 +1855,7 @@ angular.module("digitalbusiness.states.order", [])
             });
             $scope.saveDealerComponents = function (editableDealerComponent) {
                 editableDealerComponent.price = (editableDealerComponent.unitPrice * editableDealerComponent.quantity);
-                editableDealerComponent.productCode = editableDealerComponent.manufacturer + "" + editableDealerComponent.manufacturerCategory + "" + editableDealerComponent.moduleCode;
+                editableDealerComponent.productCode = editableDealerComponent.moduleCode;
                 console.log("Editable Dealer Component :%O", editableDealerComponent);
                 DealerSkuOrderDetailsService.save(editableDealerComponent, function () {
                     $state.go('admin.masters_order_details', {
