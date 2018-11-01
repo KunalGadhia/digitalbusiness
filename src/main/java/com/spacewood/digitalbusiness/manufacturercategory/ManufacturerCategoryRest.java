@@ -65,10 +65,20 @@ public class ManufacturerCategoryRest {
     public ManufacturerCategory findByCategoryCode(@RequestParam("categoryCode") String categoryCode) throws Exception {
         return manufacturerCategoryDAL.findByCategoryCode(categoryCode);
     }
+    
+    @RequestMapping(value = "/find/category_code/creator", method = RequestMethod.GET)
+    public ManufacturerCategory findByCategoryCodeByCreator(@RequestParam("categoryCode") String categoryCode, @RequestParam("createdBy") Integer createdBy) throws Exception {
+        return manufacturerCategoryDAL.findByCategoryCodeByCreator(categoryCode, createdBy);
+    }
 
     @RequestMapping(value = "/find/manufacturer_category_like", method = RequestMethod.GET)
     public List<ManufacturerCategory> findByManufacturerCategoryLike(@RequestParam("manufacturerCategory") String manufacturerCategory) {
         return manufacturerCategoryDAL.findByManufacturerCategoryLike(manufacturerCategory);
+    }
+    
+    @RequestMapping(value = "/find/manufacturer_category_like/creator", method = RequestMethod.GET)
+    public List<ManufacturerCategory> findByManufacturerCategoryLikeByCreator(@RequestParam("createdBy") Integer createdBy, @RequestParam("manufacturerCategory") String manufacturerCategory) {
+        return manufacturerCategoryDAL.findByManufacturerCategoryLikeByCreator(createdBy, manufacturerCategory);
     }
 
     @RequestMapping(value = "/find_all_list", method = RequestMethod.GET)

@@ -21,13 +21,14 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ManufacturerDAL {
-   public static final class Columns {
+
+    public static final class Columns {
 
         public static final String ID = "id";
         public static final String MANUFACTURER_CODE = "manufacturer_code";
         public static final String MANUFACTURER_NAME = "manufacturer_name";
-        public static final String CREATED_BY = "created_by";        
-        
+        public static final String CREATED_BY = "created_by";
+
     }
 
     public static final String TABLE_NAME = "manufacturer_master";
@@ -43,7 +44,7 @@ public class ManufacturerDAL {
                 .usingColumns(
                         Columns.MANUFACTURER_CODE,
                         Columns.MANUFACTURER_NAME,
-                        Columns.CREATED_BY                        
+                        Columns.CREATED_BY
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -52,9 +53,9 @@ public class ManufacturerDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{offset}, new BeanPropertyRowMapper<>(Manufacturer.class));
     }
-    
+
     public List<Manufacturer> findByCreator(Integer userId, Integer offset) {
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CREATED_BY + " = ? ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";        
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CREATED_BY + " = ? ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
         return jdbcTemplate.query(sqlQuery, new Object[]{userId, offset}, new BeanPropertyRowMapper<>(Manufacturer.class));
     }
 
@@ -67,23 +68,34 @@ public class ManufacturerDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.ID + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{id}, new BeanPropertyRowMapper<>(Manufacturer.class));
     }
-    
+
     public Manufacturer findByManufacturerCode(String manufacturerCode) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.MANUFACTURER_CODE + " = ?";
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{manufacturerCode}, new BeanPropertyRowMapper<>(Manufacturer.class));
     }
-    
+
+    public Manufacturer findByManufacturerCodeByCreator(String manufacturerCode, Integer createdBy) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.MANUFACTURER_CODE + " = ? AND " + Columns.CREATED_BY + " = ?";
+        return jdbcTemplate.queryForObject(sqlQuery, new Object[]{manufacturerCode, createdBy}, new BeanPropertyRowMapper<>(Manufacturer.class));
+    }
+
     public List<Manufacturer> findByManufacturerNameLike(String manufacturerName) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND lower(manufacturer_name) LIKE?";
         String subTypeLike = "%" + manufacturerName.toLowerCase() + "%";
         return jdbcTemplate.query(sqlQuery, new Object[]{subTypeLike}, new BeanPropertyRowMapper<>(Manufacturer.class));
     }
 
+    public List<Manufacturer> findByManufacturerNameLikeByCreator(Integer createdBy, String manufacturerName) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CREATED_BY + " = ? AND lower(manufacturer_name) LIKE?";
+        String subTypeLike = "%" + manufacturerName.toLowerCase() + "%";
+        return jdbcTemplate.query(sqlQuery, new Object[]{createdBy, subTypeLike}, new BeanPropertyRowMapper<>(Manufacturer.class));
+    }
+
     public Manufacturer insert(Manufacturer manufacturer) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(Columns.MANUFACTURER_CODE, manufacturer.getManufacturerCode());
         parameters.put(Columns.MANUFACTURER_NAME, manufacturer.getManufacturerName());
-        parameters.put(Columns.CREATED_BY, manufacturer.getCreatedBy());        
+        parameters.put(Columns.CREATED_BY, manufacturer.getCreatedBy());
         Number newId = insertManufacturer.executeAndReturnKey(parameters);
         manufacturer = findById(newId.intValue());
         return manufacturer;
@@ -94,19 +106,19 @@ public class ManufacturerDAL {
         jdbcTemplate.update(sqlQuery, new Object[]{true, id});
     }
 
-    public Manufacturer update(Manufacturer manufacturer) {        
+    public Manufacturer update(Manufacturer manufacturer) {
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.MANUFACTURER_CODE + " = ?, "
-                + Columns.MANUFACTURER_NAME + " = ?, "                
+                + Columns.MANUFACTURER_NAME + " = ?, "
                 + Columns.CREATED_BY + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
                     manufacturer.getManufacturerCode(),
-                    manufacturer.getManufacturerName(),                   
-                    manufacturer.getCreatedBy(),                    
+                    manufacturer.getManufacturerName(),
+                    manufacturer.getCreatedBy(),
                     manufacturer.getId()
                 });
         manufacturer = findById(manufacturer.getId());
         return manufacturer;
-    } 
+    }
 }

@@ -7827,8 +7827,8 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.newOrderHeadObject.billingPartyObject = angular.copy(orderHead.billingPartyObject);
                 $scope.newOrderHeadObject.deliveryPartyObject = angular.copy(orderHead.deliveryPartyObject);
                 console.log("New Order Head :%O", $scope.newOrderHeadObject);
-                $http.post("http://13.127.7.209:9080/Innocal/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
-//                $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
+//                $http.post("http://13.127.7.209:9080/Innocal/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
+                $http.post("http://192.168.100.145:9999/SwRestAndroidApi/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
                         .then(function successCallback(response) {
                             console.log("Successfully POST-ed data :%O", response);
                             $scope.carcassPromise = CarcassOrderDetailsService.findByOrderHeadId({
@@ -7949,8 +7949,8 @@ angular.module("digitalbusiness.states.order", [])
 
                             $scope.erpPush = function (orderDetails) {
                                 console.log("Order Details :%O", orderDetails);
-//                                $http.post("http://192.168.100.145:8080/SwRestAndroidApi/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
-                                $http.post("http://13.127.7.209:9080/Innocal/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
+                                $http.post("http://192.168.100.145:9999/SwRestAndroidApi/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
+//                                $http.post("http://13.127.7.209:9080/Innocal/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
                                     console.log("Carcass Success Response :%O", response);
                                 }, function errorCallback(response) {
                                     console.log("Carcass Error Response :%O", response);
@@ -7963,6 +7963,10 @@ angular.module("digitalbusiness.states.order", [])
                             });
                         }, function errorCallback(response) {
                             console.log("POST-ing of data failed :%O", response);
+                            orderHead.approved = 0;
+                            orderHead.$save(function () {
+                                $state.go('admin.masters_order_history', null, {'reload': true});
+                            });
                         });
 
             }

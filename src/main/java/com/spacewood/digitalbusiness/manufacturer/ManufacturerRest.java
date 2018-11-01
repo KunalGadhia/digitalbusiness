@@ -24,8 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/manufacturer")
 public class ManufacturerRest {
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    
+
     @Autowired
     private ManufacturerDAL manufacturerDAL;
 
@@ -33,7 +34,7 @@ public class ManufacturerRest {
     public List<Manufacturer> findAll(@RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
         return manufacturerDAL.findAll(offset);
     }
-    
+
     @RequestMapping(value = "/find/creator", method = RequestMethod.GET)
     public List<Manufacturer> findByCreator(@RequestParam(value = "userId") Integer userId, @RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
         return manufacturerDAL.findByCreator(userId, offset);
@@ -63,10 +64,20 @@ public class ManufacturerRest {
     public Manufacturer findByManufacturerCode(@RequestParam("manufacturerCode") String manufacturerCode) throws Exception {
         return manufacturerDAL.findByManufacturerCode(manufacturerCode);
     }
+    
+    @RequestMapping(value = "/find/manufacturer_code/creator", method = RequestMethod.GET)
+    public Manufacturer findByManufacturerCodeByCreator(@RequestParam("manufacturerCode") String manufacturerCode, @RequestParam("createdBy") Integer createdBy) throws Exception {
+        return manufacturerDAL.findByManufacturerCodeByCreator(manufacturerCode, createdBy);
+    }
 
     @RequestMapping(value = "/find/manufacturer_like", method = RequestMethod.GET)
     public List<Manufacturer> findByManufacturerNameLike(@RequestParam("manufacturerName") String manufacturerName) {
         return manufacturerDAL.findByManufacturerNameLike(manufacturerName);
+    }
+
+    @RequestMapping(value = "/find/manufacturer_like/creator", method = RequestMethod.GET)
+    public List<Manufacturer> findByManufacturerNameLikeByCreator(@RequestParam("createdBy") Integer createdBy, @RequestParam("manufacturerName") String manufacturerName) {
+        return manufacturerDAL.findByManufacturerNameLikeByCreator(createdBy, manufacturerName);
     }
 
     @RequestMapping(value = "/find_all_list", method = RequestMethod.GET)

@@ -21,6 +21,15 @@ angular.module("digitalbusiness.services.manufacturer")
                     },
                     'isArray': false
                 },
+                'findByManufacturerCodeByCreator': {
+                    'method': 'GET',
+                    'url': restRoot + '/manufacturer/find/manufacturer_code/creator',
+                    'params': {
+                        'manufacturerCode': '@manufacturerCode',
+                        'createdBy': '@createdBy'
+                    },
+                    'isArray': false
+                },
                 'findByCreator': {
                     'method': 'GET',
                     'url': restRoot + '/manufacturer/find/creator',
@@ -35,6 +44,15 @@ angular.module("digitalbusiness.services.manufacturer")
                     'url': restRoot + '/manufacturer/find/manufacturer_like',
                     'params': {
                         'manufacturerName': '@manufacturerName'
+                    },
+                    'isArray': true
+                },
+                'findByManufacturerNameLikeByCreator': {
+                    'method': 'GET',
+                    'url': restRoot + '/manufacturer/find/manufacturer_like/creator',
+                    'params': {
+                        'manufacturerName': '@manufacturerName',
+                        'createdBy': '@createdBy'
                     },
                     'isArray': true
                 }

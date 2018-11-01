@@ -66,9 +66,6 @@ public class ManufacturerCategoryDAL {
 
     public List<ManufacturerCategory> findByCreator(Integer userId, Integer offset) {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CREATED_BY + " = ? ORDER BY " + Columns.ID + " DESC LIMIT 10 OFFSET ?";
-        System.out.println(" Mf Cat Query " + sqlQuery);
-        System.out.println("User Id " + userId);
-        System.out.println("Offset " + offset);
         return jdbcTemplate.query(sqlQuery, new Object[]{userId, offset}, manufacturerCategoryRowMapper);
     }
 
@@ -87,6 +84,11 @@ public class ManufacturerCategoryDAL {
         return jdbcTemplate.queryForObject(sqlQuery, new Object[]{categoryCode}, manufacturerCategoryRowMapper);
     }
 
+    public ManufacturerCategory findByCategoryCodeByCreator(String categoryCode, Integer createdBy) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CATEGORY_CODE + " = ? AND " + Columns.CREATED_BY + "=?";
+        return jdbcTemplate.queryForObject(sqlQuery, new Object[]{categoryCode, createdBy}, manufacturerCategoryRowMapper);
+    }
+
 //    public List<ManufacturerCategory> findByManufacturerCode(String manufacturerCode) {
 //        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.MANUFACTURER_CODE + " = ?";
 //        return jdbcTemplate.query(sqlQuery, new Object[]{manufacturerCode}, new BeanPropertyRowMapper<>(ManufacturerCategory.class));
@@ -95,6 +97,12 @@ public class ManufacturerCategoryDAL {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND lower(category_name) LIKE?";
         String subTypeLike = "%" + manufacturerCategory.toLowerCase() + "%";
         return jdbcTemplate.query(sqlQuery, new Object[]{subTypeLike}, manufacturerCategoryRowMapper);
+    }
+
+    public List<ManufacturerCategory> findByManufacturerCategoryLikeByCreator(Integer createdBy, String manufacturerCategory) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CREATED_BY + " = ? AND lower(category_name) LIKE?";
+        String subTypeLike = "%" + manufacturerCategory.toLowerCase() + "%";
+        return jdbcTemplate.query(sqlQuery, new Object[]{createdBy, subTypeLike}, manufacturerCategoryRowMapper);
     }
 
     public ManufacturerCategory insert(ManufacturerCategory manufacturerCategory) throws JsonProcessingException {

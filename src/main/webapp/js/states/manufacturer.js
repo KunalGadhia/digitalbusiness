@@ -124,8 +124,9 @@ angular.module("digitalbusiness.states.manufacturer", [])
             $scope.editableManufacturer = {};
 
             $scope.$watch('editableManufacturer.manufacturerCode', function (manufacturerCode) {
-                ManufacturerService.findByManufacturerCode({
-                    'manufacturerCode': manufacturerCode
+                ManufacturerService.findByManufacturerCodeByCreator({
+                    'manufacturerCode': manufacturerCode,
+                    'createdBy': $scope.userObject.id
                 }).$promise.catch(function (response) {
                     if (response.status === 500) {
                         $scope.editableManufacturer.repeatCode = false;

@@ -21,6 +21,15 @@ angular.module("digitalbusiness.services.manufacturer_category")
                     },
                     'isArray': false
                 },
+                'findByCategoryCodeByCreator': {
+                    'method': 'GET',
+                    'url': restRoot + '/manufacturer_category/find/category_code/creator',
+                    'params': {
+                        'categoryCode': '@categoryCode',
+                        'createdBy': '@createdBy'
+                    },
+                    'isArray': false
+                },
                 'findByCreator': {
                     'method': 'GET',
                     'url': restRoot + '/manufacturer_category/find/creator',
@@ -35,6 +44,15 @@ angular.module("digitalbusiness.services.manufacturer_category")
                     'url': restRoot + '/manufacturer_category/find/manufacturer_category_like',
                     'params': {
                         'manufacturerCategory': '@manufacturerCategory'
+                    },
+                    'isArray': true
+                },
+                'findByManufacturerCategoryLikeByCreator': {
+                    'method': 'GET',
+                    'url': restRoot + '/manufacturer_category/find/manufacturer_category_like/creator',
+                    'params': {
+                        'manufacturerCategory': '@manufacturerCategory',
+                        'createdBy': '@createdBy'                                             
                     },
                     'isArray': true
                 }

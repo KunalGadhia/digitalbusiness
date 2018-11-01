@@ -63,11 +63,13 @@ angular.module("digitalbusiness.states.dealer_sku", [])
                     dealerSkuObject.userObject = UserService.get({
                         'id': dealerSkuObject.createdBy
                     });
-                    dealerSkuObject.manufacturerObject = ManufacturerService.findByManufacturerCode({
-                        'manufacturerCode': dealerSkuObject.manufacturerCode
+                    dealerSkuObject.manufacturerObject = ManufacturerService.findByManufacturerCodeByCreator({
+                        'manufacturerCode': dealerSkuObject.manufacturerCode,
+                        'createdBy': dealerSkuObject.createdBy
                     });
-                    dealerSkuObject.manufacturerCategoryObject = ManufacturerCategoryService.findByCategoryCode({
-                        'categoryCode': dealerSkuObject.manufacturerCategoryCode
+                    dealerSkuObject.manufacturerCategoryObject = ManufacturerCategoryService.findByCategoryCodeByCreator({
+                        'categoryCode': dealerSkuObject.manufacturerCategoryCode,
+                        'createdBy': dealerSkuObject.createdBy
                     });
                     $scope.mainDealerSkuArray.push(dealerSkuObject);
                 });
@@ -82,11 +84,13 @@ angular.module("digitalbusiness.states.dealer_sku", [])
                         dealerSkuObject.userObject = UserService.get({
                             'id': dealerSkuObject.createdBy
                         });
-                        dealerSkuObject.manufacturerObject = ManufacturerService.findByManufacturerCode({
-                            'manufacturerCode': dealerSkuObject.manufacturerCode
+                        dealerSkuObject.manufacturerObject = ManufacturerService.findByManufacturerCodeByCreator({
+                            'manufacturerCode': dealerSkuObject.manufacturerCode,
+                            'createdBy': $scope.userObject.id
                         });
-                        dealerSkuObject.manufacturerCategoryObject = ManufacturerCategoryService.findByCategoryCode({
-                            'categoryCode': dealerSkuObject.manufacturerCategoryCode
+                        dealerSkuObject.manufacturerCategoryObject = ManufacturerCategoryService.findByCategoryCodeByCreator({
+                            'categoryCode': dealerSkuObject.manufacturerCategoryCode,
+                            'createdBy': $scope.userObject.id
                         });
                         $scope.mainDealerSkuArray.push(dealerSkuObject);
                     });
@@ -137,8 +141,9 @@ angular.module("digitalbusiness.states.dealer_sku", [])
             };
 
             $scope.searchManufacturerCode = function (searchTerm) {
-                return ManufacturerService.findByManufacturerNameLike({
-                    'manufacturerName': searchTerm
+                return ManufacturerService.findByManufacturerNameLikeByCreator({
+                    'manufacturerName': searchTerm,
+                    'createdBy': $scope.userObject.id
                 }).$promise;
             };
 
@@ -147,8 +152,9 @@ angular.module("digitalbusiness.states.dealer_sku", [])
             };
 
             $scope.searchManufacturerCategoryCode = function (searchTerm) {
-                return ManufacturerCategoryService.findByManufacturerCategoryLike({
-                    'manufacturerCategory': searchTerm
+                return ManufacturerCategoryService.findByManufacturerCategoryLikeByCreator({
+                    'manufacturerCategory': searchTerm,
+                    'createdBy': $scope.userObject.id
                 }).$promise;
             };
 
@@ -176,8 +182,9 @@ angular.module("digitalbusiness.states.dealer_sku", [])
             };
 
             $scope.searchManufacturerCode = function (searchTerm) {
-                return ManufacturerService.findByManufacturerNameLike({
-                    'manufacturerName': searchTerm
+                return ManufacturerService.findByManufacturerNameLikeByCreator({
+                    'manufacturerName': searchTerm,
+                    'createdBy': $scope.userObject.id
                 }).$promise;
             };
 
@@ -186,8 +193,9 @@ angular.module("digitalbusiness.states.dealer_sku", [])
             };
 
             $scope.searchManufacturerCategoryCode = function (searchTerm) {
-                return ManufacturerCategoryService.findByManufacturerCategoryLike({
-                    'manufacturerCategory': searchTerm
+                return ManufacturerCategoryService.findByManufacturerCategoryLikeByCreator({
+                    'manufacturerCategory': searchTerm,
+                    'createdBy': $scope.userObject.id
                 }).$promise;
             };
 
