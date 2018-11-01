@@ -1,4 +1,25 @@
-<div class="panel panel-default">
+<div class="modal modal-digitalbusiness">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog">
+        <form role="form" ng-submit="">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title col-sm-10" style="padding: 10px">
+                        <i class="fa fa-user"></i>
+                        MRP Order History
+                    </h3>
+                    <button style="font-size: 30px;padding: 5px;" type="button" onclick="window.history.back()" class=" col-sm-2 btn btn-link pull-right">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 100%;" src="./images/coming_soon.jpg" alt="Coming Soon" title="Coming Soon">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--<div class="panel panel-default">
     <div class="panel-heading text-center">
         <div class="pull-left">            
             <a data-ui-sref="admin.dealers_transaction_history" class="btn btn-default">
@@ -18,7 +39,7 @@
                 <th>Order Number</th>
                 <th>Project Name</th>
                 <th>Billing Party</th>
-                <!--<th>Delivery Party</th>-->
+                <th>Delivery Party</th>
                 <th>PO Number</th>                                                             
                 <th class="text-center">Actions</th>
             </tr>
@@ -30,21 +51,21 @@
                 <td data-title="Order Number">{{ orderHead.orderNum}}</td>
                 <td data-title="Project Name">{{ orderHead.projectName}}</td>                    
                 <td data-title="Billing Party">{{ orderHead.billingPartyObject.dealerName}}</td>
-                <!--<td data-title="Delivery Party">{{ orderHead.deliveryPartyObject.dealerName}}</td>-->
+                <td data-title="Delivery Party">{{ orderHead.deliveryPartyObject.dealerName}}</td>
                 <td data-title="PO Number">{{ orderHead.poNum}}</td>                 
                 <td data-title="Actions" class="text-right">
-                    <!--                    <a data-ui-sref="admin.masters_dealer_order_details({orderHeadId: orderHead.id})"
+                                        <a data-ui-sref="admin.masters_dealer_order_details({orderHeadId: orderHead.id})"
                                            class="btn btn-primary">					
                                             <i class="fa fa-info-circle"></i>
                                             Order Details
-                                        </a>-->
+                                        </a>
                     <a data-ui-sref="admin.masters_order_mrp_details({orderHeadId: orderHead.id})"
                        class="btn btn-primary" ng-hide="orderHead.approved === true">
                         <i class="fa fa-pencil"></i>
                         Edit Order
                     </a>
 
-                    <!--                    <a data-ui-sref="admin.masters_order_history.order_approve({orderHeadId: orderHead.id})"
+                                        <a data-ui-sref="admin.masters_order_history.order_approve({orderHeadId: orderHead.id})"
                                            class="btn btn-primary" ng-hide="orderHead.approved === true">
                                             <i class="fa fa-check"></i>
                                             Approve
@@ -53,7 +74,7 @@
                                            class="btn btn-primary" ng-hide="orderHead.approved === true">
                                             <i class="fa fa-trash"></i>
                                             Delete
-                                        </a>-->
+                                        </a>
                     <a target="_blank" data-ui-sref="mrp_proforma_invoice_display({ orderHeadId : orderHead.id})">
                         <button class="btn btn-primary" >
                             <i class="fa fa-print"></i>
@@ -66,15 +87,15 @@
                             Generate Customer Proforma Invoice
                         </button>
                     </a>
-                    <!--                    <a data-ui-sref="admin.masters_party.delete({ partyId: party.id })"
+                                        <a data-ui-sref="admin.masters_party.delete({ partyId: party.id })"
                                            class="btn btn-danger">
                                             <i class="fa fa-trash"></i>
-                                        </a>-->
+                                        </a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <!--    <nav class="panel-footer">
+        <nav class="panel-footer">
             <ul class="pager">
                 <li>
                     <button ng-click="previousPage()" 
@@ -93,6 +114,6 @@
                     </button>
                 </li>
             </ul>
-        </nav>-->
+        </nav>
 </div>
-<div data-ui-view=""></div>
+<div data-ui-view=""></div>-->

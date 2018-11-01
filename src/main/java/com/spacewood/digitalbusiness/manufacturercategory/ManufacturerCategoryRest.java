@@ -35,6 +35,11 @@ public class ManufacturerCategoryRest {
     public List<ManufacturerCategory> findByCreator(@RequestParam(value = "userId") Integer userId, @RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) throws SQLException {
         return manufacturerCategoryDAL.findByCreator(userId, offset);
     }
+    
+    @RequestMapping(value = "/find/creator/without/offset", method = RequestMethod.GET)
+    public List<ManufacturerCategory> findByCreatorWithoutOffset(@RequestParam(value = "userId") Integer userId) throws SQLException {
+        return manufacturerCategoryDAL.findByCreatorWithoutOffset(userId);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ManufacturerCategory findById(@PathVariable("id") Integer id) throws SQLException {

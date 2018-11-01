@@ -39,6 +39,14 @@ angular.module("digitalbusiness.services.manufacturer_category")
                     },
                     'isArray': true
                 },
+                'findByCreatorWithoutOffset': {
+                    'method': 'GET',
+                    'url': restRoot + '/manufacturer_category/find/creator/without/offset',
+                    'params': {                        
+                        'userId': '@userId'
+                    },
+                    'isArray': true
+                },
                 'findByManufacturerCategoryLike': {
                     'method': 'GET',
                     'url': restRoot + '/manufacturer_category/find/manufacturer_category_like',

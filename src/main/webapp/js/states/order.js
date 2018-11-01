@@ -1799,9 +1799,13 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.adminLogin = false;
                     $scope.dealerLogin = true;
                 }
+
+                $scope.manufacturerCategoryList = ManufacturerCategoryService.findByCreatorWithoutOffset({
+                    'userId': $scope.userObject.id
+                });
             });
 //            $scope.manufacturerList = ManufacturerService.findAllList();
-            $scope.manufacturerCategoryList = ManufacturerCategoryService.findAllList();
+
 
             $scope.$watch('editableDealerComponent.manufacturer', function (manufacturerCode) {
                 $scope.dealerSkuList = DealerSkuService.findByManufacturerAndManufacturerCategoryByUser({
@@ -1813,6 +1817,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.manufacturerList = [];
             $scope.$watch('editableDealerComponent.manufacturerCategory', function (manufacturerCategory) {
                 console.log("Manufacturer Category :%O", manufacturerCategory);
+                $scope.manufacturerList = [];
                 ManufacturerCategoryService.findByCategoryCode({
                     'categoryCode': manufacturerCategory
                 }, function (manufacturerCategoryObject) {
@@ -7270,7 +7275,7 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("THIS IS IT " + $scope.getTotal);
                 $scope.discountCharges = Math.round(((($scope.getTotal + $scope.orderHead.transportationCharges + $scope.orderHead.loadingUnloadingCharges + $scope.orderHead.installationCharges + $scope.orderHead.otherCharges) / 100) * $scope.orderHead.discount));
                 console.log("Discount Charges :" + $scope.discountCharges);
-                $scope.orderValueWithoutDiscount = Math.round(($scope.getTotal + $scope.orderHead.transportationCharges + $scope.orderHead.loadingUnloadingCharges + $scope.orderHead.installationCharges + $scope.orderHead.otherCharges));                
+                $scope.orderValueWithoutDiscount = Math.round(($scope.getTotal + $scope.orderHead.transportationCharges + $scope.orderHead.loadingUnloadingCharges + $scope.orderHead.installationCharges + $scope.orderHead.otherCharges));
                 $scope.orderTotal = (($scope.getTotal + $scope.orderHead.transportationCharges + $scope.orderHead.loadingUnloadingCharges + $scope.orderHead.installationCharges + $scope.orderHead.otherCharges) - $scope.discountCharges);
                 console.log("Order Total :%O" + $scope.orderTotal);
                 console.log("$scope.orderHead :%O", $scope.orderHead);
@@ -7287,7 +7292,7 @@ angular.module("digitalbusiness.states.order", [])
                         $scope.showIgst = false;
                         console.log("Net AMount MS:%O" + $scope.netAmount);
                     } else if (partyObject.state === "OMS") {
-                        console.log("Other State Party Apply IGST");                        
+                        console.log("Other State Party Apply IGST");
                         $scope.igst = Math.round((($scope.orderTotal / 100) * 18));
                         $scope.netAmount = Math.round(($scope.orderTotal + $scope.igst));
                         $scope.showCgst = false;

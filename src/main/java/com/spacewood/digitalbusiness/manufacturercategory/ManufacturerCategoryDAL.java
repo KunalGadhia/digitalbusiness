@@ -69,6 +69,11 @@ public class ManufacturerCategoryDAL {
         return jdbcTemplate.query(sqlQuery, new Object[]{userId, offset}, manufacturerCategoryRowMapper);
     }
 
+    public List<ManufacturerCategory> findByCreatorWithoutOffset(Integer userId) {
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE AND " + Columns.CREATED_BY + " = ? ";
+        return jdbcTemplate.query(sqlQuery, new Object[]{userId}, manufacturerCategoryRowMapper);
+    }
+
     public List<ManufacturerCategory> findAllList() {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE deleted = FALSE";
         return jdbcTemplate.query(sqlQuery, new Object[]{}, manufacturerCategoryRowMapper);
