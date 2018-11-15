@@ -130,6 +130,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.infinity_wardrobe',
     'digitalbusiness.states.infinity_wardrobe_mrp',    
     'digitalbusiness.states.ultima_wardrobe',
+    'digitalbusiness.states.order_repeat',
     'digitalbusiness.states.auth'
 
 ])

@@ -119,6 +119,56 @@ angular.module("digitalbusiness.states.order", [])
                 'url': '/:ultimaWardrobeDetailId/ultima_wardrobe/delete',
                 'templateUrl': templateRoot + '/masters/order/ultima_wardrobe_detail_delete.html',
                 'controller': 'UltimaWardrobeDetailDeleteController'
+            });            
+            $stateProvider.state('admin.masters_order_details.carcass_modal', {
+                'url': '/:orderHeadId/:carcassDetailId/carcass_modal',
+                'templateUrl': templateRoot + '/masters/order_details_modal/carcass_modal.html',
+                'controller': 'CarcassModalController'
+            });
+            $stateProvider.state('admin.masters_order_details.panel_modal', {
+                'url': '/:orderHeadId/:panelDetailId/panel_modal',
+                'templateUrl': templateRoot + '/masters/order_details_modal/panel_modal.html',
+                'controller': 'PanelModalController'
+            });
+            $stateProvider.state('admin.masters_order_details.shutter_modal', {
+                'url': '/:orderHeadId/:shutterDetailId/shutter_modal',
+                'templateUrl': templateRoot + '/masters/order_details_modal/shutter_modal.html',
+                'controller': 'ShutterModalController'
+            });
+            $stateProvider.state('admin.masters_order_details.drawer_modal', {
+                'url': '/:orderHeadId/:drawerDetailId/drawer_modal',
+                'templateUrl': templateRoot + '/masters/order_details_modal/drawer_modal.html',
+                'controller': 'DrawerModalController'
+            });
+            $stateProvider.state('admin.masters_order_details.filler_modal', {
+                'url': '/:orderHeadId/:fillerDetailId/filler_modal',
+                'templateUrl': templateRoot + '/masters/order_details_modal/filler_modal.html',
+                'controller': 'FillerModalController'
+            });
+            $stateProvider.state('admin.masters_order_details.pelmet_modal', {
+                'url': '/:orderHeadId/:pelmetDetailId/pelmet_modal',
+                'templateUrl': templateRoot + '/masters/order_details_modal/pelmet_modal.html',
+                'controller': 'PelmetModalController'
+            });
+            $stateProvider.state('admin.masters_order_details.cornice_modal', {
+                'url': '/:orderHeadId/:corniceDetailId/cornice_modal',
+                'templateUrl': templateRoot + '/masters/order_details_modal/cornice_modal.html',
+                'controller': 'CorniceModalController'
+            });
+            $stateProvider.state('admin.masters_order_details.handle_modal', {
+                'url': '/:orderHeadId/:handleDetailId/handle_modal',
+                'templateUrl': templateRoot + '/masters/order_details_modal/handle_modal.html',
+                'controller': 'HandleModalController'
+            });
+            $stateProvider.state('admin.masters_order_details.hardware_modal', {
+                'url': '/:orderHeadId/:hardwareDetailId/hardware_modal',
+                'templateUrl': templateRoot + '/masters/order_details_modal/hardware_modal.html',
+                'controller': 'HardwareModalController'
+            });
+            $stateProvider.state('admin.masters_order_details.other_hardware_modal', {
+                'url': '/:orderHeadId/:otherHardwareDetailId/other_hardware_modal',
+                'templateUrl': templateRoot + '/masters/order_details_modal/other_hardware_modal.html',
+                'controller': 'OtherHardwareModalController'
             });
             $stateProvider.state('admin.masters_order_history.order_approve', {
                 'url': '/:orderHeadId/approve_order',
@@ -5586,7 +5636,8 @@ angular.module("digitalbusiness.states.order", [])
                             var preliminaryDealerPrice = (orderDetail.unitPrice - discountPrice);
                             var displayDiscountPrice = ((preliminaryDealerPrice / 100) * orderDetail.displayDiscount);
                             orderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
-                            CarcassOrderDetailsService.save(orderDetail, function () {
+                            CarcassOrderDetailsService.save(orderDetail, function (carcassOrderDetail) {
+                                console.log("Getting Carcass Order Detail Id :%O", carcassOrderDetail);
                                 console.log("Saved Successfully");
                                 $scope.editableCarcassDetail = "";
                                 $scope.carcassName = "";
@@ -5596,13 +5647,18 @@ angular.module("digitalbusiness.states.order", [])
                                 $scope.backColorName = "";
                                 $scope.topColorName = "";
                                 $scope.bottomColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.carcass_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'carcassDetailId': carcassOrderDetail.id
                                 }, {'reload': true});
                             });
                         } else {
                             orderDetail.price = (orderDetail.unitPrice - discountPrice);
-                            CarcassOrderDetailsService.save(orderDetail, function () {
+                            CarcassOrderDetailsService.save(orderDetail, function (carcassOrderDetail) {
+                                console.log("Carcass Order Detail :%O", carcassOrderDetail);
                                 console.log("Saved Successfully");
                                 $scope.editableCarcassDetail = "";
                                 $scope.carcassName = "";
@@ -5612,8 +5668,12 @@ angular.module("digitalbusiness.states.order", [])
                                 $scope.backColorName = "";
                                 $scope.topColorName = "";
                                 $scope.bottomColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.carcass_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'carcassDetailId': carcassOrderDetail.id
                                 }, {'reload': true});
                             });
                         }
@@ -5652,23 +5712,31 @@ angular.module("digitalbusiness.states.order", [])
                             var displayDiscountPrice = ((preliminaryDealerPrice / 100) * panelOrderDetail.displayDiscount);
                             panelOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
                             console.log("Panle Order Detail Save Object :%O", panelOrderDetail);
-                            PanelOrderDetailsService.save(panelOrderDetail, function () {
+                            PanelOrderDetailsService.save(panelOrderDetail, function (panelOrderDetail) {
                                 console.log("Saved Successfully");
                                 $scope.editablePanelDetail = "";
                                 $scope.panelName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.panel_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'panelDetailId': panelOrderDetail.id
                                 }, {'reload': true});
                             });
                         } else {
                             panelOrderDetail.price = (panelOrderDetail.unitPrice - discountPrice);
                             console.log("Panle Order Detail Save Object :%O", panelOrderDetail);
-                            PanelOrderDetailsService.save(panelOrderDetail, function () {
+                            PanelOrderDetailsService.save(panelOrderDetail, function (panelOrderDetail) {
                                 console.log("Saved Successfully");
                                 $scope.editablePanelDetail = "";
                                 $scope.panelName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.panel_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'panelDetailId': panelOrderDetail.id
                                 }, {'reload': true});
                             });
                         }
@@ -5742,25 +5810,33 @@ angular.module("digitalbusiness.states.order", [])
                             var displayDiscountPrice = ((preliminaryDealerPrice / 100) * shutterOrderDetail.displayDiscount);
                             shutterOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
                             console.log("Shutter Order Detail Save Object :%O", shutterOrderDetail);
-                            ShutterOrderDetailsService.save(shutterOrderDetail, function () {
+                            ShutterOrderDetailsService.save(shutterOrderDetail, function (shutterOrderDetail) {
                                 $scope.editableShutterDetail = "";
                                 $scope.shutterName = "";
                                 $scope.shutterColorName = "";
                                 $scope.shutterHandleName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.shutter_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'shutterDetailId': shutterOrderDetail.id
                                 }, {'reload': true});
                             });
                         } else {
                             console.log("Discount Price :%O", discountPrice);
                             shutterOrderDetail.price = ((shutterOrderDetail.unitPrice - discountPrice) + handlePrice + jaliPrice + straightenerPrice);
-                            ShutterOrderDetailsService.save(shutterOrderDetail, function () {
+                            ShutterOrderDetailsService.save(shutterOrderDetail, function (shutterOrderDetail) {
                                 $scope.editableShutterDetail = "";
                                 $scope.shutterName = "";
                                 $scope.shutterColorName = "";
                                 $scope.shutterHandleName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.shutter_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'shutterDetailId': shutterOrderDetail.id
                                 }, {'reload': true});
                             });
                         }
@@ -6165,26 +6241,34 @@ angular.module("digitalbusiness.states.order", [])
                             var displayDiscountPrice = ((preliminaryDealerPrice / 100) * drawerOrderDetail.displayDiscount);
                             drawerOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
                             console.log("Drawer Order Detail Save Object :%O", drawerOrderDetail);
-                            DrawerOrderDetailsService.save(drawerOrderDetail, function () {
+                            DrawerOrderDetailsService.save(drawerOrderDetail, function (drawerOrderDetail) {
                                 console.log("Saved Successfully");
                                 $scope.editableDrawerDetail = "";
                                 $scope.drawerName = "";
                                 $scope.drawerColorName = "";
                                 $scope.drawerHandleName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.drawer_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'drawerDetailId': drawerOrderDetail.id
                                 }, {'reload': true});
                             });
                         } else {
                             drawerOrderDetail.price = ((drawerOrderDetail.unitPrice - discountPrice) + handlePrice);
-                            DrawerOrderDetailsService.save(drawerOrderDetail, function () {
+                            DrawerOrderDetailsService.save(drawerOrderDetail, function (drawerOrderDetail) {
                                 console.log("Saved Successfully");
                                 $scope.editableDrawerDetail = "";
                                 $scope.drawerName = "";
                                 $scope.drawerColorName = "";
                                 $scope.drawerHandleName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.drawer_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'drawerDetailId': drawerOrderDetail.id
                                 }, {'reload': true});
                             });
                         }
@@ -6269,22 +6353,31 @@ angular.module("digitalbusiness.states.order", [])
                             var displayDiscountPrice = ((preliminaryDealerPrice / 100) * fillerOrderDetail.displayDiscount);
                             fillerOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
                             console.log("Filler Order Detail Save Object :%O", fillerOrderDetail);
-                            FillerOrderDetailsService.save(fillerOrderDetail, function () {
+                            FillerOrderDetailsService.save(fillerOrderDetail, function (fillerOrderDetail) {
                                 console.log("Saved Successfully");
                                 $scope.editablePanelDetail = "";
                                 $scope.fillerColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.filler_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'fillerDetailId': fillerOrderDetail.id
                                 }, {'reload': true});
+
                             });
                         } else {
                             fillerOrderDetail.price = (fillerOrderDetail.unitPrice - discountPrice);
-                            FillerOrderDetailsService.save(fillerOrderDetail, function () {
+                            FillerOrderDetailsService.save(fillerOrderDetail, function (fillerOrderDetail) {
                                 console.log("Saved Successfully");
                                 $scope.editablePanelDetail = "";
                                 $scope.fillerColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.filler_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'fillerDetailId': fillerOrderDetail.id
                                 }, {'reload': true});
                             });
                         }
@@ -6369,22 +6462,30 @@ angular.module("digitalbusiness.states.order", [])
                             var displayDiscountPrice = ((preliminaryDealerPrice / 100) * pelmetOrderDetail.displayDiscount);
                             pelmetOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
                             console.log("Pelmet Order Detail Save Object :%O", pelmetOrderDetail);
-                            PelmetOrderDetailsService.save(pelmetOrderDetail, function () {
+                            PelmetOrderDetailsService.save(pelmetOrderDetail, function (pelmetOrderDetails) {
                                 console.log("Saved Successfully");
                                 $scope.editablePelmetDetail = "";
                                 $scope.pelmetColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.pelmet_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'pelmetDetailId': pelmetOrderDetails.id
                                 }, {'reload': true});
                             });
                         } else {
                             pelmetOrderDetail.price = (pelmetOrderDetail.unitPrice - discountPrice);
-                            PelmetOrderDetailsService.save(pelmetOrderDetail, function () {
+                            PelmetOrderDetailsService.save(pelmetOrderDetail, function (pelmetOrderDetails) {
                                 console.log("Saved Successfully");
                                 $scope.editablePelmetDetail = "";
                                 $scope.pelmetColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.pelmet_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'pelmetDetailId': pelmetOrderDetails.id
                                 }, {'reload': true});
                             });
                         }
@@ -6460,22 +6561,30 @@ angular.module("digitalbusiness.states.order", [])
                             var displayDiscountPrice = ((preliminaryDealerPrice / 100) * corniceOrderDetail.displayDiscount);
                             corniceOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
                             console.log("Cornice Order Detail Save Object :%O", corniceOrderDetail);
-                            CorniceOrderDetailsService.save(corniceOrderDetail, function () {
+                            CorniceOrderDetailsService.save(corniceOrderDetail, function (corniceOrderDetails) {
                                 console.log("Saved Successfully");
                                 $scope.editableCorniceDetail = "";
                                 $scope.corniceColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.cornice_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'corniceDetailId': corniceOrderDetails.id
                                 }, {'reload': true});
                             });
                         } else {
                             corniceOrderDetail.price = (corniceOrderDetail.unitPrice - discountPrice);
-                            CorniceOrderDetailsService.save(corniceOrderDetail, function () {
+                            CorniceOrderDetailsService.save(corniceOrderDetail, function (corniceOrderDetails) {
                                 console.log("Saved Successfully");
                                 $scope.editableCorniceDetail = "";
                                 $scope.corniceColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.cornice_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'corniceDetailId': corniceOrderDetails.id
                                 }, {'reload': true});
                             });
                         }
@@ -6570,22 +6679,30 @@ angular.module("digitalbusiness.states.order", [])
                     var displayDiscountPrice = ((handleOrderDetail.preliminaryDealerprice / 100) * handleOrderDetail.displayDiscount);
                     handleOrderDetail.price = (handleOrderDetail.preliminaryDealerprice - displayDiscountPrice);
                     console.log("Handle Order Detail Save Object :%O", handleOrderDetail);
-                    HandleOrderDetailsService.save(handleOrderDetail, function () {
+                    HandleOrderDetailsService.save(handleOrderDetail, function (handleOrderDetails) {
                         console.log("Saved Successfully");
                         $scope.editableHandleDetail = "";
                         $scope.handleName = "";
-                        $state.go('admin.masters_order_details', {
-                            'orderHeadId': $stateParams.orderHeadId
+//                        $state.go('admin.masters_order_details', {
+//                            'orderHeadId': $stateParams.orderHeadId
+//                        }, {'reload': true});
+                        $state.go('admin.masters_order_details.handle_modal', {
+                            'orderHeadId': $stateParams.orderHeadId,
+                            'handleDetailId': handleOrderDetails.id
                         }, {'reload': true});
                     });
                 } else {
                     handleOrderDetail.price = handleOrderDetail.preliminaryDealerprice;
-                    HandleOrderDetailsService.save(handleOrderDetail, function () {
+                    HandleOrderDetailsService.save(handleOrderDetail, function (handleOrderDetails) {
                         console.log("Saved Successfully");
                         $scope.editableHandleDetail = "";
                         $scope.handleName = "";
-                        $state.go('admin.masters_order_details', {
-                            'orderHeadId': $stateParams.orderHeadId
+//                        $state.go('admin.masters_order_details', {
+//                            'orderHeadId': $stateParams.orderHeadId
+//                        }, {'reload': true});
+                        $state.go('admin.masters_order_details.handle_modal', {
+                            'orderHeadId': $stateParams.orderHeadId,
+                            'handleDetailId': handleOrderDetails.id
                         }, {'reload': true});
                     });
                 }
@@ -7696,7 +7813,8 @@ angular.module("digitalbusiness.states.order", [])
 
                 });
             };
-        })
+        }
+        )
         .controller('OrderHeadDeleteController', function (OrderHeadService, $scope, $stateParams, $state, paginationLimit) {
             console.log("What are STate Params Panel:%O", $stateParams);
             $scope.editableOrderHead = OrderHeadService.get({'id': $stateParams.orderHeadId});
@@ -8457,6 +8575,56 @@ angular.module("digitalbusiness.states.order", [])
                     });
                 });
             });
+        })
+//        .controller('CarcassRepeatAdditionController', function (InfinityWardrobeOrderDetailsService, UltimaWardrobeOrderDetailsService, MaxWardrobeOrderDetailsService, MaxKitchenOrderDetailsService, HardwareOrderDetailsService, DrawerOrderDetailsService, ShutterOrderDetailsService, HandleOrderDetailsService, HandlePriceService, CorniceOrderDetailsService, PelmetOrderDetailsService, FillerOrderDetailsService, PanelOrderDetailsService, SectionProfileService, FinishPriceService, RawMaterialService, KitchenComponentService, ColorService, CarcassOrderDetailsService, SegmentService, PartyService, OrderHeadService, OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+//            console.log("Inside carcass repeat addition");
+//            $scope.editableCarcassDetail = {};
+//            CarcassOrderDetailsService.get({
+//                'id': $stateParams.carcassDetailId
+//            }, function (carcassOrderDetailObject) {
+//                console.log("Carcass Order Detail Object :%O", carcassOrderDetailObject);
+//                $scope.editableCarcassDetail = carcassOrderDetailObject;
+//            });
+//        })
+        .controller('CarcassModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+            console.log("Inside Carcass Modal");
+
+        })
+        .controller('PanelModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+            console.log("Inside Panel Modal");
+
+        })
+        .controller('ShutterModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+            console.log("Inside Shutter Modal");
+
+        })
+        .controller('DrawerModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+            console.log("Inside Drawer Modal");
+
+        })
+        .controller('FillerModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+            console.log("Inside Filler Modal");
+
+        })
+        .controller('PelmetModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+            console.log("Inside Pelmet Modal");
+
+        })
+        .controller('CorniceModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+            console.log("Inside Cornice Modal");
+
+        })
+        .controller('HandleModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+            console.log("Inside Handle Modal");
+
+        })
+        .controller('HardwareModalController', function ($scope, $filter, $stateParams, $state, paginationLimit) {
+            console.log("Inside Hardware Modal");
+
+        })
+        .controller('OtherHardwareModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
+            console.log("Inside other Hardware Modal");
+
         });
 //        .controller('SaleTypeDeleteController', function (SaleTypeService, $scope, $stateParams, $state, paginationLimit) {
 //            $scope.editableSaleType = SaleTypeService.get({'id': $stateParams.saleTypeId});
