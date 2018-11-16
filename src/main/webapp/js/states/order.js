@@ -4266,21 +4266,23 @@ angular.module("digitalbusiness.states.order", [])
                 orderDetail.d = d;
                 orderDetail.nonStandardDimension = nonStandard;
                 console.log("Side Selection :%O", orderDetail.sideSelection);
-                if (orderDetail.stdCarcassPriceId !== undefined) {
-                    $scope.standardCarcassObject = StandardCarcassPriceService.get({
-                        'id': orderDetail.stdCarcassPriceId
-                    }, function (stdPriceObject) {
-                        if (orderDetail.material === "PB") {
-                            orderDetail.standardPrice = stdPriceObject.pbPrice;
-                        } else if (orderDetail.material === "MF") {
-                            orderDetail.standardPrice = stdPriceObject.mdfPrice;
-                        } else if (orderDetail.material === "HF") {
-                            orderDetail.standardPrice = stdPriceObject.hdfPrice;
-                        } else if (orderDetail.material === "BW") {
-                            orderDetail.standardPrice = stdPriceObject.plyPrice;
-                        }
-                    });
-                }
+                ///////////Trial to remove standard price picking feature//////////
+//                if (orderDetail.stdCarcassPriceId !== undefined) {
+//                    $scope.standardCarcassObject = StandardCarcassPriceService.get({
+//                        'id': orderDetail.stdCarcassPriceId
+//                    }, function (stdPriceObject) {
+//                        if (orderDetail.material === "PB") {
+//                            orderDetail.standardPrice = stdPriceObject.pbPrice;
+//                        } else if (orderDetail.material === "MF") {
+//                            orderDetail.standardPrice = stdPriceObject.mdfPrice;
+//                        } else if (orderDetail.material === "HF") {
+//                            orderDetail.standardPrice = stdPriceObject.hdfPrice;
+//                        } else if (orderDetail.material === "BW") {
+//                            orderDetail.standardPrice = stdPriceObject.plyPrice;
+//                        }
+//                    });
+//                }
+                //////////////////////////////////
 //                $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
 //                console.log("stdCarcassObject :%O", stdCarcassObject);
                 console.log("Order Detail :%O", orderDetail);
@@ -4290,14 +4292,14 @@ angular.module("digitalbusiness.states.order", [])
                         'materialCode': orderDetail.material
                     });
                     if (orderDetail.stdCarcassPriceId !== undefined) {
-                        $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
-                            $scope.stdMaterialObject1.$promise.then(function (resolvedStdData) {
-                                console.log("Resolved For Regular :%O", resolvedStdData);
-                                orderDetail.stdMaterialPrice = resolvedStdData.price;
-                                console.log("Final Order Detail :%O", orderDetail);
-                                $scope.saveOrderDetail(orderDetail);
-                            });
+//                        $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
+                        $scope.stdMaterialObject1.$promise.then(function (resolvedStdData) {
+                            console.log("Resolved For Regular :%O", resolvedStdData);
+                            orderDetail.stdMaterialPrice = resolvedStdData.price;
+                            console.log("Final Order Detail :%O", orderDetail);
+                            $scope.saveOrderDetail(orderDetail);
                         });
+//                        });
                     } else {
                         $scope.stdMaterialObject1.$promise.then(function (resolvedStdData) {
                             console.log("Resolved For Regular :%O", resolvedStdData);
@@ -4888,14 +4890,21 @@ angular.module("digitalbusiness.states.order", [])
                         orderDetail.unitPrice = finalPrice;
                         console.log("FInal Price Full SIde Matching:%O", orderDetail.unitPrice);
                     } else {
+                        ///////////XXXXXXXXXXXXXXXXXXXXXX//////////////////
                         console.log("Regular");
+                        //////////////New//////////////////////////
                         orderDetail.sideVisibility = "X";
-                        console.log("No Side Matching :" + orderDetail.sideVisibility);
+                        console.log("NST No Side Matching :" + orderDetail.sideVisibility);
+                        console.log("Order Details :%O", orderDetail);
                         var p1 = (2 * (orderDetail.depth * orderDetail.length));
                         var p2 = (2 * (orderDetail.width * orderDetail.depth));
                         var p3 = (orderDetail.width * orderDetail.length);
-                        basicArea = p1 + p2 + p3;
+                        basicArea = p1 + p2;
+                        backArea = p3;
+                        shelfArea = (orderDetail.width * orderDetail.depth);
                         basicSqMt = basicArea / 1000000;
+                        backSqMt = backArea / 1000000;
+                        shelfSqMt = shelfArea / 1000000;
                         totalArea = basicSqMt;
                         if (orderDetail.shelf === true) {
                             if (orderDetail.sectionProfileId !== undefined) {
@@ -4912,7 +4921,10 @@ angular.module("digitalbusiness.states.order", [])
                         }
 //                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXX-" + l1 + "" + w1 + "18" + d1;
                         orderDetail.productCode = productCode;
-                        console.log("Total Area Regular :%O", totalArea);
+                        console.log("Std Material Price :%O", orderDetail.stdMaterialPrice);
+                        var basicAreaPrice = (basicSqMt * orderDetail.stdMaterialPrice);
+                        var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
+                        console.log("Area Price :%O", basicAreaPrice);
                         if (orderDetail.sectionDirection === 'HORIZONTAL') {
                             profileArea = orderDetail.width / 1000;
                         } else if (orderDetail.sectionDirection === 'VERTICAL') {
@@ -4927,11 +4939,77 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             var profilePrice = 0;
                         }
+                        ///////////Hardware Price///////////////////
+                        if (orderDetail.component === "WC") {
+                            var hardwarePrice = 172;
+                        } else if (orderDetail.component === "BC") {
+                            var hardwarePrice = 263;
+                        } else if (orderDetail.component === "TU") {
+                            var hardwarePrice = 367;
+                        }
+                        ////////////////////////////////////////////
+                        if (orderDetail.shelfCount !== 0 && orderDetail.shelfCount !== undefined) {
+                            console.log("Shelf Count :%O", orderDetail.shelfCount);
+                            var finalShArea = (orderDetail.shelfCount * shelfSqMt);
+                            var shelfPrice = finalShArea * orderDetail.stdMaterialPrice;
+                        } else {
+                            var shelfPrice = 0;
+                        }
+                        console.log("B Price :%O", basicAreaPrice);
+                        console.log("Back Price :%O", backAreaPrice);
                         console.log("Profile Price :%O", profilePrice);
-                        console.log("Standard Price :%O", orderDetail.standardPrice);
-                        console.log("Quantity :%O", orderDetail.quantity);
+                        console.log("Shelf Price :%O", shelfPrice);
+                        console.log("Hardware Price :%O", hardwarePrice);
                         orderDetail.profilePrice = profilePrice;
-                        orderDetail.unitPrice = ((orderDetail.standardPrice + profilePrice) * orderDetail.quantity);
+                        var finalPrice = ((profilePrice + basicAreaPrice + backAreaPrice + shelfPrice + hardwarePrice) * orderDetail.quantity);
+                        orderDetail.unitPrice = finalPrice;
+                        console.log("Total Area Regular :%O", totalArea);
+                        console.log("Total Price Regular :%O", orderDetail.unitPrice);
+                        //////////////New Ends/////////////////////
+//                        orderDetail.sideVisibility = "X";
+//                        console.log("No Side Matching :" + orderDetail.sideVisibility);
+//                        var p1 = (2 * (orderDetail.depth * orderDetail.length));
+//                        var p2 = (2 * (orderDetail.width * orderDetail.depth));
+//                        var p3 = (orderDetail.width * orderDetail.length);
+//                        basicArea = p1 + p2 + p3;
+//                        basicSqMt = basicArea / 1000000;
+//                        totalArea = basicSqMt;
+//                        if (orderDetail.shelf === true) {
+//                            if (orderDetail.sectionProfileId !== undefined) {
+//                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
+//                            } else {
+//                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
+//                            }
+//                        } else {
+//                            if (orderDetail.sectionProfileId !== undefined) {
+//                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
+//                            } else {
+//                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
+//                            }
+//                        }
+////                        var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "18" + orderDetail.material + "XXXX-" + l1 + "" + w1 + "18" + d1;
+//                        orderDetail.productCode = productCode;
+//                        console.log("Total Area Regular :%O", totalArea);
+//                        if (orderDetail.sectionDirection === 'HORIZONTAL') {
+//                            profileArea = orderDetail.width / 1000;
+//                        } else if (orderDetail.sectionDirection === 'VERTICAL') {
+//                            profileArea = orderDetail.length / 1000;
+//                        } else {
+//
+//                        }
+//                        console.log("Profile Area :%O", profileArea);
+//                        if (orderDetail.sectionProfilePrice !== undefined) {
+//                            console.log("Profile Basic Price :%O", orderDetail.sectionProfilePrice);
+//                            var profilePrice = profileArea * orderDetail.sectionProfilePrice;
+//                        } else {
+//                            var profilePrice = 0;
+//                        }
+//                        console.log("Profile Price :%O", profilePrice);
+//                        console.log("Standard Price :%O", orderDetail.standardPrice);
+//                        console.log("Quantity :%O", orderDetail.quantity);
+//                        orderDetail.profilePrice = profilePrice;
+//                        orderDetail.unitPrice = ((orderDetail.standardPrice + profilePrice) * orderDetail.quantity);
+                        ///////////XXXXXXXXXXXXXXXXXXXXXX//////////////////
 //                        StandardCarcassPriceService.get({
 //                            'id': orderDetail.stdCarcassPriceId
 //                        }, function (stdPriceObject) {

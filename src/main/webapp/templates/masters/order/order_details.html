@@ -3117,11 +3117,11 @@
         </div>
     </div>
     <div class="panel-heading text-center">
-        <div>
+        <div ng-if="showMrpFeature">
             <h3>Additional Charges</h3>
         </div>
         <form role="role" ng-submit="updateOrderHead(orderHead)">
-            <div class="row">
+            <div class="row" ng-if="showMrpFeature">
                 <div class="col-sm-3">
                     <label>Transportation Charges</label>                    
                     <input class="form-control" type="number" min="0" ng-model="orderHead.transportationCharges">
@@ -3139,7 +3139,7 @@
                     <input class="form-control" type="number" min="0" ng-model="orderHead.otherCharges">
                 </div>                
             </div>
-            <div class="row">
+            <div class="row" style="margin-top: 10px;" ng-if="showMrpFeature">
                 <div class="col-sm-3">
                     <label>Discount (In %)</label>
                     <input class="form-control" type="number" min="0" ng-model="orderHead.discount">
