@@ -330,3 +330,120 @@
         </div>
     </form>
 </div>
+<!--/////////////Carcass Selection Panel//////////////////////-->
+<div class="modal modal-digitalbusiness" ng-if="showCarcassSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Carcass
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height:450px;">                
+                <div class="col-sm-6" style="overflow-y: scroll;height: 420px">
+                    <div class="row" ng-repeat="carcass in carcaseList1" >
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{carcass.component}}</b> &nbsp;
+                                    <button class="next btn-next" ng-click="selectPreCarcass(carcass.id)">View Component</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <div>
+                        <image class="text-center" ng-src="./rest/kitchen_component/{{preCarcass.id}}/attachment" width="250px" height="320px"/>
+                        <br>
+                        <b class="text-center">{{preCarcass.component}}</b>
+                        <br>
+                        <button class="next btn-next" ng-click="selectCarcase(preCarcass.id)">Select Carcass Type</button>
+                    </div>
+                </div>                
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showCarcassColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Carcass Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px">
+                <div class="col-sm-6" style="overflow-y: scroll;height: 420px">
+                    <div class=row ng-repeat="sortedColor in sortedColorList1| orderBy:'toString()'">                        
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreInternalCarcassColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>                                                      
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <div>
+                        <image class="text-center" ng-src="./rest/color/{{preInternalCarcassColor.id}}/attachment" width="250px" height="250px"/>
+                        <br>
+                        <b class="text-center"> {{preInternalCarcassColor.colorName}}</b>
+                        <br>
+                        <button class="next btn-next" ng-click="selectInternalCarcassColor(preInternalCarcassColor.id, preInternalCarcassColor.colorName, preInternalCarcassColor.colorCode)">Select Color</button>
+                    </div>
+                </div>                
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showCarcassSidesColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Sides Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="completeColor in completeColors1">
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{completeColor.colorName}}</b> &nbsp;
+                                    <button class="next btn-next" ng-click="selectPreSideCarcassColor(completeColor.id)">View Color</button>                                    
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>    
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preSideCarcassColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preSideCarcassColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectSideCarcassColor(preSideCarcassColor.id, preSideCarcassColor.colorName, preSideCarcassColor.colorCode)">Select Color</button>
+                </div>                
+            </div>
+        </div>        
+    </div>
+</div>
+<!--/////////////Carcass Selection Panel Ends/////////////////-->

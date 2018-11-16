@@ -119,7 +119,7 @@ angular.module("digitalbusiness.states.order", [])
                 'url': '/:ultimaWardrobeDetailId/ultima_wardrobe/delete',
                 'templateUrl': templateRoot + '/masters/order/ultima_wardrobe_detail_delete.html',
                 'controller': 'UltimaWardrobeDetailDeleteController'
-            });            
+            });
             $stateProvider.state('admin.masters_order_details.carcass_modal', {
                 'url': '/:orderHeadId/:carcassDetailId/carcass_modal',
                 'templateUrl': templateRoot + '/masters/order_details_modal/carcass_modal.html',
@@ -8666,6 +8666,8 @@ angular.module("digitalbusiness.states.order", [])
 //        })
         .controller('CarcassModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             console.log("Inside Carcass Modal");
+            $scope.orderHeadId = $stateParams.orderHeadId;
+            $scope.carcassDetailId = $stateParams.carcassDetailId;
 
         })
         .controller('PanelModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
