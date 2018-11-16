@@ -312,6 +312,7 @@
         <script src="${pageContext.request.contextPath}/js/states/party_order_report.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/order_report.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/order_mrp.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/order_repeat.js"></script>
         <!-- New Offerings-->
         <script src="${pageContext.request.contextPath}/js/states/manufacturer.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/manufacturer_category.js"></script>
