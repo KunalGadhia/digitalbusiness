@@ -47,8 +47,76 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     'id': $stateParams.carcassDetailId
                 }, function (carcassOrderDetailObject) {
                     console.log("Carcass Order Detail Object in Repeat:%O", carcassOrderDetailObject);
+                    console.log("STandard Carcass Price Id :" + carcassOrderDetailObject.stdCarcassPriceId);
+                    carcassOrderDetailObject.stdCarcassPriceId = carcassOrderDetailObject.stdCarcassPriceId.toString();
+                    carcassOrderDetailObject.sectionProfileId = carcassOrderDetailObject.sectionProfileId.toString();
                     carcassOrderDetailObject.id = '';
                     carcassOrderDetailObject.productCode = '';
+                    //////To Fetch Kitchen Component//////
+                    KitchenComponentService.findByComponentCode({
+                        'componentCode': carcassOrderDetailObject.component
+                    }, function (kcObject) {
+                        $scope.carcassName = kcObject.component;
+                        $scope.carcassComponent = kcObject.componentCode;
+                    });
+                    /////To Fetch Internal Color/////////
+                    ColorService.get({
+                        'id': carcassOrderDetailObject.intColorId
+                    }, function (intColorObject) {
+                        carcassOrderDetailObject.intColorCode = intColorObject.colorCode;
+                        carcassOrderDetailObject.intColorId = intColorObject.colorId;
+                        $scope.intColorName = intColorObject.colorName;
+                    });
+                    /////To Fetch Left Color/////////
+                    if (carcassOrderDetailObject.leftColorId !== null) {
+                        ColorService.get({
+                            'id': carcassOrderDetailObject.leftColorId
+                        }, function (leftColorObject) {
+                            carcassOrderDetailObject.leftColorCode = leftColorObject.colorCode;
+                            carcassOrderDetailObject.leftColorId = leftColorObject.colorId;
+                            $scope.leftColorName = leftColorObject.colorName;
+                        });
+                    }
+                    /////To Fetch Right Color/////////
+                    if (carcassOrderDetailObject.rightColorId !== null) {
+                        ColorService.get({
+                            'id': carcassOrderDetailObject.rightColorId
+                        }, function (rightColorObject) {
+                            carcassOrderDetailObject.rightColorCode = rightColorObject.colorCode;
+                            carcassOrderDetailObject.rightColorId = rightColorObject.colorId;
+                            $scope.rightColorName = rightColorObject.colorName;
+                        });
+                    }
+                    /////To Fetch Back Color/////////
+                    if (carcassOrderDetailObject.backColorId !== null) {
+                        ColorService.get({
+                            'id': carcassOrderDetailObject.backColorId
+                        }, function (backColorObject) {
+                            carcassOrderDetailObject.backColorCode = backColorObject.colorCode;
+                            carcassOrderDetailObject.backColorId = backColorObject.colorId;
+                            $scope.backColorName = backColorObject.colorName;
+                        });
+                    }
+                    /////To Fetch Top Color/////////
+                    if (carcassOrderDetailObject.topColorId !== null) {
+                        ColorService.get({
+                            'id': carcassOrderDetailObject.topColorId
+                        }, function (topColorObject) {
+                            carcassOrderDetailObject.topColorCode = topColorObject.colorCode;
+                            carcassOrderDetailObject.topColorId = topColorObject.colorId;
+                            $scope.topColorName = topColorObject.colorName;
+                        });
+                    }
+                    /////To Fetch Bottom Color/////////
+                    if (carcassOrderDetailObject.bottomColorId !== null) {
+                        ColorService.get({
+                            'id': carcassOrderDetailObject.bottomColorId
+                        }, function (bottomColorObject) {
+                            carcassOrderDetailObject.bottomColorCode = bottomColorObject.colorCode;
+                            carcassOrderDetailObject.bottomColorId = bottomColorObject.colorId;
+                            $scope.bottomColorName = bottomColorObject.colorName;
+                        });
+                    }
                     $scope.editableCarcassDetail = carcassOrderDetailObject;
                 });
             }
@@ -72,21 +140,21 @@ angular.module("digitalbusiness.states.order_repeat", [])
                 $scope.factDespDate = date;
             });
             $scope.showCarcassSelectionWidget = false;
-            $scope.closeWidget = function () {                
-                $scope.showCarcassSelectionWidget = false;                
-                $scope.showCarcassColorSelectionWidget = false;                
-                $scope.showCarcassSidesColorSelectionWidget = false;                
+            $scope.closeWidget = function () {
+                $scope.showCarcassSelectionWidget = false;
+                $scope.showCarcassColorSelectionWidget = false;
+                $scope.showCarcassSidesColorSelectionWidget = false;
                 $scope.preCarcass = {};
                 $scope.preInternalCarcassColor = {};
-                $scope.preSideCarcassColor = {};                
+                $scope.preSideCarcassColor = {};
             };
             $scope.openCarcass = function () {
                 KitchenComponentService.findByCategory({
                     'category': 'CARCASS '
-                }, function (carcassList) {                    
+                }, function (carcassList) {
                     $scope.carcaseList1 = carcassList;
                 });
-                $scope.showCarcassSelectionWidget = true;                
+                $scope.showCarcassSelectionWidget = true;
             };
             $scope.editableCarcassDetail = {};
             RawMaterialService.findAllList(function (rmList) {
@@ -94,8 +162,126 @@ angular.module("digitalbusiness.states.order_repeat", [])
             });
             $scope.selectCarcase = function (componentId) {
                 $scope.closeWidget();
-                                                                                                
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (kcObject) {
+                    $scope.carcassName = kcObject.component;
+                    $scope.carcassComponent = kcObject.componentCode;
+                });
             };
+            //////////Make Color Null if Side Matching changed//////////
+            $scope.$watch('editableCarcassDetail.sideMatching', function (sideMatchingOption) {
+                $scope.editableCarcassDetail.sideSelection = "";
+                $scope.$watch('editableCarcassDetail.sideSelection', function (sideSelectionOption) {
+                    console.log("Side Matching Option :" + sideMatchingOption);
+                    if (sideSelectionOption === "LSM") {
+                        $scope.editableCarcassDetail.rightColorCode = null;
+                        $scope.editableCarcassDetail.rightColorId = null;
+                        $scope.rightColorName = "";
+                        $scope.editableCarcassDetail.topColorCode = null;
+                        $scope.editableCarcassDetail.topColorId = null;
+                        $scope.topColorName = "";
+                        $scope.editableCarcassDetail.bottomColorCode = null;
+                        $scope.editableCarcassDetail.bottomColorId = null;
+                        $scope.bottomColorName = "";
+                        $scope.editableCarcassDetail.backColorCode = null;
+                        $scope.editableCarcassDetail.backColorId = null;
+                        $scope.backColorName = "";
+
+                    } else if (sideSelectionOption === "RSM") {
+                        $scope.editableCarcassDetail.leftColorCode = null;
+                        $scope.editableCarcassDetail.leftColorId = null;
+                        $scope.leftColorName = "";
+                        $scope.editableCarcassDetail.topColorCode = null;
+                        $scope.editableCarcassDetail.topColorId = null;
+                        $scope.topColorName = "";
+                        $scope.editableCarcassDetail.bottomColorCode = null;
+                        $scope.editableCarcassDetail.bottomColorId = null;
+                        $scope.bottomColorName = "";
+                        $scope.editableCarcassDetail.backColorCode = null;
+                        $scope.editableCarcassDetail.backColorId = null;
+                        $scope.backColorName = "";
+                    } else if (sideSelectionOption === "TSM") {
+                        $scope.editableCarcassDetail.leftColorCode = null;
+                        $scope.editableCarcassDetail.leftColorId = null;
+                        $scope.leftColorName = "";
+                        $scope.editableCarcassDetail.rightColorCode = null;
+                        $scope.editableCarcassDetail.rightColorId = null;
+                        $scope.rightColorName = "";
+                        $scope.editableCarcassDetail.bottomColorCode = null;
+                        $scope.editableCarcassDetail.bottomColorId = null;
+                        $scope.bottomColorName = "";
+                        $scope.editableCarcassDetail.backColorCode = null;
+                        $scope.editableCarcassDetail.backColorId = null;
+                        $scope.backColorName = "";
+                    } else if (sideSelectionOption === "BSM") {
+                        $scope.editableCarcassDetail.leftColorCode = null;
+                        $scope.editableCarcassDetail.leftColorId = null;
+                        $scope.leftColorName = "";
+                        $scope.editableCarcassDetail.rightColorCode = null;
+                        $scope.editableCarcassDetail.rightColorId = null;
+                        $scope.rightColorName = "";
+                        $scope.editableCarcassDetail.topColorCode = null;
+                        $scope.editableCarcassDetail.topColorId = null;
+                        $scope.topColorName = "";
+                        $scope.editableCarcassDetail.backColorCode = null;
+                        $scope.editableCarcassDetail.backColorId = null;
+                        $scope.backColorName = "";
+                    } else if (sideSelectionOption === "LRSM") {
+                        $scope.editableCarcassDetail.topColorCode = null;
+                        $scope.editableCarcassDetail.topColorId = null;
+                        $scope.topColorName = "";
+                        $scope.editableCarcassDetail.bottomColorCode = null;
+                        $scope.editableCarcassDetail.bottomColorId = null;
+                        $scope.bottomColorName = "";
+                        $scope.editableCarcassDetail.backColorCode = null;
+                        $scope.editableCarcassDetail.backColorId = null;
+                        $scope.backColorName = "";
+                    } else if (sideSelectionOption === "LRTSM") {
+                        $scope.editableCarcassDetail.bottomColorCode = null;
+                        $scope.editableCarcassDetail.bottomColorId = null;
+                        $scope.bottomColorName = "";
+                        $scope.editableCarcassDetail.backColorCode = null;
+                        $scope.editableCarcassDetail.backColorId = null;
+                        $scope.backColorName = "";
+                    } else if (sideSelectionOption === "LRBSM") {
+                        $scope.editableCarcassDetail.topColorCode = null;
+                        $scope.editableCarcassDetail.topColorId = null;
+                        $scope.topColorName = "";
+                        $scope.editableCarcassDetail.backColorCode = null;
+                        $scope.editableCarcassDetail.backColorId = null;
+                        $scope.backColorName = "";
+                    } else if (sideSelectionOption === "ASM") {
+                        $scope.editableCarcassDetail.backColorCode = null;
+                        $scope.editableCarcassDetail.backColorId = null;
+                        $scope.backColorName = "";
+                    } else if (sideSelectionOption === "FSM") {
+                        console.log("Full Side Matching Keeping Everythiong as it is");
+                    } else {
+                        console.log("No Side Selection");
+                        $scope.editableCarcassDetail.leftColorCode = null;
+                        $scope.editableCarcassDetail.leftColorId = null;
+                        $scope.leftColorName = "";
+                        $scope.editableCarcassDetail.rightColorCode = null;
+                        $scope.editableCarcassDetail.rightColorId = null;
+                        $scope.rightColorName = "";
+                        $scope.editableCarcassDetail.topColorCode = null;
+                        $scope.editableCarcassDetail.topColorId = null;
+                        $scope.topColorName = "";
+                        $scope.editableCarcassDetail.bottomColorCode = null;
+                        $scope.editableCarcassDetail.bottomColorId = null;
+                        $scope.bottomColorName = "";
+                        $scope.editableCarcassDetail.backColorCode = null;
+                        $scope.editableCarcassDetail.backColorId = null;
+                        $scope.backColorName = "";
+                    }
+
+                    if (sideMatchingOption === "NSM") {
+                        $scope.editableCarcassDetail.sideSelection = "NSS";
+                    }
+                    ;
+                });
+            });
             $scope.selectPreCarcass = function (componentId) {
                 KitchenComponentService.get({
                     'id': componentId
@@ -960,16 +1146,16 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     });
                     if (orderDetail.stdCarcassPriceId !== undefined) {
 //                        $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
-                            $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
-                                console.log("resolvedSTdData :%O", resolvedStdData.price);
-                                $scope.finishObject.$promise.then(function (resolvedFinishData) {
-                                    console.log("resolved FInish Data :%O", resolvedFinishData.price);
+                        $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
+                            console.log("resolvedSTdData :%O", resolvedStdData.price);
+                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
+                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
 //                                    orderDetail.stdMaterialPrice = resolvedStdData.price;
-                                    orderDetail.finishPrice = resolvedFinishData.price;
-                                    console.log("This is Order Detail :%O", orderDetail);
-                                    $scope.saveOrderDetail(orderDetail);
-                                });
+                                orderDetail.finishPrice = resolvedFinishData.price;
+                                console.log("This is Order Detail :%O", orderDetail);
+                                $scope.saveOrderDetail(orderDetail);
                             });
+                        });
 //                        });
                     } else {
                         $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
@@ -982,7 +1168,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                                 $scope.saveOrderDetail(orderDetail);
                             });
                         });
-                    }                    
+                    }
                 }
             };
             //////////////Save Functions for All Components/////////////
@@ -2066,7 +2252,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                 } else {
                     alert("Some Exception Happening, Please try again.");
                 }
-                console.log("Main Order Detail :%O", orderDetail);          
+                console.log("Main Order Detail :%O", orderDetail);
                 $scope.applyCarcassDiscount = function (orderDetail) {
                     RateContractDetailService.findByCarcassMaterialThickness({
                         'material': orderDetail.material,
@@ -2075,7 +2261,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     }, function (rateContractDetailObject) {
                         orderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((orderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
-                        console.log("Order Head :%O", $scope.orderHead);                        
+                        console.log("Order Head :%O", $scope.orderHead);
                         if ($scope.orderHead.orderSubType === "D") {
                             console.log("Display Order");
                             var preliminaryDealerPrice = (orderDetail.unitPrice - discountPrice);
