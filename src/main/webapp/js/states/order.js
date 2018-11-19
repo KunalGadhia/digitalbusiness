@@ -4373,7 +4373,7 @@ angular.module("digitalbusiness.states.order", [])
                         'finishCode': orderDetail.sideFinish
                     });
                     if (orderDetail.stdCarcassPriceId !== undefined) {
-                        $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
+//                        $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
                             $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
                                 console.log("resolvedSTdData :%O", resolvedStdData.price);
                                 $scope.finishObject.$promise.then(function (resolvedFinishData) {
@@ -4384,7 +4384,7 @@ angular.module("digitalbusiness.states.order", [])
                                     $scope.saveOrderDetail(orderDetail);
                                 });
                             });
-                        });
+//                        });
                     } else {
                         $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
                             console.log("resolvedSTdData :%O", resolvedStdData.price);
@@ -5736,7 +5736,7 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             orderDetail.price = (orderDetail.unitPrice - discountPrice);
                             CarcassOrderDetailsService.save(orderDetail, function (carcassOrderDetail) {
-                                console.log("Carcass Order Detail :%O", carcassOrderDetail);
+                                console.log("Carcass Order Detail Final:%O", carcassOrderDetail);
                                 console.log("Saved Successfully");
                                 $scope.editableCarcassDetail = "";
                                 $scope.carcassName = "";

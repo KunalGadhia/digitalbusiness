@@ -46,7 +46,9 @@ angular.module("digitalbusiness.states.order_repeat", [])
                 CarcassOrderDetailsService.get({
                     'id': $stateParams.carcassDetailId
                 }, function (carcassOrderDetailObject) {
-                    console.log("Carcass Order Detail Object :%O", carcassOrderDetailObject);
+                    console.log("Carcass Order Detail Object in Repeat:%O", carcassOrderDetailObject);
+                    carcassOrderDetailObject.id = '';
+                    carcassOrderDetailObject.productCode = '';
                     $scope.editableCarcassDetail = carcassOrderDetailObject;
                 });
             }
@@ -92,12 +94,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
             });
             $scope.selectCarcase = function (componentId) {
                 $scope.closeWidget();
-                KitchenComponentService.get({
-                    'id': componentId
-                }, function (kcObject) {
-                    $scope.carcassName = kcObject.component;
-                    $scope.carcassComponent = kcObject.componentCode;
-                });
+                                                                                                
             };
             $scope.selectPreCarcass = function (componentId) {
                 KitchenComponentService.get({
