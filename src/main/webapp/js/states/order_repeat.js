@@ -49,7 +49,10 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     console.log("Carcass Order Detail Object in Repeat:%O", carcassOrderDetailObject);
                     console.log("STandard Carcass Price Id :" + carcassOrderDetailObject.stdCarcassPriceId);
                     carcassOrderDetailObject.stdCarcassPriceId = carcassOrderDetailObject.stdCarcassPriceId.toString();
-                    carcassOrderDetailObject.sectionProfileId = carcassOrderDetailObject.sectionProfileId.toString();
+
+                    if (carcassOrderDetailObject.sectionProfileId !== null) {
+                        carcassOrderDetailObject.sectionProfileId = carcassOrderDetailObject.sectionProfileId.toString();
+                    }
                     carcassOrderDetailObject.id = '';
                     carcassOrderDetailObject.productCode = '';
                     //////To Fetch Kitchen Component//////
@@ -64,7 +67,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         'id': carcassOrderDetailObject.intColorId
                     }, function (intColorObject) {
                         carcassOrderDetailObject.intColorCode = intColorObject.colorCode;
-                        carcassOrderDetailObject.intColorId = intColorObject.colorId;
+                        carcassOrderDetailObject.intColorId = intColorObject.id;
                         $scope.intColorName = intColorObject.colorName;
                     });
                     /////To Fetch Left Color/////////
@@ -73,7 +76,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                             'id': carcassOrderDetailObject.leftColorId
                         }, function (leftColorObject) {
                             carcassOrderDetailObject.leftColorCode = leftColorObject.colorCode;
-                            carcassOrderDetailObject.leftColorId = leftColorObject.colorId;
+                            carcassOrderDetailObject.leftColorId = leftColorObject.id;
                             $scope.leftColorName = leftColorObject.colorName;
                         });
                     }
@@ -83,7 +86,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                             'id': carcassOrderDetailObject.rightColorId
                         }, function (rightColorObject) {
                             carcassOrderDetailObject.rightColorCode = rightColorObject.colorCode;
-                            carcassOrderDetailObject.rightColorId = rightColorObject.colorId;
+                            carcassOrderDetailObject.rightColorId = rightColorObject.id;
                             $scope.rightColorName = rightColorObject.colorName;
                         });
                     }
@@ -93,7 +96,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                             'id': carcassOrderDetailObject.backColorId
                         }, function (backColorObject) {
                             carcassOrderDetailObject.backColorCode = backColorObject.colorCode;
-                            carcassOrderDetailObject.backColorId = backColorObject.colorId;
+                            carcassOrderDetailObject.backColorId = backColorObject.id;
                             $scope.backColorName = backColorObject.colorName;
                         });
                     }
@@ -103,7 +106,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                             'id': carcassOrderDetailObject.topColorId
                         }, function (topColorObject) {
                             carcassOrderDetailObject.topColorCode = topColorObject.colorCode;
-                            carcassOrderDetailObject.topColorId = topColorObject.colorId;
+                            carcassOrderDetailObject.topColorId = topColorObject.id;
                             $scope.topColorName = topColorObject.colorName;
                         });
                     }
@@ -113,10 +116,19 @@ angular.module("digitalbusiness.states.order_repeat", [])
                             'id': carcassOrderDetailObject.bottomColorId
                         }, function (bottomColorObject) {
                             carcassOrderDetailObject.bottomColorCode = bottomColorObject.colorCode;
-                            carcassOrderDetailObject.bottomColorId = bottomColorObject.colorId;
+                            carcassOrderDetailObject.bottomColorId = bottomColorObject.id;
                             $scope.bottomColorName = bottomColorObject.colorName;
                         });
                     }
+                    if (carcassOrderDetailObject.grainDirection === "NO_GRAIN") {
+                        carcassOrderDetailObject.grainDirection = "";
+                    }
+
+                    if (carcassOrderDetailObject.sectionProfileId === null) {
+                        console.log("Section Profile Id is NUll");
+                        carcassOrderDetailObject.sectionProfileId = '';
+                    }
+
                     $scope.editableCarcassDetail = carcassOrderDetailObject;
                 });
             }
@@ -171,7 +183,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
             };
             //////////Make Color Null if Side Matching changed//////////
             $scope.$watch('editableCarcassDetail.sideMatching', function (sideMatchingOption) {
-                $scope.editableCarcassDetail.sideSelection = "";
+//                $scope.editableCarcassDetail.sideSelection = "";
                 $scope.$watch('editableCarcassDetail.sideSelection', function (sideSelectionOption) {
                     console.log("Side Matching Option :" + sideMatchingOption);
                     if (sideSelectionOption === "LSM") {
@@ -1141,32 +1153,32 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     $scope.stdMaterialObject = RawMaterialService.findByMaterialCode({
                         'materialCode': orderDetail.material
                     });
-                    $scope.finishObject = FinishPriceService.findByFinishCode({
-                        'finishCode': orderDetail.sideFinish
-                    });
+//                    $scope.finishObject = FinishPriceService.findByFinishCode({
+//                        'finishCode': orderDetail.sideFinish
+//                    });
                     if (orderDetail.stdCarcassPriceId !== undefined) {
 //                        $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
                         $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
                             console.log("resolvedSTdData :%O", resolvedStdData.price);
-                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
-                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
+//                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
+//                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
 //                                    orderDetail.stdMaterialPrice = resolvedStdData.price;
-                                orderDetail.finishPrice = resolvedFinishData.price;
+//                                orderDetail.finishPrice = resolvedFinishData.price;
                                 console.log("This is Order Detail :%O", orderDetail);
                                 $scope.saveOrderDetail(orderDetail);
-                            });
+//                            });
                         });
 //                        });
                     } else {
                         $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
                             console.log("resolvedSTdData :%O", resolvedStdData.price);
-                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
-                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
+//                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
+//                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
                                 orderDetail.stdMaterialPrice = resolvedStdData.price;
-                                orderDetail.finishPrice = resolvedFinishData.price;
+//                                orderDetail.finishPrice = resolvedFinishData.price;
                                 console.log("This is Order Detail :%O", orderDetail);
                                 $scope.saveOrderDetail(orderDetail);
-                            });
+//                            });
                         });
                     }
                 }
@@ -1234,13 +1246,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                             if (orderDetail.shelf === true) {
-                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                                 } else {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                                 }
                             } else {
-                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                                 } else {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -1311,13 +1323,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                             if (orderDetail.shelf === true) {
                                 console.log("Section Profile Id :%O", orderDetail.sectionProfileId);
-                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                                 } else {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                                 }
                             } else {
-                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                                 } else {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -1386,13 +1398,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                         if (orderDetail.shelf === true) {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             }
                         } else {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -1466,13 +1478,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                         if (orderDetail.shelf === true) {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             }
                         } else {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -1539,13 +1551,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
 //                        var backAreaPrice = ()
                         if (orderDetail.shelf === true) {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             }
                         } else {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -1604,13 +1616,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         basicSqMt = basicArea / 1000000;
                         var basicAreaPrice = basicSqMt * orderDetail.finishPrice;
                         if (orderDetail.shelf === true) {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             }
                         } else {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -1674,13 +1686,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         shelfSqMt = shelfArea / 1000000;
                         totalArea = basicSqMt;
                         if (orderDetail.shelf === true) {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
                             }
                         } else {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
@@ -1761,13 +1773,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                             if (orderDetail.shelf === true) {
-                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                                 } else {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                                 }
                             } else {
-                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                                 } else {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -1836,13 +1848,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                             var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                             var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                             if (orderDetail.shelf === true) {
-                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                                 } else {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                                 }
                             } else {
-                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                                if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                                 } else {
                                     var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "O" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -1908,13 +1920,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                         if (orderDetail.shelf === true) {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             }
                         } else {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "B" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -1987,13 +1999,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         var backAreaPrice = (backSqMt * orderDetail.backPanelPrice);
                         if (orderDetail.shelf === true) {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             }
                         } else {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "T" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -2059,13 +2071,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         var basicAreaPrice = (basicSqMt * orderDetail.backPanelPrice);
                         var extraAreaPrice = (extraSqMt * orderDetail.finishPrice);
                         if (orderDetail.shelf === true) {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             }
                         } else {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "A" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -2124,13 +2136,17 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         basicSqMt = basicArea / 1000000;
                         var basicAreaPrice = basicSqMt * orderDetail.finishPrice;
                         if (orderDetail.shelf === true) {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
-                                var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
+                                if (orderDetail.sectionProfileId !== "") {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                } else {
+                                    var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
+                                }
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "S-" + l1 + "" + w1 + "18" + d1;
                             }
                         } else {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "F" + orderDetail.sideFinish + "X-" + l1 + "" + w1 + "18" + d1;
@@ -2191,13 +2207,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         shelfSqMt = shelfArea / 1000000;
                         totalArea = basicSqMt;
                         if (orderDetail.shelf === true) {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXS-" + l1 + "" + w1 + "18" + d1;
                             }
                         } else {
-                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== null) {
+                            if (orderDetail.sectionProfileId !== undefined || orderDetail.sectionProfileId !== null || orderDetail.sectionProfileId !== "") {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "" + orderDetail.sectionProfileId + "" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
                             } else {
                                 var productCode = orderDetail.component + "" + orderDetail.carcassSubType + "X" + orderDetail.sideVisibility + "18" + orderDetail.material + "XXXXX-" + l1 + "" + w1 + "18" + d1;
@@ -2259,6 +2275,10 @@ angular.module("digitalbusiness.states.order_repeat", [])
                         'thickness': 18,
                         'rateContractId': orderDetail.rateContractId
                     }, function (rateContractDetailObject) {
+                        if (orderDetail.sectionProfileId === '') {
+                            orderDetail.sectionProfileId = null;
+                        }
+
                         orderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((orderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
                         console.log("Order Head :%O", $scope.orderHead);
@@ -2284,6 +2304,9 @@ angular.module("digitalbusiness.states.order_repeat", [])
                                 }, {'reload': true});
                             });
                         } else {
+                            if (orderDetail.grainDirection === '') {
+                                orderDetail.grainDirection = null;
+                            }
                             orderDetail.price = (orderDetail.unitPrice - discountPrice);
                             CarcassOrderDetailsService.save(orderDetail, function (carcassOrderDetail) {
                                 console.log("Carcass Order Detail :%O", carcassOrderDetail);
