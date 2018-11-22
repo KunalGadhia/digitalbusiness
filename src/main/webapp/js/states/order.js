@@ -4374,16 +4374,16 @@ angular.module("digitalbusiness.states.order", [])
                     });
                     if (orderDetail.stdCarcassPriceId !== undefined) {
 //                        $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
-                            $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
-                                console.log("resolvedSTdData :%O", resolvedStdData.price);
-                                $scope.finishObject.$promise.then(function (resolvedFinishData) {
-                                    console.log("resolved FInish Data :%O", resolvedFinishData.price);
-                                    orderDetail.stdMaterialPrice = resolvedStdData.price;
-                                    orderDetail.finishPrice = resolvedFinishData.price;
-                                    console.log("This is Order Detail :%O", orderDetail);
-                                    $scope.saveOrderDetail(orderDetail);
-                                });
+                        $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
+                            console.log("resolvedSTdData :%O", resolvedStdData.price);
+                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
+                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
+                                orderDetail.stdMaterialPrice = resolvedStdData.price;
+                                orderDetail.finishPrice = resolvedFinishData.price;
+                                console.log("This is Order Detail :%O", orderDetail);
+                                $scope.saveOrderDetail(orderDetail);
                             });
+                        });
 //                        });
                     } else {
                         $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
@@ -8672,39 +8672,50 @@ angular.module("digitalbusiness.states.order", [])
         })
         .controller('PanelModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             console.log("Inside Panel Modal");
+            $scope.orderHeadId = $stateParams.orderHeadId;
+            $scope.panelDetailId = $stateParams.panelDetailId;
 
         })
         .controller('ShutterModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             console.log("Inside Shutter Modal");
+            $scope.orderHeadId = $stateParams.orderHeadId;
+            $scope.shutterDetailId = $stateParams.shutterDetailId;
 
         })
         .controller('DrawerModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             console.log("Inside Drawer Modal");
-
+            $scope.orderHeadId = $stateParams.orderHeadId;
+            $scope.drawerDetailId = $stateParams.drawerDetailId;
         })
         .controller('FillerModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             console.log("Inside Filler Modal");
-
+            $scope.orderHeadId = $stateParams.orderHeadId;
+            $scope.fillerDetailId = $stateParams.fillerDetailId;
         })
         .controller('PelmetModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             console.log("Inside Pelmet Modal");
-
+            $scope.orderHeadId = $stateParams.orderHeadId;
+            $scope.pelmetDetailId = $stateParams.pelmetDetailId;
         })
         .controller('CorniceModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             console.log("Inside Cornice Modal");
-
+            $scope.orderHeadId = $stateParams.orderHeadId;
+            $scope.corniceDetailId = $stateParams.corniceDetailId;
         })
         .controller('HandleModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             console.log("Inside Handle Modal");
-
+            $scope.orderHeadId = $stateParams.orderHeadId;
+            $scope.handleDetailId = $stateParams.handleDetailId;
         })
         .controller('HardwareModalController', function ($scope, $filter, $stateParams, $state, paginationLimit) {
             console.log("Inside Hardware Modal");
-
+            $scope.orderHeadId = $stateParams.orderHeadId;
+            $scope.hardwareDetailId = $stateParams.hardwareDetailId;
         })
         .controller('OtherHardwareModalController', function (OrderDetailsService, $scope, $filter, $stateParams, $state, paginationLimit) {
             console.log("Inside other Hardware Modal");
-
+            $scope.orderHeadId = $stateParams.orderHeadId;
+            $scope.dealerSkuId = $stateParams.dealerSkuId;
         });
 //        .controller('SaleTypeDeleteController', function (SaleTypeService, $scope, $stateParams, $state, paginationLimit) {
 //            $scope.editableSaleType = SaleTypeService.get({'id': $stateParams.saleTypeId});
