@@ -4098,9 +4098,9 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     $scope.editablePelmetDetail = pelmetOrderDetailObject;
                 });
             }
-            $scope.closeWidget = function () {                
+            $scope.closeWidget = function () {
                 $scope.showPelmetSelectionWidget = false;
-                $scope.showPelmetColorSelectionWidget = false;                
+                $scope.showPelmetColorSelectionWidget = false;
                 $scope.prePelmetColor = {};
                 $scope.prePelmet = {};
             };
@@ -4347,9 +4347,9 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     $scope.editableCorniceDetail = corniceOrderDetailObject;
                 });
             }
-            $scope.closeWidget = function () {                
+            $scope.closeWidget = function () {
                 $scope.showCorniceSelectionWidget = false;
-                $scope.showCorniceColorSelectionWidget = false;                
+                $scope.showCorniceColorSelectionWidget = false;
                 $scope.preCorniceColor = {};
                 $scope.preCornice = {};
             };
@@ -4359,8 +4359,8 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     'category': 'CORNICE'
                 }, function (corniceList) {
                     $scope.corniceList1 = corniceList;
-                });                
-                $scope.showCorniceSelectionWidget = true;                
+                });
+                $scope.showCorniceSelectionWidget = true;
             };
             //////////////Cornice//////////////
             $scope.editableCorniceDetail = {};
@@ -4434,12 +4434,6 @@ angular.module("digitalbusiness.states.order_repeat", [])
                 console.log("FInish Name :%O", finishName);
                 $scope.editableCorniceDetail.thickness = '';
                 $scope.corniceColorName = '';
-//                FinishPriceService.findByFinishCode({
-//                    'finishCode': finishName
-//                }, function (finishObject) {
-//                    console.log("Finish Object :%O", finishObject);
-//                    $scope.editableCorniceDetail.finishPrice = finishObject.price;
-//                });
                 $scope.corniceFinishCode = finishName;
                 ColorConstraintService.findByFinishCode({
                     'finishCode': finishName
@@ -4574,8 +4568,164 @@ angular.module("digitalbusiness.states.order_repeat", [])
                 $scope.applyCorniceDiscount(corniceOrderDetail);
             };
         })
-        .controller('HandleRepeatAdditionController', function (RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
+        .controller('HandleRepeatAdditionController', function (HandlePriceService, HandleOrderDetailsService, RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                $scope.orderHead = orderHeadObject;
+            });
+            //////////////////Handle Form Functionality////////////////////////
+            $scope.editableHandleDetail = {};
+            $scope.$watch('handleName', function (handle) {
+                console.log("Handle :%O", handle);
+                console.log("Handle Component :%O", $scope.handleComponent);
+                $scope.showCD1 = false;
+                $scope.showCD2 = false;
+                if ($scope.handleComponent === "HANDEP01") {
+                    $scope.showCD2 = true;
+                    $scope.showCD1 = false;
+                    $scope.handlePriceList = [];
+                    HandlePriceService.findByKitchenComponent({
+                        'kitchenComponent': $scope.handleComponent
+                    }, function (handlePriceList) {
+                        console.log("Handle Price List :%O", handlePriceList);
+                        angular.forEach(handlePriceList, function (hplObject) {
+                            $scope.handlePriceList.push(hplObject);
+                        });
+                    });
+                } else {
+                    $scope.showCD2 = false;
+                    $scope.showCD1 = true;
+                    $scope.handlePriceList = [];
+                    HandlePriceService.findByKitchenComponent({
+                        'kitchenComponent': $scope.handleComponent
+                    }, function (handlePriceList) {
+                        console.log("Handle Price List :%O", handlePriceList);
+                        angular.forEach(handlePriceList, function (hplObject) {
+                            $scope.handlePriceList.push(hplObject);
+                        });
+                    });
+                }
+            });
+            $scope.$watch('editableHandleDetail.length', function (cd) {
+                console.log("CD :%O", cd);
+                angular.forEach($scope.handlePriceList, function (handlePriceObject) {
+                    console.log("Handle Price Object :%O", handlePriceObject.cd);
+                    if (handlePriceObject.cd.toString() === cd.toString()) {
+                        $scope.mainHandleObject = handlePriceObject;
+                        console.log("Got the Object :%O", $scope.mainHandleObject);
+                        $scope.editableHandleDetail.finish = $scope.mainHandleObject.finish;
+                        $scope.editableHandleDetail.stdPrice = $scope.mainHandleObject.price;
+                    } else {
+                        console.log("Not My COncern ");
+                    }
 
+                });
+            });
+            $scope.$watch('editableHandleDetail.handleType', function (handleType) {
+                HandlePriceService.get({
+                    'id': handleType
+                }, function (handlePriceObject) {
+                    $scope.editableHandleDetail.finish = handlePriceObject.finish;
+                    $scope.editableHandleDetail.stdPrice = handlePriceObject.price;
+                });
+            });
+            ///////////////////////////////////////////////////////////////////
+            $scope.closeWidget = function () {
+                $scope.showHandleSelectionWidget = false;
+                $scope.preHandle = {};
+
+            };
+            $scope.openHandle = function () {
+                KitchenComponentService.findByCategory({
+                    'category': 'HANDLE'
+                }, function (handleList) {
+                    $scope.handleList1 = handleList;
+                });
+                $scope.showHandleSelectionWidget = true;
+            };
+            //////////////Handle//////////////
+            $scope.editableHandleDetail = {};
+            $scope.selectHandle = function (componentId) {
+                $scope.closeWidget();
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (kcObject) {
+                    $scope.handleName = kcObject.component;
+                    $scope.handleComponent = kcObject.componentCode;
+                });
+            };
+            $scope.selectPreHandle = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (handleComponent) {
+                    $scope.preHandle = handleComponent;
+                });
+            };
+            ///////////////////////////////////
+            $scope.saveHandleDetails = function (handleOrderDetail) {
+                handleOrderDetail.orderHeadId = $stateParams.orderHeadId;
+                handleOrderDetail.component = $scope.handleComponent;
+//                handleOrderDetail.depth = '0';
+//                handleOrderDetail.width = '0';
+//                handleOrderDetail.material = '';
+                var l1;
+                var lengthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    l1 = genNum;
+                };
+                if (handleOrderDetail.length < 1000) {
+                    if (handleOrderDetail.length < 100) {
+                        lengthLessThan100(handleOrderDetail.length);
+                    } else {
+                        l1 = 0 + handleOrderDetail.length.toString();
+                    }
+                } else {
+                    l1 = handleOrderDetail.length.toString();
+                }
+                var productCode = handleOrderDetail.component + "XXXXXXXX-" + l1 + "MM";
+                handleOrderDetail.productCode = productCode;
+                if (handleOrderDetail.component === "HANDEP01") {
+                    var meterLength = (handleOrderDetail.length / 1000);
+                    handleOrderDetail.preliminaryDealerprice = (handleOrderDetail.quantity * (meterLength * handleOrderDetail.stdPrice));
+                } else {
+                    handleOrderDetail.preliminaryDealerprice = (handleOrderDetail.quantity * handleOrderDetail.stdPrice);
+                }
+                console.log("Handle Save Object :%O", handleOrderDetail);
+                if ($scope.orderHead.orderSubType === "D") {
+                    console.log("Display Order");
+                    var displayDiscountPrice = ((handleOrderDetail.preliminaryDealerprice / 100) * handleOrderDetail.displayDiscount);
+                    handleOrderDetail.price = (handleOrderDetail.preliminaryDealerprice - displayDiscountPrice);
+                    console.log("Handle Order Detail Save Object :%O", handleOrderDetail);
+                    HandleOrderDetailsService.save(handleOrderDetail, function (handleOrderDetails) {
+                        console.log("Saved Successfully");
+                        $scope.editableHandleDetail = "";
+                        $scope.handleName = "";
+//                        $state.go('admin.masters_order_details', {
+//                            'orderHeadId': $stateParams.orderHeadId
+//                        }, {'reload': true});
+                        $state.go('admin.masters_order_details.handle_modal', {
+                            'orderHeadId': $stateParams.orderHeadId,
+                            'handleDetailId': handleOrderDetails.id
+                        }, {'reload': true});
+                    });
+                } else {
+                    handleOrderDetail.price = handleOrderDetail.preliminaryDealerprice;
+                    HandleOrderDetailsService.save(handleOrderDetail, function (handleOrderDetails) {
+                        console.log("Saved Successfully");
+                        $scope.editableHandleDetail = "";
+                        $scope.handleName = "";
+//                        $state.go('admin.masters_order_details', {
+//                            'orderHeadId': $stateParams.orderHeadId
+//                        }, {'reload': true});
+                        $state.go('admin.masters_order_details.handle_modal', {
+                            'orderHeadId': $stateParams.orderHeadId,
+                            'handleDetailId': handleOrderDetails.id
+                        }, {'reload': true});
+                    });
+                }
+            };
+            ///////////////////End//////////////////////////////////////
         })
         .controller('HardwareRepeatAdditionController', function (RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
 

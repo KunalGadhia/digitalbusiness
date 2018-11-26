@@ -14,25 +14,25 @@
                             </p>
                             <ul>
                                 <li>To Add Complete New Handle, Click on <b>"Add New Handle"</b>.</li>
-                                <li>To Add Handle Fronts By Pre Fetching Values from previously Entered Handle, Click on <b>"Add Handle with Value"</b>.</li>
+                                <!--<li>To Add Handle Fronts By Pre Fetching Values from previously Entered Handle, Click on <b>"Add Handle with Value"</b>.</li>-->
                                 <li>To Get Back To Order Details Page, Click on <b>"Done"</b>.</li>
                             </ul>                            
                         </div>						
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-lg btn-primary" type="button" data-ui-sref="#">
+                    <button class="btn btn-lg btn-primary" type="button" data-ui-sref="admin.handle_repeat_add({ orderHeadId: orderHeadId})">
                         <i class="fa fa-plus"></i>
                         Add New Handle
                     </button>
-                    <button class="btn btn-lg btn-primary" type="button" data-ui-sref="#">
+<!--                    <button class="btn btn-lg btn-primary" type="button" data-ui-sref="#">
                         <i class="fa fa-plus"></i>
                         <i class="fa fa-plus"></i>
                         Add Handle with Value
-                    </button>
+                    </button>-->
                     <button class="btn btn-lg btn-primary" 
                             type="button"
-                            data-ui-sref="#">
+                            data-ui-sref="admin.masters_order_details({ orderHeadId: orderHeadId})">
                         Done
                     </button>
                 </div>
