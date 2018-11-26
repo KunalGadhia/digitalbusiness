@@ -1,16 +1,164 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<div class="panel-heading text-center">
+    <div>
+        <h3>Enter Pelmet Order Details</h3>
+    </div>
+    <form role="role" ng-submit="savePelmetDetails(editablePelmetDetail)">
+        <div class="row">
+            <div class="col-sm-3">
+                <label>Select Pelmet</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="Select Pelmet" ng-model="pelmetName" required="" readonly=""/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" ng-click="openPelmet()">Select Pelmet</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label>Material</label>
+                <select class="form-control" ng-model="editablePelmetDetail.material" required="">
+                    <option value="">Select Material</option>
+                    <option value="MF">Medium Density Fiber Board (MDF)</option>
+                    <!--<option value="HF">High Density Fiber Board (HDF)</option>-->
+                    <!--                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>-->
+                </select>                    
+            </div>
+            <div class="col-sm-3">
+                <label>Finish</label>
+                <select class="form-control" ng-model="editablePelmetDetail.finish" required="">
+                    <option value="">Select Finish</option>
+                    <option ng-hide="hidePelmetGlossy" value="XXA">Membrane Glossy MDF</option>
+                    <option value="XXB">Membrane Designer MDF</option>
+                    <option value="XXC">Membrane Standard MDF</option>
+                    <!--<option ng-repeat="finish in pelmetFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>-->
+                </select>                    
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Color</label>                    
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Color" ng-model="pelmetColorName" required="" onkeypress="return false;"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openPelmetColorWidget()">Select Color</button>
+                        </span>
+                    </div>
+                </div>
+            </div>       
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Thickness</label>
+                    <select class="form-control" ng-model="editablePelmetDetail.thickness" required="">
+                        <option value="">Select Thickness</option>
+                        <option value="25">25 mm</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label>Width</label>
+                <input type="number" class="form-control" placeholder="Enter Width" ng-model="editablePelmetDetail.width" required="">
+            </div>
+            <div class="col-sm-3">
+                <label>Height</label>
+                <input type="number" class="form-control" placeholder="Enter Height" ng-model="editablePelmetDetail.length" required="">
+            </div>                
+            <div class="col-sm-3">
+                <label>Quantity</label>
+                <input type="number" min="1" class="form-control" placeholder="Enter Quantity" ng-model="editablePelmetDetail.quantity" required="">
+            </div>
+        </div>
+        <hr style="border-top:  1px solid;">
+        <div class="row">
+            <div class="form-group col-sm-4 col-md-4">
+                <label>Additional Remark (Optional)</label>
+                <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editablePelmetDetail.remark"></textarea>
+            </div>
+            <div class="form-group col-sm-3 col-md-3" ng-if="orderHead.orderSubType === 'D'">
+                <label>Display Discount (In %)</label>
+                <input type="number" min="0" class="form-control" placeholder="Add Display Discount" ng-model="editablePelmetDetail.displayDiscount" required="required"/>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-lg btn-primary">
+                <i class="fa fa-save"></i>
+                Add
+            </button>                       				
+        </div>
+    </form>
+</div>
+<!--/////////////Pelmet Selection Panel//////////////////////-->
+<div class="modal modal-digitalbusiness" ng-if="showPelmetSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Pelmet
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="pelmet in pelmetList1">
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{pelmet.component}}</b> &nbsp;                                    
+                                    <button class="next btn-next" ng-click="selectPrePelmet(pelmet.id)">View Pelmet</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/kitchen_component/{{prePelmet.id}}/attachment" width="170px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{prePelmet.component}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectPelmet(prePelmet.id)">Select Pelmet</button>
+                </div>                
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showPelmetColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Pelmet Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="sortedColor in pelmetColors1">
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;                                    
+                                    <button class="next btn-next" ng-click="selectPrePelmetColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{prePelmetColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{prePelmetColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectPelmetColor(prePelmetColor.id, prePelmetColor.colorName, prePelmetColor.colorCode)">Select Color</button>
+                </div>                
+            </div>
+        </div>        
+    </div>
+</div>
+<!--/////////////Pelmet Selection Panel Ends/////////////////-->

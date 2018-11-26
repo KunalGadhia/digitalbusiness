@@ -3754,7 +3754,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     fillerOrderDetailObject.id = '';
                     fillerOrderDetailObject.productCode = '';
                     fillerOrderDetailObject.thickness = fillerOrderDetailObject.thickness.toString();
-                    if(fillerOrderDetailObject.grain === 'NO_GRAIN'){
+                    if (fillerOrderDetailObject.grain === 'NO_GRAIN') {
                         fillerOrderDetailObject.grain = '';
                     }
                     ColorService.get({
@@ -4065,8 +4065,254 @@ angular.module("digitalbusiness.states.order_repeat", [])
 //                });
             };
         })
-        .controller('PelmetRepeatAdditionController', function (RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
+        .controller('PelmetRepeatAdditionController', function (PanelMaterialThicknessService, FillerFinishPriceService, PelmetOrderDetailsService, RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                $scope.orderHead = orderHeadObject;
+            });
+            if ($stateParams.pelmetDetailId === undefined) {
+                $scope.editablePelmetDetail = {};
+            } else {
+                $scope.editablePelmetDetail = {};
+                PelmetOrderDetailsService.get({
+                    'id': $stateParams.pelmetDetailId
+                }, function (pelmetOrderDetailObject) {
+                    console.log("pelmet Order Detail Object :%O", pelmetOrderDetailObject);
+                    pelmetOrderDetailObject.id = '';
+                    pelmetOrderDetailObject.productCode = '';
+                    pelmetOrderDetailObject.thickness = pelmetOrderDetailObject.thickness.toString();
+                    ColorService.get({
+                        'id': pelmetOrderDetailObject.colorId
+                    }, function (colorObject) {
+                        pelmetOrderDetailObject.colorCode = colorObject.colorCode;
+                        pelmetOrderDetailObject.colorId = colorObject.id;
+                        $scope.pelmetColorName = colorObject.colorName;
+                    });
+                    KitchenComponentService.findByComponentCode({
+                        'componentCode': pelmetOrderDetailObject.component
+                    }, function (kcObject) {
+                        $scope.pelmetName = kcObject.component;
+                        $scope.pelmetComponent = kcObject.componentCode;
+                    });
+                    $scope.editablePelmetDetail = pelmetOrderDetailObject;
+                });
+            }
+            $scope.closeWidget = function () {                
+                $scope.showPelmetSelectionWidget = false;
+                $scope.showPelmetColorSelectionWidget = false;                
+                $scope.prePelmetColor = {};
+                $scope.prePelmet = {};
+            };
+            $scope.openPelmet = function () {
+                KitchenComponentService.findByCategory({
+                    'category': 'PELMET'
+                }, function (pelmetList) {
+                    $scope.pelmetList1 = pelmetList;
+                });
+                $scope.showPelmetSelectionWidget = true;
+            };
+            //////////////Pelmet//////////////
+            $scope.editablePelmetDetail = {};
+            $scope.selectPelmet = function (componentId) {
+                $scope.closeWidget();
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (kcObject) {
+                    $scope.pelmetName = kcObject.component;
+                    $scope.pelmetComponent = kcObject.componentCode;
+                });
+            };
+            $scope.selectPrePelmet = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (pelmetComponent) {
+                    $scope.prePelmet = pelmetComponent;
+                });
+            };
+            ////////////Pelmet Ends///////////////
+            /////////////////Pelmet Form Functionality/////////////////////////
+            $scope.showPelmetColorSelectionWidget = false;
+            $scope.openPelmetColorWidget = function () {
+                $scope.showPelmetColorSelectionWidget = true;
+            };
+            $scope.selectPelmetColor = function (colorId, colorName, colorCode) {
+                console.log(colorId);
+                $scope.closeWidget();
+                $scope.editablePelmetDetail.colorCode = colorCode;
+                $scope.editablePelmetDetail.colorId = colorId;
+                $scope.pelmetColorName = colorName;
+            };
+            $scope.selectPrePelmetColor = function (colorId) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.prePelmetColor = colorObject;
+                });
+            };
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                PartyService.get({
+                    'id': orderHeadObject.billingPartyId
+                }, function (partyObject) {
+                    $scope.editablePelmetDetail.rateContractId = partyObject.rateContractId;
+                });
+            });
+            $scope.$watch('editablePelmetDetail.material', function (material) {
+                console.log("Side Material :%O", material);
+                RawMaterialService.findByMaterialCode({
+                    'materialCode': material
+                }, function (materialObject) {
+                    console.log("Material Object :%O", materialObject);
+                    FinishPriceService.findCarcassFinishByMaterialId({
+                        'materialId': materialObject.id
+                    }, function (finishList) {
+                        console.log("FInish List :%O", finishList);
+                        $scope.pelmetFinishList = finishList;
+                    });
+                });
+                PanelMaterialThicknessService.findByMaterial({
+                    'material': material
+                }, function (pelmetThicknessObject) {
+                    console.log("Pelmet Thickness Object :%O", pelmetThicknessObject);
+                    $scope.pelmetThicknessList = pelmetThicknessObject;
+                });
+            });
+            $scope.hidePelmetGlossy = false;
+            $scope.$watch('pelmetComponent', function (pelmetComponent) {
+                if (pelmetComponent === "PEL-PL1X") {
+                    $scope.hidePelmetGlossy = true;
+                } else {
+                    $scope.hidePelmetGlossy = false;
+                }
+            });
+//            $scope.showFillerBsm = false;
+            $scope.$watch('editablePelmetDetail.finish', function (finishName) {
+                console.log("FInish Name :%O", finishName);
+                $scope.editablePelmetDetail.thickness = '';
+                $scope.pelmetColorName = '';
+//                FinishPriceService.findByFinishCode({
+//                    'finishCode': finishName
+//                }, function (finishObject) {
+//                    console.log("Finish Object :%O", finishObject);
+//                    $scope.editablePelmetDetail.finishPrice = finishObject.price;
+//                });
+                $scope.pelmetFinishCode = finishName;
+                ColorConstraintService.findByFinishCode({
+                    'finishCode': finishName
+                }, function (sortedColorObject) {
+                    console.log("Sorted COlor :%O", sortedColorObject);
+                    $scope.pelmetColors1 = [];
+                    angular.forEach(sortedColorObject.colors, function (colorId) {
+                        ColorService.get({
+                            'id': colorId
+                        }, function (colorObject) {
+                            $scope.pelmetColors1.push(colorObject);
+                        });
+                    });
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $scope.pelmetColors1 = [];
+                    } else if (response.status === 404) {
+                        $scope.pelmetColors1 = [];
+                    } else if (response.status === 400) {
+                        $scope.pelmetColors1 = [];
+                    }
+                });
+            });
+            $scope.$watch('editablePelmetDetail.thickness', function (pelmetThickness) {
+                console.log("Pelmet THickness");
+                FillerFinishPriceService.findByFinishThickness({
+                    'finish': $scope.pelmetFinishCode,
+                    'thickness': pelmetThickness
+                }, function (sfpObject) {
+                    console.log("SHutter Finis Price Object :%O", sfpObject);
+                    $scope.editablePelmetDetail.finishPrice = sfpObject.oneSidePrice;
+                });
+            });
+            ///////////////////////////////////////////////////////////////////
+            $scope.savePelmetDetails = function (pelmetOrderDetail) {
+                pelmetOrderDetail.orderHeadId = $stateParams.orderHeadId;
+                pelmetOrderDetail.component = $scope.pelmetComponent;
+                pelmetOrderDetail.depth = '0';
+                $scope.applyPelmetDiscount = function (pelmetOrderDetail) {
+                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                        'finish': pelmetOrderDetail.finish,
+                        'material': pelmetOrderDetail.material,
+                        'thickness': pelmetOrderDetail.thickness,
+                        'rateContractId': pelmetOrderDetail.rateContractId
+                    }, function (rateContractDetailObject) {
+                        pelmetOrderDetail.discountPer = rateContractDetailObject.discountPer;
+                        var discountPrice = ((pelmetOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
+                        if ($scope.orderHead.orderSubType === "D") {
+                            console.log("Display Order");
+                            var preliminaryDealerPrice = (pelmetOrderDetail.unitPrice - discountPrice);
+                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * pelmetOrderDetail.displayDiscount);
+                            pelmetOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
+                            console.log("Pelmet Order Detail Save Object :%O", pelmetOrderDetail);
+                            PelmetOrderDetailsService.save(pelmetOrderDetail, function (pelmetOrderDetails) {
+                                console.log("Saved Successfully");
+                                $scope.editablePelmetDetail = "";
+                                $scope.pelmetColorName = "";
+                                $state.go('admin.masters_order_details.pelmet_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'pelmetDetailId': pelmetOrderDetails.id
+                                }, {'reload': true});
+                            });
+                        } else {
+                            pelmetOrderDetail.price = (pelmetOrderDetail.unitPrice - discountPrice);
+                            PelmetOrderDetailsService.save(pelmetOrderDetail, function (pelmetOrderDetails) {
+                                console.log("Saved Successfully");
+                                $scope.editablePelmetDetail = "";
+                                $scope.pelmetColorName = "";
+                                $state.go('admin.masters_order_details.pelmet_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'pelmetDetailId': pelmetOrderDetails.id
+                                }, {'reload': true});
+                            });
+                        }
+                    });
+                };
+                var l1;
+                var w1;
+                var lengthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    l1 = genNum;
+                };
+                var widthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    w1 = genNum;
+                };
+                if (pelmetOrderDetail.length < 1000) {
+                    if (pelmetOrderDetail.length < 100) {
+                        lengthLessThan100(pelmetOrderDetail.length);
+                    } else {
+                        l1 = 0 + pelmetOrderDetail.length.toString();
+                    }
+                } else {
+                    l1 = pelmetOrderDetail.length.toString();
+                }
+                if (pelmetOrderDetail.width < 1000) {
+                    if (pelmetOrderDetail.width < 100) {
+                        widthLessThan100(pelmetOrderDetail.width);
+                    } else {
+                        w1 = 0 + pelmetOrderDetail.width.toString();
+                    }
+                } else {
+                    w1 = pelmetOrderDetail.width.toString();
+                }
+                var pelmetArea = (pelmetOrderDetail.width * pelmetOrderDetail.length);
+                var pelmetAreaSqMt = pelmetArea / 1000000;
+                console.log("Pelmet Area :%O", pelmetAreaSqMt);
+                pelmetOrderDetail.unitPrice = (pelmetOrderDetail.quantity * (pelmetAreaSqMt * pelmetOrderDetail.finishPrice));
+                console.log("Pelmet Price :%O", pelmetOrderDetail.price);
+                var productCode = pelmetOrderDetail.component + "" + pelmetOrderDetail.thickness + "" + pelmetOrderDetail.material + "X" + pelmetOrderDetail.finish + "-" + l1 + "" + w1 + "" + pelmetOrderDetail.thickness + "000";
+                pelmetOrderDetail.productCode = productCode;
+                console.log("Pelmet Save Object :%O", pelmetOrderDetail);
+                $scope.applyPelmetDiscount(pelmetOrderDetail);
 
+            };
         })
         .controller('CorniceRepeatAdditionController', function (RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
 
