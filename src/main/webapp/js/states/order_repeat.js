@@ -3313,7 +3313,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                             });
                         } else {
                             console.log("Discount Price :%O", discountPrice);
-                            if(shutterOrderDetail.glass === ''){
+                            if (shutterOrderDetail.glass === '') {
                                 shutterOrderDetail.glass = 'NO_GLASS';
                             }
                             shutterOrderDetail.price = ((shutterOrderDetail.unitPrice - discountPrice) + handlePrice + jaliPrice + straightenerPrice);
@@ -3737,8 +3737,333 @@ angular.module("digitalbusiness.states.order_repeat", [])
         .controller('DrawerRepeatAdditionController', function (RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
 
         })
-        .controller('FillerRepeatAdditionController', function (RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
+        .controller('FillerRepeatAdditionController', function (FillerFinishPriceService, RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, FillerOrderDetailsService, $scope, $stateParams, $state) {
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                $scope.orderHead = orderHeadObject;
+            });
+            if ($stateParams.fillerDetailId === undefined) {
+                $scope.editableFillerDetail = {};
+            } else {
+                $scope.editableFillerDetail = {};
+                FillerOrderDetailsService.get({
+                    'id': $stateParams.fillerDetailId
+                }, function (fillerOrderDetailObject) {
+                    console.log("Filler Order Detail Object :%O", fillerOrderDetailObject);
+                    fillerOrderDetailObject.id = '';
+                    fillerOrderDetailObject.productCode = '';
+                    fillerOrderDetailObject.thickness = fillerOrderDetailObject.thickness.toString();
+                    if(fillerOrderDetailObject.grain === 'NO_GRAIN'){
+                        fillerOrderDetailObject.grain = '';
+                    }
+                    ColorService.get({
+                        'id': fillerOrderDetailObject.colorId
+                    }, function (colorObject) {
+                        fillerOrderDetailObject.colorCode = colorObject.colorCode;
+                        fillerOrderDetailObject.colorId = colorObject.id;
+                        $scope.fillerColorName = colorObject.colorName;
+                    });
+                    if (fillerOrderDetailObject.intColorId !== null) {
+                        ColorService.get({
+                            'id': fillerOrderDetailObject.intColorId
+                        }, function (fillerInternalColorobject) {
+                            fillerOrderDetailObject.intColorCode = fillerInternalColorobject.colorCode;
+                            fillerOrderDetailObject.intColorId = fillerInternalColorobject.id;
+                            $scope.fillerInternalColorName = fillerInternalColorobject.colorName;
+                        });
+                    }
+                    $scope.editableFillerDetail = fillerOrderDetailObject;
+                });
+            }
+            //////////////////////Filler Form Functionality////////////////////
+            KitchenComponentService.findByCategory({
+                'category': 'FILLER'
+            }, function (fillerList) {
+                $scope.fillerList1 = fillerList;
+            });
+            $scope.closeWidget = function () {
+                $scope.showFillerSelectionWidget = false;
+                $scope.showFillerColorSelectionWidget = false;
+                $scope.showFillerInternalColorSelectionWidget = false;
+                $scope.preFillerColor = {};
+                $scope.preInternalFillerColor = {};
+            };
+            $scope.showFillerColorSelectionWidget = false;
+            $scope.editableFillerDetail.bsm = false;
+            $scope.showFillerInternalColorSelectionWidget = false;
+            $scope.openFillerColorWidget = function () {
+                $scope.showFillerColorSelectionWidget = true;
+            };
+            $scope.openInternalFillerColorWidget = function () {
+                $scope.showFillerInternalColorSelectionWidget = true;
+            };
+            $scope.selectFillerColor = function (colorId, colorName, colorCode) {
+                console.log(colorId);
+                $scope.closeWidget();
+                $scope.editableFillerDetail.colorCode = colorCode;
+                $scope.editableFillerDetail.colorId = colorId;
+                $scope.fillerColorName = colorName;
+            };
+            $scope.selectPreFillerColor = function (colorId) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.preFillerColor = colorObject;
+                });
+            };
+            $scope.selectInternalFillerColor = function (colorId, colorName, colorCode) {
+                console.log(colorId);
+                $scope.closeWidget();
+                $scope.editableFillerDetail.intColorCode = colorCode;
+                $scope.editableFillerDetail.intColorId = colorId;
+                $scope.fillerInternalColorName = colorName;
+            };
+            $scope.selectPreInternalFillerColor = function (colorId) {
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    $scope.preInternalFillerColor = colorObject;
+                });
+            };
+            $scope.fillerFinishList = [];
+//            $scope.shutterFinishList = FinishPriceService.findAllList();
+            FillerFinishPriceService.findUniqueFinish(function (finishList) {
+                console.log("Finish List :%O", finishList);
+                angular.forEach(finishList, function (finishCode) {
+                    FinishPriceService.findByFinishCode({
+                        'finishCode': finishCode
+                    }, function (finishObject) {
+                        $scope.fillerFinishList.push(finishObject);
+                    });
+                });
+                console.log("Filler Finish List :%O", $scope.fillerFinishList);
+            });
+            $scope.$watch('editableFillerDetail.material', function (material) {
+                console.log("Side Material :%O", material);
+                $scope.fillerInternalColorName = "";
+                $scope.editableFillerDetail.intColorId = "";
+                ColorConstraintService.findByComponentMaterialCode({
+                    'material': 'CARCASE',
+                    'materialCode': material
+                }, function (sortedColor) {
+                    console.log("Sorted COlor :%O", sortedColor);
+                    $scope.fillerInternalColorList1 = [];
+                    angular.forEach(sortedColor.colors, function (colorId) {
+                        ColorService.get({
+                            'id': colorId
+                        }, function (colorObject) {
+                            $scope.fillerInternalColorList1.push(colorObject);
+                        });
+                    });
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $scope.fillerInternalColorList1 = [];
+                    } else if (response.status === 404) {
+                        $scope.fillerInternalColorList1 = [];
+                    } else if (response.status === 400) {
+                        $scope.fillerInternalColorList1 = [];
+                    }
+                });
+            });
+            $scope.showFillerBsm = false;
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                PartyService.get({
+                    'id': orderHeadObject.billingPartyId
+                }, function (partyObject) {
+                    $scope.editableFillerDetail.rateContractId = partyObject.rateContractId;
+                });
+            });
+            $scope.$watch('editableFillerDetail.finish', function (finishName) {
+                console.log("FInish Name :%O", finishName);
+//                $scope.editableFillerDetail.thickness = '';
+                $scope.fillerColorName = '';
+                $scope.fillerFinishCode = finishName;
+                FillerFinishPriceService.findByFinish({
+                    'finish': finishName
+                }, function (fillerFinishThicknessList) {
+                    $scope.fillerThicknessList = fillerFinishThicknessList;
+                });
+                FinishPriceService.findByFinishCode({
+                    'finishCode': finishName
+                }, function (finishObject) {
+                    console.log("Finish Object :%O", finishObject);
+                    RawMaterialService.get({
+                        'id': finishObject.materialId
+                    }, function (rmObject) {
+                        $scope.editableFillerDetail.material = rmObject.materialCode;
+                    });
+//                    $scope.editableFillerDetail.finishPrice = finishObject.price;
+                    if (finishObject.category === "PU" || finishObject.category === "MEMBRANE") {
+                        $scope.showFillerBsm = true;
+                    } else {
+                        $scope.showFillerBsm = false;
+                    }
+                });
+                ColorConstraintService.findByFinishCode({
+                    'finishCode': finishName
+                }, function (sortedColorObject) {
+                    console.log("Sorted COlor :%O", sortedColorObject);
+                    $scope.fillerColors1 = [];
+                    angular.forEach(sortedColorObject.colors, function (colorId) {
+                        ColorService.get({
+                            'id': colorId
+                        }, function (colorObject) {
+                            $scope.fillerColors1.push(colorObject);
+                        });
+                    });
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $scope.fillerColors1 = [];
+                    } else if (response.status === 404) {
+                        $scope.fillerColors1 = [];
+                    } else if (response.status === 400) {
+                        $scope.fillerColors1 = [];
+                    }
+                });
+            });
+            $scope.$watch('editableFillerDetail.thickness', function (thickness) {
+                console.log("Thickness :%O", thickness);
+                if (thickness === '8') {
+                    $scope.showFillerBsm = false;
+                } else {
+                    $scope.showFillerBsm = true;
+                }
+                FillerFinishPriceService.findByFinishThickness({
+                    'finish': $scope.fillerFinishCode,
+                    'thickness': thickness
+                }, function (fillerFinishPrice) {
+                    console.log("Filler Finish Price :%O", fillerFinishPrice);
+                    $scope.editableFillerDetail.stdOneSidePrice = fillerFinishPrice.oneSidePrice;
+                    $scope.editableFillerDetail.stdBothSidePrice = fillerFinishPrice.bothSidePrice;
+                });
+            });
+            ///////////////////////////////////////////////////////////////////
+            $scope.saveFillerDetails = function (fillerOrderDetail) {
+                fillerOrderDetail.orderHeadId = $stateParams.orderHeadId;
+                if (fillerOrderDetail.grain === '') {
+                    fillerOrderDetail.grain = "NO_GRAIN";
+                }
+                ;
+//                fillerOrderDetail.component = $scope.fillerComponent;
+                fillerOrderDetail.depth = '0';
+                var l1;
+                var w1;
+                var lengthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    l1 = genNum;
+                };
+                var widthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    w1 = genNum;
+                };
+                $scope.applyFillerDiscount = function (fillerOrderDetail) {
+                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                        'finish': fillerOrderDetail.finish,
+                        'material': fillerOrderDetail.material,
+                        'thickness': fillerOrderDetail.thickness,
+                        'rateContractId': fillerOrderDetail.rateContractId
+                    }, function (rateContractDetailObject) {
+                        fillerOrderDetail.discountPer = rateContractDetailObject.discountPer;
+                        var discountPrice = ((fillerOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
+                        if ($scope.orderHead.orderSubType === "D") {
+                            console.log("Display Order");
+                            var preliminaryDealerPrice = (fillerOrderDetail.unitPrice - discountPrice);
+                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * fillerOrderDetail.displayDiscount);
+                            fillerOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
+                            console.log("Filler Order Detail Save Object :%O", fillerOrderDetail);
+                            FillerOrderDetailsService.save(fillerOrderDetail, function (fillerOrderDetail) {
+                                console.log("Saved Successfully");
+                                $scope.editablePanelDetail = "";
+                                $scope.fillerColorName = "";
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.filler_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'fillerDetailId': fillerOrderDetail.id
+                                }, {'reload': true});
 
+                            });
+                        } else {
+                            fillerOrderDetail.price = (fillerOrderDetail.unitPrice - discountPrice);
+                            FillerOrderDetailsService.save(fillerOrderDetail, function (fillerOrderDetail) {
+                                console.log("Saved Successfully");
+                                $scope.editablePanelDetail = "";
+                                $scope.fillerColorName = "";
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.filler_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'fillerDetailId': fillerOrderDetail.id
+                                }, {'reload': true});
+                            });
+                        }
+                    });
+                };
+                if (fillerOrderDetail.length < 1000) {
+                    if (fillerOrderDetail.length < 100) {
+                        lengthLessThan100(fillerOrderDetail.length);
+                    } else {
+                        l1 = 0 + fillerOrderDetail.length.toString();
+                    }
+                } else {
+                    l1 = fillerOrderDetail.length.toString();
+                }
+                if (fillerOrderDetail.width < 1000) {
+                    if (fillerOrderDetail.width < 100) {
+                        widthLessThan100(fillerOrderDetail.width);
+                    } else {
+                        w1 = 0 + fillerOrderDetail.width.toString();
+                    }
+                } else {
+                    w1 = fillerOrderDetail.width.toString();
+                }
+
+                var fillerArea = (fillerOrderDetail.width * fillerOrderDetail.length);
+                var fillerAreaSqMt = fillerArea / 1000000;
+                console.log("Filler ARea :%O", fillerAreaSqMt);
+                console.log("Fille Order Detail :%O", fillerOrderDetail);
+                if (fillerOrderDetail.bsm === true) {
+                    console.log("Both SIde Colored");
+                    fillerOrderDetail.unitPrice = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdBothSidePrice));
+                } else if (fillerOrderDetail.bsm === false) {
+                    console.log("Single Side");
+                    fillerOrderDetail.unitPrice = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdOneSidePrice));
+                } else {
+                    console.log("Regular");
+                    fillerOrderDetail.unitPrice = (fillerOrderDetail.quantity * (fillerAreaSqMt * fillerOrderDetail.stdOneSidePrice));
+                }
+                console.log("FInal Price :" + fillerOrderDetail.price);
+//                fillerOrderDetail.price = finalPrice;
+
+//                var productCode = fillerOrderDetail.component + "-18" + fillerOrderDetail.material + "-" + l1 + "" + w1 + "18000";
+                if (fillerOrderDetail.bsm === true) {
+                    var productCode = fillerOrderDetail.component + "B" + fillerOrderDetail.thickness + "" + fillerOrderDetail.material + "" + fillerOrderDetail.finish + "-" + l1 + "" + w1 + "" + fillerOrderDetail.thickness + "000";
+                } else {
+                    var productCode = fillerOrderDetail.component + "" + fillerOrderDetail.thickness + "" + fillerOrderDetail.material + "X" + fillerOrderDetail.finish + "-" + l1 + "" + w1 + "" + fillerOrderDetail.thickness + "000";
+                }
+                fillerOrderDetail.productCode = productCode;
+                console.log("Filler Save Object :%O", fillerOrderDetail);
+                $scope.applyFillerDiscount(fillerOrderDetail);
+//                FillerOrderDetailsService.save(fillerOrderDetail, function () {
+//                    console.log("Saved Successfully");
+//                    $scope.editablePanelDetail = "";
+//                    $scope.fillerColorName = "";
+//                    $state.go('admin.masters_order_details', {
+//                        'orderHeadId': $stateParams.orderHeadId
+//                    }, {'reload': true});
+//                });
+//                /////////////////////
+//                OrderDetailsService.save(fillerOrderDetail, function () {
+//                    $scope.editableFillerDetail = "";
+//                    $scope.fillerName = "";
+//                    $scope.refreshList();
+//                });
+            };
         })
         .controller('PelmetRepeatAdditionController', function (RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
 

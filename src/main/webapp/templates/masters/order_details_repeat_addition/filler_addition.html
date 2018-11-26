@@ -1,16 +1,253 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<div class="panel-heading text-center">
+        <div>
+            <h3>Enter Filler Order Details</h3>
+        </div>
+        <form role="role" ng-submit="saveFillerDetails(editableFillerDetail)">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Select Filler</label>                    
+                    <select class="form-control" ng-model="editableFillerDetail.component" required="">
+                        <option value="">Select Filler</option>
+                        <option ng-repeat="filler in fillerList1" value="{{filler.componentCode}}">{{filler.component}}</option>
+                    </select>
+                </div>                
+                <div class="col-sm-3">
+                    <label>Finish</label>
+                    <select class="form-control" ng-model="editableFillerDetail.finish" required="">
+                        <option value="">Select Finish</option>
+                        <option ng-repeat="finish in fillerFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                    </select>                    
+                </div>
+                <div class="col-sm-3">
+                    <label>Material</label>
+                    <input class="form-control" placeholder="Material" ng-model="editableFillerDetail.material" required="" readonly="">
+                    <!--                    <select class="form-control" ng-model="editableFillerDetail.material" required="">
+                                            <option value="">Select Material</option>
+                                            <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                                        </select>                    -->
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Thickness</label>
+                        <select class="form-control" ng-model="editableFillerDetail.thickness" required="">
+                            <option value="">Select Thickness</option>
+                            <option ng-repeat="thickness in fillerThicknessList" value="{{thickness.thickness}}">{{thickness.thickness}} mm</option>
+                        </select>
+                    </div>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Color</label>                    
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Color" ng-model="fillerColorName" required="" onkeypress="return false;"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openFillerColorWidget()">Select Color</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1" ng-if="showFillerBsm">
+                    <div class="form-group">
+                        <label>Both Side</label>                                            
+                        <input type="checkbox" class="form-control" ng-model="editableFillerDetail.bsm"/>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Width</label>
+                        <input type="number" class="form-control" placeholder="Enter Width" min="50" ng-model="editableFillerDetail.width" required="">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Height</label>
+                        <input type="number" class="form-control" placeholder="Enter Height" max="2400" ng-model="editableFillerDetail.length" required="">
+                    </div>
+                </div>                
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Grain Direction (Optional)</label>
+                        <select class="form-control" ng-model="editableFillerDetail.grain">
+                            <option value="">Grain Direction</option>
+                            <option value="HORIZONTAL">Horizontal</option>
+                            <option value="VERTICAL">Vertical</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" ng-if="editableFillerDetail.bsm === false">
+                    <div class="form-group">
+                        <label>Balancing Color</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select Balancing Color" ng-model="fillerInternalColorName" required="" readonly=""/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" ng-click="openInternalFillerColorWidget()">Select Internal Color</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>As Per Drawing (Optional)</label>
+                        <input type="checkbox" class="form-control" ng-model="editableFillerDetail.asPerDrawing">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" min="1" class="form-control" placeholder="Enter Quantity" ng-model="editableFillerDetail.quantity" required="">
+                    </div>
+                </div>
+
+            </div>
+            <hr style="border-top:  1px solid;">
+            <div class="row">
+                <div class="form-group col-sm-4 col-md-4">
+                    <label>Additional Remark (Optional)</label>
+                    <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editableFillerDetail.remark"></textarea>
+                </div>
+                <div class="form-group col-sm-3 col-md-3" ng-if="orderHead.orderSubType === 'D'">
+                    <label>Display Discount (In %)</label>
+                    <input type="number" min="0" class="form-control" placeholder="Add Display Discount" ng-model="editableFillerDetail.displayDiscount" required="required"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fa fa-save"></i>
+                    Add
+                </button>                       				
+            </div>
+        </form>
+    </div>
+<!--/////////////Filler Selection Panel//////////////////////-->
+<div class="modal modal-digitalbusiness" ng-if="showFillerSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Filler
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class=row ng-repeat="fillerList in fillerList1| groupBy:3">
+                    <div class="col-xs-4 letter-box" ng-repeat="filler in fillerList" >
+                        <div>
+                            <image class="text-center" ng-src="./rest/kitchen_component/{{filler.id}}/attachment" width="150px" height="220px"/>
+                            <br>
+                            <b class="text-center"> {{filler.component}}</b>
+                            <br>
+                            <button class="next btn-next" ng-click="selectFiller(filler.id)">Select Filler({{filler.componentCode}})</button>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showFillerColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Filler Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="sortedColor in fillerColors1">
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreFillerColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preFillerColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preFillerColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectFillerColor(preFillerColor.id, preFillerColor.colorName, preFillerColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="sortedColorList in fillerColors1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectFillerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showFillerInternalColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Balancing Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="sortedColor in fillerInternalColorList1">
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;                            
+                                    <button class="next btn-next" ng-click="selectPreInternalFillerColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preInternalFillerColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preInternalFillerColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectInternalFillerColor(preInternalFillerColor.id, preInternalFillerColor.colorName, preInternalFillerColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="sortedColorList in fillerInternalColorList1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectInternalFillerColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
+            </div>
+        </div>        
+    </div>
+</div>
+<!--/////////////Filler Selection Panel Ends/////////////////-->
