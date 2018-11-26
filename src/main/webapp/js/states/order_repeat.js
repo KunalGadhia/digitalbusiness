@@ -967,6 +967,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     }
                 });
             });
+
 //            $scope.completeColors1 = ColorService.findAllList();
             $scope.showCarcassColorSelectionWidget = false;
             $scope.showCarcassSidesColorSelectionWidget = false;
@@ -2546,7 +2547,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
             OrderHeadService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderHeadObject) {
-                $scope.orderHead = orderHeadObject;                
+                $scope.orderHead = orderHeadObject;
             });
             if ($stateParams.panelDetailId === undefined) {
                 $scope.editablePanelDetail = {};
@@ -2590,8 +2591,8 @@ angular.module("digitalbusiness.states.order_repeat", [])
                 });
             };
             $scope.closeWidget = function () {
-                $scope.showPanelColorSelectionWidget = false;                
-                $scope.prePanelColor = {};                
+                $scope.showPanelColorSelectionWidget = false;
+                $scope.prePanelColor = {};
             };
             $scope.showPanelColorSelectionWidget = false;
             $scope.openPanelColorWidget = function () {
@@ -2747,8 +2748,991 @@ angular.module("digitalbusiness.states.order_repeat", [])
                 $scope.applyPanelDiscount(panelOrderDetail);
             };
         })
-        .controller('ShutterRepeatAdditionController', function (RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
+        .controller('ShutterRepeatAdditionController', function (ShutterComponentMappingService, ShutterOrderDetailsService, HandlePriceService, ShutterFinishPriceService, ShutterHandleMappingService, RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                $scope.orderHead = orderHeadObject;
+            });
+            if ($stateParams.shutterDetailId === undefined) {
+                $scope.editableShutterDetail = {};
+            } else {
+                $scope.editableShutterDetail = {};
+                ShutterOrderDetailsService.get({
+                    'id': $stateParams.shutterDetailId
+                }, function (shutterOrderDetailObject) {
+                    console.log("Shutter Order Detail Object :%O", shutterOrderDetailObject);
+                    shutterOrderDetailObject.id = '';
+                    shutterOrderDetailObject.productCode = '';
+                    shutterOrderDetailObject.finishCategory = shutterOrderDetailObject.shutterFinishCategory;
+                    shutterOrderDetailObject.thickness = shutterOrderDetailObject.thickness.toString();
+//                    $scope.editableShutterDetail.handleLength = shutterOrderDetailObject.handleLength.toString();
+//                    $scope.editableShutterDetail.handleFinish = shutterOrderDetailObject.handleFinish;
+                    ColorService.get({
+                        'id': shutterOrderDetailObject.colorId
+                    }, function (shutterColorobject) {
+                        shutterOrderDetailObject.colorCode = shutterColorobject.colorCode;
+                        shutterOrderDetailObject.colorId = shutterColorobject.id;
+                        $scope.shutterColorName = shutterColorobject.colorName;
+                    });
+                    if (shutterOrderDetailObject.intColorId !== null) {
+                        ColorService.get({
+                            'id': shutterOrderDetailObject.intColorId
+                        }, function (shutterInternalColorobject) {
+                            shutterOrderDetailObject.intColorCode = shutterInternalColorobject.colorCode;
+                            shutterOrderDetailObject.intColorId = shutterInternalColorobject.id;
+                            $scope.shutterInternalColorName = shutterInternalColorobject.colorName;
+                        });
+                    }
+                    if (shutterOrderDetailObject.handle !== null) {
+                        KitchenComponentService.findByComponentCode({
+                            'componentCode': shutterOrderDetailObject.handle
+                        }, function (kitchenComponentObject) {
+                            console.log("KC Object in Shutter  :%O", kitchenComponentObject);
+                            $scope.shutterHandleName = kitchenComponentObject.component;
+                            $scope.shutterHandleComponent = kitchenComponentObject.componentCode;
+                            $scope.editableShutterDetail.handle = kitchenComponentObject.componentCode;
+                        });
+                    }
+                    if (shutterOrderDetailObject.grain === "NO_GRAIN") {
+                        shutterOrderDetailObject.grain = '';
+                    }
+                    if (shutterOrderDetailObject.hingePosition === "NO_HINGE") {
+                        shutterOrderDetailObject.hingePosition = '';
+                    }
+                    if (shutterOrderDetailObject.glass === "NO_GLASS") {
+                        shutterOrderDetailObject.glass = '';
+                    }
+                    KitchenComponentService.findByComponentCode({
+                        'componentCode': shutterOrderDetailObject.component
+                    }, function (kitchenComponentObject) {
+                        console.log("KC Object in Shutter  :%O", kitchenComponentObject);
+                        $scope.shutterName = kitchenComponentObject.component;
+                        $scope.shutterComponent = kitchenComponentObject.componentCode;
+                    });
+//                    ColorService.get({
+//                        'id': shutterOrderDetailObject.colorId
+//                    }, function (colorObject) {
+//                        shutterOrderDetailObject.colorCode = colorObject.colorCode;
+//                        shutterOrderDetailObject.colorId = colorObject.id;
+//                        $scope.panelColorName = colorObject.colorName;
+//                    });
+                    $scope.editableShutterDetail = shutterOrderDetailObject;
+                });
+            }
+            ///////////////////////Shutter Form Functionality//////////////////
+            $scope.closeWidget = function () {
+                $scope.showShutterColorSelectionWidget = false;
+                $scope.showShutterHandleSelectionWidget = false;
+                $scope.showShutterInternalColorSelectionWidget = false;
+                $scope.showShutterSelectionWidget = false;
+                $scope.preShutter = {};
+                $scope.preShutterColor = {};
+                $scope.preInternalShutterColor = {};
+                $scope.preShutterHandle = {};
+            };
+            $scope.showShutterColorSelectionWidget = false;
+            $scope.showShutterHandleSelectionWidget = false;
+            $scope.showShutterInternalColorSelectionWidget = false;
+            $scope.editableShutterDetail.bsm = false;
+            $scope.shutterModelSelection = false;
+            $scope.shutterGlassWidget = false;
+            $scope.openShutter = function () {
+                console.log("Getting Shutter FInish :%O", $scope.editableShutterDetail.finish);
+                $scope.shutterList1 = [];
+                ShutterComponentMappingService.findByFinishCode({
+                    'finishCode': $scope.editableShutterDetail.finish
+                }, function (componentList) {
+                    console.log("Component List :%O", componentList);
+                    angular.forEach(componentList.shutters, function (componentId) {
+                        KitchenComponentService.get({
+                            'id': componentId
+                        }, function (shutterObject) {
+                            $scope.shutterList1.push(shutterObject);
+                        });
+                    });
+                });
+                $scope.showShutterSelectionWidget = true;
+            };
+            $scope.openShutterColorWidget = function () {
+                $scope.showShutterColorSelectionWidget = true;
+            };
+            $scope.openInternalShutterColorWidget = function () {
+                $scope.showShutterInternalColorSelectionWidget = true;
+            };
+            $scope.selectInternalShutterColor = function (colorId, colorName, colorCode) {
+                console.log(colorId);
+                $scope.closeWidget();
+                $scope.editableShutterDetail.intColorCode = colorCode;
+                $scope.editableShutterDetail.intColorId = colorId;
+                console.log("Int COlor :%O", $scope.editableShutterDetail.intColorId);
+                $scope.shutterInternalColorName = colorName;
+            };
+            $scope.selectPreInternalShutterColor = function (colorId, colorName, colorCode) {
+                console.log("Color ID :%O", colorId);
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    console.log("Color Object :%O", colorObject);
+                    $scope.preInternalShutterColor = colorObject;
+                });
+            };
+            $scope.shutterHandleList1 = [];
+            $scope.openShutterHandle = function () {
+                console.log("Finish in Handle Selection :%O", $scope.editableShutterDetail.finish);
+                console.log("Shutter COmponent :%O", $scope.shutterComponent);
+                if ($scope.shutterComponent !== undefined && $scope.shutterComponent !== '') {
+//                if ($scope.editableShutterDetail.shutterComponent !== '' && $scope.editableShutterDetail.shutterComponent !== undefined) {
+                    console.log("Component Available");
+                    ShutterHandleMappingService.findByShutterCode({
+                        'shutterCode': $scope.shutterComponent
+                    }, function (mappingList) {
+                        console.log("Mapping List :%O", mappingList);
+                        angular.forEach(mappingList.handles, function (kitchenComponentId) {
+                            KitchenComponentService.get({
+                                'id': kitchenComponentId
+                            }, function (kcObject) {
+                                $scope.shutterHandleList1.push(kcObject);
+                            });
+                        });
+                    });
+                } else {
+                    ShutterHandleMappingService.findByFinishCode({
+                        'finishCode': $scope.editableShutterDetail.finish
+                    }, function (mappingList) {
+                        console.log("Mapping List :%O", mappingList);
+                        angular.forEach(mappingList.handles, function (kitchenComponentId) {
+                            KitchenComponentService.get({
+                                'id': kitchenComponentId
+                            }, function (kcObject) {
+                                console.log("KC Object :%O", kcObject);
+                                $scope.shutterHandleList1.push(kcObject);
+                                console.log("Shutter Handloe List :%O", $scope.shutterHandleList1);
+                            });
+                        });
+                    });
+                }
 
+                $scope.showShutterHandleSelectionWidget = true;
+            };
+            $scope.selectShutter = function (componentId) {
+                $scope.closeWidget();
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (kcObject) {
+                    $scope.shutterName = kcObject.component;
+                    $scope.shutterComponent = kcObject.componentCode;
+                });
+            };
+            $scope.selectPreShutter = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (shutterComponent) {
+                    $scope.preShutter = shutterComponent;
+                });
+            };
+            $scope.selectPreShutterHandle = function (componentId) {
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (shutterHandleComponent) {
+                    $scope.preShutterHandle = shutterHandleComponent;
+                });
+            };
+            $scope.selectShutterHandle = function (componentId) {
+                $scope.closeWidget();
+                KitchenComponentService.get({
+                    'id': componentId
+                }, function (kcObject) {
+                    $("#shutterHandleLength").attr('required', true);
+                    $scope.shutterHandleName = kcObject.component;
+                    $scope.shutterHandleComponent = kcObject.componentCode;
+                    $scope.editableShutterDetail.handle = kcObject.componentCode;
+                });
+            };
+            $scope.selectShutterColor = function (colorId, colorName, colorCode) {
+                console.log(colorId);
+                $scope.closeWidget();
+                $scope.editableShutterDetail.colorCode = colorCode;
+                $scope.editableShutterDetail.colorId = colorId;
+                $scope.shutterColorName = colorName;
+            };
+            $scope.selectPreShutterColor = function (colorId, colorName, colorCode) {
+                console.log("Color ID :%O", colorId);
+                ColorService.get({
+                    'id': colorId
+                }, function (colorObject) {
+                    console.log("Color Object :%O", colorObject);
+                    $scope.preShutterColor = colorObject;
+                });
+            };
+            $scope.shutterFinishList = [];
+            $scope.$watch('editableShutterDetail.finishCategory', function (finishCategory) {
+                console.log("Finish Category :%O", finishCategory);
+                $scope.shutterFinishList = [];
+                ShutterFinishPriceService.findUniqueFinishWithCategory({
+                    'finishCategory': finishCategory
+                }, function (finishList) {
+                    console.log("Finish List :%O", finishList);
+                    angular.forEach(finishList, function (finishCode) {
+                        FinishPriceService.findByFinishCode({
+                            'finishCode': finishCode
+                        }, function (finishObject) {
+                            $scope.shutterFinishList.push(finishObject);
+                        });
+                    });
+                    console.log("Shutter Finish List :%O", $scope.shutterFinishList);
+                });
+
+            });
+            OrderHeadService.get({
+                'id': $stateParams.orderHeadId
+            }, function (orderHeadObject) {
+                PartyService.get({
+                    'id': orderHeadObject.billingPartyId
+                }, function (partyObject) {
+                    $scope.editableShutterDetail.rateContractId = partyObject.rateContractId;
+                });
+            });
+            $scope.$watch('editableShutterDetail.material', function (material) {
+                console.log("Side Material :%O", material);
+                $scope.shutterInternalColorName = "";
+                $scope.editableShutterDetail.intColorId = "";
+                ColorConstraintService.findByComponentMaterialCode({
+                    'component': 'CARCASE',
+                    'materialCode': material
+                }, function (sortedColor) {
+                    console.log("Sorted COlor :%O", sortedColor);
+                    $scope.shutterInternalColorList1 = [];
+                    angular.forEach(sortedColor.colors, function (colorId) {
+                        ColorService.get({
+                            'id': colorId
+                        }, function (colorObject) {
+                            $scope.shutterInternalColorList1.push(colorObject);
+                        });
+                    });
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $scope.shutterInternalColorList1 = [];
+                    } else if (response.status === 404) {
+                        $scope.shutterInternalColorList1 = [];
+                    } else if (response.status === 400) {
+                        $scope.shutterInternalColorList1 = [];
+                    }
+                });
+            });
+            $scope.$watch('editableShutterDetail.finish', function (finishName) {
+                console.log("FInish Name :%O", finishName);
+                $scope.editableShutterDetail.thickness = '';
+                if (finishName === "XXW") {
+                    console.log("AL Finish");
+                    $scope.alFinish = true;
+                    $scope.hideVentilition = true;
+                } else if (finishName === "XXX") {
+                    console.log("AL Finish");
+                    $scope.alFinish = true;
+                    $scope.hideVentilition = true;
+                } else if (finishName === "XXY") {
+                    console.log("AL Finish");
+                    $scope.alFinish = true;
+                    $scope.hideVentilition = true;
+                } else if (finishName === "XXZ") {
+                    console.log("AL Finish");
+                    $scope.alFinish = true;
+                    $scope.hideVentilition = true;
+                } else if (finishName === "XAA") {
+                    console.log("AL Finish");
+                    $scope.alFinish = true;
+                    $scope.hideVentilition = true;
+                } else {
+                    console.log("Normal Finish");
+                    $scope.alFinish = false;
+                    $scope.hideVentilition = false;
+                }
+                $scope.shutterHandleList1 = [];
+                $scope.shutterHandleName = '';
+                $scope.editableShutterDetail.handleLength = '';
+                $scope.editableShutterDetail.shutterHandleType = '';
+                $scope.editableShutterDetail.handleFinish = '';
+                $scope.editableShutterDetail.handleLength = '';
+                $scope.editableShutterDetail.handlePrice = '';
+                $scope.editableShutterDetail.handle = '';
+                $scope.shutterFinishCode = finishName;
+                ShutterFinishPriceService.findByFinish({
+                    'finish': finishName
+                }, function (shutterFinishThicknessList) {
+                    $scope.shutterThicknessList = shutterFinishThicknessList;
+                });
+                FinishPriceService.findByFinishCode({
+                    'finishCode': finishName
+                }, function (finishObject) {
+                    console.log("Finish Object :%O", finishObject);
+                    RawMaterialService.get({
+                        'id': finishObject.materialId
+                    }, function (shutterMaterialObject) {
+                        console.log("Shutter Material :%O", shutterMaterialObject);
+                        $scope.shutterMaterialObject = shutterMaterialObject;
+                        $scope.editableShutterDetail.material = shutterMaterialObject.materialCode;
+                    });
+                    if (finishObject.category === "PU" || finishObject.category === "MEMBRANE") {
+                        $scope.showShutterBsm = true;
+                    } else {
+                        $scope.showShutterBsm = false;
+                    }
+                    if (finishObject.category === "MEMBRANE") {
+                        console.log("Membrane Shutter");
+                        if ($scope.editableShutterDetail.material === "MF") {
+                            $("#shutterLength").attr({
+                                'min': 50,
+                                'max': 2400
+                            });
+                            $("#shutterWidth").attr({
+                                'min': 50,
+                                'max': 1100
+                            });
+                        } else {
+                            $("#shutterLength").attr({
+                                'min': 50,
+                                'max': 2400
+                            });
+                            $("#shutterWidth").attr({
+                                'min': 50,
+                                'max': 1100
+                            });
+                        }
+
+                        $scope.shutterModelSelection = true;
+                        $scope.shutterGlassWidget = true;
+                    } else if (finishObject.category === "PU") {
+                        $("#shutterLength").attr({
+                            'min': 50,
+                            'max': 2400
+                        });
+                        $("#shutterWidth").attr({
+                            'min': 50,
+                            'max': 1100
+                        });
+                        $scope.shutterModelSelection = false;
+                        $scope.shutterGlassWidget = true;
+                        $scope.showGlassStep = false;
+                        $scope.editableShutterDetail.component = '';
+                        $scope.shutterName = '';
+                    } else {
+
+                        if (finishName === "XXH") {
+                            $("#shutterLength").attr({
+                                'min': 50,
+                                'max': 2400
+                            });
+                            $("#shutterWidth").attr({
+                                'min': 50,
+                                'max': 1100
+                            });
+                            $scope.shutterModelSelection = false;
+                            $scope.shutterGlassWidget = true;
+                            $scope.showGlassStep = false;
+                            $scope.editableShutterDetail.component = '';
+                            $scope.shutterName = '';
+                        } else if (finishName === "XXG") {
+                            $("#shutterLength").attr({
+                                'min': 50,
+                                'max': 2400
+                            });
+                            $("#shutterWidth").attr({
+                                'min': 50,
+                                'max': 1100
+                            });
+                            $scope.shutterModelSelection = false;
+                            $scope.shutterGlassWidget = true;
+                            $scope.showGlassStep = false;
+                            $scope.editableShutterDetail.component = '';
+                            $scope.shutterName = '';
+                        } else {
+                            $("#shutterLength").attr({
+                                'min': 50,
+                                'max': 2400
+                            });
+                            $("#shutterWidth").attr({
+                                'min': 50,
+                                'max': 1100
+                            });
+                            $scope.shutterModelSelection = false;
+                            $scope.shutterGlassWidget = false;
+                            $scope.showGlassStep = false;
+                            $scope.editableShutterDetail.component = '';
+                            $scope.shutterName = '';
+                        }
+                    }
+                });
+                $scope.showGlassStep = false;
+                $scope.$watch('editableShutterDetail.glass', function (glassType) {
+                    console.log("Glass Type :%O", glassType);
+                    if (glassType === "REGULAR_GLASS") {
+                        $scope.showGlassStep = true;
+                        $scope.hideVentilition = true;
+                    } else if (glassType === "MESH_GLASS") {
+                        $scope.showGlassStep = false;
+                        $scope.hideVentilition = true;
+                    } else if (glassType === undefined) {
+                        $scope.showGlassStep = false;
+                    } else if (glassType === '') {
+                        $scope.showGlassStep = false;
+                        $scope.hideVentilition = false;
+                    }
+                });
+                ColorConstraintService.findByFinishCode({
+                    'finishCode': finishName
+                }, function (sortedColorObject) {
+                    console.log("Sorted COlor :%O", sortedColorObject);
+                    $scope.shutterColors1 = [];
+                    angular.forEach(sortedColorObject.colors, function (colorId) {
+                        ColorService.get({
+                            'id': colorId
+                        }, function (colorObject) {
+                            $scope.shutterColors1.push(colorObject);
+                        });
+                    });
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $scope.shutterColors1 = [];
+                    } else if (response.status === 404) {
+                        $scope.shutterColors1 = [];
+                    } else if (response.status === 400) {
+                        $scope.shutterColors1 = [];
+                    }
+                });
+            });
+            $scope.$watch('editableShutterDetail.thickness', function (thickness) {
+                ShutterFinishPriceService.findByFinishThickness({
+                    'finish': $scope.shutterFinishCode,
+                    'thickness': thickness
+                }, function (ShutterFinishPrice) {
+                    console.log("Shutter Finish Price :%O", ShutterFinishPrice);
+                    $scope.editableShutterDetail.stdOneSidePrice = ShutterFinishPrice.oneSidePrice;
+                    $scope.editableShutterDetail.stdBothSidePrice = ShutterFinishPrice.bothSidePrice;
+                });
+            });
+            $scope.$watch('shutterHandleName', function (handle) {
+                console.log("Handle :%O", handle);
+                console.log("Handle Component :%O", $scope.shutterHandleComponent);
+                $scope.showShutterCD1 = false;
+                $scope.showShutterCD2 = false;
+                if ($scope.shutterHandleComponent === "HANDEP01") {
+                    $scope.showShutterCD2 = true;
+                    $scope.showShutterCD1 = false;
+                    $scope.shutterHandlePriceList = [];
+                    HandlePriceService.findByKitchenComponent({
+                        'kitchenComponent': $scope.shutterHandleComponent
+                    }, function (shutterHandlePriceList) {
+                        console.log("Handle Price List :%O", shutterHandlePriceList);
+                        angular.forEach(shutterHandlePriceList, function (hplObject) {
+                            $scope.shutterHandlePriceList.push(hplObject);
+                        });
+                    });
+                } else {
+                    $scope.showShutterCD2 = false;
+                    $scope.showShutterCD1 = true;
+                    $scope.shutterHandlePriceList = [];
+                    HandlePriceService.findByKitchenComponent({
+                        'kitchenComponent': $scope.shutterHandleComponent
+                    }, function (shutterHandlePriceList) {
+                        console.log("Handle Price List :%O", shutterHandlePriceList);
+                        angular.forEach(shutterHandlePriceList, function (hplObject) {
+                            $scope.shutterHandlePriceList.push(hplObject);
+                        });
+                    });
+                }
+            });
+            $scope.$watch('editableShutterDetail.handleLength', function (cd) {
+                console.log("CD :%O", cd);
+                angular.forEach($scope.shutterHandlePriceList, function (handlePriceObject) {
+                    console.log("Handle Price Object :%O", handlePriceObject.cd);
+                    if (handlePriceObject.cd.toString() === cd.toString()) {
+                        $scope.mainShutterHandleObject = handlePriceObject;
+                        console.log("Got the Object :%O", $scope.mainShutterHandleObject);
+                        $scope.editableShutterDetail.handleFinish = $scope.mainShutterHandleObject.finish;
+                        $scope.editableShutterDetail.handlePrice = $scope.mainShutterHandleObject.price;
+                    } else {
+                        console.log("Not My COncern ");
+                    }
+                });
+            });
+            $scope.$watch('editableShutterDetail.shutterHandleType', function (handleType) {
+                HandlePriceService.get({
+                    'id': handleType
+                }, function (handlePriceObject) {
+                    $scope.editableShutterDetail.handleFinish = handlePriceObject.finish;
+                    $scope.editableShutterDetail.handlePrice = handlePriceObject.price;
+                });
+            });
+            $scope.showStraightener = false;
+            $scope.editableShutterDetail.straightener = '0';
+            $scope.$watch('editableShutterDetail.length', function (length) {
+                console.log("Length CHanged :%O", length);
+                if (length >= 1800) {
+                    console.log("Length > 1800");
+                    $scope.showStraightener = true;
+                } else {
+                    console.log("Length < 1800");
+                    $scope.showStraightener = false;
+                }
+            });
+
+            ///////////////////////////////////////////////////////////////////
+            $scope.saveShutterDetails = function (shutterOrderDetail) {
+                $scope.applyShutterDiscount = function (shutterOrderDetail, handlePrice, jaliPrice, straightenerPrice) {
+                    console.log("Handle Price :%O", handlePrice);
+                    console.log("Jali Price :%O", jaliPrice);
+                    console.log("Straightener Price :%O", straightenerPrice);
+
+                    RateContractDetailService.findByShutterFinishMaterialThickness({
+                        'finish': shutterOrderDetail.finish,
+                        'material': shutterOrderDetail.material,
+                        'thickness': shutterOrderDetail.thickness,
+                        'rateContractId': shutterOrderDetail.rateContractId
+                    }, function (rateContractDetailObject) {
+                        shutterOrderDetail.discountPer = rateContractDetailObject.discountPer;
+                        var discountPrice = ((shutterOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
+                        if ($scope.orderHead.orderSubType === "D") {
+                            console.log("Display Order");
+                            var preliminaryDealerPrice = (shutterOrderDetail.unitPrice - discountPrice);
+                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * shutterOrderDetail.displayDiscount);
+                            shutterOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
+                            console.log("Shutter Order Detail Save Object :%O", shutterOrderDetail);
+                            ShutterOrderDetailsService.save(shutterOrderDetail, function (shutterOrderDetail) {
+                                $scope.editableShutterDetail = "";
+                                $scope.shutterName = "";
+                                $scope.shutterColorName = "";
+                                $scope.shutterHandleName = "";
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.shutter_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'shutterDetailId': shutterOrderDetail.id
+                                }, {'reload': true});
+                            });
+                        } else {
+                            console.log("Discount Price :%O", discountPrice);
+                            if(shutterOrderDetail.glass === ''){
+                                shutterOrderDetail.glass = 'NO_GLASS';
+                            }
+                            shutterOrderDetail.price = ((shutterOrderDetail.unitPrice - discountPrice) + handlePrice + jaliPrice + straightenerPrice);
+                            ShutterOrderDetailsService.save(shutterOrderDetail, function (shutterOrderDetail) {
+                                $scope.editableShutterDetail = "";
+                                $scope.shutterName = "";
+                                $scope.shutterColorName = "";
+                                $scope.shutterHandleName = "";
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+                                $state.go('admin.masters_order_details.shutter_modal', {
+                                    'orderHeadId': $stateParams.orderHeadId,
+                                    'shutterDetailId': shutterOrderDetail.id
+                                }, {'reload': true});
+                            });
+                        }
+                    });
+                };
+                if (shutterOrderDetail.handle === "") {
+                    shutterOrderDetail.handle = null;
+                    shutterOrderDetail.handleFinish = null;
+                    shutterOrderDetail.handleLength = null;
+                }
+                shutterOrderDetail.orderHeadId = $stateParams.orderHeadId;
+                shutterOrderDetail.component = $scope.shutterComponent;
+                shutterOrderDetail.depth = '0';
+                var l1;
+                var w1;
+                var lengthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    l1 = genNum;
+                };
+                var widthLessThan100 = function (inputNo) {
+                    var genNum = "00" + inputNo.toString();
+                    w1 = genNum;
+                };
+                if (shutterOrderDetail.length < 1000) {
+                    if (shutterOrderDetail.length < 100) {
+                        lengthLessThan100(shutterOrderDetail.length);
+                    } else {
+                        l1 = 0 + shutterOrderDetail.length.toString();
+                    }
+                } else {
+                    l1 = shutterOrderDetail.length.toString();
+                }
+                if (shutterOrderDetail.width < 1000) {
+                    if (shutterOrderDetail.width < 100) {
+                        widthLessThan100(shutterOrderDetail.width);
+                    } else {
+                        w1 = 0 + shutterOrderDetail.width.toString();
+                    }
+                } else {
+                    w1 = shutterOrderDetail.width.toString();
+                }
+                if (shutterOrderDetail.component !== undefined) {
+                    console.log("Shutter Order Detail Glass :%O", shutterOrderDetail.glass);
+                    console.log("Shutter Order Detail:%O", shutterOrderDetail);
+                    if (shutterOrderDetail.glass !== "NO_GLASS") {
+                        if (shutterOrderDetail.glass === undefined) {
+                            console.log("Without Glass");
+                            console.log("11111111111111111111111");
+                            if (shutterOrderDetail.bsm === true) {
+                                console.log("Without Glass with BSM");
+                                if (shutterOrderDetail.hingePosition !== undefined) {
+                                    shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                                } else if (shutterOrderDetail.hingePosition === undefined) {
+                                    shutterOrderDetail.hingeCd = "X";
+                                }
+                                if (shutterOrderDetail.jali === true) {
+                                    shutterOrderDetail.glassCd = "V";
+                                } else if (shutterOrderDetail.jali === false) {
+                                    shutterOrderDetail.glassCd = "X";
+                                } else if (shutterOrderDetail.jali === undefined) {
+                                    shutterOrderDetail.glassCd = "X";
+                                }
+                                if (shutterOrderDetail.handle !== null) {
+                                    shutterOrderDetail.handleCd = "H";
+                                } else {
+                                    shutterOrderDetail.handleCd = "X";
+                                }
+                                var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            } else {
+                                console.log("Without Glass without BSM");
+                                if (shutterOrderDetail.hingePosition !== undefined) {
+                                    shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                                } else if (shutterOrderDetail.hingePosition === undefined) {
+                                    shutterOrderDetail.hingeCd = "X";
+                                }
+                                if (shutterOrderDetail.jali === true) {
+                                    shutterOrderDetail.glassCd = "V";
+                                } else if (shutterOrderDetail.jali === false) {
+                                    shutterOrderDetail.glassCd = "X";
+                                } else if (shutterOrderDetail.jali === undefined) {
+                                    shutterOrderDetail.glassCd = "X";
+                                }
+                                if (shutterOrderDetail.handle !== null) {
+                                    shutterOrderDetail.handleCd = "H";
+                                } else {
+                                    shutterOrderDetail.handleCd = "X";
+                                }
+                                var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "X" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            }
+                        } else if (shutterOrderDetail.glass === '') {
+                            console.log("Without Glass");
+                            console.log("33333333333333333333");
+                            shutterOrderDetail.glass = "NO_GLASS";
+                            if (shutterOrderDetail.bsm === true) {
+                                console.log("Without Glass with BSM");
+                                if (shutterOrderDetail.hingePosition !== undefined) {
+                                    shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                                } else if (shutterOrderDetail.hingePosition === undefined) {
+                                    shutterOrderDetail.hingeCd = "X";
+                                }
+                                if (shutterOrderDetail.jali === true) {
+                                    shutterOrderDetail.glassCd = "V";
+                                } else if (shutterOrderDetail.jali === false) {
+                                    shutterOrderDetail.glassCd = "X";
+                                } else if (shutterOrderDetail.jali === undefined) {
+                                    shutterOrderDetail.glassCd = "X";
+                                }
+                                if (shutterOrderDetail.handle !== null) {
+                                    shutterOrderDetail.handleCd = "H";
+                                } else {
+                                    shutterOrderDetail.handleCd = "X";
+                                }
+                                var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            } else {
+                                console.log("Without Glass without BSM");
+                                if (shutterOrderDetail.hingePosition !== undefined) {
+                                    shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                                } else if (shutterOrderDetail.hingePosition === undefined) {
+                                    shutterOrderDetail.hingeCd = "X";
+                                }
+                                if (shutterOrderDetail.jali === true) {
+                                    shutterOrderDetail.glassCd = "V";
+                                } else if (shutterOrderDetail.jali === false) {
+                                    shutterOrderDetail.glassCd = "X";
+                                } else if (shutterOrderDetail.jali === undefined) {
+                                    shutterOrderDetail.glassCd = "X";
+                                }
+                                if (shutterOrderDetail.handle !== null) {
+                                    shutterOrderDetail.handleCd = "H";
+                                } else {
+                                    shutterOrderDetail.handleCd = "X";
+                                }
+                                var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "X" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            }
+                        } else {
+                            console.log("With Glass");
+                            console.log("22222222222222222222");
+                            if (shutterOrderDetail.bsm === true) {
+                                console.log("Glass with BSM");
+                                if (shutterOrderDetail.hingePosition !== undefined) {
+                                    shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                                } else if (shutterOrderDetail.hingePosition === undefined) {
+                                    shutterOrderDetail.hingeCd = "X";
+                                }
+                                if (shutterOrderDetail.glass === "REGULAR_GLASS") {
+                                    shutterOrderDetail.glassCd = "G";
+                                } else if (shutterOrderDetail.glass === "MESH_GLASS") {
+                                    shutterOrderDetail.glassCd = "M";
+                                }
+                                if (shutterOrderDetail.handle !== null) {
+                                    shutterOrderDetail.handleCd = "H";
+                                } else {
+                                    shutterOrderDetail.handleCd = "X";
+                                }
+                                var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            } else {
+                                console.log("Glass without BSM");
+                                if (shutterOrderDetail.hingePosition !== undefined) {
+                                    shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                                } else if (shutterOrderDetail.hingePosition === undefined) {
+                                    shutterOrderDetail.hingeCd = "X";
+                                }
+                                if (shutterOrderDetail.glass === "REGULAR_GLASS") {
+                                    shutterOrderDetail.glassCd = "G";
+                                } else if (shutterOrderDetail.glass === "MESH_GLASS") {
+                                    shutterOrderDetail.glassCd = "M";
+                                }
+                                if (shutterOrderDetail.handle !== null) {
+                                    shutterOrderDetail.handleCd = "H";
+                                } else {
+                                    shutterOrderDetail.handleCd = "X";
+                                }
+                                var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "X" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                            }
+                        }
+                    }
+
+                } else if (shutterOrderDetail.material === undefined) {
+                    if (shutterOrderDetail.hingePosition !== undefined) {
+                        shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                    } else if (shutterOrderDetail.hingePosition === undefined) {
+                        shutterOrderDetail.hingeCd = "X";
+                    }
+                    if (shutterOrderDetail.handle !== null) {
+                        shutterOrderDetail.handleCd = "H";
+                    } else {
+                        shutterOrderDetail.handleCd = "X";
+                    }
+                    shutterOrderDetail.glassCd = "X";
+                    var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "XX" + Math.round(shutterOrderDetail.thickness) + "XX" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                } else {
+                    if (shutterOrderDetail.glass === undefined) {
+                        console.log("W/O Glass");
+                        if (shutterOrderDetail.bsm === true) {
+                            console.log("With BSM");
+                            if (shutterOrderDetail.hingePosition !== undefined) {
+                                shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                            } else if (shutterOrderDetail.hingePosition === undefined) {
+                                shutterOrderDetail.hingeCd = "X";
+                            }
+                            if (shutterOrderDetail.jali === true) {
+                                shutterOrderDetail.glassCd = "V";
+                            } else if (shutterOrderDetail.jali === false) {
+                                shutterOrderDetail.glassCd = "X";
+                            } else if (shutterOrderDetail.jali === undefined) {
+                                shutterOrderDetail.glassCd = "X";
+                            }
+                            if (shutterOrderDetail.handle !== null) {
+                                shutterOrderDetail.handleCd = "H";
+                            } else {
+                                shutterOrderDetail.handleCd = "X";
+                            }
+                            var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        } else {
+                            console.log("Without BSM");
+                            if (shutterOrderDetail.hingePosition !== undefined) {
+                                shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                            } else if (shutterOrderDetail.hingePosition === undefined) {
+                                shutterOrderDetail.hingeCd = "X";
+                            }
+                            if (shutterOrderDetail.jali === true) {
+                                shutterOrderDetail.glassCd = "V";
+                            } else if (shutterOrderDetail.jali === false) {
+                                shutterOrderDetail.glassCd = "X";
+                            } else if (shutterOrderDetail.jali === undefined) {
+                                shutterOrderDetail.glassCd = "X";
+                            }
+                            if (shutterOrderDetail.handle !== null) {
+                                shutterOrderDetail.handleCd = "H";
+                            } else {
+                                shutterOrderDetail.handleCd = "X";
+                            }
+                            var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "X" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        }
+                    } else if (shutterOrderDetail.glass === '') {
+                        console.log("W/O Glass");
+                        if (shutterOrderDetail.bsm === true) {
+                            console.log("With BSM");
+                            if (shutterOrderDetail.hingePosition !== undefined) {
+                                shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                            } else if (shutterOrderDetail.hingePosition === undefined) {
+                                shutterOrderDetail.hingeCd = "X";
+                            }
+                            if (shutterOrderDetail.jali === true) {
+                                shutterOrderDetail.glassCd = "V";
+                            } else if (shutterOrderDetail.jali === false) {
+                                shutterOrderDetail.glassCd = "X";
+                            } else if (shutterOrderDetail.jali === undefined) {
+                                shutterOrderDetail.glassCd = "X";
+                            }
+                            if (shutterOrderDetail.handle !== null) {
+                                shutterOrderDetail.handleCd = "H";
+                            } else {
+                                shutterOrderDetail.handleCd = "X";
+                            }
+                            var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        } else {
+                            console.log("Without BSM 1");
+                            console.log("Hinge position :%O", shutterOrderDetail.hingePosition);
+
+                            if (shutterOrderDetail.hingePosition !== undefined) {
+                                shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                            } else if (shutterOrderDetail.hingePosition === undefined) {
+                                shutterOrderDetail.hingeCd = "X";
+                            } else if (shutterOrderDetail.hingePosition === '') {
+                                shutterOrderDetail.hingeCd = "X";
+                            }
+                            if (shutterOrderDetail.jali === true) {
+                                shutterOrderDetail.glassCd = "V";
+                            } else if (shutterOrderDetail.jali === false) {
+                                shutterOrderDetail.glassCd = "X";
+                            } else if (shutterOrderDetail.jali === undefined) {
+                                shutterOrderDetail.glassCd = "X";
+                            } else if (shutterOrderDetail.jali === null) {
+                                shutterOrderDetail.glassCd = "X";
+                            }
+                            if (shutterOrderDetail.handle !== null) {
+                                shutterOrderDetail.handleCd = "H";
+                            } else {
+                                shutterOrderDetail.handleCd = "X";
+                            }
+                            console.log("Product Code is Getting Generated from here :%O", shutterOrderDetail);
+                            var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "X" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        }
+                    } else {
+                        console.log("Glass");
+                        if (shutterOrderDetail.bsm === true) {
+                            console.log("With BSM");
+                            if (shutterOrderDetail.hingePosition !== undefined) {
+                                shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                            } else if (shutterOrderDetail.hingePosition === undefined) {
+                                shutterOrderDetail.hingeCd = "X";
+                            }
+                            if (shutterOrderDetail.glass === "REGULAR_GLASS") {
+                                shutterOrderDetail.glassCd = "G";
+                            } else if (shutterOrderDetail.glass === "MESH_GLASS") {
+                                shutterOrderDetail.glassCd = "M";
+                            }
+                            if (shutterOrderDetail.handle !== null) {
+                                shutterOrderDetail.handleCd = "H";
+                            } else {
+                                shutterOrderDetail.handleCd = "X";
+                            }
+                            var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        } else {
+                            console.log("Without BSM");
+                            if (shutterOrderDetail.hingePosition !== undefined) {
+                                shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
+                            } else if (shutterOrderDetail.hingePosition === undefined) {
+                                shutterOrderDetail.hingeCd = "X";
+                            }
+                            if (shutterOrderDetail.glass === "REGULAR_GLASS") {
+                                shutterOrderDetail.glassCd = "G";
+                            } else if (shutterOrderDetail.glass === "MESH_GLASS") {
+                                shutterOrderDetail.glassCd = "M";
+                            }
+                            if (shutterOrderDetail.handle !== null) {
+                                shutterOrderDetail.handleCd = "H";
+                            } else {
+                                shutterOrderDetail.handleCd = "X";
+                            }
+                            var productCode = "SHUTT" + shutterOrderDetail.hingeCd + "X" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
+                        }
+                    }
+                }
+                var shutterArea = (shutterOrderDetail.length * shutterOrderDetail.width);
+                var shutterAreaSqMt = (shutterArea / 1000000);
+                var shutterRunningMeter = ((2 * shutterOrderDetail.length) + (2 * shutterOrderDetail.width));
+                var shutterMt = (shutterRunningMeter / 1000);
+                console.log("Shutter Area Sq Mt :%O", shutterAreaSqMt);
+                console.log("Shutter Running Mt :%O", shutterMt);
+                if (shutterOrderDetail.grain === "") {
+                    shutterOrderDetail.grain = "NO_GRAIN";
+                }
+                if (shutterOrderDetail.hingePosition === "") {
+                    shutterOrderDetail.hingePosition = "NO_HINGE";
+                }
+                if (shutterOrderDetail.handle === "HANDEP01") {
+                    var meterLength = (shutterOrderDetail.handleLength / 1000);
+                    shutterOrderDetail.handleMainPrice = (meterLength * shutterOrderDetail.handlePrice);
+                } else {
+                    shutterOrderDetail.handleMainPrice = shutterOrderDetail.handlePrice;
+                }
+
+                if (shutterOrderDetail.handle === undefined) {
+                    shutterOrderDetail.handleMainPrice = 0;
+                }
+                if (shutterOrderDetail.handle === null) {
+                    shutterOrderDetail.handleMainPrice = 0;
+                }
+                if (shutterOrderDetail.jali === true) {
+                    shutterOrderDetail.jaliPrice = 206;
+                } else {
+                    shutterOrderDetail.jaliPrice = 0;
+                }
+
+                if (shutterOrderDetail.straightener === '1') {
+                    shutterOrderDetail.straightenerPrice = 945;
+                    console.log("1 Straightener");
+                } else if (shutterOrderDetail.straightener === '2') {
+                    shutterOrderDetail.straightenerPrice = 1890;
+                    console.log("2 Straightener");
+                } else {
+                    console.log("No Straightener");
+                    shutterOrderDetail.straightenerPrice = 0;
+                }
+                console.log("Jali Price :%O", shutterOrderDetail.jaliPrice);
+                console.log("Handle Price :%O", shutterOrderDetail.handleMainPrice);
+                console.log("Shtraightener Price :%O", shutterOrderDetail.straightenerPrice);
+                if (shutterOrderDetail.finish === "XXW") {
+                    shutterOrderDetail.material = "AL";
+                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                } else if (shutterOrderDetail.finish === "XXX") {
+                    shutterOrderDetail.material = "AL";
+                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                } else if (shutterOrderDetail.finish === "XXY") {
+                    shutterOrderDetail.material = "AL";
+                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                } else if (shutterOrderDetail.finish === "XXZ") {
+                    shutterOrderDetail.material = "AL";
+                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice)));
+                } else if (shutterOrderDetail.finish === "XAA") {
+                    shutterOrderDetail.material = "AL";
+                    shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * ((shutterMt * shutterOrderDetail.stdOneSidePrice) + 168));
+                } else {
+                    console.log("Else Loop Non Al");
+                    if (shutterOrderDetail.bsm === true) {
+                        console.log("Both Side");
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * (shutterAreaSqMt * shutterOrderDetail.stdBothSidePrice));
+                    } else if (shutterOrderDetail.bsm === false) {
+                        console.log("One Side");
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * (shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice));
+                    } else if (shutterOrderDetail.bsm === undefined) {
+                        shutterOrderDetail.unitPrice = (shutterOrderDetail.quantity * (shutterAreaSqMt * shutterOrderDetail.stdOneSidePrice));
+                    }
+                }
+
+                shutterOrderDetail.productCode = productCode;
+                var handlePrice = (shutterOrderDetail.quantity * shutterOrderDetail.handleMainPrice);
+                var jaliPrice = (shutterOrderDetail.quantity * shutterOrderDetail.jaliPrice);
+                var straightenerPrice = (shutterOrderDetail.quantity * shutterOrderDetail.straightenerPrice);
+
+                console.log("Shutter Save Object :%O", shutterOrderDetail);
+                $scope.applyShutterDiscount(shutterOrderDetail, handlePrice, jaliPrice, straightenerPrice);
+            };
         })
         .controller('DrawerRepeatAdditionController', function (RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
 

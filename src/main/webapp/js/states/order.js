@@ -5887,6 +5887,8 @@ angular.module("digitalbusiness.states.order", [])
                             var preliminaryDealerPrice = (shutterOrderDetail.unitPrice - discountPrice);
                             var displayDiscountPrice = ((preliminaryDealerPrice / 100) * shutterOrderDetail.displayDiscount);
                             shutterOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
+                            shutterOrderDetail.shutterFinishCategory = shutterOrderDetail.finishCategory;
+                            
                             console.log("Shutter Order Detail Save Object :%O", shutterOrderDetail);
                             ShutterOrderDetailsService.save(shutterOrderDetail, function (shutterOrderDetail) {
                                 $scope.editableShutterDetail = "";
@@ -5904,6 +5906,7 @@ angular.module("digitalbusiness.states.order", [])
                         } else {
                             console.log("Discount Price :%O", discountPrice);
                             shutterOrderDetail.price = ((shutterOrderDetail.unitPrice - discountPrice) + handlePrice + jaliPrice + straightenerPrice);
+                            shutterOrderDetail.shutterFinishCategory = shutterOrderDetail.finishCategory;
                             ShutterOrderDetailsService.save(shutterOrderDetail, function (shutterOrderDetail) {
                                 $scope.editableShutterDetail = "";
                                 $scope.shutterName = "";
