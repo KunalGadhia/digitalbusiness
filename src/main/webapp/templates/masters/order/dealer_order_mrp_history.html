@@ -1,4 +1,4 @@
-<div class="modal modal-digitalbusiness">
+<!--<div class="modal modal-digitalbusiness">
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog">
         <form role="form" ng-submit="">
@@ -18,8 +18,8 @@
             </div>
         </form>
     </div>
-</div>
-<!--<div class="panel panel-default">
+</div>-->
+<div class="panel panel-default">
     <div class="panel-heading text-center">
         <div class="pull-left">            
             <a data-ui-sref="admin.dealers_transaction_history" class="btn btn-default">
@@ -87,33 +87,30 @@
                             Generate Customer Proforma Invoice
                         </button>
                     </a>
-                                        <a data-ui-sref="admin.masters_party.delete({ partyId: party.id })"
-                                           class="btn btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
+
                 </td>
             </tr>
         </tbody>
     </table>
-        <nav class="panel-footer">
-            <ul class="pager">
-                <li>
-                    <button ng-click="previousPage()" 
-                            ng-disabled="{{ currentOffset == 0}}" 
-                            class="btn btn-default" >
-                        <i class="fa fa-arrow-left"></i>
-                        Previous
-                    </button>
-                </li>
-                <li>
-                    <button ng-click="nextPage()"
-                            ng-disabled="parties.length < 10 || nextParty.length === 0"
-                            class="btn btn-default">
-                        Next 
-                        <i class="fa fa-arrow-right"></i>
-                    </button>
-                </li>
-            </ul>
-        </nav>
+    <!--        <nav class="panel-footer">
+                <ul class="pager">
+                    <li>
+                        <button ng-click="previousPage()" 
+                                ng-disabled="{{ currentOffset == 0}}" 
+                                class="btn btn-default" >
+                            <i class="fa fa-arrow-left"></i>
+                            Previous
+                        </button>
+                    </li>
+                    <li>
+                        <button ng-click="nextPage()"
+                                ng-disabled="parties.length < 10 || nextParty.length === 0"
+                                class="btn btn-default">
+                            Next 
+                            <i class="fa fa-arrow-right"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>-->
 </div>
-<div data-ui-view=""></div>-->
+<div data-ui-view=""></div>
