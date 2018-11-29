@@ -6328,13 +6328,13 @@ angular.module("digitalbusiness.states.order", [])
                                 $scope.drawerName = "";
                                 $scope.drawerColorName = "";
                                 $scope.drawerHandleName = "";
-//                                $state.go('admin.masters_order_details', {
-//                                    'orderHeadId': $stateParams.orderHeadId
-//                                }, {'reload': true});
-                                $state.go('admin.masters_order_details.drawer_modal', {
-                                    'orderHeadId': $stateParams.orderHeadId,
-                                    'drawerDetailId': drawerOrderDetail.id
+                                $state.go('admin.masters_order_details', {
+                                    'orderHeadId': $stateParams.orderHeadId
                                 }, {'reload': true});
+//                                $state.go('admin.masters_order_details.drawer_modal', {
+//                                    'orderHeadId': $stateParams.orderHeadId,
+//                                    'drawerDetailId': drawerOrderDetail.id
+//                                }, {'reload': true});
                             });
                         } else {
                             drawerOrderDetail.price = ((drawerOrderDetail.unitPrice - discountPrice) + handlePrice);
@@ -6344,13 +6344,13 @@ angular.module("digitalbusiness.states.order", [])
                                 $scope.drawerName = "";
                                 $scope.drawerColorName = "";
                                 $scope.drawerHandleName = "";
-//                                $state.go('admin.masters_order_details', {
-//                                    'orderHeadId': $stateParams.orderHeadId
-//                                }, {'reload': true});
-                                $state.go('admin.masters_order_details.drawer_modal', {
-                                    'orderHeadId': $stateParams.orderHeadId,
-                                    'drawerDetailId': drawerOrderDetail.id
+                                $state.go('admin.masters_order_details', {
+                                    'orderHeadId': $stateParams.orderHeadId
                                 }, {'reload': true});
+//                                $state.go('admin.masters_order_details.drawer_modal', {
+//                                    'orderHeadId': $stateParams.orderHeadId,
+//                                    'drawerDetailId': drawerOrderDetail.id
+//                                }, {'reload': true});
                             });
                         }
                     });
