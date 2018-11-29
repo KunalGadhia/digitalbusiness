@@ -20,6 +20,26 @@ angular.module("digitalbusiness.states.order_mrp", [])
                 'templateUrl': templateRoot + '/masters/mrp/dealer_sku_delete.html',
                 'controller': 'SkuOrderMrpDetailsDeleteController'
             });
+            $stateProvider.state('admin.masters_order_mrp_details.max_kitchen_delete', {
+                'url': '/:maxKitchenDetailId/max_kitchen/delete',
+                'templateUrl': templateRoot + '/masters/order/max_kitchen_detail_delete.html',
+                'controller': 'MaxKitchenDetailDeleteController'
+            });
+            $stateProvider.state('admin.masters_order_mrp_details.max_wardrobe_delete', {
+                'url': '/:maxWardrobeDetailId/max_wardrobe/delete',
+                'templateUrl': templateRoot + '/masters/order/max_wardrobe_detail_delete.html',
+                'controller': 'MaxWardrobeDetailDeleteController'
+            });
+            $stateProvider.state('admin.masters_order__mrp_details.infinity_wardrobe_delete', {
+                'url': '/:infinityWardrobeDetailId/infinty_wardrobe/delete',
+                'templateUrl': templateRoot + '/masters/order/infinity_wardrobe_detail_delete.html',
+                'controller': 'InfinityWardrobeDetailDeleteController'
+            });
+            $stateProvider.state('admin.masters_order_mrp_details.ultima_wardrobe_delete', {
+                'url': '/:ultimaWardrobeDetailId/ultima_wardrobe/delete',
+                'templateUrl': templateRoot + '/masters/order/ultima_wardrobe_detail_delete.html',
+                'controller': 'UltimaWardrobeDetailDeleteController'
+            });
             $stateProvider.state('admin.masters_order_mrp_details.infinity_wardrobe_mrp_delete', {
                 'url': '/:infinityWardrobeDetailId/infinity_wardrobe_mrp_delete',
                 'templateUrl': templateRoot + '/masters/mrp/infinity_wardrobe_mrp_delete.html',
@@ -1664,8 +1684,8 @@ angular.module("digitalbusiness.states.order_mrp", [])
                 });
             };
         })
-        .controller('InfinityWardrobeOrderMrpDetailsDeleteController', function (MaxWardrobeMrpService, InfinityWardrobeMrpOrderDetailsService, DealerSkuOrderDetailsService, OrderHeadMrpService, $rootScope, UserService, PartyService, EmployeeService, $scope, $stateParams, $state, paginationLimit) {
-            $scope.editableInfinityWardrobeDetailMrp = InfinityWardrobeMrpOrderDetailsService.get({
+        .controller('InfinityWardrobeOrderMrpDetailsDeleteController', function (InfinityWardrobeOrderDetailsService, MaxWardrobeMrpService, InfinityWardrobeMrpOrderDetailsService, DealerSkuOrderDetailsService, OrderHeadMrpService, $rootScope, UserService, PartyService, EmployeeService, $scope, $stateParams, $state, paginationLimit) {
+            $scope.editableInfinityWardrobeDetailMrp = InfinityWardrobeOrderDetailsService.get({
                 'id': $stateParams.infinityWardrobeDetailId
             });
             $scope.deleteInfinityWardrobeMrp = function (infinityWardrobeMrp) {
@@ -1681,6 +1701,54 @@ angular.module("digitalbusiness.states.order_mrp", [])
             $scope.deleteMaxWardrobeMrp = function (maxWardrobeMrp) {
                 maxWardrobeMrp.$delete(function () {
                     $state.go('admin.masters_order_mrp_details', {'orderHeadId': maxWardrobeMrp.orderHeadId}, {'reload': true});
+                });
+            };
+        })
+        .controller('InfinityWardrobeDetailDeleteController', function (InfinityWardrobeOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Pelmet:%O", $stateParams);
+            $scope.editableInfinityWardrobeDetail = InfinityWardrobeOrderDetailsService.get({'id': $stateParams.infinityWardrobeDetailId});
+            $scope.deleteInfinityWardrobeDetail = function (infinityOrderDetail) {
+                console.log("Infinity Wardrobe Order Detail :%O", infinityOrderDetail);
+                infinityOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_mrp_details', {
+                        'orderHeadId': $scope.editableInfinityWardrobeDetail.orderHeadId
+                    }, {'reload': true});
+                });
+            };
+        })
+        .controller('UltimaWardrobeDetailDeleteController', function (UltimaWardrobeOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Pelmet:%O", $stateParams);
+            $scope.editableUltimaWardrobeDetail = UltimaWardrobeOrderDetailsService.get({'id': $stateParams.ultimaWardrobeDetailId});
+            $scope.deleteUltimaWardrobeDetail = function (ultimaOrderDetail) {
+                console.log("Infinity Wardrobe Order Detail :%O", ultimaOrderDetail);
+                ultimaOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_mrp_details', {
+                        'orderHeadId': $scope.editableUltimaWardrobeDetail.orderHeadId
+                    }, {'reload': true});
+                });
+            };
+        })
+        .controller('MaxKitchenDetailDeleteController', function (MaxKitchenOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Kitchen:%O", $stateParams);
+            $scope.editableMaxKitchenDetail = MaxKitchenOrderDetailsService.get({'id': $stateParams.maxKitchenDetailId});
+            $scope.deleteMaxKitchenDetail = function (maxKitchenOrderDetail) {
+                console.log("Max Order Detail :%O", maxKitchenOrderDetail);
+                maxKitchenOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_mrp_details', {
+                        'orderHeadId': $scope.editableMaxKitchenDetail.orderHeadId
+                    }, {'reload': true});
+                });
+            };
+        })
+        .controller('MaxWardrobeDetailDeleteController', function (MaxWardrobeOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {
+            console.log("What are STate Params Kitchen:%O", $stateParams);
+            $scope.editableMaxWardrobeDetail = MaxWardrobeOrderDetailsService.get({'id': $stateParams.maxWardrobeDetailId});
+            $scope.deleteMaxWardrobeDetail = function (maxWardrobeOrderDetail) {
+                console.log("Max Order Detail :%O", maxWardrobeOrderDetail);
+                maxWardrobeOrderDetail.$delete(function () {
+                    $state.go('admin.masters_order_mrp_details', {
+                        'orderHeadId': $scope.editableMaxWardrobeDetail.orderHeadId
+                    }, {'reload': true});
                 });
             };
         });
