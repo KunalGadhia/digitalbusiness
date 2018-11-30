@@ -786,6 +786,13 @@
                     </td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-left ng-hide" colspan="2"><input id="maxWardrobeTotal" class="form-control" value="{{maxWardrobeOrderDetailsList| total:'price'}}"></td>
+                    <td class="text-right" colspan="12"><strong>Total Order Value for Max Wardrobe in INR :</strong></td>
+                    <td class="text-left" colspan="2">&#8377; {{maxWardrobeOrderDetailsList| total:'price' | number: 2}}</td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>
@@ -913,6 +920,54 @@
             </tfoot>
         </table>
     </div>
+</div>
+<div class="panel-heading text-center">
+    <div ng-if="showMrpFeature">
+        <h3>Additional Charges</h3>
+    </div>
+    <form role="role" ng-submit="updateOrderMrpHead(orderMrpHead)">
+        <div class="row" ng-if="showMrpFeature">
+            <div class="col-sm-3">
+                <label>Transportation Charges</label>                    
+                <input class="form-control" type="number" min="0" ng-model="orderMrpHead.transportationCharges">
+            </div>                
+            <div class="col-sm-3">
+                <label>Loading / Unloading Charges</label>
+                <input class="form-control" type="number" min="0" ng-model="orderMrpHead.loadingUnloadingCharges">
+            </div>
+            <div class="col-sm-3">
+                <label>Installation Charges</label>
+                <input class="form-control" type="number" min="0" ng-model="orderMrpHead.installationCharges">
+            </div>
+            <div class="col-sm-3">
+                <label>Other Charges</label>
+                <input class="form-control" type="number" min="0" ng-model="orderMrpHead.otherCharges">
+            </div>                
+        </div>
+        <div class="row" style="margin-top: 10px;" ng-if="showMrpFeature">
+            <div class="col-sm-3">
+                <label>Discount (In %)</label>
+                <input class="form-control" type="number" min="0" ng-model="orderMrpHead.discount">
+            </div>                
+            <div class="col-sm-3">
+                <label>MRP Rampup Percentage (%)</label>
+                <input class="form-control" type="number" min="0" ng-model="orderMrpHead.mrpRampupPercentage">
+            </div>
+            <div class="col-sm-3">                    
+            </div>
+            <div class="col-sm-3">                    
+            </div>                
+        </div>
+        <div class="panel-heading text-center">        
+            <div class="modal-footer">            
+                <!--<button class="btn btn-lg btn-primary" ng-click="updateOrderHead(editableOrderHead)">-->
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fa fa-check-circle"></i>
+                    Done
+                </button>            
+            </div>        
+        </div>            
+    </form>
 </div>
 <!-- Infinity Wardrobes Selection Panel Starts -->
 <div class="modal modal-digitalbusiness" ng-if="showInfinityCarcassColorSelectionWidget">
@@ -1832,14 +1887,14 @@
     </div>
 </div>-->
 
-<div class="modal-footer">
-    <!--            <a data-ui-sref="admin.dealers" ng-if="dealerLogin">
+<!--<div class="modal-footer">
+                <a data-ui-sref="admin.dealers" ng-if="dealerLogin">
                     <button class="btn btn-lg btn-primary" >
                         <i class="fa fa-check-circle"></i>
                         Done
                     </button>
-                </a>-->
-    <!--<a data-ui-sref="admin.masters" ng-if="adminLogin">-->
+                </a>
+    <a data-ui-sref="admin.masters" ng-if="adminLogin">
     <a class="btn btn-lg btn-primary" data-ui-sref="admin.masters" ng-if="adminLogin">
         <i class="fa fa-check-circle"></i>
         Done
@@ -1848,7 +1903,7 @@
         <i class="fa fa-check-circle"></i>
         Done
     </a>    
-</div>
+</div>-->
 <!--Demo Max Wardrobe Selection Panel Starts -->
 <div class="modal modal-digitalbusiness" ng-if="showMaxWardrobeSelectionWidget">
     <div class="modal-backdrop fade in"></div>

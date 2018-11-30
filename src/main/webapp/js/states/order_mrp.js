@@ -83,6 +83,33 @@ angular.module("digitalbusiness.states.order_mrp", [])
 
         })
         .controller('OrderMrpDetailsController', function (UltimaWardrobeService, InfinityWardrobeOrderDetailsService, InfinityWardrobeService, MaxWardrobeOrderDetailsService, MaxWardrobeService, UltimaWardrobeOrderDetailsService, ColorService, ColorConstraintService, FinishPriceService, MaxKitchenService, MaxKitchenOrderDetailsService, DealerSkuOrderDetailsService, UserService, $rootScope, ManufacturerCategoryService, ManufacturerService, DealerSkuService, MaxKitchenMrpOrderDetailsService, MaxWardrobeMrpOrderDetailsService, InfinityWardrobeMrpOrderDetailsService, MaxKitchenMrpService, MaxWardrobeMrpService, InfinityWardrobeMrpService, OrderHeadMrpService, RateContractService, EmployeeService, PartyService, $scope, $stateParams, $state, paginationLimit) {
+            //////////////To Detect Category Of Current Logged In User//////////
+            $scope.user = $rootScope.currentUser;
+            $scope.adminLogin = false;
+            $scope.dealerLogin = false;
+            $scope.showMrpFeature = false;
+            UserService.findByUsername({
+                'username': $scope.user.username
+            }, function (userObject) {
+                if (userObject.role === "ROLE_ADMIN") {
+                    $scope.adminLogin = true;
+                    $scope.dealerLogin = false;
+                    $scope.showMrpFeature = true;
+                } else if (userObject.role === "ROLE_DEALER") {
+                    $scope.adminLogin = false;
+                    $scope.dealerLogin = true;
+                    $scope.showMrpFeature = false;
+                } else if (userObject.role === "ROLE_DEALER_PRO") {
+                    $scope.adminLogin = false;
+                    $scope.dealerLogin = true;
+                    $scope.showMrpFeature = true;
+                } else if (userObject.role === "ROLE_DEALER_STAFF") {
+                    $scope.adminLogin = false;
+                    $scope.dealerLogin = true;
+                    $scope.showMrpFeature = true;
+                }
+            });
+            ///////////////////////////////////////
             OrderHeadMrpService.get({
                 'id': $stateParams.orderHeadId
             }, function (orderHeadObject) {
@@ -92,6 +119,45 @@ angular.module("digitalbusiness.states.order_mrp", [])
                 var date = new Date(factDespDate);
                 $scope.factDespDate = date;
             });
+            $scope.updateOrderMrpHead = function (editableOrderMrpHead) {
+                console.log("Order Head Mrp Update :%O",editableOrderMrpHead);
+                OrderHeadMrpService.get({
+                    'id': $stateParams.orderHeadId
+                }, function (orderHeadMrpObject) {
+                    
+                    var infinityWardrobeTotal = parseInt($("#infinityWardrobeTotal").val());
+                    var ultimaWardrobeTotal = parseInt($("#ultimaWardrobeTotal").val());
+                    var maxKitchenTotal = parseInt($("#maxKitchenTotal").val());
+                    var maxWardrobeTotal = parseInt($("#maxWardrobeTotal").val());
+                    $scope.discountPrice = ((infinityWardrobeTotal + ultimaWardrobeTotal + maxKitchenTotal + maxWardrobeTotal + editableOrderMrpHead.transportationCharges + editableOrderMrpHead.loadingUnloadingCharges + editableOrderMrpHead.installationCharges + editableOrderMrpHead.otherCharges) * (editableOrderMrpHead.discount / 100));
+                    $scope.totalOrderPrice = ((infinityWardrobeTotal + ultimaWardrobeTotal + maxKitchenTotal + maxWardrobeTotal + editableOrderMrpHead.transportationCharges + editableOrderMrpHead.loadingUnloadingCharges + editableOrderMrpHead.installationCharges + editableOrderMrpHead.otherCharges) - ($scope.discountPrice));
+                    $scope.cgst = (($scope.totalOrderPrice / 100) * 9);
+                    $scope.sgst = (($scope.totalOrderPrice / 100) * 9);
+                    $scope.netTotalAmount = Math.round(($scope.totalOrderPrice + $scope.cgst + $scope.sgst));
+                    orderHeadMrpObject.orderAmount = $scope.totalOrderPrice;
+                    orderHeadMrpObject.cgstAmount = Math.round($scope.cgst);
+                    orderHeadMrpObject.sgstAmount = Math.round($scope.sgst);
+                    orderHeadMrpObject.igstAmount = 0;
+                    orderHeadMrpObject.netAmount = $scope.netTotalAmount;
+                    orderHeadMrpObject.transportationCharges = editableOrderMrpHead.transportationCharges;
+                    orderHeadMrpObject.loadingUnloadingCharges = editableOrderMrpHead.loadingUnloadingCharges;
+                    orderHeadMrpObject.installationCharges = editableOrderMrpHead.installationCharges;
+                    orderHeadMrpObject.otherCharges = editableOrderMrpHead.otherCharges;
+                    orderHeadMrpObject.discount = editableOrderMrpHead.discount;
+                    orderHeadMrpObject.mrpRampupPercentage = editableOrderMrpHead.mrpRampupPercentage;
+                    orderHeadMrpObject.mrpRampupFactor = (editableOrderMrpHead.mrpRampupPercentage / 100);
+                    if ($scope.adminLogin === true) {
+                        orderHeadMrpObject.$save(function () {
+                            $state.go('admin.masters', null, {'reload': true});
+                        });
+                    } else if ($scope.dealerLogin === true) {
+                        orderHeadMrpObject.$save(function () {
+                            $state.go('admin.dealers', null, {'reload': true});
+                        });
+                    }
+
+                });
+            };
             /////////Select Parent View///////            
             $scope.showMaxSeries = false;
             $scope.showUltimaSeries = false;
@@ -119,48 +185,48 @@ angular.module("digitalbusiness.states.order_mrp", [])
             $scope.showMaxWardrobe = false;
             $scope.showMaxBeds = false;
             $scope.showUltimaWardrobe = false;
-            $scope.showInfinityWardrobe = false;            
+            $scope.showInfinityWardrobe = false;
             $scope.selectView = function (view) {
                 console.log("View :" + view);
-                if (view === "MAXKITCHEN") {                    
+                if (view === "MAXKITCHEN") {
                     $scope.showMaxKitchen = true;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
                     $scope.showUltimaWardrobe = false;
-                    $scope.showInfinityWardrobe = false;                    
-                } else if (view === "MAXWARDROBE") {                    
+                    $scope.showInfinityWardrobe = false;
+                } else if (view === "MAXWARDROBE") {
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = true;
                     $scope.showMaxBeds = false;
                     $scope.showUltimaWardrobe = false;
-                    $scope.showInfinityWardrobe = false;                    
-                } else if (view === "MAXBEDS") {                    
+                    $scope.showInfinityWardrobe = false;
+                } else if (view === "MAXBEDS") {
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = true;
                     $scope.showUltimaWardrobe = false;
-                    $scope.showInfinityWardrobe = false;                    
-                } else if (view === "ULTIMAWARDROBE") {                    
+                    $scope.showInfinityWardrobe = false;
+                } else if (view === "ULTIMAWARDROBE") {
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
                     $scope.showUltimaWardrobe = true;
-                    $scope.showInfinityWardrobe = false;                    
-                } else if (view === "INFINITYWARDROBE") {                    
+                    $scope.showInfinityWardrobe = false;
+                } else if (view === "INFINITYWARDROBE") {
                     $scope.showMaxKitchen = false;
                     $scope.showMaxWardrobe = false;
                     $scope.showMaxBeds = false;
                     $scope.showUltimaWardrobe = false;
-                    $scope.showInfinityWardrobe = true;                    
+                    $scope.showInfinityWardrobe = true;
                 }
             };
             /////////////////Close Widget////////////////////////////////////
-            $scope.closeWidget = function () {                
+            $scope.closeWidget = function () {
                 $scope.showInfinityCarcassColorSelectionWidget = false;
                 $scope.showInfinityShutterColorSelectionWidget = false;
                 $scope.showUltimaCarcassColorSelectionWidget = false;
                 $scope.showUltimaShutterColorSelectionWidget = false;
-                $scope.showMaxKitchenShutterColorSelectionWidget = false;                
+                $scope.showMaxKitchenShutterColorSelectionWidget = false;
                 $scope.preInfinityCarcassColor = {};
                 $scope.preInfinityShutterColor = {};
                 $scope.preUltimaCarcassColor = {};
@@ -348,14 +414,14 @@ angular.module("digitalbusiness.states.order_mrp", [])
 //                        }, {'reload': true});
 //                    });
 //                } else {
-                    maxKitchenOrderDetails.price = maxKitchenOrderDetails.preliminaryDealerprice;
-                    MaxKitchenOrderDetailsService.save(maxKitchenOrderDetails, function () {
-                        console.log("Saved Successfully");
-                        $scope.editableMaxKitchenDetail = "";
-                        $state.go('admin.masters_order_mrp_details', {
-                            'orderHeadId': $stateParams.orderHeadId
-                        }, {'reload': true});
-                    });
+                maxKitchenOrderDetails.price = maxKitchenOrderDetails.preliminaryDealerprice;
+                MaxKitchenOrderDetailsService.save(maxKitchenOrderDetails, function () {
+                    console.log("Saved Successfully");
+                    $scope.editableMaxKitchenDetail = "";
+                    $state.go('admin.masters_order_mrp_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
+                });
 //                }
             };
             /////////////////Max Kitchen Form Functionality End////////////////
@@ -451,14 +517,14 @@ angular.module("digitalbusiness.states.order_mrp", [])
 //                        }, {'reload': true});
 //                    });
 //                } else {
-                    maxWardrobeOrderDetails.price = maxWardrobeOrderDetails.preliminaryDealerPrice;
-                    MaxWardrobeOrderDetailsService.save(maxWardrobeOrderDetails, function () {
-                        console.log("Saved Successfully");
-                        $scope.editableMaxWardrobeDetail = "";
-                        $state.go('admin.masters_order_mrp_details', {
-                            'orderHeadId': $stateParams.orderHeadId
-                        }, {'reload': true});
-                    });
+                maxWardrobeOrderDetails.price = maxWardrobeOrderDetails.preliminaryDealerPrice;
+                MaxWardrobeOrderDetailsService.save(maxWardrobeOrderDetails, function () {
+                    console.log("Saved Successfully");
+                    $scope.editableMaxWardrobeDetail = "";
+                    $state.go('admin.masters_order_mrp_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
+                });
 //                }
 
             };
@@ -797,15 +863,15 @@ angular.module("digitalbusiness.states.order_mrp", [])
 //                        }, {'reload': true});
 //                    });
 //                } else {
-                    infinityWardrobeDetails.price = infinityWardrobeDetails.preliminaryDealerPrice;
-                    InfinityWardrobeOrderDetailsService.save(infinityWardrobeDetails, function () {
-                        $scope.editableInfinityWardrobeDetail = "";
-                        $scope.infinityCarcassColorName = "";
-                        $scope.infinityShutterColorName = "";
-                        $state.go('admin.masters_order_mrp_details', {
-                            'orderHeadId': $stateParams.orderHeadId
-                        }, {'reload': true});
-                    });
+                infinityWardrobeDetails.price = infinityWardrobeDetails.preliminaryDealerPrice;
+                InfinityWardrobeOrderDetailsService.save(infinityWardrobeDetails, function () {
+                    $scope.editableInfinityWardrobeDetail = "";
+                    $scope.infinityCarcassColorName = "";
+                    $scope.infinityShutterColorName = "";
+                    $state.go('admin.masters_order_mrp_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
+                });
 //                }
             };
             ////////////////Infinity Wardrobe Form Functionality Ends///////////
@@ -1067,27 +1133,27 @@ angular.module("digitalbusiness.states.order_mrp", [])
 //                        }, {'reload': true});
 //                    });
 //                } else {
-                    ultimaWardrobeDetails.price = ultimaWardrobeDetails.preliminaryDealerPrice;
-                    UltimaWardrobeOrderDetailsService.save(ultimaWardrobeDetails, function () {
-                        $scope.editableUltimaWardrobeDetail = "";
-                        $scope.ultimaCarcassColorName = "";
-                        $scope.ultimaShutterColorName = "";
-                        $state.go('admin.masters_order_mrp_details', {
-                            'orderHeadId': $stateParams.orderHeadId
-                        }, {'reload': true});
-                    });
+                ultimaWardrobeDetails.price = ultimaWardrobeDetails.preliminaryDealerPrice;
+                UltimaWardrobeOrderDetailsService.save(ultimaWardrobeDetails, function () {
+                    $scope.editableUltimaWardrobeDetail = "";
+                    $scope.ultimaCarcassColorName = "";
+                    $scope.ultimaShutterColorName = "";
+                    $state.go('admin.masters_order_mrp_details', {
+                        'orderHeadId': $stateParams.orderHeadId
+                    }, {'reload': true});
+                });
 //                }
             };
             ////////////////Ultima Wardrobe Form Functionality Ends/////////////
             ////////////////Fetching Entry For List/////////////////////////////
             $scope.maxKitchenOrderDetailsList = MaxKitchenOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
-            }, function (maxKitchenOrderList) {                
+            }, function (maxKitchenOrderList) {
                 $scope.maxKitchenOrderDetailsList = maxKitchenOrderList;
             });
             $scope.maxWardrobeOrderDetailsList = MaxWardrobeOrderDetailsService.findByOrderHeadId({
                 'orderHeadId': $stateParams.orderHeadId
-            }, function (maxWardrobeOrderList) {                
+            }, function (maxWardrobeOrderList) {
                 $scope.maxWardrobeOrderDetailsList = maxWardrobeOrderList;
             });
             $scope.infinityWardrobeOrderDetailList = InfinityWardrobeOrderDetailsService.findByOrderHeadId({

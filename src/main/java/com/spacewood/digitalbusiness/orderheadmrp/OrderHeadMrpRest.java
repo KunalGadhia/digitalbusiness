@@ -81,10 +81,10 @@ public class OrderHeadMrpRest {
 //        return orderHeadMrpDAL.findOrderByPartyAndDuration(partyId, startDate, endDate);
 //    }
 //
-//    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-//    public OrderHead update(@RequestBody OrderHead orderHead) {
-//        return orderHeadMrpDAL.update(orderHead);
-//    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public OrderHeadMrp update(@RequestBody OrderHeadMrp orderHeadMrp) {
+        return orderHeadMrpDAL.update(orderHeadMrp);
+    }
 
 //    @RolesAllowed("ROLE_SUPER_ADMIN")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

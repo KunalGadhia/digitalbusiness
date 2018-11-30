@@ -33,6 +33,13 @@ public class OrderHeadMrp {
     private Double sgstAmount;
     private Double igstAmount;
     private Double netAmount;
+    private Double transportationCharges;
+    private Double loadingUnloadingCharges;
+    private Double installationCharges;
+    private Double otherCharges;
+    private Double discount;
+    private Double mrpRampupPercentage;
+    private Double mrpRampupFactor;
 
     public Integer getId() {
         return id;
@@ -194,29 +201,92 @@ public class OrderHeadMrp {
         this.netAmount = netAmount;
     }
 
+    public Double getTransportationCharges() {
+        return transportationCharges;
+    }
+
+    public void setTransportationCharges(Double transportationCharges) {
+        this.transportationCharges = transportationCharges;
+    }
+
+    public Double getLoadingUnloadingCharges() {
+        return loadingUnloadingCharges;
+    }
+
+    public void setLoadingUnloadingCharges(Double loadingUnloadingCharges) {
+        this.loadingUnloadingCharges = loadingUnloadingCharges;
+    }
+
+    public Double getInstallationCharges() {
+        return installationCharges;
+    }
+
+    public void setInstallationCharges(Double installationCharges) {
+        this.installationCharges = installationCharges;
+    }
+
+    public Double getOtherCharges() {
+        return otherCharges;
+    }
+
+    public void setOtherCharges(Double otherCharges) {
+        this.otherCharges = otherCharges;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Double getMrpRampupPercentage() {
+        return mrpRampupPercentage;
+    }
+
+    public void setMrpRampupPercentage(Double mrpRampupPercentage) {
+        this.mrpRampupPercentage = mrpRampupPercentage;
+    }
+
+    public Double getMrpRampupFactor() {
+        return mrpRampupFactor;
+    }
+
+    public void setMrpRampupFactor(Double mrpRampupFactor) {
+        this.mrpRampupFactor = mrpRampupFactor;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.orderNum);
-        hash = 41 * hash + Objects.hashCode(this.partyName);
-        hash = 41 * hash + Objects.hashCode(this.projectName);
-        hash = 41 * hash + Objects.hashCode(this.address1);
-        hash = 41 * hash + Objects.hashCode(this.address2);
-        hash = 41 * hash + Objects.hashCode(this.address3);
-        hash = 41 * hash + Objects.hashCode(this.address4);
-        hash = 41 * hash + Objects.hashCode(this.partyEmail);
-        hash = 41 * hash + Objects.hashCode(this.postalCode);
-        hash = 41 * hash + Objects.hashCode(this.partyMobileNo);
-        hash = 41 * hash + Objects.hashCode(this.partyTelephoneNo);
-        hash = 41 * hash + Objects.hashCode(this.partyCity);
-        hash = 41 * hash + Objects.hashCode(this.poDate);
-        hash = 41 * hash + Objects.hashCode(this.orderInitiatedBy);
-        hash = 41 * hash + Objects.hashCode(this.orderAmount);
-        hash = 41 * hash + Objects.hashCode(this.cgstAmount);
-        hash = 41 * hash + Objects.hashCode(this.sgstAmount);
-        hash = 41 * hash + Objects.hashCode(this.igstAmount);
-        hash = 41 * hash + Objects.hashCode(this.netAmount);
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.orderNum);
+        hash = 89 * hash + Objects.hashCode(this.partyName);
+        hash = 89 * hash + Objects.hashCode(this.projectName);
+        hash = 89 * hash + Objects.hashCode(this.address1);
+        hash = 89 * hash + Objects.hashCode(this.address2);
+        hash = 89 * hash + Objects.hashCode(this.address3);
+        hash = 89 * hash + Objects.hashCode(this.address4);
+        hash = 89 * hash + Objects.hashCode(this.partyEmail);
+        hash = 89 * hash + Objects.hashCode(this.postalCode);
+        hash = 89 * hash + Objects.hashCode(this.partyMobileNo);
+        hash = 89 * hash + Objects.hashCode(this.partyTelephoneNo);
+        hash = 89 * hash + Objects.hashCode(this.partyCity);
+        hash = 89 * hash + Objects.hashCode(this.poDate);
+        hash = 89 * hash + Objects.hashCode(this.orderInitiatedBy);
+        hash = 89 * hash + Objects.hashCode(this.orderAmount);
+        hash = 89 * hash + Objects.hashCode(this.cgstAmount);
+        hash = 89 * hash + Objects.hashCode(this.sgstAmount);
+        hash = 89 * hash + Objects.hashCode(this.igstAmount);
+        hash = 89 * hash + Objects.hashCode(this.netAmount);
+        hash = 89 * hash + Objects.hashCode(this.transportationCharges);
+        hash = 89 * hash + Objects.hashCode(this.loadingUnloadingCharges);
+        hash = 89 * hash + Objects.hashCode(this.installationCharges);
+        hash = 89 * hash + Objects.hashCode(this.otherCharges);
+        hash = 89 * hash + Objects.hashCode(this.discount);
+        hash = 89 * hash + Objects.hashCode(this.mrpRampupPercentage);
+        hash = 89 * hash + Objects.hashCode(this.mrpRampupFactor);
         return hash;
     }
 
@@ -292,13 +362,33 @@ public class OrderHeadMrp {
         if (!Objects.equals(this.netAmount, other.netAmount)) {
             return false;
         }
+        if (!Objects.equals(this.transportationCharges, other.transportationCharges)) {
+            return false;
+        }
+        if (!Objects.equals(this.loadingUnloadingCharges, other.loadingUnloadingCharges)) {
+            return false;
+        }
+        if (!Objects.equals(this.installationCharges, other.installationCharges)) {
+            return false;
+        }
+        if (!Objects.equals(this.otherCharges, other.otherCharges)) {
+            return false;
+        }
+        if (!Objects.equals(this.discount, other.discount)) {
+            return false;
+        }
+        if (!Objects.equals(this.mrpRampupPercentage, other.mrpRampupPercentage)) {
+            return false;
+        }
+        if (!Objects.equals(this.mrpRampupFactor, other.mrpRampupFactor)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "OrderHeadMrp{" + "id=" + id + ", orderNum=" + orderNum + ", partyName=" + partyName + ", projectName=" + projectName + ", address1=" + address1 + ", address2=" + address2 + ", address3=" + address3 + ", address4=" + address4 + ", partyEmail=" + partyEmail + ", postalCode=" + postalCode + ", partyMobileNo=" + partyMobileNo + ", partyTelephoneNo=" + partyTelephoneNo + ", partyCity=" + partyCity + ", poDate=" + poDate + ", orderInitiatedBy=" + orderInitiatedBy + ", orderAmount=" + orderAmount + ", cgstAmount=" + cgstAmount + ", sgstAmount=" + sgstAmount + ", igstAmount=" + igstAmount + ", netAmount=" + netAmount + '}';
+        return "OrderHeadMrp{" + "id=" + id + ", orderNum=" + orderNum + ", partyName=" + partyName + ", projectName=" + projectName + ", address1=" + address1 + ", address2=" + address2 + ", address3=" + address3 + ", address4=" + address4 + ", partyEmail=" + partyEmail + ", postalCode=" + postalCode + ", partyMobileNo=" + partyMobileNo + ", partyTelephoneNo=" + partyTelephoneNo + ", partyCity=" + partyCity + ", poDate=" + poDate + ", orderInitiatedBy=" + orderInitiatedBy + ", orderAmount=" + orderAmount + ", cgstAmount=" + cgstAmount + ", sgstAmount=" + sgstAmount + ", igstAmount=" + igstAmount + ", netAmount=" + netAmount + ", transportationCharges=" + transportationCharges + ", loadingUnloadingCharges=" + loadingUnloadingCharges + ", installationCharges=" + installationCharges + ", otherCharges=" + otherCharges + ", discount=" + discount + ", mrpRampupPercentage=" + mrpRampupPercentage + ", mrpRampupFactor=" + mrpRampupFactor + '}';
     }
-    
     
 }

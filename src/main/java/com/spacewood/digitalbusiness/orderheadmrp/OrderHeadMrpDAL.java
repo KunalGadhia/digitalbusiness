@@ -45,6 +45,13 @@ public class OrderHeadMrpDAL {
         public static final String SGST_AMOUNT = "sgst_amount";
         public static final String IGST_AMOUNT = "igst_amount";
         public static final String NET_AMOUNT = "net_amount";
+        public static final String TRANSPORTATION_CHARGES = "transportation_charges";
+        public static final String LOADING_UNLOADING_CHARGES = "loading_unloading_charges";
+        public static final String INSTALLATION_CHARGES = "installation_charges";
+        public static final String OTHER_CHARGES = "other_charges";
+        public static final String DISCOUNT = "discount";
+        public static final String MRP_RAMPUP_PERCENTAGE = "mrp_rampup_percentage";
+        public static final String MRP_RAMPUP_FACTOR = "mrp_rampup_factor";
 
     }
 
@@ -77,7 +84,14 @@ public class OrderHeadMrpDAL {
                         Columns.CGST_AMOUNT,
                         Columns.SGST_AMOUNT,
                         Columns.IGST_AMOUNT,
-                        Columns.NET_AMOUNT
+                        Columns.NET_AMOUNT,
+                        Columns.TRANSPORTATION_CHARGES,
+                        Columns.LOADING_UNLOADING_CHARGES,
+                        Columns.INSTALLATION_CHARGES,
+                        Columns.OTHER_CHARGES,
+                        Columns.DISCOUNT,
+                        Columns.MRP_RAMPUP_PERCENTAGE,
+                        Columns.MRP_RAMPUP_FACTOR
                 )
                 .usingGeneratedKeyColumns(Columns.ID);
     }
@@ -136,6 +150,13 @@ public class OrderHeadMrpDAL {
         parameters.put(Columns.SGST_AMOUNT, "0");
         parameters.put(Columns.IGST_AMOUNT, "0");
         parameters.put(Columns.NET_AMOUNT, "0");
+        parameters.put(Columns.TRANSPORTATION_CHARGES, orderHeadMrp.getTransportationCharges());
+        parameters.put(Columns.LOADING_UNLOADING_CHARGES, orderHeadMrp.getLoadingUnloadingCharges());
+        parameters.put(Columns.INSTALLATION_CHARGES, orderHeadMrp.getInstallationCharges());
+        parameters.put(Columns.OTHER_CHARGES, orderHeadMrp.getOtherCharges());
+        parameters.put(Columns.DISCOUNT, orderHeadMrp.getDiscount());
+        parameters.put(Columns.MRP_RAMPUP_PERCENTAGE, orderHeadMrp.getMrpRampupPercentage());
+        parameters.put(Columns.MRP_RAMPUP_FACTOR, orderHeadMrp.getMrpRampupFactor());
 
         Number newId = insertOrderHead.executeAndReturnKey(parameters);
         orderHeadMrp = findById(newId.intValue());
@@ -146,68 +167,91 @@ public class OrderHeadMrpDAL {
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET deleted=? WHERE " + Columns.ID + "=?";
         jdbcTemplate.update(sqlQuery, new Object[]{true, id});
     }
-
-//    public OrderHead update(OrderHead orderHead) {
-//        String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
-//                + Columns.ORDER_NUM + " = ?,"
-//                + Columns.SEGMENT + " = ?, "
-//                + Columns.SALE_TYPE + " = ?,"
-//                + Columns.ENTRY_TYPE + " = ?,"
-//                + Columns.ORDER_TYPE + " = ?,"
-//                + Columns.BILLING_PARTY_ID + " = ?,"
-//                + Columns.DELIVERY_PARTY_ID + " = ?,"
-//                + Columns.POSTAL_CODE + " = ?,"
-//                + Columns.BILL_TYPE + " = ?,"
-//                + Columns.ORDER_SUB_TYPE + " = ?,"
-//                + Columns.PROJECT_NAME + " = ?,"
-//                + Columns.PO_NUM + " = ?,"
-//                + Columns.ORDER_ID + " = ?,"
-//                + Columns.PO_DATE + " = ?,"
-//                + Columns.PO_VALUE + " = ?,"
-//                + Columns.MARKETING_HEAD + " = ?,"
-//                + Columns.ORDER_INITIATED_BY + " = ?,"
-//                + Columns.RATE_APPLICABILITY + " = ?,"
-//                + Columns.RATE_CONTRACT + " = ?,"
-//                + Columns.ORC_PER + " = ?,"
-//                + Columns.APPROVAL_DATE + " = ?,"
-//                + Columns.APPROVED + " = ?,"
-//                + Columns.ORDER_AMOUNT + " = ?,"
-//                + Columns.CGST_AMOUNT + " = ?,"
-//                + Columns.SGST_AMOUNT + " = ?,"
-//                + Columns.IGST_AMOUNT + " = ?,"
-//                + Columns.NET_AMOUNT + " = ? WHERE " + Columns.ID + " = ?";
-//        Number updatedCount = jdbcTemplate.update(sqlQuery,
-//                new Object[]{
-//                    orderHead.getOrderNum(),
-//                    orderHead.getSegment(),
-//                    orderHead.getSaleType(),
-//                    orderHead.getEntryType().name(),
-//                    orderHead.getOrderType().name(),
-//                    orderHead.getBillingPartyId(),
-//                    orderHead.getDeliveryPartyId(),
-//                    orderHead.getPostalCode(),
-//                    orderHead.getBillType().name(),
-//                    orderHead.getOrderSubType().name(),
-//                    orderHead.getProjectName(),
-//                    orderHead.getPoNum(),
-//                    orderHead.getOrderId(),
-//                    orderHead.getPoDate(),
-//                    orderHead.getPoValue(),
-//                    orderHead.getMarketingHead(),
-//                    orderHead.getOrderInitiatedBy(),
-//                    orderHead.getRateApplicability().name(),
-//                    orderHead.getRateContract(),
-//                    orderHead.getOrcPer(),
-//                    orderHead.getApprovalDate(),
-//                    orderHead.getApproved(),
-//                    orderHead.getOrderAmount(),
-//                    orderHead.getCgstAmount(),
-//                    orderHead.getSgstAmount(),
-//                    orderHead.getIgstAmount(),
-//                    orderHead.getNetAmount(),
-//                    orderHead.getId()
-//                });
-//        orderHead = findById(orderHead.getId());
-//        return orderHead;
-//    }
+//                        Columns.ORDER_NUM,
+//                        Columns.PARTY_NAME,
+//                        Columns.PROJECT_NAME,
+//                        Columns.ADDRESS1,
+//                        Columns.ADDRESS2,
+//                        Columns.ADDRESS3,
+//                        Columns.ADDRESS4,
+//                        Columns.PARTY_EMAIL,
+//                        Columns.POSTAL_CODE,
+//                        Columns.PARTY_MOBILE_NO,
+//                        Columns.PARTY_TELEPHONE_NO,
+//                        Columns.PARTY_CITY,
+//                        Columns.PO_DATE,
+//                        Columns.ORDER_INITIATED_BY,
+//                        Columns.ORDER_AMOUNT,
+//                        Columns.CGST_AMOUNT,
+//                        Columns.SGST_AMOUNT,
+//                        Columns.IGST_AMOUNT,
+//                        Columns.NET_AMOUNT,
+//                        Columns.TRANSPORTATION_CHARGES,
+//                        Columns.LOADING_UNLOADING_CHARGES,
+//                        Columns.INSTALLATION_CHARGES,
+//                        Columns.OTHER_CHARGES,
+//                        Columns.DISCOUNT,
+//                        Columns.MRP_RAMPUP_PERCENTAGE,
+//                        Columns.MRP_RAMPUP_FACTOR
+    public OrderHeadMrp update(OrderHeadMrp orderHeadMrp) {
+        String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
+                + Columns.ORDER_NUM + " = ?,"
+                + Columns.PARTY_NAME + " = ?, "
+                + Columns.PROJECT_NAME + " = ?,"
+                + Columns.ADDRESS1 + " = ?,"
+                + Columns.ADDRESS2 + " = ?,"
+                + Columns.ADDRESS3 + " = ?,"
+                + Columns.ADDRESS4 + " = ?,"
+                + Columns.PARTY_NAME + " = ?,"
+                + Columns.POSTAL_CODE + " = ?,"
+                + Columns.PARTY_MOBILE_NO + " = ?,"
+                + Columns.PARTY_TELEPHONE_NO + " = ?,"
+                + Columns.PARTY_CITY + " = ?,"
+                + Columns.PO_DATE + " = ?,"
+                + Columns.ORDER_INITIATED_BY + " = ?,"
+                + Columns.ORDER_AMOUNT + " = ?,"
+                + Columns.CGST_AMOUNT + " = ?,"
+                + Columns.SGST_AMOUNT + " = ?,"
+                + Columns.IGST_AMOUNT + " = ?,"
+                + Columns.NET_AMOUNT + " = ?,"
+                + Columns.TRANSPORTATION_CHARGES + " = ?,"
+                + Columns.LOADING_UNLOADING_CHARGES + " = ?,"
+                + Columns.INSTALLATION_CHARGES + " = ?,"
+                + Columns.OTHER_CHARGES + " = ?,"
+                + Columns.DISCOUNT + " = ?,"
+                + Columns.MRP_RAMPUP_PERCENTAGE + " = ?,"                
+                + Columns.MRP_RAMPUP_FACTOR + " = ? WHERE " + Columns.ID + " = ?";
+        Number updatedCount = jdbcTemplate.update(sqlQuery,
+                new Object[]{
+                    orderHeadMrp.getOrderNum(),
+                    orderHeadMrp.getPartyName(),
+                    orderHeadMrp.getProjectName(),
+                    orderHeadMrp.getAddress1(),
+                    orderHeadMrp.getAddress2(),
+                    orderHeadMrp.getAddress3(),
+                    orderHeadMrp.getAddress4(),
+                    orderHeadMrp.getPartyName(),
+                    orderHeadMrp.getPostalCode(),
+                    orderHeadMrp.getPartyMobileNo(),
+                    orderHeadMrp.getPartyTelephoneNo(),
+                    orderHeadMrp.getPartyCity(),
+                    orderHeadMrp.getPoDate(),
+                    orderHeadMrp.getOrderInitiatedBy(),
+                    orderHeadMrp.getOrderAmount(),
+                    orderHeadMrp.getCgstAmount(),
+                    orderHeadMrp.getSgstAmount(),
+                    orderHeadMrp.getIgstAmount(),
+                    orderHeadMrp.getNetAmount(),
+                    orderHeadMrp.getTransportationCharges(),
+                    orderHeadMrp.getLoadingUnloadingCharges(),
+                    orderHeadMrp.getInstallationCharges(),
+                    orderHeadMrp.getOtherCharges(),
+                    orderHeadMrp.getDiscount(),
+                    orderHeadMrp.getMrpRampupPercentage(),
+                    orderHeadMrp.getMrpRampupFactor(),                    
+                    orderHeadMrp.getId()
+                });
+        orderHeadMrp = findById(orderHeadMrp.getId());
+        return orderHeadMrp;
+    }
 }
