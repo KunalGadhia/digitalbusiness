@@ -3434,6 +3434,10 @@ angular.module("digitalbusiness.states.order_repeat", [])
                                     shutterOrderDetail.glassCd = "X";
                                 } else if (shutterOrderDetail.jali === undefined) {
                                     shutterOrderDetail.glassCd = "X";
+                                }else if(shutterOrderDetail.jali === ""){
+                                    shutterOrderDetail.glassCd = "X";
+                                }else if(shutterOrderDetail.jali === null){
+                                    shutterOrderDetail.glassCd = "X";
                                 }
                                 if (shutterOrderDetail.handle !== null) {
                                     shutterOrderDetail.handleCd = "H";
@@ -3443,6 +3447,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                                 var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                             } else {
                                 console.log("Without Glass without BSM");
+                                console.log("Without Glass without BSM Jali :%O",shutterOrderDetail.jali);
                                 if (shutterOrderDetail.hingePosition !== undefined) {
                                     shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
                                 } else if (shutterOrderDetail.hingePosition === undefined) {
@@ -3453,6 +3458,10 @@ angular.module("digitalbusiness.states.order_repeat", [])
                                 } else if (shutterOrderDetail.jali === false) {
                                     shutterOrderDetail.glassCd = "X";
                                 } else if (shutterOrderDetail.jali === undefined) {
+                                    shutterOrderDetail.glassCd = "X";
+                                }else if(shutterOrderDetail.jali === ""){
+                                    shutterOrderDetail.glassCd = "X";
+                                }else if(shutterOrderDetail.jali === null){
                                     shutterOrderDetail.glassCd = "X";
                                 }
                                 if (shutterOrderDetail.handle !== null) {
