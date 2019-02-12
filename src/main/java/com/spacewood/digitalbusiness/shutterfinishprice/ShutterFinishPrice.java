@@ -12,6 +12,7 @@ import java.util.Objects;
  * @author webdesign
  */
 public class ShutterFinishPrice {
+
     private Integer id;
     private String finish;
     private String material;
@@ -19,6 +20,7 @@ public class ShutterFinishPrice {
     private Double oneSidePrice;
     private Double bothSidePrice;
     private String finishCategory;
+    private String drawingNumber;
 
     public Integer getId() {
         return id;
@@ -76,16 +78,30 @@ public class ShutterFinishPrice {
         this.finishCategory = finishCategory;
     }
 
+    public String getDrawingNumber() {
+        return drawingNumber;
+    }
+
+    public void setDrawingNumber(String drawingNumber) {
+        this.drawingNumber = drawingNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "ShutterFinishPrice{" + "id=" + id + ", finish=" + finish + ", material=" + material + ", thickness=" + thickness + ", oneSidePrice=" + oneSidePrice + ", bothSidePrice=" + bothSidePrice + ", finishCategory=" + finishCategory + ", drawingNumber=" + drawingNumber + '}';
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.finish);
-        hash = 89 * hash + Objects.hashCode(this.material);
-        hash = 89 * hash + Objects.hashCode(this.thickness);
-        hash = 89 * hash + Objects.hashCode(this.oneSidePrice);
-        hash = 89 * hash + Objects.hashCode(this.bothSidePrice);
-        hash = 89 * hash + Objects.hashCode(this.finishCategory);
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.id);
+        hash = 17 * hash + Objects.hashCode(this.finish);
+        hash = 17 * hash + Objects.hashCode(this.material);
+        hash = 17 * hash + Objects.hashCode(this.thickness);
+        hash = 17 * hash + Objects.hashCode(this.oneSidePrice);
+        hash = 17 * hash + Objects.hashCode(this.bothSidePrice);
+        hash = 17 * hash + Objects.hashCode(this.finishCategory);
+        hash = 17 * hash + Objects.hashCode(this.drawingNumber);
         return hash;
     }
 
@@ -110,6 +126,9 @@ public class ShutterFinishPrice {
         if (!Objects.equals(this.finishCategory, other.finishCategory)) {
             return false;
         }
+        if (!Objects.equals(this.drawingNumber, other.drawingNumber)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -125,9 +144,4 @@ public class ShutterFinishPrice {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "ShutterFinishPrice{" + "id=" + id + ", finish=" + finish + ", material=" + material + ", thickness=" + thickness + ", oneSidePrice=" + oneSidePrice + ", bothSidePrice=" + bothSidePrice + ", finishCategory=" + finishCategory + '}';
-    }
-            
 }
