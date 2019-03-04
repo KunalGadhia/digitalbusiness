@@ -2464,6 +2464,12 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.preInternalShutterColor = colorObject;
                 });
             };
+            $scope.$watch('shutterHandleName', function (handleName) {
+                console.log("Handle Name:%O", handleName);
+                $("#handleCd").attr({
+                   'required': required 
+                });
+            });
             $scope.shutterHandleList1 = [];
             $scope.openShutterHandle = function () {
                 console.log("Finish in Handle Selection :%O", $scope.editableShutterDetail.finish);
@@ -2935,6 +2941,12 @@ angular.module("digitalbusiness.states.order", [])
                     $scope.preInternalDrawerColor = colorObject;
                 });
             };
+            $scope.$watch('drawerHandleName', function (handleName) {
+                console.log("Handle Name:%O", handleName);
+                $("#drawerHandleCd").attr({
+                   'required': required 
+                });
+            });
             $scope.openDrawerColorWidget = function () {
                 $scope.showDrawerColorSelectionWidget = true;
             };
@@ -8417,7 +8429,27 @@ angular.module("digitalbusiness.states.order", [])
                 });
                 console.log("What is Order Object :%O", $scope.orderObject);
             });
-
+//            $scope.objectToXml = function (object) {
+//                console.log("Object :%O", object);
+//                var xml = '';
+//
+//                for (var prop in object) {
+//                    if (!object.hasOwnProperty(prop)) {
+//                        continue;
+//                    }
+//                    if (object[prop] === undefined)
+//                        continue;
+//
+//                    xml += "<" + prop + ">";
+//                    if (typeof object[prop] === "object")
+//                        xml += $scope.objectToXml(new Object(object[prop]));
+//                    else
+//                        xml += object[prop];
+//
+//                    xml += "<!--" + prop + "-->";
+//                }
+//                return xml;
+//            };
             $scope.approveOrder = function (orderHead) {
                 orderHead.approvalDate = new Date().getTime();
                 orderHead.$save(function () {
@@ -8453,6 +8485,8 @@ angular.module("digitalbusiness.states.order", [])
                 $scope.newOrderHeadObject.billingPartyObject = angular.copy(orderHead.billingPartyObject);
                 $scope.newOrderHeadObject.deliveryPartyObject = angular.copy(orderHead.deliveryPartyObject);
                 console.log("New Order Head :%O", $scope.newOrderHeadObject);
+//                var xmlString = $scope.objectToXml($scope.newOrderHeadObject);
+//                console.log("XML String Trial :%O", xmlString);
                 $http.post("http://13.127.7.209:9080/Innocal/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
 //                $http.post("http://192.168.100.145:9999/SwRestAndroidApi/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
                         .then(function successCallback(response) {
@@ -8595,8 +8629,7 @@ angular.module("digitalbusiness.states.order", [])
                             });
                         });
 
-            }
-            ;
+            };
         }
         )
         .controller('CorniceDetailDeleteController', function (CorniceOrderDetailsService, $scope, $stateParams, $state, paginationLimit) {

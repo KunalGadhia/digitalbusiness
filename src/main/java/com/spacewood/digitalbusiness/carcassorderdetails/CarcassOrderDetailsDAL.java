@@ -245,6 +245,7 @@ public class CarcassOrderDetailsDAL {
     }
 
     public CarcassOrderDetails update(CarcassOrderDetails carcassOrderDetails) {
+        System.out.println("Update Carcass Details Data DAL :%O"+carcassOrderDetails);
         String sqlQuery = "UPDATE " + TABLE_NAME + " SET "
                 + Columns.ORDER_HEAD_ID + " = ?,"
                 + Columns.STD_CARCASS_PRICE_ID + " = ?,"

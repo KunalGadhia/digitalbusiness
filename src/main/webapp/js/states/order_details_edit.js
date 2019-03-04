@@ -68,7 +68,23 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                 }, function (carcassOrderDetailObject) {
                     console.log("Carcass Order Detail Object in Repeat:%O", carcassOrderDetailObject);
                     console.log("STandard Carcass Price Id :" + carcassOrderDetailObject.stdCarcassPriceId);
-                    carcassOrderDetailObject.stdCarcassPriceId = carcassOrderDetailObject.stdCarcassPriceId.toString();
+                    if (carcassOrderDetailObject.stdCarcassPriceId !== null) {
+                        carcassOrderDetailObject.stdCarcassPriceId = carcassOrderDetailObject.stdCarcassPriceId.toString();
+                    }
+
+                    if (carcassOrderDetailObject.sectionProfileId !== null) {
+                        carcassOrderDetailObject.sectionProfileId = carcassOrderDetailObject.sectionProfileId.toString();
+                    }
+                    carcassOrderDetailObject.id = '';
+                    carcassOrderDetailObject.productCode = '';
+                    if (carcassOrderDetailObject.sideMaterial === '0') {
+                        console.log("Side Material 0");
+                        carcassOrderDetailObject.sideMaterial = '';
+                    }
+                    if (carcassOrderDetailObject.sideFinish === '0') {
+                        console.log("Side Finish 0");
+                        carcassOrderDetailObject.sideFinish = '';
+                    }
                     $scope.orderHeadId = carcassOrderDetailObject.orderHeadId;
                     OrderHeadService.get({
                         'id': $scope.orderHeadId
@@ -1261,21 +1277,33 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                     $scope.stdMaterialObject = RawMaterialService.findByMaterialCode({
                         'materialCode': orderDetail.material
                     });
-                    $scope.finishObject = FinishPriceService.findByFinishCode({
-                        'finishCode': orderDetail.sideFinish
-                    });
+//                    $scope.finishObject = FinishPriceService.findByFinishCode({
+//                        'finishCode': orderDetail.sideFinish
+//                    });
+                    if (orderDetail.sideMatching === "") {
+                        orderDetail.sideMatching = "NSM";
+                    }
+                    if (orderDetail.sideSelection === "") {
+                        orderDetail.sideSelection = "NSS";
+                    }
+                    if (orderDetail.sideMaterial === "") {
+                        orderDetail.sideMaterial = "0";
+                    }
+                    if (orderDetail.sideFinish === "") {
+                        orderDetail.sideFinish = "0";
+                    }
                     if (orderDetail.stdCarcassPriceId !== undefined) {
 //                        $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
                         $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
                             console.log("resolvedSTdData :%O", resolvedStdData.price);
-                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
-                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
+//                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
+//                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
                                 orderDetail.stdMaterialPrice = resolvedStdData.price;
-                                orderDetail.finishPrice = resolvedFinishData.price;
+//                                orderDetail.finishPrice = resolvedFinishData.price;
                                 console.log("This is Order Detail :%O", orderDetail);
                                 $scope.saveOrderDetail(orderDetail);
                             });
-                        });
+//                        });
 //                        });
                     } else {
                         $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
@@ -2499,25 +2527,25 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                     alert("Some Exception Happening, Please try again.");
                 }
                 console.log("Main Order Detail :%O", orderDetail);
-                $scope.applyCarcassDiscount = function (orderDetail) {
+                $scope.applyCarcassDiscount = function (carcassOrderDetail) {
                     RateContractDetailService.findByCarcassMaterialThickness({
-                        'material': orderDetail.material,
+                        'material': carcassOrderDetail.material,
                         'thickness': 18,
-                        'rateContractId': orderDetail.rateContractId
+                        'rateContractId': carcassOrderDetail.rateContractId
                     }, function (rateContractDetailObject) {
-                        if (orderDetail.sectionProfileId === '') {
-                            orderDetail.sectionProfileId = null;
+                        if (carcassOrderDetail.sectionProfileId === '') {
+                            carcassOrderDetail.sectionProfileId = null;
                         }
 
-                        orderDetail.discountPer = rateContractDetailObject.discountPer;
-                        var discountPrice = ((orderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
+                        carcassOrderDetail.discountPer = rateContractDetailObject.discountPer;
+                        var discountPrice = ((carcassOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
                         console.log("Order Head :%O", $scope.orderHead);
                         if ($scope.orderHead.orderSubType === "D") {
                             console.log("Display Order");
-                            var preliminaryDealerPrice = (orderDetail.unitPrice - discountPrice);
-                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * orderDetail.displayDiscount);
-                            orderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
-                            orderDetail.$save(function () {
+                            var preliminaryDealerPrice = (carcassOrderDetail.unitPrice - discountPrice);
+                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * carcassOrderDetail.displayDiscount);
+                            carcassOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
+                            carcassOrderDetail.$save(function () {
                                 console.log("Updated Successfully");
                                 $scope.editableCarcassDetail = "";
                                 $scope.carcassName = "";
@@ -2532,11 +2560,11 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                                 }, {'reload': true});
                             });
                         } else {
-                            if (orderDetail.grainDirection === '') {
-                                orderDetail.grainDirection = null;
+                            if (carcassOrderDetail.grainDirection === '') {
+                                carcassOrderDetail.grainDirection = null;
                             }
-                            orderDetail.price = (orderDetail.unitPrice - discountPrice);
-                            orderDetail.$save(function () {
+                            carcassOrderDetail.price = (carcassOrderDetail.unitPrice - discountPrice);
+                            carcassOrderDetail.$save(function () {
                                 console.log("Saved Successfully");
                                 $scope.editableCarcassDetail = "";
                                 $scope.carcassName = "";

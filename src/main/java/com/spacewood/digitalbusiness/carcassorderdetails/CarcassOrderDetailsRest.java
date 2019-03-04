@@ -42,6 +42,7 @@ public class CarcassOrderDetailsRest {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public CarcassOrderDetails update(@RequestBody CarcassOrderDetails carcassOrderDetails) {
+        System.out.println("Update Carcass Details Data REST :%O"+carcassOrderDetails);
         return carcassOrderDetailDAL.update(carcassOrderDetails);
     }
 

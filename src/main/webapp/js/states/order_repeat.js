@@ -2818,6 +2818,12 @@ angular.module("digitalbusiness.states.order_repeat", [])
                             $scope.editableShutterDetail.handle = kitchenComponentObject.componentCode;
                         });
                     }
+                    $scope.$watch('shutterHandleName', function (handleName) {
+                        console.log("Handle Name:%O", handleName);
+                        $("#shutterHandleLength").attr({
+                            'required': required
+                        });
+                    });
                     if (shutterOrderDetailObject.grain === "NO_GRAIN") {
                         shutterOrderDetailObject.grain = '';
                     }
