@@ -1,0 +1,134 @@
+<div class="panel-heading text-center">
+    <div>
+        <h3>Update Panel Order Details</h3>
+    </div>
+    <form role="role" ng-submit="savePanelDetails(editablePanelDetail)">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Select Panel</label>
+                    <!--<div class="input-group">-->
+                    <!--                        <input class="form-control" placeholder="Select Panel" ng-model="panelName" required="" readonly=""/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="openPanel()">Select Panel</button>
+                                            </span>-->
+                    <select class="form-control" ng-model="editablePanelDetail.component" required="">
+                        <option value="">Select Prelam Panel</option>
+                        <option ng-repeat="panel in panelList1" value="{{panel.componentCode}}">{{panel.component}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Material</label>
+                    <select class="form-control" ng-model="editablePanelDetail.material" required="">
+                        <option value="">Select Material</option>
+                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                    </select>               
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Color</label>                    
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Color" ng-model="panelColorName" required="" onkeypress="return false;"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openPanelColorWidget()">Select Internal Color</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Thickness</label>
+                    <select class="form-control" ng-model="editablePanelDetail.thickness" required="">
+                        <option value="">Select Thickness</option>
+                        <option ng-repeat="thickness in panelThicknessList" value="{{thickness.thickness}}">{{thickness.thickness}} mm</option>
+                    </select>
+                </div>
+                <!--<input type="number" class="form-control" placeholder="Enter Length" ng-model="editablePanelDetail.length" required="">-->
+            </div>                
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Width</label>
+                    <input type="number" class="form-control" placeholder="Enter Width" ng-model="editablePanelDetail.width" required="">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Length</label>
+                    <input type="number" class="form-control" placeholder="Enter Length" ng-model="editablePanelDetail.length" required="">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>As Per Drawing (Optional)</label>
+                    <input type="checkbox" class="form-control" ng-model="editablePanelDetail.asPerDrawing">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" min="1" class="form-control" placeholder="Enter Quantity" ng-model="editablePanelDetail.quantity" required="">
+                </div>
+            </div>
+        </div>
+        <hr style="border-top:  1px solid;">
+        <div class="row">
+            <div class="form-group col-sm-4 col-md-4">
+                <label>Additional Remark (Optional)</label>
+                <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editablePanelDetail.remark"></textarea>
+            </div>
+            <div class="form-group col-sm-3 col-md-3" ng-if="orderHead.orderSubType === 'D'">
+                <label>Display Discount (In %)</label>
+                <input type="number" min="0" class="form-control" placeholder="Add Display Discount" ng-model="editablePanelDetail.displayDiscount" required="required"/>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-lg btn-primary">
+                <i class="fa fa-save"></i>
+                Edit
+            </button>                       				
+        </div>
+    </form>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showPanelColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Panel Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll;height: 450px;">
+                    <div class=row ng-repeat="sortedColor in sortedColorList1">
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b> &nbsp;
+                                    <button class="next btn-next" ng-click="selectPrePanelColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6" style="text-align: center">
+                    <image class="text-center" ng-src="./rest/color/{{prePanelColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{prePanelColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectPanelColor(prePanelColor.id, prePanelColor.colorName, prePanelColor.colorCode)">Select Color</button>
+                </div>                
+            </div>
+        </div>        
+    </div>
+</div>
+<!--/////////////Panel Selection Panel Ends/////////////////-->

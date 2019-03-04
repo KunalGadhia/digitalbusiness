@@ -1,0 +1,111 @@
+<div class="panel-heading text-center">
+    <div>
+        <h3>Update Handle Order Details</h3>
+    </div>
+    <form role="role" ng-submit="saveHandleDetails(editableHandleDetail)">
+        <div class="row">
+            <div class="col-sm-3">
+                <label>Select Handle</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="Select Handle" ng-model="handleName" required="" readonly=""/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" ng-click="openHandle()">Select Handle</button>
+                    </span>
+                </div>
+            </div>                
+            <div class="col-sm-3">
+                <div ng-if="showCD1">
+                    <label>Center Distance</label>
+                    <select class="form-control" ng-model="editableHandleDetail.length" required="">
+                        <option value="">Select Center Distance</option>
+                        <option ng-repeat="handlePrice in handlePriceList" value="{{handlePrice.cd}}">{{handlePrice.cd}} mm</option>
+                    </select>
+                </div>
+                <div ng-if="showCD2">
+                    <label>Handle Type</label>
+                    <select class="form-control" ng-model="editableHandleDetail.handleType" required="">
+                        <option value="">Select Handle Type</option>
+                        <option ng-repeat="handlePrice in handlePriceList" value="{{handlePrice.id}}">{{handlePrice.finish}}</option>
+                    </select>
+                </div>                    
+            </div>
+            <div class="col-sm-3">
+                <label>Finish</label>
+                <input type="text" class="form-control" placeholder="Handle Finish" ng-model="editableHandleDetail.finish" required="" readonly="">
+            </div>
+            <div class="col-sm-3">
+                <label>Quantity</label>
+                <input type="number" min="1" class="form-control" placeholder="Enter Quantity" ng-model="editableHandleDetail.quantity" required="">
+            </div>                
+        </div>
+        <div class="row">
+            <div class="col-sm-3" ng-show="whenIWant">
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="number" class="form-control" placeholder="Price" ng-model="editableHandleDetail.stdPrice" readonly="">
+                </div>
+            </div>
+            <div class="col-sm-3" ng-if="showCD2">
+                <div class="form-group">
+                    <label>Length</label>
+                    <input type="number" class="form-control" placeholder="Length" ng-model="editableHandleDetail.length" required="">
+                </div>
+            </div>
+        </div>
+        <hr style="border-top:  1px solid;">
+        <div class="row">
+            <div class="form-group col-sm-4 col-md-4">
+                <label>Additional Remark (Optional)</label>
+                <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editableHandleDetail.remark"></textarea>
+            </div>
+            <div class="form-group col-sm-3 col-md-3" ng-if="orderHead.orderSubType === 'D'">
+                <label>Display Discount (In %)</label>
+                <input type="number" min="0" class="form-control" placeholder="Add Display Discount" ng-model="editableHandleDetail.displayDiscount" required="required"/>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-lg btn-primary">
+                <i class="fa fa-save"></i>
+                Edit
+            </button>                       				
+        </div>
+    </form>
+</div>
+<!--/////////////Handle Selection Panel//////////////////////-->
+<div class="modal modal-digitalbusiness" ng-if="showHandleSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Handle
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="handle in handleList1">
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{handle.component}}</b>&nbsp;                        
+                                    <button class="next btn-next" ng-click="selectPreHandle(handle.id)">View Handle</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/kitchen_component/{{preHandle.id}}/attachment" width="170px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preHandle.component}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectHandle(preHandle.id)">Select Handle</button>
+                </div>                
+            </div>
+        </div>        
+    </div>
+</div>

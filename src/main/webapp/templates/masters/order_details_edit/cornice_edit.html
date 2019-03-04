@@ -1,0 +1,204 @@
+<div class="panel-heading text-center">
+    <div>
+        <h3>Update Cornice Order Details</h3>
+    </div>
+    <form role="role" ng-submit="saveCorniceDetails(editableCorniceDetail)">
+        <div class="row">
+            <div class="col-sm-3">
+                <label>Select Cornice</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="Select Cornice" ng-model="corniceName" required="" readonly=""/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" ng-click="openCornice()">Select Cornice</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label>Material</label>
+                <select class="form-control" ng-model="editableCorniceDetail.material" required="">
+                    <option value="">Select Material</option>
+                    <option value="MF">Medium Density Fiber Board (MDF)</option>
+                    <!--<option value="HF">High Density Fiber Board (HDF)</option>-->
+                    <!--                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>-->
+                </select>                    
+            </div>
+            <div class="col-sm-3">
+                <label>Finish</label>
+                <select class="form-control" ng-model="editableCorniceDetail.finish" required="">
+                    <option value="">Select Finish</option>
+                    <option ng-hide="hideCorniceGlossy" value="XXA">Membrane Glossy MDF</option>
+                    <option value="XXB">Membrane Designer MDF</option>
+                    <option value="XXC">Membrane Standard MDF</option>
+                    <!--<option ng-repeat="finish in corniceFinishList" value="{{finish.finishCode}}">{{finish.finishName}}</option>-->
+                </select>                    
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Color</label>                    
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Color" ng-model="corniceColorName" required="" onkeypress="return false;"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openCorniceColorWidget()">Select Color</button>
+                        </span>
+                    </div>
+                </div>
+            </div>       
+            <!--                <div class="col-sm-3">
+                                <label>Material</label>
+                                <select class="form-control" ng-model="editableCorniceDetail.material" required="">
+                                    <option value="">Select Material</option>
+                                    <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                                </select>                    
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Length</label>
+                                <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableCorniceDetail.length" required="">
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Width</label>
+                                <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableCorniceDetail.width" required="">
+                            </div>-->
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Thickness</label>
+                    <select class="form-control" ng-model="editableCorniceDetail.thickness" required="">
+                        <option value="">Select Thickness</option>
+                        <option value="25">25 mm</option>
+                        <!--<option ng-repeat="thickness in corniceThicknessList" value="{{thickness.thickness}}">{{thickness.thickness}} mm</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label>Width</label>
+                <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableCorniceDetail.width" required="">
+            </div>
+            <div class="col-sm-3">
+                <label>Height</label>
+                <input type="number" class="form-control" placeholder="Enter Height" ng-model="editableCorniceDetail.length" required="">
+            </div>                
+            <div class="col-sm-3">
+                <label>Quantity</label>
+                <input type="number" min="1" class="form-control" placeholder="Enter Quantity" ng-model="editableCorniceDetail.quantity" required="">
+            </div>
+        </div>
+        <hr style="border-top:  1px solid;">
+        <div class="row">
+            <div class="form-group col-sm-4 col-md-4">
+                <label>Additional Remark (Optional)</label>
+                <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editableCorniceDetail.remark"></textarea>
+            </div>
+            <div class="form-group col-sm-3 col-md-3" ng-if="orderHead.orderSubType === 'D'">
+                <label>Display Discount (In %)</label>
+                <input type="number" min="0" class="form-control" placeholder="Add Display Discount" ng-model="editableCorniceDetail.displayDiscount" required="required"/>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-lg btn-primary">
+                <i class="fa fa-save"></i>
+                Edit
+            </button>                       				
+        </div>
+    </form>
+</div>
+<!--/////////////Cornice Selection Panel//////////////////////-->
+<div class="modal modal-digitalbusiness" ng-if="showCorniceSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Cornice
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="cornice in corniceList1">
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{cornice.component}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreCornice(cornice.id)">View Cornice</button>
+                                </li>
+                            </ul>                            
+                        </div>
+                        <hr>
+                    </div>                    
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/kitchen_component/{{preCornice.id}}/attachment" width="150px" height="220px"/>
+                    <br>
+                    <b class="text-center"> {{preCornice.component}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectCornice(preCornice.id)">Select Cornice</button>
+                </div>
+                <!--                <div class=row ng-repeat="corniceList in corniceList1| groupBy:3">
+                                    <div class="col-xs-4 letter-box" ng-repeat="cornice in corniceList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/kitchen_component/{{cornice.id}}/attachment" width="150px" height="220px"/>
+                                            <br>
+                                            <b class="text-center"> {{cornice.component}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectCornice(cornice.id)">Select Cornice({{cornice.componentCode}})</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showCorniceColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Cornice Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px">
+                    <div class=row ng-repeat="sortedColor in corniceColors1">
+                        <div>
+                            <ul>
+                                <li>                                    
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;                                    
+                                    <button class="next btn-next" ng-click="selectPreCorniceColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preCorniceColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preCorniceColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectCorniceColor(preCorniceColor.id, preCorniceColor.colorName, preCorniceColor.colorCode)">Select Color</button>
+                </div>
+                <!--                <div class=row ng-repeat="sortedColorList in corniceColors1| groupBy:6">
+                                    <div class="col-xs-2 letter-box" ng-repeat="sortedColor in sortedColorList" >
+                                        <div>
+                                            <image class="text-center" ng-src="./rest/color/{{sortedColor.id}}/attachment" width="50px" height="50px"/>
+                                            <br>
+                                            <b class="text-center"> {{sortedColor.colorName}}</b>
+                                            <br>
+                                            <button class="next btn-next" ng-click="selectCorniceColor(sortedColor.id, sortedColor.colorName, sortedColor.colorCode)">Select Color</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>-->
+            </div>
+        </div>        
+    </div>
+</div>
+<!--/////////////Cornice Selection Panel Ends/////////////////-->

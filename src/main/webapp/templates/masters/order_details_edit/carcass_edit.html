@@ -1,0 +1,449 @@
+<div class="panel-heading text-center" >
+    <div>
+        <h3>Update Carcass Order Details</h3>
+    </div>
+    <form role="role" ng-submit="validateCarcass(editableCarcassDetail)">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Select Carcass</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Carcass" ng-model="carcassName" required="" readonly=""/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openCarcass()">Select Carcass</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col-sm-6 form-group">
+                    <label>Shelf</label>
+                    <input type="checkbox" class="form-control" style="height:25px" placeholder="Enter Shelf" ng-model="editableCarcassDetail.shelf">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Sub Type</label>
+                    <select class="form-control" ng-model="editableCarcassDetail.carcassSubType" required="">
+                        <option value="">Select Sub Type</option>
+                        <option ng-repeat="subType in carcassSubTypeList" value="{{subType.subTypeCode}}">{{subType.subType}}</option>
+                    </select>
+                    <!--                        <select class="form-control" ng-model="editableCarcassDetail.stdCarcassPriceId">
+                                                <option value="">Standard Carcass List</option>
+                                                <option ng-repeat="stdList in carcassStdList" value="{{stdList.id}}">{{stdList.description}}</option>
+                                            </select>-->
+                    <!--<input type="checkbox" class="form-control" style="height:25px" placeholder="Enter Shelf" ng-model="editableCarcassDetail.shelf">-->
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Standard Carcass List</label>
+                    <select class="form-control" ng-model="editableCarcassDetail.stdCarcassPriceId">
+                        <option value="">Standard Carcass List</option>
+                        <option ng-repeat="stdList in carcassStdList" value="{{stdList.id}}">{{stdList.description}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Shelf Count</label>
+                    <input type="number" class="form-control" ng-model="editableCarcassDetail.shelfCount" readonly="">
+                </div>
+            </div>
+            <!--                <div class="col-sm-2">
+                                <label>Material</label>
+                                <select class="form-control" ng-model="editableCarcassDetail.material" required="">
+                                    <option value="">Select Material</option>
+                                    <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                                </select>                    
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Length</label>
+                                <input type="number" class="form-control" placeholder="Enter Length" ng-model="editableCarcassDetail.length" required="">
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Width</label>
+                                <input type="number" class="form-control" placeholder="Enter Width" ng-model="editableCarcassDetail.width" required="">
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Depth</label>
+                                <input type="number" class="form-control" placeholder="Enter Depth" ng-model="editableCarcassDetail.depth" required="">
+                            </div>-->
+
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Material</label>
+                    <select class="form-control" ng-model="editableCarcassDetail.material" required="">
+                        <option value="">Select Material</option>
+                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Width</label>
+                    <input class="form-control" ng-model="editableCarcassDetail.width" required="">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Height</label>
+                    <input class="form-control" ng-model="editableCarcassDetail.length" required="">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Depth</label>
+                    <input class="form-control" ng-model="editableCarcassDetail.depth" required="">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Carcass Color</label>                        
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Internal Color" ng-model="intColorName" required="" onkeypress="return false;"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openInternalCarcassColorWidget()">Select Internal Color</button>
+                        </span>
+                    </div>
+                </div>
+            </div>               
+            <div class="col-sm-3">
+                <div class="col-sm-6 form-group">                        
+                    <label>As Per Drawing</label>                            
+                    <input type="checkbox" style="height:25px" class="form-control" ng-model="editableCarcassDetail.asPerDrawing"/>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Quantity</label>                            
+                    <input type="number" min="1" class="form-control" placeholder="Quantity" ng-model="editableCarcassDetail.quantity" required=""/>                                                    
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Section Profile</label>
+                    <select class="form-control" ng-model="editableCarcassDetail.sectionProfileId">
+                        <option value="">Select Section Profile</option>
+                        <option ng-repeat="sectionProfile in sectionProfileList" value="{{sectionProfile.id}}">{{sectionProfile.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Section Profile Price/Meter</label>
+                    <input class="form-control" placeholder="Section Profile Price / Meter" ng-model="editableCarcassDetail.sectionProfilePrice" readonly="">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-3" ng-show="showSideMatching">
+                <div class="form-group">
+                    <label>Side Matching (Optional)</label>
+                    <select class="form-control" ng-model="editableCarcassDetail.sideMatching">
+                        <option value="">Select Side Matching</option>
+                        <!--<option ng-if="NSM" value="N">No Side Matching</option>-->
+                        <option ng-if="OSM" value="O">One Side Matching</option>
+                        <option ng-if="BSM" value="B">Both Side Matching</option>
+                        <option ng-if="TSM" value="T">Three Side Matching</option>
+                        <option ng-if="ASM" value="A">All Side Matching</option>
+                        <option ng-if="FSM" value="F">Fully Colored</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3" ng-show="showSideMatching">
+                <div class="form-group">
+                    <label>Matching Side Selection</label>
+                    <select class="form-control" ng-model="editableCarcassDetail.sideSelection">
+                        <option value="">Select Side Selection</option>
+                        <option ng-if="showOSM" value="LSM">Left Side Matching</option>
+                        <option ng-if="showOSM" value="RSM">Right Side Matching</option>
+                        <option ng-if="showOSMTop" value="TSM">Top Side Matching</option>
+                        <option ng-if="showOSMBottom" value="BSM">Bottom Side Matching</option>
+                        <option ng-if="showBSM" value="LRSM">Left, Right Side Matching</option>
+                        <option ng-if="showTSM" value="LRTSM">Left, Right, Top Side Matching</option>
+                        <option ng-if="showTSM" value="LRBSM">Left, Right, Bottom Side Matching</option>
+                        <option ng-if="showASM" value="ASM">All Side Matching</option>
+                        <option ng-if="showFSM" value="FSM">Full Side Matching</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group" ng-if="showSideMatching">
+                    <label>Side Material</label>
+                    <select class="form-control" ng-model="editableCarcassDetail.sideMaterial">
+                        <option value="">Select Side Material</option>
+                        <option ng-repeat="material in rawMaterialsList" value="{{material.materialCode}}">{{material.material}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group" ng-if="showSideMatching">
+                    <label>Side Finish</label>
+                    <select class="form-control" ng-model="editableCarcassDetail.sideFinish">
+                        <option value="">Select Side Finish</option>
+                        <option ng-repeat="finish in finishesList" value="{{finish.finishCode}}">{{finish.finishName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group" ng-if="carcassGrainDirection">
+                    <label>Grain Direction (Optional)</label>
+                    <select class="form-control" ng-model="editableCarcassDetail.grainDirection">
+                        <option value="">Select Grain Direction</option>
+                        <option value="HORIZONTAL"> Horizontal</option>
+                        <option value="VERTICAL">Vertical</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3" ng-if="carcassLeftColor">
+                <div class="form-group">
+                    <label>Left Color</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Left Color" ng-model="leftColorName" required="" onkeypress="return false;"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Left')">Select Left Color</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" ng-if="carcassRightColor">
+                <div class="form-group">
+                    <label>Right Color</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Right Color" ng-model="rightColorName" required="" onkeypress="return false;"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Right')">Select Right Color</button>
+                        </span>
+                    </div>
+                </div>
+            </div>                
+            <div class="col-sm-3" ng-if="carcassTopColor">
+                <div class="input-group">
+                    <label>Top Color</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Top Color" ng-model="topColorName" required="" onkeypress="return false;"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Top')">Select Top Color</button>
+                        </span>
+                    </div>
+                </div>
+            </div>                
+        </div>           
+        <div class="row">
+            <div class="col-sm-3" ng-if="carcassBottomColor">
+                <div class="input-group">
+                    <label>Bottom Color</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Bottom Color" ng-model="bottomColorName" required="" onkeypress="return false;"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Bottom')">Select Bottom Color</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" ng-if="carcassBackColor">
+                <div class="form-group">
+                    <label>Back Color</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select Back Color" ng-model="backColorName" required="" onkeypress="return false;"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="openSidesCarcassColorWidget('Back')">Select Back Color</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <span ng-if="editableCarcassDetail.sideSelection === 'LSM'">
+                <image class="text-center" ng-src="./images/LRBSM.jpg" width="285px" height="250px"/>    
+                <br>
+                <span><strong>Left Side Matching</strong></span>
+            </span>
+            <span ng-if="editableCarcassDetail.sideSelection === 'RSM'">
+                <image class="text-center" ng-src="./images/right.jpg" width="285px" height="250px"/>    
+                <br>
+                <span><strong>Right Side Matching</strong></span>
+            </span>
+            <span ng-if="editableCarcassDetail.sideSelection === 'TSM'">
+                <image class="text-center" ng-src="./images/LRBSM.jpg" width="285px" height="250px"/>    
+                <br>
+                <span><strong>Top Side Matching</strong></span>
+            </span>
+            <span ng-if="editableCarcassDetail.sideSelection === 'BSM'">
+                <image class="text-center" ng-src="./images/LRBSM.jpg" width="285px" height="250px"/>    
+                <br>
+                <span><strong>Bottom Side Matching</strong></span>
+            </span>
+            <span ng-if="editableCarcassDetail.sideSelection === 'LRSM'">
+                <image class="text-center" ng-src="./images/LRBSM.jpg" width="285px" height="250px"/>    
+                <br>
+                <span><strong>Left & Right Side Matching</strong></span>
+            </span>
+            <span ng-if="editableCarcassDetail.sideSelection === 'LRTSM'">
+                <image class="text-center" ng-src="./images/LRTSM.jpg" width="285px" height="250px"/>    
+                <br>
+                <span><strong>Left, Right & Top Side Matching</strong></span>
+            </span>
+            <span ng-if="editableCarcassDetail.sideSelection === 'LRBSM'">
+                <image class="text-center" ng-src="./images/LRBSM.jpg" width="285px" height="250px"/>    
+                <br>
+                <span><strong>Left, Right & Bottom Side Matching</strong></span>
+            </span>
+            <span ng-if="editableCarcassDetail.sideSelection === 'ASM'">
+                <image class="text-center" ng-src="./images/LRBSM.jpg" width="285px" height="250px"/>    
+                <br>
+                <span><strong>All Side Matching</strong></span>
+            </span>
+            <span ng-if="editableCarcassDetail.sideSelection === 'FSM'">
+                <image class="text-center" ng-src="./images/LRBSM.jpg" width="285px" height="250px"/>    
+                <br>
+                <span><strong>Fully Colored</strong></span>
+            </span>
+        </div>
+        <hr style="border-top:  1px solid;">
+        <div class="row">
+            <div class="form-group col-sm-4 col-md-4">
+                <label>Additional Remark (Optional)</label>
+                <textarea class="form-control" rows="2" placeholder="Add Remark" ng-model="editableCarcassDetail.remark"></textarea>
+            </div>
+            <div class="form-group col-sm-3 col-md-3" ng-if="orderHead.orderSubType === 'D'">
+                <label>Display Discount (In %)</label>
+                <input type="number" min="0" class="form-control" placeholder="Add Display Discount" ng-model="editableCarcassDetail.displayDiscount" required="required"/>
+            </div>
+        </div>
+        <div class="row" style="margin-left: 4px">
+            <p class="text-danger text-left"><strong>Note : </strong></p>
+            <p class="text-danger text-left"><strong>1. Side Matching Images shown are just for representation, actual product may vary</strong></p>
+            <p class="text-danger text-left"><strong>2. Selecting Standard Carcass will offer you an attractive price as compared to Non Standard Carcass</strong></p>
+            <p class="text-danger text-left"><strong>3. All the carcasses comes with fixed number of Shelves, in case you want to add more shelf go to Shelf Section</strong></p>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-lg btn-primary">
+                <i class="fa fa-save"></i>
+                Edit
+            </button>                       				
+        </div>
+    </form>
+</div>
+<!--/////////////Carcass Selection Panel//////////////////////-->
+<div class="modal modal-digitalbusiness" ng-if="showCarcassSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Carcass
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height:450px;">                
+                <div class="col-sm-6" style="overflow-y: scroll;height: 420px">
+                    <div class="row" ng-repeat="carcass in carcaseList1" >
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{carcass.component}}</b> &nbsp;
+                                    <button class="next btn-next" ng-click="selectPreCarcass(carcass.id)">View Component</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <div>
+                        <image class="text-center" ng-src="./rest/kitchen_component/{{preCarcass.id}}/attachment" width="250px" height="320px"/>
+                        <br>
+                        <b class="text-center">{{preCarcass.component}}</b>
+                        <br>
+                        <button class="next btn-next" ng-click="selectCarcase(preCarcass.id)">Select Carcass Type</button>
+                    </div>
+                </div>                
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showCarcassColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Carcass Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px">
+                <div class="col-sm-6" style="overflow-y: scroll;height: 420px">
+                    <div class=row ng-repeat="sortedColor in sortedColorList1| orderBy:'toString()'">                        
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{sortedColor.colorName}}</b>&nbsp;
+                                    <button class="next btn-next" ng-click="selectPreInternalCarcassColor(sortedColor.id)">View Color</button>
+                                </li>
+                            </ul>                                                      
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <div>
+                        <image class="text-center" ng-src="./rest/color/{{preInternalCarcassColor.id}}/attachment" width="250px" height="250px"/>
+                        <br>
+                        <b class="text-center"> {{preInternalCarcassColor.colorName}}</b>
+                        <br>
+                        <button class="next btn-next" ng-click="selectInternalCarcassColor(preInternalCarcassColor.id, preInternalCarcassColor.colorName, preInternalCarcassColor.colorCode)">Select Color</button>
+                    </div>
+                </div>                
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="modal modal-digitalbusiness" ng-if="showCarcassSidesColorSelectionWidget">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">        
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 40px;">
+                <h3 class="modal-title col-sm-8">                    
+                    Select Sides Color
+                </h3>                
+                <span class="col-sm-4 text-center" style="margin-top: 10px;">
+                    <i class="fa fa-close pull-right" style="font-size: 20px;" ng-click="closeWidget()"></i>    
+                </span>
+            </div>
+            <div class="modal-body" style="height: 450px;">
+                <div class="col-sm-6" style="overflow-y: scroll; height: 420px;">
+                    <div class=row ng-repeat="completeColor in completeColors1">
+                        <div>
+                            <ul>
+                                <li>
+                                    <b class="text-center"> {{completeColor.colorName}}</b> &nbsp;
+                                    <button class="next btn-next" ng-click="selectPreSideCarcassColor(completeColor.id)">View Color</button>                                    
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                    </div>    
+                </div>
+                <div class="col-sm-6 text-center">
+                    <image class="text-center" ng-src="./rest/color/{{preSideCarcassColor.id}}/attachment" width="250px" height="250px"/>
+                    <br>
+                    <b class="text-center"> {{preSideCarcassColor.colorName}}</b>
+                    <br>
+                    <button class="next btn-next" ng-click="selectSideCarcassColor(preSideCarcassColor.id, preSideCarcassColor.colorName, preSideCarcassColor.colorCode)">Select Color</button>
+                </div>                
+            </div>
+        </div>        
+    </div>
+</div>
+<!--/////////////Carcass Selection Panel Ends/////////////////-->
