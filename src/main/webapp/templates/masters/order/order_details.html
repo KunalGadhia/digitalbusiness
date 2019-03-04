@@ -311,7 +311,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-3">
+<!--                <div class="col-sm-3">
                     <div class="form-group" ng-if="carcassGrainDirection">
                         <label>Grain Direction (Optional)</label>
                         <select class="form-control" ng-model="editableCarcassDetail.grainDirection">
@@ -320,7 +320,7 @@
                             <option value="VERTICAL">Vertical</option>
                         </select>
                     </div>
-                </div>
+                </div>-->
                 <div class="col-sm-3" ng-if="carcassLeftColor">
                     <div class="form-group">
                         <label>Left Color</label>
@@ -564,6 +564,8 @@
                             <option value="POLYMER">Polymer</option>
                             <option value="PU">PU Lacqured</option>
                             <option value="ALUMINIUM">Aluminium</option>
+                            <option value="GLASS">Glass</option>
+                            <option value="VENEER">Veneer</option>
                         </select>
                     </div>
                 </div>
@@ -712,7 +714,7 @@
 
             </div>
             <div class="row">
-                <div class="col-sm-3">
+<!--                <div class="col-sm-3">
                     <div class="form-group" ng-hide="alFinish">
                         <label>Grain (Optional)</label>
                         <select class="form-control" ng-model="editableShutterDetail.grain">
@@ -721,7 +723,7 @@
                             <option value="VERTICAL">Vertical</option>
                         </select>
                     </div>
-                </div>
+                </div>-->
                 <div class="col-sm-3" ng-if="showStraightener">
                     <div class="form-group">
                         <label>Add Straightener</label>
@@ -950,7 +952,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+<!--                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Grain (Optional)</label>
                         <select class="form-control" ng-model="editableDrawerDetail.grain">
@@ -959,7 +961,7 @@
                             <option value="VERTICAL">Vertical</option>
                         </select>
                     </div>
-                </div>
+                </div>-->
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>As Per Drawing (Optional)</label>
@@ -1150,7 +1152,7 @@
                         <input type="number" class="form-control" placeholder="Enter Height" max="2400" ng-model="editableFillerDetail.length" required="">
                     </div>
                 </div>                
-                <div class="col-sm-3">
+<!--                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Grain Direction (Optional)</label>
                         <select class="form-control" ng-model="editableFillerDetail.grain">
@@ -1159,7 +1161,7 @@
                             <option value="VERTICAL">Vertical</option>
                         </select>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="row">
                 <div class="col-sm-3" ng-if="editableFillerDetail.bsm === false">

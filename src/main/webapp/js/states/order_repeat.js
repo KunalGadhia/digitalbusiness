@@ -68,13 +68,23 @@ angular.module("digitalbusiness.states.order_repeat", [])
                 }, function (carcassOrderDetailObject) {
                     console.log("Carcass Order Detail Object in Repeat:%O", carcassOrderDetailObject);
                     console.log("STandard Carcass Price Id :" + carcassOrderDetailObject.stdCarcassPriceId);
-                    carcassOrderDetailObject.stdCarcassPriceId = carcassOrderDetailObject.stdCarcassPriceId.toString();
+                    if (carcassOrderDetailObject.stdCarcassPriceId !== null) {
+                        carcassOrderDetailObject.stdCarcassPriceId = carcassOrderDetailObject.stdCarcassPriceId.toString();
+                    }
 
                     if (carcassOrderDetailObject.sectionProfileId !== null) {
                         carcassOrderDetailObject.sectionProfileId = carcassOrderDetailObject.sectionProfileId.toString();
                     }
                     carcassOrderDetailObject.id = '';
                     carcassOrderDetailObject.productCode = '';
+                    if (carcassOrderDetailObject.sideMaterial === '0') {
+                        console.log("Side Material 0");
+                        carcassOrderDetailObject.sideMaterial = '';
+                    }
+                    if (carcassOrderDetailObject.sideFinish === '0') {
+                        console.log("Side Finish 0");
+                        carcassOrderDetailObject.sideFinish = '';
+                    }
                     //////To Fetch Kitchen Component//////
                     KitchenComponentService.findByComponentCode({
                         'componentCode': carcassOrderDetailObject.component
@@ -1239,23 +1249,37 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     }
                 } else if (orderDetail.sideSelection !== "NSS") {
                     console.log("Non Regular");
+                    console.log("Order Detail :%O", orderDetail);
+                    console.log("Finish Object :%O", orderDetail.sideFinish);
                     $scope.stdMaterialObject = RawMaterialService.findByMaterialCode({
                         'materialCode': orderDetail.material
                     });
-                    $scope.finishObject = FinishPriceService.findByFinishCode({
-                        'finishCode': orderDetail.sideFinish
-                    });
+//                    $scope.finishObject = FinishPriceService.findByFinishCode({
+//                        'finishCode': orderDetail.sideFinish
+//                    });
+                    if (orderDetail.sideMatching === "") {
+                        orderDetail.sideMatching = "NSM";
+                    }
+                    if (orderDetail.sideSelection === "") {
+                        orderDetail.sideSelection = "NSS";
+                    }
+                    if (orderDetail.sideMaterial === "") {
+                        orderDetail.sideMaterial = "0";
+                    }
+                    if (orderDetail.sideFinish === "") {
+                        orderDetail.sideFinish = "0";
+                    }
                     if (orderDetail.stdCarcassPriceId !== undefined) {
 //                        $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
                         $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
                             console.log("resolvedSTdData :%O", resolvedStdData.price);
-                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
-                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
-                                orderDetail.stdMaterialPrice = resolvedStdData.price;
-                                orderDetail.finishPrice = resolvedFinishData.price;
-                                console.log("This is Order Detail :%O", orderDetail);
-                                $scope.saveOrderDetail(orderDetail);
-                            });
+//                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
+//                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
+                            orderDetail.stdMaterialPrice = resolvedStdData.price;
+//                                orderDetail.finishPrice = resolvedFinishData.price;
+                            console.log("This is Order Detail :%O", orderDetail);
+                            $scope.saveOrderDetail(orderDetail);
+//                            });
                         });
 //                        });
                     } else {
@@ -3434,9 +3458,9 @@ angular.module("digitalbusiness.states.order_repeat", [])
                                     shutterOrderDetail.glassCd = "X";
                                 } else if (shutterOrderDetail.jali === undefined) {
                                     shutterOrderDetail.glassCd = "X";
-                                }else if(shutterOrderDetail.jali === ""){
+                                } else if (shutterOrderDetail.jali === "") {
                                     shutterOrderDetail.glassCd = "X";
-                                }else if(shutterOrderDetail.jali === null){
+                                } else if (shutterOrderDetail.jali === null) {
                                     shutterOrderDetail.glassCd = "X";
                                 }
                                 if (shutterOrderDetail.handle !== null) {
@@ -3447,7 +3471,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                                 var productCode = shutterOrderDetail.component + "" + shutterOrderDetail.hingeCd + "B" + shutterOrderDetail.glassCd + "" + Math.round(shutterOrderDetail.thickness) + "" + shutterOrderDetail.material + "" + shutterOrderDetail.handleCd + "" + shutterOrderDetail.finish + "-" + l1 + "" + w1 + "" + Math.round(shutterOrderDetail.thickness) + "000";
                             } else {
                                 console.log("Without Glass without BSM");
-                                console.log("Without Glass without BSM Jali :%O",shutterOrderDetail.jali);
+                                console.log("Without Glass without BSM Jali :%O", shutterOrderDetail.jali);
                                 if (shutterOrderDetail.hingePosition !== undefined) {
                                     shutterOrderDetail.hingeCd = shutterOrderDetail.hingePosition;
                                 } else if (shutterOrderDetail.hingePosition === undefined) {
@@ -3459,9 +3483,9 @@ angular.module("digitalbusiness.states.order_repeat", [])
                                     shutterOrderDetail.glassCd = "X";
                                 } else if (shutterOrderDetail.jali === undefined) {
                                     shutterOrderDetail.glassCd = "X";
-                                }else if(shutterOrderDetail.jali === ""){
+                                } else if (shutterOrderDetail.jali === "") {
                                     shutterOrderDetail.glassCd = "X";
-                                }else if(shutterOrderDetail.jali === null){
+                                } else if (shutterOrderDetail.jali === null) {
                                     shutterOrderDetail.glassCd = "X";
                                 }
                                 if (shutterOrderDetail.handle !== null) {

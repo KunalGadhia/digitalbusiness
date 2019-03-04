@@ -85,18 +85,18 @@
                         <i class="fa fa-undo"></i>
                         Unapprove
                     </a>
-                    <a target="_blank" data-ui-sref="proforma_invoice_display({ orderHeadId : orderHead.id})">
+                    <a target="_blank" data-ui-sref="dealer_proforma_invoice_display({ orderHeadId : orderHead.id, userId: loggedUserId})">
                         <button class="btn btn-primary" >
                             <i class="fa fa-print"></i>
                             Generate Proforma Invoice
                         </button>
                     </a>
-                    <a target="_blank" data-ui-sref="customer_proforma_invoice_display({ orderHeadId : orderHead.id})">
+<!--                    <a target="_blank" data-ui-sref="customer_proforma_invoice_display({ orderHeadId : orderHead.id})">
                         <button class="btn btn-primary" >
                             <i class="fa fa-print"></i>
                             Generate Customer Proforma Invoice
                         </button>
-                    </a>
+                    </a>-->
                     <!--                    <a data-ui-sref="admin.masters_party.delete({ partyId: party.id })"
                                            class="btn btn-danger">
                                             <i class="fa fa-trash"></i>

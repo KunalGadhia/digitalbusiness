@@ -46,6 +46,7 @@ angular.module("digitalbusiness.states.admin", [])
                 $scope.notificationList = notificationList;
             });
             $scope.user = $rootScope.currentUser;
+            console.log("User Object :%O", $scope.user);
             UserService.findByUsername({
                 'username': $scope.user.username
             }, function (userObject) {
@@ -79,6 +80,7 @@ angular.module("digitalbusiness.states.admin", [])
         .controller('DealerMasterMenu', function ($rootScope, $scope, UserService, NotificationService) {
             console.log("In Dealer Master Menu");
             $scope.user = $rootScope.currentUser;
+            console.log("User Object v:%O", $scope.user);
             UserService.findByUsername({
                 'username': $scope.user.username
             }, function (userObject) {
