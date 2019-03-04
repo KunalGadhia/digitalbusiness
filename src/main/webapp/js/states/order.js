@@ -392,6 +392,7 @@ angular.module("digitalbusiness.states.order", [])
 //                console.log("Detecting Back Click");
 //                window.history.forward(1);
 //            };
+            $scope.orderHeadId = $stateParams.orderHeadId;
             $scope.editableCarcassDetail = {};
             //////////////To Detect Category Of Current Logged In User//////////
             $scope.user = $rootScope.currentUser;
@@ -5888,7 +5889,7 @@ angular.module("digitalbusiness.states.order", [])
                             var displayDiscountPrice = ((preliminaryDealerPrice / 100) * shutterOrderDetail.displayDiscount);
                             shutterOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
                             shutterOrderDetail.shutterFinishCategory = shutterOrderDetail.finishCategory;
-                            
+
                             console.log("Shutter Order Detail Save Object :%O", shutterOrderDetail);
                             ShutterOrderDetailsService.save(shutterOrderDetail, function (shutterOrderDetail) {
                                 $scope.editableShutterDetail = "";

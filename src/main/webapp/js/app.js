@@ -122,6 +122,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.manufacturer',
     'digitalbusiness.states.manufacturer_category',
     'digitalbusiness.states.dealer_sku',
+    'digitalbusiness.states.order_details_edit',
     ////New Offerings///////////
     'digitalbusiness.states.max_wardrobe',
     'digitalbusiness.states.max_wardrobe_mrp',

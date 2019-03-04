@@ -1,4 +1,3 @@
-
 <div class="panel panel-default">
     <div class="panel-heading text-center">
         <!--        <div class="pull-left">
@@ -2258,10 +2257,10 @@
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">
-                            <!--                            <a data-ui-sref="admin.masters_kitchen_component.edit({ kitchenComponentId: kitchenComponent.id })"
-                                                           class="btn btn-primary">					
-                                                            <i class="fa fa-pencil"></i>
-                                                        </a>-->
+                            <a data-ui-sref="admin.carcass_edit({ carcassDetailId: orderDetails.id })"
+                               class="btn btn-primary">					
+                                <i class="fa fa-pencil"></i>
+                            </a>
                             <a data-ui-sref="admin.masters_order_details.carcass_delete({ carcassDetailId: orderDetails.id})"
                                class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
@@ -2327,7 +2326,11 @@
                         <td class="text-left">{{orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
-                        <td class="text-right">                            
+                        <td class="text-right">
+                            <a data-ui-sref="admin.panel_edit({ panelDetailId: orderDetails.id})"
+                               class="btn btn-primary">
+                                <i class="fa fa-pencil"></i>
+                            </a>
                             <a data-ui-sref="admin.masters_order_details.panel_delete({ panelDetailId: orderDetails.id})"
                                class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
@@ -2406,7 +2409,11 @@
                         <td class="text-left">{{ orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
-                        <td class="text-right">                            
+                        <td class="text-right">
+                            <a data-ui-sref="admin.shutter_edit({ shutterDetailId: orderDetails.id})"
+                               class="btn btn-primary">
+                                <i class="fa fa-pencil"></i>
+                            </a>
                             <a data-ui-sref="admin.masters_order_details.shutter_delete({ shutterDetailId: orderDetails.id})"
                                class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
@@ -2474,7 +2481,11 @@
                         <td class="text-left">{{ orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
-                        <td class="text-right">                            
+                        <td class="text-right">
+                            <a data-ui-sref="admin.drawer_edit({ drawerDetailId: orderDetails.id})"
+                               class="btn btn-primary">
+                                <i class="fa fa-pencil"></i>
+                            </a>
                             <a data-ui-sref="admin.masters_order_details.drawer_delete({ drawerDetailId: orderDetails.id})"
                                class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
@@ -2541,7 +2552,11 @@
                         <td class="text-left">{{ orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
-                        <td class="text-right">                            
+                        <td class="text-right">
+                            <a data-ui-sref="admin.filler_edit({ fillerDetailId: orderDetails.id})"
+                               class="btn btn-primary">
+                                <i class="fa fa-pencil"></i>
+                            </a>
                             <a data-ui-sref="admin.masters_order_details.filler_delete({ fillerDetailId: orderDetails.id})"
                                class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
@@ -2606,6 +2621,10 @@
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">                            
+                            <a data-ui-sref="admin.pelmet_edit({ pelmetDetailId: orderDetails.id})"
+                               class="btn btn-primary">
+                                <i class="fa fa-pencil"></i>
+                            </a>
                             <a data-ui-sref="admin.masters_order_details.pelmet_delete({ pelmetDetailId: orderDetails.id})"
                                class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
@@ -2670,6 +2689,10 @@
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
                         <td class="text-right">                            
+                            <a data-ui-sref="admin.cornice_edit({ corniceDetailId: orderDetails.id})"
+                               class="btn btn-primary">
+                                <i class="fa fa-pencil"></i>
+                            </a>
                             <a data-ui-sref="admin.masters_order_details.cornice_delete({ corniceDetailId: orderDetails.id})"
                                class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
@@ -2731,7 +2754,11 @@
                         <td class="text-left">{{ orderDetails.remark}}</td>
                         <td class="text-left">{{ orderDetails.quantity}}</td> 
                         <td class="text-left">&#8377;{{ orderDetails.price}}</td> 
-                        <td class="text-right">                            
+                        <td class="text-right">
+                            <a data-ui-sref="admin.handle_edit({ handleDetailId: orderDetails.id})"
+                               class="btn btn-primary">
+                                <i class="fa fa-pencil"></i>
+                            </a>
                             <a data-ui-sref="admin.masters_order_details.handle_delete({ handleDetailId: orderDetails.id})"
                                class="btn btn-danger">
                                 <i class="fa fa-trash"></i>

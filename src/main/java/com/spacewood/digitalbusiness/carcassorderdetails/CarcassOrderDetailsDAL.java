@@ -274,8 +274,17 @@ public class CarcassOrderDetailsDAL {
                 + Columns.SECTION_PROFILE_ID + " = ?,"
                 + Columns.SECTION_PROFILE_PRICE + " = ?,"
                 + Columns.PROFILE_PRICE + " = ?,"
-                + Columns.CARCASS_SUB_TYPE + " = ?,"
+                + Columns.CARCASS_SUB_TYPE + " = ?,"                
                 + Columns.AS_PER_DRAWING + " = ?,"
+                + Columns.REMARK + " = ?,"
+                + Columns.INT_COLOR_CODE + " = ?,"
+                + Columns.LEFT_COLOR_CODE + " = ?,"
+                + Columns.RIGHT_COLOR_CODE + " = ?,"
+                + Columns.BACK_COLOR_CODE + " = ?,"
+                + Columns.TOP_COLOR_CODE + " = ?,"
+                + Columns.BOTTOM_COLOR_CODE + " = ?,"
+                + Columns.DISPLAY_DISCOUNT + " = ?,"
+                + Columns.DISCOUNT_PER + " = ?,"
                 + Columns.GRAIN_DIRECTION + " = ? WHERE " + Columns.ID + " = ?";
         Number updatedCount = jdbcTemplate.update(sqlQuery,
                 new Object[]{
@@ -309,6 +318,15 @@ public class CarcassOrderDetailsDAL {
                     carcassOrderDetails.getProfilePrice(),
                     carcassOrderDetails.getCarcassSubType(),
                     carcassOrderDetails.getAsPerDrawing(),
+                    carcassOrderDetails.getRemark(),
+                    carcassOrderDetails.getIntColorCode(),
+                    carcassOrderDetails.getLeftColorCode(),
+                    carcassOrderDetails.getRightColorCode(),
+                    carcassOrderDetails.getBackColorCode(),
+                    carcassOrderDetails.getTopColorCode(),
+                    carcassOrderDetails.getBottomColorCode(),
+                    carcassOrderDetails.getDisplayDiscount(),
+                    carcassOrderDetails.getDiscountPer(),
                     carcassOrderDetails.getGrainDirection().name(),
                     carcassOrderDetails.getId()
                 });
