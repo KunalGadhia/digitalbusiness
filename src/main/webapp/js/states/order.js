@@ -2467,7 +2467,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.$watch('shutterHandleName', function (handleName) {
                 console.log("Handle Name:%O", handleName);
                 $("#handleCd").attr({
-                   'required': required 
+                    'required': 'required'
                 });
             });
             $scope.shutterHandleList1 = [];
@@ -2944,7 +2944,7 @@ angular.module("digitalbusiness.states.order", [])
             $scope.$watch('drawerHandleName', function (handleName) {
                 console.log("Handle Name:%O", handleName);
                 $("#drawerHandleCd").attr({
-                   'required': required 
+                    'required': required
                 });
             });
             $scope.openDrawerColorWidget = function () {
@@ -8825,7 +8825,7 @@ angular.module("digitalbusiness.states.order", [])
                 });
             };
         })
-        .controller('DealerOrderHistoryController', function (PartyService, OrderHeadService, UserService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
+        .controller('DealerOrderHistoryController', function (DealerInvoiceDetailsService, PartyService, OrderHeadService, UserService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
             console.log("What are STate Params Pelmet:%O", $stateParams);
             $scope.currentUser = $rootScope.currentUser;
             $scope.showMrpFeature = false;
@@ -8868,6 +8868,32 @@ angular.module("digitalbusiness.states.order", [])
                 });
                 console.log("Order Head List :%O", $scope.orderHeadList);
             });
+
+            $scope.checkState = function (orderHeadId) {
+                console.log("Order Head Id :%O", orderHeadId);
+                DealerInvoiceDetailsService.findByOrderHeadId({
+                    'orderHeadId': orderHeadId
+                }).$promise.catch(function (response) {
+                    if (response.status === 500) {
+                        $state.go("admin.dealers_order_history.form", {
+                            'orderHeadId': orderHeadId
+                        });
+                    } else if (response.status === 404) {
+                        $state.go("admin.dealers_order_history.form", {
+                            'orderHeadId': orderHeadId
+                        });
+                    } else if (response.status === 400) {
+                        $state.go("admin.dealers_order_history.form", {
+                            'orderHeadId': orderHeadId
+                        });
+                    }
+                }).then(function (dealerInvoiceDetailObject) {
+                    console.log("Dealer Invoice Object :%O", dealerInvoiceDetailObject);
+//                    $state.go("admin.dealers_order_history.form", {
+//                        'orderHeadId': orderHeadId
+//                    });
+                });
+            };
         })
         .controller('DealerOrderMrpHistoryController', function (PartyService, OrderHeadMrpService, UserService, $scope, $stateParams, $rootScope, $state, paginationLimit) {
             console.log("What are STate Params Pelmet:%O", $stateParams);

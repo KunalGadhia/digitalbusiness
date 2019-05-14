@@ -59,6 +59,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         logger.info("Inside Security COnfiguration");
         http
                 .authorizeRequests()
+                .antMatchers("/rest/order_head/**").permitAll()
+                .antMatchers("/rest/carcass_order_details/**").permitAll()
+                .antMatchers("/rest/panel_order_details/**").permitAll()
+                .antMatchers("/rest/shutter_order_details/**").permitAll()
+                .antMatchers("/rest/drawer_order_details/**").permitAll()
+                .antMatchers("/rest/filler_order_details/**").permitAll()
+                .antMatchers("/rest/pelmet_order_details/**").permitAll()
+                .antMatchers("/rest/cornice_order_details/**").permitAll()
+                .antMatchers("/rest/handle_order_details/**").permitAll()
+                .antMatchers("/rest/hardware_order_details/**").permitAll()                
                 .antMatchers("/rest/**").authenticated()
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()

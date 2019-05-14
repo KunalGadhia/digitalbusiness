@@ -1298,11 +1298,11 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                             console.log("resolvedSTdData :%O", resolvedStdData.price);
 //                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
 //                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
-                                orderDetail.stdMaterialPrice = resolvedStdData.price;
+                            orderDetail.stdMaterialPrice = resolvedStdData.price;
 //                                orderDetail.finishPrice = resolvedFinishData.price;
-                                console.log("This is Order Detail :%O", orderDetail);
-                                $scope.saveOrderDetail(orderDetail);
-                            });
+                            console.log("This is Order Detail :%O", orderDetail);
+                            $scope.saveOrderDetail(orderDetail);
+                        });
 //                        });
 //                        });
                     } else {
@@ -2587,11 +2587,11 @@ angular.module("digitalbusiness.states.order_details_edit", [])
         })
         .controller('PanelEditController', function (PanelMaterialThicknessService, RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
             console.log("Inside Panel Addition");
-            OrderHeadService.get({
-                'id': $stateParams.orderHeadId
-            }, function (orderHeadObject) {
-                $scope.orderHead = orderHeadObject;
-            });
+//            OrderHeadService.get({
+//                'id': $stateParams.orderHeadId
+//            }, function (orderHeadObject) {
+//                $scope.orderHead = orderHeadObject;
+//            });
             if ($stateParams.panelDetailId === undefined) {
                 $scope.editablePanelDetail = {};
             } else {
@@ -2610,6 +2610,16 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                         panelOrderDetailObject.colorCode = colorObject.colorCode;
                         panelOrderDetailObject.colorId = colorObject.id;
                         $scope.panelColorName = colorObject.colorName;
+                    });
+                    OrderHeadService.get({
+                        'id': panelOrderDetailObject.orderHeadId
+                    }, function (orderHeadObject) {
+                        PartyService.get({
+                            'id': orderHeadObject.billingPartyId
+                        }, function (partyObject) {
+                            console.log("Party Object :%O", partyObject);
+                            panelOrderDetailObject.rateContractId = partyObject.rateContractId;
+                        });
                     });
                     $scope.editablePanelDetail = panelOrderDetailObject;
                 });
@@ -2706,7 +2716,7 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                     'thickness': thickness
                 }, function (panelThicknessPrice) {
                     $scope.editablePanelDetail.materialPrice = panelThicknessPrice.price;
-                    console.log("Price :%O", $scope.editablePanelDetail.materialPrice);
+//                    console.log("Price :%O", $scope.editablePanelDetail.materialPrice);
                 });
             });
             ///////////////////////////////////////////////////////////////////
@@ -2720,33 +2730,33 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                     }, function (rateContractDetailObject) {
                         panelOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((panelOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
-                        $scope.orderHead.orderSubType = "";
-                        if ($scope.orderHead.orderSubType === "D") {
-                            console.log("Display Order");
-                            var preliminaryDealerPrice = (panelOrderDetail.unitPrice - discountPrice);
-                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * panelOrderDetail.displayDiscount);
-                            panelOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
-                            console.log("Panle Order Detail Save Object :%O", panelOrderDetail);
-                            panelOrderDetail.$save(function () {
-                                console.log("Updated Successfully");
-                                $scope.editablePanelDetail = "";
-                                $scope.panelName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
-                                }, {'reload': true});
-                            });
-                        } else {
-                            panelOrderDetail.price = (panelOrderDetail.unitPrice - discountPrice);
-                            console.log("Panle Order Detail Save Object :%O", panelOrderDetail);
-                            panelOrderDetail.$save(function () {
-                                console.log("Updated Successfully");
-                                $scope.editablePanelDetail = "";
-                                $scope.panelName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
-                                }, {'reload': true});
-                            });
-                        }
+//                        $scope.orderHead.orderSubType = 'X';
+//                        if ($scope.orderHead.orderSubType === "D") {
+//                            console.log("Display Order");
+//                            var preliminaryDealerPrice = (panelOrderDetail.unitPrice - discountPrice);
+//                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * panelOrderDetail.displayDiscount);
+//                            panelOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
+//                            console.log("Panle Order Detail Save Object :%O", panelOrderDetail);
+//                            panelOrderDetail.$save(function () {
+//                                console.log("Updated Successfully");
+//                                $scope.editablePanelDetail = "";
+//                                $scope.panelName = "";
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+//                            });
+//                        } else {
+                        panelOrderDetail.price = (panelOrderDetail.unitPrice - discountPrice);
+                        console.log("Panle Order Detail Save Object :%O", panelOrderDetail);
+                        panelOrderDetail.$save(function (panelOrderDetail) {
+                            console.log("Updated Successfully");
+                            $scope.editablePanelDetail = "";
+                            $scope.panelName = "";
+                            $state.go('admin.masters_order_details', {
+                                'orderHeadId': panelOrderDetail.orderHeadId
+                            }, {'reload': true});
+                        });
+//                        }
                     });
                 };
                 panelOrderDetail.depth = '0';
@@ -2781,7 +2791,7 @@ angular.module("digitalbusiness.states.order_details_edit", [])
 
                 var productCode = panelOrderDetail.component + "" + Math.round(panelOrderDetail.thickness) + "" + panelOrderDetail.material + "XXXX-" + l1 + "" + w1 + "" + Math.round(panelOrderDetail.thickness) + "000";
                 panelOrderDetail.productCode = productCode;
-                panelOrderDetail.orderHeadId = $stateParams.orderHeadId;
+//                panelOrderDetail.orderHeadId = panelOrderDetail.orderHeadId;
                 var basicArea = (panelOrderDetail.width * panelOrderDetail.length);
                 var basicAreaSqMt = basicArea / 1000000;
                 panelOrderDetail.unitPrice = (panelOrderDetail.quantity * (basicAreaSqMt * panelOrderDetail.materialPrice));
@@ -2815,6 +2825,17 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                         shutterOrderDetailObject.colorCode = shutterColorobject.colorCode;
                         shutterOrderDetailObject.colorId = shutterColorobject.id;
                         $scope.shutterColorName = shutterColorobject.colorName;
+                    });
+                    OrderHeadService.get({
+                        'id': shutterOrderDetailObject.orderHeadId
+                    }, function (orderHeadObject) {
+                        console.log("Order Head Object :%O", orderHeadObject);
+                        PartyService.get({
+                            'id': orderHeadObject.billingPartyId
+                        }, function (partyObject) {
+                            shutterOrderDetailObject.rateContractId = partyObject.rateContractId;
+//                            shutterOrderDetailObject.orderHeadId = orderHeadObject.id;
+                        });
                     });
                     if (shutterOrderDetailObject.intColorId !== null) {
                         ColorService.get({
@@ -3025,15 +3046,15 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                 });
 
             });
-            OrderHeadService.get({
-                'id': $stateParams.orderHeadId
-            }, function (orderHeadObject) {
-                PartyService.get({
-                    'id': orderHeadObject.billingPartyId
-                }, function (partyObject) {
-                    $scope.editableShutterDetail.rateContractId = partyObject.rateContractId;
-                });
-            });
+//            OrderHeadService.get({
+//                'id': $stateParams.orderHeadId
+//            }, function (orderHeadObject) {
+//                PartyService.get({
+//                    'id': orderHeadObject.billingPartyId
+//                }, function (partyObject) {
+//                    $scope.editableShutterDetail.rateContractId = partyObject.rateContractId;
+//                });
+//            });
             $scope.$watch('editableShutterDetail.material', function (material) {
                 console.log("Side Material :%O", material);
                 $scope.shutterInternalColorName = "";
@@ -3324,7 +3345,7 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                     console.log("Handle Price :%O", handlePrice);
                     console.log("Jali Price :%O", jaliPrice);
                     console.log("Straightener Price :%O", straightenerPrice);
-
+                    console.log("Shutter Order Detail Object :%O", shutterOrderDetail);
                     RateContractDetailService.findByShutterFinishMaterialThickness({
                         'finish': shutterOrderDetail.finish,
                         'material': shutterOrderDetail.material,
@@ -3333,40 +3354,41 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                     }, function (rateContractDetailObject) {
                         shutterOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((shutterOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
-                        if ($scope.orderHead.orderSubType === "D") {
-                            console.log("Display Order");
-                            var preliminaryDealerPrice = (shutterOrderDetail.unitPrice - discountPrice);
-                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * shutterOrderDetail.displayDiscount);
-                            shutterOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
-                            console.log("Shutter Order Detail Save Object :%O", shutterOrderDetail);
-                            shutterOrderDetail.$save(function () {
-                                $scope.editableShutterDetail = "";
-                                $scope.shutterName = "";
-                                $scope.shutterColorName = "";
-                                $scope.shutterHandleName = "";
+//                        if ($scope.orderHead.orderSubType === "D") {
+//                            console.log("Display Order");
+//                            var preliminaryDealerPrice = (shutterOrderDetail.unitPrice - discountPrice);
+//                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * shutterOrderDetail.displayDiscount);
+//                            shutterOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
+//                            console.log("Shutter Order Detail Save Object :%O", shutterOrderDetail);
+//                            shutterOrderDetail.$save(function () {
+//                                $scope.editableShutterDetail = "";
+//                                $scope.shutterName = "";
+//                                $scope.shutterColorName = "";
+//                                $scope.shutterHandleName = "";
+////                                $state.go('admin.masters_order_details', {
+////                                    'orderHeadId': $stateParams.orderHeadId
+////                                }, {'reload': true});
 //                                $state.go('admin.masters_order_details', {
 //                                    'orderHeadId': $stateParams.orderHeadId
 //                                }, {'reload': true});
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
-                                }, {'reload': true});
-                            });
-                        } else {
-                            console.log("Discount Price :%O", discountPrice);
-                            if (shutterOrderDetail.glass === '') {
-                                shutterOrderDetail.glass = 'NO_GLASS';
-                            }
-                            shutterOrderDetail.price = ((shutterOrderDetail.unitPrice - discountPrice) + handlePrice + jaliPrice + straightenerPrice);
-                            shutterOrderDetail.$save(function () {
-                                $scope.editableShutterDetail = "";
-                                $scope.shutterName = "";
-                                $scope.shutterColorName = "";
-                                $scope.shutterHandleName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
-                                }, {'reload': true});
-                            });
+//                            });
+//                        } else {
+                        console.log("Discount Price :%O", discountPrice);
+                        if (shutterOrderDetail.glass === '') {
+                            shutterOrderDetail.glass = 'NO_GLASS';
                         }
+                        shutterOrderDetail.price = ((shutterOrderDetail.unitPrice - discountPrice) + handlePrice + jaliPrice + straightenerPrice);
+                        shutterOrderDetail.$save(function (shutterOrderDetail) {
+                            console.log("After Sav Object :%O", shutterOrderDetail);
+                            $scope.editableShutterDetail = "";
+                            $scope.shutterName = "";
+                            $scope.shutterColorName = "";
+                            $scope.shutterHandleName = "";
+                            $state.go('admin.masters_order_details', {
+                                'orderHeadId': shutterOrderDetail.orderHeadId
+                            }, {'reload': true});
+                        });
+//                        }
                     });
                 };
                 if (shutterOrderDetail.handle === "") {
@@ -3374,7 +3396,7 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                     shutterOrderDetail.handleFinish = null;
                     shutterOrderDetail.handleLength = null;
                 }
-                shutterOrderDetail.orderHeadId = $stateParams.orderHeadId;
+//                shutterOrderDetail.orderHeadId = $stateParams.orderHeadId;
                 shutterOrderDetail.component = $scope.shutterComponent;
                 shutterOrderDetail.depth = '0';
                 var l1;
@@ -3783,11 +3805,11 @@ angular.module("digitalbusiness.states.order_details_edit", [])
 
         })
         .controller('FillerEditController', function (FillerFinishPriceService, RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, FillerOrderDetailsService, $scope, $stateParams, $state) {
-            OrderHeadService.get({
-                'id': $stateParams.orderHeadId
-            }, function (orderHeadObject) {
-                $scope.orderHead = orderHeadObject;
-            });
+//            OrderHeadService.get({
+//                'id': $stateParams.orderHeadId
+//            }, function (orderHeadObject) {
+//                $scope.orderHead = orderHeadObject;
+//            });
             if ($stateParams.fillerDetailId === undefined) {
                 $scope.editableFillerDetail = {};
             } else {
@@ -3808,6 +3830,15 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                         fillerOrderDetailObject.colorCode = colorObject.colorCode;
                         fillerOrderDetailObject.colorId = colorObject.id;
                         $scope.fillerColorName = colorObject.colorName;
+                    });
+                    OrderHeadService.get({
+                        'id': fillerOrderDetailObject.orderHeadId
+                    }, function (orderHeadObject) {
+                        PartyService.get({
+                            'id': orderHeadObject.billingPartyId
+                        }, function (partyObject) {
+                            fillerOrderDetailObject.rateContractId = partyObject.rateContractId;
+                        });
                     });
                     if (fillerOrderDetailObject.intColorId !== null) {
                         ColorService.get({
@@ -3912,15 +3943,15 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                 });
             });
             $scope.showFillerBsm = false;
-            OrderHeadService.get({
-                'id': $stateParams.orderHeadId
-            }, function (orderHeadObject) {
-                PartyService.get({
-                    'id': orderHeadObject.billingPartyId
-                }, function (partyObject) {
-                    $scope.editableFillerDetail.rateContractId = partyObject.rateContractId;
-                });
-            });
+//            OrderHeadService.get({
+//                'id': $stateParams.orderHeadId
+//            }, function (orderHeadObject) {
+//                PartyService.get({
+//                    'id': orderHeadObject.billingPartyId
+//                }, function (partyObject) {
+//                    $scope.editableFillerDetail.rateContractId = partyObject.rateContractId;
+//                });
+//            });
             $scope.$watch('editableFillerDetail.finish', function (finishName) {
                 console.log("FInish Name :%O", finishName);
 //                $scope.editableFillerDetail.thickness = '';
@@ -3987,7 +4018,7 @@ angular.module("digitalbusiness.states.order_details_edit", [])
             });
             ///////////////////////////////////////////////////////////////////
             $scope.saveFillerDetails = function (fillerOrderDetail) {
-                fillerOrderDetail.orderHeadId = $stateParams.orderHeadId;
+//                fillerOrderDetail.orderHeadId = $stateParams.orderHeadId;
                 if (fillerOrderDetail.grain === '') {
                     fillerOrderDetail.grain = "NO_GRAIN";
                 }
@@ -4013,29 +4044,29 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                     }, function (rateContractDetailObject) {
                         fillerOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((fillerOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
-                        if ($scope.orderHead.orderSubType === "D") {
-                            console.log("Display Order");
-                            var preliminaryDealerPrice = (fillerOrderDetail.unitPrice - discountPrice);
-                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * fillerOrderDetail.displayDiscount);
-                            fillerOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
-                            console.log("Filler Order Detail Save Object :%O", fillerOrderDetail);
-                            fillerOrderDetail.$save(function () {
-                                $scope.editablePanelDetail = "";
-                                $scope.fillerColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
-                                }, {'reload': true});
-                            });
-                        } else {
-                            fillerOrderDetail.price = (fillerOrderDetail.unitPrice - discountPrice);
-                            fillerOrderDetail.$save(function () {
-                                $scope.editablePanelDetail = "";
-                                $scope.fillerColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
-                                }, {'reload': true});
-                            });
-                        }
+//                        if ($scope.orderHead.orderSubType === "D") {
+//                            console.log("Display Order");
+//                            var preliminaryDealerPrice = (fillerOrderDetail.unitPrice - discountPrice);
+//                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * fillerOrderDetail.displayDiscount);
+//                            fillerOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
+//                            console.log("Filler Order Detail Save Object :%O", fillerOrderDetail);
+//                            fillerOrderDetail.$save(function (fillerOrderDetail) {
+//                                $scope.editablePanelDetail = "";
+//                                $scope.fillerColorName = "";
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': fillerOrderDetail.orderHeadId
+//                                }, {'reload': true});
+//                            });
+//                        } else {
+                        fillerOrderDetail.price = (fillerOrderDetail.unitPrice - discountPrice);
+                        fillerOrderDetail.$save(function (fillerOrderDetail) {
+                            $scope.editablePanelDetail = "";
+                            $scope.fillerColorName = "";
+                            $state.go('admin.masters_order_details', {
+                                'orderHeadId': fillerOrderDetail.orderHeadId
+                            }, {'reload': true});
+                        });
+//                        }
                     });
                 };
                 if (fillerOrderDetail.length < 1000) {
@@ -4332,11 +4363,11 @@ angular.module("digitalbusiness.states.order_details_edit", [])
             };
         })
         .controller('CorniceEditController', function (FillerFinishPriceService, PanelMaterialThicknessService, CorniceOrderDetailsService, RateContractDetailService, FinishPriceService, ColorConstraintService, PartyService, OrderHeadService, ColorService, RawMaterialService, KitchenComponentService, PanelOrderDetailsService, $scope, $stateParams, $state) {
-            OrderHeadService.get({
-                'id': $stateParams.orderHeadId
-            }, function (orderHeadObject) {
-                $scope.orderHead = orderHeadObject;
-            });
+//            OrderHeadService.get({
+//                'id': $stateParams.orderHeadId
+//            }, function (orderHeadObject) {
+//                $scope.orderHead = orderHeadObject;
+//            });
             if ($stateParams.corniceDetailId === undefined) {
                 $scope.editableCorniceDetail = {};
             } else {
@@ -4354,6 +4385,15 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                         corniceOrderDetailObject.colorCode = colorObject.colorCode;
                         corniceOrderDetailObject.colorId = colorObject.id;
                         $scope.corniceColorName = colorObject.colorName;
+                    });
+                    OrderHeadService.get({
+                        'id': corniceOrderDetailObject.orderHeadId
+                    }, function (orderHeadObject) {
+                        PartyService.get({
+                            'id': orderHeadObject.billingPartyId
+                        }, function (partyObject) {
+                            corniceOrderDetailObject.rateContractId = partyObject.rateContractId;
+                        });
                     });
                     KitchenComponentService.findByComponentCode({
                         'componentCode': corniceOrderDetailObject.component
@@ -4417,15 +4457,15 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                     $scope.preCorniceColor = colorObject;
                 });
             };
-            OrderHeadService.get({
-                'id': $stateParams.orderHeadId
-            }, function (orderHeadObject) {
-                PartyService.get({
-                    'id': orderHeadObject.billingPartyId
-                }, function (partyObject) {
-                    $scope.editableCorniceDetail.rateContractId = partyObject.rateContractId;
-                });
-            });
+//            OrderHeadService.get({
+//                'id': $stateParams.orderHeadId
+//            }, function (orderHeadObject) {
+//                PartyService.get({
+//                    'id': orderHeadObject.billingPartyId
+//                }, function (partyObject) {
+//                    $scope.editableCorniceDetail.rateContractId = partyObject.rateContractId;
+//                });
+//            });
             $scope.$watch('editableCorniceDetail.material', function (material) {
                 console.log("Side Material :%O", material);
                 RawMaterialService.findByMaterialCode({
@@ -4496,7 +4536,7 @@ angular.module("digitalbusiness.states.order_details_edit", [])
             });
             ///////////////////////////////////////////////////////////////////
             $scope.saveCorniceDetails = function (corniceOrderDetail) {
-                corniceOrderDetail.orderHeadId = $stateParams.orderHeadId;
+//                corniceOrderDetail.orderHeadId = $stateParams.orderHeadId;
                 corniceOrderDetail.component = $scope.corniceComponent;
                 corniceOrderDetail.depth = '0';
                 $scope.applyCorniceDiscount = function (corniceOrderDetail) {
@@ -4508,29 +4548,29 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                     }, function (rateContractDetailObject) {
                         corniceOrderDetail.discountPer = rateContractDetailObject.discountPer;
                         var discountPrice = ((corniceOrderDetail.unitPrice / 100) * rateContractDetailObject.discountPer);
-                        if ($scope.orderHead.orderSubType === "D") {
-                            console.log("Display Order");
-                            var preliminaryDealerPrice = (corniceOrderDetail.unitPrice - discountPrice);
-                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * corniceOrderDetail.displayDiscount);
-                            corniceOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
-                            console.log("Cornice Order Detail Save Object :%O", corniceOrderDetail);
-                            corniceOrderDetail.$save(function () {
-                                $scope.editableCorniceDetail = "";
-                                $scope.corniceColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
-                                }, {'reload': true});
-                            });
-                        } else {
+//                        if ($scope.orderHead.orderSubType === "D") {
+//                            console.log("Display Order");
+//                            var preliminaryDealerPrice = (corniceOrderDetail.unitPrice - discountPrice);
+//                            var displayDiscountPrice = ((preliminaryDealerPrice / 100) * corniceOrderDetail.displayDiscount);
+//                            corniceOrderDetail.price = (preliminaryDealerPrice - displayDiscountPrice);
+//                            console.log("Cornice Order Detail Save Object :%O", corniceOrderDetail);
+//                            corniceOrderDetail.$save(function () {
+//                                $scope.editableCorniceDetail = "";
+//                                $scope.corniceColorName = "";
+//                                $state.go('admin.masters_order_details', {
+//                                    'orderHeadId': $stateParams.orderHeadId
+//                                }, {'reload': true});
+//                            });
+//                        } else {
                             corniceOrderDetail.price = (corniceOrderDetail.unitPrice - discountPrice);
-                            corniceOrderDetail.$save(function () {
+                            corniceOrderDetail.$save(function (corniceOrderDetail) {
                                 $scope.editableCorniceDetail = "";
                                 $scope.corniceColorName = "";
                                 $state.go('admin.masters_order_details', {
-                                    'orderHeadId': $stateParams.orderHeadId
+                                    'orderHeadId': corniceOrderDetail.orderHeadId
                                 }, {'reload': true});
                             });
-                        }
+//                        }
                     });
                 };
                 var l1;

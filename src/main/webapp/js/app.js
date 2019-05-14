@@ -78,6 +78,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.services.manufacturer',
     'digitalbusiness.services.dealer_sku',
     'digitalbusiness.services.dealer_sku_order_details',
+    'digitalbusiness.services.dealer_invoice_details_service',
     //ERP INTEGRATION SERVICE
     'digitalbusiness.services.erp_integration',
 
@@ -123,6 +124,7 @@ angular.module("digitalbusiness", [
     'digitalbusiness.states.manufacturer_category',
     'digitalbusiness.states.dealer_sku',
     'digitalbusiness.states.order_details_edit',
+    'digitalbusiness.states.dealer_invoice_details',
     ////New Offerings///////////
     'digitalbusiness.states.max_wardrobe',
     'digitalbusiness.states.max_wardrobe_mrp',

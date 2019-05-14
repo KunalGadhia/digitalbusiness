@@ -58,7 +58,7 @@ public class RateContractDetailRest {
     }
 
     @RequestMapping(value = "/find/shutter/finish/material/thickness", method = RequestMethod.GET)
-    public RateContractDetail findByShutterFinishMaterialThickness(@RequestParam("finish") String finish, @RequestParam("material") String material, @RequestParam("thickness") Double thickness, @RequestParam("rateContractId") Integer rateContractId) throws Exception {
+    public RateContractDetail findByShutterFinishMaterialThickness(@RequestParam("finish") String finish, @RequestParam(value = "material", required = false, defaultValue = "AL") String material, @RequestParam("thickness") Double thickness, @RequestParam("rateContractId") Integer rateContractId) throws Exception {
         return rateContractDetailDAL.findByShutterFinishMaterialThickness(finish, material, thickness, rateContractId);
     }
 

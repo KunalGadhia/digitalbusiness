@@ -60,7 +60,8 @@
                             Generate DP Quote
                         </button>
                     </a>
-                    <a ng-if="showMrpFeature" target="_blank" data-ui-sref="customer_proforma_invoice_display({ orderHeadId : orderHead.id})">
+                    <!--<a ng-if="showMrpFeature" target="_blank" data-ui-sref="customer_proforma_invoice_display({ orderHeadId : orderHead.id})">-->
+                        <a ng-if="showMrpFeature" target="_blank" ng-click="checkState(orderHead.id)">
                         <button class="btn btn-primary" >
                             <i class="fa fa-print"></i>
                             Generate Customer Proforma Invoice

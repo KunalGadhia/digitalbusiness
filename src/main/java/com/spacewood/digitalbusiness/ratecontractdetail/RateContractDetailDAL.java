@@ -95,7 +95,11 @@ public class RateContractDetailDAL {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(Columns.RATE_CONTRACT_ID, rateContractDetail.getRateContractId());
         parameters.put(Columns.FINISH, rateContractDetail.getFinish());
-        parameters.put(Columns.MATERIAL, rateContractDetail.getMaterial());
+        if (rateContractDetail.getMaterial() == null) {
+            parameters.put(Columns.MATERIAL, "AL");
+        } else {
+            parameters.put(Columns.MATERIAL, rateContractDetail.getMaterial());
+        }
         parameters.put(Columns.THICKNESS, rateContractDetail.getThickness());
         parameters.put(Columns.COMPONENT, rateContractDetail.getComponent());
         parameters.put(Columns.DISCOUNT_PER, rateContractDetail.getDiscountPer());
