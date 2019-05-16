@@ -315,6 +315,7 @@
         <script src="${pageContext.request.contextPath}/js/states/order_repeat.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/order_details_edit.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/dealer_invoice_details.js"></script>
+        <script src="${pageContext.request.contextPath}/js/states/custom_invoice.js"></script>
         <!-- New Offerings-->
         <script src="${pageContext.request.contextPath}/js/states/manufacturer.js"></script>
         <script src="${pageContext.request.contextPath}/js/states/manufacturer_category.js"></script>

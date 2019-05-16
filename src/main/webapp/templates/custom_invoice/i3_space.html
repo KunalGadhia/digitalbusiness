@@ -1,0 +1,484 @@
+<div class="container-fluid top">
+    <div class="container no-padding">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 no-padding">
+                <a class="navbar-brand">
+                    <img src="./images/logo.png" alt="Spacewood" title="Spacewood">
+                </a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 no-padding cust-nav1">                
+            </div>
+        </div>
+    </div>
+    <div class="container no-padding">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+            <br>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="font-size: 12px">
+                I3 Space, Nagpur
+                <br>
+                Ph No : 07104-235968 / Fax No : 07104-232139 / Email : info@spacewood.in
+                <br>
+                <h3>Proforma Invoice (Dated : {{currentDate| date:'dd-MM-yyyy'}})</h3>
+            </div>                        
+        </div>
+    </div>
+    <hr>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div style="min-height: 495px;">
+            <div class="modal-body top">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <label class="col-sm-5 col-xs-5 text-left">Party Name :</label>
+                        <span class="col-sm-7 col-xs-7 text-left">{{party.dealerName}}</span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <label class="col-sm-6 col-xs-6 text-left">Project Name :</label>
+                        <span class="col-sm-6 col-xs-6 text-left">{{orderHead.projectName}}</span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <label class="col-sm-5 col-xs-6 text-left">Segment :</label>
+                        <span class="col-sm-7 col-xs-6 text-left">{{segment.segment}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <label class="col-sm-5 col-xs-5 text-left">Billing Type :</label>
+                        <span class="col-sm-7 col-xs-7 text-left" ng-if="orderHead.billType === 'D'">Direct Sales</span>
+                        <span class="col-sm-7 col-xs-7 text-left" ng-if="orderHead.billType === 'T'">Transfer</span>
+                        <span class="col-sm-7 col-xs-7 text-left" ng-if="orderHead.billType === 'R'">Re-Processing</span>
+                        <span class="col-sm-7 col-xs-7 text-left" ng-if="orderHead.billType === 'S'">Self Consumption</span>
+                        <span class="col-sm-7 col-xs-7 text-left" ng-if="orderHead.billType === 'E'">Export Including Nepal</span>
+                        <span class="col-sm-7 col-xs-7 text-left" ng-if="orderHead.billType === 'X'">SEZ -1/2 (No Tax)</span>
+                        <span class="col-sm-7 col-xs-7 text-left" ng-if="orderHead.billType === 'C'">CT3</span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <label class="col-sm-6 col-xs-6 text-left">Customer Ref No :</label>
+                        <span class="col-sm-6 col-xs-6 text-left">{{orderHead.orderNum}} ({{orderHead.poNum}})</span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <label class="col-sm-5 col-xs-6 text-left">Dealer City :</label>
+                        <span class="col-sm-7 col-xs-6 text-left">{{party.city}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <label class="col-sm-5 col-xs-5 text-left">Order Date :</label>
+                        <span class="col-sm-7 col-xs-7 text-left">{{orderHead.poDate| date:"mediumDate"}}</span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <label class="col-sm-6 col-xs-6 text-left">Factory Desp DT :</label>
+                        <span class="col-sm-6 col-xs-6 text-left">{{factDespDate| date:"mediumDate"}}</span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <label class="col-sm-5 col-xs-6 text-left">Customer Desp DT:</label>
+                        <span class="col-sm-7 col-xs-6 text-left">{{factDespDate| date:"mediumDate"}}</span>
+                    </div>
+                </div>
+                <hr>
+            </div> 
+            <div style="position: relative">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-right">#</th>
+                            <th>Product Code</th>
+                            <th>Description</th>
+                            <th>Colors</th>
+                            <th>Section Profile</th>
+                            <th>Shelf Count</th>                            
+                            <th>Thickness</th>
+                            <th>Width</th>
+                            <th>Length</th>
+                            <th>Depth</th>
+                            <th>Remark</th>
+                            <th>Quantity</th>
+                            <!--<th>Price (INR)</th>-->
+                            <th>MRP (INR)</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="orderDetails in mainInvoiceList">
+                            <td data-title="" class="text-right">{{$index + 1}}</td>
+                            <td class="text-left">{{ orderDetails.productCode}}</td>
+                            <td class="text-left">
+                                <span ng-if="orderDetails.orderFor === 'CARCASS'">
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span ng-if="orderDetails.sideFinish !== '0'">with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                    <span ng-if="orderDetails.grainDirection !== 'NO_GRAIN'"><strong> Grain Direction : </strong>{{orderDetails.grainDirection}}</span>
+                                    <span><strong> ({{orderDetails.subTypeObject.subType}}) </strong></span>
+                                    <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'PANEL'">
+                                    <span>{{orderDetails.kitchenComponentObject.component}} Prelam Edge Binded Panels</span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'SHUTTER'">
+                                    <span ng-if="orderDetails.glass === 'REGULAR_GLASS'">Regular Glass </span>
+                                    <span ng-if="orderDetails.glass === 'MESH_GLASS'">Mesh Glass </span>
+                                    <span>Shutter </span>
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span ng-if="orderDetails.material !== null">in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                    <span ng-if="orderDetails.bsm === true"><strong>(Both Side)</strong></span>
+                                    <span ng-if="orderDetails.step === true"><strong>& Glass Step</strong></span>
+                                    <span ng-if="orderDetails.jali === true"><strong>& Ventilated Grill</strong></span>
+                                    <span ng-if="orderDetails.grain !== 'NO_GRAIN'"><strong> Grain Direction : </strong> {{orderDetails.grain}}</span>
+                                    <span ng-if="orderDetails.hingePosition !== 'NO_HINGE'"> 
+                                        <span ng-if="orderDetails.hingePosition === 'L'"><strong> Hinge Position : </strong>LH</span>
+                                        <span ng-if="orderDetails.hingePosition === 'R'"><strong> Hinge Position : </strong>RH</span>
+                                        <span ng-if="orderDetails.hingePosition === 'Z'"><strong> Hinge Position : </strong>LH AND RH</span>
+                                    </span>
+                                    <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
+                                    <span ng-if="orderDetails.straightener !== 0"><strong>{{orderDetails.straightener}} Straightener</strong></span>
+                                    <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'DRAWER'">
+                                    <span>Drawer </span>
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>                                    
+                                    <span ng-if="orderDetails.grain !== 'NO_GRAIN'"> <strong> Grain Direction : </strong>{{orderDetails.grain}}</span>                            
+                                    <span ng-if="orderDetails.handle !== null">with Handle {{orderDetails.handle}} in {{orderDetails.handleFinish}} & CD / Length : {{orderDetails.handleLength}} mm </span>
+                                    <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'FILLER'">
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                    <span ng-if="orderDetails.bsm === true"> <strong>(Both Side) </strong></span>
+                                    <span ng-if="orderDetails.grain !== 'NO_GRAIN'"> <strong>Grain : {{orderDetails.grain}} </strong></span>
+                                    <span ng-if="orderDetails.asPerDrawing !== false"><strong>(As Per Drawing)</strong></span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'PELMET'">
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'CORNICE'">
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.rawMaterialObject.material}}</span>
+                                    <span>with {{orderDetails.finishPriceObject.finishName}} as finish.</span>
+                                    <span ng-if="orderDetails.bsm === true"> (Both Side)</span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'HANDLE'">
+                                    <span>{{orderDetails.kitchenComponentObject.component}}</span>
+                                    <span>in {{orderDetails.finish}}</span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'HARDWARE'">
+                                    <span>{{orderDetails.hardwareName}}</span>                                    
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'MAX_KITCHEN'">
+                                    <span>{{orderDetails.description}}</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'HDF_MATT'">& Shutter Finish = HDF Matt Finish</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'HDF_GLOSS'">& Shutter Finish = HDF Glossy Finish</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'G50_GLASS'">& Shutter Finish = G50 Aluminium Glass Shutter</span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'MAX_WARDROBE'">
+                                    <span>{{orderDetails.description}}</span>
+                                    <span ng-show="orderDetails.carcass === 'PPB'">& Carcass : PPB </span>
+                                    <span ng-show="orderDetails.carcass === 'HD_HMR'">& Carcass : HD HMR </span>
+                                    <span ng-show="orderDetails.carcass === 'HDF'">& Carcass : HDF </span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_FOILED_MATT'">& Shutter Finish : Foiled Matt Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_FOILED_GLOSSY'">& Shutter Finish : Foiled Glossy Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PRELAM_MATT'">& Shutter Finish : Prelam Matt Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PCPPB'">& Shutter Finish : 3 Pc's PPB Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'G50_GLASS'">& Shutter Finish : G50 Aluminium Glass Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PVC_STD'">& Shutter Finish : PVC MDF Standard Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PVC_DESG'">& Shutter Finish : PVC MDF Designer Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PVC_GLOSSY'">& Shutter Finish : PVC MDF Glossy Shutter</span>
+                                    <span ng-show="orderDetails.shutterFinish === 'SP_PVC_PREM'">& Shutter Finish : PVC MDF Prelam Shutter</span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'INFINITY_WARDROBE'">
+                                    <span>{{orderDetails.description}}</span>                                    
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'ULTIMA_WARDROBE'">
+                                    <span>{{orderDetails.description}}</span>                                    
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'DEALER_SKU'">
+                                    <span>{{orderDetails.description}}</span>                                    
+                                </span>
+
+                            </td>
+                            <td class="text-left">
+                                <span ng-if="orderDetails.orderFor === 'CARCASS'">
+                                    <span>Carcass Color :{{orderDetails.internalColorObject.colorName}}</span>
+                                    <span ng-if="orderDetails.leftColorId !== null">| Left :{{ orderDetails.leftColorObject.colorName}}</span>
+                                    <span ng-if="orderDetails.rightColorId !== null">| Right : {{ orderDetails.rightColorObject.colorName}}</span>
+                                    <span ng-if="orderDetails.topColorId !== null">| Top : {{ orderDetails.topColorObject.colorName}}</span>
+                                    <span ng-if="orderDetails.bottomColorId !== null">| Bottom : {{ orderDetails.bottomColorObject.colorName}}</span>
+                                    <span ng-if="orderDetails.backColorId !== null">| Back : {{ orderDetails.backColorObject.colorName}}</span>                                    
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'FILLER'">
+                                    <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
+                                    <span>Color :{{orderDetails.colorObject.colorName}}</span> 
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'SHUTTER'">
+                                    <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
+                                    <span>Color :{{orderDetails.colorObject.colorName}}</span> 
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'DRAWER'">
+                                    <span ng-if="orderDetails.intColorId !== null">Balancing Color : {{orderDetails.intColorObject.colorName}} |</span>
+                                    <span>Color :{{orderDetails.colorObject.colorName}}</span> 
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'PANEL'">                                    
+                                    <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'PELMET'">
+                                    <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'CORNICE'">
+                                    <span ng-if="orderDetails.colorObject !== undefined">Color :{{orderDetails.colorObject.colorName}}</span>
+                                </span>                                
+                                <span ng-if="orderDetails.orderFor === 'HANDLE'">
+                                    <span ng-if="orderDetails.colorId === undefined">
+                                        <span>N/A</span>
+                                    </span>
+                                </span> 
+                                <span ng-if="orderDetails.orderFor === 'HARDWARE'">                                    
+                                    <span>N/A</span>                                    
+                                </span> 
+                                <span ng-if="orderDetails.orderFor === 'MAX_KITCHEN'">
+                                    <span>N/A</span>                                    
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'MAX_WARDROBE'">
+                                    <span>N/A</span>                                    
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'INFINITY_WARDROBE'">
+                                    <span><strong>Carcass Color :</strong> {{orderDetails.carcassColorName}}</span>
+                                    <span ng-if="orderDetails.shutterColorName !== null">& <strong>Shutter Color :</strong> {{orderDetails.shutterColorName}}</span>                                  
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'ULTIMA_WARDROBE'">
+                                    <span><strong>Carcass Color :</strong> {{orderDetails.carcassColorName}}</span>
+                                    <span ng-if="orderDetails.shutterColorName !== null">& <strong>Shutter Color :</strong> {{orderDetails.shutterColorName}}</span>                                  
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'DEALER_SKU'">
+                                    <span>{{orderDetails.color}}</span>
+                                </span>
+                            </td>
+                            <td>
+                                <span ng-if="orderDetails.sectionProfileId !== null">{{orderDetails.sectionProfileObject.name}}</span>
+                                <span ng-if="orderDetails.sectionProfileId === null">N/A</span>
+                                <span ng-if="orderDetails.sectionProfileId === undefined">N/A</span>
+                            </td>
+                            <td class="text-left">
+                                <span ng-if="orderDetails.shelfCount > 0"> {{orderDetails.shelfCount}}</span>
+                                <span ng-if="orderDetails.shelfCount === undefined">N/A</span>
+                            </td>
+                            <td class="text-left">
+                                <span ng-if="orderDetails.thickness === undefined && orderDetails.width !== undefined">18 mm</span>
+                                <span ng-if="orderDetails.thickness !== undefined">{{orderDetails.thickness}} mm</span>
+                                <span ng-if="orderDetails.thickness === undefined && orderDetails.width === undefined">N/A</span>
+                            </td>  
+                            <td class="text-left">
+                                <span ng-if="orderDetails.width !== undefined">{{ orderDetails.width}} mm</span>
+                                <span ng-if="orderDetails.width === undefined">N/A</span>
+                            </td>                            
+                            <td class="text-left">
+                                <span ng-if="orderDetails.orderFor === 'CARCASS'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'FILLER'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'SHUTTER'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'DRAWER'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'PANEL'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'PELMET'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'CORNICE'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'HANDLE'">
+                                    {{ orderDetails.length}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'HARDWARE'">
+                                    N/A
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'MAX_KITCHEN'">
+                                    {{ orderDetails.height}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'MAX_WARDROBE'">
+                                    {{ orderDetails.height}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'INFINITY_WARDROBE'">
+                                    {{ orderDetails.height}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'ULTIMA_WARDROBE'">
+                                    {{ orderDetails.height}} mm
+                                </span>
+                                <span ng-if="orderDetails.orderFor === 'DEALER_SKU'">
+                                    {{ orderDetails.height}} mm
+                                </span>
+                            </td>                            
+                            <td class="text-left">
+                                <span ng-if="orderDetails.depth > 0">{{ orderDetails.depth}} mm</span>
+                                <span ng-if="orderDetails.depth === undefined">N/A</span>
+                                <span ng-if="orderDetails.depth === 0">N/A</span>
+                            </td> 
+                            <td class="text-left">{{ orderDetails.remark}}</td>
+                            <td class="text-left">{{ orderDetails.quantity}}</td> 
+                            <!--<td class="text-left">&#8377;{{orderDetails.price}}</td>-->
+                            <td class="text-left">&#8377;{{(orderDetails.price * orderHead.mrpRampupFactor) + orderDetails.price}}</td>
+                        </tr>
+                    </tbody>
+                    <!---- Trial Ends------------>
+
+                </table>
+                <hr style="border-top: 2px solid">
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Total Quantity :</strong></div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>{{ mainInvoiceList | total:'quantity'}}</strong></div>
+                </div>
+                <!--                <hr style="border-top: 2px solid">
+                                <div class="row">
+                                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong></strong></div>
+                                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>DP</strong></div>
+                                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>MRP</strong></div>
+                                </div>-->
+                <hr style="border-top: 2px solid">
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Ordered Component Value :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ ((mainInvoiceList | total:'price') * orderHead.mrpRampupFactor) + (mainInvoiceList | total:'price')}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Transportation Charges :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderHead.transportationCharges * orderHead.mrpRampupFactor) + orderHead.transportationCharges}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Loading / Unloading Charges :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderHead.loadingUnloadingCharges * orderHead.mrpRampupFactor) + orderHead.loadingUnloadingCharges}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Installation Charges :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderHead.installationCharges * orderHead.mrpRampupFactor) + orderHead.installationCharges}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Other Charges :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderHead.otherCharges * orderHead.mrpRampupFactor) + orderHead.otherCharges}}</strong></div>
+                </div>
+                <hr style="border-top: 2px solid">
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Sub Total :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderValueWithoutDiscount * orderHead.mrpRampupFactor) + orderValueWithoutDiscount}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Discount ({{orderHead.discount}} %) :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (discountCharges * orderHead.mrpRampupFactor) + discountCharges}}</strong></div>
+                </div>
+                <hr style="border-top: 2px solid">
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Order Amount :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{ (orderTotal * orderHead.mrpRampupFactor) + orderTotal}}</strong></div>
+                </div>
+                <div class="row" ng-if="showIgst">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>IGST (18%) :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{(igst * orderHead.mrpRampupFactor) + igst}}</strong></div>
+                </div>
+                <div class="row" ng-if="showCgst">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>SGST (9%) :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{(sgst * orderHead.mrpRampupFactor) + sgst}}</strong></div>
+                </div>
+                <div class="row" ng-if="showCgst">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>CGST (9%) :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{(cgst * orderHead.mrpRampupFactor) + cgst}}</strong></div>
+                </div>
+                <hr style="border-top: 2px solid">
+                <div class="row">
+                    <div class="col-md-11 col-lg-11 col-sm-11 text-right"><strong>Net Amount :</strong></div>                    
+                    <div class="col-md-1 col-lg-1 col-sm-1 text-center"><strong>&#8377; {{(netAmount * orderHead.mrpRampupFactor) + netAmount}}</strong></div>
+                </div>
+                <hr style="border-top: 2px solid">
+                <div class="row">
+                    <strong style="margin-left: 30px">Remark :</strong>
+                    <br>
+                    <span style="margin-left: 30px">Terms and Conditions as applicable to this Proforma Invoice</span>                    
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2 col-xs-2 text-left">1. Delivery Terms :</span>
+                    <span class="col-md-10 col-xs-10 text-left"> FOB/Ex Works</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">2. Delivery Schedule :</span>
+                    <span class="col-md-10  col-xs-10 text-left">15 Days</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">3. Freight :</span>
+                    <span class="col-md-10  col-xs-10 text-left">To Your Account</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">4. Duty / Taxes :</span>
+                    <span class="col-md-10  col-xs-10 text-left">As Above</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">5. Octroi :</span>
+                    <span class="col-md-10  col-xs-10 text-left">To Your Account</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">6. Installation :</span>
+                    <span class="col-md-10  col-xs-10 text-left">To Your Account</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">7. Prices Validity Period :</span>
+                    <span class="col-md-10  col-xs-10 text-left">As per Prevailing Rate Agreement</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">8. Payment Terms :</span>
+                    <span class="col-md-10  col-xs-10 text-left">{{party.paymentTerms}}</span>
+                </div>
+                <br>
+                <div class="row">
+                    <strong style="margin-left: 30px">Our Bank Details (Applicable in case of direct deposits) :</strong>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">Bank :</span>
+                    <span class="col-md-10  col-xs-10 text-left">Union Bank Of India</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">Branch :</span>
+                    <span class="col-md-10  col-xs-10 text-left">Dhantoli, Nagpur</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">A/C No :</span>
+                    <span class="col-md-10  col-xs-10 text-left">366005010000307</span>
+                </div>
+                <div class="row" style="margin-left: 30px">
+                    <span class="col-md-2  col-xs-2 text-left">RTGS/IFSC :</span>
+                    <span class="col-md-10  col-xs-10 text-left">UBIN0536601</span>
+                </div>
+                <br>
+                <div class="row">
+                    <span class="text-danger" style="margin-left: 30px">
+                        <strong>
+                            GST shall be charged as per the rate applicable on all clearances from the effective date as shall be notified by the Government Of India
+                        </strong>
+                    </span>
+                </div>
+                <hr style="border-top: 2px solid; margin-bottom: 0px">
+                <div class="row col-lg-12">                    
+                    <span class="col-md-4 col-xs-4 text-center">Issued By</span>
+                    <span class="col-md-4 col-xs-4 text-center">PI Approved By</span>
+                    <span class="col-md-4 col-xs-4 text-center">Read and Accepted By</span>                    
+                </div>                
+                <hr style="border-top: 2px solid">                
+                <div class="row col-lg-12">
+                    <span class="col-md-4 col-xs-4 text-center">SPACEWOOD FURNISHERS PVT LTD.</span>
+                    <span class="col-md-4 col-xs-4 text-center">Mr. Harish Patwardhan</span>
+                    <span class="col-md-4 col-xs-4 text-center">{{party.dealerName}}</span>
+                </div>                
+            </div>            
+        </div>
+    </div>    
+</div>
