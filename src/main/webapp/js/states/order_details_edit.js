@@ -1277,9 +1277,9 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                     $scope.stdMaterialObject = RawMaterialService.findByMaterialCode({
                         'materialCode': orderDetail.material
                     });
-//                    $scope.finishObject = FinishPriceService.findByFinishCode({
-//                        'finishCode': orderDetail.sideFinish
-//                    });
+                    $scope.finishObject = FinishPriceService.findByFinishCode({
+                        'finishCode': orderDetail.sideFinish
+                    });
                     if (orderDetail.sideMatching === "") {
                         orderDetail.sideMatching = "NSM";
                     }
@@ -1296,14 +1296,14 @@ angular.module("digitalbusiness.states.order_details_edit", [])
 //                        $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
                         $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
                             console.log("resolvedSTdData :%O", resolvedStdData.price);
-//                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
-//                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
-                            orderDetail.stdMaterialPrice = resolvedStdData.price;
-//                                orderDetail.finishPrice = resolvedFinishData.price;
-                            console.log("This is Order Detail :%O", orderDetail);
-                            $scope.saveOrderDetail(orderDetail);
+                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
+                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
+                                orderDetail.stdMaterialPrice = resolvedStdData.price;
+                                orderDetail.finishPrice = resolvedFinishData.price;
+                                console.log("This is Order Detail :%O", orderDetail);
+                                $scope.saveOrderDetail(orderDetail);
+                            });
                         });
-//                        });
 //                        });
                     } else {
                         $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
@@ -2678,6 +2678,7 @@ angular.module("digitalbusiness.states.order_details_edit", [])
                 console.log("Material :%O", material);
                 $scope.panelColorName = "";
                 $scope.editablePanelDetail.colorId = "";
+                $scope.editablePanelDetail.thickness = "";
                 ColorConstraintService.findByComponentMaterialCode({
                     'component': 'CARCASE',
                     'materialCode': material
@@ -4562,14 +4563,14 @@ angular.module("digitalbusiness.states.order_details_edit", [])
 //                                }, {'reload': true});
 //                            });
 //                        } else {
-                            corniceOrderDetail.price = (corniceOrderDetail.unitPrice - discountPrice);
-                            corniceOrderDetail.$save(function (corniceOrderDetail) {
-                                $scope.editableCorniceDetail = "";
-                                $scope.corniceColorName = "";
-                                $state.go('admin.masters_order_details', {
-                                    'orderHeadId': corniceOrderDetail.orderHeadId
-                                }, {'reload': true});
-                            });
+                        corniceOrderDetail.price = (corniceOrderDetail.unitPrice - discountPrice);
+                        corniceOrderDetail.$save(function (corniceOrderDetail) {
+                            $scope.editableCorniceDetail = "";
+                            $scope.corniceColorName = "";
+                            $state.go('admin.masters_order_details', {
+                                'orderHeadId': corniceOrderDetail.orderHeadId
+                            }, {'reload': true});
+                        });
 //                        }
                     });
                 };

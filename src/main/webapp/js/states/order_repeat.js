@@ -1254,9 +1254,9 @@ angular.module("digitalbusiness.states.order_repeat", [])
                     $scope.stdMaterialObject = RawMaterialService.findByMaterialCode({
                         'materialCode': orderDetail.material
                     });
-//                    $scope.finishObject = FinishPriceService.findByFinishCode({
-//                        'finishCode': orderDetail.sideFinish
-//                    });
+                    $scope.finishObject = FinishPriceService.findByFinishCode({
+                        'finishCode': orderDetail.sideFinish
+                    });
                     if (orderDetail.sideMatching === "") {
                         orderDetail.sideMatching = "NSM";
                     }
@@ -1273,13 +1273,13 @@ angular.module("digitalbusiness.states.order_repeat", [])
 //                        $scope.standardCarcassObject.$promise.then(function (stdCarcassObject) {
                         $scope.stdMaterialObject.$promise.then(function (resolvedStdData) {
                             console.log("resolvedSTdData :%O", resolvedStdData.price);
-//                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
-//                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
+                            $scope.finishObject.$promise.then(function (resolvedFinishData) {
+                                console.log("resolved FInish Data :%O", resolvedFinishData.price);
                             orderDetail.stdMaterialPrice = resolvedStdData.price;
-//                                orderDetail.finishPrice = resolvedFinishData.price;
+                                orderDetail.finishPrice = resolvedFinishData.price;
                             console.log("This is Order Detail :%O", orderDetail);
                             $scope.saveOrderDetail(orderDetail);
-//                            });
+                            });
                         });
 //                        });
                     } else {
@@ -2649,6 +2649,7 @@ angular.module("digitalbusiness.states.order_repeat", [])
                 console.log("Material :%O", material);
                 $scope.panelColorName = "";
                 $scope.editablePanelDetail.colorId = "";
+                $scope.editablePanelDetail.thickness = "";
                 ColorConstraintService.findByComponentMaterialCode({
                     'component': 'CARCASE',
                     'materialCode': material

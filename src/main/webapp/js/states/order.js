@@ -4384,6 +4384,7 @@ angular.module("digitalbusiness.states.order", [])
 //                    });
                 } else if (orderDetail.sideSelection !== undefined) {
                     console.log("Non Regular");
+                    console.log("What is Side Finish :"+orderDetail.sideFinish);
                     $scope.stdMaterialObject = RawMaterialService.findByMaterialCode({
                         'materialCode': orderDetail.material
                     });
@@ -8487,7 +8488,7 @@ angular.module("digitalbusiness.states.order", [])
                 console.log("New Order Head :%O", $scope.newOrderHeadObject);
 //                var xmlString = $scope.objectToXml($scope.newOrderHeadObject);
 //                console.log("XML String Trial :%O", xmlString);
-                $http.post("http://13.127.7.209:9080/Innocal/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
+                $http.post("http://45.248.95.140:9080/Innocal/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
 //                $http.post("http://192.168.100.145:9999/SwRestAndroidApi/rest/Innopan/OrderHead", $scope.newOrderHeadObject)
                         .then(function successCallback(response) {
                             console.log("Successfully POST-ed data :%O", response);
@@ -8610,7 +8611,7 @@ angular.module("digitalbusiness.states.order", [])
                             $scope.erpPush = function (orderDetails) {
                                 console.log("Order Details :%O", orderDetails);
 //                                $http.post("http://192.168.100.145:9999/SwRestAndroidApi/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
-                                $http.post("http://13.127.7.209:9080/Innocal/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
+                                $http.post("http://45.248.95.140:9080/Innocal/rest/Innopan/OrderDetail", orderDetails).then(function successCallback(response) {
                                     console.log("Carcass Success Response :%O", response);
                                 }, function errorCallback(response) {
                                     console.log("Carcass Error Response :%O", response);
